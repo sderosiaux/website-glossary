@@ -1,0 +1,315 @@
+---
+title: "Iceberg Partitioning and Performance Optimization"
+description: "Master Iceberg's hidden partitioning, partition evolution, and optimization techniques to build high-performance data lakehouses without manual partition management."
+topics:
+  - Apache Iceberg
+  - Partitioning
+  - Query Optimization
+  - Performance Tuning
+  - Data Lakehouse
+---
+
+# Iceberg Partitioning and Performance Optimization
+
+Apache Iceberg revolutionizes how modern data platforms handle partitioning by introducing hidden partitioning and partition evolution capabilities. Unlike traditional table formats that expose partitioning as part of the schema and require users to manually manage partition predicates, Iceberg abstracts partitioning away from queries while maintaining exceptional performance. This article explores advanced partitioning strategies, performance optimization techniques, and practical implementations for data engineers building high-performance data lakehouses.
+
+## Understanding Hidden Partitioning
+
+Hidden partitioning is one of Iceberg's most powerful features, fundamentally changing how users interact with partitioned tables. In traditional systems like Hive, users must include partition columns in their WHERE clauses to benefit from partition pruning. Iceberg eliminates this requirement by maintaining partition metadata separately from the table schema.
+
+When you partition an Iceberg table by `day(timestamp)` or `bucket(user_id, 16)`, users query the original columns without knowing the partitioning strategy:
+
+```sql
+-- Create table with hidden partitioning
+CREATE TABLE events (
+  event_id BIGINT,
+  user_id BIGINT,
+  event_timestamp TIMESTAMP,
+  event_type STRING
+)
+PARTITIONED BY (days(event_timestamp), bucket(16, user_id));
+
+-- Query using original columns - partitioning is automatic
+SELECT * FROM events
+WHERE event_timestamp >= '2024-01-01'
+  AND user_id = 12345;
+```
+
+Iceberg's query planner automatically translates predicates on `event_timestamp` and `user_id` into partition filters, reading only the relevant data files. This abstraction allows partition strategies to evolve without breaking existing queries.
+
+## Partition Transform Functions
+
+Iceberg provides built-in transform functions that derive partition values from column data without storing redundant information:
+
+**Temporal Transforms:**
+- `years(timestamp)` - Partition by year
+- `months(timestamp)` - Partition by month
+- `days(timestamp)` - Partition by day
+- `hours(timestamp)` - Partition by hour
+
+**Bucketing and Truncation:**
+- `bucket(N, col)` - Hash partition into N buckets
+- `truncate(width, col)` - Truncate strings or numbers to width
+
+These transforms ensure partition values are derived at write time and stored only in metadata, not duplicated in data files.
+
+```sql
+-- Example: Multi-dimensional partitioning
+CREATE TABLE user_activity (
+  user_id BIGINT,
+  session_id STRING,
+  activity_time TIMESTAMP,
+  region STRING,
+  activity_data STRING
+)
+PARTITIONED BY (
+  days(activity_time),
+  truncate(2, region),
+  bucket(32, user_id)
+);
+```
+
+This strategy enables efficient queries across time ranges, geographic regions, and specific users without scanning unnecessary data.
+
+## Partition Evolution
+
+Partition evolution allows you to change partitioning strategies as data volumes grow or query patterns shift, without rewriting existing data. This capability is critical for production systems where initial partition designs may become suboptimal over time.
+
+```sql
+-- Initial partitioning by day
+CREATE TABLE metrics (
+  metric_id BIGINT,
+  timestamp TIMESTAMP,
+  value DOUBLE
+)
+PARTITIONED BY (days(timestamp));
+
+-- Later: evolve to hourly partitioning for recent data
+ALTER TABLE metrics
+DROP PARTITION FIELD days(timestamp);
+
+ALTER TABLE metrics
+ADD PARTITION FIELD hours(timestamp);
+```
+
+After evolution, Iceberg maintains metadata about which data files use which partition spec. The query planner considers all partition specs when pruning files, ensuring optimal performance across both old and new data.
+
+**Performance Impact:**
+- Old data remains partitioned by day
+- New data writes use hourly partitioning
+- Queries automatically leverage both schemes
+- No data rewrite required
+
+This zero-copy evolution enables continuous optimization without expensive migration operations.
+
+## Query Optimization Techniques
+
+### Partition Pruning
+
+Iceberg's advanced metadata layer enables aggressive partition pruning. The table metadata stores min/max statistics for each partition, allowing the query engine to skip entire partitions before reading any data files.
+
+```sql
+-- Partition pruning with range predicate
+SELECT COUNT(*) FROM events
+WHERE event_timestamp BETWEEN '2024-06-01' AND '2024-06-30';
+```
+
+For a table partitioned by `days(event_timestamp)`, Iceberg:
+1. Reads partition metadata from manifest files
+2. Filters to partitions overlapping June 2024 (30 partitions)
+3. Skips all other partitions entirely
+4. Within selected partitions, applies file-level pruning using min/max stats
+
+### File-Level Statistics
+
+Beyond partition pruning, Iceberg maintains column statistics at the data file level. This enables file pruning even within partitions:
+
+```sql
+-- File pruning within partitions
+SELECT * FROM events
+WHERE event_timestamp = '2024-06-15'
+  AND event_type = 'purchase';
+```
+
+Iceberg prunes to:
+1. Single partition (June 15)
+2. Files where min/max values for `event_type` include 'purchase'
+3. Potentially 90%+ reduction in data scanned
+
+### Small Files Problem
+
+Over-partitioning creates small files that degrade query performance. Iceberg provides several solutions:
+
+**Bin-Packing During Writes:**
+```sql
+-- Configure target file size
+ALTER TABLE events SET TBLPROPERTIES (
+  'write.target-file-size-bytes'='536870912'  -- 512MB
+);
+```
+
+**Periodic Compaction:**
+```sql
+-- Trigger compaction using REWRITE FILES
+CALL catalog.system.rewrite_data_files(
+  table => 'events',
+  strategy => 'bin-pack',
+  options => map('target-file-size-bytes', '536870912')
+);
+```
+
+**Performance Comparison:**
+
+| Metric | Before Compaction | After Compaction |
+|--------|------------------|------------------|
+| Avg File Size | 8 MB | 512 MB |
+| Files per Partition | 64 | 1 |
+| Query Scan Time | 45 sec | 3 sec |
+| Metadata Read Time | 2 sec | 0.1 sec |
+
+## Streaming Ecosystem Integration
+
+Iceberg's partitioning integrates seamlessly with streaming platforms, enabling real-time data ingestion with optimal partition layouts.
+
+### Apache Kafka with Iceberg
+
+Streaming writes from Kafka to Iceberg require careful partition strategy design. Kafka's high-throughput nature can create small files if not managed properly:
+
+```sql
+-- Optimal partitioning for streaming data
+CREATE TABLE kafka_events (
+  event_key STRING,
+  event_value STRING,
+  event_timestamp TIMESTAMP,
+  kafka_partition INT,
+  kafka_offset BIGINT
+)
+PARTITIONED BY (hours(event_timestamp));
+```
+
+**Best Practices:**
+- Use hourly partitioning for streaming data (balances file size and query granularity)
+- Enable auto-compaction in streaming jobs
+- Configure writers to buffer data before committing
+- Monitor partition cardinality to avoid over-partitioning
+
+### Governance and Visibility
+
+As Iceberg tables receive streaming data from Kafka, maintaining visibility into data lineage, partition health, and query patterns becomes critical. Streaming management tools provide governance capabilities that help teams monitor partition growth, visualize data lineage between Kafka topics and Iceberg partitions, audit access patterns to optimize partition strategies, and validate schema evolution to ensure streaming writes maintain compatibility with partition specs.
+
+### Flink and Spark Streaming
+
+Both Flink and Spark provide native Iceberg connectors with partition-aware writing:
+
+```python
+# Spark Structured Streaming to Iceberg
+df.writeStream \
+  .format("iceberg") \
+  .outputMode("append") \
+  .option("fanout-enabled", "true") \
+  .option("target-file-size-bytes", "536870912") \
+  .partitionBy("days(event_timestamp)") \
+  .toTable("events")
+```
+
+The `fanout-enabled` option prevents writer contention when multiple tasks write to the same partition simultaneously, critical for high-throughput streaming.
+
+## Advanced Partition Strategies
+
+### Time-Based Partitioning Evolution
+
+For time-series data, partition granularity should match data volume. A table might start with daily partitions but evolve to hourly as data grows:
+
+**Strategy:**
+- Days 0-90: Hourly partitions (recent data, high query frequency)
+- Days 91-365: Daily partitions (medium-age data)
+- Days 365+: Monthly partitions (archive data, rare queries)
+
+Implement with partition evolution:
+
+```sql
+-- Initial: hourly
+PARTITIONED BY (hours(timestamp));
+
+-- After 90 days: add daily partitioning for new data
+ALTER TABLE metrics ADD PARTITION FIELD days(timestamp);
+ALTER TABLE metrics DROP PARTITION FIELD hours(timestamp);
+```
+
+### Multi-Dimensional Partitioning
+
+Combine temporal and bucketing transforms for multi-access-pattern tables:
+
+```sql
+CREATE TABLE user_events (
+  user_id BIGINT,
+  event_time TIMESTAMP,
+  event_data STRING
+)
+PARTITIONED BY (days(event_time), bucket(128, user_id));
+```
+
+This supports both:
+- Time-range queries: `WHERE event_time >= '2024-01-01'`
+- User-specific queries: `WHERE user_id = 12345`
+- Combined queries with maximum pruning
+
+**Performance Consideration:**
+Avoid excessive partition dimensions. Each additional dimension multiplicatively increases partition count. A table with 365 days × 128 buckets = 46,720 partitions may create too many small files.
+
+## Performance Tuning Checklist
+
+1. **Choose appropriate partition granularity:**
+   - High-volume tables: Hourly or bucket-based
+   - Medium-volume: Daily
+   - Low-volume: Monthly or no partitioning
+
+2. **Monitor file sizes:**
+   - Target 128MB - 1GB per file
+   - Use compaction for files < 100MB
+   - Split large files if necessary
+
+3. **Leverage partition evolution:**
+   - Start coarse, refine as data grows
+   - Archive old data to less granular partitions
+
+4. **Enable metadata caching:**
+   - Configure catalog caching for manifest files
+   - Reduces query planning overhead
+
+5. **Use column statistics:**
+   - Ensure statistics collection is enabled
+   - Prunes files beyond partition-level filtering
+
+6. **Test query patterns:**
+   - Analyze query execution plans
+   - Verify partition and file pruning effectiveness
+
+## Summary
+
+Apache Iceberg's partitioning capabilities provide unmatched flexibility and performance for modern data lakehouses. Hidden partitioning abstracts partition management from users while maintaining optimal query performance. Partition evolution enables zero-copy migration as data patterns change. Advanced metadata tracking enables aggressive pruning at both partition and file levels.
+
+For data engineers, the key is balancing partition granularity with file sizes, leveraging transform functions to match access patterns, and monitoring partition health over time. Integration with streaming platforms like Kafka requires careful configuration to prevent small file proliferation while maintaining low latency.
+
+The combination of Iceberg's technical capabilities with governance tools provides the complete stack needed for production-grade data lakehouse platforms that scale from gigabytes to petabytes while maintaining query performance.
+
+## Sources and References
+
+1. **Apache Iceberg Documentation - Partitioning**
+   https://iceberg.apache.org/docs/latest/partitioning/
+
+2. **Apache Iceberg - Partition Evolution**
+   https://iceberg.apache.org/docs/latest/evolution/#partition-evolution
+
+3. **Apache Iceberg - Performance Tuning**
+   https://iceberg.apache.org/docs/latest/performance/
+
+4. **Netflix Tech Blog - Iceberg at Netflix**
+   https://netflixtechblog.com/netflix-data-mesh-composable-data-processing-c88b9e30f6e0
+
+5. **Tabular - Iceberg Best Practices**
+   https://tabular.io/blog/partitioning-best-practices/
+
+6. **Apache Flink - Iceberg Connector**
+   https://nightlies.apache.org/flink/flink-docs-stable/docs/connectors/table/iceberg/
+
