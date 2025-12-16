@@ -40,7 +40,11 @@ Producers are services that publish events when their internal state changes. Co
 
 **Command Query Responsibility Segregation (CQRS)** separates write operations (commands) from read operations (queries). Events update specialized read models optimized for specific queries, improving performance and scalability.
 
-**Saga Pattern** manages distributed transactions across multiple services. Instead of a two-phase commit, each service performs its local transaction and publishes an event. If something fails, compensating events undo previous operations.
+For detailed implementation patterns combining these approaches, see [CQRS and Event Sourcing with Kafka](cqrs-and-event-sourcing-with-kafka.md).
+
+**Saga Pattern** manages distributed transactions across multiple services. Instead of a two-phase commit, each service performs its local transaction and publishes an event. If something fails, compensating events undo previous operations. For a comprehensive guide to implementing sagas, see [Saga Pattern for Distributed Transactions](saga-pattern-for-distributed-transactions.md).
+
+**Outbox Pattern** ensures reliable event publishing by writing events to a database table in the same transaction as business data, then asynchronously publishing them to the event broker. This prevents lost events when services crash after updating data but before publishing. For implementation details, see [Outbox Pattern for Reliable Event Publishing](outbox-pattern-for-reliable-event-publishing.md).
 
 ## Benefits and Trade-offs
 
@@ -66,6 +70,8 @@ Producers are services that publish events when their internal state changes. Co
 
 Data streaming platforms like Apache Kafka and Apache Flink are the foundation of modern event-driven microservices. While a simple message queue might work for basic use cases, streaming platforms provide critical capabilities for production systems.
 
+Modern Kafka deployments (Kafka 4.0+) use **KRaft mode**, which eliminates the ZooKeeper dependency and simplifies operations. KRaft provides faster metadata propagation, improved scalability, and easier cluster management, making it the recommended architecture for new deployments in 2025. For more details on this architectural change, see [Understanding KRaft Mode in Kafka](understanding-kraft-mode-in-kafka.md).
+
 ### Event Persistence and Replay
 
 Unlike traditional message queues that delete messages after consumption, Kafka retains events for a configured period. This enables new services to replay historical events, recover from failures, and reprocess data with updated logic. You can rebuild entire databases from the event stream if needed.
@@ -74,15 +80,23 @@ Unlike traditional message queues that delete messages after consumption, Kafka 
 
 Apache Flink and Kafka Streams enable real-time event processing. You can filter, aggregate, join, and transform events as they flow through the system. For example, you might compute running totals, detect patterns, or enrich events with data from other sources.
 
+For comprehensive coverage of stream processing frameworks, see [What is Apache Flink: Stateful Stream Processing](what-is-apache-flink-stateful-stream-processing.md) and [Introduction to Kafka Streams](introduction-to-kafka-streams.md).
+
 ### Scalability Through Partitioning
 
 Kafka partitions events by key, enabling parallel processing across multiple consumer instances. If you partition orders by customer ID, different consumers can independently process different customers' orders, dramatically increasing throughput.
 
+To understand how consumer groups enable parallel processing, see [Kafka Consumer Groups Explained](kafka-consumer-groups-explained.md).
+
 ### Schema Evolution
 
-As your system evolves, event structures change. Schema registries (like Confluent Schema Registry) enforce compatibility rules and enable consumers to handle multiple event versions gracefully. This prevents breaking changes from cascading through your system.
+As your system evolves, event structures change. Schema registries enforce compatibility rules and enable consumers to handle multiple event versions gracefully. This prevents breaking changes from cascading through your system.
 
-Tools like Conduktor help manage these complexities by providing visual monitoring of event flows, schema validation, and data governance capabilities across your streaming infrastructure.
+The Schema Registry manages event schemas with compatibility modes (backward, forward, full) that ensure consumers can handle both old and new versions. Avro, Protobuf, and JSON Schema are common serialization formats that enable type safety and schema evolution.
+
+For detailed guidance on managing schemas, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md) and [Schema Evolution Best Practices](schema-evolution-best-practices.md). For comparing serialization formats, see [Avro vs Protobuf vs JSON Schema](avro-vs-protobuf-vs-json-schema.md).
+
+Tools like Conduktor provide visual monitoring of event flows, schema validation, and data governance capabilities across your streaming infrastructure, making it easier to track schema evolution and enforce compatibility rules.
 
 ## Implementation Challenges
 
@@ -90,17 +104,121 @@ Tools like Conduktor help manage these complexities by providing visual monitori
 
 Ensuring each event is processed exactly once is difficult in distributed systems. Network failures can cause duplicate deliveries or lost messages. Kafka provides exactly-once semantics, but implementing it correctly requires understanding idempotent producers and transactional consumers.
 
+Example of a Kafka producer with exactly-once semantics (Java):
+
+```java
+Properties props = new Properties();
+props.put("bootstrap.servers", "localhost:9092");
+props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+props.put("value.serializer", "io.confluent.kafka.serializers.KafkaAvroSerializer");
+props.put("schema.registry.url", "http://localhost:8081");
+
+// Enable idempotence for exactly-once semantics
+props.put("enable.idempotence", "true");
+props.put("acks", "all");
+props.put("retries", Integer.MAX_VALUE);
+
+// Transactional ID for exactly-once across multiple partitions
+props.put("transactional.id", "order-service-producer-1");
+
+KafkaProducer<String, GenericRecord> producer = new KafkaProducer<>(props);
+
+// Initialize transactions
+producer.initTransactions();
+
+try {
+    producer.beginTransaction();
+
+    // Send multiple events atomically
+    producer.send(new ProducerRecord<>("order-events", orderId, orderEvent));
+    producer.send(new ProducerRecord<>("audit-events", orderId, auditEvent));
+
+    producer.commitTransaction();
+} catch (Exception e) {
+    producer.abortTransaction();
+    throw e;
+}
+```
+
+This configuration ensures events are never duplicated and transactions are atomic across topics.
+
 ### Event Schema Design
 
 Poorly designed event schemas create technical debt. Events should be immutable and self-contained with all necessary context. Avoid referencing external state that might change. Use descriptive names and include metadata like timestamps and correlation IDs for debugging.
+
+Here's an example of a well-designed event schema using Avro:
+
+```json
+{
+  "type": "record",
+  "name": "OrderPlaced",
+  "namespace": "com.example.orders.events",
+  "fields": [
+    {"name": "eventId", "type": "string"},
+    {"name": "eventTime", "type": "long", "logicalType": "timestamp-millis"},
+    {"name": "orderId", "type": "string"},
+    {"name": "customerId", "type": "string"},
+    {"name": "items", "type": {
+      "type": "array",
+      "items": {
+        "type": "record",
+        "name": "OrderItem",
+        "fields": [
+          {"name": "productId", "type": "string"},
+          {"name": "quantity", "type": "int"},
+          {"name": "pricePerUnit", "type": "double"}
+        ]
+      }
+    }},
+    {"name": "totalAmount", "type": "double"},
+    {"name": "shippingAddress", "type": {
+      "type": "record",
+      "name": "Address",
+      "fields": [
+        {"name": "street", "type": "string"},
+        {"name": "city", "type": "string"},
+        {"name": "postalCode", "type": "string"},
+        {"name": "country", "type": "string"}
+      ]
+    }},
+    {"name": "correlationId", "type": "string"}
+  ]
+}
+```
+
+This schema is self-contained with all order details, includes metadata (eventId, eventTime, correlationId), and uses strong typing. Consumers can process this event without additional database lookups.
 
 ### Monitoring and Observability
 
 Traditional request-response monitoring doesn't work for asynchronous systems. You need distributed tracing to follow events across service boundaries, metrics for lag and throughput, and alerting for processing delays. Understanding end-to-end latency requires correlation IDs that flow through the entire event chain.
 
+Modern observability in 2025 leverages **OpenTelemetry** for standardized distributed tracing across microservices. OpenTelemetry provides automatic instrumentation for Kafka producers and consumers, enabling you to trace events from producer to consumer with minimal code changes.
+
+Key monitoring tools include:
+- **Kafka Lag Exporter**: Prometheus-based consumer lag monitoring
+- **Burrow**: LinkedIn's consumer lag checking tool
+- **Kafdrop**: Web UI for viewing topics, browsing messages, and monitoring consumer groups
+- **Conduktor**: Enterprise platform for comprehensive monitoring, governance, and testing
+
+For production systems, monitor these critical metrics:
+- **Consumer lag**: Time delay between event production and consumption
+- **Throughput**: Messages per second produced and consumed
+- **Error rates**: Failed message processing and dead letter queue size
+- **End-to-end latency**: Total time from event creation to final processing
+
 ### Testing
 
 Testing event-driven systems is complex. Unit tests work for individual services, but integration tests must verify event flows across multiple services. Consider contract testing to ensure producers and consumers agree on event formats, and use test event streams to validate behavior without affecting production.
+
+Modern testing strategies for 2025 include:
+
+**Chaos Engineering**: Test system resilience by simulating failures. **Conduktor Gateway** enables chaos testing scenarios like network latency, broker failures, message corruption, and throttling without affecting production infrastructure.
+
+**Contract Testing**: Use tools like Pact to verify producer-consumer agreements. This ensures schema compatibility before deployment.
+
+**Integration Testing**: Use embedded Kafka (Testcontainers) for realistic testing environments. This allows you to test complete event flows without requiring a full cluster.
+
+**Performance Testing**: Validate throughput and latency under load to ensure your architecture meets SLAs before production deployment.
 
 ## Real-World Examples
 
@@ -189,5 +307,6 @@ Start small with a few services and core events, then expand as you gain experie
 1. Fowler, Martin. "What do you mean by 'Event-Driven'?" martinfowler.com, 2017. https://martinfowler.com/articles/201701-event-driven.html
 2. Newman, Sam. "Building Microservices: Designing Fine-Grained Systems." O'Reilly Media, 2021.
 3. Richardson, Chris. "Pattern: Event-driven architecture." Microservices.io. https://microservices.io/patterns/data/event-driven-architecture.html
-4. Apache Kafka Documentation. "Event Sourcing." Apache Software Foundation. https://kafka.apache.org/documentation/
-5. Stopford, Ben. "Designing Event-Driven Systems." Confluent, 2018. https://www.confluent.io/designing-event-driven-systems/
+4. Apache Kafka Documentation. "KRaft: Apache Kafka Without ZooKeeper." Apache Software Foundation, 2025. https://kafka.apache.org/documentation/#kraft
+5. OpenTelemetry. "OpenTelemetry for Apache Kafka." Cloud Native Computing Foundation, 2025. https://opentelemetry.io/
+6. Stopford, Ben. "Designing Event-Driven Systems." 2018.
