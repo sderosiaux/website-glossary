@@ -21,7 +21,8 @@ This AI sprawl creates significant risks. Models trained on outdated data contin
 
 AI discovery is the process of identifying, cataloging, and maintaining an inventory of all AI-related assets within an organization. These assets span a diverse landscape:
 
-- **Models**: Machine learning models in development, staging, and production environments
+- **Models**: Machine learning models in development, staging, and production environments (including traditional ML, deep learning, and foundation models)
+- **LLM Assets**: Foundation models, fine-tuned variants, prompt templates, embeddings, vector databases, and retrieval systems for RAG (Retrieval-Augmented Generation) applications
 - **Training pipelines**: Data processing workflows that prepare training datasets
 - **Feature pipelines**: Systems that compute and serve features for real-time inference
 - **Endpoints**: APIs and services that expose model predictions
@@ -36,9 +37,9 @@ While discovery focuses on *what exists*, monitoring focuses on *how it behaves*
 
 The business case for AI discovery spans four critical dimensions:
 
-**Compliance and Regulatory Requirements**: Regulations like GDPR, CCPA, and emerging AI-specific frameworks require organizations to document what personal data their AI systems process, how decisions are made, and what measures protect against bias and discrimination. Without comprehensive discovery, compliance teams can't even identify which systems fall under regulatory scope, let alone audit them effectively.
+**Compliance and Regulatory Requirements**: Regulations like GDPR, CCPA, the EU AI Act (enforced 2025), and US AI Executive Order requirements mandate organizations document what personal data their AI systems process, maintain AI Bill of Materials (AIBOM) for model transparency, provide Model Cards detailing model characteristics and limitations, and demonstrate measures protecting against bias and discrimination. Without comprehensive discovery, compliance teams can't even identify which systems fall under regulatory scope, let alone audit them effectively.
 
-**Risk Management and Security**: Undocumented AI systems are security vulnerabilities waiting to be exploited. Shadow AI—models deployed without IT oversight—may lack proper authentication, expose sensitive data, or make critical decisions without adequate testing. Discovery enables security teams to implement consistent policies, patch vulnerabilities, and ensure models meet organizational standards before reaching production.
+**Risk Management and Security**: Undocumented AI systems are security vulnerabilities waiting to be exploited. **Shadow AI**—models deployed by teams without IT oversight or central governance—may lack proper authentication, expose sensitive data, or make critical decisions without adequate testing. Discovery enables security teams to implement consistent policies, patch vulnerabilities, and ensure models meet organizational standards before reaching production.
 
 **Cost Optimization**: AI workloads consume significant compute resources. Discovery reveals redundant models solving the same problem, underutilized systems that could be decommissioned, and opportunities to consolidate infrastructure. Organizations routinely find 20-30% cost savings by identifying and eliminating AI waste after implementing comprehensive discovery.
 
@@ -50,15 +51,15 @@ A comprehensive AI asset inventory serves as the single source of truth for your
 
 **Models and Versions**: Each model entry should capture the algorithm type, version history, training date, accuracy metrics, owner, and deployment status. Version control is critical—production systems may depend on specific model versions, and rollbacks require knowing exactly what was deployed when.
 
-**Training Data Lineage**: Document the datasets used to train each model, including data sources, transformation logic, and temporal snapshots. This enables reproducibility, helps diagnose performance issues, and supports compliance requirements around data usage and retention.
+**Training Data Lineage**: Document the datasets used to train each model, including data sources, transformation logic, and temporal snapshots. This enables reproducibility, helps diagnose performance issues, and supports compliance requirements around data usage and retention. For comprehensive lineage tracking practices, see [Data Lineage Tracking: Data from Source to Consumption](data-lineage-tracking-data-from-source-to-consumption.md).
 
-**Features and Engineering**: Feature stores are becoming central to modern ML architectures. Your inventory should track feature definitions, computation logic, dependencies, and which models consume which features. This prevents duplicate feature engineering and enables feature reuse across teams.
+**Features and Engineering**: Feature stores—centralized repositories where ML features are stored, managed, and served to models—are becoming central to modern ML architectures. Your inventory should track feature definitions, computation logic, dependencies, and which models consume which features. This prevents duplicate feature engineering and enables feature reuse across teams. For detailed coverage of feature store patterns, see [Feature Stores for Machine Learning](feature-stores-for-machine-learning.md).
 
 **Endpoints and APIs**: Production models are typically accessed through APIs. Catalog each endpoint's URL, authentication method, rate limits, SLA commitments, and consuming applications. This mapping is essential for impact analysis when changes are planned.
 
 **Model registries** play a crucial role in maintaining this inventory. Tools like MLflow, Weights & Biases, and Neptune provide structured repositories where data scientists register models with standardized metadata. However, model registries alone aren't sufficient—they typically don't capture the broader context of data pipelines, feature engineering, and downstream consumers. Integration with **data catalogs** (like DataHub, Collibra, or Atlan) provides end-to-end visibility by connecting model metadata with the data assets they depend on and produce.
 
-Here's an example of registering a model with MLflow:
+Here's an example of registering a model with MLflow during training, automatically capturing parameters, metrics, and custom metadata:
 
 ```python
 import mlflow
@@ -111,7 +112,7 @@ Organizations employ multiple strategies to discover and catalog AI assets:
 
 Most mature organizations combine these methods: automated discovery catches undocumented systems, while declarative registration ensures new systems are properly cataloged from the start.
 
-Here's an example of automated discovery using metadata scanning:
+Here's an example of automated discovery using metadata scanning. This script scans AWS SageMaker to find all deployed models and endpoints, automatically building an inventory:
 
 ```python
 import boto3
@@ -169,9 +170,9 @@ Once AI assets are discovered, continuous monitoring tracks their health and per
 
 **Performance Metrics**: Track prediction latency, throughput, error rates, and resource utilization. Compare actual performance against SLA commitments. Set alerts for degradation that impacts user experience or breaches service agreements.
 
-**Model Drift**: Monitor statistical properties of input data and model predictions to detect drift—when the data distribution shifts from what the model was trained on, degrading accuracy. Drift detection is crucial because models don't explicitly fail; they just become gradually less effective, often invisibly to users.
+**Model Drift**: Monitor statistical properties of input data and model predictions to detect drift—when the data distribution shifts from what the model was trained on, degrading accuracy. Drift detection is crucial because models don't explicitly fail; they just become gradually less effective, often invisibly to users. For in-depth coverage of drift patterns and mitigation strategies, see [Model Drift in Streaming](model-drift-in-streaming.md).
 
-**Data Quality**: Track completeness, validity, and freshness of features fed to models. Missing values, schema changes, or stale data can silently corrupt predictions. Quality monitoring catches these issues before they cascade into business impact.
+**Data Quality**: Track completeness, validity, and freshness of features fed to models. Missing values, schema changes, or stale data can silently corrupt predictions. Quality monitoring catches these issues before they cascade into business impact. For understanding quality dimensions, see [Data Quality Dimensions: Accuracy, Completeness, and Consistency](data-quality-dimensions-accuracy-completeness-and-consistency.md).
 
 **Usage Patterns**: Understand who uses each model, how often, and for what purposes. Usage tracking identifies models ready for decommissioning (no users) or requiring scaling (growing demand). It also supports chargeback models where consumers pay for the AI services they use.
 
@@ -179,7 +180,9 @@ Once AI assets are discovered, continuous monitoring tracks their health and per
 
 Modern observability platforms like Arize, Fiddler, and WhyLabs specialize in AI-specific monitoring, providing purpose-built capabilities for drift detection, explainability, and fairness metrics that general-purpose monitoring tools lack.
 
-Here's an example of implementing drift detection:
+**LLM-Specific Monitoring** (2025+): For Large Language Model systems, additional monitoring dimensions include prompt effectiveness, token usage and costs, embedding quality, retrieval accuracy in RAG systems, context relevance, and hallucination detection. Tools like LangSmith, Weights & Biases Weave, and the open-source Evidently AI provide specialized observability for GenAI applications, tracking prompt-response patterns, semantic drift in embeddings, and retrieval performance in vector databases.
+
+Here's an example of implementing drift detection. For production use, consider specialized libraries like Evidently AI or NannyML that provide comprehensive drift detection, but this example demonstrates the core concept:
 
 ```python
 import numpy as np
@@ -242,15 +245,15 @@ drift_results = detector.monitor_all_features(current_production_data)
 
 AI systems built on streaming architectures present unique discovery and monitoring challenges:
 
-**Real-time Model Serving**: Models that process event streams (fraud detection on payment events, personalization on clickstreams) operate in a fundamentally different paradigm than batch systems. Discovery must track event schemas, topic subscriptions, and the temporal dependencies between events and predictions.
+**Real-time Model Serving**: Models that process event streams (fraud detection on payment events, personalization on clickstreams) operate in a fundamentally different paradigm than batch systems. Discovery must track event schemas, topic subscriptions, and the temporal dependencies between events and predictions. For building end-to-end streaming ML systems, see [Real-Time ML Pipelines](real-time-ml-pipelines.md).
 
 **Feature Pipelines**: Real-time feature engineering often involves complex streaming aggregations—windowed calculations, joins across multiple event streams, and stateful transformations. These pipelines are difficult to discover because the logic is distributed across stream processors, and the lineage is implicit in event flows rather than explicit in code.
 
-**Event-Driven Architectures**: In platforms like Kafka, models consume events from topics and produce predictions to other topics, creating intricate graphs of dependencies. Discovery requires understanding these topic-level relationships and tracing data lineage through asynchronous event flows.
+**Event-Driven Architectures**: In platforms like Kafka, models consume events from topics and produce predictions to other topics, creating intricate graphs of dependencies. Discovery requires understanding these topic-level relationships and tracing data lineage through asynchronous event flows. For Kafka infrastructure monitoring, see [Kafka Cluster Monitoring and Metrics](kafka-cluster-monitoring-and-metrics.md).
 
 Governance platforms provide streaming-native capabilities to address these challenges, enabling teams to discover data products flowing through Kafka, enforce quality policies on event streams, and maintain visibility into the complex topologies that connect producers, stream processors, and consumers—including AI models and feature pipelines. This streaming-focused approach complements traditional model registries by capturing the real-time data context that batch-oriented tools miss.
 
-Here's an example of monitoring a real-time ML model consuming from Kafka:
+Here's an example of monitoring a real-time ML model consuming from Kafka. This example works with Kafka 4.0+ running in KRaft mode (the modern architecture that replaced ZooKeeper in 2025):
 
 ```python
 from kafka import KafkaConsumer, KafkaProducer
@@ -349,7 +352,7 @@ Discovery and monitoring enable proactive governance workflows throughout the AI
 
 **Audit Trails**: Every change to model configuration, training data, or deployment status is logged with timestamps and responsible parties. These audit trails support compliance reporting, incident investigations, and continuous improvement of AI operations.
 
-Mature organizations encode these workflows in their discovery and monitoring platforms, automating routine checks and providing clear handoffs between teams.
+Mature organizations encode these workflows in their discovery and monitoring platforms, automating routine checks and providing clear handoffs between teams. For broader governance practices, see [Data Governance Framework: Roles and Responsibilities](data-governance-framework-roles-and-responsibilities.md).
 
 ## Building an AI Operations Center
 
