@@ -158,6 +158,8 @@ if result['is_anomaly']:
 
 For streaming pipelines, data quality testing must happen in real-time. When using Apache Kafka, streaming management tools provide valuable capabilities for monitoring and validating data quality in real-time contexts.
 
+For foundational understanding of Kafka architecture and streaming patterns, see [Apache Kafka](apache-kafka.md).
+
 ### Real-Time Validation Pattern
 
 ```python
@@ -256,9 +258,9 @@ class StreamingQualityTester:
 
 Streaming management platforms provide visual monitoring and testing capabilities for Kafka streams:
 
-- **Monitor schema registry**: Track schema evolution and catch breaking changes
+- **Monitor schema registry**: Track schema evolution and catch breaking changes. For details on schema management patterns, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md).
 - **Validate message format**: Configure validation rules for incoming data
-- **Dead letter queue management**: Easily inspect and replay failed messages
+- **Dead letter queue management**: Easily inspect and replay failed messages. For error handling patterns, see [Dead Letter Queues for Error Handling](dead-letter-queues-for-error-handling.md).
 - **Data lineage tracking**: Understand how data flows through quality gates
 
 Set up quality gates to automatically route messages through validation topics, making it easy to visualize quality metrics and troubleshoot issues.

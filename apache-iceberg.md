@@ -103,7 +103,9 @@ Combined with features like **Z-order clustering**, **configurable file compacti
 
 ## Apache Iceberg and Data Streaming
 
-Streaming data systems like Kafka and Flink continuously generate small batches of events — a pattern that doesn’t fit traditional batch-oriented storage. Iceberg bridges this gap by supporting **incremental ingestion and CDC (Change Data Capture)** at scale.
+Streaming data systems like Kafka and Flink continuously generate small batches of events — a pattern that doesn't fit traditional batch-oriented storage. Iceberg bridges this gap by supporting **incremental ingestion and CDC (Change Data Capture)** at scale.
+
+For understanding how Kafka streaming integrates with data lakes, see [Apache Kafka](apache-kafka.md). For CDC implementation details, see [Implementing CDC with Debezium](implementing-cdc-with-debezium.md).
 
 ### Streaming Patterns
 
