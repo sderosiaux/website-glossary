@@ -28,9 +28,9 @@ In streaming systems, both techniques must be applied while data is in motion, a
 
 Several factors drive the need for data protection in streaming architectures:
 
-**Compliance requirements** like GDPR, CCPA, and HIPAA mandate specific handling of personal data. GDPR Article 32 requires "pseudonymization and encryption of personal data," and violations can result in fines up to 4% of global revenue. Streaming systems that handle customer data, financial transactions, or health records must implement protection mechanisms to avoid legal and financial consequences.
+**Compliance requirements** like GDPR, CCPA, and HIPAA mandate specific handling of personal data. GDPR Article 32 requires "pseudonymization and encryption of personal data," and violations can result in fines up to 4% of global revenue. Streaming systems that handle customer data, financial transactions, or health records must implement protection mechanisms to avoid legal and financial consequences. For comprehensive GDPR implementation guidance, see [GDPR Compliance for Data Teams](gdpr-compliance-for-data-teams.md).
 
-**Security and access control** become more complex in streaming environments where data flows through multiple systems and teams. Development teams need realistic data for testing, analytics teams require access to aggregated insights, and production systems need full fidelity. Each use case requires different levels of data protection.
+**Security and access control** become more complex in streaming environments where data flows through multiple systems and teams. Development teams need realistic data for testing, analytics teams require access to aggregated insights, and production systems need full fidelity. Each use case requires different levels of data protection. For strategies on implementing role-based and attribute-based access controls, see [Access Control for Streaming](access-control-for-streaming.md) and [Kafka ACLs and Authorization Patterns](kafka-acls-and-authorization-patterns.md).
 
 **Data sharing and partnerships** often involve sending data to third parties or across organizational boundaries. Masking and anonymization enable safer data sharing by reducing the risk of exposing sensitive information while maintaining the utility of the data for its intended purpose.
 
@@ -47,7 +47,7 @@ Several masking techniques can be applied to streaming data, each with different
 - **Substitution**: Replacing real values with fake but realistic data (e.g., replacing "John Doe" with "Jane Smith")
 - **Shuffling**: Randomly redistributing values within a column to break associations with other attributes
 - **Nulling or redaction**: Removing sensitive fields entirely or replacing them with asterisks
-- **Encryption**: Transforming data using cryptographic algorithms, making it unreadable without the decryption key
+- **Encryption**: Transforming data using cryptographic algorithms, making it unreadable without the decryption key. For end-to-end encryption strategies, see [Encryption at Rest and in Transit for Kafka](encryption-at-rest-and-in-transit-for-kafka.md)
 
 **Format-preserving encryption (FPE)** is particularly useful in streaming contexts because it maintains the data type and format. For example, a 16-digit credit card number remains a 16-digit number after encryption, ensuring downstream systems continue to function without modification.
 
@@ -62,7 +62,7 @@ Here's an example of how customer data might be masked in a Kafka stream:
   "email": "john.doe@example.com",
   "ssn": "123-45-6789",
   "purchaseAmount": 299.99,
-  "timestamp": "2024-03-15T10:30:00Z"
+  "timestamp": "2025-03-15T10:30:00Z"
 }
 
 // Masked version for analytics team
@@ -71,7 +71,7 @@ Here's an example of how customer data might be masked in a Kafka stream:
   "email": "j***@example.com",
   "ssn": "***-**-6789",
   "purchaseAmount": 299.99,
-  "timestamp": "2024-03-15T10:30:00Z"
+  "timestamp": "2025-03-15T10:30:00Z"
 }
 ```
 
@@ -113,6 +113,107 @@ raw-customer-events → [Flink/Streams] → masked-customer-events
 
 Production systems read from raw topics, analytics teams use masked versions, and public dashboards consume aggregated metrics.
 
+## Modern Tools and 2025 Capabilities
+
+The landscape of data masking and anonymization for streaming has evolved significantly with new tools and platform capabilities in 2025:
+
+**Kafka 4.0+ with KRaft** brings improved security foundations that enhance masking implementations. With ZooKeeper removed, the simplified architecture makes it easier to implement consistent security policies across the cluster. KRaft's metadata management provides better audit trails for tracking which transformations are applied to which topics. For comprehensive audit logging strategies, see [Audit Logging for Streaming Platforms](audit-logging-for-streaming-platforms.md).
+
+**Conduktor Gateway** offers proxy-level data masking that sits between producers/consumers and Kafka brokers. This approach allows teams to define masking policies centrally without modifying application code. Gateway can apply different masking rules based on the consumer's identity, enabling a single topic to serve multiple teams with different data access levels. For example:
+
+```yaml
+# Conduktor Gateway masking policy
+interceptors:
+  - type: dataMasking
+    config:
+      rules:
+        - field: $.email
+          maskingType: EMAIL_DOMAIN
+          consumerGroup: analytics-team
+        - field: $.ssn
+          maskingType: HASH_SHA256
+          consumerGroup: ml-training
+        - field: $.creditCard
+          maskingType: REDACT
+          consumerGroup: support-team
+```
+
+**Apache Flink 1.18+** introduced enhanced Python APIs and improved state backends that make implementing custom masking functions more accessible. The new hybrid state backend optimizes performance for stateful masking operations like k-anonymity buffering:
+
+```python
+# Flink 1.18+ Python API for masking
+from pyflink.datastream import StreamExecutionEnvironment
+from pyflink.datastream.functions import MapFunction
+
+class MaskSensitiveData(MapFunction):
+    def map(self, event):
+        event['email'] = self.mask_email(event['email'])
+        event['ssn'] = self.hash_ssn(event['ssn'])
+        return event
+
+    def mask_email(self, email):
+        username, domain = email.split('@')
+        return f"{username[0]}***@{domain}"
+
+    def hash_ssn(self, ssn):
+        import hashlib
+        return hashlib.sha256(ssn.encode()).hexdigest()[:16]
+
+env = StreamExecutionEnvironment.get_execution_environment()
+stream = env.from_source(kafka_source, watermark_strategy, "customer-events")
+masked_stream = stream.map(MaskSensitiveData())
+```
+
+**Kafka Connect Single Message Transforms (SMTs)** provide a lightweight approach for masking data in transit. The `MaskField` and `ReplaceField` transformations can be chained to protect sensitive data without writing custom code. For more details on SMT patterns, see [Kafka Connect Single Message Transforms](kafka-connect-single-message-transforms.md):
+
+```json
+{
+  "name": "customer-events-connector",
+  "config": {
+    "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
+    "transforms": "maskEmail,hashSSN",
+    "transforms.maskEmail.type": "org.apache.kafka.connect.transforms.MaskField$Value",
+    "transforms.maskEmail.fields": "email",
+    "transforms.maskEmail.replacement": "***MASKED***",
+    "transforms.hashSSN.type": "org.apache.kafka.connect.transforms.HoistField$Value",
+    "transforms.hashSSN.field": "ssn"
+  }
+}
+```
+
+**Kafka Streams with stateful masking** enables more sophisticated anonymization patterns. The Processor API allows implementing k-anonymity by buffering records until the anonymity threshold is met:
+
+```java
+// Kafka Streams k-anonymity processor (Kafka 3.6+)
+public class KAnonymityProcessor implements Processor<String, CustomerEvent, String, CustomerEvent> {
+    private KeyValueStore<String, List<CustomerEvent>> buffer;
+    private final int k = 5;
+
+    @Override
+    public void process(Record<String, CustomerEvent> record) {
+        String generalizedKey = generalize(record.value());
+
+        List<CustomerEvent> group = buffer.get(generalizedKey);
+        if (group == null) group = new ArrayList<>();
+        group.add(record.value());
+
+        if (group.size() >= k) {
+            // Release anonymized group
+            group.forEach(event -> context().forward(
+                new Record<>(generalizedKey, anonymize(event), record.timestamp())
+            ));
+            buffer.delete(generalizedKey);
+        } else {
+            buffer.put(generalizedKey, group);
+        }
+    }
+}
+```
+
+**Schema Registry integration** has improved with better support for tracking masked fields through schema metadata. Using Avro or Protobuf with Schema Registry allows teams to mark fields as sensitive and enforce masking at the serialization layer. For comprehensive schema management patterns, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md).
+
+For PII-specific handling patterns and detection techniques, see [PII Detection and Handling in Event Streams](pii-detection-and-handling-in-event-streams.md).
+
 ## Challenges and Trade-offs
 
 Implementing data protection in streaming systems involves several challenges:
@@ -125,7 +226,7 @@ Implementing data protection in streaming systems involves several challenges:
 
 **Key handling**: For techniques that use encryption or tokenization, securely managing and rotating keys in a distributed streaming environment requires careful architecture. Keys must be accessible to authorized processors while remaining protected from unauthorized access.
 
-**Compliance complexity**: Different regulations have different requirements. GDPR's "right to be forgotten" requires the ability to delete or anonymize specific individuals' data, which is challenging in append-only systems like Kafka where historical data is immutable.
+**Compliance complexity**: Different regulations have different requirements. GDPR's "right to be forgotten" requires the ability to delete or anonymize specific individuals' data, which is challenging in append-only systems like Kafka where historical data is immutable. For strategies on enforcing data policies, see [Policy Enforcement in Streaming](policy-enforcement-in-streaming.md).
 
 **State management**: Stream processors applying anonymization techniques like k-anonymity need to maintain state about which records have been processed and released, adding operational complexity.
 
@@ -151,4 +252,6 @@ As real-time data systems become central to business operations, implementing ro
 
 4. **Differential Privacy: A Survey of Results** (Cynthia Dwork, 2008) - Foundational academic paper on differential privacy theory and applications in data release and analysis.
 
-5. **Confluent: Data Governance and Security in Event Streaming** - Industry best practices for implementing security and governance in streaming architectures. Available at: https://www.confluent.io/resources/
+5. **Apache Flink Documentation** - Official documentation for Apache Flink stream processing including state management and masking patterns. Available at: https://flink.apache.org/
+
+6. **Conduktor Documentation** - Platform guides for data masking, governance, and security in Kafka environments. Available at: https://docs.conduktor.io/
