@@ -61,6 +61,16 @@ class DataQualityValidator:
         """Validate email field against multiple quality rules."""
         results = []
 
+        # Completeness check FIRST (avoid regex on null/empty values)
+        if not email or email.strip() == "":
+            results.append(ValidationResult(
+                field="email",
+                passed=False,
+                severity=Severity.CRITICAL,
+                message="Email field is empty"
+            ))
+            return results  # Early return, don't check format/domain on empty values
+
         # Format validation
         email_pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
         if not re.match(email_pattern, email):
@@ -70,9 +80,10 @@ class DataQualityValidator:
                 severity=Severity.CRITICAL,
                 message=f"Invalid email format: {email}"
             ))
+            return results  # Don't check domain if format is invalid
 
-        # Domain validation
-        if email and '@' in email:
+        # Domain validation (only if format is valid)
+        if '@' in email:
             domain = email.split('@')[1]
             if domain not in self.approved_domains:
                 results.append(ValidationResult(
@@ -81,15 +92,6 @@ class DataQualityValidator:
                     severity=Severity.MAJOR,
                     message=f"Unapproved domain: {domain}"
                 ))
-
-        # Completeness check
-        if not email or email.strip() == "":
-            results.append(ValidationResult(
-                field="email",
-                passed=False,
-                severity=Severity.CRITICAL,
-                message="Email field is empty"
-            ))
 
         # If no issues found, return success
         if not results:
@@ -155,6 +157,14 @@ import org.apache.kafka.streams.*;
 import org.apache.kafka.streams.kstream.*;
 import java.time.Duration;
 import java.util.*;
+
+// Data model
+class CustomerRecord {
+    public String customerId;
+    public String email;
+    public Integer age;
+    public List<String> qualityErrors = new ArrayList<>();
+}
 
 public class StreamingQualityValidator {
 
@@ -240,7 +250,23 @@ public class StreamingQualityValidator {
 }
 ```
 
-Consider quality check performance carefully in streaming contexts. Quality validations must process data at the rate it arrives without creating backpressure or latency. Design checks to be computationally efficient and scalable, using techniques like sampling for expensive validations that don't need to run on every record.
+Consider quality check performance carefully in streaming contexts. Quality validations must process data at the rate it arrives without creating backpressure or latency. Design checks to be computationally efficient and scalable, using techniques like sampling for expensive validations that don't need to run on every record. For backpressure handling strategies, see [Backpressure Handling in Streaming Systems](backpressure-handling-in-streaming-systems.md).
+
+## Modern Data Quality Tools (2025)
+
+The data quality tooling landscape has evolved significantly. Modern frameworks complement custom validation code with declarative quality definitions and automated monitoring:
+
+**Soda Core**: Open-source data quality testing framework using YAML-based quality checks. Define data contracts and quality rules declaratively, integrating with orchestration tools like Airflow and Dagster.
+
+**dbt Tests and Contracts**: dbt (data build tool) now includes native data quality testing and contracts. Define expectations in SQL and enforce them during transformation workflows. dbt contracts (introduced in dbt 1.5+) provide explicit interfaces between models with automatic validation.
+
+**Elementary Data**: Observability platform for dbt that provides automatic data quality monitoring, anomaly detection, and lineage tracking. Complements dbt's built-in testing with ML-based anomaly detection.
+
+**Great Expectations**: Comprehensive data validation framework with extensive built-in expectations. See [Great Expectations: Data Testing Framework](great-expectations-data-testing-framework.md) for implementation patterns.
+
+**Data Contracts (ODCS)**: The Open Data Contract Standard (ODCS v3.1.0) provides a specification for formal data contracts. See [Data Contracts for Reliable Pipelines](data-contracts-for-reliable-pipelines.md) for implementation guidance.
+
+These tools integrate with streaming platforms like Kafka, enabling real-time quality validation alongside custom code solutions.
 
 ## Monitoring and Platform Integration
 
