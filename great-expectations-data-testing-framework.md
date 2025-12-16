@@ -11,6 +11,8 @@ topics:
 
 # Great Expectations: Data Testing Framework
 
+> **Important**: This article covers Great Expectations 1.0+ (released August 2024), which introduced breaking API changes from previous versions. If you're using GX 0.x, see the [official migration guide](https://docs.greatexpectations.io/docs/0.18/reference/learn/migration_guide/).
+
 Data quality is the foundation of reliable analytics and machine learning. Yet, many data teams discover data issues only after they've impacted downstream systems or business decisions. Great Expectations (GX) addresses this challenge by providing a Python-based framework for testing, documenting, and profiling your data pipelines.
 
 ## What is Great Expectations?
@@ -18,6 +20,15 @@ Data quality is the foundation of reliable analytics and machine learning. Yet, 
 Great Expectations is an open-source data validation framework that enables data teams to express what they "expect" from their data through assertions called Expectations. Think of it as unit testing for your data—instead of testing code behavior, you're testing data quality, schema compliance, and business logic.
 
 The framework goes beyond simple validation by generating data documentation, maintaining data quality metrics over time, and integrating seamlessly into modern data workflows.
+
+## Getting Started
+
+Install Great Expectations and initialize a project:
+
+```bash
+pip install great_expectations
+great_expectations init  # Creates project structure
+```
 
 ## Core Concepts
 
@@ -31,109 +42,161 @@ import great_expectations as gx
 # Initialize a Data Context
 context = gx.get_context()
 
-# Create a validator for your data
-validator = context.sources.pandas_default.read_csv(
-    "customer_data.csv"
-)
+# Set up a pandas datasource with fluent API
+data_source = context.data_sources.add_pandas("pandas_datasource")
+data_asset = data_source.add_dataframe_asset(name="customer_data")
+batch_definition = data_asset.add_batch_definition_whole_dataframe("customer_batch")
 
-# Define expectations
-validator.expect_table_row_count_to_be_between(min_value=1000, max_value=1000000)
-validator.expect_column_values_to_not_be_null("customer_id")
-validator.expect_column_values_to_be_unique("customer_id")
-validator.expect_column_values_to_be_in_set("status", ["active", "inactive", "pending"])
-validator.expect_column_mean_to_be_between("order_amount", min_value=0, max_value=10000)
-```
-
-### Expectation Suites
-
-Expectation Suites group related Expectations together, creating a comprehensive test suite for a dataset. You can create suites manually or use GX's profiling capabilities to auto-generate them:
-
-```python
 # Create an Expectation Suite
-suite = context.add_expectation_suite(
-    expectation_suite_name="customer_validation_suite"
+suite = context.suites.add(
+    gx.core.expectation_suite.ExpectationSuite(name="customer_suite")
 )
 
-# Or auto-generate from existing data
-from great_expectations.profile.user_configurable_profiler import UserConfigurableProfiler
-
-profiler = UserConfigurableProfiler(
-    profile_dataset=validator,
-    excluded_expectations=["expect_column_quantile_values_to_be_between"],
+# Add expectations to the suite
+suite.add_expectation(
+    gx.expectations.ExpectTableRowCountToBeBetween(
+        min_value=1000, max_value=1000000
+    )
 )
-
-suite = profiler.build_suite()
+suite.add_expectation(
+    gx.expectations.ExpectColumnValuesToNotBeNull(column="customer_id")
+)
+suite.add_expectation(
+    gx.expectations.ExpectColumnValuesToBeUnique(column="customer_id")
+)
+suite.add_expectation(
+    gx.expectations.ExpectColumnValuesToBeInSet(
+        column="status",
+        value_set=["active", "inactive", "pending"]
+    )
+)
 ```
 
-### Checkpoints
+### Batch Definitions
 
-Checkpoints orchestrate the validation process. They define which data to validate, which Expectation Suite to apply, and what actions to take when validations pass or fail:
+**Batch Definitions** specify how to access your data. They replaced the batch_request pattern from GX 0.x:
 
 ```python
-checkpoint_config = {
-    "name": "customer_checkpoint",
-    "validations": [
-        {
-            "batch_request": {
-                "datasource_name": "customer_datasource",
-                "data_connector_name": "default_runtime_data_connector",
-                "data_asset_name": "customer_data",
-            },
-            "expectation_suite_name": "customer_validation_suite",
-        }
-    ],
-    "action_list": [
-        {
-            "name": "store_validation_result",
-            "action": {"class_name": "StoreValidationResultAction"},
-        },
-        {
-            "name": "update_data_docs",
-            "action": {"class_name": "UpdateDataDocsAction"},
-        },
-    ],
-}
+# For a CSV file
+csv_asset = data_source.add_csv_asset(
+    name="customer_csv",
+    filepath_or_buffer="customer_data.csv"
+)
+batch_definition = csv_asset.add_batch_definition_whole_file("customer_batch")
 
-checkpoint = context.add_checkpoint(**checkpoint_config)
+# For dataframes (in-memory)
+df_asset = data_source.add_dataframe_asset(name="customer_df")
+batch_definition = df_asset.add_batch_definition_whole_dataframe("df_batch")
 ```
+
+### Data Assistants (Auto-Profiling)
+
+Data Assistants automatically generate Expectation Suites by analyzing your data:
+
+```python
+from great_expectations.rule_based_profiler.data_assistant import OnboardingDataAssistant
+
+# Get a batch for profiling
+batch = batch_definition.get_batch()
+
+# Use OnboardingDataAssistant to auto-generate expectations
+data_assistant = OnboardingDataAssistant(
+    name="onboarding_assistant",
+    batch_request=batch.batch_request
+)
+
+# Generate suite
+result = data_assistant.run()
+suite = result.get_expectation_suite()
+```
+
+### Validation Definitions and Checkpoints
+
+**Validation Definitions** link a Batch Definition to an Expectation Suite. **Checkpoints** then execute one or more validations:
+
+```python
+# Create a Validation Definition
+validation_definition = context.validation_definitions.add(
+    gx.core.validation_definition.ValidationDefinition(
+        name="customer_validation",
+        data=batch_definition,
+        suite=suite,
+    )
+)
+
+# Create a Checkpoint
+checkpoint = context.checkpoints.add(
+    gx.checkpoint.checkpoint.Checkpoint(
+        name="customer_checkpoint",
+        validation_definitions=[validation_definition]
+    )
+)
+
+# Run validation
+checkpoint_result = checkpoint.run()
+
+# Check results
+if checkpoint_result.success:
+    print("✅ All validations passed!")
+else:
+    print("❌ Validation failed:")
+    for result in checkpoint_result.run_results.values():
+        for validation_result in result["validation_result"].results:
+            if not validation_result.success:
+                print(f"  - {validation_result.expectation_config.type}")
+                print(f"    {validation_result.result}")
+```
+
+**Data Docs**: Validation results automatically generate HTML documentation showing data quality metrics, trends, and validation history. These docs serve as living documentation of your data contracts.
 
 ## Batch Data Validation
 
-For traditional batch processing pipelines, Great Expectations integrates with data warehouses, lakes, and processing frameworks:
+For traditional batch processing pipelines, Great Expectations integrates with data warehouses, lakes, and processing frameworks using the fluent SQL datasource API:
 
 ```python
-# SQL Database validation
-import pandas as pd
-from sqlalchemy import create_engine
+# PostgreSQL database validation
+datasource = context.data_sources.add_postgres(
+    name="postgres_datasource",
+    connection_string="postgresql://user:password@localhost:5432/database"
+)
 
-engine = create_engine("postgresql://user:password@localhost/database")
+# Add a table asset
+table_asset = datasource.add_table_asset(
+    name="orders",
+    table_name="orders"
+)
 
-# Create a SQL datasource
-datasource_config = {
-    "name": "postgres_datasource",
-    "class_name": "Datasource",
-    "execution_engine": {
-        "class_name": "SqlAlchemyExecutionEngine",
-        "connection_string": "postgresql://user:password@localhost/database",
-    },
-    "data_connectors": {
-        "default_runtime_data_connector": {
-            "class_name": "RuntimeDataConnector",
-            "batch_identifiers": ["default_identifier_name"],
-        },
-    },
-}
+# Create batch definition for the entire table
+batch_definition = table_asset.add_batch_definition_whole_table("orders_batch")
 
-context.add_datasource(**datasource_config)
+# Create expectations for the orders table
+orders_suite = context.suites.add(
+    gx.core.expectation_suite.ExpectationSuite(name="orders_suite")
+)
+orders_suite.add_expectation(
+    gx.expectations.ExpectColumnValuesToNotBeNull(column="order_id")
+)
+orders_suite.add_expectation(
+    gx.expectations.ExpectColumnValuesToBeUnique(column="order_id")
+)
 
-# Validate a table
-batch_request = {
-    "datasource_name": "postgres_datasource",
-    "data_connector_name": "default_runtime_data_connector",
-    "data_asset_name": "orders",
-}
+# Create validation definition and checkpoint
+validation_def = context.validation_definitions.add(
+    gx.core.validation_definition.ValidationDefinition(
+        name="orders_validation",
+        data=batch_definition,
+        suite=orders_suite,
+    )
+)
+orders_checkpoint = context.checkpoints.add(
+    gx.checkpoint.checkpoint.Checkpoint(
+        name="orders_checkpoint",
+        validation_definitions=[validation_def]
+    )
+)
 
-result = checkpoint.run(batch_request=batch_request)
+# Run validation
+result = orders_checkpoint.run()
 ```
 
 ## Streaming Data Validation
@@ -142,15 +205,38 @@ Modern data architectures increasingly rely on streaming data. Great Expectation
 
 ### Kafka Integration
 
-Here's how to validate streaming data from Kafka:
+Here's how to validate streaming data from Kafka using GX 1.0+:
 
 ```python
-from kafka import KafkaConsumer
+from kafka import KafkaConsumer, KafkaProducer
 import json
+import pandas as pd
 import great_expectations as gx
+import logging
+
+logger = logging.getLogger(__name__)
 
 # Initialize GX context
 context = gx.get_context()
+
+# Set up dataframe datasource for streaming validation
+data_source = context.data_sources.add_pandas("streaming_pandas")
+df_asset = data_source.add_dataframe_asset(name="streaming_events")
+batch_definition = df_asset.add_batch_definition_whole_dataframe("streaming_batch")
+
+# Create expectation suite for streaming events
+streaming_suite = context.suites.add(
+    gx.core.expectation_suite.ExpectationSuite(name="streaming_events_suite")
+)
+streaming_suite.add_expectation(
+    gx.expectations.ExpectColumnValuesToNotBeNull(column="customer_id")
+)
+streaming_suite.add_expectation(
+    gx.expectations.ExpectColumnValuesToBeInSet(
+        column="event_type",
+        value_set=["page_view", "purchase", "signup"]
+    )
+)
 
 # Kafka consumer setup
 consumer = KafkaConsumer(
@@ -158,48 +244,91 @@ consumer = KafkaConsumer(
     bootstrap_servers=['localhost:9092'],
     value_deserializer=lambda m: json.loads(m.decode('utf-8')),
     auto_offset_reset='latest',
-    enable_auto_commit=True,
+    enable_auto_commit=False,  # Manual commit after successful validation
 )
 
+# Dead letter queue producer for failed validations
+dlq_producer = KafkaProducer(
+    bootstrap_servers=['localhost:9092'],
+    value_serializer=lambda m: json.dumps(m).encode('utf-8')
+)
+
+def handle_validation_failure(messages, checkpoint_result):
+    """Send failed messages to dead letter queue with error details"""
+    for result in checkpoint_result.run_results.values():
+        validation_result = result["validation_result"]
+        if not validation_result.success:
+            failure_details = {
+                "messages": messages,
+                "validation_errors": [
+                    {
+                        "expectation": r.expectation_config.type,
+                        "result": str(r.result)
+                    }
+                    for r in validation_result.results if not r.success
+                ],
+                "statistics": validation_result.statistics
+            }
+            dlq_producer.send('data-quality-dlq', value=failure_details)
+            logger.error(f"Validation failed: {validation_result.statistics}")
+
 # Streaming validation function
-def validate_streaming_batch(messages, suite_name):
+def validate_streaming_batch(messages):
     """Validate a micro-batch of streaming messages"""
     df = pd.DataFrame(messages)
 
-    validator = context.sources.pandas_default.read_dataframe(df)
+    # Get batch with dataframe
+    batch = batch_definition.get_batch(batch_parameters={"dataframe": df})
 
-    # Run validation
-    results = validator.validate(
-        expectation_suite_name=suite_name,
-        catch_exceptions=True
+    # Create validation definition
+    validation_def = context.validation_definitions.add(
+        gx.core.validation_definition.ValidationDefinition(
+            name=f"streaming_validation_{pd.Timestamp.now().timestamp()}",
+            data=batch_definition,
+            suite=streaming_suite,
+        )
     )
 
-    if not results["success"]:
-        # Handle validation failures
-        handle_data_quality_issues(results)
+    # Create and run checkpoint
+    checkpoint = context.checkpoints.add(
+        gx.checkpoint.checkpoint.Checkpoint(
+            name=f"streaming_checkpoint_{pd.Timestamp.now().timestamp()}",
+            validation_definitions=[validation_def]
+        )
+    )
 
-    return results
+    checkpoint_result = checkpoint.run()
+
+    if not checkpoint_result.success:
+        handle_validation_failure(messages, checkpoint_result)
+
+    return checkpoint_result.success
 
 # Process streaming data in micro-batches
 batch_size = 100
 message_buffer = []
 
-for message in consumer:
-    message_buffer.append(message.value)
+try:
+    for message in consumer:
+        message_buffer.append(message.value)
 
-    if len(message_buffer) >= batch_size:
-        validation_results = validate_streaming_batch(
-            message_buffer,
-            "streaming_customer_events_suite"
-        )
+        if len(message_buffer) >= batch_size:
+            success = validate_streaming_batch(message_buffer)
 
-        # Clear buffer after validation
-        message_buffer = []
+            if success:
+                # Commit offset after successful validation
+                consumer.commit()
+
+            # Clear buffer regardless of validation result
+            message_buffer = []
+finally:
+    consumer.close()
+    dlq_producer.close()
 ```
 
 ## Custom Expectations
 
-For domain-specific validation logic, you can create custom Expectations:
+For domain-specific validation logic, you can create custom Expectations. The `ColumnMapExpectation` base class pattern remains available in GX 1.0+:
 
 ```python
 from great_expectations.expectations.expectation import ColumnMapExpectation
@@ -214,7 +343,14 @@ class ExpectColumnValuesToBeValidEmail(ColumnMapExpectation):
         "regex": r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$",
         "mostly": 1.0,
     }
+
+# Usage
+suite.add_expectation(
+    ExpectColumnValuesToBeValidEmail(column="email_address")
+)
 ```
+
+> **Note**: Custom expectation development patterns may have evolved in GX 1.0+. Consult the [official custom expectations documentation](https://docs.greatexpectations.io/docs/core/customize_expectations/overview/) for the latest implementation guidance.
 
 ## Best Practices
 
@@ -224,11 +360,16 @@ class ExpectColumnValuesToBeValidEmail(ColumnMapExpectation):
 
 3. **Incremental Adoption**: Implement GX incrementally, starting with critical datasets.
 
-4. **Monitor Trends**: Use GX's data documentation to track data quality metrics over time.
+4. **Monitor Trends**: Use Data Docs to track data quality metrics over time and identify degradation patterns.
 
-5. **Fail Fast**: Configure Checkpoints to halt pipelines on critical validation failures.
+5. **Fail Fast**: Configure validation workflows to halt pipelines on critical validation failures. Use conditional logic based on `checkpoint_result.success`.
 
-6. **Balance Coverage and Performance**: In streaming scenarios, validate representative samples rather than every record to maintain throughput.
+6. **Performance in Streaming**: For high-throughput streams, consider:
+   - **Sampling**: Validate every Nth message instead of every message
+   - **Time windows**: Batch messages over fixed time intervals (e.g., validate every 10 seconds)
+   - **Adaptive validation**: Increase validation frequency when anomalies are detected
+
+7. **Integration with Orchestration**: Integrate GX with orchestration tools like Airflow, Prefect, or Dagster for production deployments. Use the `airflow-provider-great-expectations` package for Airflow integration.
 
 ## Conclusion
 
@@ -241,6 +382,8 @@ Start small, iterate quickly, and build confidence in your data—one Expectatio
 ## Sources
 
 - [Great Expectations Official Documentation](https://docs.greatexpectations.io/)
+- [GX Core 1.0+ Quick Start](https://docs.greatexpectations.io/docs/core/introduction/try_gx/)
+- [GX 0.x to 1.0 Migration Guide](https://docs.greatexpectations.io/docs/0.18/reference/learn/migration_guide/)
 - [Great Expectations GitHub Repository](https://github.com/great-expectations/great_expectations)
-- [Great Expectations Core Concepts](https://docs.greatexpectations.io/docs/terms/expectation)
-- [Data Quality Testing with Great Expectations](https://greatexpectations.io/blog/)
+- [Great Expectations Changelog](https://docs.greatexpectations.io/docs/core/changelog/)
+- [Custom Expectations Documentation](https://docs.greatexpectations.io/docs/core/customize_expectations/overview/)

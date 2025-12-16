@@ -74,7 +74,7 @@ Let's walk through configuring a PostgreSQL Debezium connector. Before starting,
 - PostgreSQL configured with logical replication enabled (`wal_level = logical`)
 - A replication slot and publication created for the tables you want to capture
 
-Here's a basic connector configuration:
+Here's a complete, production-ready connector configuration:
 
 ```json
 {
@@ -82,9 +82,19 @@ Here's a basic connector configuration:
   "config": {
     "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
     "database.hostname": "postgres.example.com",
+    "database.port": "5432",
+    "database.user": "debezium_user",
+    "database.password": "${env:DB_PASSWORD}",
+    "database.dbname": "orders_db",
     "database.server.name": "orders_server",
+    "plugin.name": "pgoutput",
+    "publication.name": "dbz_publication",
     "table.include.list": "public.orders,public.order_items",
-    "topic.prefix": "cdc.postgres.orders"
+    "topic.prefix": "cdc.postgres.orders",
+    "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "heartbeat.interval.ms": "5000",
+    "heartbeat.topics.prefix": "__debezium-heartbeat"
   }
 }
 ```
@@ -107,14 +117,72 @@ curl -X POST http://localhost:8083/connectors \
 
 **Snapshot Modes**: Control how initial snapshots are handled with `snapshot.mode`. Common values include:
 - `initial`: Perform a snapshot on first run (default)
+- `always`: Always perform a snapshot on startup
 - `never`: Skip snapshots, only stream changes
 - `when_needed`: Perform snapshot if no offset exists
+- `initial_only`: Perform snapshot then stop the connector
+- `exported`: Use database's native export functionality (PostgreSQL 15+)
+
+**Incremental Snapshots**: A powerful 2025 feature that allows re-snapshotting tables without stopping the connector or locking tables:
+
+```json
+{
+  "incremental.snapshot.enabled": true,
+  "signal.data.collection": "public.debezium_signal",
+  "snapshot.max.threads": 4,
+  "snapshot.fetch.size": 10000
+}
+```
+
+Create a signal table in your source database:
+
+```sql
+CREATE TABLE debezium_signal (
+  id VARCHAR(42) PRIMARY KEY,
+  type VARCHAR(32) NOT NULL,
+  data TEXT
+);
+```
+
+Trigger an incremental snapshot by inserting into the signal table:
+
+```sql
+INSERT INTO debezium_signal VALUES (
+  'snapshot-orders-' || NOW()::TEXT,
+  'execute-snapshot',
+  '{"data-collections": ["public.orders"], "type": "incremental"}'
+);
+```
+
+**Heartbeat Configuration**: Enable heartbeats to ensure offset commits during low database activity:
+
+```json
+{
+  "heartbeat.interval.ms": "5000",
+  "heartbeat.topics.prefix": "__debezium-heartbeat"
+}
+```
+
+This prevents consumer lag accumulation and ensures connectors maintain their position in the transaction log.
 
 **Message Transformations**: Debezium supports Single Message Transforms (SMTs) to modify events before they're written to Kafka. The `ExtractNewRecordState` SMT is particularly useful as it simplifies the event structure by extracting just the "after" state of a row change, making downstream consumption easier.
 
 **Handling Schema Changes**: Debezium tracks schema evolution through a schema history topic. This ensures connectors can correctly interpret older log entries even after table schema changes. Configure appropriate retention policies for this topic to prevent data loss.
 
-**Performance Tuning**: For high-throughput scenarios, adjust `max.batch.size` and `max.queue.size` to balance throughput and memory usage. Monitor connector lag using JMX metrics or Kafka Connect's REST API.
+**Performance Tuning**: For high-throughput scenarios based on 2025 production benchmarks:
+
+```json
+{
+  "max.batch.size": "2048",
+  "max.queue.size": "8192",
+  "poll.interval.ms": "100",
+  "producer.override.batch.size": "1000000",
+  "producer.override.linger.ms": "500",
+  "producer.override.compression.type": "lz4"
+}
+```
+
+These Kafka producer overrides can reduce snapshot times by 25% or more. Monitor connector lag using JMX metrics or Kafka Connect's REST API at `/connectors/{name}/status`.
 
 ## Integrating with the Kafka Ecosystem
 

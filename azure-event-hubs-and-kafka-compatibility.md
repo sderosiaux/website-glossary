@@ -59,12 +59,12 @@ While Event Hubs supports Kafka protocols, it's not a drop-in replacement for al
 - Idempotent producers
 - Transactional writes (in premium and dedicated tiers)
 
-### Limitations
-- **No Kafka Streams API**: Event Hubs doesn't support Kafka Streams for stateful processing. Teams using Streams must migrate to alternatives like Azure Stream Analytics or Flink.
-- **No Kafka Connect**: Event Hubs doesn't provide a native Connect framework. Connectors must run separately and connect to Event Hubs as a Kafka endpoint.
+### Limitations and Differences
+- **Kafka Streams API (Preview)**: Event Hubs now supports Kafka Streams API in preview for Premium and Dedicated tiers, enabling stateful stream processing. However, production use should consider Azure Stream Analytics or Flink as mature alternatives.
+- **No Native Kafka Connect**: Event Hubs doesn't provide a native Connect framework. Connectors must run separately and connect to Event Hubs as a Kafka endpoint.
 - **Topic Administration**: Creating and configuring Event Hubs requires using Azure Portal, CLI, or ARM templates rather than Kafka admin APIs.
-- **Compacted Topics**: Event Hubs doesn't support log compaction, which affects use cases like maintaining stateful key-value stores.
-- **Message Size**: Event Hubs has different message size limits compared to Kafka (1 MB standard vs configurable in Kafka).
+- **Log Compaction (GA)**: Event Hubs now supports log compaction in General Availability across all tiers, enabling key-value store patterns and stateful applications.
+- **Message Size**: Event Hubs supports up to 1 MB messages in Standard tier and up to 20 MB in Dedicated tier (versus Kafka's configurable limits).
 
 These limitations mean Event Hubs works best for producer-consumer patterns rather than complex stream processing or connector-heavy architectures.
 
@@ -89,9 +89,10 @@ Operating Event Hubs with Kafka clients introduces monitoring challenges. Azure 
 Key monitoring considerations:
 - **Partition Metrics**: Track throughput, lag, and consumer group offsets across partitions
 - **Error Rates**: Monitor authentication failures, throttling events, and protocol errors
-- **Schema Management**: If using Schema Registry, ensure compatibility across Event Hubs and native Kafka environments
+- **Schema Registry**: Event Hubs now includes integrated Schema Registry (free with every namespace), providing schema validation and evolution management compatible with Confluent Schema Registry APIs
+- **Express Tier**: New cost-effective tier for dev/test workloads with auto-inflate capabilities
 
-Platforms like Conduktor help teams manage multi-protocol streaming environments by providing unified monitoring, schema registry management, and data governance across both native Kafka clusters and Event Hubs. This is particularly valuable for organizations running hybrid architectures or gradually migrating workloads to Azure.
+Management platforms help teams operate multi-protocol streaming environments by providing unified monitoring, schema management, and data governance across both native Kafka clusters and Event Hubs. This is particularly valuable for organizations running hybrid architectures or gradually migrating workloads to Azure.
 
 Teams should also establish alerting for consumer lag and throughput saturation to maintain service level objectives during migration.
 
@@ -99,7 +100,7 @@ Teams should also establish alerting for consumer lag and throughput saturation 
 
 Azure Event Hubs provides Kafka protocol compatibility that enables organizations to leverage existing Kafka investments while adopting Azure's managed streaming platform. The compatibility layer supports core producer and consumer patterns, making it suitable for lift-and-shift migrations and hybrid cloud architectures.
 
-However, Event Hubs is not a complete Kafka replacement. Missing features like Kafka Streams, Connect, and log compaction require architectural adjustments. Teams should carefully evaluate their specific use cases, particularly around stream processing and connector dependencies, before migrating.
+Event Hubs has evolved significantly: Kafka Streams API is now in preview, log compaction is GA, integrated Schema Registry is available for free, and new tiers like Express provide cost-effective options. However, teams should carefully evaluate their specific use cases, particularly around stream processing maturity and connector dependencies, before migrating.
 
 For organizations committed to Azure, Event Hubs offers significant operational benefits: reduced management overhead, native integration with Azure services, and enterprise-grade reliability. When combined with proper monitoring and governance tools, Event Hubs can serve as an effective foundation for cloud-native event streaming architectures.
 
