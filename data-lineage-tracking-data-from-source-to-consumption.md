@@ -23,7 +23,7 @@ Think of data lineage as a genealogy tree for your data. Just as a family tree s
 
 ### Regulatory Compliance
 
-With regulations like GDPR, CCPA, and industry-specific mandates, organizations must demonstrate where personal or sensitive data originates, how it's processed, and who accesses it. Data lineage provides the audit trail needed to prove compliance and respond to data subject requests.
+With regulations like GDPR, CCPA, and industry-specific mandates, organizations must demonstrate where personal or sensitive data originates, how it's processed, and who accesses it. Data lineage provides the audit trail needed to prove compliance and respond to data subject requests. For comprehensive guidance on governance frameworks, see [Data Governance Framework: Roles and Responsibilities](data-governance-framework-roles-and-responsibilities.md).
 
 ### Impact Analysis
 
@@ -31,11 +31,11 @@ Before making changes to a data source or transformation logic, you need to unde
 
 ### Root Cause Analysis
 
-When data quality issues arise—incorrect metrics in a report, anomalous ML predictions—data lineage helps you trace the problem back to its source. You can navigate upstream through transformations to identify where corruption, logic errors, or unexpected data entered the pipeline.
+When data quality issues arise—incorrect metrics in a report, anomalous ML predictions—data lineage helps you trace the problem back to its source. You can navigate upstream through transformations to identify where corruption, logic errors, or unexpected data entered the pipeline. For strategies on managing quality issues, see [Data Quality Incidents](data-quality-incidents.md) and [Data Quality vs Data Observability: Key Differences](data-quality-vs-data-observability-key-differences.md).
 
 ### Data Discovery and Understanding
 
-New team members or data consumers need to understand what data exists and where it comes from. Data lineage serves as living documentation, helping users discover datasets and understand their trustworthiness based on source quality and transformation complexity.
+New team members or data consumers need to understand what data exists and where it comes from. Data lineage serves as living documentation, helping users discover datasets and understand their trustworthiness based on source quality and transformation complexity. For more on enabling discovery, see [What is a Data Catalog? Modern Data Discovery](what-is-a-data-catalog-modern-data-discovery.md).
 
 ## Components of Effective Data Lineage
 
@@ -65,7 +65,7 @@ In streaming architectures built on Apache Kafka, data flows through topics, is 
 
 ### Schema Evolution
 
-Streaming systems frequently handle schema evolution, where message structures change over time. Lineage systems must track schema versions from registries and map how downstream consumers adapt to these changes.
+Streaming systems frequently handle schema evolution, where message structures change over time. Lineage systems must track schema versions from registries and map how downstream consumers adapt to these changes. For detailed coverage of managing schema changes, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md) and [Schema Evolution Best Practices](schema-evolution-best-practices.md).
 
 ### Complex Topology
 
@@ -82,13 +82,134 @@ Manual lineage documentation fails quickly in dynamic environments. Modern appro
 - **Log analysis**: Parsing execution logs to infer data movement patterns
 - **Instrumentation**: Embedding lineage capture directly into ETL frameworks or streaming applications
 
+### OpenLineage: The Standard for Lineage Collection
+
+OpenLineage has emerged as the open standard for data lineage collection, providing a vendor-neutral specification for capturing lineage metadata. It defines a common event model that pipelines emit at runtime, enabling consistent lineage tracking across heterogeneous systems.
+
+Key features of OpenLineage (2025):
+
+- **Universal integration**: Supported by Apache Airflow, Spark, Flink, dbt, Dagster, and major orchestration platforms
+- **Real-time emission**: Lineage events are emitted as pipelines run, not reconstructed later
+- **Facets system**: Extensible metadata model capturing data quality metrics, schema versions, and operational context
+- **Backend flexibility**: Events can be sent to Marquez, DataHub, Apache Amundsen, or custom backends
+
+Example OpenLineage event for a Kafka streaming job:
+
+```python
+from openlineage.client import OpenLineageClient
+from openlineage.client.run import RunEvent, RunState, Job
+from openlineage.client.facet import DataQualityMetricsInputDatasetFacet
+
+client = OpenLineageClient(url="http://marquez:5000")
+
+# Emit start event for Flink job reading from Kafka
+client.emit(
+    RunEvent(
+        eventType=RunState.START,
+        job=Job(namespace="kafka-streaming", name="fraud-detection-processor"),
+        inputs=[{
+            "namespace": "kafka://prod-cluster",
+            "name": "transactions-topic",
+            "facets": {
+                "schema": {
+                    "fields": [
+                        {"name": "transaction_id", "type": "string"},
+                        {"name": "amount", "type": "decimal"},
+                        {"name": "timestamp", "type": "timestamp"}
+                    ]
+                }
+            }
+        }],
+        outputs=[{
+            "namespace": "kafka://prod-cluster",
+            "name": "flagged-transactions-topic"
+        }]
+    )
+)
+```
+
+This approach provides automatic lineage tracking without manual documentation.
+
+### Modern Lineage Platforms
+
+Several open-source and commercial platforms now provide comprehensive lineage tracking:
+
+**Open-Source Solutions:**
+
+- **DataHub** (LinkedIn): Graph-based metadata platform with rich lineage visualization, support for Kafka, Flink, Spark, and batch systems. Includes impact analysis and data quality integration.
+- **Apache Amundsen** (Lyft): Focuses on data discovery with lineage as a core feature. Strong integration with Airflow and batch pipelines.
+- **Marquez**: OpenLineage reference implementation, purpose-built for collecting and visualizing lineage from diverse sources.
+
+**For Kafka Streaming Platforms:**
+
+For organizations running Apache Kafka, **Conduktor** provides enterprise-grade lineage tracking specifically designed for streaming architectures. Conduktor's platform automatically discovers and visualizes lineage across Kafka topics, connectors, stream processors (Kafka Streams, ksqlDB), and consumer applications. It integrates with schema registries to show column-level lineage and schema evolution, making it easier to understand data transformations in real-time pipelines.
+
+Key capabilities:
+- Automatic discovery of Kafka topology (producers, consumers, topics, connectors)
+- Visual lineage graphs showing data flow through streaming pipelines
+- Integration with Confluent Schema Registry and Apicurio for schema-aware lineage
+- Impact analysis: identify which consumers are affected by topic or schema changes
+- Audit trails for compliance and governance
+
 ### Integration with Data Catalogs
 
-Data lineage works best when integrated with a comprehensive data catalog. Governance platforms provide topic catalogs and lineage visualization showing how data flows through topics, connectors, and stream processors. This integration gives data engineers a single pane of glass to understand both what data exists and how it moves through streaming platforms.
+Data lineage works best when integrated with a comprehensive data catalog. Modern governance platforms provide topic catalogs and lineage visualization showing how data flows through topics, connectors, and stream processors. This integration gives data engineers a single pane of glass to understand both what data exists and how it moves through streaming platforms.
+
+For batch and lakehouse architectures, tools like dbt automatically generate lineage from SQL transformations, while Spark lineage can be captured through OpenLineage integrations. The key is choosing platforms that support your specific technology stack and can aggregate lineage from multiple sources into a unified view.
 
 ### Visualization and Querying
 
 Lineage data must be queryable and visual. Graph databases often underpin lineage systems, enabling queries like "show me all tables dependent on this source" or "trace this field back to its origin." Visualization tools render these graphs as interactive diagrams where users can explore upstream and downstream dependencies.
+
+### Lineage in Modern Transformation Tools
+
+**dbt (Data Build Tool)** has revolutionized lineage tracking for SQL-based transformations. Every dbt model automatically generates lineage by parsing SQL dependencies:
+
+```yaml
+# dbt generates lineage from model dependencies
+# models/marts/customer_lifetime_value.sql
+select
+    c.customer_id,
+    c.customer_name,
+    sum(o.order_amount) as lifetime_value
+from {{ ref('stg_customers') }} c
+join {{ ref('stg_orders') }} o
+    on c.customer_id = o.customer_id
+group by c.customer_id, c.customer_name
+```
+
+dbt's `ref()` function creates explicit lineage relationships, and running `dbt docs generate` produces interactive lineage graphs showing all model dependencies. This lineage is also exportable to platforms like DataHub or Amundsen through dbt's metadata artifacts.
+
+### Integrating Data Quality with Lineage
+
+Modern lineage platforms integrate data quality metrics directly into lineage graphs. When a data quality test fails, lineage helps identify:
+
+- **Upstream impact**: Which source or transformation introduced the issue?
+- **Downstream impact**: Which reports, dashboards, or ML models are affected?
+
+Tools like **Soda Core** and **Great Expectations** can emit OpenLineage events containing data quality results, allowing platforms to display quality scores alongside lineage paths. This creates "data trust graphs" where users see not just where data comes from, but how reliable it is.
+
+Example integration:
+
+```python
+# Great Expectations with OpenLineage
+from great_expectations.data_context import DataContext
+from openlineage.client import OpenLineageClient
+
+context = DataContext()
+results = context.run_checkpoint("daily_validation")
+
+# Emit data quality facet to lineage platform
+client = OpenLineageClient(url="http://marquez:5000")
+client.emit_data_quality_facet(
+    dataset="orders_table",
+    metrics={
+        "row_count": 50000,
+        "null_percentage": 0.01,
+        "validation_success": results.success
+    }
+)
+```
 
 ## Best Practices for Data Lineage
 
@@ -102,7 +223,7 @@ Manual lineage documentation is dead on arrival. Invest in automation and integr
 
 ### Include Business Context
 
-Technical lineage alone isn't sufficient. Enrich your lineage with business glossary terms, data ownership information, and quality metrics. When a business analyst looks at lineage, they should understand not just the technical path but also what the data means.
+Technical lineage alone isn't sufficient. Enrich your lineage with business glossary terms, data ownership information, and quality metrics. When a business analyst looks at lineage, they should understand not just the technical path but also what the data means. For guidance on building business context, see [Building a Business Glossary for Data Governance](building-a-business-glossary-for-data-governance.md) and [Metadata Management: Technical vs Business Metadata](metadata-management-technical-vs-business-metadata.md).
 
 ### Keep It Fresh
 
@@ -122,7 +243,11 @@ By implementing automated lineage capture, integrating with catalogs and governa
 
 ## Sources
 
-- [Apache Atlas Data Lineage](https://atlas.apache.org/)
 - [OpenLineage: Open Standard for Data Lineage](https://openlineage.io/)
-- [Marquez: Metadata Service for Data Lineage](https://marquezproject.ai/)
-- [Data Lineage Best Practices - O'Reilly](https://www.oreilly.com/library/view/data-lineage/)
+- [DataHub: Metadata Platform with Lineage](https://datahubproject.io/)
+- [Apache Amundsen: Data Discovery and Lineage](https://www.amundsen.io/)
+- [Marquez: OpenLineage Reference Implementation](https://marquezproject.ai/)
+- [dbt Documentation and Lineage](https://docs.getdbt.com/docs/collaborate/documentation)
+- [Great Expectations Data Quality](https://greatexpectations.io/)
+- [Soda Core: Data Quality Testing](https://www.soda.io/core)
+- [Conduktor: Kafka Governance Platform](https://www.conduktor.io/)
