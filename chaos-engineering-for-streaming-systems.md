@@ -37,7 +37,7 @@ Streaming platforms present unique challenges that make chaos engineering especi
 
 **Stateful processing**: Stream processors like Apache Flink maintain state across millions of events. When failures occur, state must be recovered correctly, or the system may produce incorrect results. Testing state recovery under various failure scenarios is critical.
 
-**Distributed coordination**: Streaming systems rely on consensus protocols (like ZooKeeper or KRaft in Kafka) for coordination. Network partitions, leader elections, and split-brain scenarios can cause subtle bugs that only appear under specific failure conditions.
+**Distributed coordination**: Streaming systems rely on consensus protocols for coordination. Kafka 4.0+ uses KRaft (the modern Raft-based consensus protocol that replaced ZooKeeper). Network partitions, leader elections, and split-brain scenarios can cause subtle bugs that only appear under specific failure conditions. KRaft's faster metadata operations (milliseconds vs seconds for leader elections) improve failure recovery, making chaos testing even more critical to validate these improvements. For Kafka architecture details, see [Apache Kafka](apache-kafka.md).
 
 **Consumer group dynamics**: Kafka consumer groups automatically rebalance when consumers join or leave. These rebalances can cause temporary processing pauses. Understanding how your system behaves during rebalances under load is essential for capacity planning.
 
@@ -114,6 +114,26 @@ When implementing chaos engineering for streaming systems, keep these principles
 **Combine with game days**: Run coordinated exercises where teams respond to chaos experiments as if they were real incidents. This builds muscle memory for incident response.
 
 **Don't neglect configuration**: Many streaming failures result from misconfiguration rather than code bugs. Test configuration changes (like replication factors or retention policies) under failure conditions.
+
+## Modern Chaos Engineering Tools (2025)
+
+The chaos engineering tooling landscape has matured significantly:
+
+**Chaos Mesh**: Cloud-native chaos engineering platform for Kubernetes. Supports network chaos, pod failures, I/O chaos, and time chaos. Excellent for testing containerized Kafka and Flink deployments.
+
+**Litmus**: CNCF chaos engineering framework with extensive fault injection scenarios. Provides reusable chaos experiments and integrates with CI/CD pipelines for continuous chaos testing.
+
+**AWS Fault Injection Simulator (FIS)**: Managed service for running chaos experiments on AWS infrastructure. Supports EC2, ECS, EKS, and RDS with built-in experiment templates.
+
+**Azure Chaos Studio**: Microsoft's chaos engineering service for Azure resources. Test resilience of AKS clusters, VMs, and managed services with controlled fault injection.
+
+**Steadybit**: Commercial chaos engineering platform with extensive streaming system support. Provides visual experiment builders and automated resilience scoring.
+
+**Gremlin**: Enterprise chaos engineering platform with fine-grained failure injection controls. Supports resource exhaustion, network manipulation, and state corruption scenarios.
+
+**OpenTelemetry Integration**: Modern chaos tools integrate with OpenTelemetry for distributed tracing during experiments, making it easier to understand failure propagation across microservices.
+
+These tools complement custom scripts and provide production-grade chaos experimentation capabilities with safety controls and rollback mechanisms.
 
 ## Summary
 
