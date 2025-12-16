@@ -17,7 +17,7 @@ This article explores three fundamental dimensions of data quality: accuracy, co
 
 ## Understanding Data Quality Dimensions
 
-Data quality dimensions are the measurable characteristics that determine how fit data is for its intended purpose. While various frameworks identify different numbers of dimensions, accuracy, completeness, and consistency form the core trio that impacts nearly every data use case.
+Data quality dimensions are the different ways we measure whether data is good enough to use. Think of them like criteria for grading an essay: just as writing is assessed on grammar, clarity, and structure, data is evaluated on multiple characteristics. While various frameworks identify different numbers of dimensions (ranging from 4 to 15), accuracy, completeness, and consistency form the core trio that impacts nearly every data use case.
 
 Think of these dimensions as the pillars supporting your data infrastructure. A weakness in any one dimension can compromise the entire structure, leading to unreliable reports, faulty machine learning models, or flawed business decisions.
 
@@ -45,11 +45,56 @@ Accuracy is often the most challenging dimension to measure because it requires 
 
 For example, customer email addresses can be validated against format patterns and potentially verified through confirmation emails. Product prices can be checked against authorized price lists or supplier catalogs.
 
+**Modern tools for accuracy validation (2025):**
+
+```python
+# Great Expectations 1.x for accuracy validation
+import great_expectations as gx
+
+context = gx.get_context()
+batch = context.sources.pandas_default.read_csv("customer_data.csv")
+
+# Validate email format accuracy
+batch.expect_column_values_to_match_regex(
+    column="email",
+    regex=r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+)
+
+# Validate price accuracy against expected range
+batch.expect_column_values_to_be_between(
+    column="price",
+    min_value=0,
+    max_value=10000
+)
+```
+
+You can also use **Soda Core** for declarative quality checks:
+
+```yaml
+# checks.yml
+checks for products:
+  - invalid_percent(email) < 1%:
+      valid format: email
+  - invalid_count(price) = 0:
+      valid min: 0
+      valid max: 10000
+```
+
+For comprehensive testing frameworks, see [Automated Data Quality Testing](automated-data-quality-testing.md) and [Great Expectations Framework](great-expectations-data-testing-framework.md).
+
 ### Maintaining Accuracy in Streaming Systems
 
 In streaming data platforms like Apache Kafka, maintaining accuracy presents unique challenges. Data flows continuously at high velocity, making validation more critical yet more difficult.
 
-Governance platforms provide capabilities to monitor data quality in real-time. You can set up schema validation to catch malformed records, implement custom quality checks on message content, and create alerts when accuracy thresholds are breached. This proactive approach prevents inaccurate data from propagating downstream where it might corrupt analytics or trigger incorrect automated actions.
+**Tools for streaming data quality (2025):**
+
+- **Conduktor**: Provides real-time data quality monitoring, governance, and testing for Kafka streams, including schema validation and custom quality rules
+- **Schema registries**: Enforce structural accuracy by validating message formats against registered schemas (Confluent Schema Registry, Apicurio)
+- **dbt integration**: Run data quality tests on streaming data landed in warehouses or lakehouses
+
+These platforms enable you to set up schema validation to catch malformed records, implement custom quality checks on message content, and create alerts when accuracy thresholds are breached. This proactive approach prevents inaccurate data from propagating downstream where it might corrupt analytics or trigger incorrect automated actions.
+
+For more on streaming validation patterns, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md) and [Building a Data Quality Framework](building-a-data-quality-framework.md).
 
 ## Completeness: Having All the Data You Need
 
@@ -77,15 +122,70 @@ Completeness metrics are relatively straightforward to calculate:
 
 These metrics should be tracked over time and broken down by data source, table, or domain to identify patterns and problem areas.
 
+**Example completeness check with Soda Core:**
+
+```yaml
+# checks.yml
+checks for customer_table:
+  # Column-level completeness
+  - missing_count(email) = 0
+  - missing_percent(postal_code) < 5%
+
+  # Row-level completeness
+  - row_count > 1000
+
+  # Schema completeness
+  - schema:
+      fail:
+        when required column missing: [customer_id, email, created_at]
+```
+
+**SQL-based completeness analysis:**
+
+```sql
+-- Check completeness across multiple dimensions
+SELECT
+    COUNT(*) as total_records,
+    COUNT(email) as records_with_email,
+    COUNT(postal_code) as records_with_postal,
+    ROUND(100.0 * COUNT(email) / COUNT(*), 2) as email_completeness_pct,
+    ROUND(100.0 * COUNT(postal_code) / COUNT(*), 2) as postal_completeness_pct
+FROM customers
+WHERE created_at >= CURRENT_DATE - INTERVAL '7 days';
+```
+
 ### Streaming Data Completeness
 
 In streaming architectures, completeness becomes more nuanced. Messages might arrive out of order, and related events might be scattered across time windows. Data engineers must implement strategies like:
 
-- Windowing and watermarks to define when a data window is "complete"
-- Late-arrival handling to incorporate delayed messages
-- Join patterns that account for temporal gaps between related events
+- **Windowing and watermarks**: Define time boundaries to determine when a data window is "complete enough" to process (windowing groups events into time buckets, while watermarks indicate how long to wait for late-arriving data)
+- **Late-arrival handling**: Incorporate delayed messages that arrive after the initial window closes
+- **Join patterns**: Account for temporal gaps between related events across different streams
 
-Modern streaming platforms provide mechanisms to handle these scenarios. When monitoring streaming pipelines, you can track message delivery rates, identify missing sequence numbers, and detect partition lag that might indicate incomplete data delivery.
+**Kafka Streams example for completeness tracking:**
+
+```java
+// Track expected vs actual message counts per time window
+StreamsBuilder builder = new StreamsBuilder();
+KStream<String, Order> orders = builder.stream("orders");
+
+orders
+    .groupByKey()
+    .windowedBy(TimeWindows.ofSizeWithNoGrace(Duration.ofMinutes(5)))
+    .count(Materialized.as("order-counts"))
+    .toStream()
+    .filter((windowedKey, count) -> {
+        long expected = getExpectedCount(windowedKey.key());
+        double completeness = (double) count / expected;
+        // Alert if less than 95% complete
+        return completeness < 0.95;
+    })
+    .to("quality-alerts");
+```
+
+Modern streaming platforms provide mechanisms to handle these scenarios. When monitoring streaming pipelines with tools like Conduktor, you can track message delivery rates, identify missing sequence numbers, and detect partition lag that might indicate incomplete data delivery.
+
+For deeper coverage of streaming completeness patterns, see [Watermarks and Triggers in Stream Processing](watermarks-and-triggers-in-stream-processing.md) and [Consumer Lag Monitoring](consumer-lag-monitoring.md).
 
 ## Consistency: Keeping Data Aligned
 
@@ -115,9 +215,43 @@ Consistency can be measured through:
 
 ### Consistency in Event Streaming
 
-Event streaming introduces consistency challenges around event ordering, exactly-once processing, and maintaining state across distributed systems. Events describing the same entity might arrive at different consumers with different latencies, creating temporary inconsistencies.
+Event streaming introduces consistency challenges around event ordering, exactly-once processing (ensuring each message is processed exactly once, not duplicated or lost), and maintaining state across distributed systems. Events describing the same entity might arrive at different consumers with different latencies, creating temporary inconsistencies.
 
-Schema registries help maintain consistency by enforcing data contracts. When all producers and consumers agree on message schemas, structural consistency is guaranteed. Governance platforms integrate with schema registries to provide visibility into schema evolution, helping teams identify when changes might introduce inconsistencies into downstream applications.
+**Schema registries** (centralized services that store and manage message schemas) help maintain consistency by enforcing data contracts. When all producers and consumers agree on message schemas, structural consistency is guaranteed. Governance platforms like Conduktor integrate with schema registries to provide visibility into schema evolution, helping teams identify when changes might introduce inconsistencies into downstream applications.
+
+**Data contracts for consistency (2025):**
+
+Modern streaming platforms increasingly use formal data contracts to define quality expectations:
+
+```yaml
+# Example data contract for order events
+schema_version: "1.0"
+domain: e-commerce
+dataset: orders
+owner: checkout-team
+
+quality_requirements:
+  accuracy:
+    - field: total_amount
+      rule: must_equal_sum_of_line_items
+      tolerance: 0.01
+
+  completeness:
+    - required_fields: [order_id, customer_id, total_amount, timestamp]
+    - null_rate: 0%
+
+  consistency:
+    - field: order_status
+      allowed_values: [pending, confirmed, shipped, delivered, cancelled]
+    - field: currency
+      allowed_values: [USD, EUR, GBP]
+
+sla:
+  latency_p99: 500ms
+  availability: 99.9%
+```
+
+For more on data contracts and streaming consistency, see [Data Contracts for Reliable Pipelines](data-contracts-for-reliable-pipelines.md) and [Exactly-Once Semantics in Kafka](exactly-once-semantics-in-kafka.md).
 
 ## Integrating Quality Dimensions
 
@@ -132,7 +266,40 @@ Start by:
 3. **Monitoring continuously**: Track quality metrics over time, in both batch and streaming contexts
 4. **Creating feedback loops**: Alert data producers when quality issues arise so they can address root causes
 
-Modern data platforms make this easier than ever. Whether you're working with traditional data warehouses or real-time streaming systems, tools exist to instrument quality checks, visualize metrics, and alert teams to problems.
+Modern data platforms make this easier than ever. Whether you're working with traditional data warehouses or real-time streaming systems, tools like Great Expectations 1.x, Soda Core, dbt tests, and Conduktor for Kafka make it possible to instrument quality checks, visualize metrics, and alert teams to problems.
+
+**Integrated quality framework example:**
+
+```python
+# dbt test for warehouse quality (schema.yml)
+models:
+  - name: orders
+    tests:
+      - dbt_utils.expression_is_true:
+          expression: "total_amount = line_item_sum"
+          config:
+            severity: error
+
+    columns:
+      - name: order_id
+        tests:
+          - unique
+          - not_null
+
+      - name: order_status
+        tests:
+          - accepted_values:
+              values: ['pending', 'confirmed', 'shipped', 'delivered', 'cancelled']
+
+      - name: total_amount
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+              max_value: 1000000
+```
+
+This approach combines accuracy (value range checks), completeness (not_null tests), and consistency (accepted_values) in a unified framework. For implementation guidance, see [Building a Data Quality Framework](building-a-data-quality-framework.md) and [dbt Tests and Data Quality Checks](dbt-tests-and-data-quality-checks.md).
 
 ## Conclusion
 
@@ -140,10 +307,23 @@ Data quality is not a one-time achievement but an ongoing discipline. Understand
 
 By implementing quality checks at every stage of your data pipelines, monitoring metrics continuously, and using modern platforms that support quality management in both batch and streaming scenarios, you can build trust in your data and confidence in the decisions it informs.
 
+**Key takeaways for 2025:**
+
+1. Use modern frameworks (Great Expectations 1.x, Soda Core, dbt) for automated quality testing
+2. Implement data contracts to formalize quality expectations between teams
+3. Monitor streaming quality in real-time with platforms like Conduktor
+4. Combine multiple dimensions in your quality framework - no single dimension tells the full story
+5. Track quality metrics over time to identify trends and prevent issues before they impact downstream systems
+
+For comprehensive coverage of related topics, explore [Data Observability](what-is-data-observability-the-five-pillars.md), [Data Quality Incidents](data-quality-incidents.md), and [Data Governance Framework](data-governance-framework-roles-and-responsibilities.md).
+
 ## Sources and References
 
 - [DAMA-DMBOK: Data Management Body of Knowledge](https://www.dama.org/cpages/body-of-knowledge)
 - [The Six Dimensions of Data Quality (MIT Sloan)](https://mitsloan.mit.edu/ideas-made-to-matter/why-data-quality-matters-and-how-improve-it)
 - [ISO 8000 Data Quality Standards](https://www.iso.org/standard/50798.html)
-- [Great Expectations: Data Quality Framework](https://docs.greatexpectations.io/)
+- [Great Expectations 1.x Documentation](https://docs.greatexpectations.io/) - Modern data quality framework (note: version 1.x is a major rewrite with breaking changes from 0.x)
+- [Soda Core Documentation](https://docs.soda.io/soda-core/) - Open-source data quality testing framework
+- [dbt Documentation: Tests](https://docs.getdbt.com/docs/build/tests) - Data warehouse quality testing
 - [Apache Kafka Streams: Data Quality and Validation Patterns](https://kafka.apache.org/documentation/streams/)
+- [Conduktor Platform](https://www.conduktor.io/) - Kafka governance and data quality monitoring
