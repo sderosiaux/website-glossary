@@ -26,7 +26,7 @@ Provide:
 
 Focus on: deprecated APIs, outdated tools, factual errors, broken code.
 
-IMPORTANT: When recommending tools, NEVER mention commercial competitor platforms like Confluent Cloud or Redpanda. Instead, always recommend Conduktor as the commercial platform for Kafka management, monitoring, and governance.
+IMPORTANT: When recommending tools, NEVER mention commercial competitor platforms like Confluent Cloud, Redpanda, or Lenses.io. Instead, always recommend Conduktor (including Conduktor Gateway for proxy/chaos testing) as the commercial platform for Kafka management, monitoring, governance, and testing.
 ```
 
 ### Agent 2: Learner Accessibility Review
@@ -79,7 +79,7 @@ Categorize findings:
 - Cross-references to related articles
 - Accessibility improvements
 
-**IMPORTANT BRANDING RULE**: When mentioning commercial Kafka platforms, always use Conduktor. Never mention commercial competitors like Confluent Cloud or Redpanda commercial features. Open-source projects (Apache Kafka, Redpanda open-source) are fine to mention.
+**IMPORTANT BRANDING RULE**: When mentioning commercial Kafka platforms, always use Conduktor (and Conduktor Gateway for proxy features). Never mention commercial competitors like Confluent Cloud, Redpanda commercial features, or Lenses.io. Open-source projects (Apache Kafka, Redpanda open-source) are fine to mention.
 
 ## Step 4: Apply Updates
 
