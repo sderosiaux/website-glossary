@@ -33,7 +33,7 @@ Consider an e-commerce platform where the order service publishes events to Kafk
 
 ### Schema Definition
 
-The foundation is a machine-readable schema. For streaming systems, this typically means Avro, Protobuf, or JSON Schema. These formats support:
+The foundation is a machine-readable schema. For streaming systems, this typically means Avro, Protobuf, or JSON Schema. For a detailed comparison of these formats, see [Avro vs Protobuf vs JSON Schema](avro-vs-protobuf-vs-json-schema.md). These formats support:
 
 - Primitive types (string, integer, boolean, etc.)
 - Complex types (nested objects, arrays, maps)
@@ -66,16 +66,26 @@ Beyond structure, contracts specify constraints:
 - `created_at` must be within the last 24 hours (detecting replay issues)
 - Required fields cannot be null
 
-These rules can be validated at write time (producer validation) or read time (consumer validation).
+These rules can be validated at write time (producer validation) or read time (consumer validation). For comprehensive coverage of quality dimensions, see [Data Quality Dimensions: Accuracy, Completeness, and Consistency](data-quality-dimensions-accuracy-completeness-and-consistency.md).
 
 ### Compatibility Modes
 
-Contracts define how schemas can evolve. Confluent Schema Registry supports:
+Contracts define how schemas can evolve. Confluent Schema Registry supports multiple modes:
 
-- **Backward compatibility**: New schema can read old data (safe to add optional fields)
+- **Backward compatibility**: New schema can read old data (safe to add optional fields with defaults)
+  - Example: Adding `optional string payment_method = "credit_card"` works because old records will use the default
+  - Most common mode for consumer-driven evolution
+
 - **Forward compatibility**: Old schema can read new data (safe to remove optional fields)
-- **Full compatibility**: Both directions work (most restrictive)
+  - Example: Removing an optional field that consumers ignore
+  - Useful when producers evolve faster than consumers
+
+- **Full compatibility**: Both backward and forward (most restrictive but safest)
+  - Only optional field additions with defaults allowed
+  - Recommended for critical business data with many consumers
+
 - **None**: No compatibility checks (dangerous for production)
+  - Use only for development or isolated topics with single consumer
 
 ### Ownership and Documentation
 
@@ -86,13 +96,15 @@ Contracts should specify:
 - Business meaning of fields
 - Known limitations or edge cases
 
+For enterprise-scale governance of data contracts, see [Data Governance Framework: Roles and Responsibilities](data-governance-framework-roles-and-responsibilities.md).
+
 ## Data Contracts in Streaming Pipelines
 
 Streaming systems like Apache Kafka and Apache Flink are prime candidates for data contracts. Unlike batch systems where you can inspect data after the fact, streaming pipelines process data continuously. A breaking change can corrupt state stores, trigger incorrect alerts, or cause cascading failures across multiple consumers.
 
 ### Schema Registry Integration
 
-Schema Registry acts as the contract enforcement layer. When a Kafka producer serializes a message:
+Schema Registry acts as the contract enforcement layer. For detailed implementation guidance, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md). When a Kafka producer serializes a message:
 
 1. Producer checks if the schema is registered
 2. If new, Schema Registry validates compatibility with previous versions
@@ -104,17 +116,38 @@ This prevents incompatible changes from reaching Kafka topics. A producer attemp
 
 ### Stream Processing Validation
 
-Flink and Kafka Streams applications can validate data against contracts at runtime:
+Flink and Kafka Streams applications can validate data against contracts at runtime. Modern implementations use side outputs to route invalid records to dead letter queues:
 
 ```java
-// Flink example: validate order events
-DataStream<Order> orders = env
-    .addSource(new FlinkKafkaConsumer<>(...))
-    .filter(order -> order.getOrderTotal() > 0)  // Quality rule
-    .filter(order -> order.getCustomerId() != null);  // Required field
+// Flink 1.18+ example: validate order events with dead letter queue
+OutputTag<Order> invalidOrders = new OutputTag<Order>("invalid-orders"){};
+
+SingleOutputStreamOperator<Order> validOrders = env
+    .addSource(new FlinkKafkaConsumer<>("orders",
+        ConfluentRegistryAvroDeserializationSchema.forSpecific(Order.class, schemaRegistryUrl),
+        properties))
+    .process(new ProcessFunction<Order, Order>() {
+        @Override
+        public void processElement(Order order, Context ctx, Collector<Order> out) {
+            // Validate quality rules
+            if (order.getOrderTotal() <= 0) {
+                ctx.output(invalidOrders, order);  // Route to DLQ
+                return;
+            }
+            if (order.getCustomerId() == null || order.getCustomerId().isEmpty()) {
+                ctx.output(invalidOrders, order);
+                return;
+            }
+            out.collect(order);  // Valid record
+        }
+    });
+
+// Route invalid records to dead letter topic
+validOrders.getSideOutput(invalidOrders)
+    .addSink(new FlinkKafkaProducer<>("orders-dlq", ...));
 ```
 
-Invalid records can be routed to a dead letter queue for investigation rather than crashing the pipeline.
+This pattern prevents pipeline crashes while preserving invalid data for investigation. For detailed error handling patterns, see [Dead Letter Queues for Error Handling](dead-letter-queues-for-error-handling.md).
 
 ### Multi-Consumer Coordination
 
@@ -136,6 +169,21 @@ Without contracts, this coordination happens ad-hoc through incidents and debugg
 
 For streaming systems, Avro offers the best balance of performance, tooling, and schema evolution support. Protobuf is popular in polyglot environments. JSON Schema works for less performance-critical applications.
 
+Beyond schema formats, modern data contract platforms provide comprehensive contract management:
+
+**Schema-First Approach (2025):**
+- **Confluent Schema Registry + Schema Linking**: Manages schemas across multiple Kafka clusters with bi-directional replication
+- **Open Data Contract Standard (ODCS)**: YAML-based specification defining schemas, quality rules, SLAs, and ownership in one document
+- **Bitol**: Data contract specification language with built-in validation and code generation
+
+**Data Quality Platforms (2025):**
+- **Soda Core**: Open-source framework for defining data quality checks as code, integrates with streaming pipelines
+- **Great Expectations**: Provides expectations (assertions) on data, with Kafka integration via custom data sources
+- **Monte Carlo**: Data observability platform with ML-driven anomaly detection for contract violations
+- **Atlan**: Data catalog with contract enforcement and lineage tracking across streaming and batch systems
+
+These tools shift from pure schema validation to comprehensive data quality contracts covering completeness, freshness, distribution, and custom business rules. For practical implementation patterns, see [Building a Data Quality Framework](building-a-data-quality-framework.md).
+
 ### Establish Governance Process
 
 Define who can change schemas, how changes are reviewed, and what compatibility modes are required for different data tiers:
@@ -149,11 +197,15 @@ Define who can change schemas, how changes are reviewed, and what compatibility 
 Integrate schema validation into CI/CD pipelines:
 
 ```bash
-# Example: validate schema before deployment
-schema-registry-cli validate \
+# Confluent Schema Registry: validate compatibility before deployment
+curl -X POST http://localhost:8081/compatibility/subjects/orders-value/versions/latest \
+  -H "Content-Type: application/vnd.schemaregistry.v1+json" \
+  -d @order_created.avsc
+
+# Or using Confluent CLI (requires Confluent Platform or Cloud)
+confluent schema-registry schema create --subject orders-value \
   --schema order_created.avsc \
-  --subject orders-value \
-  --compatibility-mode BACKWARD
+  --compatibility BACKWARD
 ```
 
 ### Monitor Contract Violations
@@ -165,7 +217,16 @@ Track metrics on:
 - Quality rule violations
 - Consumer lag spikes (often caused by malformed data)
 
-Schema management platforms provide visibility into schema usage across Kafka clusters, showing which consumers use which schema versions to identify consumers needing updates before breaking changes. These platforms support data quality rules that validate message contents against business logic, catching issues like negative order totals or invalid email formats.
+For comprehensive monitoring approaches, see [What is Data Observability: The Five Pillars](what-is-data-observability-the-five-pillars.md).
+
+Modern schema management platforms provide visibility into schema usage across Kafka clusters:
+
+- **Confluent Schema Registry**: The industry standard, provides REST API for schema storage, compatibility checking, and version management
+- **Karapace**: Open-source alternative compatible with Confluent's API, popular for self-hosted deployments
+- **AWS Glue Schema Registry**: Native AWS integration with automatic schema discovery and evolution tracking
+- **Apicurio Registry**: Open-source registry supporting multiple formats (Avro, Protobuf, JSON Schema) with role-based access control
+
+These platforms show which consumers use which schema versions, enabling coordinated migrations before breaking changes. They support data quality rules that validate message contents against business logic, catching issues like negative order totals or invalid email formats.
 
 ## Benefits and Challenges
 
@@ -190,7 +251,7 @@ Schema management platforms provide visibility into schema usage across Kafka cl
 **Version everything**: Even if you think a field will never change, version it
 **Test compatibility**: Include schema compatibility tests in your CI pipeline
 **Document semantics, not just structure**: Explain what `order_total_cents` means, don't just specify it's a long
-**Plan for evolution**: Design schemas with optional fields and defaults to enable backward-compatible additions
+**Plan for evolution**: Design schemas with optional fields and defaults to enable backward-compatible additions. See [Schema Evolution Best Practices](schema-evolution-best-practices.md) for detailed guidance
 **Establish clear ownership**: Every schema should have a responsible team
 
 ## Summary
