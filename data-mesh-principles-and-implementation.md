@@ -18,6 +18,12 @@ As organizations scale their data operations, traditional centralized data archi
 
 Data Mesh is a socio-technical approach to data architecture introduced by Zhamak Dehghani in 2019. Rather than treating data as a byproduct collected in a central repository, Data Mesh treats data as a product owned and maintained by the teams closest to its source—the domain teams themselves.
 
+**Key Terms:**
+- **SLA (Service Level Agreement)**: A commitment about performance metrics like availability (99.9% uptime) or latency (< 5 minute delay)
+- **ETL (Extract, Transform, Load)**: The traditional process of moving data from sources to a data warehouse
+- **Domain**: A distinct area of business logic (e.g., orders, customers, inventory in an e-commerce system)
+- **Avro**: A binary data serialization format commonly used with Kafka for schemas
+
 The core insight is that the team building an e-commerce checkout system understands checkout data better than any central data team ever could. They know its semantics, quality issues, and how it should be modeled. Data Mesh leverages this domain expertise by making these teams responsible for publishing high-quality data products that other teams can consume.
 
 This represents a fundamental shift from "data as a side effect" to "data as a first-class concern" within each domain.
@@ -43,6 +49,8 @@ For example, a "customer-events-v1" data product might include:
 - Access controls and compliance documentation
 - Usage examples and documentation
 
+For detailed guidance on building and managing data products, see [Building and Managing Data Products](building-and-managing-data-products.md). For governance aspects, refer to [Data Product Governance](data-product-governance.md).
+
 ### Self-Serve Data Infrastructure as a Platform
 
 To enable domain teams to own their data products without becoming infrastructure experts, organizations need a self-serve data platform. This platform provides standardized tools for creating, publishing, discovering, and consuming data products.
@@ -51,7 +59,7 @@ The platform handles cross-cutting concerns like deployment, monitoring, access 
 
 ### Federated Computational Governance
 
-Rather than centralized control, governance in Data Mesh is federated across domains but standardized through computational policies. These policies are encoded as automated checks rather than manual review processes.
+Rather than centralized control, governance in Data Mesh is federated across domains but standardized through computational policies. In simpler terms: each domain team governs their own data products, but they all follow the same automated rules that are enforced by code rather than manual reviews.
 
 For instance, policies might automatically enforce:
 - Schema compatibility rules (e.g., no breaking changes without version bumps)
@@ -59,7 +67,7 @@ For instance, policies might automatically enforce:
 - Naming conventions and metadata requirements
 - Quality thresholds before publishing
 
-This allows domains to move fast while maintaining organizational standards.
+This allows domains to move fast while maintaining organizational standards. For comprehensive coverage of governance frameworks, see [Data Governance Framework: Roles and Responsibilities](data-governance-framework-roles-and-responsibilities.md).
 
 ## Data Mesh vs Traditional Architectures
 
@@ -157,15 +165,15 @@ Data Mesh and streaming technologies like Apache Kafka are natural complements. 
 └───────────────────────┬──────────────────────────────┘
                         │
                         ▼
-         ┌──────────────────────────────┐
-         │  Self-Serve Platform Layer   │
-         ├──────────────────────────────┤
-         │ • Schema Registry            │
-         │ • Topic Discovery Catalog    │
-         │ • Access Control Portal      │
-         │ • Data Quality Checks        │
-         │ • Monitoring & Alerting      │
-         └──────────┬───────────────────┘
+         ┌──────────────────────────────────────────┐
+         │      Self-Serve Platform Layer           │
+         ├──────────────────────────────────────────┤
+         │ • Schema Registry (version management)   │
+         │ • Topic Discovery Catalog (find data)    │
+         │ • Access Control Portal (permissions)    │
+         │ • Data Quality Checks (validation)       │
+         │ • Monitoring & Alerting (health)         │
+         └──────────┬───────────────────────────────┘
                     │
        ┌────────────┼────────────┐
        ▼            ▼            ▼
@@ -179,13 +187,75 @@ Data Mesh and streaming technologies like Apache Kafka are natural complements. 
 
 **Real-time data products**: Instead of batch-only data products, streaming enables real-time data products. A "customer-events-v1" Kafka topic becomes a continuously updated data product.
 
-**Schema governance**: Kafka's Schema Registry provides the foundation for data contracts, version management, and compatibility checks—key requirements for the "data as a product" principle.
+**Schema governance**: Kafka's Schema Registry provides the foundation for data contracts, version management, and compatibility checks—key requirements for the "data as a product" principle. For details on schema management strategies, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md) and [Schema Evolution Best Practices](schema-evolution-best-practices.md).
 
-**Self-serve infrastructure**: Streaming management tools can provide a self-serve layer on top of Kafka, allowing domain teams to create topics, manage schemas, and configure access controls without deep Kafka expertise. This addresses the "self-serve infrastructure" principle.
+**Self-serve infrastructure**: Platforms like Conduktor provide a self-serve layer on top of Kafka, allowing domain teams to create topics, manage schemas, and configure access controls through intuitive interfaces without requiring deep Kafka expertise. This addresses the "self-serve infrastructure" principle by democratizing access to streaming infrastructure.
 
 Consumers can discover this data product through a catalog, understand its schema and SLAs, and request access—all without contacting the order team directly.
 
-Streaming governance platforms help with federated governance by enforcing naming conventions, schema compatibility rules, and access policies automatically across all domains, ensuring standards are maintained while allowing teams to operate independently.
+Tools like Conduktor Gateway help with federated governance by acting as a proxy layer that enforces naming conventions, schema compatibility rules, data quality checks, and access policies automatically across all domains. This ensures organizational standards are maintained while allowing teams to operate independently—critical for scaling Data Mesh implementations.
+
+## Modern Data Mesh Patterns (2024-2025)
+
+As Data Mesh has matured, several patterns and practices have emerged as industry standards:
+
+### Data Contracts
+
+Data contracts have become essential for Data Mesh implementations. A data contract is a formal agreement between data producers and consumers that specifies:
+
+```yaml
+# Example data contract for a data product
+contract:
+  name: order-events-v1
+  owner: orders-domain-team
+  schema:
+    format: avro
+    version: 1.2.0
+    compatibility: backward
+  sla:
+    availability: 99.9%
+    latency_p99: 1000ms
+    freshness: 60s
+  quality:
+    completeness: 99%
+    validity_rules:
+      - order_total > 0
+      - customer_id is not null
+```
+
+Data contracts provide clear expectations and enable automated validation. When a producer attempts to publish data that violates the contract, it's rejected immediately—preventing data quality issues from propagating downstream.
+
+### Data Product Observability
+
+Modern Data Mesh implementations include comprehensive observability for each data product:
+
+- **Performance metrics**: Throughput, latency, consumer lag
+- **Quality metrics**: Completeness, validity, consistency scores
+- **Usage analytics**: Active consumers, query patterns, access frequency
+- **Cost attribution**: Infrastructure costs allocated per data product
+
+This observability enables domain teams to treat data products like software products, with clear SLIs (Service Level Indicators) and SLOs (Service Level Objectives). For understanding quality metrics, see [Data Quality Dimensions: Accuracy, Completeness, and Consistency](data-quality-dimensions-accuracy-completeness-and-consistency.md).
+
+### Kafka 4.0 and KRaft
+
+Apache Kafka 4.0 (released 2024) eliminates ZooKeeper dependency through KRaft consensus. This simplifies Data Mesh implementations by:
+
+- Reducing infrastructure complexity (fewer components to manage)
+- Improving metadata operations (faster topic creation, partition rebalancing)
+- Enabling better multi-tenancy through improved controller scalability
+
+For Data Mesh, this means domain teams can create and manage data products with less operational overhead and faster provisioning times.
+
+### Cost Allocation and Chargeback
+
+As Data Mesh scales, organizations need mechanisms to allocate infrastructure costs to domain teams. Modern implementations track:
+
+- Storage costs per topic (data product)
+- Compute costs for processing (Kafka Streams, Flink applications)
+- Network transfer costs
+- Schema Registry and catalog usage
+
+This enables internal chargeback models where domain teams have "skin in the game" for their data products' efficiency.
 
 ## Practical Implementation Steps
 
@@ -195,7 +265,7 @@ Organizations looking to adopt Data Mesh should follow an incremental approach:
 
 2. **Define data product standards**: Establish what constitutes a good data product—schema requirements, documentation, SLAs, etc.
 
-3. **Build platform capabilities**: Start with basic self-serve capabilities like topic creation, schema management, and access control. Expand based on domain team feedback.
+3. **Build platform capabilities**: Start with basic self-serve capabilities like topic creation, schema management, and access control. Expand based on domain team feedback. For topic design guidance, see [Kafka Topic Design Guidelines](kafka-topic-design-guidelines.md).
 
 4. **Implement computational governance**: Encode key policies as automated checks (schema validation, naming conventions, quality metrics).
 
@@ -218,5 +288,5 @@ Organizations should start small, prove value with pilot domains, and expand inc
 1. Dehghani, Zhamak. "Data Mesh: Delivering Data-Driven Value at Scale." O'Reilly Media, 2022.
 2. Dehghani, Zhamak. "How to Move Beyond a Monolithic Data Lake to a Distributed Data Mesh." Martin Fowler's website, 2019. [https://martinfowler.com/articles/data-monolith-to-mesh.html](https://martinfowler.com/articles/data-monolith-to-mesh.html)
 3. Dehghani, Zhamak. "Data Mesh Principles and Logical Architecture." Martin Fowler's website, 2020. [https://martinfowler.com/articles/data-mesh-principles.html](https://martinfowler.com/articles/data-mesh-principles.html)
-4. Confluent. "Data Mesh with Confluent Platform." Confluent documentation and blog posts. [https://www.confluent.io/](https://www.confluent.io/)
+4. Apache Kafka Documentation. "Kafka Architecture and Design." Official documentation covering topics, schemas, and governance. [https://kafka.apache.org/documentation/](https://kafka.apache.org/documentation/)
 5. Thoughtworks Technology Radar. "Data Mesh." Multiple editions covering Data Mesh adoption and patterns. [https://www.thoughtworks.com/radar](https://www.thoughtworks.com/radar)
