@@ -23,15 +23,15 @@ This phenomenon is particularly acute in streaming architectures, where the velo
 
 The most immediate symptom of data obesity is degraded performance. Massive, uncurated datasets slow down every operation that touches them. Query latency increases. Batch jobs take hours instead of minutes. Real-time systems start to lag.
 
-In streaming environments, this manifests as "fat" payloads that cause backpressure throughout the pipeline. When event producers serialize entire database rows—including large BLOB fields, audit columns, and metadata that downstream consumers never touch—they force every component in the chain to process, transmit, and store unnecessary bytes.
+In streaming environments, this manifests as "fat" payloads that cause backpressure (downstream processing slowdowns due to overwhelming data volume) throughout the pipeline. When event producers serialize entire database rows—including large BLOB fields, audit columns, and metadata that downstream consumers never touch—they force every component in the chain to process, transmit, and store unnecessary bytes. For detailed coverage of backpressure patterns, see [Backpressure Handling in Streaming Systems](backpressure-handling-in-streaming-systems.md).
 
-A Kafka consumer that needs only a customer ID and purchase amount shouldn't receive a 50KB payload containing product images, full address history, and marketing preferences. Yet this pattern is common in Change Data Capture (CDC) implementations where convenience takes precedence over efficiency.
+A Kafka consumer that needs only a customer ID and purchase amount shouldn't receive a 50KB payload containing product images, full address history, and marketing preferences. Yet this pattern is common in Change Data Capture (CDC)—the process of capturing database changes as events—implementations where convenience takes precedence over efficiency. For more on CDC patterns, refer to [What is Change Data Capture (CDC)](what-is-change-data-capture-cdc-fundamentals.md).
 
 ### Operational Rigidity: Loss of Agility
 
 Obese data systems are difficult to maneuver. What should be routine operations—upgrading a database, migrating to a new cloud region, implementing a new storage tier—become high-risk, multi-month projects.
 
-The cost isn't just time. When your streaming platform contains 500TB of data with 90-day retention, even small architectural changes require careful choreography. Reprocessing historical data becomes prohibitively expensive. Testing new features against realistic data volumes becomes impractical. Teams become locked into legacy architectures simply because the migration path is too daunting.
+The cost isn't just time. When your streaming platform contains 500TB of data with 90-day retention, even small architectural changes require careful choreography. Reprocessing historical data becomes prohibitively expensive. Testing new features against realistic data volumes becomes impractical. Teams become locked into legacy architectures simply because the migration path is too daunting. For capacity planning strategies to avoid this rigidity, see [Kafka Capacity Planning](kafka-capacity-planning.md).
 
 This rigidity creates a dangerous cycle: the system becomes harder to change, so technical debt accumulates, making future changes even more difficult.
 
@@ -71,15 +71,28 @@ The rationale is usually defensive: "We might need this data someday." But indef
 
 Effective streaming architectures distinguish between hot data (active processing), warm data (recent historical queries), and cold data (long-term archival). Conflating these tiers in a single Kafka cluster creates unnecessary burden.
 
+For cold data archival, modern lakehouse architectures provide better economics and query capabilities than indefinite Kafka retention. Streaming data to Delta Lake or Apache Iceberg tables enables cost-effective long-term storage with ACID guarantees and SQL analytics. For details on lakehouse patterns, see [Introduction to Lakehouse Architecture](introduction-to-lakehouse-architecture.md) and [Streaming to Lakehouse Tables](streaming-to-lakehouse-tables.md).
+
+**Modern Solution: Tiered Storage (Kafka 3.6+)**
+
+Kafka's tiered storage feature (production-ready as of Kafka 3.6) addresses the retention obesity problem by automatically moving older log segments to object storage (S3, Azure Blob, GCS) while keeping recent data on local disks. This enables:
+
+- **Unlimited retention at reduced cost**: Store years of data at object storage prices instead of high-performance disk
+- **Faster broker operations**: Local disk contains only hot data, speeding up recovery and rebalancing
+- **Cost optimization**: Pay ~$0.02/GB/month for cold data vs. ~$0.10/GB/month for provisioned disk
+- **Simplified operations**: No manual archival pipelines or separate long-term storage systems
+
+For organizations on Kafka 4.0+ with KRaft mode, tiered storage becomes even more efficient due to improved metadata handling and elimination of ZooKeeper coordination overhead. This combination represents the modern approach to retention management without infrastructure obesity. For more on Kafka's evolution, see [Understanding KRaft Mode in Kafka](understanding-kraft-mode-in-kafka.md) and [Tiered Storage in Kafka](tiered-storage-in-kafka.md).
+
 ### Backpressure Cascades
 
-When producers overwhelm consumers with "obese" streams, backpressure propagates upstream. Consumers fall behind, lag metrics increase, and the system enters a degraded state where catch-up becomes impossible without intervention.
+When producers overwhelm consumers with "obese" streams, backpressure propagates upstream. Consumers fall behind, lag metrics increase, and the system enters a degraded state where catch-up becomes impossible without intervention. For monitoring techniques to detect and respond to consumer lag, see [Consumer Lag Monitoring](consumer-lag-monitoring.md).
 
 This often creates a vicious cycle:
 1. Fat payloads slow consumer processing
 2. Consumers fall behind, increasing memory pressure
 3. Out-of-memory errors force restarts
-4. Restarts cause rebalancing, further slowing the consumer group
+4. Restarts cause rebalancing (redistribution of partitions across consumer instances), further slowing the consumer group
 5. Meanwhile, producers continue adding data, widening the gap
 
 ## Real-World Impact: Case Studies
@@ -121,25 +134,79 @@ Configure Single Message Transforms (SMTs) to:
 - Filter out rows that don't meet relevance criteria
 - Extract nested structures into separate topics
 
+For detailed SMT patterns, see [Kafka Connect: Single Message Transforms](kafka-connect-single-message-transforms.md).
+
+Example connector configuration to reduce payload obesity:
+
+```json
+{
+  "name": "postgres-cdc-connector",
+  "config": {
+    "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+    "tasks.max": "1",
+    "database.hostname": "postgres.example.com",
+    "database.port": "5432",
+    "database.user": "debezium",
+    "database.dbname": "orders",
+    "topic.prefix": "cdc",
+    "transforms": "dropFields,filterLargeImages,route",
+    "transforms.dropFields.type": "org.apache.kafka.connect.transforms.ReplaceField$Value",
+    "transforms.dropFields.exclude": "internal_notes,audit_log,created_by_ip",
+    "transforms.filterLargeImages.type": "org.apache.kafka.connect.transforms.Filter",
+    "transforms.filterLargeImages.predicate": "hasLargeBlob",
+    "predicates": "hasLargeBlob",
+    "predicates.hasLargeBlob.type": "org.apache.kafka.connect.transforms.predicates.RecordIsTombstone"
+  }
+}
+```
+
+This configuration drops audit fields, filters records with large BLOBs, and routes lean events to appropriate topics—reducing payload sizes by 70-90%.
+
 **For application producers:**
 - Implement schema-driven serialization (Avro, Protobuf)
 - Design events with consumer needs in mind, not just producer convenience
 - Use event types with specific purposes rather than generic "data dump" events
+- Establish data contracts that define payload expectations and SLAs
+
+For establishing clear expectations between producers and consumers, see [Data Contracts for Reliable Pipelines](data-contracts-for-reliable-pipelines.md). For overall topic design principles, refer to [Kafka Topic Design Guidelines](kafka-topic-design-guidelines.md).
 
 ### Aggressive Compaction
 
-For topics maintaining current state (e.g., customer profiles, product catalogs), log compaction automatically removes historical values for each key, retaining only the latest.
+For topics maintaining current state (e.g., customer profiles, product catalogs), log compaction automatically removes historical values for each key, retaining only the latest. For deep dive into compaction mechanics, see [Kafka Log Compaction Explained](kafka-log-compaction-explained.md).
 
-Compaction strategies:
-- Enable `cleanup.policy=compact` for state topics
-- Tune `min.cleanable.dirty.ratio` to trigger compaction more frequently
-- Use `delete.retention.ms` to remove tombstones after a defined period
+Compaction strategies and configuration example:
+
+```properties
+# Topic configuration for state management
+cleanup.policy=compact
+# Trigger compaction when 50% of log contains old values (default: 50%)
+min.cleanable.dirty.ratio=0.5
+# More aggressive: trigger at 30% for faster space recovery
+# min.cleanable.dirty.ratio=0.3
+
+# Minimum time before a message can be compacted (default: 0)
+min.compaction.lag.ms=0
+# Maximum time before forcing compaction (default: Long.MAX_VALUE)
+max.compaction.lag.ms=86400000  # 24 hours
+
+# Tombstone retention (how long delete markers remain)
+delete.retention.ms=86400000  # 24 hours
+
+# Segment settings that affect compaction efficiency
+segment.ms=3600000  # 1 hour - smaller segments compact faster
+segment.bytes=104857600  # 100MB
+```
+
+**Recommended configuration for obesity prevention:**
+- State topics: `cleanup.policy=compact` with aggressive `min.cleanable.dirty.ratio=0.3`
+- Event topics: `cleanup.policy=delete` with retention based on actual query patterns (typically 7-30 days)
+- Hybrid: `cleanup.policy=compact,delete` for state topics that also need time-based expiration
 
 For topics with time-series data, implement retention policies aligned with actual query patterns. If 95% of queries touch data from the last 7 days, 90-day retention may be excessive.
 
 ### Schema Evolution and Projection
 
-As consumer needs evolve, schemas should too. Removing deprecated fields prevents perpetuating obesity through inertia.
+As consumer needs evolve, schemas should too. Removing deprecated fields prevents perpetuating obesity through inertia. For comprehensive coverage of schema management, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md) and [Schema Evolution Best Practices](schema-evolution-best-practices.md).
 
 Strategies:
 - Use schema registries to version and govern event structures
@@ -150,6 +217,8 @@ Strategies:
 - `order.created.minimal` (10 fields for real-time dashboards)
 - `order.created.full` (50 fields for data warehouse)
 - `order.created.audit` (20 fields for compliance systems)
+
+For serialization format comparisons that impact payload size, refer to [Avro vs Protobuf vs JSON Schema](avro-vs-protobuf-vs-json-schema.md).
 
 ## Governance as Prevention
 
@@ -163,7 +232,13 @@ You can't manage what you don't measure. Effective governance requires visibilit
 - Consumer utilization (which fields are actually accessed)
 - Cost attribution (which teams/services drive storage and network costs)
 
-Platforms like Conduktor provide this observability layer, making invisible data flows visible and quantifiable.
+Modern tooling for data obesity monitoring:
+- **Conduktor Platform**: Comprehensive Kafka management with payload inspection, schema governance, and cost tracking dashboards
+- **Conduktor Gateway**: Data governance proxy that can enforce payload size limits, schema validation, and consumption quotas in real-time
+- **Kafka Lag Exporter**: Open-source tool for monitoring consumer lag patterns that indicate processing bottlenecks
+- **Cruise Control**: LinkedIn's open-source tool for automated cluster rebalancing and capacity planning
+
+For comprehensive governance frameworks, see [Data Governance Framework: Roles and Responsibilities](data-governance-framework-roles-and-responsibilities.md) and [Policy Enforcement in Streaming](policy-enforcement-in-streaming.md).
 
 ### Policy Enforcement
 
@@ -183,6 +258,15 @@ Governance platforms can:
 - Trigger alerts when teams exceed allocated budgets
 
 This economic feedback loop encourages teams to question whether they truly need to stream every field, keep every event, or maintain indefinite retention.
+
+**FinOps for Streaming (2025 Best Practices):**
+Modern organizations apply FinOps principles to streaming infrastructure:
+- **Cost visibility dashboards**: Real-time tracking of per-topic, per-team cloud costs (compute, storage, network egress)
+- **Budget alerts**: Automated notifications when topics exceed allocated spend
+- **Right-sizing recommendations**: ML-driven analysis suggesting optimal partition counts, retention periods, and compression settings
+- **Cross-AZ transfer optimization**: Identifying and minimizing expensive cross-availability-zone traffic
+
+Data obesity directly correlates with "dark data tax"—the hidden costs of maintaining unused or low-value data. For more on this economic challenge, see [Dark Data Tax](dark-data-tax.md) and [Streaming Total Cost of Ownership](streaming-total-cost-of-ownership.md).
 
 ## Summary: Building Sustainable Data Infrastructure
 
@@ -208,14 +292,22 @@ The organizations that thrive in data-intensive environments aren't those that c
 
 1. **Kleppmann, Martin.** "Designing Data-Intensive Applications." O'Reilly Media, 2017. Chapters on data storage patterns and system scalability.
 
-2. **Confluent Documentation.** "Kafka Configuration Reference - Log Compaction." Best practices for managing topic retention and compaction strategies.
+2. **Apache Kafka Documentation.** "Tiered Storage" (Kafka 3.6+). Official documentation on configuring and managing tiered storage for cost-effective retention.
 
-3. **Narkhede, Neha, et al.** "Kafka: The Definitive Guide." O'Reilly Media, 2017. Sections on performance tuning and capacity planning.
+3. **Apache Kafka Documentation.** "KRaft Mode" (Kafka 4.0+). Guide to ZooKeeper-free Kafka operations and improved metadata management.
 
-4. **Beyer, Betsy, et al.** "Site Reliability Engineering: How Google Runs Production Systems." O'Reilly Media, 2016. Chapters on capacity planning and performance management.
+4. **Confluent Documentation.** "Kafka Configuration Reference - Log Compaction." Best practices for managing topic retention and compaction strategies.
 
-5. **DataCouncil Conference Proceedings.** Various talks on data platform economics and ROI measurement (2020-2024).
+5. **Narkhede, Neha, et al.** "Kafka: The Definitive Guide, 2nd Edition." O'Reilly Media, 2021. Updated sections on performance tuning and capacity planning.
 
-6. **Gartner Research.** "The Hidden Costs of Data Infrastructure Obesity." Reports on data management costs and organizational impact (2023-2024).
+6. **Beyer, Betsy, et al.** "Site Reliability Engineering: How Google Runs Production Systems." O'Reilly Media, 2016. Chapters on capacity planning and performance management.
 
-7. **Apache Flink Documentation.** "State Backends and Checkpointing." Guidelines for managing state size in streaming applications.
+7. **FinOps Foundation.** "Cloud FinOps for Streaming Data Platforms" (2025). Best practices for cost optimization and accountability in streaming infrastructure.
+
+8. **DataCouncil Conference Proceedings.** Various talks on data platform economics and ROI measurement (2020-2025).
+
+9. **Gartner Research.** "Managing Data Obesity: Storage Optimization Strategies for Modern Data Platforms." Reports on data management costs and organizational impact (2024-2025).
+
+10. **Apache Flink Documentation.** "State Backends and Checkpointing." Guidelines for managing state size in streaming applications.
+
+11. **Conduktor Documentation.** "Data Governance with Conduktor Gateway" (2025). Real-time policy enforcement and payload management patterns.
