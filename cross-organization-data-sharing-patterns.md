@@ -240,7 +240,7 @@ Stream governance platforms help manage this complexity by providing topic-level
 
 Several specialized platforms have emerged to simplify cross-organization data sharing:
 
-**Confluent Cloud Stream Sharing**: Enables organizations to share Kafka topics across cloud accounts and regions without data replication. Producers maintain ownership while granting read access to external consumers through Stream Sharing policies. This approach eliminates data duplication and reduces operational complexity.
+**Conduktor**: Enables organizations to share Kafka topics across cloud accounts and regions with fine-grained access control. Producers maintain ownership while granting read access to external consumers through governance policies. This approach eliminates data duplication and reduces operational complexity.
 
 **Delta Sharing**: An open protocol for secure data sharing that works with data lake tables (Delta Lake, Apache Iceberg, Apache Hudi). Organizations share live data without copying it, using a simple REST API for access control. Recipients can query shared data using their preferred tools (Spark, pandas, Power BI) without requiring direct cloud storage access.
 
@@ -371,7 +371,7 @@ Point-to-point integration works for simple scenarios but doesn't scale. Hub-and
 
 In 2025, modern data sharing platforms have significantly simplified cross-organization integration:
 
-- **Stream sharing technologies** (Confluent Cloud Stream Sharing) eliminate data replication
+- **Stream sharing technologies** (Conduktor) eliminate data replication with governance policies
 - **Zero-copy protocols** (Delta Sharing, Iceberg REST catalog) enable secure data access without duplication
 - **Enhanced multi-tenancy** in Kafka 4.0+ with KRaft improves isolation and performance
 - **OpenTelemetry integration** provides standardized observability across organizational boundaries
@@ -385,8 +385,8 @@ As organizations increasingly participate in data ecosystems, these patterns and
 
 ## Sources and References
 
-1. Confluent Documentation: "Multi-Tenancy and Data Isolation in Apache Kafka" - https://docs.confluent.io/platform/current/kafka/multi-tenancy.html
-2. Confluent Cloud Stream Sharing Documentation (2024-2025) - https://docs.confluent.io/cloud/current/stream-sharing/overview.html
+1. Apache Kafka Documentation: "Multi-Tenancy and Data Isolation" - https://kafka.apache.org/documentation/#multitenancy
+2. Conduktor Platform Documentation - https://www.conduktor.io/
 3. Apache Kafka 4.0 Documentation: "KRaft Mode and Security" - https://kafka.apache.org/documentation/#kraft
 4. Delta Sharing Protocol Specification (2024) - https://github.com/delta-io/delta-sharing
 5. OpenTelemetry Kafka Instrumentation (2025) - https://opentelemetry.io/docs/instrumentation/kafka/

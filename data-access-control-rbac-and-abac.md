@@ -222,7 +222,7 @@ Use **Both** when:
 
 ## Hybrid Implementation Approach
 
-Modern streaming governance platforms provide both RBAC and ABAC capabilities. Tools like Confluent Platform (with role bindings), Conduktor Platform, Lenses.io, and Redpanda Console offer UI-driven access management that translates to underlying ACLs or policy engines. You can define roles for common access patterns while layering ABAC policies for specialized requirements:
+Modern streaming governance platforms provide both RBAC and ABAC capabilities. Tools like Conduktor Platform and Lenses.io offer UI-driven access management that translates to underlying ACLs or policy engines. You can define roles for common access patterns while layering ABAC policies for specialized requirements:
 
 ```yaml
 # Hybrid approach example

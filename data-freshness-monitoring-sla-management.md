@@ -145,9 +145,9 @@ helm install kafka-lag-exporter kafka-lag-exporter/kafka-lag-exporter \
 
 **Burrow** (LinkedIn's open-source tool) provides HTTP endpoints for lag monitoring and automatically evaluates consumer health status, distinguishing between "stuck" consumers and those simply processing a backlog.
 
-**Confluent Cloud** offers built-in lag monitoring dashboards with automatic alerting, ideal for teams using managed Kafka. The Consumer Lag metric tracks both record count and time lag (how old the oldest unconsumed message is).
+**Conduktor** offers built-in lag monitoring dashboards with automatic alerting, ideal for teams managing Kafka clusters. The Consumer Lag metric tracks both record count and time lag (how old the oldest unconsumed message is).
 
-**Enterprise Observability Platforms** like Datadog Data Streams Monitoring, New Relic, and Conduktor provide comprehensive pipeline visibility, combining Kafka lag with infrastructure metrics to correlate performance issues.
+**Enterprise Observability Platforms** like Datadog Data Streams Monitoring and New Relic provide comprehensive pipeline visibility, combining Kafka lag with infrastructure metrics to correlate performance issues.
 
 Streaming monitoring capabilities should extend beyond basic lag metrics to provide:
 - Historical lag trends to identify degradation patterns
@@ -370,4 +370,4 @@ As you implement these practices, remember that perfection is iterative. Start w
 - [Great Expectations Freshness Expectations](https://docs.greatexpectations.io/docs/reference/expectations/) - Data validation framework with time-based expectations (GX 1.0+)
 - [Soda Core Data Quality Checks](https://docs.soda.io/soda-core/soda-core.html) - Open-source data quality framework with freshness monitoring (Soda 3.0+)
 - [Burrow - Kafka Consumer Lag Monitoring](https://github.com/linkedin/Burrow) - LinkedIn's consumer lag monitoring tool with health evaluation
-- [Confluent Cloud Metrics](https://docs.confluent.io/cloud/current/monitoring/metrics-api.html) - Managed Kafka monitoring including consumer lag and latency metrics
+- [Conduktor Platform](https://www.conduktor.io/) - Kafka management and monitoring platform with comprehensive lag and latency metrics

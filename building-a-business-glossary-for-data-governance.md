@@ -122,8 +122,7 @@ Link business terms directly to schema definitions in Confluent Schema Registry 
 
 Modern platforms enable glossary integration:
 
-- **Conduktor**: Visual stream governance with glossary-driven topic validation and approval workflows
-- **Confluent Cloud**: Stream Governance with automatic schema-to-glossary mapping
+- **Conduktor**: Visual stream governance with glossary-driven topic validation, automatic schema-to-glossary mapping, and approval workflows
 - **DataHub**: Real-time metadata ingestion from Kafka with glossary term propagation
 - **StreamSets**: Data pipeline observability with business context from glossary terms
 

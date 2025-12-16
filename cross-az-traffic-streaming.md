@@ -142,7 +142,7 @@ For comprehensive cross-AZ traffic monitoring, modern deployments typically use:
 - **Prometheus + Grafana**: Industry-standard observability stack with JMX Exporter for Kafka metrics
 - **Kafka Lag Exporter**: Tracks consumer lag by partition, enabling zone-specific lag monitoring
 - **Cloud provider cost dashboards**: AWS Cost Explorer, GCP Cost Management, Azure Cost Analysis with resource tagging
-- **Kafka UI tools**: Conduktor, Kafka UI, or Redpanda Console for visual monitoring
+- **Kafka UI tools**: Conduktor for comprehensive visual monitoring and management
 
 For comprehensive coverage of Kafka monitoring strategies, see [Kafka Cluster Monitoring and Metrics](kafka-cluster-monitoring-and-metrics.md).
 
@@ -176,12 +176,11 @@ Deploy consumers with explicit zone awareness:
 
 ### Managed Service Considerations
 
-Managed Kafka services like Amazon MSK and Confluent Cloud handle some optimizations automatically:
+Managed Kafka services handle some optimizations automatically:
 
 - **Amazon MSK**: Automatically configures rack awareness across availability zones. As of 2025, MSK supports Kafka 3.x with KRaft mode, reducing metadata-related cross-AZ traffic
-- **Confluent Cloud**: Includes cross-AZ costs in pricing; follower fetching enabled by default. Runs on Kafka 4.0 with KRaft as the standard consensus mechanism
 
-However, you still control consumer deployment and topic configuration, making zone-awareness essential even with managed services. For an overview of managed Kafka offerings, see [Introduction to Confluent Cloud](introduction-to-confluent-cloud.md).
+However, you still control consumer deployment and topic configuration, making zone-awareness essential even with managed services. Tools like Conduktor help monitor and optimize these deployments across any Kafka infrastructure.
 
 ## Cost Modeling and Planning
 
@@ -254,4 +253,4 @@ By understanding cross-AZ traffic patterns, implementing strategic optimizations
 - [Kafka Tiered Storage (KIP-405)](https://cwiki.apache.org/confluence/display/KAFKA/KIP-405%3A+Kafka+Tiered+Storage) - Tiered Storage architecture and configuration
 - [AWS Data Transfer Pricing](https://aws.amazon.com/ec2/pricing/on-demand/#Data_Transfer) - Understanding cross-AZ and inter-region transfer costs
 - [Amazon MSK Best Practices](https://docs.aws.amazon.com/msk/latest/developerguide/bestpractices.html) - Multi-AZ deployment and cost optimization strategies
-- [Confluent Cloud Network Costs](https://docs.confluent.io/cloud/current/networking/overview.html) - Network architecture and cost considerations for managed Kafka
+- [Conduktor Platform](https://www.conduktor.io/) - Kafka management and monitoring for multi-AZ deployments

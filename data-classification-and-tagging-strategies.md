@@ -392,9 +392,9 @@ Most production environments use a combination: topic naming for broad organizat
 
 The data governance landscape has evolved significantly, with new tools and platforms specifically designed for streaming data classification and governance.
 
-### Confluent Stream Governance
+### Conduktor Stream Governance
 
-Confluent Platform 7.x+ includes Stream Governance features that integrate classification directly into the data streaming workflow:
+Conduktor provides comprehensive stream governance features that integrate classification directly into the data streaming workflow:
 
 - **Stream Catalog**: Automatic discovery and classification of data streams
 - **Data Quality Rules**: Define and enforce classification-based quality rules
@@ -470,7 +470,7 @@ These tools sync classification metadata bidirectionally with Kafka, ensuring co
 
 ### Field-Level Encryption for Classified Data
 
-For highly sensitive data, Confluent Platform 7.5+ supports field-level encryption that integrates with classification tags:
+For highly sensitive data, modern Kafka platforms support field-level encryption that integrates with classification tags:
 
 ```java
 import io.confluent.kafka.schemaregistry.encryption.FieldEncryptionExecutor;
