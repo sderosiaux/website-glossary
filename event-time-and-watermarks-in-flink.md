@@ -23,7 +23,7 @@ Flink supports three distinct notions of time:
 
 **Ingestion Time** captures the timestamp when an event enters the Flink system. It sits between processing time and event time in terms of determinism and complexity.
 
-For applications requiring accurate temporal reasoning—such as sessionization, fraud detection, or time-based aggregations—event time is essential. However, event time processing introduces complexity: how does the system know when all events for a given time window have arrived?
+For applications requiring accurate temporal reasoning—such as sessionization (see [Session Windows in Stream Processing](session-windows-in-stream-processing.md)), fraud detection, or time-based aggregations—event time is essential. However, event time processing introduces complexity: how does the system know when all events for a given time window have arrived?
 
 ## Watermarks: The Event Time Progress Indicator
 
@@ -91,7 +91,7 @@ public class CustomWatermarkGenerator implements WatermarkGenerator<Event> {
 }
 ```
 
-Flink calls `onPeriodicEmit()` at regular intervals (configured via `pipeline.auto-watermark-interval`), allowing the generator to emit watermarks based on accumulated state.
+Flink calls `onPeriodicEmit()` at regular intervals (configured via `pipeline.auto-watermark-interval`, default 200ms), allowing the generator to emit watermarks based on accumulated state. In production, tune this interval based on your latency requirements: lower values (50-100ms) for low-latency applications, higher values (500ms-1s) for high-throughput batch-oriented workloads.
 
 ## Handling Late Data
 
@@ -127,17 +127,17 @@ SingleOutputStreamOperator<Result> result = stream
 DataStream<Event> lateData = result.getSideOutput(lateDataTag);
 ```
 
-This approach allows separate handling of late events—perhaps logging them for analysis or applying compensating logic.
+This approach allows separate handling of late events—perhaps logging them for analysis or applying compensating logic. For comprehensive coverage of late data strategies beyond watermarks, see [Handling Late Arriving Data in Streaming](handling-late-arriving-data-in-streaming.md).
 
 ## Integration with Kafka and the Streaming Ecosystem
 
-When consuming from Apache Kafka, watermark configuration becomes critical for end-to-end correctness. Kafka topics often contain out-of-order events due to:
+When consuming from Apache Kafka, watermark configuration becomes critical for end-to-end correctness. For foundational understanding of Kafka's architecture and how it relates to stream processing, see [Kafka Topics, Partitions, and Brokers: Core Architecture](kafka-topics-partitions-brokers-core-architecture.md). Kafka topics often contain out-of-order events due to:
 
 - Multiple producers writing concurrently
 - Network delays between producers and brokers
 - Partition-level ordering but not global ordering
 
-Flink's Kafka connector supports per-partition watermark generation. Each partition maintains its own watermark, and Flink merges them by taking the minimum across all partitions:
+Flink's Kafka connector supports per-partition watermark generation. Each partition maintains its own watermark, and Flink merges them by taking the minimum across all partitions. For example, if partition 0 has watermark 12:00:00, partition 1 has 12:00:05, and partition 2 has 11:59:50, Flink uses 11:59:50 as the overall watermark—ensuring no events from any partition are incorrectly processed as late:
 
 ```java
 KafkaSource<Event> source = KafkaSource.<Event>builder()
@@ -155,13 +155,13 @@ DataStream<Event> stream = env.fromSource(
 );
 ```
 
-For visibility into watermark propagation and late data patterns, streaming governance platforms provide monitoring capabilities that surface metrics about event time lag, watermark advancement, and late event rates across your streaming topology. This observability is crucial for tuning watermark strategies in production environments.
+For visibility into watermark propagation and late data patterns, platforms like Conduktor provide comprehensive monitoring capabilities that surface metrics about event time lag, watermark advancement, and late event rates across your streaming topology. These tools offer real-time dashboards for tracking watermark progression, identifying lagging partitions, and alerting on excessive late data—essential capabilities for tuning watermark strategies in production environments.
 
 ## Watermark Alignment and Parallel Streams
 
-In complex topologies with multiple input streams, watermark alignment becomes important. Flink takes the minimum watermark across all inputs to an operator, ensuring no operator processes data beyond any input's event time progress.
+In complex topologies with multiple input streams, watermark alignment becomes important. Flink takes the minimum watermark across all inputs to an operator, ensuring no operator processes data beyond any input's event time progress. For instance, when joining two streams (see [Stream Joins and Enrichment Patterns](stream-joins-and-enrichment-patterns.md)), if stream A has watermark 12:05:00 and stream B has watermark 12:03:00, Flink uses 12:03:00—preventing the join from advancing past timestamps that stream B hasn't yet reached.
 
-This conservative approach prevents incorrect results but can cause pipeline stalls if one partition or source falls behind. Flink 1.15+ introduced watermark alignment features that can pause faster sources to prevent excessive skew:
+This conservative approach prevents incorrect results but can cause pipeline stalls if one partition or source falls behind. Flink 1.15 introduced watermark alignment features (enhanced in 1.18+) that can pause faster sources to prevent excessive skew:
 
 ```java
 KafkaSource<Event> source = KafkaSource.<Event>builder()
@@ -180,6 +180,42 @@ env.fromSource(
 ```
 
 This configuration groups sources into alignment groups and limits the maximum drift between aligned sources, improving throughput while maintaining correctness.
+
+## Modern Watermark Features (Flink 1.18+)
+
+Recent Flink versions have introduced significant improvements to watermark handling:
+
+### Enhanced Watermark Metrics (Flink 1.18+)
+
+Flink 1.18 introduced more granular watermark metrics, exposing per-source and per-operator watermark values through the metrics system. This enables better observability:
+
+```java
+// Watermark metrics are now automatically exposed:
+// - watermarkAlignment.drift: Maximum drift in alignment group
+// - currentInputWatermark: Watermark for each input
+// - currentOutputWatermark: Operator's emitted watermark
+```
+
+These metrics integrate with monitoring systems like Prometheus, allowing teams to track watermark progression and identify bottlenecks in real-time.
+
+### Improved Watermark Propagation (Flink 1.19+)
+
+Flink 1.19 optimized watermark propagation in complex topologies, reducing overhead in pipelines with many operators. The runtime now batches watermark updates more efficiently, improving throughput in watermark-heavy applications by 10-15%.
+
+### Watermark Strategies for Unified Source API
+
+Modern connectors built on the unified Source API (including the Kafka connector used throughout this article) provide better integration with watermark strategies:
+
+```java
+// Flink 1.18+ provides better control over per-partition watermark generation
+WatermarkStrategy<Event> strategy = WatermarkStrategy
+    .<Event>forBoundedOutOfOrderness(Duration.ofSeconds(5))
+    .withTimestampAssigner((event, ts) -> event.getTimestamp())
+    .withIdleness(Duration.ofMinutes(1))
+    .withWatermarkAlignment("alignment-group", Duration.ofSeconds(20));
+```
+
+The unified approach ensures consistent watermark behavior across all source connectors, simplifying configuration and debugging. For deeper exploration of building streaming applications with these APIs, see [Flink DataStream API: Building Streaming Applications](flink-datastream-api-building-streaming-applications.md).
 
 ## Best Practices and Edge Cases
 
@@ -205,6 +241,35 @@ Common symptoms of watermark problems include:
 - **High latency**: Watermark advancing too conservatively (reduce out-of-orderness bound or check for straggling partitions)
 
 Enable watermark logging and metrics to diagnose these issues in production.
+
+## Watermark Strategies in Flink SQL
+
+For teams using Flink SQL (increasingly common in 2025), watermark strategies are declared directly in table DDL:
+
+```sql
+CREATE TABLE events (
+    user_id STRING,
+    event_type STRING,
+    event_timestamp BIGINT,
+    event_time AS TO_TIMESTAMP_LTZ(event_timestamp, 3),
+    WATERMARK FOR event_time AS event_time - INTERVAL '5' SECOND
+) WITH (
+    'connector' = 'kafka',
+    'topic' = 'events',
+    'properties.bootstrap.servers' = 'localhost:9092',
+    'format' = 'json'
+);
+```
+
+The `WATERMARK FOR` clause defines the watermark strategy declaratively. The expression `event_time - INTERVAL '5' SECOND` creates a bounded out-of-orderness strategy with a 5-second delay, equivalent to the DataStream API's `forBoundedOutOfOrderness(Duration.ofSeconds(5))`.
+
+For strictly ordered data, use the current timestamp:
+
+```sql
+WATERMARK FOR event_time AS event_time
+```
+
+Flink SQL automatically propagates watermarks through queries, making event time processing accessible to SQL users without requiring Java/Scala knowledge. This has made Flink SQL a popular choice for stream processing in 2025, particularly in data teams with strong SQL expertise. For more advanced stream processing patterns in SQL, see [Flink SQL and Table API for Stream Processing](flink-sql-and-table-api-for-stream-processing.md).
 
 ## Summary
 
