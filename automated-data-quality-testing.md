@@ -26,14 +26,14 @@ Automated testing provides:
 
 ## Core Testing Dimensions
 
-Effective data quality testing covers multiple dimensions:
+Effective data quality testing covers multiple dimensions. For broader context on quality dimensions and how they relate to organizational data strategy, see [Data Quality Dimensions: Accuracy, Completeness, and Consistency](data-quality-dimensions-accuracy-completeness-and-consistency.md).
 
 ### 1. Schema Validation
 
 Ensure data structures match expected schemas, particularly critical in streaming environments where schema evolution can break consumers.
 
 ```python
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, field_validator
 from typing import Optional
 from datetime import datetime
 
@@ -44,13 +44,15 @@ class UserEvent(BaseModel):
     properties: dict
     revenue: Optional[float] = None
 
-    @validator('revenue')
+    @field_validator('revenue')
+    @classmethod
     def validate_revenue(cls, v):
         if v is not None and v < 0:
             raise ValueError('Revenue cannot be negative')
         return v
 
-    @validator('event_type')
+    @field_validator('event_type')
+    @classmethod
     def validate_event_type(cls, v):
         allowed_types = {'page_view', 'click', 'purchase', 'signup'}
         if v not in allowed_types:
@@ -163,20 +165,25 @@ from kafka import KafkaConsumer, KafkaProducer
 import json
 
 class StreamingQualityTester:
-    def __init__(self, bootstrap_servers: str):
+    def __init__(self, bootstrap_servers: str, consumer_group: str = 'quality-tester'):
         self.consumer = KafkaConsumer(
             'raw-events',
             bootstrap_servers=bootstrap_servers,
+            group_id=consumer_group,
+            auto_offset_reset='earliest',
+            enable_auto_commit=False,  # Manual commit for exactly-once
             value_deserializer=lambda m: json.loads(m.decode('utf-8'))
         )
 
         self.valid_producer = KafkaProducer(
             bootstrap_servers=bootstrap_servers,
+            acks='all',  # Wait for all replicas
             value_serializer=lambda m: json.dumps(m).encode('utf-8')
         )
 
         self.dlq_producer = KafkaProducer(
             bootstrap_servers=bootstrap_servers,
+            acks='all',
             value_serializer=lambda m: json.dumps(m).encode('utf-8')
         )
 
@@ -187,30 +194,39 @@ class StreamingQualityTester:
         }
 
     def run(self):
-        for message in self.consumer:
-            self.metrics['processed'] += 1
-            event = message.value
+        try:
+            for message in self.consumer:
+                self.metrics['processed'] += 1
+                event = message.value
 
-            # Run validation suite
-            validation_results = self.validate_event(event)
+                # Run validation suite
+                validation_results = self.validate_event(event)
 
-            if validation_results['passed']:
-                self.valid_producer.send('validated-events', event)
-                self.metrics['valid'] += 1
-            else:
-                # Send to dead letter queue with error details
-                error_event = {
-                    **event,
-                    '_validation_errors': validation_results['errors'],
-                    '_original_topic': 'raw-events',
-                    '_timestamp': message.timestamp
-                }
-                self.dlq_producer.send('validation-dlq', error_event)
-                self.metrics['invalid'] += 1
+                if validation_results['passed']:
+                    self.valid_producer.send('validated-events', event)
+                    self.metrics['valid'] += 1
+                else:
+                    # Send to dead letter queue with error details
+                    error_event = {
+                        **event,
+                        '_validation_errors': validation_results['errors'],
+                        '_original_topic': 'raw-events',
+                        '_timestamp': message.timestamp
+                    }
+                    self.dlq_producer.send('validation-dlq', error_event)
+                    self.metrics['invalid'] += 1
 
-            # Report metrics periodically
-            if self.metrics['processed'] % 1000 == 0:
-                self.report_metrics()
+                # Commit offset after successful processing
+                self.consumer.commit()
+
+                # Report metrics periodically
+                if self.metrics['processed'] % 1000 == 0:
+                    self.report_metrics()
+        finally:
+            # Ensure clean shutdown
+            self.consumer.close()
+            self.valid_producer.close()
+            self.dlq_producer.close()
 
     def validate_event(self, event: dict) -> Dict[str, any]:
         errors = []
@@ -313,7 +329,9 @@ class DataQualityTestSuite:
 
 ## Conclusion
 
-Automated data quality testing transforms data reliability from a reactive problem into a proactive practice. By implementing comprehensive validation across schema, completeness, and statistical dimensions—especially in streaming architectures—you build resilient data systems that teams can trust. Start with critical pipelines, establish baseline quality metrics, and expand coverage as your testing framework matures.
+Automated data quality testing transforms data reliability from a reactive problem into a proactive practice. By implementing comprehensive validation across schema, completeness, and statistical dimensions—especially in streaming architectures—you build resilient data systems that teams can trust.
+
+For production-grade implementation using established frameworks, see [Great Expectations: Data Testing Framework](great-expectations-data-testing-framework.md). For establishing formal agreements between data producers and consumers, explore [Data Contracts for Reliable Pipelines](data-contracts-for-reliable-pipelines.md).
 
 The investment in automated testing pays dividends through reduced debugging time, increased confidence in data-driven decisions, and faster incident resolution when issues do occur.
 

@@ -22,6 +22,16 @@ Without schemas, systems rely on implicit assumptions about data structure. When
 
 The three formats covered here take different approaches. Avro and Protobuf focus on compact binary serialization with strong schema evolution support. JSON Schema focuses on validating human-readable JSON documents. Understanding these differences helps you choose the right tool for your use case.
 
+## Understanding Binary Serialization
+
+Before diving into specific formats, let's clarify what "binary serialization" means. When you serialize data to binary format, you convert it into a sequence of bytes that machines can process efficiently. Unlike human-readable text formats (like JSON), binary formats optimize for:
+
+- **Size**: Compressed representation using techniques like variable-length integers
+- **Speed**: Direct memory mapping without parsing text
+- **Schema enforcement**: Structure embedded in the format itself
+
+The tradeoff is readability—you can't open a binary file in a text editor and understand it. You need the schema and appropriate deserialization tools.
+
 ## Avro: Compact and Schema Evolution
 
 Apache Avro is a binary serialization format created within the Hadoop ecosystem. It stores data in a compact binary format while keeping the schema separate from the data itself.
@@ -119,6 +129,16 @@ All three formats are commonly used with Apache Kafka and other streaming platfo
 **Real-world example**: A financial services company might use Protobuf for high-frequency trading data (millions of messages per second), Avro for analytical data lakes (frequent schema changes), and JSON Schema for configuration events (human readability for operations teams).
 
 Tools like Conduktor provide unified interfaces for working with all three formats. Developers can inspect messages, validate schemas, and test compatibility rules without writing custom deserialization code. This is particularly valuable in environments where different teams choose different formats for different use cases.
+
+## Schema Evolution and Compatibility
+
+All three formats support schema evolution, but managing compatibility becomes critical in production systems. When using Schema Registry (Confluent Schema Registry, AWS Glue Schema Registry), you configure compatibility modes that determine which schema changes are allowed:
+
+- **Backward compatibility**: New schemas can read old data (most common—consumers upgrade before producers)
+- **Forward compatibility**: Old schemas can read new data (producers upgrade before consumers)
+- **Full compatibility**: Both backward and forward compatible (most restrictive)
+
+For a comprehensive guide to schema compatibility modes, validation rules, and practical evolution patterns, see the [Schema Registry and Schema Management](schema-registry-and-schema-management.md) article. Schema Registry works with all three formats covered here (Avro, Protobuf, JSON Schema) and provides the safety guardrails needed to evolve schemas without breaking production systems.
 
 ## Choosing the Right Format
 

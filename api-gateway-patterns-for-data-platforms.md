@@ -62,7 +62,7 @@ Dynamic routing extends this by discovering services at runtime. When new data s
 
 Data platforms often need to bridge different communication protocols. A common scenario involves HTTP clients accessing Kafka topics. The gateway translates REST requests into Kafka producer calls and streams Kafka messages back as HTTP responses.
 
-Confluent's REST Proxy exemplifies this pattern, allowing HTTP clients to produce and consume Kafka messages without native Kafka client libraries. This enables broader ecosystem integration while maintaining Kafka's performance and reliability guarantees.
+Confluent's REST Proxy exemplifies this pattern, allowing HTTP clients to produce and consume Kafka messages without native Kafka client libraries. This enables broader ecosystem integration, though with performance tradeoffs: HTTP serialization overhead typically reduces throughput to ~20K events/second per deployment compared to 100K+ events/second for native Kafka clients. The tradeoff favors accessibility over raw performance—ideal for low-throughput integrations, web clients, and services where native Kafka libraries aren't feasible.
 
 ### Request and Response Aggregation
 
@@ -119,9 +119,14 @@ An API gateway solves this by exposing a WebSocket endpoint at `/orders/stream`.
 2. Determines which Kafka topics the user can access
 3. Creates a Kafka consumer scoped to that user's orders
 4. Streams order events back through the WebSocket connection
-5. Handles reconnection and offset management automatically
+5. Manages consumer lifecycle, including offset commits and reconnection handling
 
-This pattern keeps Kafka internals hidden while providing real-time capabilities to clients.
+**Important**: The gateway must carefully manage consumer group membership and offset commits. Options include:
+- **Unique consumer group per WebSocket session**: Simplest but resource-intensive
+- **Shared consumer group with external offset storage**: Store delivery tracking in Redis/database
+- **Stateful gateway instances**: Use sticky sessions so reconnections hit the same gateway instance
+
+The choice depends on delivery semantics (at-least-once vs at-most-once) and reconnection requirements. This pattern keeps Kafka internals hidden while providing real-time capabilities to clients.
 
 ### Specialized Kafka Gateways
 
@@ -177,6 +182,71 @@ Their gateway implementation includes:
 - Circuit breakers that fail over to cached data when Kafka is unavailable
 
 This architecture allows diverse consumers to access the same underlying data platform while maintaining strict security and performance guarantees. The gateway handles complexity that would otherwise require custom code in dozens of applications.
+
+## Backend for Frontend (BFF) Pattern
+
+The BFF pattern addresses a common problem with monolithic API gateways: they accumulate client-specific logic that bloats the gateway and couples it to specific frontends. Instead of one gateway serving all clients, each client type gets its own optimized backend service.
+
+### Why BFF Matters
+
+Different clients have different needs:
+- **Mobile apps** need minimal payloads (battery/bandwidth constraints)
+- **Web dashboards** need rich aggregated data
+- **IoT devices** need efficient binary protocols
+- **Partner APIs** need stable, versioned contracts
+
+A single gateway serving all these clients either:
+1. Returns everything (over-fetching for most clients)
+2. Returns minimal data (under-fetching, requiring multiple requests)
+3. Grows complex conditional logic based on client type
+
+### BFF Architecture
+
+```
+┌─────────────┐    ┌─────────────┐    ┌─────────────┐
+│   Mobile    │    │     Web     │    │     IoT     │
+│     App     │    │  Dashboard  │    │   Devices   │
+└──────┬──────┘    └──────┬──────┘    └──────┬──────┘
+       │                  │                   │
+       ▼                  ▼                   ▼
+┌─────────────┐    ┌─────────────┐    ┌─────────────┐
+│  Mobile BFF │    │   Web BFF   │    │   IoT BFF   │
+│             │    │             │    │             │
+│ • Compact   │    │ • Rich data │    │ • Binary    │
+│   payloads  │    │ • Aggregated│    │   protocol  │
+│ • Optimized │    │ • GraphQL   │    │ • Minimal   │
+│   for 4G    │    │   support   │    │   overhead  │
+└──────┬──────┘    └──────┬──────┘    └──────┬──────┘
+       │                  │                   │
+       └──────────────────┼───────────────────┘
+                          │
+                          ▼
+              ┌───────────────────────┐
+              │   Shared Services     │
+              │                       │
+              │ • Kafka Clusters      │
+              │ • Databases           │
+              │ • Microservices       │
+              └───────────────────────┘
+```
+
+### BFF Benefits for Data Platforms
+
+**Domain ownership**: Each frontend team owns their BFF, enabling independent deployment and iteration without coordinating with other teams.
+
+**Optimized queries**: Mobile BFF fetches only fields needed for mobile UI, reducing Kafka message deserialization and database queries.
+
+**Protocol flexibility**: Web BFF can offer GraphQL while IoT BFF uses efficient binary protocols (Protobuf, CBOR).
+
+**Simplified testing**: Each BFF has a focused scope, making integration testing easier than testing a monolithic gateway with conditional paths.
+
+### BFF Considerations
+
+**Code duplication**: Common logic (authentication, rate limiting) may be duplicated across BFFs. Solve with shared libraries or a thin common gateway layer.
+
+**Operational overhead**: Multiple BFFs mean multiple deployments. Container orchestration (Kubernetes) and infrastructure-as-code reduce this burden.
+
+**When not to use BFF**: Small teams with simple requirements benefit from a unified gateway. BFF pattern pays off as client diversity and team count grow.
 
 ## Summary
 

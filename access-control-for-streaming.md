@@ -17,90 +17,50 @@ Unlike databases where access patterns are relatively static, streaming platform
 
 ## Kafka ACLs: The Foundation
 
-Apache Kafka implements access control through Access Control Lists (ACLs). At its core, a Kafka ACL defines who can perform which operations on which resources. Every ACL entry consists of three components:
+Apache Kafka implements access control through Access Control Lists (ACLs). An ACL defines **who** (principal) can perform **which operations** (Read, Write, Create, etc.) on **which resources** (topics, consumer groups, cluster).
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                Kafka ACL Component Model                        │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│  ┌──────────────────────────────────────────────────────────┐  │
-│  │  Principal: Who is making the request?                   │  │
-│  │  • User:analytics-team                                   │  │
-│  │  • User:CN=payment-service                               │  │
-│  └──────────────────────────────────────────────────────────┘  │
-│                             │                                   │
-│                             ▼                                   │
-│  ┌──────────────────────────────────────────────────────────┐  │
-│  │  Resource: What is being accessed?                       │  │
-│  │  • Topic: payment-events                                 │  │
-│  │  • ConsumerGroup: fraud-detection-group                  │  │
-│  │  • Cluster, TransactionalId, DelegationToken             │  │
-│  └──────────────────────────────────────────────────────────┘  │
-│                             │                                   │
-│                             ▼                                   │
-│  ┌──────────────────────────────────────────────────────────┐  │
-│  │  Operation: What action is being performed?              │  │
-│  │  • Read, Write, Create, Delete                           │  │
-│  │  • Alter, Describe, ClusterAction                        │  │
-│  │  • IdempotentWrite (exactly-once semantics)              │  │
-│  └──────────────────────────────────────────────────────────┘  │
-│                             │                                   │
-│                             ▼                                   │
-│  ┌──────────────────────────────────────────────────────────┐  │
-│  │  Permission: Allow or Deny                               │  │
-│  └──────────────────────────────────────────────────────────┘  │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
-```
+Key concepts:
+- **Default-deny model**: Without explicit ACLs, authenticated users have no permissions
+- **Combining permissions**: Consumers need Read on both topic AND consumer group; producers need Write on topics plus IdempotentWrite for exactly-once semantics
+- **Prefixed patterns**: Use `team-alpha.*` to grant access to all topics with that prefix, dramatically reducing ACL management overhead
 
-**Principal**: The identity making the request (user, application, or service account). Principals are defined in the format `User:alice` or `User:CN=payment-service`.
-
-**Resource**: The Kafka object being accessed. Resources include clusters, topics, consumer groups, transactional IDs, and delegation tokens. Each resource can be specified by name or using wildcard patterns.
-
-**Operation**: The action being performed. Operations include Read, Write, Create, Delete, Alter, Describe, ClusterAction, and special operations like IdempotentWrite for exactly-once semantics.
-
-Real-world scenarios require combining multiple ACLs. A consumer needs both Read on the topic and Read on its consumer group. A producer needs Write on topics and, for exactly-once processing, IdempotentWrite on the cluster plus Write on transactional IDs.
-
-Kafka ACLs operate on a default-deny model. Without explicit ACLs, authenticated users have no permissions. This means you must grant permissions deliberately, making it easier to implement least privilege principles from the start.
+For comprehensive coverage of ACL components, authorization flows, and production management strategies, see [Kafka ACLs and Authorization Patterns](kafka-acls-and-authorization-patterns.md).
 
 ## Authentication: Proving Identity
 
-Before Kafka can enforce ACLs, it must verify identity through authentication. Kafka supports several authentication mechanisms, each suited to different deployment environments.
+Before Kafka can enforce ACLs, it must verify identity through authentication. Kafka supports several mechanisms including SASL/PLAIN, SASL/SCRAM, mutual TLS (mTLS), and SASL/OAUTHBEARER.
 
-**SASL/PLAIN** transmits username and password credentials. While simple to configure, it's only secure over TLS and requires credential management for every client. It's useful for development but risky in production without additional controls.
-
-**SASL/SCRAM** (Salted Challenge Response Authentication Mechanism) improves on PLAIN by hashing credentials and storing them in ZooKeeper or KRaft. It's more secure than PLAIN and doesn't require external infrastructure, making it popular for self-managed Kafka clusters.
-
-**Mutual TLS (mTLS)** authenticates clients using X.509 certificates. Both client and broker verify each other's certificates, providing strong authentication without transmitting secrets. The certificate's Common Name (CN) becomes the principal identity. mTLS is excellent for service-to-service authentication but requires certificate lifecycle management.
-
-**SASL/OAUTHBEARER** integrates with modern identity providers supporting OAuth 2.0. Clients obtain JWT tokens from an authorization server, and Kafka validates these tokens. This approach enables single sign-on, centralized identity management, and integration with enterprise identity systems like Okta or Azure AD.
+For detailed coverage of authentication mechanisms, configuration examples, and security tradeoffs, see [Kafka Authentication: SASL, SSL, OAuth](kafka-authentication-sasl-ssl-oauth.md).
 
 Most enterprises combine authentication methods: mTLS for internal services, OAuth for user-facing applications, and SASL/SCRAM for legacy systems.
 
+## Getting Started: Enabling ACLs and First Steps
+
+Before using ACLs, you must enable authorization in your Kafka cluster by setting the `authorizer.class.name` property in `server.properties`:
+
+```properties
+# For KRaft mode (Kafka 3.0+)
+authorizer.class.name=org.apache.kafka.metadata.authorizer.StandardAuthorizer
+
+# For ZooKeeper mode (legacy)
+authorizer.class.name=kafka.security.authorizer.AclAuthorizer
+
+# Configure super users who bypass ACL checks (use carefully)
+super.users=User:admin;User:kafka
+```
+
+After enabling ACLs, all access is denied by default. Use the `kafka-acls` command-line tool to grant permissions. For complete CLI examples covering consumer access, producer permissions, prefixed patterns, and ACL management, see [Kafka ACLs and Authorization Patterns](kafka-acls-and-authorization-patterns.md).
+
 ## Authorization Patterns and Granularity
 
-Kafka's authorization model supports permissions at multiple granularity levels, enabling precise control over who can do what.
+Kafka supports permissions at multiple levels: cluster-wide administrative operations, topic-level read/write access, consumer group membership controls, and transactional ID permissions for exactly-once semantics.
 
-**Cluster-level permissions** control administrative operations like creating topics, managing ACLs, or altering cluster configuration. These are typically restricted to platform administrators and automation tools.
+Common patterns:
+- **Producers**: Write on topics + IdempotentWrite for exactly-once
+- **Consumers**: Read on topics + Read on consumer groups
+- **Admins**: Create/Delete/Alter on cluster resources
 
-**Topic-level permissions** are the most common. You can grant Read, Write, Describe, or Alter permissions on specific topics or topic patterns. For example, granting Write access on `payments.*` allows a service to produce to any topic matching that prefix.
-
-**Consumer group permissions** prevent unauthorized clients from joining consumer groups. This is crucial because consumer group membership affects offset management and partition assignment. Without proper controls, a malicious client could join a group, claim partitions, and disrupt legitimate consumers.
-
-**Transactional ID permissions** secure exactly-once semantics. When a producer uses transactions, it needs Write permission on its transactional ID to prevent other producers from hijacking the transaction.
-
-**Partition-level permissions** are possible through custom authorizers, though not supported natively. This enables scenarios where different partitions within the same topic have different sensitivity levels.
-
-Common authorization patterns include:
-
-**Producer ACLs**: Write on topics, Describe on cluster, IdempotentWrite for exactly-once producers, Write on transactional IDs for transactional producers.
-
-**Consumer ACLs**: Read on topics, Read on consumer group, Describe on cluster.
-
-**Admin ACLs**: Create, Delete, Alter, AlterConfigs on topics; Describe, Alter, ClusterAction on cluster.
-
-**Application ACLs**: Combining producer and consumer permissions for applications that both read and write streams.
+For team-based access patterns, environment separation strategies, and service-based permission models, see the authorization patterns section in [Kafka ACLs and Authorization Patterns](kafka-acls-and-authorization-patterns.md).
 
 ## Multi-Tenancy and Isolation
 
@@ -126,31 +86,44 @@ Enterprise environments demand integration with existing identity systems. Rathe
 
 **LDAP/AD integration** typically works through SASL/PLAIN or SASL/GSSAPI (Kerberos). Kafka validates credentials against the directory service, and group memberships can inform authorization decisions through custom authorizers.
 
-**RBAC layers** provide abstraction above ACLs. Instead of managing thousands of individual ACLs, administrators define roles like "payment-producer" or "analytics-consumer" and assign permissions to roles. Users are then assigned roles. Confluent Platform provides a RBAC implementation on top of Kafka ACLs.
+### From ACLs to RBAC
 
-**Policy-as-code** treats access control definitions as version-controlled configuration. Tools like Terraform or GitOps workflows define ACLs declaratively, ensuring changes are reviewed, auditable, and reproducible. This prevents ACL sprawl where permissions accumulate without oversight.
+While Kafka ACLs provide fine-grained control, managing thousands of individual ACL entries becomes unwieldy at enterprise scale. **Role-Based Access Control (RBAC)** solves this by introducing an abstraction layer above ACLs.
+
+Instead of granting permissions directly to users:
+```
+User:alice -> Read on topic:orders
+User:bob -> Read on topic:orders
+User:charlie -> Read on topic:orders
+```
+
+RBAC uses roles:
+```
+Role:data-analyst -> Read on topic:orders
+User:alice -> Role:data-analyst
+User:bob -> Role:data-analyst
+User:charlie -> Role:data-analyst
+```
+
+Benefits of RBAC:
+- **Simplified management**: Grant role to user instead of maintaining dozens of ACLs per user
+- **Consistency**: All analysts get identical permissions through the same role
+- **Auditability**: "Who has access to orders?" becomes "Who has the data-analyst role?"
+- **Onboarding/offboarding**: Add/remove role assignment, not individual ACLs
+
+**Conduktor** provides enterprise RBAC for Kafka that extends beyond Confluent's implementation. It enables organizations to:
+- Define custom roles aligned with organizational structure (data-engineer, ML-researcher, compliance-auditor)
+- Integrate with SSO providers (Okta, Azure AD) for centralized identity management
+- Apply RBAC across multiple Kafka clusters from a single interface
+- Enforce policies at the topic, consumer group, and schema level
+- Enable **self-service access requests**: Developers request roles/permissions through UI, managers approve via workflow, permissions auto-provision
+- Maintain audit trails showing role assignments and permission changes over time
+
+This becomes essential for regulated industries where proving "who had access to what data, when" is a compliance requirement. Self-service capabilities reduce bottlenecks on platform teams while maintaining governance controls—developers get access in minutes instead of waiting days for manual ACL configuration.
+
+**Policy-as-code** treats access control definitions as version-controlled configuration. Tools like Terraform or GitOps workflows define ACLs and roles declaratively, ensuring changes are reviewed, auditable, and reproducible. This prevents permission sprawl where access accumulates without oversight.
 
 **Attribute-based access control (ABAC)** makes authorization decisions based on attributes like time of day, client IP, data classification, or user department. While Kafka doesn't natively support ABAC, custom authorizers can implement these policies.
-
-Modern data governance platforms like Conduktor provide centralized access control management across multiple Kafka clusters, integrating with enterprise identity systems and providing audit trails for compliance.
-
-## Challenges and Best Practices
-
-Implementing access control in streaming platforms presents several challenges:
-
-**ACL sprawl**: Without discipline, ACLs accumulate as teams request access. Regular audits should identify and remove unused permissions. Automation tools should provision and de-provision access based on team membership.
-
-**Least privilege**: Start with minimal permissions and grant additional access as needed. Many organizations default to overly permissive access, creating security risks. Producer applications should only have Write access to specific topics, not wildcards.
-
-**Audit and compliance**: Track who accessed what data and when. Enable Kafka's audit logging, integrate with SIEM systems, and maintain access request documentation for compliance requirements like GDPR or SOC 2.
-
-**Performance impact**: Authorization checks happen on every request. Complex custom authorizers can add latency. Cache authorization decisions when possible and keep ACL counts reasonable.
-
-**Breaking changes**: Tightening permissions can break existing applications. Roll out access control gradually, monitor for authorization failures, and communicate changes to affected teams.
-
-**Testing**: Include authorization testing in CI/CD pipelines. Verify that applications have exactly the permissions they need, no more and no less.
-
-**Documentation**: Maintain clear documentation of who has access to what and why. This helps during security audits and when troubleshooting access issues.
 
 ## Securing Your Streaming Architecture
 

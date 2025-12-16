@@ -22,7 +22,7 @@ Amazon MSK is a fully managed service that handles the deployment, configuration
 
 MSK runs open-source Apache Kafka, which means applications, tooling, and skills transfer directly. You get standard Kafka APIs and protocols without vendor lock-in at the application layer. AWS handles the underlying infrastructure: compute instances, storage volumes, networking, and availability zone distribution.
 
-The service offers two deployment options: MSK Provisioned, where you specify broker instance types and storage, and MSK Serverless, which automatically scales capacity based on workload demands.
+The service offers multiple deployment options: MSK Provisioned (traditional instance-based clusters), MSK Provisioned with Express brokers (2024+, optimized for high throughput and rapid scaling), and MSK Serverless (automatic scaling based on demand).
 
 ## Architecture and Core Components
 
@@ -38,6 +38,64 @@ When you create an MSK cluster, you specify:
 MSK automatically handles broker replacement if hardware fails, patches software with minimal downtime, and enables automatic minor version upgrades. Multi-AZ deployment ensures high availability: if one availability zone becomes unavailable, the cluster continues operating with replicas in other zones.
 
 For example, a typical production MSK cluster might have six brokers spread across three availability zones (two brokers per zone), using kafka.m5.xlarge instances with 1TB of storage each. This configuration provides both fault tolerance and adequate capacity for moderate-throughput workloads.
+
+## MSK Provisioned: Standard vs Express Brokers
+
+As of 2024, AWS offers two types of provisioned brokers with significantly different performance and cost characteristics:
+
+### Standard Brokers (Traditional MSK Provisioned)
+
+Standard brokers use EC2 instances with attached EBS volumes. They offer:
+- Predictable, instance-based pricing
+- Wide range of instance types (kafka.m5.large to kafka.m7g.24xlarge)
+- Fixed storage capacity that can be expanded (but not reduced)
+- Traditional scaling: add brokers and rebalance partitions manually
+
+### Express Brokers (Recommended for 2025+)
+
+**Express brokers** represent AWS's optimized Kafka broker architecture, launched in 2024. They provide dramatic improvements over standard brokers:
+
+**Performance Advantages**:
+- **3x higher throughput** per broker compared to standard brokers
+- **20x faster scaling**: Add or remove capacity in ~5 minutes vs 20-40 minutes for standard brokers
+- **Unlimited storage**: Pay-as-you-go storage model with no pre-provisioning required
+- **Lower latency**: Optimized I/O path reduces p99 latency by 30-40%
+
+**Cost Model**:
+- Per-GB throughput pricing instead of instance hours
+- Separate charges for compute, storage, and data transfer
+- Generally 20-30% more expensive than standard brokers for steady-state workloads
+- More economical for bursty workloads due to elastic capacity
+
+**When to Use Express Brokers**:
+- High-throughput streaming applications (>100 MB/s per broker)
+- Variable workloads requiring rapid scaling
+- Applications sensitive to rebalancing downtime
+- Long retention requirements (unlimited storage reduces storage management overhead)
+
+**When to Use Standard Brokers**:
+- Predictable workloads with steady throughput
+- Cost optimization for low-throughput use cases
+- Existing clusters without urgent performance needs
+
+**Migration Path**: AWS recommends Express brokers for new production clusters. Existing standard broker clusters can migrate using MSK Replicator (see Cross-Region Replication section below) to avoid downtime.
+
+**Example Comparison**:
+```
+Standard Broker Cluster:
+- 6x kafka.m5.xlarge brokers
+- 1TB storage per broker
+- ~$600/month + data transfer
+- Manual scaling: 20-40 minutes
+- Throughput: ~50 MB/s per broker
+
+Express Broker Cluster:
+- Pay-per-GB throughput
+- Unlimited storage (pay for usage)
+- ~$750/month for similar throughput
+- Elastic scaling: ~5 minutes
+- Throughput: ~150 MB/s per broker
+```
 
 ## Key Features and Capabilities
 
@@ -71,7 +129,22 @@ Amazon MSK serves as the backbone for real-time data streaming architectures on 
 
 **Monitoring**: Beyond CloudWatch metrics, production deployments benefit from comprehensive monitoring. This includes tracking consumer lag, partition distribution, broker disk usage trends, and data quality issues. Governance platforms can enforce policies on data quality, schema compliance, and access patterns before problems reach production.
 
-**Disaster Recovery**: MSK clusters are regional. For multi-region disaster recovery, you need to implement cross-region replication using MirrorMaker 2 or similar tools. Some organizations use MSK in multiple regions with active-active or active-passive patterns depending on their requirements.
+**Disaster Recovery and Cross-Region Replication**: MSK clusters are regional. AWS provides **MSK Replicator**, a fully managed cross-region replication service that simplifies multi-region deployments without managing MirrorMaker 2 infrastructure.
+
+MSK Replicator features:
+- **Automatic replication**: Configure source and target MSK clusters; AWS handles replication logic
+- **Topic filtering**: Replicate specific topics or patterns, not entire clusters
+- **Consumer group offset sync**: Enables seamless failover by replicating consumer offsets
+- **Exactly-once delivery**: Prevents duplicate messages during replication
+- **Monitoring integration**: CloudWatch metrics for replication lag and throughput
+
+Use cases:
+- **Active-passive DR**: Replicate production data to standby region for disaster recovery
+- **Active-active**: Bidirectional replication for multi-region writes (requires careful conflict resolution)
+- **Data aggregation**: Replicate from multiple regional clusters to central analytics cluster
+- **Migration**: Zero-downtime migration from standard brokers to Express brokers or between regions
+
+Cost: MSK Replicator charges per GB replicated plus inter-region data transfer fees. Typically adds 20-40% to total MSK costs for DR scenarios.
 
 ## Use Cases and When to Choose MSK
 

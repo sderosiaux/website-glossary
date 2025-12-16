@@ -123,7 +123,7 @@ The team can contact John directly, understand the reasoning, and quickly roll b
 
 ## Best Practices
 
-**Immutable Storage**: Write audit logs to append-only storage or use Kafka topics with delete.retention.ms set to very high values and strict ACLs preventing deletion.
+**Immutable Storage**: Write audit logs to append-only storage or use Kafka topics with `retention.ms=-1` (infinite retention) and strict ACLs preventing deletion. Note: `delete.retention.ms` is a different setting used for tombstone retention in compacted topics, not for general retention.
 
 **Include Context**: Capture not just the action, but the context: source IP, authentication method, API client version, and any relevant metadata.
 
@@ -141,13 +141,15 @@ Different compliance frameworks have specific audit logging requirements:
 
 **SOC2**: Requires tracking all administrative changes, user access, and data modifications with timestamps and user attribution.
 
-**GDPR**: Mandates logging access to personal data, data deletions (right to be forgotten), and data exports (data portability).
+**GDPR**: Mandates logging access to personal data, data deletions (right to be forgotten), and data exports (data portability). For comprehensive GDPR implementation guidance, see [GDPR Compliance for Data Teams](gdpr-compliance-for-data-teams.md).
 
 **HIPAA**: Requires tracking all access to protected health information (PHI), including who viewed what data and when.
 
 **PCI-DSS**: Demands detailed logs of access to cardholder data environments, with secure storage and regular review.
 
-Streaming platforms need to map their audit events to these framework requirements. For example, a GDPR-compliant audit log might track:
+Streaming platforms need to map their audit events to these framework requirements. Tracking what data flows where becomes essential—for comprehensive guidance on building this visibility, see [Data Lineage Tracking: Data from Source to Consumption](data-lineage-tracking-data-from-source-to-consumption.md).
+
+For example, a GDPR-compliant audit log might track:
 
 - Which topics contain personal data (through metadata tagging)
 - Who accessed those topics (consumer groups, connect workers)

@@ -52,15 +52,87 @@ Kafka’s architecture is designed for horizontal scalability, strong ordering, 
 A **topic** is a named stream of events, like a table in a database. Topics are split into **partitions**, which are ordered, immutable logs of records. Each record in a partition has an **offset**, a unique sequential ID.
 Partitioning allows Kafka to scale by distributing data across servers.
 
+For deep dives into partition assignment strategies, rebalancing, and performance implications, see [Kafka Topics, Partitions, and Brokers: Core Architecture](kafka-topics-partitions-brokers-core-architecture.md).
+
 ### Brokers and Clusters
 
 A **broker** is a Kafka server that stores event data and serves read/write requests. Multiple brokers form a **cluster**, which collectively manages replication and fault tolerance.
 A partition typically has one **leader** (handling reads/writes) and several **followers** that replicate data for durability. If a broker fails, a follower is promoted to leader automatically.
 
+### Cluster Coordination: From ZooKeeper to KRaft
+
+**Critical 2025 Update**: Kafka's cluster coordination mechanism has undergone a fundamental architectural change.
+
+**ZooKeeper (Legacy, Deprecated in Kafka 4.0)**:
+Historically, Kafka relied on Apache ZooKeeper for cluster coordination—tracking broker membership, electing partition leaders, and storing cluster metadata. ZooKeeper added operational complexity: a separate system to deploy, monitor, and scale. Organizations needed ZooKeeper expertise alongside Kafka knowledge.
+
+**KRaft (Kafka Raft Metadata Mode) - Production Ready in Kafka 3.3+**:
+KRaft removes the ZooKeeper dependency entirely, implementing Kafka's own consensus protocol based on the Raft algorithm. This represents the biggest architectural change in Kafka's history.
+
+**Why KRaft Matters**:
+- **Simpler operations**: No ZooKeeper ensemble to manage separately
+- **Faster metadata operations**: Leader elections complete in milliseconds instead of seconds
+- **Higher partition scalability**: Supports millions of partitions per cluster (ZooKeeper topped out at ~200K)
+- **Improved recovery**: Cluster recovery after failures is 10x faster
+- **Unified architecture**: One system instead of two reduces operational surface area
+
+**KRaft Architecture**:
+```
+Traditional ZooKeeper Mode:
+┌──────────────────────────────────────┐
+│     ZooKeeper Ensemble (3-5 nodes)   │
+│  • Cluster metadata                  │
+│  • Controller election               │
+│  • Config storage                    │
+└───────────────┬──────────────────────┘
+                │ (metadata coordination)
+                ▼
+┌──────────────────────────────────────┐
+│      Kafka Brokers (N nodes)         │
+│  • Store & serve data                │
+│  • Replicate partitions              │
+└──────────────────────────────────────┘
+
+KRaft Mode (2025+):
+┌──────────────────────────────────────┐
+│  Kafka Controllers (3-5 nodes)       │
+│  • Raft consensus for metadata       │
+│  • Integrated into Kafka cluster     │
+│  • Fast failover & recovery          │
+└───────────────┬──────────────────────┘
+                │ (metadata log replication)
+                ▼
+┌──────────────────────────────────────┐
+│      Kafka Brokers (N nodes)         │
+│  • Store & serve data                │
+│  • Replicate partitions              │
+│  • Read metadata from controller log │
+└──────────────────────────────────────┘
+```
+
+**Deployment Modes**:
+- **Combined mode**: Controllers and brokers run on the same nodes (simpler for smaller clusters)
+- **Separated mode**: Dedicated controller nodes (recommended for large production clusters)
+
+**Migration from ZooKeeper to KRaft**:
+Kafka 3.6+ supports live migration from ZooKeeper to KRaft without downtime:
+1. Add KRaft controllers to existing ZooKeeper cluster
+2. Migrate metadata from ZooKeeper to KRaft
+3. Remove ZooKeeper dependency
+4. Continue operating in KRaft mode
+
+**When to Use KRaft**:
+- **New deployments**: All new Kafka clusters should use KRaft (ZooKeeper mode is deprecated)
+- **Existing clusters**: Plan migration roadmap; ZooKeeper support ends in Kafka 4.0 (expected 2024-2025)
+- **High partition count**: KRaft is essential for clusters with 100K+ partitions
+- **Cloud deployments**: Managed services (Confluent Cloud, Amazon MSK) are transitioning to KRaft by default
+
 ### Producers and Consumers
 
 **Producers** send records to topics. They can control where records go — for example, hashing by customer ID to preserve order for that key.
 **Consumers** read records and track their progress via offsets. They can operate independently or as part of **consumer groups**, which distribute partitions among members for parallelism.
+
+For detailed consumer group mechanics, offset management, and rebalancing strategies, see [Kafka Consumer Groups Explained](kafka-consumer-groups-explained.md).
 
 A simple producer configuration might look like this:
 
