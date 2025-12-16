@@ -25,7 +25,7 @@ At its core, data quality answers the question: "Does this data meet our standar
 - **Uniqueness**: Are there unwanted duplicates?
 - **Timeliness**: Is data arriving within acceptable time windows?
 
-For example, a data quality test might verify that all customer email addresses follow a valid format, that order amounts are positive numbers, or that timestamps fall within a reasonable range. These tests are typically implemented as assertions in your data pipeline, often using frameworks like Great Expectations or dbt tests.
+For example, a data quality test might verify that all customer email addresses follow a valid format, that order amounts are positive numbers, or that timestamps fall within a reasonable range. These tests are typically implemented as assertions in your data pipeline, often using frameworks like [Great Expectations](great-expectations-data-testing-framework.md) (GX 1.0+), [dbt tests](dbt-tests-and-data-quality-checks.md), or Soda Core.
 
 The strength of data quality lies in its precision. You define exactly what "good" looks like, and your system alerts you when data deviates from these expectations. However, this precision is also a limitation: you can only catch issues you've explicitly tested for. Unknown problems or emerging patterns will slip through undetected.
 
@@ -33,7 +33,7 @@ The strength of data quality lies in its precision. You define exactly what "goo
 
 Data observability takes a proactive, monitoring-based approach inspired by software observability practices. Rather than testing for specific conditions, observability continuously monitors the behavior and health of your data systems, looking for anomalies and unexpected patterns.
 
-Data observability answers a broader question: "What is happening in our data systems, and why?" It focuses on five key pillars:
+Data observability answers a broader question: "What is happening in our data systems, and why?" For detailed coverage of observability fundamentals, see [What is Data Observability? The Five Pillars](what-is-data-observability-the-five-pillars.md). It focuses on five key pillars:
 
 - **Freshness**: Is data arriving on schedule?
 - **Volume**: Are record counts within normal ranges?
@@ -41,9 +41,9 @@ Data observability answers a broader question: "What is happening in our data sy
 - **Distribution**: Are value distributions behaving normally?
 - **Lineage**: How does data flow through our systems?
 
-Instead of predefined tests, observability systems use baseline metrics, statistical analysis, and machine learning to detect anomalies. For instance, if your user events table typically receives 10,000 records per hour but suddenly drops to 100, an observability platform would flag this volume anomaly even without an explicit test.
+Instead of predefined tests, observability systems use baseline metrics, statistical analysis, and machine learning to detect anomalies. Modern observability platforms (as of 2025) increasingly leverage AI-powered anomaly detection that adapts to seasonal patterns, business cycles, and evolving data characteristics. For instance, if your user events table typically receives 10,000 records per hour but suddenly drops to 100, an observability platform would flag this volume anomaly even without an explicit test.
 
-The power of data observability is its ability to surface unknown issues. By monitoring the overall health of your data ecosystem, it can catch problems you didn't anticipate. However, this breadth comes with trade-offs: observability systems may generate false positives and require tuning to understand what constitutes normal behavior.
+The power of data observability is its ability to surface unknown issues. By monitoring the overall health of your data ecosystem—including integration with OpenTelemetry for distributed tracing and correlation across systems—it can catch problems you didn't anticipate. However, this breadth comes with trade-offs: observability systems may generate false positives and require tuning to understand what constitutes normal behavior.
 
 ## Key Differences
 
@@ -71,12 +71,12 @@ Think of data quality as unit tests for your data, while data observability is l
 
 The distinction between data quality and observability becomes even more important in streaming environments. Traditional batch processing allows for comprehensive testing before data moves downstream, but streaming systems demand different approaches.
 
-In streaming architectures built on platforms like Apache Kafka, data flows continuously with minimal latency. Governance platforms help teams manage these complex streaming environments, providing visibility into Kafka clusters, schema registries, and data flows.
+In streaming architectures built on platforms like Apache Kafka, data flows continuously with minimal latency. Modern governance platforms like Conduktor provide comprehensive visibility into Kafka clusters, schema registries, and data flows, bridging the gap between quality testing and observability monitoring.
 
 For streaming use cases:
 
-- **Data quality** can be implemented as stream processors that validate records in real-time, potentially routing invalid data to dead letter queues
-- **Data observability** monitors stream health metrics like consumer lag, partition distribution, throughput rates, and schema evolution
+- **Data quality** can be implemented as stream processors that validate records in real-time, potentially routing invalid data to [dead letter queues](dead-letter-queues-for-error-handling.md) for later analysis and reprocessing
+- **Data observability** monitors stream health metrics like [consumer lag](consumer-lag-monitoring.md), partition distribution, throughput rates, and schema evolution
 
 You might set up data quality rules to validate message schemas against your registry, while simultaneously using observability to monitor whether consumers are keeping up with producers or if topic partition counts are balanced.
 
@@ -84,15 +84,26 @@ The real-time nature of streaming makes observability particularly valuable. Rat
 
 ## Using Both Together
 
-The most effective data reliability strategy combines both approaches:
+The most effective data reliability strategy combines both approaches. For a comprehensive framework that integrates quality and observability, see [Building a Data Quality Framework](building-a-data-quality-framework.md).
 
-1. **Use data quality** for critical business rules and compliance requirements. If customer IDs must be unique or transaction amounts must be positive, enforce these with explicit tests.
+1. **Use data quality** for critical business rules and compliance requirements. If customer IDs must be unique or transaction amounts must be positive, enforce these with explicit tests. Implement [automated data quality testing](automated-data-quality-testing.md) to catch issues early in your pipelines.
 
-2. **Use data observability** for holistic system health and anomaly detection. Monitor freshness, volume, and distribution to catch emerging issues.
+2. **Use data observability** for holistic system health and anomaly detection. Monitor freshness, volume, and distribution to catch emerging issues. Track [data quality dimensions](data-quality-dimensions-accuracy-completeness-and-consistency.md) across your entire data ecosystem.
 
-3. **Let observability inform quality rules**. When observability surfaces a recurring anomaly, codify it as a quality test.
+3. **Let observability inform quality rules**. When observability surfaces a recurring anomaly, codify it as a quality test. This creates a feedback loop that continuously strengthens your data contracts.
 
-4. **Use quality test failures to enrich observability context**. When tests fail, capture metadata that helps explain the failure in your observability platform.
+4. **Use quality test failures to enrich observability context**. When tests fail, capture metadata that helps explain the failure in your observability platform. Modern tools support integration between validation frameworks and observability dashboards.
+
+## Data Contracts: Bridging Quality and Observability
+
+A growing best practice in 2025 is the use of data contracts that formalize expectations between data producers and consumers. These contracts combine elements of both quality testing and observability monitoring:
+
+- **Contract definitions** specify schema, freshness SLAs, volume expectations, and quality thresholds
+- **Quality tests** validate that data meets contract specifications
+- **Observability monitoring** tracks contract compliance over time and alerts on violations
+- **Lineage tracking** identifies impact when contracts are breached
+
+For organizations implementing data contracts, see [Data Contracts for Reliable Pipelines](data-contracts-for-reliable-pipelines.md) for implementation patterns.
 
 ## Choosing the Right Approach
 
@@ -102,6 +113,7 @@ For data engineers and data quality analysts, consider:
 - Add **data observability** as your systems scale and complexity increases
 - Implement **observability first** in streaming environments where comprehensive testing isn't feasible
 - Use both when reliability is paramount
+- Consider **data contracts** to formalize expectations and combine quality + observability practices
 
 ## Conclusion
 
@@ -114,7 +126,10 @@ The goal isn't to choose one over the other but to leverage each approach's stre
 ## Sources and References
 
 - [The Five Pillars of Data Observability](https://www.montecarlodata.com/blog-what-is-data-observability/)
-- [Great Expectations: Data Quality Testing Framework](https://docs.greatexpectations.io/)
+- [Great Expectations 1.0+ Documentation](https://docs.greatexpectations.io/)
+- [Soda Core: Open-Source Data Quality Testing](https://docs.soda.io/soda-core/)
 - [Observability Engineering: Achieving Production Excellence](https://www.oreilly.com/library/view/observability-engineering/9781492076438/)
 - [Data Quality Fundamentals (Google Cloud)](https://cloud.google.com/architecture/dq-fundamentals)
+- [OpenTelemetry for Data Observability](https://opentelemetry.io/)
 - [Apache Kafka Monitoring and Observability](https://kafka.apache.org/documentation/#monitoring)
+- [Data Contracts: From Ground Zero to Automated Governance](https://www.datamesh-architecture.com/data-contracts)
