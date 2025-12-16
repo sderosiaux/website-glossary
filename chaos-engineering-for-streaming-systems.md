@@ -119,6 +119,8 @@ When implementing chaos engineering for streaming systems, keep these principles
 
 The chaos engineering tooling landscape has matured significantly:
 
+**Conduktor Gateway**: Kafka proxy that enables controlled chaos testing without modifying applications. Inject failures, simulate latency, and test resilience by intercepting and manipulating Kafka traffic at the protocol level. Combines chaos engineering with observability, providing real-time visibility into experiment impact on cluster health and consumer behavior.
+
 **Chaos Mesh**: Cloud-native chaos engineering platform for Kubernetes. Supports network chaos, pod failures, I/O chaos, and time chaos. Excellent for testing containerized Kafka and Flink deployments.
 
 **Litmus**: CNCF chaos engineering framework with extensive fault injection scenarios. Provides reusable chaos experiments and integrates with CI/CD pipelines for continuous chaos testing.
@@ -126,10 +128,6 @@ The chaos engineering tooling landscape has matured significantly:
 **AWS Fault Injection Simulator (FIS)**: Managed service for running chaos experiments on AWS infrastructure. Supports EC2, ECS, EKS, and RDS with built-in experiment templates.
 
 **Azure Chaos Studio**: Microsoft's chaos engineering service for Azure resources. Test resilience of AKS clusters, VMs, and managed services with controlled fault injection.
-
-**Steadybit**: Commercial chaos engineering platform with extensive streaming system support. Provides visual experiment builders and automated resilience scoring.
-
-**Gremlin**: Enterprise chaos engineering platform with fine-grained failure injection controls. Supports resource exhaustion, network manipulation, and state corruption scenarios.
 
 **OpenTelemetry Integration**: Modern chaos tools integrate with OpenTelemetry for distributed tracing during experiments, making it easier to understand failure propagation across microservices.
 

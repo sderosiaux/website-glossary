@@ -72,8 +72,7 @@ The Data Governance Officer (DGO) serves as the operational leader of the govern
 For organizations managing streaming data platforms, the DGO must understand real-time data challenges, including event schema management, data lineage in stream processing, and access control for streaming topics. Modern governance platforms help DGOs visualize and manage streaming environments with tools like:
 
 - **OpenMetadata** and **DataHub** for open-source data cataloging and lineage tracking
-- **Confluent Stream Governance Suite** for Kafka-native schema and policy management
-- **Conduktor** and **Lenses.io** for Kafka cluster governance and monitoring
+- **Conduktor** for Kafka cluster governance, monitoring, and stream governance
 - **Atlan** and **Collibra** for enterprise-wide data governance with streaming integration
 - **Apache Atlas** for metadata management in distributed data ecosystems
 
@@ -225,7 +224,7 @@ Document roles clearly, but start with a lightweight framework that grows with y
 - See [Data Mesh Principles and Implementation](data-mesh-principles-and-implementation.md) for detailed guidance
 
 **For Streaming Data Platforms:**
-- Invest in Kafka-native governance tools (Confluent, Conduktor, Lenses.io)
+- Invest in Kafka-native governance tools (Conduktor for comprehensive governance and monitoring)
 - Implement schema governance early with Schema Registry
 - Establish topic naming and tagging conventions
 - Enable self-serve access with guardrails
