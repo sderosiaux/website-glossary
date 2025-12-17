@@ -15,7 +15,7 @@ In stream processing, choosing the right windowing strategy determines how you a
 
 ## What Are Session Windows?
 
-Session windows are dynamic, data-driven windows that group events together based on periods of activity separated by a configurable gap of inactivity. Unlike tumbling windows (fixed, non-overlapping intervals) or hopping windows (fixed, overlapping intervals), session windows have no predetermined start or end time. Instead, they close only after a specified period of inactivity occurs.
+Session windows are dynamic, data-driven windows that group events together based on periods of activity separated by a configurable gap of inactivity. Unlike tumbling windows (fixed, non-overlapping intervals) or hopping windows (fixed, overlapping intervals), session windows have no predetermined start or end time. Instead, they close only after a specified period of inactivity occurs. For comprehensive coverage of all window types in Flink, see [Windowing in Apache Flink: Tumbling, Sliding, and Session Windows](windowing-in-apache-flink-tumbling-sliding-and-session-windows.md).
 
 The key parameter in session windowing is the **session gap** or **timeout duration**. When events from the same key arrive within this gap, they belong to the same session. If the gap exceeds the timeout, the current session closes and a new session begins with the next event.
 
@@ -30,7 +30,14 @@ Session windows dynamically expand and contract based on incoming events. The st
 3. If no, the current session closes and triggers any downstream processing
 4. A new session begins with the new event
 
-This window merging behavior is crucial. Multiple session windows can merge when events arrive out of order. For instance, if events arrive with timestamps [10:00, 10:05, 10:20], assuming a 10-minute gap, they initially create separate windows. When the 10:05 event arrives, the system recognizes it bridges the gap and merges the windows.
+This window merging behavior is crucial. Multiple session windows can merge when events arrive out of order. Consider this example with a 10-minute session gap:
+
+1. Event at timestamp 10:00 arrives → Creates Window A [10:00 - 10:00], will close at 10:10
+2. Event at timestamp 10:20 arrives → Creates Window B [10:20 - 10:20], will close at 10:30 (separate window, gap exceeded)
+3. Event at timestamp 10:05 arrives late → Bridges the gap between Windows A and B
+4. System merges Windows A + B → Single Window [10:00 - 10:20], will close at 10:30
+
+This merging ensures logically connected events form a single session even when network delays cause out-of-order arrival.
 
 ### Technical Example
 
@@ -75,7 +82,7 @@ Financial systems use session windows to detect suspicious patterns. Rapid seque
 
 ### Apache Kafka Streams
 
-Kafka Streams provides native support for session windows through the `SessionWindows` class. Here's a basic implementation:
+Kafka Streams provides native support for session windows through the `SessionWindows` class. Here's a basic implementation compatible with Kafka Streams 3.x+ (including Kafka 4.0):
 
 ```java
 StreamsBuilder builder = new StreamsBuilder();
@@ -83,28 +90,31 @@ KStream<String, ClickEvent> clicks = builder.stream("user-clicks");
 
 clicks
     .groupByKey()
-    .windowedBy(SessionWindows.with(Duration.ofMinutes(30)))
+    .windowedBy(SessionWindows
+        .with(Duration.ofMinutes(30))
+        .grace(Duration.ofMinutes(5)))  // Allow 5-minute grace period for late data
     .count()
     .toStream()
     .to("session-counts");
 ```
 
-This code groups click events by user ID and creates session windows with a 30-minute inactivity gap. The `count()` aggregation calculates the number of clicks per session.
+This code groups click events by user ID and creates session windows with a 30-minute inactivity gap. The `count()` aggregation calculates the number of clicks per session. The `grace()` method configures a grace period—additional time after the session gap expires during which late-arriving events can still be merged into the session. This is crucial for handling out-of-order data without indefinitely keeping session state.
 
 ### Apache Flink
 
-Flink offers session windows through its `EventTimeSessionWindows` and `ProcessingTimeSessionWindows` classes:
+Flink offers session windows through its `EventTimeSessionWindows` and `ProcessingTimeSessionWindows` classes. Here's an example compatible with Flink 1.13+ (including Flink 1.20):
 
 ```java
 DataStream<Event> events = // source stream
 events
     .keyBy(event -> event.getUserId())
     .window(EventTimeSessionWindows.withGap(Time.minutes(30)))
+    .allowedLateness(Time.minutes(5))  // Accept late events for 5 minutes after watermark
     .reduce(new SessionAggregator())
     .addSink(new SessionSink());
 ```
 
-Flink's implementation handles complex scenarios like window merging and late data with configurable allowed lateness.
+Flink's implementation handles complex scenarios like window merging and late data with configurable allowed lateness. The `allowedLateness()` method keeps window state available for a specified duration after the watermark passes the window end, allowing late events to update already-emitted results. This trades increased state size for more complete results with out-of-order data.
 
 ## Challenges and Best Practices
 
@@ -126,13 +136,21 @@ Session windows are particularly sensitive to late data since late events can ex
 - In Kafka Streams, use `grace()` to allow late data within a grace period
 - In Flink, configure `allowedLateness()` on window operations
 
+Understanding how watermarks track event time progression is crucial for accurate late data handling. For detailed coverage of watermarks and how they determine when windows can close, see [Watermarks and Triggers in Stream Processing](watermarks-and-triggers-in-stream-processing.md) and [Event Time and Watermarks in Flink](event-time-and-watermarks-in-flink.md).
+
 ### State Management
 
-Session windows require maintaining state for each key until the session closes. For high-cardinality keys or long session gaps, this can consume significant memory. Monitor state size and consider:
+Session windows require maintaining state for each key until the session closes. For high-cardinality keys (many unique key values, such as individual user IDs or device IDs) or long session gaps, this can consume significant memory.
+
+As a rough guideline, if you have 1 million concurrent active sessions with an average of 50 events per session and 100 bytes per event, you could expect approximately 5 GB of state (1M sessions × 50 events × 100 bytes). Actual state size depends on the data structures used, serialization format, and framework overhead.
+
+Monitor state size and consider:
 
 - Setting retention policies to prevent unbounded state growth
 - Using RocksDB state backend (Kafka Streams, Flink) for larger-than-memory state
 - Implementing session timeouts or maximum session durations
+
+For deeper understanding of how Kafka Streams manages state for windowing operations, including state stores, changelog topics, and fault tolerance mechanisms, see [State Stores in Kafka Streams](state-stores-in-kafka-streams.md).
 
 ### Monitoring and Observability
 
@@ -143,7 +161,12 @@ Understanding session window behavior in production requires proper monitoring. 
 - Late arrival rates
 - Window merge frequency
 
-Tools like Conduktor provide observability into Kafka Streams applications, allowing you to monitor session window state stores, track lag, and debug window behavior in production environments.
+Modern observability practices for session windows (as of 2025) include:
+
+- **Platform monitoring**: Tools like Conduktor provide observability into Kafka Streams applications, allowing you to monitor session window state stores, track lag, and debug window behavior in production environments
+- **OpenTelemetry integration**: Instrument session window operations with distributed tracing to track event flow through windowing logic, measure latency, and correlate window closures with downstream processing
+- **Kafka 4.0 metrics**: Leverage improved metrics APIs in Kafka 4.0 for granular monitoring of window state store sizes, compaction rates, and restoration times
+- **Consumer lag monitoring**: Track windowed consumer group lag to detect processing bottlenecks. For comprehensive lag monitoring strategies, see [Consumer Lag Monitoring](consumer-lag-monitoring.md)
 
 ## Session Windows and Data Streaming Architecture
 
@@ -154,9 +177,11 @@ In a typical architecture, session windows integrate with:
 - **Event time processing**: Using event timestamps rather than processing time ensures accurate sessions even with delayed data
 - **Watermarks**: Flink's watermark mechanism helps determine when sessions can safely close
 - **State stores**: Persistent state backends enable recovery after failures
-- **Changelog topics**: Kafka Streams backs session window state with changelog topics for fault tolerance
+- **Changelog topics**: Kafka Streams backs session window state with changelog topics (internal Kafka topics that durably persist all state changes) for fault tolerance
 
 Session windows also interact with other streaming concepts like exactly-once semantics, compaction, and retention policies. For instance, session window results often feed into compacted topics where only the latest session state matters.
+
+Testing session window logic requires strategies for handling time progression, out-of-order events, and window merging behavior. For comprehensive testing approaches including unit testing with time manipulation and integration testing with embedded clusters, see [Testing Strategies for Streaming Applications](testing-strategies-for-streaming-applications.md).
 
 ## Summary
 
