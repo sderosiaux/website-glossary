@@ -13,9 +13,13 @@ topics:
 
 Apache Iceberg revolutionizes how modern data platforms handle partitioning by introducing hidden partitioning and partition evolution capabilities. Unlike traditional table formats that expose partitioning as part of the schema and require users to manually manage partition predicates, Iceberg abstracts partitioning away from queries while maintaining exceptional performance. This article explores advanced partitioning strategies, performance optimization techniques, and practical implementations for data engineers building high-performance data lakehouses.
 
+For foundational concepts about Iceberg's role in modern data architectures, see [Introduction to Lakehouse Architecture](introduction-to-lakehouse-architecture.md).
+
 ## Understanding Hidden Partitioning
 
-Hidden partitioning is one of Iceberg's most powerful features, fundamentally changing how users interact with partitioned tables. In traditional systems like Hive, users must include partition columns in their WHERE clauses to benefit from partition pruning. Iceberg eliminates this requirement by maintaining partition metadata separately from the table schema.
+Hidden partitioning is one of Iceberg's most powerful features, fundamentally changing how users interact with partitioned tables. In traditional systems like Hive, users must include partition columns in their WHERE clauses to benefit from partition pruning. For example, a Hive table partitioned by date requires queries like `WHERE date_partition = '2024-01-01'`, forcing users to know and manage the partitioning scheme. This creates brittle queries that break when partition strategies evolve.
+
+Iceberg eliminates this requirement by maintaining partition metadata separately from the table schema. Users query against the original columns, and Iceberg's metadata layer automatically translates predicates into efficient partition filters—without requiring any partition awareness in the query.
 
 When you partition an Iceberg table by `day(timestamp)` or `bucket(user_id, 16)`, users query the original columns without knowing the partitioning strategy:
 
@@ -27,7 +31,7 @@ CREATE TABLE events (
   event_timestamp TIMESTAMP,
   event_type STRING
 )
-PARTITIONED BY (days(event_timestamp), bucket(16, user_id));
+PARTITIONED BY (days(event_timestamp), bucket(user_id, 16));
 
 -- Query using original columns - partitioning is automatic
 SELECT * FROM events
@@ -65,11 +69,60 @@ CREATE TABLE user_activity (
 PARTITIONED BY (
   days(activity_time),
   truncate(2, region),
-  bucket(32, user_id)
+  bucket(user_id, 32)
 );
 ```
 
 This strategy enables efficient queries across time ranges, geographic regions, and specific users without scanning unnecessary data.
+
+## 2025 Performance Improvements (Iceberg 1.5+)
+
+Recent Iceberg releases have introduced significant performance enhancements that improve partitioning and query optimization:
+
+### Position Delete Performance (Iceberg 1.5)
+
+Iceberg 1.5 introduced optimized position delete handling that dramatically improves performance for tables with row-level deletes. Position delete files now support better pruning and compaction:
+
+```sql
+-- Position deletes are now more efficient for partitioned tables
+DELETE FROM events
+WHERE event_timestamp = '2024-06-15'
+  AND event_type = 'duplicate';
+```
+
+Previously, position deletes could impact query performance across all partitions. The 1.5 optimization ensures delete files are partition-aware, allowing query engines to skip entire partitions containing no deletes.
+
+### Advanced Statistics Collection (Iceberg 1.6+)
+
+Iceberg 1.6 enhanced statistics collection to include:
+- **Column-level null counts** for better predicate pushdown
+- **Distinct value estimates** using HyperLogLog sketches
+- **Bloom filters** for high-cardinality columns (optional)
+
+Enable enhanced statistics during table creation:
+
+```sql
+CREATE TABLE enhanced_events (
+  user_id BIGINT,
+  event_data STRING,
+  event_timestamp TIMESTAMP
+)
+PARTITIONED BY (days(event_timestamp))
+TBLPROPERTIES (
+  'write.metadata.metrics.column.user_id'='full',
+  'write.metadata.metrics.column.event_data'='counts'
+);
+```
+
+### REST Catalog Standard
+
+The REST catalog has become the recommended catalog implementation for 2025 deployments. Unlike Hive Metastore or AWS Glue, REST catalogs provide:
+- **Standardized API** across all Iceberg implementations
+- **Better scalability** for high-concurrency workloads
+- **Multi-table transactions** for atomic operations across tables
+- **Built-in credential vending** for secure data access
+
+For catalog management details, see [Iceberg Catalog Management: Hive, Glue, and Nessie](iceberg-catalog-management-hive-glue-and-nessie.md), which now includes REST catalog patterns alongside traditional implementations.
 
 ## Partition Evolution
 
@@ -106,7 +159,7 @@ This zero-copy evolution enables continuous optimization without expensive migra
 
 ### Partition Pruning
 
-Iceberg's advanced metadata layer enables aggressive partition pruning. The table metadata stores min/max statistics for each partition, allowing the query engine to skip entire partitions before reading any data files.
+Iceberg's advanced metadata layer enables aggressive partition pruning. The table metadata stores min/max statistics for each partition, allowing the query engine to skip entire partitions before reading any data files. For detailed coverage of how Iceberg's metadata architecture supports this functionality, see [Iceberg Table Architecture: Metadata and Snapshots](iceberg-table-architecture-metadata-and-snapshots.md).
 
 ```sql
 -- Partition pruning with range predicate
@@ -141,6 +194,8 @@ Iceberg prunes to:
 Over-partitioning creates small files that degrade query performance. Iceberg provides several solutions:
 
 **Bin-Packing During Writes:**
+
+Bin-packing is a compaction strategy that groups small files together into optimally-sized files (similar to packing small boxes into larger shipping containers). This happens automatically during writes or through explicit compaction operations.
 ```sql
 -- Configure target file size
 ALTER TABLE events SET TBLPROPERTIES (
@@ -167,9 +222,11 @@ CALL catalog.system.rewrite_data_files(
 | Query Scan Time | 45 sec | 3 sec |
 | Metadata Read Time | 2 sec | 0.1 sec |
 
+For comprehensive coverage of compaction strategies, snapshot expiration, and orphan file cleanup, see [Maintaining Iceberg Tables: Compaction and Cleanup](maintaining-iceberg-tables-compaction-and-cleanup.md).
+
 ## Streaming Ecosystem Integration
 
-Iceberg's partitioning integrates seamlessly with streaming platforms, enabling real-time data ingestion with optimal partition layouts.
+Iceberg's partitioning integrates seamlessly with streaming platforms, enabling real-time data ingestion with optimal partition layouts. For broader patterns on streaming data to lakehouse formats, see [Streaming to Lakehouse Tables: Delta Lake, Iceberg, and Hudi](streaming-to-lakehouse-tables.md).
 
 ### Apache Kafka with Iceberg
 
@@ -193,9 +250,17 @@ PARTITIONED BY (hours(event_timestamp));
 - Configure writers to buffer data before committing
 - Monitor partition cardinality to avoid over-partitioning
 
-### Governance and Visibility
+### Governance and Visibility with Conduktor
 
-As Iceberg tables receive streaming data from Kafka, maintaining visibility into data lineage, partition health, and query patterns becomes critical. Streaming management tools provide governance capabilities that help teams monitor partition growth, visualize data lineage between Kafka topics and Iceberg partitions, audit access patterns to optimize partition strategies, and validate schema evolution to ensure streaming writes maintain compatibility with partition specs.
+As Iceberg tables receive streaming data from Kafka, maintaining visibility into data lineage, partition health, and query patterns becomes critical. Conduktor provides comprehensive governance capabilities for Kafka-to-Iceberg pipelines:
+
+- **Pipeline monitoring**: Track data flow from Kafka topics to Iceberg tables with real-time throughput and lag metrics
+- **Data lineage visualization**: Map relationships between Kafka topics, consumer groups, and target Iceberg partitions
+- **Schema compatibility validation**: Ensure schema evolution in Kafka producers maintains compatibility with Iceberg partition specs
+- **Partition health metrics**: Monitor partition growth, file sizes, and compaction needs across streaming ingestion pipelines
+- **Access audit logs**: Track which teams and applications write to Iceberg tables for compliance and optimization
+
+For streaming pipelines where Kafka feeds Iceberg tables, Conduktor's unified observability ensures partition strategies remain optimal as data volumes scale.
 
 ### Flink and Spark Streaming
 
@@ -212,7 +277,7 @@ df.writeStream \
   .toTable("events")
 ```
 
-The `fanout-enabled` option prevents writer contention when multiple tasks write to the same partition simultaneously, critical for high-throughput streaming.
+The `fanout-enabled` option prevents writer contention when multiple tasks write to the same partition simultaneously. Without fanout mode, concurrent writers to a partition compete to update the same manifest files, causing retries and reduced throughput. Fanout mode creates separate data files per writer, eliminating contention—critical for high-throughput streaming where hundreds of Spark tasks may write to a single time-based partition concurrently.
 
 ## Advanced Partition Strategies
 
@@ -246,7 +311,7 @@ CREATE TABLE user_events (
   event_time TIMESTAMP,
   event_data STRING
 )
-PARTITIONED BY (days(event_time), bucket(128, user_id));
+PARTITIONED BY (days(event_time), bucket(user_id, 128));
 ```
 
 This supports both:
@@ -255,7 +320,7 @@ This supports both:
 - Combined queries with maximum pruning
 
 **Performance Consideration:**
-Avoid excessive partition dimensions. Each additional dimension multiplicatively increases partition count. A table with 365 days × 128 buckets = 46,720 partitions may create too many small files.
+Avoid excessive partition dimensions. Each additional dimension multiplicatively increases partition count. A table with 365 days × 128 buckets = 46,720 partitions may create too many small files. Why is this problematic? Each partition needs enough data to fill reasonable file sizes (128MB+). With 46,720 partitions, you'd need 6TB of data just to have one 128MB file per partition. Lower-volume tables with high partition counts end up with thousands of tiny files, dramatically increasing metadata overhead and query planning time.
 
 ## Performance Tuning Checklist
 
