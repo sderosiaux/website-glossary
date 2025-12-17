@@ -10,7 +10,7 @@ topics:
 
 # Tiered Storage in Kafka
 
-Apache Kafka has traditionally stored all topic data on local broker disks, tightly coupling compute and storage resources. As organizations retain data for longer periods to support compliance requirements, data analytics, and event-driven architectures, this model has become increasingly expensive and operationally challenging. Tiered storage, introduced in KIP-405 and reaching general availability in Kafka 3.9, fundamentally changes this by separating hot and cold data across two storage tiers.
+Apache Kafka has traditionally stored all topic data on local broker disks, tightly coupling compute and storage resources. As organizations retain data for longer periods to support compliance requirements, data analytics, and [event-driven architectures](event-driven-architecture.md), this model has become increasingly expensive and operationally challenging. Tiered storage, introduced in KIP-405 and reaching general availability in Kafka 3.9, fundamentally changes this by separating hot and cold data across two storage tiers. The feature is fully compatible with [KRaft mode](understanding-kraft-mode-in-kafka.md), which has become the standard deployment model in 2025, eliminating the need for ZooKeeper.
 
 ## Introduction to Tiered Storage
 
@@ -50,9 +50,11 @@ Tiered storage introduces several new components to the Kafka broker architectur
                     └─────────────────────────────────────────┘
 ```
 
-Two key plugin interfaces enable flexibility in implementation. The RemoteStorageManager handles the actual interaction with remote storage systems, including uploading completed log segments, fetching data for consumer requests, and deleting expired segments. Each uploaded segment receives a unique RemoteLogSegmentId that identifies it in the remote storage system.
+Two key plugin interfaces enable flexibility in implementation:
 
-The RemoteLogMetadataManager maintains metadata about which segments exist in remote storage, their offsets, and their locations. This metadata layer requires strong consistency guarantees. Kafka provides a default implementation using an internal topic called `__remote_log_metadata`, but organizations can implement custom solutions using external systems like databases or metadata stores.
+**RemoteStorageManager**: Think of this as the "mover" - it handles the physical interaction with remote storage systems. Its responsibilities include uploading completed log segments to remote storage, fetching data when consumers request historical data, and deleting expired segments. Each uploaded segment receives a unique RemoteLogSegmentId (essentially a tracking number) that identifies it in the remote storage system.
+
+**RemoteLogMetadataManager**: This acts as the "catalog" - it maintains metadata about which segments exist in remote storage, their offsets (position in the topic), and their locations. This metadata layer requires strong consistency guarantees to ensure consumers can reliably find and read historical data. Kafka provides a default implementation using an internal topic called `__remote_log_metadata`, but organizations can implement custom solutions using external systems like databases or metadata stores.
 
 Critically, Apache Kafka does not ship with actual storage backend implementations. The community and vendors provide plugins for specific storage systems. For example, Aiven offers an open-source RemoteStorageManager supporting S3, GCS, and Azure Blob Storage. Organizations can also develop custom plugins to integrate with their existing storage infrastructure.
 
@@ -74,38 +76,77 @@ Real-world example: A financial services company processing transaction events m
 
 Enabling tiered storage requires configuration at both the cluster and topic levels. At the cluster level, administrators must configure the RemoteStorageManager and RemoteLogMetadataManager implementations. This includes specifying the storage backend plugin class and providing necessary credentials for the remote storage system.
 
-Key broker configurations include:
+Here's an example broker configuration in `server.properties`:
 
-- `remote.log.storage.system.enable=true` to activate tiered storage support
-- `remote.log.metadata.manager.class.name` to specify the metadata manager implementation
-- `remote.log.storage.manager.class.name` to specify the storage backend plugin
-- Remote storage system credentials and endpoints
+```properties
+# Enable tiered storage
+remote.log.storage.system.enable=true
 
-At the topic level, administrators can enable tiered storage for individual topics and configure retention policies:
+# Metadata manager (using internal topic)
+remote.log.metadata.manager.class.name=org.apache.kafka.server.log.remote.metadata.storage.TopicBasedRemoteLogMetadataManager
+remote.log.metadata.manager.listener.name=PLAINTEXT
+
+# Storage manager (example using Aiven's S3 plugin)
+remote.log.storage.manager.class.name=io.aiven.kafka.tieredstorage.RemoteStorageManager
+remote.log.storage.manager.class.path=/path/to/tiered-storage-plugin.jar
+
+# S3 configuration
+rsm.config.chunk.size=4194304
+rsm.config.storage.backend.class=io.aiven.kafka.tieredstorage.storage.s3.S3Storage
+rsm.config.storage.s3.bucket.name=my-kafka-tiered-storage
+rsm.config.storage.s3.region=us-east-1
+rsm.config.storage.aws.access.key.id=${AWS_ACCESS_KEY_ID}
+rsm.config.storage.aws.secret.access.key=${AWS_SECRET_ACCESS_KEY}
+```
+
+At the topic level, administrators can enable tiered storage for individual topics and configure retention policies. You can set these during topic creation:
+
+```bash
+kafka-topics.sh --create \
+  --bootstrap-server localhost:9092 \
+  --topic transactions \
+  --partitions 6 \
+  --replication-factor 3 \
+  --config remote.storage.enable=true \
+  --config local.retention.ms=86400000 \
+  --config retention.ms=2592000000
+```
+
+Or update an existing topic:
+
+```bash
+kafka-configs.sh --bootstrap-server localhost:9092 \
+  --entity-type topics \
+  --entity-name transactions \
+  --alter \
+  --add-config remote.storage.enable=true,local.retention.ms=86400000,retention.ms=2592000000
+```
+
+Key configuration parameters:
 
 - `remote.storage.enable=true` enables tiered storage for the topic
 - `local.retention.ms` or `local.retention.bytes` controls how long data remains on local disks
 - Standard `retention.ms` or `retention.bytes` applies to the remote tier
 
-For example, setting `local.retention.ms=86400000` (24 hours) and `retention.ms=2592000000` (30 days) means data stays on local disks for one day before moving to remote storage, where it remains for 30 days total.
+In the example above, `local.retention.ms=86400000` (24 hours) and `retention.ms=2592000000` (30 days) means data stays on local disks for one day before moving to remote storage, where it remains for 30 days total.
 
 Storage backend selection depends on requirements and existing infrastructure. Cloud object stores like S3 offer virtually unlimited capacity and high durability but introduce network latency. On-premises options might include shared NFS volumes or HDFS, trading some cost benefits for lower latency and data locality.
 
-Important considerations: Topics must be created with tiered storage enabled from the start, or migrated to it (starting from Kafka 2.8.0). Once enabled, tiered storage cannot be disabled without deleting the topic. Plan retention policies carefully, as deleting a topic removes data from both local and remote storage.
+Important considerations: Topics must be created with tiered storage enabled from the start, or you can enable it on existing topics using the configuration update command shown above. However, once enabled, tiered storage cannot be disabled without deleting and recreating the topic. Plan retention policies carefully, as deleting a topic removes data from both local and remote storage.
 
 ## Tiered Storage in Data Streaming Ecosystems
 
 Tiered storage transforms Kafka's role in data streaming architectures. Traditionally, organizations built separate systems for real-time streaming (Kafka) and historical data storage (data lakes or warehouses). Consumers would read recent events from Kafka, while analytics on older data required querying a different system entirely. This dual-system approach created complexity in maintaining data consistency and developing applications that span historical and real-time data.
 
-With tiered storage, Kafka can serve as a unified event store for both real-time and historical use cases. Stream processing frameworks like Apache Flink or Kafka Streams can process data spanning days, weeks, or months without architectural changes. A fraud detection system might analyze patterns over the past 90 days, all accessible through standard Kafka consumer APIs.
+With tiered storage, Kafka can serve as a unified event store for both real-time and historical use cases. Stream processing frameworks like [Apache Flink](what-is-apache-flink-stateful-stream-processing.md) or [Kafka Streams](introduction-to-kafka-streams.md) can process data spanning days, weeks, or months without architectural changes. A fraud detection system might analyze patterns over the past 90 days, all accessible through standard Kafka consumer APIs.
 
 This capability enables several new streaming patterns:
 
 **Reprocessing and Backfilling**: When deploying new stream processing logic, teams can reprocess historical data in its original order without maintaining separate historical datasets. If a bug is discovered in a stream processor, teams can reprocess weeks of data to regenerate corrected output.
 
-**Long-Term Event Sourcing**: Event-sourced systems can maintain complete event histories in Kafka itself, rather than periodically snapshotting to external databases. This simplifies architecture and ensures all event data remains queryable through consistent Kafka interfaces.
+**Long-Term Event Sourcing**: [Event-sourced systems](event-sourcing-patterns-with-kafka.md) can maintain complete event histories in Kafka itself, rather than periodically snapshotting to external databases. This simplifies architecture and ensures all event data remains queryable through consistent Kafka interfaces.
 
-**Disaster Recovery and Compliance**: Regulated industries can retain complete event histories for audit and compliance without expensive dedicated storage infrastructure. In disaster scenarios, systems can rebuild state from retained events rather than complex backup/restore processes.
+**Disaster Recovery and Compliance**: Regulated industries can retain complete event histories for audit and compliance without expensive dedicated storage infrastructure. For detailed strategies on protecting Kafka clusters, see [Disaster Recovery Strategies for Kafka Clusters](disaster-recovery-strategies-for-kafka-clusters.md). In disaster scenarios, systems can rebuild state from retained events rather than complex backup/restore processes.
 
 Real-world example: A ride-sharing platform uses tiered storage to retain trip events for 180 days. Their real-time pricing algorithm consumes recent trip data from the local tier for low-latency decisions. Meanwhile, their analytics team runs weekly batch jobs in Flink that read 30-60 day windows of historical trip data from remote storage to optimize driver allocation models. Both workloads use the same Kafka topics with no architectural duplication.
 
@@ -113,13 +154,13 @@ Tools like Conduktor can enhance operational visibility in these complex streami
 
 ## Current Limitations and Future Directions
 
-While tiered storage is production-ready, several limitations exist in the current implementation. Most notably, tiered storage does not support log compaction. Topics configured with `cleanup.policy=compact` cannot enable remote storage. This restriction affects use cases like maintaining user profile tables or other key-based state stores that rely on compaction to retain only the latest value per key.
+While tiered storage is production-ready, several limitations exist in the current implementation. Most notably, tiered storage does not support log compaction. Log compaction is a cleanup policy that keeps only the latest value for each key, making it useful for maintaining stateful tables (like user profiles) where you only need the current state. Topics configured with `cleanup.policy=compact` cannot enable remote storage. This restriction affects use cases like maintaining user profile tables or other key-based state stores that rely on compaction to retain only the latest value per key.
 
-The Just a Bunch of Disks (JBOD) feature is also incompatible with tiered storage. Brokers using multiple disk volumes cannot leverage tiered storage, requiring administrators to choose between these features.
+The Just a Bunch of Disks (JBOD) feature is also incompatible with tiered storage. JBOD allows Kafka brokers to use multiple independent disk volumes (rather than RAID) to distribute partitions across disks for better performance and capacity. Brokers configured with JBOD cannot leverage tiered storage, requiring administrators to choose between these features.
 
 Performance characteristics differ from local storage. When tiered storage is enabled, each consumer fetch request can only handle a single remote storage partition, meaning consumers reading from multiple partitions must issue separate requests for each. This can impact consumer throughput when reading primarily from remote storage.
 
-Future development is addressing some of these constraints and extending tiered storage capabilities. KIP-1176 proposes fast-tiering for active log segments, allowing brokers to offload data to remote storage even before segments are fully sealed. This would reduce cross-availability-zone replication traffic and enable more cost-efficient storage of write-ahead logs.
+Future development is addressing some of these constraints and extending tiered storage capabilities. KIP-1176 proposes fast-tiering for active log segments, allowing brokers to offload data to remote storage even before segments are fully sealed (completed and marked as read-only when they reach their size limit or time threshold). This would reduce cross-availability-zone replication traffic and enable more cost-efficient storage of write-ahead logs.
 
 KIP-1150 explores fully diskless topics, where brokers maintain minimal local state and rely primarily on remote storage. This radical shift would further separate compute and storage but requires deeper architectural changes to maintain performance and consistency guarantees.
 
