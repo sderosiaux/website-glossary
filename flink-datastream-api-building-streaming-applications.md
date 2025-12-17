@@ -15,7 +15,9 @@ topics:
 
 The DataStream API is Apache Flink's foundational interface for building streaming applications. It provides a declarative programming model that abstracts the complexities of distributed stream processing while offering precise control over state management, time semantics, and fault tolerance.
 
-Unlike batch processing frameworks that operate on bounded datasets, the DataStream API is designed for continuous, unbounded streams of data. This makes it suitable for use cases such as real-time analytics, fraud detection, event-driven applications, and IoT data processing. The API supports both Java and Scala, allowing developers to write type-safe transformations that Flink optimizes and executes across distributed clusters.
+Unlike batch processing frameworks that operate on bounded datasets, the DataStream API is designed for continuous, unbounded streams of data. This makes it suitable for use cases such as real-time analytics, fraud detection, event-driven applications, and IoT data processing. The API supports Java, Scala, and Python (PyFlink), allowing developers to write type-safe transformations that Flink optimizes and executes across distributed clusters.
+
+As of Flink 2.0+ (released in 2025), the DataStream API has matured with significant improvements to state backends, async state operations, and unified source/sink APIs that simplify integration with systems like Apache Kafka. For a broader introduction to Flink's capabilities, see [What is Apache Flink? Stateful Stream Processing](/what-is-apache-flink-stateful-stream-processing.md).
 
 ## Core Concepts and Architecture
 
@@ -29,15 +31,17 @@ Every Flink application begins by obtaining an execution environment, which serv
 
 ```java
 StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
 env.enableCheckpointing(60000); // Enable checkpointing every 60 seconds
+env.getCheckpointConfig().setCheckpointingMode(CheckpointingMode.EXACTLY_ONCE);
 ```
 
-The execution environment determines whether the application runs locally for development or is submitted to a distributed cluster for production workloads.
+Note: Since Flink 1.12+, event time is the default time characteristic, so `setStreamTimeCharacteristic()` is no longer needed and was removed in Flink 2.0. The execution environment determines whether the application runs locally for development or is submitted to a distributed cluster for production workloads.
 
 ### Sources and Sinks
 
-Sources ingest data into the streaming pipeline from external systems such as Apache Kafka, file systems, or custom connectors. Sinks write processed data to downstream storage or messaging systems. Flink provides built-in connectors for common systems and allows custom implementations through the `SourceFunction` and `SinkFunction` interfaces.
+Sources ingest data into the streaming pipeline from external systems such as Apache Kafka, file systems, or custom connectors. Sinks write processed data to downstream storage or messaging systems.
+
+Since Flink 1.18+, the unified Source API (FLIP-27) has become the standard for implementing sources, replacing the older `SourceFunction` interface. The new API provides better support for bounded/unbounded sources, checkpointing, and event time. Similarly, the Sink API (FLIP-143) replaces `SinkFunction` with a more robust interface supporting exactly-once semantics and flexible writer implementations.
 
 ## Essential Transformations
 
@@ -73,7 +77,7 @@ DataStream<UserAction> actions = ...;
 
 DataStream<ActionCount> actionCounts = actions
     .keyBy(action -> action.getUserId())
-    .timeWindow(Time.minutes(5))
+    .window(TumblingEventTimeWindows.of(Time.minutes(5)))
     .aggregate(new CountAggregateFunction());
 ```
 
@@ -102,6 +106,8 @@ public class EnrichmentMapper extends RichMapFunction<Event, EnrichedEvent> {
 }
 ```
 
+For high-performance state access patterns, Flink 1.19+ introduces the Async State API, which allows non-blocking state operations that can significantly improve throughput in I/O-bound applications. This is particularly beneficial when using remote state backends. For comprehensive coverage of state management patterns, see [Flink State Management and Checkpointing](/flink-state-management-and-checkpointing.md).
+
 ## Windowing and Time Semantics
 
 Time is a critical dimension in stream processing. Flink distinguishes between event time (when events actually occurred) and processing time (when events are processed by the system).
@@ -112,14 +118,14 @@ Event time processing enables correct results even when events arrive out of ord
 
 ```java
 DataStream<Event> events = env
-    .addSource(new KafkaSource<>(...))
-    .assignTimestampsAndWatermarks(
+    .fromSource(kafkaSource,
         WatermarkStrategy.<Event>forBoundedOutOfOrderness(Duration.ofSeconds(10))
-            .withTimestampAssigner((event, timestamp) -> event.getTimestamp())
+            .withTimestampAssigner((event, timestamp) -> event.getTimestamp()),
+        "Kafka Source"
     );
 ```
 
-Watermarks allow Flink to determine when all events up to a certain timestamp have arrived, triggering window computations and handling late data appropriately.
+Watermarks allow Flink to determine when all events up to a certain timestamp have arrived, triggering window computations and handling late data appropriately. For a deep dive into watermark mechanics, see [Watermarks and Triggers in Stream Processing](/watermarks-and-triggers-in-stream-processing.md). For strategies to handle events that arrive after watermarks have passed, see [Handling Late-Arriving Data in Streaming](/handling-late-arriving-data-in-streaming.md).
 
 ### Window Types
 
@@ -168,9 +174,9 @@ DataStream<Event> stream = env.fromSource(
 
 The connector handles offset management, consumer group coordination, and automatic failover, integrating seamlessly with Flink's state management.
 
-### Monitoring and Governance
+### Monitoring and Governance with Conduktor
 
-Production streaming applications require comprehensive monitoring and governance. Governance platforms provide visibility into Kafka topics, consumer lag, and data lineage, complementing Flink's built-in metrics. By monitoring both Kafka and Flink metrics, teams can identify bottlenecks, track data quality, and ensure SLA compliance through comprehensive observability tools.
+Production streaming applications require comprehensive monitoring and governance. Conduktor provides enterprise-grade visibility into Kafka topics, consumer lag, and data lineage, complementing Flink's built-in metrics. By monitoring both Kafka and Flink metrics through Conduktor, teams can identify bottlenecks, track data quality, and ensure SLA compliance. Conduktor's capabilities include real-time monitoring of consumer group lag (critical for Flink applications consuming from Kafka), schema registry integration, and data quality validation—essential features for production Flink deployments.
 
 ## Practical Implementation Example
 
@@ -220,6 +226,22 @@ public class ClickCountApplication {
 
 This pattern is common in production environments: reading from Kafka, applying stateful transformations with windowing, and writing results back to Kafka for downstream consumption.
 
+## 2025 Features and Modern Patterns
+
+Flink 1.18+ through 2.0+ has introduced several important enhancements to the DataStream API:
+
+**Unified Source/Sink APIs**: The FLIP-27 Source API and FLIP-143 Sink API provide standardized interfaces with better support for exactly-once semantics, backpressure handling, and hybrid bounded/unbounded sources.
+
+**Async State API (Flink 1.19+)**: Non-blocking state access improves throughput for stateful operations, particularly when using RocksDB or remote state backends.
+
+**Changelog State Backend**: Materializes state changes immediately to distributed storage, reducing recovery time while maintaining performance for normal operations.
+
+**Python DataStream API (PyFlink)**: Full-featured Python API enabling data engineers to build Flink applications in Python while leveraging the same runtime optimizations as Java/Scala applications.
+
+**Improved Kafka Integration**: Enhanced partition discovery, better offset management, and optimized serialization for high-throughput scenarios.
+
+These features make the DataStream API more performant, easier to use, and better suited for modern cloud-native deployments.
+
 ## Summary
 
 The Flink DataStream API provides a powerful, expressive framework for building streaming applications. Key concepts include:
@@ -229,9 +251,12 @@ The Flink DataStream API provides a powerful, expressive framework for building 
 - **Event time processing** with watermarks for handling out-of-order data
 - **Flexible windowing** for aggregating events over time intervals
 - **Kafka integration** for scalable, fault-tolerant data pipelines
-- **Monitoring and governance** through observability platforms
+- **Modern APIs** with unified sources/sinks and async state (Flink 1.18+/2.0+)
+- **Monitoring and governance** through platforms like Conduktor
 
 By mastering these concepts, data engineers can build robust, production-grade streaming applications that process billions of events with low latency and strong consistency guarantees. The combination of Flink's processing capabilities and Kafka's messaging infrastructure forms the backbone of modern real-time data platforms.
+
+For alternative declarative approaches to stream processing in Flink, explore [Flink SQL and Table API for Stream Processing](/flink-sql-and-table-api-for-stream-processing.md).
 
 ## References and Further Reading
 
