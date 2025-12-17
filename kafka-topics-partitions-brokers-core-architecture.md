@@ -38,6 +38,18 @@ Each partition is an ordered, immutable sequence of records. Records within a pa
 2. **Key-based routing**: Hash of the message key determines the partition (guarantees ordering for the same key)
 3. **Round-robin**: If no key is provided, messages are distributed evenly
 
+```java
+// Key-based routing example (Java)
+ProducerRecord<String, String> record =
+    new ProducerRecord<>("user-events", "user-123", eventData);
+// All messages with key "user-123" go to the same partition
+
+// Explicit partition
+ProducerRecord<String, String> record =
+    new ProducerRecord<>("user-events", 2, "user-123", eventData);
+// Forces message to partition 2
+```
+
 ```
 Topic: user-events (3 partitions)
 
@@ -59,9 +71,34 @@ Choosing the right number of partitions involves several considerations:
 - Longer leader election times during failures
 - More memory overhead per partition
 - Increased latency for end-to-end replication
-- Higher ZooKeeper/KRaft metadata overhead
+- Higher metadata overhead in the controller
 
 A common starting point: calculate partitions based on desired throughput divided by single-partition throughput, typically resulting in 6-12 partitions per topic for moderate-scale systems.
+
+**Example Calculation:**
+- Target throughput: 100 MB/s
+- Single partition throughput: ~10 MB/s
+- Recommended partitions: 100 / 10 = 10 partitions
+
+**Topic Creation Example:**
+
+```bash
+# Kafka 4.0+ with KRaft
+kafka-topics.sh --bootstrap-server localhost:9092 \
+  --create \
+  --topic user-events \
+  --partitions 10 \
+  --replication-factor 3 \
+  --config min.insync.replicas=2 \
+  --config retention.ms=604800000
+
+# Verify topic configuration
+kafka-topics.sh --bootstrap-server localhost:9092 \
+  --describe \
+  --topic user-events
+```
+
+For comprehensive topic planning strategies, see [Kafka Topic Design Guidelines](kafka-topic-design-guidelines.md).
 
 ## Brokers: The Storage and Coordination Layer
 
@@ -95,7 +132,84 @@ Partition 1:
   Followers: Broker 1, Broker 3
 ```
 
-If a broker fails, partitions where it was the leader automatically elect a new leader from the in-sync replicas (ISR). This ensures continuous availability without data loss.
+If a broker fails, partitions where it was the leader automatically elect a new leader from the **in-sync replicas (ISR)** - replicas that have fully caught up with the leader's log and meet the `replica.lag.time.max.ms` threshold. This ensures continuous availability without data loss, as only synchronized replicas can become leaders.
+
+**Durability Configuration:**
+
+For critical data, configure `min.insync.replicas` (typically 2) to ensure writes are acknowledged only after being replicated to multiple brokers. Combined with producer setting `acks=all`, this guarantees no data loss even during broker failures.
+
+For comprehensive replication strategies, see [Kafka Replication and High Availability](kafka-replication-and-high-availability.md).
+
+### Metadata Management with KRaft (Kafka 4.0+)
+
+Since Kafka 3.3 (GA in 3.5, required in 4.0+), clusters use **KRaft** (Kafka Raft) instead of ZooKeeper for metadata management. KRaft fundamentally changes how Kafka stores and manages cluster metadata.
+
+**How KRaft Works:**
+
+Instead of external ZooKeeper nodes, dedicated **controller nodes** (or combined broker-controller nodes) form a Raft quorum that manages metadata. Cluster state (topic configurations, partition assignments, broker registrations) is stored in an internal `__cluster_metadata` topic, treated as the source of truth.
+
+**KRaft Benefits:**
+
+- **Faster failover**: Controller election happens in milliseconds instead of seconds
+- **Scalability**: Supports millions of partitions per cluster (vs. ZooKeeper's ~200K limit)
+- **Simplified operations**: No external coordination service to maintain
+- **Stronger consistency**: Raft consensus algorithm provides clearer guarantees
+- **Improved security**: Unified authentication and authorization model
+
+**Architecture Impact:**
+
+```
+Traditional (ZooKeeper):                 KRaft Mode (Kafka 4.0+):
+┌────────────┐                          ┌────────────┐
+│ ZooKeeper  │                          │ Controller │
+│  Ensemble  │◄─────────────┐           │   Quorum   │◄─────────────┐
+└────────────┘              │           └────────────┘              │
+      ▲                     │                 ▲                     │
+      │                     │                 │                     │
+┌─────┴──────┐         ┌────┴─────┐    ┌─────┴──────┐         ┌────┴─────┐
+│  Broker 1  │         │ Broker 2 │    │  Broker 1  │         │ Broker 2 │
+│ (Metadata  │         │(Metadata │    │ (Metadata  │         │(Metadata │
+│  Consumer) │         │Consumer) │    │  in topic) │         │in topic) │
+└────────────┘         └──────────┘    └────────────┘         └──────────┘
+```
+
+For in-depth coverage of KRaft architecture and migration strategies, see [Understanding KRaft Mode in Kafka](understanding-kraft-mode-in-kafka.md).
+
+### Tiered Storage Architecture (Kafka 3.6+)
+
+Kafka 3.6+ introduced **tiered storage**, fundamentally changing how brokers manage data retention. This feature allows brokers to offload older log segments to remote object storage (S3, GCS, Azure Blob Storage) while keeping recent, frequently accessed data on local disks.
+
+**How Tiered Storage Works:**
+
+- **Hot tier**: Recent segments stored on broker local disk (fast access)
+- **Cold tier**: Older segments archived to object storage (cost-efficient)
+- **Transparent consumption**: Consumers automatically fetch from the appropriate tier
+- **Retention policy**: Configure `local.retention.ms` (hot) and `retention.ms` (total)
+
+**Architectural Benefits:**
+
+```
+Without Tiered Storage:              With Tiered Storage:
+┌──────────────┐                    ┌──────────────┐
+│   Broker     │                    │   Broker     │
+│              │                    │              │
+│ [All Data    │                    │ [Recent Data]│ ← Hot tier (fast)
+│  on Local    │                    │              │
+│  Disk]       │                    │ [Old Data    │
+│              │                    │  Pointer]────┼─→ S3/GCS/Azure
+│ 10 TB/broker │                    │ 1 TB/broker  │   (Cold tier)
+└──────────────┘                    └──────────────┘
+```
+
+**Why It Matters:**
+
+- **Decoupled storage**: Retention no longer tied to disk capacity
+- **Cost reduction**: Object storage is ~90% cheaper than broker disk
+- **Longer retention**: Keep months or years of data without scaling brokers
+- **Faster recovery**: New brokers don't need to replicate cold data
+- **Better elasticity**: Scale compute (brokers) independently from storage
+
+For detailed configuration and best practices, see [Tiered Storage in Kafka](tiered-storage-in-kafka.md).
 
 ## How Components Work Together
 
@@ -154,26 +268,47 @@ Kafka's architecture makes it the central nervous system of modern data platform
 - **Event-driven microservices**: Services publish domain events to topics and subscribe to events from other services
 - **Analytics pipelines**: Data flows from operational topics into data lakes and warehouses
 
-For complex deployments, tools like **Conduktor** provide visibility into topic configurations, partition distribution, and broker health. This governance layer helps teams understand data lineage, monitor consumer lag across partitions, and ensure replication factors meet compliance requirements.
+For foundational understanding of Kafka's role in data platforms, see [Apache Kafka](apache-kafka.md).
+
+For complex deployments, tools like **Conduktor** provide visibility into topic configurations, partition distribution, and broker health. This governance layer helps teams understand data lineage, monitor consumer lag across partitions (see [Consumer Lag Monitoring](consumer-lag-monitoring.md)), and ensure replication factors meet compliance requirements.
+
+**Related Concepts:**
+
+- Producer and consumer client interactions: [Kafka Producers and Consumers](kafka-producers-and-consumers.md)
+- Message format and serialization: [Message Serialization in Kafka](message-serialization-in-kafka.md)
+- Schema management: [Schema Registry and Schema Management](schema-registry-and-schema-management.md)
+- Security configurations: [Kafka Security Best Practices](kafka-security-best-practices.md)
 
 ## Summary
 
-Kafka's architecture is elegantly simple yet powerful. Topics provide logical organization, partitions enable horizontal scaling and parallelism, and brokers offer distributed storage with fault tolerance. Understanding these core components is fundamental to designing effective data streaming solutions.
+Kafka's architecture is elegantly simple yet powerful. Topics provide logical organization, partitions enable horizontal scaling and parallelism, and brokers offer distributed storage with fault tolerance. With Kafka 4.0+, the shift to KRaft and tiered storage has modernized this architecture for cloud-native deployments.
 
-When planning your Kafka deployment:
+**When planning your Kafka deployment:**
 
-- Choose partition counts based on throughput requirements and parallelism needs
+- Choose partition counts based on throughput requirements and parallelism needs (10-100 partitions for most use cases)
 - Set replication factors (typically 3) to balance fault tolerance and resource usage
+- Configure `min.insync.replicas=2` with producer `acks=all` for critical data
 - Distribute partition leadership across brokers to avoid hotspots
 - Monitor ISR status to ensure replicas stay synchronized
-- Consider retention policies that match your data replay and storage requirements
+- **Adopt KRaft mode** for new deployments (required in Kafka 4.0+)
+- **Consider tiered storage** (Kafka 3.6+) for long retention windows to reduce costs
+- Use rack awareness for partition placement in multi-AZ deployments
+
+**Modern Architecture Considerations (2025):**
+
+- KRaft eliminates operational complexity and improves scalability
+- Tiered storage decouples storage costs from compute capacity
+- Controller quorum sizing: 3-5 nodes for production KRaft clusters
+- Partition leadership balancing: Leverage automatic rebalancing in Kafka 4.0+
 
 Mastering these architectural fundamentals positions you to build scalable, reliable streaming platforms that form the backbone of modern data infrastructure.
 
 ## Sources and References
 
-- [Apache Kafka Documentation - Core Concepts](https://kafka.apache.org/documentation/#intro_concepts_and_terms)
-- [Confluent - Kafka Architecture Deep Dive](https://docs.confluent.io/platform/current/kafka/architecture.html)
-- [Kafka: The Definitive Guide, 2nd Edition](https://www.confluent.io/resources/kafka-the-definitive-guide/) - Chapter 5: Kafka Internals
+- [Apache Kafka 4.0 Documentation - Core Concepts](https://kafka.apache.org/documentation/#intro_concepts_and_terms)
+- [Apache Kafka - KIP-500: Replace ZooKeeper with a Self-Managed Metadata Quorum](https://cwiki.apache.org/confluence/display/KAFKA/KIP-500%3A+Replace+ZooKeeper+with+a+Self-Managed+Metadata+Quorum)
+- [Apache Kafka - KIP-405: Kafka Tiered Storage](https://cwiki.apache.org/confluence/display/KAFKA/KIP-405%3A+Kafka+Tiered+Storage)
 - [Apache Kafka - Topic and Partition Configuration](https://kafka.apache.org/documentation/#topicconfigs)
-- [Confluent - How to Choose the Number of Partitions](https://www.confluent.io/blog/how-choose-number-topics-partitions-kafka-cluster/)
+- [Apache Kafka - Replication](https://kafka.apache.org/documentation/#replication)
+- [Kafka: The Definitive Guide, 2nd Edition](https://www.confluent.io/resources/kafka-the-definitive-guide/) - Chapter 5: Kafka Internals
+- [Conduktor - Kafka Architecture Guide](https://www.conduktor.io/kafka/kafka-topics-internals-segments-and-offsets/) (2025)
