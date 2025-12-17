@@ -41,13 +41,15 @@ Streaming processing, by contrast, treats data as a continuous flow of events. E
 
 Several technologies have emerged as leaders in the real-time streaming space.
 
-**Apache Kafka** is the most widely adopted streaming platform. Originally developed at LinkedIn, Kafka provides a distributed, fault-tolerant broker system that can handle millions of events per second. It stores streams as ordered logs and allows multiple consumers to read at different speeds without affecting each other. Kafka's ecosystem includes Kafka Streams and ksqlDB for stream processing.
+**Apache Kafka** is the most widely adopted streaming platform. Originally developed at LinkedIn, Kafka provides a distributed, fault-tolerant broker system that can handle millions of events per second. With Kafka 4.0+ (2024), the platform operates entirely on KRaft consensus (replacing ZooKeeper), providing improved scalability, faster cluster recovery, and simplified operations. For detailed coverage of this architecture shift, see [Understanding KRaft Mode in Kafka](understanding-kraft-mode-in-kafka.md). Kafka stores streams as ordered logs and allows multiple consumers to read at different speeds without affecting each other. Kafka's ecosystem includes Kafka Streams and ksqlDB for stream processing.
 
-**Apache Flink** is a stream processing framework designed for stateful computations over unbounded and bounded datasets. Flink excels at complex event processing, windowing operations, and maintaining exactly-once processing semantics. It can process streams with low latency while handling state management and fault tolerance automatically.
+**Apache Flink** is a stream processing framework designed for stateful computations over unbounded and bounded datasets. Flink 1.18+ (2024-2025) brings enhanced SQL capabilities, improved Python API support, and unified batch-streaming execution. Flink excels at complex event processing, windowing operations, and maintaining exactly-once processing semantics. It can process streams with low latency while handling state management and fault tolerance automatically. For comprehensive coverage, see [What is Apache Flink: Stateful Stream Processing](what-is-apache-flink-stateful-stream-processing.md).
 
 **Apache Pulsar** is a cloud-native messaging and streaming platform that separates compute from storage, offering multi-tenancy and geo-replication out of the box. Pulsar combines messaging patterns with streaming capabilities in a unified architecture.
 
 **Cloud-native services** like AWS Kinesis, Azure Event Hubs, and Google Cloud Pub/Sub provide managed streaming infrastructure without the operational overhead of running your own clusters. These services integrate seamlessly with other cloud offerings, making it easier to build end-to-end streaming pipelines.
+
+**Stream processing frameworks** transform and analyze data in motion. Kafka Streams (integrated with Kafka 4.0+) provides a lightweight Java library for processing streams with stateful operations, windowing, and joins—no separate cluster required. For an introduction, see [Introduction to Kafka Streams](introduction-to-kafka-streams.md). ksqlDB enables SQL queries on Kafka streams, making stream processing accessible to SQL-familiar developers. These frameworks handle the complexity of stateful computations, time-based windowing, and exactly-once processing semantics.
 
 ## Real-World Use Cases
 
@@ -59,7 +61,7 @@ Real-time streaming solves problems that batch processing cannot address effecti
 
 **Clickstream analytics** captures how users interact with websites and applications. Companies stream click events to understand user behavior, personalize content dynamically, run A/B tests, and optimize conversion funnels based on live traffic patterns.
 
-**Change Data Capture (CDC)** streams database changes to other systems. When a customer updates their address in one database, CDC can propagate that change to data warehouses, search indexes, caches, and other applications in real-time, keeping data synchronized across the organization.
+**Change Data Capture (CDC)** streams database changes to other systems. When a customer updates their address in one database, CDC can propagate that change to data warehouses, search indexes, caches, and other applications in real-time, keeping data synchronized across the organization. For comprehensive coverage, see [What is Change Data Capture (CDC): Fundamentals](what-is-change-data-capture-cdc-fundamentals.md).
 
 **Real-time recommendations** power personalization engines that adapt to user behavior instantly. Streaming services suggest content based on what you're watching right now, e-commerce sites recommend products based on your current browsing session, and social media platforms curate feeds based on recent interactions.
 
@@ -77,27 +79,51 @@ Real-time streaming solves problems that batch processing cannot address effecti
 
 **Complexity** increases with streaming systems. Distributed architectures, stateful processing, and handling failures across multiple components require different skills than traditional batch ETL. Teams need expertise in stream processing frameworks and distributed systems.
 
-**Exactly-once semantics** is difficult to achieve. Ensuring each event is processed once and only once, even when systems fail and restart, requires careful design and coordination between producers, brokers, and consumers. Many systems settle for at-least-once delivery, requiring idempotent processing logic.
+**Exactly-once semantics** is difficult to achieve. Ensuring each event is processed once and only once, even when systems fail and restart, requires careful design and coordination between producers, brokers, and consumers. For example, if a consumer processes a payment event and crashes before committing its offset, the event might be processed twice on restart—potentially double-charging a customer. Many systems settle for at-least-once delivery, requiring idempotent processing logic to handle duplicates safely. For detailed coverage of achieving exactly-once processing, see [Exactly-Once Semantics in Kafka](exactly-once-semantics-in-kafka.md).
 
-**State management** becomes challenging when processing streams. Computing aggregations, joins, or complex patterns requires maintaining state across many events. This state must be durable, consistent, and capable of being recovered after failures.
+**State management** becomes challenging when processing streams. Computing aggregations, joins, or complex patterns requires maintaining state across many events. For example, calculating a 30-day rolling average of user activity requires storing activity counts for each user and updating them as new events arrive. This state must be durable, consistent, and capable of being recovered after failures. For Flink's approach to state management, see [Flink State Management and Checkpointing](flink-state-management-and-checkpointing.md).
 
 **Ordering guarantees** are not universal. While individual partitions in systems like Kafka maintain order, processing events across partitions or in distributed consumers can result in out-of-order processing. Applications must decide whether strict ordering is necessary and design accordingly.
+
+### A Concrete Example: E-commerce Order Processing
+
+To illustrate how streaming works in practice, consider an e-commerce platform processing orders in real-time:
+
+1. **Event Generation**: When a customer clicks "Buy Now", the web application (producer) publishes an "OrderPlaced" event to a Kafka topic containing order details, customer ID, and timestamp.
+
+2. **Event Storage**: Kafka brokers receive the event, replicate it across multiple servers for durability, and make it available to consumers. The event is stored in an ordered log within a topic partition.
+
+3. **Parallel Processing**: Multiple consumers process the same event for different purposes—a fraud detection service analyzes the order for suspicious patterns, an inventory service reserves products, a recommendation engine updates the customer's profile, and an analytics pipeline computes real-time sales metrics.
+
+4. **Real-time Response**: If fraud detection flags the order within milliseconds, the payment service receives a "HoldPayment" event before charging the card. Meanwhile, the customer sees real-time order status updates based on events flowing through the system.
+
+This event-driven flow enables each service to react independently while maintaining a consistent view of what's happening across the organization.
 
 ## Streaming in Modern Data Architectures
 
 Real-time streaming has become integral to modern data architectures, connecting transactional systems, analytical workloads, and operational applications.
 
-**Lakehouse architectures** combine the flexibility of data lakes with the structure of data warehouses. Streaming feeds both operational analytics and batch processing. Tools like Apache Iceberg and Delta Lake enable streaming ingestion into lakehouse formats, providing ACID transactions on streaming data and enabling unified batch and streaming analytics.
+**Lakehouse architectures** combine the flexibility of data lakes with the structure of data warehouses. Streaming feeds both operational analytics and batch processing. Modern lakehouse table formats like Apache Iceberg 1.5+, Delta Lake 3.0+, and Apache Paimon enable streaming ingestion with ACID transactions, time travel, and schema evolution. For detailed coverage of lakehouse concepts, see [Introduction to Lakehouse Architecture](introduction-to-lakehouse-architecture.md) and [Apache Iceberg](apache-iceberg.md). These formats provide exactly-once ingestion from Kafka and Flink, enabling unified batch and streaming analytics on the same tables.
 
-**Data mesh** architectures treat data as a product owned by domain teams. Streaming provides the real-time data pipelines that connect domain-owned data products. Events flow between domains through well-defined interfaces, enabling decentralized data ownership while maintaining integration.
+**Data mesh** architectures treat data as a product owned by domain teams. Streaming provides the real-time data pipelines that connect domain-owned data products. Events flow between domains through well-defined interfaces, enabling decentralized data ownership while maintaining integration. For implementation guidance, see [Data Mesh Principles and Implementation](data-mesh-principles-and-implementation.md).
 
-**Event-driven architectures** use streaming platforms as the nervous system of the organization. Applications communicate through events rather than direct API calls, reducing coupling and enabling better scalability. The event stream becomes a shared log of everything that has happened, providing a foundation for event sourcing and audit trails.
+**Event-driven architectures** use streaming platforms as the nervous system of the organization. Applications communicate through events rather than direct API calls, reducing coupling and enabling better scalability. The event stream becomes a shared log of everything that has happened, providing a foundation for event sourcing and audit trails. For architectural patterns, see [Event-Driven Architecture](event-driven-architecture.md) and [Event Sourcing Patterns with Kafka](event-sourcing-patterns-with-kafka.md).
+
+### Observability and Monitoring
+
+As streaming systems grow in complexity, observability becomes essential for understanding system health and performance. Modern streaming observability combines metrics, logs, and traces to provide comprehensive visibility.
+
+**Consumer lag monitoring** tracks how far behind consumers are in processing events. Tools like Kafka Lag Exporter (2024+) export consumer lag metrics to Prometheus, enabling alerting when consumers fall behind. For detailed coverage, see [Consumer Lag Monitoring](consumer-lag-monitoring.md). Monitoring lag helps identify performance bottlenecks, capacity issues, or failing consumers before they impact business operations.
+
+**Distributed tracing** with OpenTelemetry provides end-to-end visibility across streaming pipelines. Traces follow events from producers through brokers to consumers, revealing latency hotspots and performance degradation. For comprehensive tracing strategies, see [Distributed Tracing for Kafka Applications](distributed-tracing-for-kafka-applications.md).
+
+**Data quality observability** monitors streaming data for anomalies, schema violations, and data freshness issues. Platforms track data quality metrics in real-time, alerting teams to incidents before they propagate downstream. For foundational concepts, see [What is Data Observability: The Five Pillars](what-is-data-observability-the-five-pillars.md).
 
 ### Governance and Visibility
 
 As streaming infrastructure grows, governance becomes critical. Organizations need visibility into what data flows through their systems, who has access, and whether sensitive information is handled correctly.
 
-This is where platforms like Conduktor help. Managing hundreds of topics, thousands of schemas, and complex access control policies across streaming infrastructure requires specialized tooling. Governance platforms provide centralized visibility into streaming data, enforce access controls, monitor data quality, and ensure compliance with regulations. They help teams collaborate on streaming resources without sacrificing security or creating data silos.
+This is where platforms like Conduktor help. Managing hundreds of topics, thousands of schemas, and complex access control policies across streaming infrastructure requires specialized tooling. Governance platforms provide centralized visibility into streaming data, enforce access controls, monitor data quality, and ensure compliance with regulations. They help teams collaborate on streaming resources without sacrificing security or creating data silos. For security best practices, see [Access Control for Streaming](access-control-for-streaming.md).
 
 ## Getting Started with Data Streaming
 
@@ -111,7 +137,7 @@ Teams considering real-time streaming should evaluate several factors before div
 
 **Governance setup** should not be an afterthought. Establish naming conventions, access control policies, schema management, and monitoring before your streaming infrastructure scales. Setting up governance early prevents the chaos that emerges when hundreds of teams are producing and consuming streams without coordination.
 
-**Schema management** is essential for maintaining compatibility as systems evolve. Use schema registries to enforce contracts between producers and consumers, enable schema evolution without breaking consumers, and document what data flows through your systems.
+**Schema management** is essential for maintaining compatibility as systems evolve. Use schema registries to enforce contracts between producers and consumers, enable schema evolution without breaking consumers, and document what data flows through your systems. For schema format comparisons, see [Avro vs Protobuf vs JSON Schema](avro-vs-protobuf-vs-json-schema.md).
 
 ## Summary
 
