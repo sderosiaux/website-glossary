@@ -58,6 +58,8 @@ In an ideal world, events would arrive in perfect event time order, and processi
 
 Consider an IoT deployment where thousands of sensors monitor industrial equipment. Sensors in areas with poor connectivity might buffer readings locally and transmit them in batches when connectivity improves. A temperature reading from 10 minutes ago might arrive after readings from 5 minutes ago, creating challenges for time-based aggregations and alerts.
 
+Late-arriving data is particularly challenging for session windows, which dynamically adjust their boundaries based on event timing. For detailed coverage of session-based processing, see [Session Windows in Stream Processing](session-windows-in-stream-processing.md).
+
 ## Common Causes of Late-Arriving Data
 
 Late data occurs for many reasons in distributed systems:
@@ -118,7 +120,7 @@ For example, a watermark of 10:15:00 suggests that the system has likely receive
 
 Watermarks are necessarily heuristic because stream processing systems cannot know with certainty whether more late data will arrive. The watermark strategy must balance completeness (waiting longer to include more late data) against latency (producing results quickly).
 
-Apache Flink provides flexible watermark strategies including periodic watermarks generated at regular intervals and punctuated watermarks based on special markers in the stream. Kafka Streams automatically tracks stream time as the maximum timestamp seen so far.
+Apache Flink provides flexible watermark strategies including periodic watermarks generated at regular intervals and punctuated watermarks based on special markers in the stream. Since Flink 1.18, the WatermarkStrategy API has been further simplified with built-in strategies like `forBoundedOutOfOrderness()` and `forMonotonousTimestamps()`, making it easier to handle common late data patterns. Kafka Streams automatically tracks stream time as the maximum timestamp seen so far, with Kafka Streams 3.7+ offering improved grace period semantics for more predictable late data handling.
 
 ### Allowed Lateness
 
@@ -142,11 +144,52 @@ This pattern enables multiple strategies for handling extremely late data:
 
 Different streaming platforms provide various approaches to handling late data.
 
-**Apache Flink** offers comprehensive event time support with customizable watermark generators, allowed lateness configuration, and side outputs for late data. Flink's DataStream API makes event time processing explicit, requiring developers to specify timestamp extraction and watermark generation strategies.
+**Apache Flink** offers comprehensive event time support with customizable watermark generators, allowed lateness configuration, and side outputs for late data. Flink's DataStream API makes event time processing explicit, requiring developers to specify timestamp extraction and watermark generation strategies. For foundational understanding of Flink's architecture and state management, see [What is Apache Flink: Stateful Stream Processing](what-is-apache-flink-stateful-stream-processing.md). For detailed coverage of windowing strategies in Flink, see [Windowing in Apache Flink: Tumbling, Sliding, and Session Windows](windowing-in-apache-flink-tumbling-sliding-and-session-windows.md).
 
-**Kafka Streams** provides built-in support for windowed operations with configurable grace periods. The framework automatically manages watermarks based on stream time and allows specifying how long windows remain open for late data. Kafka Streams also supports suppression operators that can wait for late data before emitting final results.
+Here's a practical example of handling late data in Flink 1.18+:
+
+```java
+DataStream<Event> events = // ... source
+    .assignTimestampsAndWatermarks(
+        WatermarkStrategy.<Event>forBoundedOutOfOrderness(Duration.ofMinutes(5))
+            .withTimestampAssigner((event, timestamp) -> event.getEventTime())
+    );
+
+SingleOutputStreamOperator<Result> results = events
+    .keyBy(Event::getUserId)
+    .window(TumblingEventTimeWindows.of(Time.minutes(15)))
+    .allowedLateness(Time.minutes(5))
+    .sideOutputLateData(lateDataTag)
+    .aggregate(new EventAggregator());
+
+// Access late data that arrived beyond allowed lateness
+DataStream<Event> lateEvents = results.getSideOutput(lateDataTag);
+```
+
+**Kafka Streams** provides built-in support for windowed operations with configurable grace periods. The framework automatically manages watermarks based on stream time and allows specifying how long windows remain open for late data. Kafka Streams 3.7+ improved grace period behavior to be more consistent and predictable. The framework also supports suppression operators that can wait for late data before emitting final results. For an introduction to Kafka Streams fundamentals, see [Introduction to Kafka Streams](introduction-to-kafka-streams.md).
+
+Example with Kafka Streams 3.7+:
+
+```java
+KStream<String, Event> events = builder.stream("events");
+
+events
+    .groupByKey()
+    .windowedBy(TimeWindows.ofSizeWithNoGrace(Duration.ofMinutes(15))
+        .grace(Duration.ofMinutes(5)))  // Grace period for late data
+    .aggregate(
+        () -> new EventAggregate(),
+        (key, event, aggregate) -> aggregate.add(event),
+        Materialized.as("events-store")
+    )
+    .suppress(Suppressed.untilWindowCloses(unbounded()))  // Wait for late data
+    .toStream()
+    .to("results");
+```
 
 **Apache Beam** (and cloud services like Google Dataflow) pioneered many late data handling concepts, including the separation of event time and processing time, watermarks, and triggers. Beam's model allows precise control over when results are materialized and how late data updates are handled.
+
+For deeper understanding of watermark mechanics and triggering strategies, refer to [Watermarks and Triggers in Stream Processing](watermarks-and-triggers-in-stream-processing.md).
 
 ## Monitoring and Observability
 
@@ -160,6 +203,20 @@ Effective late data handling requires good observability. Key metrics to track i
 
 Monitoring event timestamp distributions across topics can reveal producers with clock skew or connectivity problems.
 
+**Modern monitoring tools** like Conduktor provide comprehensive visibility into streaming pipelines, including late data metrics, watermark progression tracking, and consumer lag monitoring. These platforms help identify late data patterns and optimize watermark strategies based on actual production behavior. For production deployments, tools like Prometheus and Grafana integrate well with Flink and Kafka Streams to expose late data metrics through standard metric endpoints.
+
+## 2025 Advances in Late Data Handling
+
+Modern stream processing frameworks have significantly improved late data handling capabilities:
+
+**Flink 1.18+ improvements** include more efficient watermark alignment across parallel operators, reducing memory overhead for windows with long allowed lateness periods. The new `WatermarkStrategy.forGenerator()` API provides fine-grained control over watermark generation logic, including custom strategies that adapt to changing data patterns.
+
+**Kafka Streams 3.7+ enhancements** provide clearer semantics around grace periods, with better documentation of when windows close and state is purged. The `ofSizeAndGrace()` method makes it explicit when windows will no longer accept late data, improving predictability for downstream consumers.
+
+**Adaptive watermarking** is an emerging pattern where systems dynamically adjust watermark delays based on observed late data patterns. Instead of static watermark strategies, machine learning models can predict optimal watermark delays based on historical latency patterns, time of day, and data source characteristics.
+
+**Exactly-once semantics** have become more robust in handling late data. Both Flink and Kafka Streams now provide stronger guarantees that late data updates are processed exactly once, even in the presence of failures and reprocessing.
+
 ## Best Practices
 
 When designing systems to handle late-arriving data, consider these guidelines:
@@ -172,13 +229,15 @@ When designing systems to handle late-arriving data, consider these guidelines:
 
 **Monitor and alert on late data patterns**. Sudden changes in late data frequency or severity often indicate infrastructure problems, upstream failures, or data quality issues that require investigation.
 
-**Test with realistic late data scenarios**. Many streaming application bugs only appear when processing out-of-order or late-arriving data. Include late data scenarios in your testing strategy.
+**Test with realistic late data scenarios**. Many streaming application bugs only appear when processing out-of-order or late-arriving data. Include late data scenarios in your testing strategy. Tools like Conduktor Gateway can simulate network delays and out-of-order message delivery to test late data handling in controlled environments. For comprehensive testing approaches, see [Testing Strategies for Streaming Applications](testing-strategies-for-streaming-applications.md).
 
 ## Summary
 
 Handling late-arriving data is a fundamental challenge in stream processing that distinguishes it from batch processing. The difference between event time and processing time, combined with the realities of distributed systems, means data will inevitably arrive out of order or delayed.
 
 Modern streaming frameworks provide robust mechanisms for handling late data through watermarks, allowed lateness, and side outputs. Watermarks enable event time-based computations by providing heuristic estimates of stream progress. Allowed lateness offers a grace period for incorporating late events into computations. Side outputs ensure extremely late data isn't lost.
+
+As of 2025, frameworks like Flink 1.18+ and Kafka Streams 3.7+ have significantly improved late data handling with better APIs, clearer semantics, and more efficient implementations. Tools like Conduktor provide comprehensive monitoring to understand late data patterns in production, while Conduktor Gateway enables realistic testing of late data scenarios.
 
 Successful late data handling requires understanding your data patterns, choosing appropriate watermark strategies, configuring reasonable allowed lateness based on business requirements, and maintaining good observability. By designing systems that explicitly account for late-arriving data rather than ignoring it, you can build streaming applications that are both timely and accurate.
 
@@ -190,6 +249,6 @@ Successful late data handling requires understanding your data patterns, choosin
 
 - Akidau, Tyler. "Streaming 101: The world beyond batch." O'Reilly Radar, 2015. [https://www.oreilly.com/radar/the-world-beyond-batch-streaming-101/](https://www.oreilly.com/radar/the-world-beyond-batch-streaming-101/)
 
-- Apache Kafka Documentation. "Kafka Streams - Time." Confluent Documentation. [https://docs.confluent.io/platform/current/streams/concepts.html#time](https://docs.confluent.io/platform/current/streams/concepts.html#time)
+- Apache Kafka Documentation. "Kafka Streams - Time Concepts." [https://kafka.apache.org/documentation/streams/](https://kafka.apache.org/documentation/streams/)
 
 - Kleppmann, Martin. "Designing Data-Intensive Applications." O'Reilly Media, 2017. Chapter 11: Stream Processing.
