@@ -17,9 +17,11 @@ Apache Kafka has undergone one of its most significant architectural changes sin
 
 KRaft (Kafka Raft) is Apache Kafka's implementation of the Raft consensus algorithm for managing cluster metadata. Introduced through KIP-500 and declared production-ready in Kafka 3.3.1, KRaft fundamentally changes how Kafka handles critical cluster information like topic configurations, partition assignments, access control lists, and broker metadata.
 
-In traditional Kafka deployments, this metadata lived in ZooKeeper, a separate distributed coordination service. With KRaft, Kafka brokers themselves manage this metadata using a quorum-based approach, eliminating the need for an external dependency.
+As of Kafka 4.0 (released in late 2024), ZooKeeper support has been completely removed, making KRaft the only supported mode for all new and upgraded Kafka deployments. After more than two years of production use across thousands of clusters, KRaft has proven itself as a mature, battle-tested architecture.
 
-The name "KRaft" combines "Kafka" with "Raft," the consensus algorithm developed by Diego Ongaro and John Ousterhout at Stanford University. Raft was designed to be more understandable than alternatives like Paxos while providing the same strong consistency guarantees.
+In traditional Kafka deployments, this metadata lived in ZooKeeper, a separate distributed coordination service. With KRaft, Kafka brokers themselves manage this metadata using a quorum-based approach (where a majority of controllers must agree on changes), eliminating the need for an external dependency.
+
+The name "KRaft" combines "Kafka" with "Raft," the consensus algorithm developed by Diego Ongaro and John Ousterhout at Stanford University. Raft was designed to be more understandable than alternatives like Paxos while providing the same strong consistency guarantees. A consensus algorithm ensures that multiple computers can reliably agree on shared data even when some nodes fail or network partitions occur.
 
 ## The ZooKeeper Problem
 
@@ -86,29 +88,51 @@ KRaft Mode (No ZooKeeper):
 
 Consider the same topic creation example: with KRaft, creating 1,000 partitions takes 1-2 seconds. The metadata change is written once to the metadata log and immediately available to all brokers consuming that log.
 
+### Starting Kafka in KRaft Mode
+
+Setting up a KRaft cluster is straightforward. Here's a minimal configuration example for a single-node KRaft broker:
+
+```properties
+# server.properties for KRaft mode
+process.roles=broker,controller
+node.id=1
+controller.quorum.voters=1@localhost:9093
+listeners=PLAINTEXT://localhost:9092,CONTROLLER://localhost:9093
+controller.listener.names=CONTROLLER
+log.dirs=/var/kafka-logs
+```
+
+Key configuration differences from ZooKeeper mode:
+- `process.roles` defines whether the node acts as a broker, controller, or both
+- `controller.quorum.voters` lists the controller nodes in the quorum
+- `CONTROLLER` listener handles internal controller communication
+- No `zookeeper.connect` property required
+
+For production deployments with dedicated controllers, separate the roles and configure a controller quorum with at least three nodes for high availability. For detailed cluster architecture guidance, see [Apache Kafka](apache-kafka.md).
+
 ## Key Benefits of KRaft
 
 The shift to KRaft delivers several tangible improvements for Kafka operations.
 
 **Simplified Architecture**: A KRaft cluster is just Kafka. No separate ZooKeeper ensemble to deploy, configure, monitor, or upgrade. This reduces infrastructure footprint and operational overhead. For development environments, you can run a single-node Kafka cluster without any external dependencies.
 
-**Improved Scalability**: KRaft supports clusters with millions of partitions—far beyond what was practical with ZooKeeper. The metadata log scales horizontally, and metadata propagation is faster and more efficient.
+**Improved Scalability**: KRaft supports clusters with millions of partitions—far beyond what was practical with ZooKeeper. The metadata log scales horizontally, and metadata propagation is faster and more efficient. For guidance on planning large-scale deployments, see [Kafka Capacity Planning](kafka-capacity-planning.md).
 
-**Faster Metadata Operations**: Controller failover times drop from seconds to milliseconds. Metadata changes propagate faster because brokers consume the metadata log directly rather than polling ZooKeeper.
+**Faster Metadata Operations**: Controller failover times drop from seconds to milliseconds. Metadata changes propagate faster because brokers consume the metadata log directly rather than polling ZooKeeper. This improved reliability contributes to overall high availability—for more on resilience patterns, see [Kafka Replication and High Availability](kafka-replication-and-high-availability.md).
 
-**Better Observability**: Since metadata is stored in a Kafka topic, you can use standard Kafka tools to inspect, monitor, and even replay metadata changes. Streaming management platforms can visualize the metadata topic, making it easier to understand cluster state and troubleshoot issues.
+**Better Observability**: Since metadata is stored in a Kafka topic, you can use standard Kafka tools to inspect, monitor, and even replay metadata changes. Modern platforms like Conduktor provide specialized KRaft monitoring capabilities, including metadata topic visualization, controller health tracking, and quorum status monitoring, making it easier to understand cluster state and troubleshoot issues.
 
 ## Migration Considerations
 
 While new Kafka deployments should use KRaft by default, existing ZooKeeper-based clusters require careful migration planning.
 
-**Migration Approaches**: Kafka 3.4 and later support a bridge mode that allows migration from ZooKeeper to KRaft without downtime. This involves running both systems temporarily while metadata is transferred, then switching over to KRaft-only mode.
+**Migration Approaches**: Kafka 3.4 through 3.x versions support a bridge mode that allows migration from ZooKeeper to KRaft without downtime. Bridge mode allows both systems to run in parallel temporarily while metadata is transferred, then switches over to KRaft-only mode. Note that Kafka 4.0+ only supports KRaft, so migrations must be completed before upgrading to 4.0.
 
-**Testing Requirements**: Before migrating production clusters, thoroughly test in non-production environments. Validate that client applications, monitoring tools, and operational procedures work correctly with KRaft. Some older management tools may not fully support KRaft clusters.
+**Testing Requirements**: Before migrating production clusters, thoroughly test in non-production environments. Validate that client applications, monitoring tools, and operational procedures work correctly with KRaft. Some older management tools may not fully support KRaft clusters. For operational best practices during migration, see [Kafka Admin Operations and Maintenance](kafka-admin-operations-and-maintenance.md).
 
-**Timing**: The Apache Kafka community has announced that ZooKeeper support will be removed in Kafka 4.0. Organizations should plan their migrations accordingly, balancing the urgency of moving to KRaft with the need for careful validation.
+**Timing**: ZooKeeper support was removed in Kafka 4.0 (released late 2024). Organizations still running ZooKeeper-based clusters must complete their migration to KRaft before upgrading to Kafka 4.0 or later versions. This makes migration planning essential for any organization maintaining Kafka 3.x clusters.
 
-**Monitoring During Migration**: During the transition, monitor both systems closely. Streaming management tools can help track metadata consistency and identify any discrepancies between ZooKeeper and KRaft views of cluster state.
+**Monitoring During Migration**: During the transition, monitor both systems closely. Platforms like Conduktor can help track metadata consistency and identify any discrepancies between ZooKeeper and KRaft views of cluster state, ensuring a smooth migration process. For comprehensive monitoring strategies, see [Kafka Cluster Monitoring and Metrics](kafka-cluster-monitoring-and-metrics.md).
 
 ## KRaft in Data Streaming Ecosystems
 
@@ -116,11 +140,11 @@ KRaft's impact extends beyond Kafka itself, affecting the broader data streaming
 
 **Stream Processing Frameworks**: Tools like Apache Flink, Kafka Streams, and Spark Structured Streaming rely on Kafka for reliable, scalable event streaming. KRaft's improved scalability and faster metadata operations enable larger streaming deployments with more topics, partitions, and consumer groups.
 
-**Infrastructure as Code**: KRaft's simplified architecture makes Kafka easier to deploy via infrastructure-as-code tools like Terraform, Kubernetes operators, or Ansible. Fewer components mean simpler deployment templates and less configuration drift.
+**Infrastructure as Code**: KRaft's simplified architecture makes Kafka easier to deploy via infrastructure-as-code tools like Terraform, Kubernetes operators, or Ansible. Fewer components mean simpler deployment templates and less configuration drift. For comprehensive guidance on automating Kafka deployments, see [Infrastructure as Code for Kafka Deployments](infrastructure-as-code-for-kafka-deployments.md).
 
-**Cloud-Native Deployments**: In containerized environments, KRaft reduces resource requirements and simplifies orchestration. Kubernetes-based Kafka deployments benefit from not needing to manage separate ZooKeeper StatefulSets.
+**Cloud-Native Deployments**: In containerized environments, KRaft reduces resource requirements and simplifies orchestration. Kubernetes-based Kafka deployments benefit from not needing to manage separate ZooKeeper StatefulSets. For Kubernetes-specific deployment patterns, see [Running Kafka on Kubernetes](running-kafka-on-kubernetes.md) and [Strimzi Kafka Operator for Kubernetes](strimzi-kafka-operator-for-kubernetes.md).
 
-**Ecosystem Tools**: The Kafka ecosystem—schema registries, connectors, monitoring tools—continues to work with KRaft clusters. However, administrators should verify that their specific tools support KRaft mode, especially for older or less-maintained projects.
+**Ecosystem Tools**: The Kafka ecosystem—schema registries, connectors, monitoring tools—continues to work with KRaft clusters. Modern management platforms like Conduktor fully support KRaft with specialized features for controller monitoring, metadata visualization, and cluster governance. Administrators should verify that older or less-maintained tools have been updated to support KRaft mode.
 
 The shift to KRaft represents Kafka's maturation as a platform, making it more aligned with modern cloud-native and streaming-first architectures.
 
