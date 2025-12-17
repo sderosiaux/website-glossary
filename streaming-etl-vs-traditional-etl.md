@@ -52,7 +52,7 @@ Batch ETL excels when data doesn't need to be immediately available. A retail co
 
 ## Streaming ETL
 
-Streaming ETL processes data continuously as it arrives, transforming and loading records individually or in micro-batches within seconds or milliseconds.
+Streaming ETL processes data continuously as it arrives, transforming and loading records individually or in micro-batches (small groups of records processed together for efficiency) within seconds or milliseconds.
 
 ```
 Streaming ETL Flow:
@@ -77,10 +77,10 @@ Instead of waiting for scheduled intervals, streaming ETL pipelines react to new
 - **Continuous processing**: Data flows through the pipeline 24/7
 - **Low latency**: Near real-time data availability (seconds to milliseconds)
 - **Event-driven**: Processing triggered by data arrival, not schedules
-- **Stateful operations**: Maintains context across events (windowing, joins, aggregations)
+- **Stateful operations**: Maintains context across events for operations like windowing (aggregating data over time periods), joins (combining streams), and running totals
 - **Higher operational complexity**: Requires always-on infrastructure and monitoring
 
-Streaming ETL is essential when timely data drives business value. A fraud detection system might use streaming ETL to analyze credit card transactions as they occur, flagging suspicious patterns within milliseconds. An IoT platform could process sensor data from thousands of devices, detecting anomalies and triggering alerts before problems escalate.
+Streaming ETL is essential when timely data drives business value. A fraud detection system might use streaming ETL to analyze credit card transactions as they occur, flagging suspicious patterns within milliseconds. An IoT platform could process sensor data from thousands of devices, detecting anomalies and triggering alerts before problems escalate. For a comprehensive introduction to streaming concepts, see [What is Real-Time Data Streaming](what-is-real-time-data-streaming.md).
 
 ## Key Differences Between Batch and Streaming ETL
 
@@ -88,7 +88,7 @@ The choice between batch and streaming ETL involves several technical and busine
 
 **Latency**: Batch ETL inherently has higher latency—from minutes to hours or days depending on batch frequency. Streaming ETL achieves subsecond to low-second latencies. If your use case can tolerate data that's hours old, batch may suffice. If decisions depend on current state, streaming is necessary.
 
-**Complexity**: Batch ETL is conceptually simpler. Each batch is independent, making debugging and testing straightforward. Streaming ETL requires managing stateful operations, handling out-of-order events, and dealing with exactly-once processing semantics. The operational overhead of maintaining streaming infrastructure is higher.
+**Complexity**: Batch ETL is conceptually simpler. Each batch is independent, making debugging and testing straightforward. Streaming ETL requires managing stateful operations, handling out-of-order events, and dealing with exactly-once processing semantics (ensuring each event is processed exactly once, avoiding duplicates or data loss even during failures). The operational overhead of maintaining streaming infrastructure is higher.
 
 **Cost**: Batch ETL can be more cost-effective for high-volume, infrequent processing. You spin up compute resources, process the batch, and shut down. Streaming ETL requires continuously running infrastructure, though cloud-native streaming platforms have made this more economical with auto-scaling and managed services.
 
@@ -100,15 +100,17 @@ The choice between batch and streaming ETL involves several technical and busine
 
 Modern streaming ETL relies on specialized platforms designed for continuous data processing.
 
-**Apache Kafka** serves as the backbone for many streaming ETL architectures. Kafka acts as a distributed event streaming platform, capturing data from sources and making it available to downstream processors. Kafka Connect provides connectors to extract data from databases, applications, and cloud services, while Kafka Streams enables lightweight stream processing.
+**Apache Kafka** serves as the backbone for many streaming ETL architectures. Kafka acts as a distributed event streaming platform, capturing data from sources and making it available to downstream processors. Kafka Connect provides connectors to extract data from databases, applications, and cloud services, while Kafka Streams enables lightweight stream processing. Modern Kafka (4.0+) has eliminated the ZooKeeper dependency through KRaft mode, significantly simplifying cluster operations and reducing operational overhead for streaming ETL pipelines. For foundational Kafka concepts, see [Apache Kafka](apache-kafka.md).
 
-**Apache Flink** is a stream processing framework built for stateful computations over unbounded data streams. Flink excels at complex event processing, windowed aggregations, and exactly-once semantics. It can process millions of events per second with millisecond latency.
+**Apache Flink** is a stream processing framework built for stateful computations over unbounded data streams. Flink excels at complex event processing, windowed aggregations, and exactly-once semantics. It can process millions of events per second with millisecond latency. Flink 1.18+ introduces improved Table API and unified batch-streaming capabilities, allowing teams to write transformation logic once and execute it in either batch or streaming mode depending on requirements. For a deep dive into Flink's architecture and capabilities, see [What is Apache Flink: Stateful Stream Processing](what-is-apache-flink-stateful-stream-processing.md).
 
 **Other technologies** include Apache Pulsar (an alternative to Kafka with built-in multi-tenancy), Apache Beam (a unified programming model for batch and streaming), and cloud-native services like AWS Kinesis, Google Cloud Dataflow, and Azure Stream Analytics.
 
-A typical streaming ETL pipeline might use Kafka to capture database changes via Debezium (change data capture), Kafka Streams or Flink to transform and enrich the events, and another Kafka Connect sink to load results into Elasticsearch for real-time search or a data warehouse for analytics.
+A typical streaming ETL pipeline might use Kafka Connect with Debezium to capture database changes via change data capture (CDC reads database transaction logs to capture inserts, updates, and deletes in real-time), Kafka Streams or Flink to transform and enrich events, and sink connectors to load results into destinations like Elasticsearch for real-time search, Snowflake for analytics, or lakehouse table formats such as Apache Iceberg and Delta Lake. For detailed CDC patterns, see [What is Change Data Capture (CDC) Fundamentals](what-is-change-data-capture-cdc-fundamentals.md).
 
-Platforms like Conduktor help teams manage Kafka-based streaming ETL pipelines by providing tools for monitoring data flows, testing transformations, and ensuring data quality in production environments. As streaming architectures grow in complexity, visibility and governance become critical operational requirements.
+Platforms like Conduktor help teams manage Kafka-based streaming ETL pipelines by providing monitoring, data quality validation, and governance tools. Conduktor Gateway enables testing transformation logic and chaos engineering for streaming pipelines before production deployment, helping teams validate ETL behavior under failure conditions. As streaming architectures grow in complexity, visibility and governance become critical operational requirements.
+
+**Lakehouse Integration**: Modern streaming ETL increasingly targets lakehouse architectures using table formats like Apache Iceberg, Delta Lake, and Apache Hudi. These formats enable ACID transactions, time travel, and schema evolution while supporting both batch and streaming writes, unifying traditionally separate batch and streaming storage layers. Streaming ETL can now write directly to lakehouse tables with the same transactional guarantees as traditional databases. For more on lakehouse patterns, see [Streaming to Lakehouse Tables](streaming-to-lakehouse-tables.md).
 
 ## Choosing Between Batch and Streaming ETL
 
@@ -128,7 +130,7 @@ The decision isn't always binary. Many organizations use both approaches for dif
 - Data volume is manageable for continuous processing
 - The organization has expertise in streaming platforms
 
-**Hybrid approaches** are increasingly common. A company might use streaming ETL to feed real-time dashboards and operational systems while running batch ETL overnight to update historical reporting tables with complex transformations. The Lambda architecture pattern explicitly combines batch and streaming layers, though modern tools increasingly favor the simpler Kappa architecture (streaming-only with reprocessing capabilities).
+**Hybrid approaches** are increasingly common. A company might use streaming ETL to feed real-time dashboards and operational systems while running batch ETL overnight to update historical reporting tables with complex transformations. The Lambda architecture pattern explicitly combines batch and streaming layers to balance speed and accuracy, maintaining separate code paths for each. However, modern tools increasingly favor the simpler Kappa architecture, which uses a streaming-only approach with the ability to reprocess historical data when needed, eliminating the complexity of maintaining two separate systems.
 
 Consider starting with batch ETL for foundational analytics needs, then introducing streaming ETL for specific high-value real-time use cases. This pragmatic approach balances business value against operational complexity.
 
@@ -144,10 +146,16 @@ Understanding both approaches allows data engineers to design architectures that
 
 1. Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly Media, 2017. (Chapter 11: Stream Processing)
 
-2. Apache Kafka Documentation. "Kafka Streams" and "Kafka Connect". https://kafka.apache.org/documentation/
+2. Apache Kafka Documentation. "Kafka Streams", "Kafka Connect", and "KRaft Mode". https://kafka.apache.org/documentation/ (Updated 2024-2025 for Kafka 4.0+)
 
-3. Apache Flink Documentation. "DataStream API" and "Stateful Stream Processing". https://flink.apache.org/
+3. Apache Flink Documentation. "DataStream API", "Table API", and "Stateful Stream Processing". https://flink.apache.org/ (Updated 2024-2025 for Flink 1.18+)
 
 4. Narkhede, Neha, Gwen Shapira, and Todd Palino. *Kafka: The Definitive Guide*. O'Reilly Media, 2017.
 
 5. Databricks. "Delta Live Tables: ETL Framework for Batch and Streaming". https://www.databricks.com/product/delta-live-tables
+
+6. Apache Iceberg Documentation. "Streaming Writes and Table Evolution". https://iceberg.apache.org/ (2024-2025)
+
+7. Conduktor Documentation. "Kafka Pipeline Management, Testing, and Governance". https://www.conduktor.io/ (2024-2025)
+
+8. Debezium Documentation. "Change Data Capture for Streaming ETL". https://debezium.io/ (2024-2025)
