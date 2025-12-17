@@ -43,21 +43,21 @@ The Strangler Fig Pattern addresses these challenges by allowing incremental pro
 
 ## Event Streaming as the Migration Backbone
 
-Event streaming platforms like Apache Kafka, Pulsar, and AWS Kinesis provide the ideal infrastructure for implementing the Strangler Fig Pattern. They enable old and new systems to coexist by acting as a neutral communication layer.
+Event streaming platforms like Apache Kafka (4.0+), Pulsar, and AWS Kinesis provide the ideal infrastructure for implementing the Strangler Fig Pattern. They enable old and new systems to coexist by acting as a neutral communication layer. Modern Kafka deployments use KRaft mode (removing the ZooKeeper dependency), simplifying operations during migration projects. For foundational understanding of Kafka, see [Apache Kafka](apache-kafka.md).
 
 ### How Event Streaming Enables Gradual Migration
 
 Event streaming platforms solve several critical migration challenges:
 
-**Decoupling through events**: Instead of tight coupling through direct API calls or shared databases, systems communicate through events. This allows the old and new systems to evolve independently during the migration period.
+**Decoupling through events**: Instead of tight coupling through direct API calls or shared databases, systems communicate through events. This allows the old and new systems to evolve independently during the migration period. For foundational concepts, see [Event-Driven Architecture](event-driven-architecture.md).
 
 **Dual-write capability**: Events can be simultaneously consumed by both legacy and new systems. This enables parallel processing during the transition, allowing teams to validate the new system's behavior against the proven legacy system.
 
-**Change Data Capture (CDC)**: Tools like Debezium can capture changes from legacy databases and publish them as events. This allows the new system to stay synchronized with the legacy system without invasive code changes.
+**Change Data Capture (CDC)**: Tools like Debezium can capture changes from legacy databases (inserts, updates, deletes) and publish them as events to Kafka. This allows the new system to stay synchronized with the legacy system without invasive code changes to the legacy application. For detailed CDC implementation strategies, see [What is Change Data Capture (CDC) Fundamentals](what-is-change-data-capture-cdc-fundamentals.md).
 
 **Event replay**: Streaming platforms typically retain events for extended periods. This enables the new system to replay historical events for testing, validation, or catching up after deployment.
 
-**Schema evolution**: Modern streaming platforms support schema registries that manage data structure changes. This allows the new system to introduce improved data models while maintaining compatibility with legacy consumers.
+**Schema evolution**: Modern streaming platforms support schema registries—centralized repositories that store and enforce data structure contracts. These registries manage how event schemas change over time, ensuring that producers and consumers remain compatible even as data models evolve. This allows the new system to introduce improved data models while maintaining compatibility with legacy consumers.
 
 ### Implementation Patterns
 
@@ -71,7 +71,7 @@ Several patterns emerge when using event streaming for strangler fig migrations:
 
 ## Real-World Implementation Example
 
-Consider an e-commerce company migrating from a monolithic order management system to microservices.
+Consider an e-commerce company migrating from a monolithic order management system to microservices. For more on microservices patterns with event streaming, see [Event-Driven Microservices Architecture](event-driven-microservices-architecture.md).
 
 ### Initial State
 
@@ -139,8 +139,60 @@ Phase 5: Complete Migration
 **Phase 1: Event Infrastructure**
 Deploy Kafka as the event backbone. Implement CDC on the legacy database to capture order events. The legacy system continues operating unchanged.
 
+Example event structure published from the legacy database via CDC:
+
+```json
+{
+  "schema": {
+    "type": "struct",
+    "fields": [
+      {"field": "order_id", "type": "string"},
+      {"field": "customer_id", "type": "string"},
+      {"field": "total_amount", "type": "double"},
+      {"field": "status", "type": "string"},
+      {"field": "created_at", "type": "int64"}
+    ]
+  },
+  "payload": {
+    "order_id": "ORD-12345",
+    "customer_id": "CUST-789",
+    "total_amount": 149.99,
+    "status": "CREATED",
+    "created_at": 1704902400000
+  },
+  "metadata": {
+    "operation": "INSERT",
+    "source": "legacy_orders_table",
+    "timestamp": 1704902400123
+  }
+}
+```
+
 **Phase 2: First Service - Inventory**
 Build a new inventory microservice that consumes order events from Kafka. Run it in shadow mode, comparing its inventory calculations against the legacy system. After validation, route inventory queries to the new service while order creation remains in the monolith.
+
+Example Debezium CDC connector configuration for capturing legacy database changes:
+
+```json
+{
+  "name": "legacy-orders-cdc",
+  "config": {
+    "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+    "database.hostname": "legacy-db.company.com",
+    "database.port": "5432",
+    "database.user": "debezium",
+    "database.password": "${DB_PASSWORD}",
+    "database.dbname": "orders_db",
+    "table.include.list": "public.orders,public.inventory",
+    "topic.prefix": "legacy",
+    "plugin.name": "pgoutput",
+    "publication.autocreate.mode": "filtered",
+    "transforms": "unwrap",
+    "transforms.unwrap.type": "io.debezium.transforms.ExtractNewRecordState",
+    "transforms.unwrap.drop.tombstones": "false"
+  }
+}
+```
 
 **Phase 3: Payment Service**
 Extract payment processing into a separate service. Publish payment events that both the legacy system and new services consume. Gradually route payment requests to the new service.
@@ -161,31 +213,31 @@ While event streaming simplifies strangler fig migrations, several challenges re
 
 When both systems are active, maintaining data consistency becomes complex. Events may be processed in different orders, or one system may fail while the other succeeds.
 
-**Best practice**: Implement idempotent event handlers and use event IDs to detect duplicates. Design for eventual consistency rather than strict transactional guarantees during the transition period.
+**Best practice**: Implement idempotent event handlers—handlers that produce the same result when processing the same event multiple times—and use event IDs to detect duplicates. Design for eventual consistency rather than strict transactional guarantees during the transition period. For detailed patterns, see [Exactly Once Semantics in Kafka](exactly-once-semantics-in-kafka.md).
 
 ### Schema Management
 
 As systems evolve, event schemas will change. Breaking changes can disrupt consumers.
 
-**Best practice**: Use a schema registry (like Confluent Schema Registry or AWS Glue Schema Registry) to enforce compatibility rules. Adopt backward and forward compatible schema evolution strategies. Governance platforms provide schema management interfaces that make it easier to visualize schema evolution and validate compatibility across environments.
+**Best practice**: Use a schema registry (such as Apicurio Registry, AWS Glue Schema Registry, or Conduktor's schema management features) to enforce compatibility rules. Adopt backward and forward compatible schema evolution strategies. For detailed coverage of schema management patterns, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md). Conduktor provides schema management interfaces that make it easier to visualize schema evolution and validate compatibility across environments.
 
 ### Monitoring and Observability
 
 With multiple systems processing the same events, identifying the source of issues becomes harder.
 
-**Best practice**: Implement distributed tracing with correlation IDs across all services. Monitor lag on all consumer groups to detect processing delays. Governance platforms can provide centralized visibility into consumer lag, topic throughput, and data quality issues across your streaming infrastructure.
+**Best practice**: Implement distributed tracing with correlation IDs across all services. Monitor lag on all consumer groups to detect processing delays using tools like Kafka Lag Exporter, Burrow, or Conduktor. For detailed strategies, see [Consumer Lag Monitoring](consumer-lag-monitoring.md) and [Distributed Tracing for Kafka Applications](distributed-tracing-for-kafka-applications.md). Conduktor provides centralized visibility into consumer lag, topic throughput, and data quality issues across your streaming infrastructure, making it easier to identify problems during complex migrations.
 
 ### Event Ordering
 
-Kafka guarantees ordering within a partition, but distributed processing can still create race conditions.
+Kafka guarantees ordering within a partition (a partition is a logical subdivision of a topic where related events are grouped), but distributed processing can still create race conditions across different partitions.
 
-**Best practice**: Design your partitioning strategy carefully, typically keying events by entity ID (order ID, customer ID, etc.). Implement handlers that can tolerate out-of-order events when necessary.
+**Best practice**: Design your partitioning strategy carefully, typically keying events by entity ID (order ID, customer ID, etc.) to ensure all events for the same entity go to the same partition. Implement handlers that can tolerate out-of-order events when necessary. For example, all events for order "ORD-12345" should use that order ID as the partition key, ensuring they're processed sequentially.
 
 ### Testing Strategy
 
 Testing becomes more complex when events flow through multiple systems.
 
-**Best practice**: Implement contract testing for event schemas. Use event replay to test new services with production-like data. Create isolated environments where the entire event-driven system can be validated end-to-end.
+**Best practice**: Implement contract testing for event schemas. Use event replay to test new services with production-like data. Create isolated environments where the entire event-driven system can be validated end-to-end. For handling processing failures during testing and production, see [Dead Letter Queues for Error Handling](dead-letter-queues-for-error-handling.md).
 
 ### Gradual Traffic Shifting
 
@@ -215,15 +267,16 @@ The pattern may not be optimal for:
 
 ## Summary
 
-The Strangler Fig Pattern provides a pragmatic path for modernizing legacy systems while maintaining business continuity. Event streaming platforms like Apache Kafka serve as the ideal backbone for this approach, enabling gradual migration through decoupled, event-driven communication.
+The Strangler Fig Pattern provides a pragmatic path for modernizing legacy systems while maintaining business continuity. Event streaming platforms like Apache Kafka 4.0+ (with simplified KRaft-based operations) serve as the ideal backbone for this approach, enabling gradual migration through decoupled, event-driven communication.
 
 Key takeaways:
 
 - The Strangler Fig Pattern allows incremental replacement of legacy systems, avoiding the risks of big-bang rewrites
-- Event streaming platforms provide the infrastructure for old and new systems to coexist through event-driven communication
-- Change Data Capture, dual-write patterns, and event replay are essential techniques for streaming-based migrations
-- Managing schema evolution, data consistency, and monitoring requires careful planning and appropriate tooling
-- Governance platforms can simplify the operational complexity of managing streaming infrastructure during migrations
+- Event streaming platforms (Apache Kafka 4.0+ with KRaft mode) provide the infrastructure for old and new systems to coexist through event-driven communication
+- Change Data Capture (using tools like Debezium), dual-write patterns, and event replay are essential techniques for streaming-based migrations
+- Managing schema evolution, data consistency, and monitoring requires careful planning, appropriate tooling, and operational platforms like Conduktor
+- Idempotent event handlers and proper partition key strategies ensure data consistency and ordering during migrations
+- Code examples and concrete implementation patterns help teams translate architectural concepts into working systems
 
 Successful migrations require patience, careful planning, and a commitment to incremental progress. By combining the Strangler Fig Pattern with modern event streaming platforms, organizations can modernize their systems while continuing to deliver value to customers.
 
