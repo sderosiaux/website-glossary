@@ -15,7 +15,7 @@ Traditional machine learning systems operate in batch mode: data is collected, p
 
 **Real-time ML pipelines** process streaming data to deliver predictions with millisecond to sub-second latency. Unlike batch systems that might update every 24 hours, real-time ML continuously ingests events, computes features on-the-fly, and serves predictions immediately.
 
-Consider fraud detection: by the time a batch system identifies suspicious patterns from yesterday's data, fraudulent transactions have already cleared. Real-time ML evaluates each transaction as it occurs, blocking fraud before money moves.
+Consider [fraud detection](/real-time-fraud-detection-with-streaming): by the time a batch system identifies suspicious patterns from yesterday's data, fraudulent transactions have already cleared. Real-time ML evaluates each transaction as it occurs, blocking fraud before money moves.
 
 ### Real-Time Inference vs Online Learning
 
@@ -24,7 +24,7 @@ It's crucial to distinguish two patterns often conflated under "real-time ML":
 - **Real-time inference**: Models trained offline (often in batch) serve predictions on streaming data with low latency
 - **Online learning**: Models continuously update their parameters as new data arrives, adapting without full retraining
 
-Most production systems use real-time inference with periodic model updates. True online learning remains challenging due to stability concerns and infrastructure complexity.
+Most production systems use [real-time inference](/real-time-ml-inference-with-streaming-data) with periodic model updates. True online learning remains challenging due to stability concerns and infrastructure complexity.
 
 ---
 
@@ -85,22 +85,28 @@ A complete real-time ML pipeline consists of several interconnected layers:
 
 ### Feature Engineering Layer
 
-Raw events from Kafka, Kinesis, or other streaming platforms rarely match the feature vectors models expect. The feature engineering layer transforms streaming events into ML-ready features through:
+Raw events from Kafka, Kinesis, or other [streaming platforms](/what-is-real-time-data-streaming) rarely match the feature vectors models expect. The feature engineering layer transforms streaming events into ML-ready features through:
 
 - **Windowed aggregations**: "user's transaction count in last 1 hour"
-- **Joins**: enriching events with user profiles, product catalogs
+- **Joins**: enriching events with user profiles, product catalogs (see [stream joins and enrichment patterns](/stream-joins-and-enrichment-patterns))
 - **Derived metrics**: ratios, percentiles, z-scores computed in real-time
 
-Apache Flink, Spark Structured Streaming, and ksqlDB excel at these transformations, maintaining stateful computations across event streams.
+[Apache Flink](/what-is-apache-flink-stateful-stream-processing), Spark Structured Streaming, and Kafka Streams excel at these transformations, maintaining stateful computations across event streams.
 
 ### Feature Stores
 
-Feature stores solve the dual-access pattern problem: training needs historical features (batch access), while serving requires latest features (real-time lookup).
+[Feature stores](/feature-stores-for-machine-learning) solve the dual-access pattern problem: training needs historical features (batch access), while serving requires latest features (real-time lookup).
 
-**Offline store**: Batch-accessible feature history for training (often Parquet/Delta Lake on S3)
-**Online store**: Low-latency key-value lookups for serving (Redis, DynamoDB, Cassandra)
+**Offline store**: Batch-accessible feature history for training (often Parquet/Delta Lake/Iceberg on S3)
+**Online store**: Low-latency key-value lookups for serving (Redis, DynamoDB, Cassandra, ScyllaDB)
 
-Streaming feature pipelines write to both stores, ensuring training-serving consistency. Tools like Feast, Tecton, and Databricks Feature Store orchestrate this dual-write pattern.
+Streaming feature pipelines write to both stores, ensuring training-serving consistency. Tools like Feast, Tecton, Databricks Feature Store, Hopsworks, and Feathr orchestrate this dual-write pattern.
+
+**Modern feature store ecosystem (2025)**:
+- **Feast 0.38+**: Most popular open-source option with improved streaming support and performance
+- **Hopsworks**: Enterprise feature store with built-in feature monitoring and versioning
+- **Feathr**: LinkedIn's open-source feature store optimized for large-scale feature engineering
+- **Tecton**: Managed feature platform with advanced real-time capabilities
 
 ### Model Serving Infrastructure
 
@@ -112,7 +118,7 @@ Once features are ready, models must generate predictions within strict latency 
 
 ### Feedback Loops
 
-Real-time ML systems must capture prediction outcomes to detect model drift and retrain:
+Real-time ML systems must capture prediction outcomes to detect [model drift](/model-drift-in-streaming) and retrain:
 
 ```
 Event → Features → Prediction → Action → Outcome → Training Data
@@ -120,7 +126,7 @@ Event → Features → Prediction → Action → Outcome → Training Data
                   Monitoring
 ```
 
-Outcomes (was the prediction correct?) feed back into training pipelines, creating continuous improvement cycles.
+Outcomes (was the prediction correct?) feed back into training pipelines, creating continuous improvement cycles. See [data drift in streaming](/data-drift-in-streaming) for detection strategies.
 
 ---
 
@@ -131,9 +137,9 @@ Feature engineering accounts for 70-80% of real-time ML pipeline complexity. Str
 ### Windowed Aggregations
 
 Time windows aggregate streaming events into features. Window types include:
-- **Tumbling**: Fixed, non-overlapping intervals
-- **Sliding**: Overlapping intervals (e.g., last 1 hour, updated every 5 minutes)
-- **Session**: Dynamic windows based on activity gaps
+- **Tumbling**: Fixed, non-overlapping intervals (e.g., 1-hour buckets: 1pm-2pm, 2pm-3pm). Use for daily summaries, hourly statistics. Example: "total transactions per hour."
+- **Sliding**: Overlapping intervals (e.g., last 1 hour, updated every 5 minutes). Use for moving averages, recent trends. Example: "average purchase amount in last 60 minutes, updated continuously."
+- **Session**: Dynamic windows based on activity gaps (e.g., group clicks separated by < 30 minutes). Use for user sessions, activity bursts. Example: "session duration" for recommendation features.
 
 ### Sessionization
 
@@ -158,10 +164,12 @@ Serving layers must handle feature staleness, either by rejecting predictions or
 - Serving uses Flink streaming aggregations
 - Subtle logic differences cause distribution shift
 
+This is one of the most critical challenges in production ML. [Feature stores](/feature-stores-for-machine-learning) are specifically designed to prevent this issue.
+
 **Prevention strategies**:
 1. **Single codebase**: Same transformation logic for batch and streaming
 2. **Backfill validation**: Run streaming pipeline on historical data, compare to batch features
-3. **Feature store contracts**: Schema enforcement ensures consistent feature definitions
+3. **Feature store contracts**: [Schema enforcement](/schema-registry-and-schema-management) ensures consistent feature definitions
 
 ---
 
@@ -183,10 +191,15 @@ Models deploy as sidecar containers alongside application pods.
 
 ### Dedicated Model Servers
 
-Centralized serving infrastructure (TensorFlow Serving, Seldon, KServe).
+Centralized serving infrastructure (TensorFlow Serving, Seldon Core, KServe, Ray Serve).
 
-**Pros**: Independent scaling, specialized hardware (GPUs), A/B testing
+**Pros**: Independent scaling, specialized hardware (GPUs), A/B testing, model versioning
 **Cons**: Network latency, additional infrastructure
+
+**2025 Ecosystem**:
+- **KServe** (formerly KFServe): The industry standard for Kubernetes-native model serving with autoscaling, canary deployments, and multi-framework support
+- **Ray Serve**: Scalable model serving built on Ray, excellent for complex inference workflows and distributed Python applications
+- **BentoML**: Framework-agnostic model serving with built-in monitoring and adaptive batching
 
 ### Latency and Throughput Trade-offs
 
@@ -215,22 +228,27 @@ Models trained offline periodically, served in real-time:
 
 ### Online Learning (Advanced)
 
-Models update continuously as data arrives. This requires careful handling of incremental learning where the model updates its parameters with each new batch of data.
+Models update continuously as data arrives through incremental learning—a technique where the model updates its parameters with each new batch of data without full retraining. For example, an online linear regression model can update its coefficients after seeing each new data point, adapting to changing patterns in real-time.
+
+**Modern online learning frameworks (2025)**:
+- **River**: Python library designed specifically for online machine learning, supporting incremental versions of popular algorithms (linear models, trees, neural networks)
+- **Vowpal Wabbit**: High-performance online learning system for large-scale applications
+- **PyTorch Lightning with streaming datasets**: Enables continuous model updates with proper checkpointing
 
 **Challenges**:
-- **Catastrophic forgetting**: New data erases old knowledge
-- **Concept drift detection**: When to trust new patterns vs ignore noise
-- **Validation**: How to evaluate continuously updating models
+- **Catastrophic forgetting**: New data erases old knowledge. Example: A recommendation model trained on summer fashion trends may "forget" winter preferences when fall data arrives. Solutions include experience replay (storing representative samples from past data) and regularization techniques.
+- **Concept drift detection**: When to trust new patterns vs ignore noise. If your fraud model suddenly sees unusual transaction patterns, is this emerging fraud or a temporary anomaly? Statistical tests (KS test, drift scores) help distinguish signal from noise.
+- **Validation**: How to evaluate continuously updating models. Traditional holdout sets become stale. Approaches include prequential evaluation (test-then-train on each sample) and time-based validation windows.
 
-**Use cases**: Ad click prediction, content ranking where patterns shift rapidly
+**Use cases**: Ad click prediction, content ranking where patterns shift rapidly, real-time recommendations, dynamic pricing
 
 ### A/B Testing and Shadow Deployment
 
 Before fully deploying new models:
 
-**Shadow mode**: New model scores traffic but doesn't serve predictions. Both models run in parallel, but only the primary model's predictions are used. This allows comparison before switching.
+**Shadow mode**: New model scores traffic but doesn't serve predictions. Both models run in parallel, but only the primary model's predictions are used. This allows comparison before switching. Track metrics like prediction distribution, latency, and feature importance differences. If shadow model predictions differ significantly (e.g., fraud scores vary by >10%), investigate before promotion.
 
-**A/B testing**: Split traffic between model versions, typically starting with a small percentage for the new model and gradually increasing based on performance metrics.
+**A/B testing**: Split traffic between model versions, typically starting with a small percentage for the new model (5-10%) and gradually increasing based on performance metrics. Monitor business KPIs (conversion rate, fraud catch rate) and technical metrics (latency, error rate). Example: Route 10% of users to new recommendation model for 7 days, compare click-through rate against control group before full rollout.
 
 ---
 
@@ -264,11 +282,11 @@ Instrument each component to identify bottlenecks.
 
 Features can degrade silently:
 
-- **Upstream data quality**: Source events missing fields, schema changes
+- **Upstream data quality**: Source events missing fields, [schema changes](/schema-evolution-best-practices)
 - **Computation errors**: Window aggregations incorrect due to late data
 - **Staleness**: Feature updates delayed due to infrastructure issues
 
-**Monitoring strategies**: Validate feature ranges, check for null values, track staleness, and log feature distributions to alert on drift from expected ranges.
+**Monitoring strategies**: Validate feature ranges, check for null values, track staleness, and log feature distributions to alert on drift from expected ranges. See [building a data quality framework](/building-a-data-quality-framework) for comprehensive quality strategies.
 
 ### Model Lineage and Auditing
 
@@ -290,15 +308,15 @@ This enables reproducing predictions and diagnosing errors months later.
 
 ### Data Governance for ML Pipelines
 
-As real-time ML systems scale, data governance becomes critical. Governance platforms provide:
+As real-time ML systems scale, data governance becomes critical. **Conduktor** provides comprehensive governance capabilities specifically designed for streaming ML pipelines:
 
-- **Schema validation**: Ensure streaming events match feature expectations
-- **Data quality gates**: Block corrupt data before it reaches feature pipelines
-- **Lineage tracking**: Trace features from source events through transformations
-- **Access controls**: Restrict who can modify feature definitions or deploy models
-- **Audit logs**: Track all changes to feature pipelines and model deployments
+- **Schema validation**: Ensure streaming events match feature expectations before they enter ML pipelines. Conduktor's schema enforcement prevents malformed events from corrupting feature computations.
+- **Data quality gates**: Block corrupt data before it reaches feature pipelines through Conduktor's data quality module, which validates ranges, patterns, and business rules on streaming data.
+- **Lineage tracking**: Trace features from source events through transformations with Conduktor's data lineage visualization, critical for debugging ML pipeline issues.
+- **Access controls**: Restrict who can modify feature definitions or deploy models through topic-level ACLs and governance policies.
+- **Audit logs**: Track all changes to feature pipelines and model deployments, essential for regulated industries.
 
-For example, governance systems can enforce that all events in the `transactions` topic include required fields (`user_id`, `amount`, `timestamp`) before feature engineering begins, preventing silent failures in downstream ML pipelines.
+For example, Conduktor can enforce that all events in the `transactions` topic include required fields (`user_id`, `amount`, `timestamp`) with valid data types and ranges before feature engineering begins, preventing silent failures in downstream ML pipelines. This governance layer acts as quality gates between data producers and ML consumers.
 
 ---
 
@@ -307,6 +325,8 @@ For example, governance systems can enforce that all events in the `transactions
 ### Fraud Detection Systems
 
 **Real-time requirements**: Evaluate transactions before authorization (50-100ms)
+
+For comprehensive coverage, see [real-time fraud detection with streaming](/real-time-fraud-detection-with-streaming).
 
 ```
       Fraud Detection Real-Time Pipeline
@@ -356,6 +376,8 @@ Transaction Event
 
 **Real-time requirements**: Personalize content as users browse (100-300ms)
 
+For detailed implementation patterns, see [building recommendation systems with streaming data](/building-recommendation-systems-with-streaming-data).
+
 **Features**:
 - User history: Recently viewed items, categories
 - Session context: Current session duration, items viewed
@@ -379,23 +401,32 @@ Pricing models consume demand signals (search volume, cart adds) and supply sign
 Typical real-time ML infrastructure:
 
 **Data Layer**:
-- **Streaming**: Apache Kafka, Amazon Kinesis
-- **Processing**: Apache Flink, Spark Structured Streaming, ksqlDB
-- **Storage**: S3/Delta Lake (offline), Redis/DynamoDB (online)
+- **Streaming**: [Apache Kafka](/apache-kafka) (4.0+ with [KRaft](/understanding-kraft-mode-in-kafka)), Amazon Kinesis, Redpanda
+- **Processing**: [Apache Flink](/what-is-apache-flink-stateful-stream-processing) (1.18+), Spark Structured Streaming (3.5+), Kafka Streams
+- **Storage**: S3/Delta Lake/[Apache Iceberg](/apache-iceberg) (offline), Redis/DynamoDB/ScyllaDB (online)
 
 **ML Layer**:
-- **Feature Store**: Feast, Tecton, Databricks Feature Store
-- **Training**: Spark MLlib, scikit-learn, TensorFlow/PyTorch
-- **Serving**: TensorFlow Serving, Seldon Core, KServe, AWS SageMaker
+- **Feature Store**: Feast (0.38+), Hopsworks, Feathr, Databricks Feature Store
+- **Training**: Spark MLlib, scikit-learn, TensorFlow/PyTorch, XGBoost
+- **Serving**: KServe, Ray Serve, TensorFlow Serving, Seldon Core, BentoML
+- **Online Learning**: River, Vowpal Wabbit, PyTorch Lightning
+
+**Orchestration & MLOps (2025)**:
+- **ML Orchestration**: Flyte, Metaflow, Hamilton (declarative dataflow)
+- **Distributed Compute**: Ray (distributed Python), Dask
+- **Experiment Tracking**: MLflow 2.x, Weights & Biases, Neptune
+- **Model Registry**: MLflow Model Registry, BentoML
 
 **Observability**:
-- **Metrics**: Prometheus, Datadog
-- **Tracing**: Jaeger, Zipkin
-- **Logging**: ELK Stack, Splunk
+- **Metrics**: Prometheus, Datadog, Grafana
+- **Tracing**: Jaeger, OpenTelemetry, Zipkin
+- **Logging**: ELK Stack, Grafana Loki
+- **ML Monitoring**: Evidently AI, WhyLabs, NannyML
 
-**Governance**:
-- **Data Quality**: Great Expectations, governance platforms
-- **MLOps**: MLflow, Weights & Biases, Neptune
+**Governance & Quality**:
+- **Platform Governance**: Conduktor (streaming data governance, quality gates, lineage)
+- **Data Quality**: [Great Expectations](/great-expectations-data-testing-framework), Soda Core, dbt tests
+- **Feature Monitoring**: Built into modern feature stores (drift detection, staleness tracking)
 
 ---
 
@@ -413,7 +444,15 @@ Key takeaways:
 
 As ML systems increasingly operate on streaming data, mastering real-time pipelines becomes essential for competitive, responsive applications. Start simple with real-time inference on periodically trained models, then evolve toward more sophisticated online learning as requirements and expertise grow.
 
-The future of ML is real-time - building the infrastructure to support it is one of the most impactful investments in modern data systems.
+The future of ML is real-time—building the infrastructure to support it is one of the most impactful investments in modern data systems.
+
+**Related Articles**:
+- [Real-Time ML Inference with Streaming Data](/real-time-ml-inference-with-streaming-data) - Deep dive into inference patterns
+- [Feature Stores for Machine Learning](/feature-stores-for-machine-learning) - Comprehensive guide to feature management
+- [Model Drift in Streaming](/model-drift-in-streaming) - Detection and remediation strategies
+- [Data Drift in Streaming](/data-drift-in-streaming) - Managing data quality in ML pipelines
+- [Real-Time Fraud Detection with Streaming](/real-time-fraud-detection-with-streaming) - Production use case
+- [Building Recommendation Systems with Streaming Data](/building-recommendation-systems-with-streaming-data) - Implementation patterns
 
 ## Sources and References
 
