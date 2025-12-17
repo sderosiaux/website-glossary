@@ -11,13 +11,19 @@ topics:
 
 # Schema Evolution in Apache Iceberg
 
-Schema evolution is a critical capability for modern data lakehouses, allowing data engineers to adapt table structures as business requirements change without disrupting existing workloads or rewriting massive datasets. Apache Iceberg provides robust schema evolution capabilities that surpass traditional data lake formats, making it the preferred choice for enterprise data platforms.
+Schema evolution is a critical capability for modern data lakehouses, allowing data engineers to adapt table structures as business requirements change without disrupting existing workloads or rewriting massive datasets. [Apache Iceberg](apache-iceberg.md) provides robust schema evolution capabilities that surpass traditional data lake formats, making it the preferred choice for enterprise data platforms.
+
+As of 2025, with Iceberg versions 1.8.0 through 1.10.0, schema evolution has expanded to support new data types including Variant for semi-structured data, nanosecond-precision timestamps, and geospatial types, alongside enhanced performance through deletion vectors and row lineage tracking.
 
 ## Understanding Schema Evolution
 
-Schema evolution refers to the ability to modify a table's structure over time while maintaining compatibility with existing data and queries. In traditional data lakes built on formats like Parquet or ORC, schema changes often require expensive full-table rewrites or complex partition-level operations. Iceberg fundamentally reimagines this process by decoupling the schema definition from the physical data files.
+Schema evolution refers to the ability to modify a table's structure over time while maintaining compatibility with existing data and queries. In traditional data lakes built on formats like Parquet or ORC, schema changes often require expensive full-table rewrites or complex partition-level operations.
 
-Iceberg tracks schema changes through versioned metadata, allowing multiple schema versions to coexist. Each data file retains its original schema, while Iceberg's metadata layer handles the translation between different schema versions at read time. This architecture enables zero-copy schema evolution for most operations, dramatically reducing the operational overhead of schema changes.
+Iceberg fundamentally reimagines this process by decoupling the schema definition from the physical data files. This means the table's schema exists separately as metadata, rather than being tightly bound to each data file. When you make schema changes, you're updating this central metadata definition, not rewriting data files.
+
+Iceberg tracks schema changes through versioned metadata, allowing multiple schema versions to coexist. Each data file retains its original schema, while Iceberg's metadata layer handles the translation between different schema versions at read time. This architecture enables zero-copy schema evolution for most operations—meaning schema changes don't require copying or rewriting data files—dramatically reducing the operational overhead of schema changes.
+
+For comprehensive guidance on schema evolution patterns across different systems, see [Schema Evolution Best Practices](schema-evolution-best-practices.md).
 
 ## Safe Schema Changes in Iceberg
 
@@ -66,7 +72,7 @@ Dropped columns disappear from the table schema immediately, but the underlying 
 
 ### Type Promotion
 
-Iceberg supports safe type promotions that widen data types without loss of precision:
+Iceberg supports safe type promotions that widen data types without loss of precision. "Widening" means expanding a type's capacity to hold larger values or more precise numbers, ensuring no data is lost during conversion:
 
 ```sql
 -- Promote integer to long
@@ -79,9 +85,45 @@ ALTER COLUMN measurement TYPE DOUBLE;
 ```
 
 Supported type promotions include:
-- `int` → `long`
-- `float` → `double`
-- `decimal(P, S)` → `decimal(P', S)` where P' > P
+- `int` → `long` (safe: all int values fit in long)
+- `float` → `double` (safe: double has greater precision)
+- `decimal(P, S)` → `decimal(P', S)` where P' > P (safe: more digits allowed)
+
+These are safe because the target type can represent all possible values from the source type without loss. The opposite direction (long → int, double → float) would be unsafe as it risks data loss or overflow.
+
+### Modern Type Support (Iceberg 1.8.0+)
+
+Starting with Iceberg 1.8.0 (February 2025), new data types expand schema evolution capabilities:
+
+**Variant Type**: For semi-structured, JSON-like data that doesn't conform to a fixed schema:
+
+```sql
+-- Add a variant column for flexible event properties
+ALTER TABLE events
+ADD COLUMN flexible_metadata VARIANT;
+```
+
+This enables ingesting dynamic data structures without defining every possible field upfront, ideal for evolving event schemas or third-party integrations.
+
+**Nanosecond Timestamp Precision**: For high-precision temporal data required in trading systems, IoT telemetry, and distributed tracing:
+
+```sql
+-- Create table with nanosecond timestamps
+CREATE TABLE high_frequency_trades (
+  trade_id LONG,
+  symbol STRING,
+  trade_time TIMESTAMP_NS,  -- Nanosecond precision
+  price DECIMAL(18, 2)
+) USING iceberg;
+```
+
+**Geospatial Types**: Native support for geometry and geography columns:
+
+```sql
+-- Add location tracking
+ALTER TABLE store_visits
+ADD COLUMN visit_location GEOGRAPHY;
+```
 
 ## Column Mapping and Identity Columns
 
@@ -89,7 +131,7 @@ Iceberg's schema evolution capabilities are powered by its sophisticated column 
 
 ### Column ID Assignment
 
-When you create a table, Iceberg assigns monotonically increasing IDs to each column:
+When you create a table, Iceberg assigns monotonically increasing IDs (starting from 1 and incrementing sequentially) to each column:
 
 ```python
 from pyspark.sql import SparkSession
@@ -112,7 +154,22 @@ These IDs persist throughout the table's lifetime, enabling column renaming and 
 
 ### Name Mapping for Legacy Data
 
-For tables migrated from other formats, Iceberg supports name-based column mapping as a fallback mechanism, providing a migration path from legacy systems while maintaining Iceberg's evolution capabilities.
+For tables migrated from other formats (like Hive tables or raw Parquet files), Iceberg supports name-based column mapping as a fallback mechanism. Instead of relying on column IDs, which may not exist in legacy data, Iceberg can match columns by name when reading older data files.
+
+```python
+# Enable name mapping for a migrated table
+spark.sql("""
+ALTER TABLE catalog.db.legacy_events
+SET TBLPROPERTIES (
+  'schema.name-mapping.default'='[
+    {"field-id": 1, "names": ["event_id", "old_event_id"]},
+    {"field-id": 2, "names": ["event_type"]}
+  ]'
+)
+""")
+```
+
+This provides a migration path from legacy systems while maintaining Iceberg's evolution capabilities. Once migrated, new columns receive proper IDs and benefit from Iceberg's full schema evolution features.
 
 ## Streaming Integration and Schema Evolution
 
@@ -120,7 +177,7 @@ Schema evolution in Iceberg integrates seamlessly with streaming data pipelines,
 
 ### Streaming Writes with Evolving Schemas
 
-Iceberg supports streaming writes from Apache Spark Structured Streaming and Apache Flink with automatic schema evolution:
+Iceberg supports streaming writes from Apache Spark Structured Streaming and Apache Flink with automatic schema evolution. For details on designing streaming pipelines to lakehouses, see [Streaming Ingestion to Lakehouse](streaming-ingestion-to-lakehouse.md).
 
 ```python
 # Spark Structured Streaming with schema evolution
@@ -130,7 +187,7 @@ streaming_df = spark.readStream \
     .option("subscribe", "events") \
     .load()
 
-# Write to Iceberg with merge-on-read and schema evolution
+# Write to Iceberg with schema evolution enabled
 streaming_df.writeStream \
     .format("iceberg") \
     .outputMode("append") \
@@ -140,19 +197,19 @@ streaming_df.writeStream \
     .start()
 ```
 
-When `mergeSchema` is enabled, Iceberg automatically incorporates new columns discovered in the stream, allowing producers to add fields without coordinating with all consumers.
+When `mergeSchema` is enabled, Iceberg automatically incorporates new columns discovered in the stream, allowing producers to add fields without coordinating with all consumers. This automatic schema merging works seamlessly with Iceberg's metadata versioning.
 
 ### Schema Registry Integration
 
-For production streaming environments, combining Iceberg with a schema registry (like Confluent Schema Registry) provides governed schema evolution. Governance platforms enhance this workflow by providing visibility into schema changes across your streaming ecosystem, allowing data teams to track schema evolution impact across multiple Iceberg tables and consumer applications.
+For production streaming environments, combining Iceberg with a schema registry provides governed schema evolution. For comprehensive coverage of schema registry patterns, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md).
 
 The integration pattern typically involves:
 1. Producer registers schema changes in the schema registry
-2. Schema registry validates compatibility rules
+2. Schema registry validates compatibility rules (backward, forward, or full compatibility)
 3. Streaming pipeline applies schema changes to Iceberg tables
-4. Governance tools provide visibility and audit trails
+4. Data governance platforms like Conduktor provide visibility and audit trails
 
-This multi-layered approach ensures that schema evolution remains controlled and traceable, even in complex streaming architectures with dozens of data producers and consumers.
+This multi-layered approach ensures that schema evolution remains controlled and traceable, even in complex streaming architectures with dozens of data producers and consumers. Conduktor Gateway can enforce schema policies at the streaming layer before data reaches your Iceberg tables, preventing invalid schema changes from propagating downstream.
 
 ## Backward Compatibility and Versioning
 
@@ -167,22 +224,37 @@ SELECT * FROM catalog.db.events
 VERSION AS OF 'snapshot-id-here';
 ```
 
-This time-travel capability extends to schema evolution, allowing you to query data with historical schemas for debugging, auditing, or regulatory compliance. When reading older snapshots, Iceberg applies the schema that was active at that point in time.
+This time-travel capability extends to schema evolution, allowing you to query data with historical schemas for debugging, auditing, or regulatory compliance. When reading older snapshots, Iceberg applies the schema that was active at that point in time. For comprehensive coverage of time travel features, see [Time Travel with Apache Iceberg](time-travel-with-apache-iceberg.md).
 
 ### Managing Breaking Changes
 
 While Iceberg supports many safe schema changes, some operations remain breaking changes:
 - Dropping required columns that downstream queries depend on
-- Type changes that narrow precision (e.g., `long` → `int`)
+- Type changes that narrow precision (e.g., `long` → `int`, `double` → `float`)—narrowing loses capacity or precision
 - Changing column nullability from nullable to required
 
-For these scenarios, data engineers should:
-1. Communicate changes through governance platforms
-2. Use Iceberg's table properties to document breaking changes
-3. Coordinate with downstream consumers before applying changes
-4. Consider deprecation periods for critical columns
+For these scenarios, data engineers should follow a structured approach:
 
-Governance platforms can automate impact analysis, identifying which downstream applications and queries will be affected by proposed schema changes before they're applied.
+**Example breaking change scenario**: You need to remove a deprecated `legacy_user_id` column that some downstream dashboards still query.
+
+1. **Identify impact**: Use data lineage tools to find which queries, dashboards, and applications reference the column
+2. **Communicate changes**: Document the deprecation timeline in table properties and notify downstream teams
+3. **Provide migration path**: Create a new recommended column (e.g., `user_id`) and update documentation
+4. **Implement deprecation period**: Allow 30-90 days for teams to migrate their queries
+5. **Monitor usage**: Track queries accessing the deprecated column during the grace period
+6. **Execute removal**: Drop the column only after confirming zero downstream usage
+
+```sql
+-- Document breaking change in table properties
+ALTER TABLE events
+SET TBLPROPERTIES (
+  'schema.deprecated.columns'='legacy_user_id',
+  'schema.deprecation.date'='2025-01-15',
+  'schema.removal.date'='2025-04-15'
+);
+```
+
+Data governance platforms like Conduktor can automate impact analysis, identifying which downstream applications and queries will be affected by proposed schema changes before they're applied.
 
 ## Best Practices for Schema Evolution
 
@@ -194,7 +266,7 @@ To maximize the benefits of Iceberg's schema evolution capabilities, follow thes
 
 **Leverage Default Values**: When adding required fields to tables with existing data, always specify default values to ensure backward compatibility with older data files.
 
-**Test Schema Changes**: Use Iceberg's branching and tagging features to test schema changes in isolation before applying them to production tables:
+**Test Schema Changes**: Use Iceberg's branching and tagging features (available in Iceberg 1.5+) to test schema changes in isolation before applying them to production tables:
 
 ```sql
 -- Create a branch for testing schema changes
@@ -211,9 +283,46 @@ SELECT * FROM events.branch_test_schema LIMIT 10;
 ALTER TABLE events REPLACE BRANCH main WITH BRANCH test_schema;
 ```
 
+Note: Branch support varies by catalog implementation. Verify your catalog (Hive Metastore, AWS Glue, Nessie, or Polaris) supports branching before relying on this feature.
+
 **Monitor Schema Drift**: Implement monitoring to detect unexpected schema changes, especially in streaming pipelines where multiple producers may modify schemas independently.
 
+Example scenario: A streaming pipeline ingests events from multiple microservices. One service starts sending a new field `user_tier` without coordination. Schema drift monitoring detects this addition, alerts the data team, and they can decide whether to accept the change or enforce stricter schema validation at the producer level using Conduktor Gateway.
+
 **Document Changes**: Maintain schema evolution documentation in table properties or external governance systems, providing context for future data engineers about why changes were made.
+
+## Advanced Features for Schema Evolution (2025)
+
+### Deletion Vectors (Iceberg 1.8.0+)
+
+Deletion vectors provide an efficient way to handle row-level deletes without rewriting data files, which has implications for schema evolution in update-heavy tables:
+
+```sql
+-- Enable deletion vectors for efficient updates
+ALTER TABLE events
+SET TBLPROPERTIES (
+  'write.delete.mode'='merge-on-read',
+  'write.update.mode'='merge-on-read'
+);
+```
+
+With deletion vectors, schema changes on tables with frequent updates become more efficient. Instead of rewriting entire files during updates, Iceberg maintains compact bitmaps indicating which rows are deleted, allowing schema evolution operations to complete faster.
+
+### Row Lineage Tracking (Iceberg 1.9.0+)
+
+Row lineage metadata allows query engines to track which rows changed between commits, simplifying incremental processing when schemas evolve:
+
+```python
+# Query only rows affected by recent schema changes
+changed_rows_df = spark.read \
+    .format("iceberg") \
+    .option("start-snapshot-id", previous_snapshot) \
+    .option("end-snapshot-id", current_snapshot) \
+    .load("catalog.db.events") \
+    .where("_change_type IN ('insert', 'update_after')")
+```
+
+This capability is particularly useful when evolving schemas in streaming pipelines, as you can identify which records need reprocessing after adding computed columns or changing data types.
 
 ## Summary
 
@@ -222,9 +331,11 @@ Apache Iceberg's schema evolution capabilities represent a significant advanceme
 Key takeaways:
 - Iceberg uses unique column IDs to enable true column renaming and reordering
 - Most schema changes (adding columns, renaming, dropping) require no data rewriting
+- Modern types (Variant, nanosecond timestamps, geospatial) expand schema evolution flexibility (v1.8.0+)
+- Deletion vectors and row lineage tracking improve performance for evolving schemas (v1.8.0-1.9.0)
 - Schema evolution integrates seamlessly with streaming pipelines and time-travel queries
 - Versioned metadata provides complete schema history and backward compatibility
-- Governance tools enhance schema evolution with impact analysis and visibility
+- Governance tools like Conduktor enhance schema evolution with impact analysis and policy enforcement
 
 By following best practices and leveraging Iceberg's robust schema evolution features, data teams can build flexible, maintainable data lakehouses that adapt to changing business needs without the operational burden of massive data rewrites.
 
