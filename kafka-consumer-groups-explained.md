@@ -44,6 +44,9 @@ KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
 consumer.subscribe(Arrays.asList("user-events"));
 ```
 
+![kafka-consumer-groups-explained diagram 1](images/diagrams/kafka-consumer-groups-explained-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 ┌────────────────────────────────────────────────────────────────┐
 │              Consumer Group: analytics-processors              │
@@ -82,6 +85,7 @@ consumer.subscribe(Arrays.asList("user-events"));
 │                                                                  │
 └────────────────────────────────────────────────────────────────┘
 ```
+-->
 
 Consider a topic with six partitions and three consumers in the same group. Each consumer might receive two partitions. If you add a fourth consumer, the partitions are redistributed—perhaps three consumers get two partitions each, and one gets none. If you have more consumers than partitions, the extra consumers remain idle.
 

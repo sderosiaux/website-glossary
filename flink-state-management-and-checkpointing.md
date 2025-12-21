@@ -33,6 +33,9 @@ State serves critical functions in streaming applications: maintaining session w
 
 Flink abstracts state storage through configurable state backends, which determine how state is stored locally during computation, and checkpoint storage, which determines how state is persisted during checkpoints. Starting with Flink 1.13, this separation provides clearer configuration and better flexibility.
 
+![flink-state-management-and-checkpointing diagram 1](images/diagrams/flink-state-management-and-checkpointing-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
                     State Backend Architecture
 
@@ -58,6 +61,7 @@ Flink abstracts state storage through configurable state backends, which determi
                   │  FileSystem, S3)    │
                   └─────────────────────┘
 ```
+-->
 
 **HashMapStateBackend** (introduced in Flink 1.13, replacing MemoryStateBackend) stores state as Java objects in the TaskManager's JVM heap. It provides fast state access but is limited by available heap memory. Suitable for state sizes up to hundreds of megabytes and development/testing environments.
 
@@ -112,6 +116,9 @@ Checkpointing is Flink's primary mechanism for fault tolerance. A checkpoint rep
 
 Flink implements the Chandy-Lamport algorithm for distributed snapshots, modified to work efficiently with streaming data. This algorithm ensures all operators capture their state at logically consistent points in the data stream, preventing partial processing or duplication. The process works as follows:
 
+![Flink implements the Chandy-Lamport algorithm for distributed snapshots, modified to work efficiently with streaming data. This algorithm ensures all operators capture their state at logically consistent points in the data stream, preventing partial processing or duplication. The process works as follows](images/diagrams/flink-state-management-and-checkpointing-1.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
            Checkpointing Flow with Barriers
 
@@ -152,6 +159,7 @@ Flink implements the Chandy-Lamport algorithm for distributed snapshots, modifie
 
               5. All operators ACK → Checkpoint complete
 ```
+-->
 
 1. The JobManager triggers a checkpoint by injecting special barrier markers into the data streams
 2. Barriers flow through the topology with the data stream

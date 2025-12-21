@@ -42,6 +42,9 @@ Understanding Kafka Streams architecture helps you design better applications an
 
 A Kafka Streams application defines a processing topology - a graph of stream processors connected by streams. The topology describes how data flows through your application:
 
+![A Kafka Streams application defines a processing topology - a graph of stream processors connected by streams. The topology describes how data flows through your application](images/diagrams/introduction-to-kafka-streams-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 ┌──────────────────────────────────────────────────────┐
 │         Kafka Streams Topology                       │
@@ -79,6 +82,7 @@ A Kafka Streams application defines a processing topology - a graph of stream pr
 │          └──────────────┘                           │
 └──────────────────────────────────────────────────────┘
 ```
+-->
 
 1. **Source Processor**: Reads records from Kafka topics
 2. **Stream Processors**: Transform, filter, or aggregate data
@@ -236,6 +240,9 @@ implementation 'org.apache.kafka:kafka-streams:3.6.0'
 
 Our application reads text from an input topic, counts word occurrences, and writes results to an output topic.
 
+![introduction-to-kafka-streams diagram 2](images/diagrams/introduction-to-kafka-streams-1.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 Data Flow:
 ┌─────────────────┐
@@ -268,6 +275,7 @@ Data Flow:
 │  (Topic)        │
 └─────────────────┘
 ```
+-->
 
 This simple application demonstrates several concepts:
 
@@ -376,6 +384,9 @@ Kafka Streams powers diverse real-time applications across industries.
 
 Financial services use Kafka Streams to detect fraudulent transactions in real-time. The application aggregates recent transactions per user, calculates risk scores, and flags suspicious patterns immediately.
 
+![introduction-to-kafka-streams diagram 3](images/diagrams/introduction-to-kafka-streams-2.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 ┌─────────────────┐
 │  transactions   │  user123: $50, $75, $100, $5000
@@ -402,6 +413,7 @@ Financial services use Kafka Streams to detect fraudulent transactions in real-t
 │  (Topic)        │
 └─────────────────┘
 ```
+-->
 
 This pattern enables immediate action - blocking transactions, alerting users, or triggering manual review.
 

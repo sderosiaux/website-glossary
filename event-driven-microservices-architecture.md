@@ -224,6 +224,9 @@ Modern testing strategies for 2025 include:
 
 ### E-commerce Order Processing
 
+![### E-commerce Order Processing](images/diagrams/event-driven-microservices-architecture-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 ┌──────────────────────────────────────────────────────────────────┐
 │         Event-Driven Microservices: Order Processing             │
@@ -283,6 +286,7 @@ Modern testing strategies for 2025 include:
 │                                                                    │
 └──────────────────────────────────────────────────────────────────┘
 ```
+-->
 
 When a customer places an order, the Order Service publishes an "OrderPlaced" event. The Inventory Service consumes this event and reserves stock, then publishes "InventoryReserved." The Payment Service listens for inventory confirmation and processes payment, publishing "PaymentProcessed." Finally, the Shipping Service reacts to successful payment and schedules delivery.
 

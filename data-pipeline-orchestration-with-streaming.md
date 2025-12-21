@@ -33,6 +33,9 @@ Streaming data processing fundamentally differs from batch in one critical way: 
 
 Consider an e-commerce fraud detection pipeline:
 
+![Consider an e-commerce fraud detection pipeline](images/diagrams/data-pipeline-orchestration-with-streaming-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 ┌──────────────┐
 │   Website    │
@@ -76,6 +79,7 @@ Consider an e-commerce fraud detection pipeline:
 │  + Notification    │
 └────────────────────┘
 ```
+-->
 
 Traditional batch orchestration doesn't fit—this pipeline processes events continuously, scales dynamically based on traffic, and maintains complex state about user behavior patterns.
 
@@ -87,6 +91,9 @@ Organizations typically adopt one of three orchestration strategies for streamin
 
 Traditional orchestration tools manage the streaming infrastructure itself rather than the data flow. Airflow can deploy Kafka connectors, manage Flink job submissions, handle schema registry updates, and coordinate infrastructure changes.
 
+![data-pipeline-orchestration-with-streaming diagram 2](images/diagrams/data-pipeline-orchestration-with-streaming-1.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 Airflow DAG for Streaming Infrastructure:
 
@@ -113,6 +120,7 @@ Airflow DAG for Streaming Infrastructure:
 │  Lag & Health       │
 └─────────────────────┘
 ```
+-->
 
 This approach treats streaming components as long-running infrastructure that needs periodic updates rather than repeatedly scheduled tasks.
 

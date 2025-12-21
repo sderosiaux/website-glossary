@@ -77,6 +77,9 @@ KRaft removes the ZooKeeper dependency entirely, implementing Kafka's own consen
 - **Unified architecture**: One system instead of two reduces operational surface area
 
 **KRaft Architecture**:
+![**KRaft Architecture**](images/diagrams/apache-kafka-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 Traditional ZooKeeper Mode:
 ┌──────────────────────────────────────┐
@@ -109,6 +112,7 @@ KRaft Mode (2025+):
 │  • Read metadata from controller log │
 └──────────────────────────────────────┘
 ```
+-->
 
 **Deployment Modes**:
 - **Combined mode**: Controllers and brokers run on the same nodes (simpler for smaller clusters)
@@ -193,6 +197,9 @@ This integration allows data to flow seamlessly from operational systems into an
 
 Below is how Kafka fits into a real-world streaming ecosystem:
 
+![Below is how Kafka fits into a real-world streaming ecosystem](images/diagrams/apache-kafka-1.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
 │                    Kafka Streaming Ecosystem                        │
@@ -240,6 +247,7 @@ Below is how Kafka fits into a real-world streaming ecosystem:
 │                                                                     │
 └─────────────────────────────────────────────────────────────────────┘
 ```
+-->
 
 This structure shows how raw operational data flows through Kafka, gets processed and enriched in motion, and ends up in analytical and governance systems — all in near real time.
 

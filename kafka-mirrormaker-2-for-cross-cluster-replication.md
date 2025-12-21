@@ -27,6 +27,9 @@ MM2 was introduced in Apache Kafka 2.4 through KIP-382 and has become the recomm
 
 MirrorMaker 2 consists of three main connector types that work together to provide comprehensive replication:
 
+![MirrorMaker 2 consists of three main connector types that work together to provide comprehensive replication](images/diagrams/kafka-mirrormaker-2-for-cross-cluster-replication-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
 │                        Source Cluster (us-west)                     │
@@ -51,6 +54,7 @@ MirrorMaker 2 consists of three main connector types that work together to provi
 │  └──────────────┘  └──────────────┘  └──────────────┘             │
 └─────────────────────────────────────────────────────────────────────┘
 ```
+-->
 
 **MirrorSourceConnector** handles the core data replication task. It consumes records from topics in the source cluster and produces them to corresponding topics in the target cluster. The connector preserves message keys, values, headers, and timestamps, ensuring data fidelity across clusters.
 
@@ -70,6 +74,9 @@ MirrorMaker 2 supports several replication patterns, each suited to different bu
 
 **Active-Passive Replication** is the most common pattern for disaster recovery. A primary cluster handles all production traffic while MM2 continuously replicates data to a secondary cluster in a different region or availability zone. If the primary cluster fails, applications can fail over to the secondary cluster. The checkpoint connector ensures that consumers can resume from the correct offset, minimizing data loss and duplication. For broader disaster recovery strategies including RTO/RPO planning and backup mechanisms, see [Disaster Recovery Strategies for Kafka Clusters](disaster-recovery-strategies-for-kafka-clusters.md).
 
+![kafka-mirrormaker-2-for-cross-cluster-replication diagram 2](images/diagrams/kafka-mirrormaker-2-for-cross-cluster-replication-1.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 Active-Passive Pattern:
 
@@ -91,6 +98,7 @@ Active-Passive Pattern:
 
   On Failover →  Applications switch to Standby cluster
 ```
+-->
 
 For example, a financial services company might run its primary Kafka cluster in US-East with active replication to a standby cluster in US-West. If the US-East data center experiences an outage, trading applications can quickly switch to the US-West cluster using the synchronized consumer offsets.
 

@@ -24,6 +24,9 @@ The benefits extend beyond cost savings. By decoupling storage from compute, tie
 
 Tiered storage introduces several new components to the Kafka broker architecture. The Remote Log Manager is the central component responsible for managing the lifecycle of log segments in remote storage. It coordinates when segments are copied to remote storage, how they're fetched for consumer requests, and when they're deleted based on retention policies.
 
+![tiered-storage-in-kafka diagram 1](images/diagrams/tiered-storage-in-kafka-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │                        Kafka Broker                              │
@@ -49,6 +52,7 @@ Tiered storage introduces several new components to the Kafka broker architectur
                     │  Older Data (weeks/months/years)        │
                     └─────────────────────────────────────────┘
 ```
+-->
 
 Two key plugin interfaces enable flexibility in implementation:
 

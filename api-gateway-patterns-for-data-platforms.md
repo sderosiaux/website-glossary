@@ -25,6 +25,12 @@ For data platforms specifically, API gateways solve several problems. They provi
 
 ## Core API Gateway Patterns
 
+![## Core API Gateway Patterns](images/diagrams/api-gateway-patterns-for-data-platforms-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+![### BFF Architecture](images/diagrams/api-gateway-patterns-for-data-platforms-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
                API Gateway Architecture
 
@@ -51,6 +57,8 @@ For data platforms specifically, API gateways solve several problems. They provi
 │ Service │      │ Cluster │      │  API    │
 └─────────┘      └─────────┘      └─────────┘
 ```
+-->
+-->
 
 ### Routing and Service Discovery
 
@@ -86,6 +94,9 @@ Kafka gateways must handle long-lived connections for consuming message streams.
 
 For comprehensive understanding of Kafka's core architecture and how topics, partitions, and consumer groups work, see [Apache Kafka](apache-kafka.md).
 
+![api-gateway-patterns-for-data-platforms diagram 2](images/diagrams/api-gateway-patterns-for-data-platforms-1.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
       Streaming Gateway Pattern (Kafka WebSocket)
 
@@ -109,6 +120,7 @@ Mobile/Web Clients                 Gateway               Kafka Cluster
       │                                 └─────────────────────▶│
       ▼                                 ▼                      ▼
 ```
+-->
 
 Topic-based routing becomes the streaming equivalent of path-based routing. The gateway maps logical topics to physical Kafka topics, allowing topic reorganization without breaking client code. It can also merge multiple topics into a single consumer stream or split a single topic into multiple logical views.
 

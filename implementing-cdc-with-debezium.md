@@ -32,6 +32,9 @@ The key benefit of this architecture is that Debezium acts as a passive observer
 
 A Debezium deployment consists of several components working together. At the core is the Kafka Connect framework, which provides the runtime environment for Debezium connectors. Each connector is database-specific (MySQL, PostgreSQL, MongoDB, SQL Server, Oracle, etc.) and understands how to parse that database's transaction log format. For comprehensive coverage of Kafka Connect architecture and patterns, see [Kafka Connect: Building Data Integration Pipelines](kafka-connect-building-data-integration-pipelines.md).
 
+![implementing-cdc-with-debezium diagram 1](images/diagrams/implementing-cdc-with-debezium-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 ┌──────────────────────────────────────────────────────────────┐
 │               Debezium CDC Architecture                      │
@@ -66,6 +69,7 @@ A Debezium deployment consists of several components working together. At the co
   │  └────────┘  └────────┘           │
   └────────────────────────────────────┘
 ```
+-->
 
 The connector runs as a task within Kafka Connect and maintains its own state, tracking which portion of the transaction log has been processed. This state is stored in Kafka topics, enabling fault tolerance: if a connector crashes and restarts, it resumes from where it left off without losing or duplicating events.
 

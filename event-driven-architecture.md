@@ -30,6 +30,9 @@ The core components include:
 
 **Event Consumers**: Services that subscribe to events and react accordingly. Consumers act asynchronously and independently of one another.
 
+![event-driven-architecture diagram 1](images/diagrams/event-driven-architecture-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 ┌────────────────────────────────────────────────────────────────┐
 │              Event-Driven Architecture Flow                    │
@@ -68,6 +71,7 @@ The core components include:
 │                                                                  │
 └────────────────────────────────────────────────────────────────┘
 ```
+-->
 
 The general data flow: Producer publishes event → Broker ingests and persists event → Consumer(s) retrieve event and react.
 

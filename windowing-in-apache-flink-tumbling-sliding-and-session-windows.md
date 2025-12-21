@@ -42,6 +42,9 @@ For Kafka integration, add these dependencies to your project:
 
 Windows are fundamental constructs in stream processing that segment continuous data streams into bounded collections. Unlike batch processing, where data has natural boundaries, streaming data is unbounded and requires explicit windowing logic to perform aggregations.
 
+![windowing-in-apache-flink-tumbling-sliding-and-session-windows diagram 1](images/diagrams/windowing-in-apache-flink-tumbling-sliding-and-session-windows-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 ┌──────────────────────────────────────────────────────────────────┐
 │                   Window Types Overview                          │
@@ -73,6 +76,7 @@ Windows are fundamental constructs in stream processing that segment continuous 
 │                                                                  │
 └──────────────────────────────────────────────────────────────────┘
 ```
+-->
 
 Flink supports two main categories of windows:
 
@@ -499,6 +503,9 @@ This governance layer becomes essential when managing multiple Flink jobs consum
 
 Selecting the appropriate window type is critical for both correctness and performance. Use this decision tree:
 
+![Selecting the appropriate window type is critical for both correctness and performance. Use this decision tree](images/diagrams/windowing-in-apache-flink-tumbling-sliding-and-session-windows-1.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
 │              Which Window Type Should I Use?                        │
@@ -522,6 +529,7 @@ Question 2: Should events appear in multiple windows?
       Characteristics: Non-overlapping, fixed intervals
       Cost: Lower (each event processed once)
 ```
+-->
 
 **Quick Reference:**
 - **Tumbling windows** → Discrete time-based reports (hourly, daily metrics)

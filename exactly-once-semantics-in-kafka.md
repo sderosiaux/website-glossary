@@ -41,6 +41,9 @@ The challenge lies in the distributed nature of the system. When a producer send
 
 Kafka's exactly-once implementation relies on three core mechanisms: idempotent producers, transactions, and transactional consumers.
 
+![exactly-once-semantics-in-kafka diagram 1](images/diagrams/exactly-once-semantics-in-kafka-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │         Exactly-Once Semantics Architecture                     │
@@ -89,6 +92,7 @@ Kafka's exactly-once implementation relies on three core mechanisms: idempotent 
 │                                                                 │
 └─────────────────────────────────────────────────────────────────┘
 ```
+-->
 
 ### Idempotent Producers
 

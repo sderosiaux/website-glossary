@@ -48,6 +48,9 @@ When configuring JVM settings for containerized Kafka, enable container awarenes
 
 There are three primary approaches to deploying Kafka on Kubernetes, each with distinct trade-offs.
 
+![running-kafka-on-kubernetes diagram 1](images/diagrams/running-kafka-on-kubernetes-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 ┌────────────────────────────────────────────────────────────────┐
 │                    Kubernetes Cluster                           │
@@ -82,6 +85,7 @@ There are three primary approaches to deploying Kafka on Kubernetes, each with d
 │  └──────────────────────────────────────────────────────────┘  │
 └─────────────────────────────────────────────────────────────────┘
 ```
+-->
 
 **StatefulSets** provide the foundational building block. This Kubernetes resource manages pods with stable network identities and persistent storage with essentials like:
 - Stable network identities for each broker

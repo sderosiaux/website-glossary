@@ -66,6 +66,9 @@ The key difference is the shift from pull-based batch processing to push-based e
 
 A real-time RAG pipeline consists of several interconnected components:
 
+![A real-time RAG pipeline consists of several interconnected components](images/diagrams/rag-pipelines-with-real-time-data-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
          Real-Time RAG Pipeline Architecture
 
@@ -121,6 +124,7 @@ A real-time RAG pipeline consists of several interconnected components:
          │  • LLM generation      │
          └────────────────────────┘
 ```
+-->
 
 ## Implementation Example: Real-Time Document Indexing
 

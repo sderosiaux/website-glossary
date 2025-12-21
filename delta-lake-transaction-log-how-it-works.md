@@ -29,6 +29,9 @@ Each transaction appends a new JSON file numbered sequentially (e.g., `000000000
 
 When a reader queries a Delta table, it reconstructs the current state by reading the transaction log from the beginning (or the last checkpoint) and applying each transaction sequentially. This append-only structure makes the log naturally immutable and provides built-in version control.
 
+![delta-lake-transaction-log-how-it-works diagram 1](images/diagrams/delta-lake-transaction-log-how-it-works-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
                     Delta Table Structure
 ┌────────────────────────────────────────────────────────────┐
@@ -46,6 +49,7 @@ When a reader queries a Delta table, it reconstructs the current state by readin
 │  └─ part-00002-....parquet                                │
 └────────────────────────────────────────────────────────────┘
 ```
+-->
 
 ## The Optimistic Concurrency Commit Protocol
 
@@ -69,6 +73,9 @@ When a writer wants to commit changes:
 3. **Validation Phase**: Before committing, the writer re-reads the log to check if any new commits occurred
 4. **Commit Phase**: If no conflicts exist, the writer attempts to atomically write the next sequential log entry
 
+![delta-lake-transaction-log-how-it-works diagram 2](images/diagrams/delta-lake-transaction-log-how-it-works-1.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
               Optimistic Concurrency Protocol
 
@@ -92,6 +99,7 @@ When a writer wants to commit changes:
       │                                           ✓ SUCCESS
       ▼                                           ▼
 ```
+-->
 
 The atomicity guarantee comes from cloud storage's conditional PUT operations (e.g., S3's PUT-if-absent, ADLS's create-if-not-exists). These operations either fully succeed or fully fail—there's no in-between state where a file is "partially written." When S3 receives two simultaneous PUT-if-absent requests for the same file, exactly one succeeds and the other fails immediately. The failed writer detects the conflict, re-validates against the new state, and retries if the operation is still valid.
 
@@ -206,6 +214,9 @@ As tables evolve through hundreds or thousands of commits, reading the entire tr
 
 Every 10 commits (by default), Delta Lake generates a checkpoint file that represents the complete table state at that version. This checkpoint is a Parquet file containing the same information as the aggregated JSON log entries up to that point.
 
+![delta-lake-transaction-log-how-it-works diagram 3](images/diagrams/delta-lake-transaction-log-how-it-works-2.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
            Transaction Log with Checkpoints
 
@@ -227,6 +238,7 @@ Every 10 commits (by default), Delta Lake generates a checkpoint file that repre
 │                  Only reads checkpoint + 3 files     │
 └──────────────────────────────────────────────────────┘
 ```
+-->
 
 Checkpoint files use the naming pattern `00000000000000000010.checkpoint.parquet` and allow readers to:
 
@@ -254,6 +266,9 @@ This compression dramatically reduces the amount of data readers must process to
 
 For very large tables, Delta Lake can create multi-part checkpoints split across multiple Parquet files, with a JSON manifest coordinating the parts:
 
+![For very large tables, Delta Lake can create multi-part checkpoints split across multiple Parquet files, with a JSON manifest coordinating the parts](images/diagrams/delta-lake-transaction-log-how-it-works-3.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 _delta_log/
 ├── 00000000000000001000.checkpoint.0000000001.0000000010.parquet
@@ -262,6 +277,7 @@ _delta_log/
 ├── 00000000000000001000.checkpoint.0000000010.0000000010.parquet
 └── 00000000000000001000.checkpoint.manifest.json
 ```
+-->
 
 Checkpointing runs automatically during write operations, ensuring readers have recent snapshots even on frequently updated tables.
 

@@ -39,6 +39,9 @@ Despite these challenges, distributed tracing for Kafka is not only possible but
 
 The key to tracing Kafka applications is context propagation—passing trace metadata along with each message so that spans can be properly linked across service boundaries.
 
+![distributed-tracing-for-kafka-applications diagram 1](images/diagrams/distributed-tracing-for-kafka-applications-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 ┌──────────────────────────────────────────────────────────────────┐
 │          Distributed Tracing with Kafka                          │
@@ -92,6 +95,7 @@ The key to tracing Kafka applications is context propagation—passing trace met
 │                                                                  │
 └──────────────────────────────────────────────────────────────────┘
 ```
+-->
 
 ### Context Propagation via Message Headers
 

@@ -26,6 +26,9 @@ The ETL pattern separates data collection from data consumption, allowing analyt
 
 Traditional ETL operates on a batch processing model. Data is collected over a time window (hourly, daily, weekly) and processed as a discrete batch job.
 
+![streaming-etl-vs-traditional-etl diagram 1](images/diagrams/streaming-etl-vs-traditional-etl-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 Batch ETL Flow:
 
@@ -37,6 +40,7 @@ Batch ETL Flow:
                    ↓
                    Higher latency but simpler operations
 ```
+-->
 
 A typical batch ETL workflow runs on a schedule: extract data accumulated since the last run, transform it using tools like Apache Spark or custom scripts, and load it into a data warehouse such as Snowflake or BigQuery. Each batch represents a complete processing cycle with clear start and end points.
 
@@ -54,6 +58,9 @@ Batch ETL excels when data doesn't need to be immediately available. A retail co
 
 Streaming ETL processes data continuously as it arrives, transforming and loading records individually or in micro-batches (small groups of records processed together for efficiency) within seconds or milliseconds.
 
+![streaming-etl-vs-traditional-etl diagram 2](images/diagrams/streaming-etl-vs-traditional-etl-1.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 Streaming ETL Flow:
 
@@ -69,6 +76,7 @@ Streaming ETL Flow:
                    ↓
                    Low latency (milliseconds to seconds)
 ```
+-->
 
 Instead of waiting for scheduled intervals, streaming ETL pipelines react to new data events. When a user clicks a button, a sensor emits a reading, or a transaction occurs, the event flows through the pipeline immediately. Transformations happen in-flight, and results are continuously updated in the destination system.
 

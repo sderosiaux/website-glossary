@@ -83,6 +83,9 @@ Kafka Connect and Kafka Streams provide robust ecosystems for integrating with e
 
 Implementing CQRS and Event Sourcing with Kafka follows a typical pattern. The command side receives commands (HTTP requests, API calls), validates them, and publishes events to Kafka topics representing the business domain.
 
+![cqrs-and-event-sourcing-with-kafka diagram 1](images/diagrams/cqrs-and-event-sourcing-with-kafka-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │            CQRS + Event Sourcing with Kafka                 │
@@ -120,6 +123,7 @@ Implementing CQRS and Event Sourcing with Kafka follows a typical pattern. The c
                   │ Queries  │
                   └──────────┘
 ```
+-->
 
 For example, in an e-commerce system, a "PlaceOrder" command might produce an "OrderPlaced" event containing the order details. This event is written to an "orders" topic in Kafka.
 

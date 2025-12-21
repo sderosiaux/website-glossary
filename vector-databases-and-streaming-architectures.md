@@ -43,6 +43,9 @@ The key characteristics of streaming systems are low latency, high throughput, a
 
 The integration of vector databases with streaming architectures creates powerful real-time AI capabilities. The typical pattern involves a streaming pipeline that processes events, generates embeddings, and writes them to a vector database for immediate querying.
 
+![vector-databases-and-streaming-architectures diagram 1](images/diagrams/vector-databases-and-streaming-architectures-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 Real-Time Vector Pipeline:
 ┌─────────────────┐
@@ -81,6 +84,7 @@ Real-Time Vector Pipeline:
 │  • Recommendations                          │
 └─────────────────────────────────────────────┘
 ```
+-->
 
 For instance, an e-commerce platform might stream new product descriptions through this pipeline. As soon as a merchant adds a product, its embedding is generated and indexed, making it immediately searchable and enabling real-time "similar products" recommendations.
 

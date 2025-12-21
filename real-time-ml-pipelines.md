@@ -32,6 +32,9 @@ Most production systems use [real-time inference](/real-time-ml-inference-with-s
 
 A complete real-time ML pipeline consists of several interconnected layers:
 
+![A complete real-time ML pipeline consists of several interconnected layers](images/diagrams/real-time-ml-pipelines-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
            Real-Time ML Pipeline Architecture
 
@@ -82,6 +85,7 @@ A complete real-time ML pipeline consists of several interconnected layers:
          │ & Feedback   │
          └──────────────┘
 ```
+-->
 
 ### Feature Engineering Layer
 
@@ -268,6 +272,9 @@ Example targets:
 - Search ranking: p99 < 100ms
 
 **Latency budget breakdown**:
+![**Latency budget breakdown**](images/diagrams/real-time-ml-pipelines-1.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 Total: 50ms (p99)
 ├─ Feature lookup: 10ms
@@ -275,6 +282,7 @@ Total: 50ms (p99)
 ├─ Model inference: 20ms
 └─ Overhead: 5ms
 ```
+-->
 
 Instrument each component to identify bottlenecks.
 
@@ -328,6 +336,9 @@ For example, Conduktor can enforce that all events in the `transactions` topic i
 
 For comprehensive coverage, see [real-time fraud detection with streaming](/real-time-fraud-detection-with-streaming).
 
+![real-time-ml-pipelines diagram 3](images/diagrams/real-time-ml-pipelines-2.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
       Fraud Detection Real-Time Pipeline
 
@@ -366,6 +377,7 @@ Transaction Event
 └──────────────────┘
    (< 100ms total)
 ```
+-->
 
 **Features**:
 - Velocity: Transaction count in last 1h/24h/7d

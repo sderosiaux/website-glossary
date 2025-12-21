@@ -161,6 +161,9 @@ Provides 1-2 minute latency while controlling warehouse costs.
 ### The Fan-Out Pattern
 
 Single streams serve multiple destinations simultaneously:
+![Single streams serve multiple destinations simultaneously](images/diagrams/streaming-data-pipeline-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 Enriched Orders (Kafka)
   ├→ Snowflake (BI analysis)
@@ -168,6 +171,7 @@ Enriched Orders (Kafka)
   ├→ Elasticsearch (support search)
   └→ Redis (inventory cache)
 ```
+-->
 
 Each consumer processes independently. Kafka buffers during downstream failures.
 

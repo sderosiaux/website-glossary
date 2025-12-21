@@ -26,6 +26,9 @@ For background on Kafka's architecture and capabilities, see [Apache Kafka](apac
 
 Organizations can implement multi-tenancy in Kafka using different models, each with distinct trade-offs:
 
+![Organizations can implement multi-tenancy in Kafka using different models, each with distinct trade-offs](images/diagrams/multi-tenancy-in-kafka-environments-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 Logical Separation (Soft Multi-Tenancy):
 ┌───────────────────────────────────────────────────────────┐
@@ -58,6 +61,7 @@ Physical Separation (Hard Multi-Tenancy):
 └──────────────────────┘        └──────────────────────┘
    Complete Isolation             Complete Isolation
 ```
+-->
 
 ### Logical Separation (Soft Multi-Tenancy)
 

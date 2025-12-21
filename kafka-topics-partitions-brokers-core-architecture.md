@@ -158,6 +158,9 @@ Instead of external ZooKeeper nodes, dedicated **controller nodes** (or combined
 
 **Architecture Impact:**
 
+![**Architecture Impact:**](images/diagrams/kafka-topics-partitions-brokers-core-architecture-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 Traditional (ZooKeeper):                 KRaft Mode (Kafka 4.0+):
 ┌────────────┐                          ┌────────────┐
@@ -172,6 +175,7 @@ Traditional (ZooKeeper):                 KRaft Mode (Kafka 4.0+):
 │  Consumer) │         │Consumer) │    │  in topic) │         │in topic) │
 └────────────┘         └──────────┘    └────────────┘         └──────────┘
 ```
+-->
 
 For in-depth coverage of KRaft architecture and migration strategies, see [Understanding KRaft Mode in Kafka](understanding-kraft-mode-in-kafka.md).
 
@@ -188,6 +192,9 @@ Kafka 3.6+ introduced **tiered storage**, fundamentally changing how brokers man
 
 **Architectural Benefits:**
 
+![**Architectural Benefits:**](images/diagrams/kafka-topics-partitions-brokers-core-architecture-1.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 Without Tiered Storage:              With Tiered Storage:
 ┌──────────────┐                    ┌──────────────┐
@@ -200,6 +207,7 @@ Without Tiered Storage:              With Tiered Storage:
 │ 10 TB/broker │                    │ 1 TB/broker  │   (Cold tier)
 └──────────────┘                    └──────────────┘
 ```
+-->
 
 **Why It Matters:**
 
@@ -215,6 +223,9 @@ For detailed configuration and best practices, see [Tiered Storage in Kafka](tie
 
 The interaction between topics, partitions, and brokers creates Kafka's distributed log architecture:
 
+![The interaction between topics, partitions, and brokers creates Kafka's distributed log architecture](images/diagrams/kafka-topics-partitions-brokers-core-architecture-2.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
 │                 Kafka Cluster Architecture                          │
@@ -251,6 +262,7 @@ The interaction between topics, partitions, and brokers creates Kafka's distribu
 │                                                                       │
 └─────────────────────────────────────────────────────────────────────┘
 ```
+-->
 
 This architecture enables:
 

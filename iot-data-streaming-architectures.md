@@ -20,6 +20,9 @@ IoT data streaming architectures enable organizations to ingest, process, and ac
 
 An effective IoT streaming architecture consists of several interconnected layers that work together to move data from devices to actionable insights.
 
+![iot-data-streaming-architectures diagram 1](images/diagrams/iot-data-streaming-architectures-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │                    IoT Streaming Architecture                   │
@@ -58,6 +61,7 @@ An effective IoT streaming architecture consists of several interconnected layer
          │ Time-Series DB │ Lake │
          └───────────────────────┘
 ```
+-->
 
 ### Data Ingestion Layer
 

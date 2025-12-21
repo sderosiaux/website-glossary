@@ -23,6 +23,9 @@ Zero trust security addresses this reality with a simple principle: **never trus
 
 Zero trust for streaming rests on three foundational principles:
 
+![Zero trust for streaming rests on three foundational principles](images/diagrams/zero-trust-for-streaming-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │                    Zero Trust Architecture                      │
@@ -55,6 +58,7 @@ Zero trust for streaming rests on three foundational principles:
 │                                                                 │
 └─────────────────────────────────────────────────────────────────┘
 ```
+-->
 
 **Verify explicitly.** Authentication and authorization must use all available data points: identity, location, device health, service metadata, and data classification. A producer connecting from an unexpected region at an unusual time should trigger additional verification, even if credentials are valid.
 

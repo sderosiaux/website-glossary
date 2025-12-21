@@ -19,6 +19,9 @@ For foundational understanding of lakehouse concepts, see [Introduction to Lakeh
 
 ## Streaming Ingestion Architecture Patterns
 
+![## Streaming Ingestion Architecture Patterns](images/diagrams/streaming-ingestion-to-lakehouse-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 Direct Write Pattern:
 ┌─────────────┐
@@ -44,6 +47,7 @@ Continuous Processing Pattern:
 └─────────────┘         └──────────────┘        └──────────────┘
                 True streaming with optimization
 ```
+-->
 
 ### Direct Write Pattern
 

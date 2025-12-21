@@ -33,6 +33,9 @@ Stream processing frameworks support several join types, each suited to differen
 
 Stream-to-stream joins correlate events from two unbounded data streams based on matching keys and time windows. Unlike batch joins, both inputs are continuously flowing, requiring the framework to maintain state for events within a time window.
 
+![stream-joins-and-enrichment-patterns diagram 1](images/diagrams/stream-joins-and-enrichment-patterns-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
          Stream-to-Stream Join (10-minute window)
 
@@ -54,6 +57,7 @@ Stream B:  ─┴─────┴──────┴────────
             │key:2│ key:1│  key:3 │
             │9:02 │ 9:10 │  9:20  │
 ```
+-->
 
 **Inner joins** emit results only when matching events exist in both streams within the time window. **Left joins** emit all events from the left stream, with null values when no match exists in the right stream. **Outer joins** emit events from both streams, filling nulls when matches don't exist.
 
@@ -63,6 +67,9 @@ The time window determines how long the system waits for matching events. A 10-m
 
 Stream-to-table joins enrich stream events with the latest state from a table (changelog stream). The table represents the current snapshot of reference data, continuously updated as change events arrive.
 
+![stream-joins-and-enrichment-patterns diagram 2](images/diagrams/stream-joins-and-enrichment-patterns-1.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
          Stream-to-Table Join (Enrichment)
 
@@ -87,6 +94,7 @@ Output Stream: ─────┴────────┴──────�
                 Enriched   Enriched   Enriched
                 Event 1    Event 2    Event 3
 ```
+-->
 
 This pattern is ideal for enrichment scenarios where stream events need contextual information from slowly changing dimensions. For example, enriching order events with current customer profile data, or adding product information to clickstream events.
 

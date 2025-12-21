@@ -83,6 +83,9 @@ A typical CDC streaming architecture includes:
 
 ### Reference Architecture
 
+![### Reference Architecture](images/diagrams/cdc-for-real-time-data-warehousing-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                  CDC to Data Warehouse Pipeline              │
@@ -119,6 +122,7 @@ A typical CDC streaming architecture includes:
   │ Snowflake / BQ  │  (OLAP)
   └─────────────────┘
 ```
+-->
 
 ### Debezium Configuration Example
 

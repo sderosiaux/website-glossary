@@ -156,6 +156,9 @@ The Gold layer contains curated, business-level datasets optimized for specific 
 
 Unlike Bronze and Silver, which are technical layers, Gold is organized around business domains:
 
+![Unlike Bronze and Silver, which are technical layers, Gold is organized around business domains](images/diagrams/data-lake-zones-bronze-silver-gold-architecture-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 gold/
 ├── finance/
@@ -168,6 +171,7 @@ gold/
     ├── feature_usage_metrics
     └── user_engagement_scores
 ```
+-->
 
 ### Example Gold Table
 

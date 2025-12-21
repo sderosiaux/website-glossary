@@ -38,6 +38,9 @@ This pattern is particularly valuable for stateful applications like Kafka. The 
 
 Strimzi is a Cloud Native Computing Foundation (CNCF) incubating project that implements the operator pattern for Apache Kafka. It extends Kubernetes with Custom Resource Definitions (CRDs) that represent Kafka clusters, topics, users, and related components.
 
+![strimzi-kafka-operator-for-kubernetes diagram 1](images/diagrams/strimzi-kafka-operator-for-kubernetes-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 ┌───────────────────────────────────────────────────────────────┐
 │                  Kubernetes Cluster                            │
@@ -72,6 +75,7 @@ Strimzi is a Cloud Native Computing Foundation (CNCF) incubating project that im
 │  Services, ConfigMaps, Secrets, PVCs automatically managed    │
 └────────────────────────────────────────────────────────────────┘
 ```
+-->
 
 The core of Strimzi is the Cluster Operator, which must be deployed first. This operator watches for Kafka custom resources and manages the lifecycle of Kafka clusters, including brokers and supporting components like Kafka Connect, MirrorMaker 2, and Kafka Bridge.
 

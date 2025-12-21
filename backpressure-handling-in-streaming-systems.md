@@ -17,6 +17,9 @@ In distributed streaming systems, data flows continuously from producers through
 
 Backpressure is the resistance or feedback signal that occurs when a downstream system component cannot process data as quickly as it's being produced upstream. Think of it like water flowing through connected pipes of different diameters—when a narrow pipe can't handle the flow from a wider one, pressure builds up.
 
+![backpressure-handling-in-streaming-systems diagram 1](images/diagrams/backpressure-handling-in-streaming-systems-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │              Backpressure in Streaming Pipeline                 │
@@ -48,6 +51,7 @@ Backpressure is the resistance or feedback signal that occurs when a downstream 
 │                                                                 │
 └─────────────────────────────────────────────────────────────────┘
 ```
+-->
 
 In streaming systems, backpressure manifests when:
 

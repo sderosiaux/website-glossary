@@ -20,6 +20,9 @@ This article explores common patterns for cross-organization data sharing, the r
 
 Organizations use several architectural patterns to share data, each with distinct characteristics and trade-offs.
 
+![cross-organization-data-sharing-patterns diagram 1](images/diagrams/cross-organization-data-sharing-patterns-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 Point-to-Point Integration:
 ┌──────────┐  Direct     ┌──────────┐  Direct     ┌──────────┐
@@ -65,6 +68,7 @@ Event-Driven Mesh:
    │          │         │          │        │          │
    └──────────┘         └──────────┘        └──────────┘
 ```
+-->
 
 ### Point-to-Point Integration
 

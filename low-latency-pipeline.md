@@ -21,6 +21,9 @@ A low-latency pipeline typically targets end-to-end latencies under 100 millisec
 
 Before optimizing for low latency, you must identify where time is being spent. Latency accumulates across multiple dimensions of your pipeline:
 
+![Before optimizing for low latency, you must identify where time is being spent. Latency accumulates across multiple dimensions of your pipeline](images/diagrams/low-latency-pipeline-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 End-to-End Latency Breakdown:
 ┌─────────────┐
@@ -61,6 +64,7 @@ End-to-End Latency Breakdown:
 
 Total: 30-500ms+ (varies by optimization)
 ```
+-->
 
 **Network transmission** often represents the most significant and variable component. Data traveling across regions or poorly configured networks can introduce tens to hundreds of milliseconds. Even within a data center, network congestion and routing decisions impact latency.
 

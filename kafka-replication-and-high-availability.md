@@ -20,6 +20,9 @@ Understanding how Kafka achieves fault tolerance is essential for anyone designi
 
 Kafka replication works by maintaining multiple copies of data across different brokers in a cluster. When you create a topic, you specify a replication factor that determines how many copies of each partition will exist. For detailed coverage of topics, partitions, and brokers, see [Kafka Topics, Partitions, Brokers: Core Architecture](kafka-topics-partitions-brokers-core-architecture.md).
 
+![kafka-replication-and-high-availability diagram 1](images/diagrams/kafka-replication-and-high-availability-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │          Kafka Replication (Replication Factor: 3)              │
@@ -60,6 +63,7 @@ Kafka replication works by maintaining multiple copies of data across different 
 │                                                                   │
 └─────────────────────────────────────────────────────────────────┘
 ```
+-->
 
 For example, with a replication factor of 3, each partition has one leader and two followers. The leader handles all read and write requests, while followers continuously replicate data from the leader. If the leader fails, one of the followers automatically becomes the new leader.
 

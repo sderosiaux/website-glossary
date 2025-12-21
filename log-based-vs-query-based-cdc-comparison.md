@@ -23,6 +23,9 @@ CDC captures changes made to data sources and propagates them to downstream syst
 
 **Log-Based CDC** reads changes directly from the database's transaction log (also called write-ahead log or redo log), capturing every committed transaction without querying the source tables. This is like having a doorbell notification—the database tells you immediately when something changes. The transaction log is an internal file that databases maintain for crash recovery and replication, recording every write operation in order.
 
+![log-based-vs-query-based-cdc-comparison diagram 1](images/diagrams/log-based-vs-query-based-cdc-comparison-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 Query-Based CDC:
 ┌──────────────────┐
@@ -61,6 +64,7 @@ Log-Based CDC:
     │ Kafka  │
     └────────┘
 ```
+-->
 
 ## Query-Based CDC: Architecture and Characteristics
 

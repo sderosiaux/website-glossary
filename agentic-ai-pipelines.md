@@ -57,6 +57,9 @@ Without streaming data, agents operate on stale assumptions, miss critical event
 
 A production agentic AI pipeline follows a consistent pattern:
 
+![A production agentic AI pipeline follows a consistent pattern](images/diagrams/agentic-ai-pipelines-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
 │                      AGENTIC AI PIPELINE                                │
@@ -103,6 +106,7 @@ A production agentic AI pipeline follows a consistent pattern:
                       │  • agent-feedback   (to learning)   │
                       └─────────────────────────────────────┘
 ```
+-->
 
 **1. Event Ingestion**
 Streaming platforms like Apache Kafka capture operational events: user actions, system metrics, transactions, sensor readings. These events flow continuously into topics organized by domain (orders, inventory, interactions).

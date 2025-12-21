@@ -25,6 +25,9 @@ Kafka Connect operates as a distributed service that runs connector tasks across
 
 **Tasks** perform the actual work of reading or writing data. Connectors split work into multiple tasks that can run in parallel across different worker nodes, enabling horizontal scalability.
 
+![kafka-connect-building-data-integration-pipelines diagram 1](images/diagrams/kafka-connect-building-data-integration-pipelines-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 ┌──────────────────────────────────────────────────────────────────┐
 │              Kafka Connect Architecture                          │
@@ -74,6 +77,7 @@ Kafka Connect operates as a distributed service that runs connector tasks across
 │                                                                    │
 └──────────────────────────────────────────────────────────────────┘
 ```
+-->
 
 ## Source Connectors: Ingesting Data into Kafka
 

@@ -25,6 +25,9 @@ Mutual TLS adds a critical second verification step. After the client verifies t
 
 While mTLS provides authentication (proving identity), it works in conjunction with encryption in transit. For detailed coverage of how TLS encryption protects Kafka data as it moves through your infrastructure, see [Encryption at Rest and In Transit for Kafka](encryption-at-rest-and-in-transit-for-kafka.md).
 
+![mtls-for-kafka diagram 1](images/diagrams/mtls-for-kafka-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 ┌──────────────────────────────────────────────────────────────────┐
 │                   mTLS Handshake Flow                            │
@@ -61,6 +64,7 @@ While mTLS provides authentication (proving identity), it works in conjunction w
 │                                                                  │
 └──────────────────────────────────────────────────────────────────┘
 ```
+-->
 
 This bidirectional authentication model is crucial for Kafka because:
 

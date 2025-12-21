@@ -78,6 +78,9 @@ Authorization in Kafka operates through the Authorizer interface. The default im
 
 Consider a producer attempting to write to a topic. The authorization flow includes:
 
+![Consider a producer attempting to write to a topic. The authorization flow includes](images/diagrams/kafka-acls-and-authorization-patterns-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │              Kafka ACL Authorization Flow                       │
@@ -123,6 +126,7 @@ Consider a producer attempting to write to a topic. The authorization flow inclu
 │                                                                 │
 └─────────────────────────────────────────────────────────────────┘
 ```
+-->
 
 1. The client authenticates (via SASL, mTLS, or another mechanism)
 2. The principal identity is extracted (e.g., `User:order-service`)

@@ -17,6 +17,9 @@ One of the most challenging aspects of stream processing is dealing with data th
 
 The root of the late data problem lies in the difference between two fundamental time concepts in streaming systems.
 
+![handling-late-arriving-data-in-streaming diagram 1](images/diagrams/handling-late-arriving-data-in-streaming-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 ┌──────────────────────────────────────────────────────────────────┐
 │            Event Time vs Processing Time                         │
@@ -49,6 +52,7 @@ The root of the late data problem lies in the difference between two fundamental
 │                                                                  │
 └──────────────────────────────────────────────────────────────────┘
 ```
+-->
 
 **Event time** is when an event actually occurred in the real world. For example, when a sensor reading was taken, when a user clicked a button, or when a financial transaction was initiated. This timestamp is typically embedded in the event payload itself.
 
@@ -80,6 +84,9 @@ Modern stream processing frameworks provide several mechanisms for handling late
 
 Watermarks are the primary mechanism for tracking event time progress in streaming systems. A watermark is a special signal that indicates "all events with timestamps less than T have been seen." More precisely, a watermark represents a heuristic estimate of event time progress.
 
+![handling-late-arriving-data-in-streaming diagram 2](images/diagrams/handling-late-arriving-data-in-streaming-1.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 ┌──────────────────────────────────────────────────────────────────┐
 │              Watermark and Allowed Lateness                      │
@@ -115,6 +122,7 @@ Watermarks are the primary mechanism for tracking event time progress in streami
 │                                                                  │
 └──────────────────────────────────────────────────────────────────┘
 ```
+-->
 
 For example, a watermark of 10:15:00 suggests that the system has likely received all events with timestamps before 10:15:00. When a window computation spans 10:00:00 to 10:15:00, the system can trigger the computation and produce results once the watermark advances past 10:15:00.
 

@@ -73,6 +73,9 @@ This allows domains to move fast while maintaining organizational standards. For
 
 Traditional data architectures centralize data in warehouses or lakes managed by specialized teams. While this provides a single source of truth, it creates several problems:
 
+![Traditional data architectures centralize data in warehouses or lakes managed by specialized teams. While this provides a single source of truth, it creates several problems](images/diagrams/data-mesh-principles-and-implementation-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
         Traditional Centralized Architecture
 
@@ -120,6 +123,7 @@ Traditional data architectures centralize data in warehouses or lakes managed by
          │  domain data products)   │
          └──────────────────────────┘
 ```
+-->
 
 **Scaling bottlenecks**: All data requests flow through the central team, creating dependencies and delays.
 
@@ -149,6 +153,9 @@ Organizations should start small, typically with one or two domains, prove the v
 
 Data Mesh and streaming technologies like Apache Kafka are natural complements. Kafka's architecture aligns closely with Data Mesh principles.
 
+![data-mesh-principles-and-implementation diagram 2](images/diagrams/data-mesh-principles-and-implementation-1.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
       Data Mesh with Streaming (Kafka Example)
 
@@ -182,6 +189,7 @@ Data Mesh and streaming technologies like Apache Kafka are natural complements. 
   │  Team A │  │  Team B │  │  Team C │
   └─────────┘  └─────────┘  └─────────┘
 ```
+-->
 
 **Decentralized ownership**: Kafka topics can be owned and managed by individual domain teams, who publish events representing their domain's data products.
 

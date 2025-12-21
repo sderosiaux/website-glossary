@@ -118,6 +118,9 @@ The foundation of trust zones is **network segmentation**. Common patterns inclu
 
 For streaming platforms like Apache Kafka, trust zones often translate to **dedicated clusters**:
 
+![For streaming platforms like Apache Kafka, trust zones often translate to **dedicated clusters**](images/diagrams/trust-zones-streaming-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 ┌─────────────────────────────────────────────────────┐
 │                 Public Zone                         │
@@ -147,6 +150,7 @@ For streaming platforms like Apache Kafka, trust zones often translate to **dedi
 │  • Access: Named individuals only, audit logged     │
 └─────────────────────────────────────────────────────┘
 ```
+-->
 
 Each cluster operates in a separate network zone with distinct security controls. Data flows from high-security to low-security zones only after sanitization.
 
@@ -318,6 +322,9 @@ Moving data between trust zones requires careful handling to prevent sensitive d
 
 **Streaming ETL jobs** act as zone boundaries:
 
+![**Streaming ETL jobs** act as zone boundaries](images/diagrams/trust-zones-streaming-1.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 Restricted Zone (PII)          Confidential Zone (Pseudonymized)
 ──────────────────────         ──────────────────────────────────
@@ -328,6 +335,7 @@ Restricted Zone (PII)          Confidential Zone (Pseudonymized)
   "zip": "12345"                 "zip_prefix": "123"
 }                              }
 ```
+-->
 
 Transformation pipelines run in the **source zone** (higher security) and write sanitized data to the **destination zone** (lower security). This ensures sensitive data never leaves the protected environment.
 
