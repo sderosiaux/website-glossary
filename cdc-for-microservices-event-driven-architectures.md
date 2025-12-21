@@ -286,10 +286,14 @@ CDC enables several patterns for service integration:
 **1. Database-to-Database Synchronization**:
 Services maintain local caches or denormalized views of data owned by other services.
 
+![cdc-for-microservices-event-driven-architectures diagram 2](images/diagrams/cdc-for-microservices-event-driven-architectures-1.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 Order Service DB → CDC → Kafka → Shipping Service
                                   (maintains local order cache)
 ```
+-->
 
 **2. Event-Driven Workflows**:
 Services coordinate complex workflows through event choreography. For example, the Inventory Service listens for OrderCreated events, reserves inventory, and writes to its local database. CDC then publishes InventoryReserved or InventoryInsufficient events for downstream services.

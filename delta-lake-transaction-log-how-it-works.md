@@ -157,12 +157,16 @@ Delta Lake categorizes conflicts into two types:
 **1. Blind Append Conflicts** - Two writers adding new data with no dependency on existing rows. These typically proceed without conflict because writers are adding different data.
 
 Example of compatible blind appends:
+![Example of compatible blind appends](images/diagrams/delta-lake-transaction-log-how-it-works-4.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 Writer A: INSERT INTO orders VALUES (new orders from Dec 15)
 Writer B: INSERT INTO orders VALUES (new orders from Dec 16)
 → No conflict: Each writer adds distinct new rows
 → Both commits succeed (A writes v5.json, B writes v6.json)
 ```
+-->
 
 **2. Read-Modify-Write Conflicts** - Operations that depend on reading and filtering existing data. These must detect conflicts because concurrent changes might affect which rows match the predicate.
 
@@ -307,6 +311,9 @@ SELECT * FROM my_table TIMESTAMP AS OF '2025-01-15 10:00:00'
 
 When you run a time travel query, Delta Lake performs these steps:
 
+![When you run a time travel query, Delta Lake performs these steps](images/diagrams/delta-lake-transaction-log-how-it-works-5.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 Query: SELECT * FROM orders VERSION AS OF 42
 
@@ -330,6 +337,7 @@ Execution trace:
 
 6. Return results
 ```
+-->
 
 **Important**: Time travel requires that the Parquet data files still exist on storage. If `VACUUM` has deleted old files, time travel to older versions will fail with "file not found" errors, even though the transaction log entries remain.
 

@@ -133,6 +133,9 @@ Modern data lakes must handle both batch and streaming ingestion. Apache Kafka i
 
 ### Kafka to Data Lake Pipeline
 
+![### Kafka to Data Lake Pipeline](images/diagrams/building-a-modern-data-lake-on-cloud-storage-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```python
 # Conceptual streaming pipeline
 Kafka Topics
@@ -143,6 +146,7 @@ Object Storage Sink (S3/ADLS/GCS)
   ↓
 Query Engine (Athena/Synapse/BigQuery)
 ```
+-->
 
 When streaming events into your data lake, modern patterns combine Kafka with table formats for reliable, exactly-once ingestion. For detailed Kafka fundamentals, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
 

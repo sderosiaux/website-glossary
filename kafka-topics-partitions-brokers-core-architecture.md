@@ -50,6 +50,9 @@ ProducerRecord<String, String> record =
 // Forces message to partition 2
 ```
 
+![kafka-topics-partitions-brokers-core-architecture diagram 4](images/diagrams/kafka-topics-partitions-brokers-core-architecture-3.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 Topic: user-events (3 partitions)
 
@@ -57,6 +60,7 @@ Partition 0: [msg0, msg3, msg6, msg9]  → offset: 0, 1, 2, 3
 Partition 1: [msg1, msg4, msg7]        → offset: 0, 1, 2
 Partition 2: [msg2, msg5, msg8]        → offset: 0, 1, 2
 ```
+-->
 
 ### Partition Count Trade-offs
 

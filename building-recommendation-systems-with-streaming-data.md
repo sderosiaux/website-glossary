@@ -53,6 +53,9 @@ One consumer updates session features: products viewed, categories explored, pri
 
 The architecture might look like this:
 
+![The architecture might look like this](images/diagrams/building-recommendation-systems-with-streaming-data-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 User Action → Kafka Topic → Stream Processor → Feature Store
                      ↓                              ↓
@@ -60,6 +63,7 @@ User Action → Kafka Topic → Stream Processor → Feature Store
                      ↓                              ↓
            Analytics, Training ← Updated Recommendations
 ```
+-->
 
 Here's a concrete example using Kafka Streams to compute real-time recommendation features:
 

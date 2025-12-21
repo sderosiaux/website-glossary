@@ -228,6 +228,9 @@ A single gateway serving all these clients either:
 
 ### BFF Architecture
 
+![### BFF Architecture](images/diagrams/api-gateway-patterns-for-data-platforms-2.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
 │   Mobile    │    │     Web     │    │     IoT     │
@@ -255,6 +258,7 @@ A single gateway serving all these clients either:
               │ • Microservices       │
               └───────────────────────┘
 ```
+-->
 
 ### BFF Benefits for Data Platforms
 

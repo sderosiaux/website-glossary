@@ -128,11 +128,15 @@ Once features are ready, models must generate predictions within strict latency 
 
 Real-time ML systems must capture prediction outcomes to detect [model drift](/model-drift-in-streaming) and retrain:
 
+![Real-time ML systems must capture prediction outcomes to detect [model drift](/model-drift-in-streaming) and retrain](images/diagrams/real-time-ml-pipelines-3.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 Event → Features → Prediction → Action → Outcome → Training Data
                        ↓
                   Monitoring
 ```
+-->
 
 Outcomes (was the prediction correct?) feed back into training pipelines, creating continuous improvement cycles. See [data drift in streaming](/data-drift-in-streaming) for detection strategies.
 

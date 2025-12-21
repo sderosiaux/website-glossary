@@ -21,10 +21,14 @@ Understanding the architecture of streaming pipelines—their components, data f
 A streaming data pipeline is a set of technologies that captures data as soon as it's generated, processes it in near real-time, and makes it available to users and applications continuously. This contrasts with traditional batch ETL that collects data over time and processes it in large blocks periodically.
 
 **Visual Architecture:**
+![**Visual Architecture:**](images/diagrams/streaming-data-pipeline-1.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 [Sources] → [Ingestion: CDC/Producers] → [Broker: Kafka Topics] 
          → [Processing: Flink/Streams] → [Sinks: Warehouse/DB/Cache]
 ```
+-->
 
 **Key characteristics:**
 - **Decoupling**: Components scale, fail, and evolve independently
@@ -164,9 +168,6 @@ Single streams serve multiple destinations simultaneously:
 ![Single streams serve multiple destinations simultaneously](images/diagrams/streaming-data-pipeline-0.webp)
 
 <!-- ORIGINAL_DIAGRAM
-![**Visual Architecture:**](images/diagrams/streaming-data-pipeline-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
 ```
 Enriched Orders (Kafka)
   ├→ Snowflake (BI analysis)
@@ -174,7 +175,6 @@ Enriched Orders (Kafka)
   ├→ Elasticsearch (support search)
   └→ Redis (inventory cache)
 ```
--->
 -->
 
 Each consumer processes independently. Kafka buffers during downstream failures.

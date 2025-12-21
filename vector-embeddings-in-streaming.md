@@ -47,9 +47,13 @@ The tradeoff is complexity: streaming systems must handle fluctuating load, ensu
 
 A typical streaming embedding pipeline follows this pattern:
 
+![A typical streaming embedding pipeline follows this pattern](images/diagrams/vector-embeddings-in-streaming-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 Event Source → Stream Processor → Embedding Service → Vector Database → AI Application
 ```
+-->
 
 **Event ingestion**: Data flows into a streaming platform like Apache Kafka (4.0+ with KRaft for simplified operations), Amazon Kinesis, or Apache Pulsar. Events might be new documents, chat messages, product descriptions, or image uploads. For foundational Kafka concepts, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
 

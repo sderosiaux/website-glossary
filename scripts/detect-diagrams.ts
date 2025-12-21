@@ -93,6 +93,12 @@ function getLineNumber(content: string, charIndex: number): number {
   return content.slice(0, charIndex).split("\n").length;
 }
 
+// Count already-converted diagrams in a file (inside ORIGINAL_DIAGRAM comments)
+function countConvertedDiagrams(content: string): number {
+  const matches = content.match(/<!-- ORIGINAL_DIAGRAM\n```/g);
+  return matches ? matches.length : 0;
+}
+
 export function detectDiagrams(directory: string): DiagramInfo[] {
   const diagrams: DiagramInfo[] = [];
   const files = readdirSync(directory).filter((f) => f.endsWith(".md"));
@@ -104,7 +110,9 @@ export function detectDiagrams(directory: string): DiagramInfo[] {
     const articleMeta = extractFrontmatter(content);
 
     let match: RegExpExecArray | null;
-    let fileIndex = 0;
+
+    // Start index after existing converted diagrams to avoid filename collisions
+    let fileIndex = countConvertedDiagrams(content);
 
     // Reset regex
     CODE_BLOCK_REGEX.lastIndex = 0;

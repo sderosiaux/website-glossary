@@ -102,6 +102,9 @@ Event time provides deterministic results and handles out-of-order events correc
 
 **Watermarks** are Flink's mechanism for tracking event time progress in the stream. A watermark with timestamp T is an assertion that "all events with timestamps less than T have arrived."
 
+![windowing-in-apache-flink-tumbling-sliding-and-session-windows diagram 3](images/diagrams/windowing-in-apache-flink-tumbling-sliding-and-session-windows-2.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 Event Stream:  [E1:10:05] [E2:10:03] [E3:10:08] [E4:10:06]
                     ↓          ↓          ↓          ↓
@@ -109,6 +112,7 @@ Watermarks:    W(10:05)   W(10:05)   W(10:08)   W(10:08)
                     ↓
               Window [10:00-10:05) can close after W(10:05)
 ```
+-->
 
 Watermarks serve three critical functions:
 1. **Trigger window computation**: Windows close and produce results when the watermark passes their end time

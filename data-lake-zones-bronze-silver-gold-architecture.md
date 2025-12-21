@@ -17,6 +17,9 @@ The Medallion Architecture, also known as the Bronze-Silver-Gold pattern, has be
 
 The Medallion Architecture divides your data lake into three distinct zones, each serving a specific purpose in the data pipeline:
 
+![The Medallion Architecture divides your data lake into three distinct zones, each serving a specific purpose in the data pipeline](images/diagrams/data-lake-zones-bronze-silver-gold-architecture-2.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 Raw Sources (Kafka, APIs, Databases)
            ↓
@@ -34,6 +37,7 @@ Raw Sources (Kafka, APIs, Databases)
            ↓
     Consumption (BI, ML, APIs)
 ```
+-->
 
 This layered approach ensures data lineage traceability while providing different consumption patterns for various use cases.
 
@@ -54,6 +58,9 @@ For real-time data pipelines, the Bronze layer excels at consuming streaming dat
 
 Modern Kafka platforms like **Conduktor** provide essential visibility into streaming data flows, helping teams manage topics, monitor consumer lag, validate schemas, and track data quality metrics as events flow into the Bronze layer. This operational insight ensures that your Bronze ingestion pipeline remains healthy and performant.
 
+![The Medallion Architecture divides your data lake into three distinct zones, each serving a specific purpose in the data pipeline](images/diagrams/data-lake-zones-bronze-silver-gold-architecture-1.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 Kafka Topic: user_events (Kafka 4.0+ with KRaft)
     ↓ (Conduktor monitors throughput, schema, & lag)
@@ -64,6 +71,7 @@ Bronze Table: bronze.raw_user_events (Delta Lake / Iceberg)
 - Preserves original JSON/Avro payload
 - ACID transactions for reliable writes
 ```
+-->
 
 ### Implementation Pattern
 

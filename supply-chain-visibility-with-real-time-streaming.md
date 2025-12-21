@@ -61,11 +61,15 @@ For foundational concepts, see [Apache Kafka](https://conduktor.io/glossary/apac
 
 Events flow through the system in a predictable sequence:
 
+![Events flow through the system in a predictable sequence](images/diagrams/supply-chain-visibility-with-real-time-streaming-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 order.placed → warehouse.picking.started → warehouse.picking.completed
 → shipment.created → carrier.picked_up → in.transit → out.for.delivery
 → delivery.attempted → delivered
 ```
+-->
 
 **Stream Processing**: Apache Flink and Kafka Streams enable real-time processing of these events. Here's a Kafka Streams example that calculates real-time inventory levels. Kafka Streams uses two key abstractions: **KStream** (a stream of events) and **KTable** (a continuously updated table derived from a stream). This example aggregates inventory events (received/shipped) into a running total per warehouse and SKU:
 

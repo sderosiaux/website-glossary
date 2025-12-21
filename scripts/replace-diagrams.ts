@@ -4,7 +4,32 @@ import type { DiagramInfo, GeneratedImage } from "./types.js";
 
 // Regex to match code blocks
 const CODE_BLOCK_REGEX = /```[a-z]*\n([\s\S]*?)```/g;
+
+// Box-drawing characters that indicate a diagram
 const BOX_CHARS = /[┌┐└┘│─├┤┬┴┼▼▲◄►╔╗╚╝║═╠╣╦╩╬]/;
+
+// Arrow-based diagrams (vertical flow with arrows and bracketed labels)
+const ARROW_DIAGRAM = /(?:↓|↑|→|←|⟶|⟵|⇒|⇐|⇓|⇑)[\s\S]*(?:\[.+\]|↓|↑|→|←)/;
+
+// Check if a position is inside an HTML comment
+function isInsideComment(content: string, position: number): boolean {
+  const before = content.slice(0, position);
+  const lastCommentStart = before.lastIndexOf("<!-- ORIGINAL_DIAGRAM");
+  if (lastCommentStart === -1) return false;
+  const lastCommentEnd = before.lastIndexOf("-->");
+  return lastCommentStart > lastCommentEnd;
+}
+
+// Check if content is a diagram
+function isDiagram(codeContent: string): boolean {
+  return BOX_CHARS.test(codeContent) || ARROW_DIAGRAM.test(codeContent);
+}
+
+// Count already-converted diagrams in a file (inside ORIGINAL_DIAGRAM comments)
+function countConvertedDiagrams(content: string): number {
+  const matches = content.match(/<!-- ORIGINAL_DIAGRAM\n```/g);
+  return matches ? matches.length : 0;
+}
 
 interface ReplaceOptions {
   useWebp?: boolean;
@@ -25,15 +50,26 @@ export function replaceDiagram(
   const content = readFileSync(diagram.filePath, "utf-8");
 
   // Find the specific code block to replace
-  let matchIndex = 0;
-  let diagramMatchIndex = 0;
-  let replacedContent = content.replace(CODE_BLOCK_REGEX, (match, codeContent) => {
+  // Start index after existing converted diagrams (same as detection)
+  let diagramMatchIndex = countConvertedDiagrams(content);
+  let replacedContent = content;
+
+  CODE_BLOCK_REGEX.lastIndex = 0;
+  let match: RegExpExecArray | null;
+
+  while ((match = CODE_BLOCK_REGEX.exec(content)) !== null) {
+    const codeContent = match[1];
+    const matchPosition = match.index;
+
+    // Skip code blocks inside HTML comments (already converted diagrams)
+    if (isInsideComment(content, matchPosition)) {
+      continue;
+    }
+
     // Check if this is a diagram code block
-    if (BOX_CHARS.test(codeContent)) {
+    if (isDiagram(codeContent)) {
       // Is this the diagram we're looking for?
       if (diagramMatchIndex === diagram.index) {
-        diagramMatchIndex++;
-
         // Calculate relative path from markdown file to image
         const mdDir = dirname(diagram.filePath);
         const imagePath = opts.useWebp ? webpPath : pngPath;
@@ -43,14 +79,19 @@ export function replaceDiagram(
         const altText = diagram.label || `${diagram.slug} diagram ${diagram.index + 1}`;
 
         // Build replacement - keep original as HTML comment for regeneration
-        return `![${altText}](${relativeImagePath})\n\n<!-- ORIGINAL_DIAGRAM\n${match}\n-->`;
+        const replacement = `![${altText}](${relativeImagePath})\n\n<!-- ORIGINAL_DIAGRAM\n${match[0]}\n-->`;
+
+        // Replace this specific occurrence
+        replacedContent =
+          content.slice(0, matchPosition) +
+          replacement +
+          content.slice(matchPosition + match[0].length);
+
+        break; // Found and replaced, exit loop
       }
       diagramMatchIndex++;
     }
-
-    matchIndex++;
-    return match;
-  });
+  }
 
   // Write the updated file
   writeFileSync(diagram.filePath, replacedContent, "utf-8");
