@@ -13,7 +13,7 @@ topics:
 
 Apache Flink has revolutionized stream processing by bringing SQL to the world of real-time data pipelines. With Flink SQL and the Table API, data engineers and analysts can process unbounded streams using familiar SQL syntax or programmatic APIs in Java, Scala, and Python. This approach lowers the barrier to entry for stream processing while maintaining the power and performance needed for production workloads.
 
-For a comprehensive introduction to Apache Flink's architecture and capabilities, see [What is Apache Flink: Stateful Stream Processing](what-is-apache-flink-stateful-stream-processing.md).
+For a comprehensive introduction to Apache Flink's architecture and capabilities, see [What is Apache Flink: Stateful Stream Processing](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing).
 
 ## Understanding Dynamic Tables and Continuous Queries
 
@@ -230,7 +230,7 @@ This definition includes a computed column for event time and a watermark strate
 
 Flink SQL natively supports CDC formats like Debezium, allowing you to process database changelog streams as they happen. The **Upsert Kafka** connector interprets changelog streams and maintains the latest state per key:
 
-For foundational understanding of CDC concepts and patterns, see [What is Change Data Capture: CDC Fundamentals](what-is-change-data-capture-cdc-fundamentals.md).
+For foundational understanding of CDC concepts and patterns, see [What is Change Data Capture: CDC Fundamentals](https://conduktor.io/glossary/what-is-change-data-capture-cdc-fundamentals).
 
 ```sql
 CREATE TABLE user_profiles (
@@ -318,13 +318,13 @@ The optimizer automatically chooses the most efficient execution plan based on t
 
 Stateful operations like aggregations and joins require Flink to maintain state. Flink manages this state efficiently using RocksDB (an embedded key-value store) for large state backends, with automatic checkpointing for fault tolerance. Be mindful of state growth—unbounded aggregations without proper windowing can lead to ever-growing state.
 
-For detailed coverage of state backends, checkpointing strategies, and savepoint management, see [Flink State Management and Checkpointing](flink-state-management-and-checkpointing.md).
+For detailed coverage of state backends, checkpointing strategies, and savepoint management, see [Flink State Management and Checkpointing](https://conduktor.io/glossary/flink-state-management-and-checkpointing).
 
 ### Watermarks and Event Time
 
 For time-based operations, Flink uses watermarks to track event time progress. Watermarks handle out-of-order events by allowing some lateness before closing windows. The Kafka connector can emit per-partition watermarks, which Flink merges to determine overall stream progress.
 
-For a deep dive into watermark strategies, late data handling, and trigger mechanisms, see [Watermarks and Triggers in Stream Processing](watermarks-and-triggers-in-stream-processing.md).
+For a deep dive into watermark strategies, late data handling, and trigger mechanisms, see [Watermarks and Triggers in Stream Processing](https://conduktor.io/glossary/watermarks-and-triggers-in-stream-processing).
 
 ### Delivery Guarantees
 

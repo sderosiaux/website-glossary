@@ -150,13 +150,13 @@ Side outputs provide type-safe error handling without mixing failed and successf
 
 ### Consumer Group Error Handling
 
-Application consumers can implement DLQ patterns by catching processing exceptions and producing failed messages to a DLQ topic within the same transaction scope (when using Kafka transactions). This ensures atomic DLQ routing and offset commits, preventing message loss. Without transactional guarantees, DLQ routing typically provides at-least-once semantics, where a message might appear in the DLQ multiple times if the consumer crashes after producing to the DLQ but before committing the offset. For more details on transactional processing, see [exactly-once semantics in Kafka](exactly-once-semantics-in-kafka.md) and [Kafka transactions deep dive](kafka-transactions-deep-dive.md).
+Application consumers can implement DLQ patterns by catching processing exceptions and producing failed messages to a DLQ topic within the same transaction scope (when using Kafka transactions). This ensures atomic DLQ routing and offset commits, preventing message loss. Without transactional guarantees, DLQ routing typically provides at-least-once semantics, where a message might appear in the DLQ multiple times if the consumer crashes after producing to the DLQ but before committing the offset. For more details on transactional processing, see [exactly-once semantics in Kafka](https://conduktor.io/glossary/exactly-once-semantics-in-kafka) and [Kafka transactions deep dive](https://conduktor.io/glossary/kafka-transactions-deep-dive).
 
 ## Common Use Cases and Patterns
 
 Dead Letter Queues address several recurring scenarios in distributed systems:
 
-**Deserialization Failures**: When message schemas evolve incompatibly or producers send malformed data, consumers may fail to deserialize messages. Rather than crashing, the consumer routes the unparseable message to a DLQ. Proper [schema registry and schema management](schema-registry-and-schema-management.md) helps prevent many deserialization issues before they occur.
+**Deserialization Failures**: When message schemas evolve incompatibly or producers send malformed data, consumers may fail to deserialize messages. Rather than crashing, the consumer routes the unparseable message to a DLQ. Proper [schema registry and schema management](https://conduktor.io/glossary/schema-registry-and-schema-management) helps prevent many deserialization issues before they occur.
 
 **Validation Errors**: Business rule violations or constraint failures can render messages unprocessable. A DLQ allows these messages to be examined and potentially corrected or discarded based on business requirements.
 
@@ -167,7 +167,7 @@ Dead Letter Queues address several recurring scenarios in distributed systems:
 
 Understanding this distinction prevents wasting resources retrying messages that will never succeed, while giving legitimately failed operations a chance to recover. A circuit breaker pattern (which automatically stops retry attempts after detecting repeated failures) can help prevent retry storms when transient failures become prolonged outages.
 
-**Schema Evolution Issues**: When consumers cannot handle messages produced with newer schemas, DLQs provide a buffer while systems are updated to support the new format. Following [schema evolution best practices](schema-evolution-best-practices.md) helps minimize these scenarios.
+**Schema Evolution Issues**: When consumers cannot handle messages produced with newer schemas, DLQs provide a buffer while systems are updated to support the new format. Following [schema evolution best practices](https://conduktor.io/glossary/schema-evolution-best-practices) helps minimize these scenarios.
 
 ### Real-World Example: E-Commerce Order Processing
 
@@ -194,7 +194,7 @@ The DLQ message includes rich context:
 }
 ```
 
-The data quality team investigates the DLQ and discovers the issue: the product catalog synchronization job failed overnight, leaving inventory data stale. After fixing the sync issue and updating the product database, they replay the DLQ messages back to the original `orders` topic using their platform's DLQ management tools. The orders process successfully on the second attempt, and customers receive their fulfillment notifications. This scenario demonstrates how DLQs integrate with broader [data quality dimensions](data-quality-dimensions-accuracy-completeness-and-consistency.md) and [data quality incident](data-quality-incidents.md) management practices.
+The data quality team investigates the DLQ and discovers the issue: the product catalog synchronization job failed overnight, leaving inventory data stale. After fixing the sync issue and updating the product database, they replay the DLQ messages back to the original `orders` topic using their platform's DLQ management tools. The orders process successfully on the second attempt, and customers receive their fulfillment notifications. This scenario demonstrates how DLQs integrate with broader [data quality dimensions](https://conduktor.io/glossary/data-quality-dimensions-accuracy-completeness-and-consistency) and [data quality incident](https://conduktor.io/glossary/data-quality-incidents) management practices.
 
 ## Best Practices and Considerations
 
@@ -206,7 +206,7 @@ Implementing effective DLQ strategies requires careful planning:
   - `dlq.processing.latency`: Time from initial processing attempt to DLQ routing
   - `dlq.error.type`: Categorization of error types (deserialization, validation, timeout)
 
-These metrics help identify patterns and prioritize remediation efforts. Implementing comprehensive [Kafka cluster monitoring](kafka-cluster-monitoring-and-metrics.md) and [data observability](what-is-data-observability-the-five-pillars.md) practices ensures DLQ issues are detected and resolved quickly.
+These metrics help identify patterns and prioritize remediation efforts. Implementing comprehensive [Kafka cluster monitoring](https://conduktor.io/glossary/kafka-cluster-monitoring-and-metrics) and [data observability](https://conduktor.io/glossary/what-is-data-observability-the-five-pillars) practices ensures DLQ issues are detected and resolved quickly.
 
 **Retention Policies**: Configure appropriate retention for DLQ topics. Messages may need to persist longer than standard topics to allow thorough investigation.
 
@@ -233,7 +233,7 @@ Before deploying DLQ patterns to production, teams need confidence that error ro
 - **Transient failure patterns**: Test exponential backoff and circuit breaker behavior
 - **Message corruption scenarios**: Verify handling of messages with missing required fields
 
-This [chaos engineering](chaos-engineering-for-streaming-systems.md) approach helps teams discover edge cases and validate DLQ configurations before encountering real production failures. Combined with comprehensive [testing strategies for streaming applications](testing-strategies-for-streaming-applications.md), teams can build confidence in their error handling logic.
+This [chaos engineering](https://conduktor.io/glossary/chaos-engineering-for-streaming-systems) approach helps teams discover edge cases and validate DLQ configurations before encountering real production failures. Combined with comprehensive [testing strategies for streaming applications](https://conduktor.io/glossary/testing-strategies-for-streaming-applications), teams can build confidence in their error handling logic.
 
 When evaluating DLQ tooling, look for capabilities including:
 

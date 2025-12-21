@@ -29,7 +29,7 @@ Cloud object storage services—AWS S3, Azure Data Lake Storage Gen2, and Google
 
 ### The Three-Zone Architecture
 
-A well-designed data lake typically follows a three-zone pattern that mirrors the data refinement process. For detailed best practices on implementing this architecture, see [Data Lake Zones: Bronze, Silver, Gold Architecture](data-lake-zones-bronze-silver-gold-architecture.md).
+A well-designed data lake typically follows a three-zone pattern that mirrors the data refinement process. For detailed best practices on implementing this architecture, see [Data Lake Zones: Bronze, Silver, Gold Architecture](https://conduktor.io/glossary/data-lake-zones-bronze-silver-gold-architecture).
 
 **Raw Zone (Bronze Layer)**: Immutable source data stored exactly as ingested. This might include JSON logs from applications, CSV exports from databases, or binary files like images. Partition by ingestion date (e.g., `s3://datalake/raw/system_logs/year=2025/month=12/day=07/`) to enable efficient pruning.
 
@@ -45,7 +45,7 @@ Choosing the right file format significantly impacts performance and cost:
 
 **Avro**: Row-oriented with strong schema evolution support (ability to add/remove fields without breaking existing data readers). Preferred for write-heavy workloads and streaming data where you need to preserve exact record order.
 
-**Open Table Formats (Iceberg/Delta Lake/Hudi)**: Modern table formats that bring ACID transactions (atomicity, consistency, isolation, durability), time travel, and schema evolution to object storage. Apache Iceberg has emerged as the industry standard in 2024-2025, with adoption across Snowflake, Databricks, AWS, Google Cloud, and nearly all major data platforms. These formats are essential for scenarios requiring updates, deletes, or consistent reads during writes. For detailed coverage of Iceberg's architecture and capabilities, see [Apache Iceberg](apache-iceberg.md).
+**Open Table Formats (Iceberg/Delta Lake/Hudi)**: Modern table formats that bring ACID transactions (atomicity, consistency, isolation, durability), time travel, and schema evolution to object storage. Apache Iceberg has emerged as the industry standard in 2024-2025, with adoption across Snowflake, Databricks, AWS, Google Cloud, and nearly all major data platforms. These formats are essential for scenarios requiring updates, deletes, or consistent reads during writes. For detailed coverage of Iceberg's architecture and capabilities, see [Apache Iceberg](https://conduktor.io/glossary/apache-iceberg).
 
 ## Platform-Specific Implementations
 
@@ -125,11 +125,11 @@ A critical evolution in modern data lakes is the emergence of unified table cata
 - **Google BigLake**: Unified metadata layer providing fine-grained access control across BigQuery, Spark, and other engines
 - **Azure Unity Catalog**: Centralized governance for Databricks and expanding to Synapse integration
 
-These catalogs solve the historic "metadata sprawl" problem where each engine maintained separate metadata, leading to inconsistencies and governance challenges. In 2025, unified catalogs are considered essential for production data lakes. For an architectural overview of lakehouse patterns built on these catalogs, see [Introduction to Lakehouse Architecture](introduction-to-lakehouse-architecture.md).
+These catalogs solve the historic "metadata sprawl" problem where each engine maintained separate metadata, leading to inconsistencies and governance challenges. In 2025, unified catalogs are considered essential for production data lakes. For an architectural overview of lakehouse patterns built on these catalogs, see [Introduction to Lakehouse Architecture](https://conduktor.io/glossary/introduction-to-lakehouse-architecture).
 
 ## Integrating Streaming Data
 
-Modern data lakes must handle both batch and streaming ingestion. Apache Kafka infrastructure often feeds real-time data into your lake. For comprehensive streaming ingestion patterns, see [Streaming Ingestion to Lakehouse](streaming-ingestion-to-lakehouse.md).
+Modern data lakes must handle both batch and streaming ingestion. Apache Kafka infrastructure often feeds real-time data into your lake. For comprehensive streaming ingestion patterns, see [Streaming Ingestion to Lakehouse](https://conduktor.io/glossary/streaming-ingestion-to-lakehouse).
 
 ### Kafka to Data Lake Pipeline
 
@@ -144,17 +144,17 @@ Object Storage Sink (S3/ADLS/GCS)
 Query Engine (Athena/Synapse/BigQuery)
 ```
 
-When streaming events into your data lake, modern patterns combine Kafka with table formats for reliable, exactly-once ingestion. For detailed Kafka fundamentals, see [Apache Kafka](apache-kafka.md).
+When streaming events into your data lake, modern patterns combine Kafka with table formats for reliable, exactly-once ingestion. For detailed Kafka fundamentals, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
 
 **Modern Streaming Best Practices (2025)**:
 
-1. **Use Kafka Connect with Iceberg**: The Iceberg Sink Connector (Apache Kafka 3.x+) provides native table format support with automatic schema evolution and compaction. For building robust data pipelines with Kafka Connect, see [Kafka Connect: Building Data Integration Pipelines](kafka-connect-building-data-integration-pipelines.md).
+1. **Use Kafka Connect with Iceberg**: The Iceberg Sink Connector (Apache Kafka 3.x+) provides native table format support with automatic schema evolution and compaction. For building robust data pipelines with Kafka Connect, see [Kafka Connect: Building Data Integration Pipelines](https://conduktor.io/glossary/kafka-connect-building-data-integration-pipelines).
 
 2. **Implement exactly-once semantics**: Kafka transactions (Kafka 3.0+) combined with Iceberg's ACID guarantees ensure data isn't duplicated during failures. Exactly-once delivery is now the standard for production streaming data lakes.
 
 3. **Leverage Apache Flink 1.18+ for complex transformations**: Flink's native Iceberg sink provides millisecond-latency writes with automatic compaction and sorting, ideal for real-time analytics on lakehouse tables.
 
-4. **Handle schema evolution**: Use Avro or Protobuf with schema registry to manage changes without breaking downstream consumers. For schema management patterns, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md). Both Iceberg and Delta Lake support automatic schema evolution when ingesting from evolving schemas.
+4. **Handle schema evolution**: Use Avro or Protobuf with schema registry to manage changes without breaking downstream consumers. For schema management patterns, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management). Both Iceberg and Delta Lake support automatic schema evolution when ingesting from evolving schemas.
 
 ## Best Practices
 
@@ -166,7 +166,7 @@ When streaming events into your data lake, modern patterns combine Kafka with ta
 
 **Monitor and optimize**: Track storage costs by zone and team. Use query performance metrics to identify partitioning improvements. Set up alerts for failed ingestion jobs.
 
-**Document metadata**: Maintain a data catalog (AWS Glue, Microsoft Purview, Google Dataplex) describing datasets, owners, lineage, and SLAs. Poor metadata management is a common data lake failure mode. Modern catalogs integrate with unified table formats to provide automated lineage tracking and data discovery. For comprehensive coverage, see [What is a Data Catalog: Modern Data Discovery](what-is-a-data-catalog-modern-data-discovery.md).
+**Document metadata**: Maintain a data catalog (AWS Glue, Microsoft Purview, Google Dataplex) describing datasets, owners, lineage, and SLAs. Poor metadata management is a common data lake failure mode. Modern catalogs integrate with unified table formats to provide automated lineage tracking and data discovery. For comprehensive coverage, see [What is a Data Catalog: Modern Data Discovery](https://conduktor.io/glossary/what-is-a-data-catalog-modern-data-discovery).
 
 ## Conclusion
 

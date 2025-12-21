@@ -25,7 +25,7 @@ At its core, data quality answers the question: "Does this data meet our standar
 - **Uniqueness**: Are there unwanted duplicates?
 - **Timeliness**: Is data arriving within acceptable time windows?
 
-For example, a data quality test might verify that all customer email addresses follow a valid format, that order amounts are positive numbers, or that timestamps fall within a reasonable range. These tests are typically implemented as assertions in your data pipeline, often using frameworks like [Great Expectations](great-expectations-data-testing-framework.md) (GX 1.0+), [dbt tests](dbt-tests-and-data-quality-checks.md), or Soda Core.
+For example, a data quality test might verify that all customer email addresses follow a valid format, that order amounts are positive numbers, or that timestamps fall within a reasonable range. These tests are typically implemented as assertions in your data pipeline, often using frameworks like [Great Expectations](https://conduktor.io/glossary/great-expectations-data-testing-framework) (GX 1.0+), [dbt tests](https://conduktor.io/glossary/dbt-tests-and-data-quality-checks), or Soda Core.
 
 The strength of data quality lies in its precision. You define exactly what "good" looks like, and your system alerts you when data deviates from these expectations. However, this precision is also a limitation: you can only catch issues you've explicitly tested for. Unknown problems or emerging patterns will slip through undetected.
 
@@ -33,7 +33,7 @@ The strength of data quality lies in its precision. You define exactly what "goo
 
 Data observability takes a proactive, monitoring-based approach inspired by software observability practices. Rather than testing for specific conditions, observability continuously monitors the behavior and health of your data systems, looking for anomalies and unexpected patterns.
 
-Data observability answers a broader question: "What is happening in our data systems, and why?" For detailed coverage of observability fundamentals, see [What is Data Observability? The Five Pillars](what-is-data-observability-the-five-pillars.md). It focuses on five key pillars:
+Data observability answers a broader question: "What is happening in our data systems, and why?" For detailed coverage of observability fundamentals, see [What is Data Observability? The Five Pillars](https://conduktor.io/glossary/what-is-data-observability-the-five-pillars). It focuses on five key pillars:
 
 - **Freshness**: Is data arriving on schedule?
 - **Volume**: Are record counts within normal ranges?
@@ -75,8 +75,8 @@ In streaming architectures built on platforms like Apache Kafka, data flows cont
 
 For streaming use cases:
 
-- **Data quality** can be implemented as stream processors that validate records in real-time, potentially routing invalid data to [dead letter queues](dead-letter-queues-for-error-handling.md) for later analysis and reprocessing
-- **Data observability** monitors stream health metrics like [consumer lag](consumer-lag-monitoring.md), partition distribution, throughput rates, and schema evolution
+- **Data quality** can be implemented as stream processors that validate records in real-time, potentially routing invalid data to [dead letter queues](https://conduktor.io/glossary/dead-letter-queues-for-error-handling) for later analysis and reprocessing
+- **Data observability** monitors stream health metrics like [consumer lag](https://conduktor.io/glossary/consumer-lag-monitoring), partition distribution, throughput rates, and schema evolution
 
 You might set up data quality rules to validate message schemas against your registry, while simultaneously using observability to monitor whether consumers are keeping up with producers or if topic partition counts are balanced.
 
@@ -84,11 +84,11 @@ The real-time nature of streaming makes observability particularly valuable. Rat
 
 ## Using Both Together
 
-The most effective data reliability strategy combines both approaches. For a comprehensive framework that integrates quality and observability, see [Building a Data Quality Framework](building-a-data-quality-framework.md).
+The most effective data reliability strategy combines both approaches. For a comprehensive framework that integrates quality and observability, see [Building a Data Quality Framework](https://conduktor.io/glossary/building-a-data-quality-framework).
 
-1. **Use data quality** for critical business rules and compliance requirements. If customer IDs must be unique or transaction amounts must be positive, enforce these with explicit tests. Implement [automated data quality testing](automated-data-quality-testing.md) to catch issues early in your pipelines.
+1. **Use data quality** for critical business rules and compliance requirements. If customer IDs must be unique or transaction amounts must be positive, enforce these with explicit tests. Implement [automated data quality testing](https://conduktor.io/glossary/automated-data-quality-testing) to catch issues early in your pipelines.
 
-2. **Use data observability** for holistic system health and anomaly detection. Monitor freshness, volume, and distribution to catch emerging issues. Track [data quality dimensions](data-quality-dimensions-accuracy-completeness-and-consistency.md) across your entire data ecosystem.
+2. **Use data observability** for holistic system health and anomaly detection. Monitor freshness, volume, and distribution to catch emerging issues. Track [data quality dimensions](https://conduktor.io/glossary/data-quality-dimensions-accuracy-completeness-and-consistency) across your entire data ecosystem.
 
 3. **Let observability inform quality rules**. When observability surfaces a recurring anomaly, codify it as a quality test. This creates a feedback loop that continuously strengthens your data contracts.
 
@@ -103,7 +103,7 @@ A growing best practice in 2025 is the use of data contracts that formalize expe
 - **Observability monitoring** tracks contract compliance over time and alerts on violations
 - **Lineage tracking** identifies impact when contracts are breached
 
-For organizations implementing data contracts, see [Data Contracts for Reliable Pipelines](data-contracts-for-reliable-pipelines.md) for implementation patterns.
+For organizations implementing data contracts, see [Data Contracts for Reliable Pipelines](https://conduktor.io/glossary/data-contracts-for-reliable-pipelines) for implementation patterns.
 
 ## Choosing the Right Approach
 

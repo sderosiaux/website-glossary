@@ -13,7 +13,7 @@ topics:
 
 Access control is the cornerstone of data security, determining who can interact with your data and what actions they can perform. As organizations scale and data architectures become more complex—particularly with real-time streaming platforms—choosing the right access control model becomes critical. This article explores two fundamental approaches: Role-Based Access Control (RBAC) and Attribute-Based Access Control (ABAC), with practical examples for streaming data infrastructure.
 
-Modern implementations leverage tools like Open Policy Agent (OPA), Keycloak, AWS Cedar, and cloud-native IAM systems to enforce these models at scale. For comprehensive Kafka-specific authorization patterns, see [Kafka ACLs and Authorization Patterns](kafka-acls-and-authorization-patterns.md).
+Modern implementations leverage tools like Open Policy Agent (OPA), Keycloak, AWS Cedar, and cloud-native IAM systems to enforce these models at scale. For comprehensive Kafka-specific authorization patterns, see [Kafka ACLs and Authorization Patterns](https://conduktor.io/glossary/kafka-acls-and-authorization-patterns).
 
 ## Understanding RBAC: The Foundation
 
@@ -72,7 +72,7 @@ In this configuration, a data engineer can write to sales topics but cannot read
 - **Cloud-native IAM**: AWS MSK supports IAM-based authentication where AWS IAM roles and policies define Kafka permissions. Azure Event Hubs similarly integrates with Azure AD RBAC.
 - **OPA (Open Policy Agent)**: While traditionally used for ABAC, OPA can enforce RBAC policies through its Kafka authorizer plugin, centralizing policy management across your stack.
 
-For authentication mechanisms that enable these authorization models, see [Kafka Authentication: SASL, SSL, OAuth](kafka-authentication-sasl-ssl-oauth.md).
+For authentication mechanisms that enable these authorization models, see [Kafka Authentication: SASL, SSL, OAuth](https://conduktor.io/glossary/kafka-authentication-sasl-ssl-oauth).
 
 ### RBAC Advantages
 
@@ -180,7 +180,7 @@ topic_metadata := {
 }
 ```
 
-This Rego policy integrates with Kafka through an OPA authorizer plugin and evaluates in real-time as clients make requests. For data classification strategies that feed these policies, see [Data Classification and Tagging Strategies](data-classification-and-tagging-strategies.md).
+This Rego policy integrates with Kafka through an OPA authorizer plugin and evaluates in real-time as clients make requests. For data classification strategies that feed these policies, see [Data Classification and Tagging Strategies](https://conduktor.io/glossary/data-classification-and-tagging-strategies).
 
 ### ABAC Advantages
 
@@ -245,10 +245,10 @@ This hybrid model gives engineers broad access to development and staging enviro
 
 **Related Access Control Concerns:**
 
-- For audit trails of who accessed what, see [Audit Logging for Streaming Platforms](audit-logging-for-streaming-platforms.md)
-- For protecting sensitive data within allowed topics, see [Data Masking and Anonymization for Streaming](data-masking-and-anonymization-for-streaming.md)
-- For detecting and preventing PII exposure, see [PII Detection and Handling in Event Streams](pii-detection-and-handling-in-event-streams.md)
-- For encryption alongside access control, see [Encryption at Rest and in Transit for Kafka](encryption-at-rest-and-in-transit-for-kafka.md)
+- For audit trails of who accessed what, see [Audit Logging for Streaming Platforms](https://conduktor.io/glossary/audit-logging-for-streaming-platforms)
+- For protecting sensitive data within allowed topics, see [Data Masking and Anonymization for Streaming](https://conduktor.io/glossary/data-masking-and-anonymization-for-streaming)
+- For detecting and preventing PII exposure, see [PII Detection and Handling in Event Streams](https://conduktor.io/glossary/pii-detection-and-handling-in-event-streams)
+- For encryption alongside access control, see [Encryption at Rest and in Transit for Kafka](https://conduktor.io/glossary/encryption-at-rest-and-in-transit-for-kafka)
 
 ## Conclusion
 
@@ -263,7 +263,7 @@ In 2025, the access control landscape continues to evolve. Relationship-Based Ac
 4. Implement audit logging to track access decisions
 5. Use policy-as-code approaches (OPA, Cedar) for version-controlled, testable access policies
 
-For broader data governance frameworks that incorporate access control, see [Data Governance Framework: Roles and Responsibilities](data-governance-framework-roles-and-responsibilities.md).
+For broader data governance frameworks that incorporate access control, see [Data Governance Framework: Roles and Responsibilities](https://conduktor.io/glossary/data-governance-framework-roles-and-responsibilities).
 
 ## Sources and References
 

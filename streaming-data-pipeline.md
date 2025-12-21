@@ -84,7 +84,7 @@ For existing databases, Debezium operates as a Source Connector, reading transac
 }
 ```
 
-CDC enables streaming from legacy systems without code changes. For comprehensive coverage of CDC patterns and implementation details, see [What is Change Data Capture (CDC) Fundamentals](what-is-change-data-capture-cdc-fundamentals.md) and [Implementing CDC with Debezium](implementing-cdc-with-debezium.md).
+CDC enables streaming from legacy systems without code changes. For comprehensive coverage of CDC patterns and implementation details, see [What is Change Data Capture (CDC) Fundamentals](https://conduktor.io/glossary/what-is-change-data-capture-cdc-fundamentals) and [Implementing CDC with Debezium](https://conduktor.io/glossary/implementing-cdc-with-debezium).
 
 ### Kafka Connect Framework
 
@@ -94,7 +94,7 @@ Delivery semantics (at-least-once or exactly-once) configured on producers ensur
 
 ## The Data Stream Broker: The Backbone
 
-Apache Kafka serves as the architectural backbone, fundamentally distinguishing streaming from point-to-point integration. Modern Kafka deployments (Kafka 3.3+, standard in 4.0+) run in KRaft mode—eliminating the previous ZooKeeper dependency for improved operational simplicity and scalability. For details on this architecture shift, see [Understanding KRaft Mode in Kafka](understanding-kraft-mode-in-kafka.md).
+Apache Kafka serves as the architectural backbone, fundamentally distinguishing streaming from point-to-point integration. Modern Kafka deployments (Kafka 3.3+, standard in 4.0+) run in KRaft mode—eliminating the previous ZooKeeper dependency for improved operational simplicity and scalability. For details on this architecture shift, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka).
 
 **Core responsibilities:**
 - **Decoupling**: Producers and consumers operate independently. Producers write without knowing consumers exist; consumers read without knowing producers.
@@ -104,7 +104,7 @@ Apache Kafka serves as the architectural backbone, fundamentally distinguishing 
 
 Kafka's log-centric design enables multiple independent consumers, historical replay, reprocessing after bugs, and long-term event storage—what makes streaming ecosystems reliable at scale.
 
-**Partition sizing guidance**: Kafka topics are divided into partitions that enable parallel processing across consumer groups. Start with 1-2 partitions per expected peak consumer instance. For 10 anticipated consumers, begin with 10-20 partitions. Monitor consumer lag and adjust upward as needed. For detailed information on how consumers coordinate partition assignment and track offsets, see [Kafka Consumer Groups Explained](kafka-consumer-groups-explained.md) and [Consumer Lag: Monitoring and Managing Streaming Health](consumer-lag-monitoring.md).
+**Partition sizing guidance**: Kafka topics are divided into partitions that enable parallel processing across consumer groups. Start with 1-2 partitions per expected peak consumer instance. For 10 anticipated consumers, begin with 10-20 partitions. Monitor consumer lag and adjust upward as needed. For detailed information on how consumers coordinate partition assignment and track offsets, see [Kafka Consumer Groups Explained](https://conduktor.io/glossary/kafka-consumer-groups-explained) and [Consumer Lag: Monitoring and Managing Streaming Health](https://conduktor.io/glossary/consumer-lag-monitoring).
 
 ## Processing Layer: Transforming Streams in Motion
 
@@ -129,11 +129,11 @@ KTable counts = orders
     .count();
 ```
 
-**Apache Flink** (1.19+/1.20+ as of 2025) handles complex event-time processing, late-arriving data, and large stateful computations with exactly-once semantics. For detailed coverage, see [What is Apache Flink: Stateful Stream Processing](what-is-apache-flink-stateful-stream-processing.md).
+**Apache Flink** (1.19+/1.20+ as of 2025) handles complex event-time processing, late-arriving data, and large stateful computations with exactly-once semantics. For detailed coverage, see [What is Apache Flink: Stateful Stream Processing](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing).
 
 **Spark Structured Streaming** leverages existing Spark ecosystem for teams with Spark expertise.
 
-Choose based on complexity (simple transforms vs complex joins), latency requirements, and team skills. For framework comparisons, see [Kafka Streams vs Apache Flink](kafka-streams-vs-apache-flink.md).
+Choose based on complexity (simple transforms vs complex joins), latency requirements, and team skills. For framework comparisons, see [Kafka Streams vs Apache Flink](https://conduktor.io/glossary/kafka-streams-vs-apache-flink).
 
 ## Delivery Layer: Writing to Multiple Destinations
 
@@ -175,7 +175,7 @@ Enriched Orders (Kafka)
 
 Each consumer processes independently. Kafka buffers during downstream failures.
 
-**Exactly-once vs at-least-once**: Choose exactly-once when duplicates cause incorrect results (financial transactions, inventory updates). Use at-least-once with idempotent consumers when performance matters and systems handle duplicates (updating current state, upserts). Exactly-once adds 2-5ms latency and 10-20% throughput reduction. For implementation details, see [Exactly-Once Semantics in Kafka](exactly-once-semantics-in-kafka.md).
+**Exactly-once vs at-least-once**: Choose exactly-once when duplicates cause incorrect results (financial transactions, inventory updates). Use at-least-once with idempotent consumers when performance matters and systems handle duplicates (updating current state, upserts). Exactly-once adds 2-5ms latency and 10-20% throughput reduction. For implementation details, see [Exactly-Once Semantics in Kafka](https://conduktor.io/glossary/exactly-once-semantics-in-kafka).
 
 ## Operational Concerns: Monitoring and Governance
 
@@ -189,7 +189,7 @@ Monitor these metrics separately—each reveals different bottlenecks:
 - **Connector Status**: Failed tasks halting ingestion/delivery
 - **End-to-End Latency**: Total time from creation to sink (ultimate SLA measure)
 
-Modern monitoring stacks (2025) typically use Kafka Lag Exporter with Prometheus and Grafana for granular lag metrics with minimal overhead, replacing older tools like Burrow. For comprehensive consumer lag monitoring strategies, see [Consumer Lag: Monitoring and Managing Streaming Health](consumer-lag-monitoring.md).
+Modern monitoring stacks (2025) typically use Kafka Lag Exporter with Prometheus and Grafana for granular lag metrics with minimal overhead, replacing older tools like Burrow. For comprehensive consumer lag monitoring strategies, see [Consumer Lag: Monitoring and Managing Streaming Health](https://conduktor.io/glossary/consumer-lag-monitoring).
 
 **Correlation IDs** enable distributed tracing: unique identifiers attached at ingestion propagate through all stages, allowing operators to trace individual events through the complete pipeline.
 
@@ -207,14 +207,14 @@ The `correlationId` flows from producer → Kafka → stream processor → sink,
 
 ### Data Quality and Schema Evolution
 
-Schema Registry validates schemas before allowing writes. If producers attempt incompatible schemas, the registry rejects requests with errors, preventing malformed data from entering. For comprehensive coverage of schema management strategies, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md).
+Schema Registry validates schemas before allowing writes. If producers attempt incompatible schemas, the registry rejects requests with errors, preventing malformed data from entering. For comprehensive coverage of schema management strategies, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management).
 
 **Compatibility rules:**
 - **Backward**: New schemas readable by old consumers
 - **Forward**: New consumers read old schemas
 - **Full**: Both directions compatible
 
-Invalid events route to dead letter queues—separate Kafka topics storing failed events for inspection and reprocessing without blocking main data flow. For detailed DLQ implementation patterns, see [Dead Letter Queues for Error Handling](dead-letter-queues-for-error-handling.md).
+Invalid events route to dead letter queues—separate Kafka topics storing failed events for inspection and reprocessing without blocking main data flow. For detailed DLQ implementation patterns, see [Dead Letter Queues for Error Handling](https://conduktor.io/glossary/dead-letter-queues-for-error-handling).
 
 ### Backpressure Management
 
@@ -223,7 +223,7 @@ When consumers fall behind, events accumulate in Kafka. Teams respond by:
 - Optimizing processing logic
 - Increasing partition counts (requires coordination)
 
-For comprehensive strategies including throttling, load shedding, and batching approaches, see [Backpressure Handling in Streaming Systems](backpressure-handling-in-streaming-systems.md).
+For comprehensive strategies including throttling, load shedding, and batching approaches, see [Backpressure Handling in Streaming Systems](https://conduktor.io/glossary/backpressure-handling-in-streaming-systems).
 
 ### Pipeline Lineage and Governance
 
@@ -242,7 +242,7 @@ Commercial governance platforms like Conduktor centralize operational visibility
 - Troubleshoot bottlenecks without accessing multiple CLI tools
 - Test resilience with Conduktor Gateway (proxy-based chaos engineering for network failures, latency injection, and message manipulation)
 
-Operators trace events through stages, identify latency spikes, and understand impact before modifying schemas—essential for operating at scale. For testing strategies including chaos engineering, see [Chaos Engineering for Streaming Systems](chaos-engineering-for-streaming-systems.md).
+Operators trace events through stages, identify latency spikes, and understand impact before modifying schemas—essential for operating at scale. For testing strategies including chaos engineering, see [Chaos Engineering for Streaming Systems](https://conduktor.io/glossary/chaos-engineering-for-streaming-systems).
 
 ## Summary
 

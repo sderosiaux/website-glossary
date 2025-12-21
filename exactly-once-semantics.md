@@ -61,7 +61,7 @@ Exactly-once semantics requires atomic operations across multiple components: pr
 
 ## How Kafka Implements Exactly-Once Semantics
 
-Apache Kafka addresses these challenges through transactions involving idempotent producers, transactional producers, and transactional consumers working together. For a comprehensive deep dive into Kafka's transaction implementation details, see [Kafka Transactions Deep Dive](kafka-transactions-deep-dive.md).
+Apache Kafka addresses these challenges through transactions involving idempotent producers, transactional producers, and transactional consumers working together. For a comprehensive deep dive into Kafka's transaction implementation details, see [Kafka Transactions Deep Dive](https://conduktor.io/glossary/kafka-transactions-deep-dive).
 
 ### Idempotent Producers: Preventing Duplicate Writes
 
@@ -75,7 +75,7 @@ retries=Integer.MAX_VALUE
 max.in.flight.requests.per.connection=5
 ```
 
-**Note:** Idempotence is enabled by default in Kafka 3.0+ (released 2021), making exactly-once semantics more accessible. Prior versions required explicit configuration. For comprehensive coverage of producer configuration and behavior, see [Kafka Producers](kafka-producers.md).
+**Note:** Idempotence is enabled by default in Kafka 3.0+ (released 2021), making exactly-once semantics more accessible. Prior versions required explicit configuration. For comprehensive coverage of producer configuration and behavior, see [Kafka Producers](https://conduktor.io/glossary/kafka-producers).
 
 ### Transactional Producers: Atomic Multi-Partition Writes
 
@@ -136,7 +136,7 @@ While Kafka provides the transactional messaging layer, stream processing engine
 
 ### Kafka Streams
 
-When configured with `processing.guarantee=exactly_once_v2`, Kafka Streams coordinates consumer offsets, operator state snapshots, and output commits within a single Kafka transaction. When a failure occurs, Kafka Streams rolls back to the last successful transaction and resumes processing without loss or duplication. For a comprehensive introduction to Kafka Streams architecture and programming model, see [Introduction to Kafka Streams](introduction-to-kafka-streams.md).
+When configured with `processing.guarantee=exactly_once_v2`, Kafka Streams coordinates consumer offsets, operator state snapshots, and output commits within a single Kafka transaction. When a failure occurs, Kafka Streams rolls back to the last successful transaction and resumes processing without loss or duplication. For a comprehensive introduction to Kafka Streams architecture and programming model, see [Introduction to Kafka Streams](https://conduktor.io/glossary/introduction-to-kafka-streams).
 
 ### Apache Flink
 
@@ -147,7 +147,7 @@ Flink achieves exactly-once semantics through distributed checkpointing coordina
 - **Better Timeout Handling:** Improved detection and recovery from checkpoint timeouts during transaction coordination
 - **Reduced State Overhead:** Optimized checkpoint metadata storage reduces the cost of maintaining exactly-once guarantees
 
-These improvements make Flink's exactly-once mode more performant and reliable for production workloads processing millions of events per second. For detailed coverage of Flink's checkpointing and state management, see [Flink State Management and Checkpointing](flink-state-management-and-checkpointing.md). To compare the exactly-once approaches of Kafka Streams versus Flink, see [Kafka Streams vs Apache Flink](kafka-streams-vs-apache-flink.md).
+These improvements make Flink's exactly-once mode more performant and reliable for production workloads processing millions of events per second. For detailed coverage of Flink's checkpointing and state management, see [Flink State Management and Checkpointing](https://conduktor.io/glossary/flink-state-management-and-checkpointing). To compare the exactly-once approaches of Kafka Streams versus Flink, see [Kafka Streams vs Apache Flink](https://conduktor.io/glossary/kafka-streams-vs-apache-flink).
 
 ## Achieving End-to-End EOS: Source, Processor, and Sink
 
@@ -200,7 +200,7 @@ Operating exactly-once pipelines requires specific monitoring:
 - Transaction state inspection using Kafka tools
 - State consistency checks comparing checkpoint state with topic offsets
 
-For comprehensive approaches to validating exactly-once behavior in production, see [Testing Strategies for Streaming Applications](testing-strategies-for-streaming-applications.md).
+For comprehensive approaches to validating exactly-once behavior in production, see [Testing Strategies for Streaming Applications](https://conduktor.io/glossary/testing-strategies-for-streaming-applications).
 
 ## Governance and Compliance
 

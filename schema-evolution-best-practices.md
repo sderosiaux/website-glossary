@@ -28,7 +28,7 @@ Without careful management, schema changes can cause:
 - Breaking changes that require synchronized deployments across services
 - Silent data corruption when type mismatches go undetected (data appears valid but has incorrect values)
 
-Effective schema evolution is essential for [data contracts](/data-contracts-for-reliable-pipelines.md) that define expectations between data producers and consumers.
+Effective schema evolution is essential for [data contracts](https://conduktor.io/glossary/data-contracts-for-reliable-pipelines) that define expectations between data producers and consumers.
 
 ## Understanding Compatibility Modes
 
@@ -145,7 +145,7 @@ Use this decision guide to select the appropriate compatibility mode for your us
 
 ## Schema Evolution in Data Streaming
 
-In Apache Kafka and similar streaming platforms, schema evolution is managed through a [Schema Registry](/schema-registry-and-schema-management.md). This centralized service stores schemas and enforces compatibility rules.
+In Apache Kafka and similar streaming platforms, schema evolution is managed through a [Schema Registry](https://conduktor.io/glossary/schema-registry-and-schema-management). This centralized service stores schemas and enforces compatibility rules.
 
 ### How Schema Registry Works
 
@@ -166,9 +166,9 @@ This approach provides several benefits:
 - **Schema caching**: Clients cache schemas by ID, minimizing registry lookups
 
 Common serialization formats in streaming include:
-- **[Avro](/avro-vs-protobuf-vs-json-schema.md)**: Binary format with built-in schema evolution rules and schema resolution at read time
-- **[Protocol Buffers](/avro-vs-protobuf-vs-json-schema.md)**: Efficient binary format with field numbers for compatibility; supports reserved fields
-- **[JSON Schema](/avro-vs-protobuf-vs-json-schema.md)**: Human-readable but less efficient for high-throughput streams
+- **[Avro](https://conduktor.io/glossary/avro-vs-protobuf-vs-json-schema)**: Binary format with built-in schema evolution rules and schema resolution at read time
+- **[Protocol Buffers](https://conduktor.io/glossary/avro-vs-protobuf-vs-json-schema)**: Efficient binary format with field numbers for compatibility; supports reserved fields
+- **[JSON Schema](https://conduktor.io/glossary/avro-vs-protobuf-vs-json-schema)**: Human-readable but less efficient for high-throughput streams
 
 Each format has specific rules about which changes preserve compatibility. For example, Avro requires default values for new fields in backward-compatible changes, while Protobuf relies on field numbers remaining stable and supports reserved keywords to prevent reuse of deprecated field numbers.
 
@@ -308,11 +308,11 @@ Many organizations use schema linters that enforce naming conventions and flag r
 
 ### Governance Practices
 
-Establish clear ownership for schemas. Each schema should have a designated team responsible for changes. Create approval processes for breaking changes that require coordination across teams. This ownership model aligns with [data governance frameworks](/data-governance-framework-roles-and-responsibilities.md) that define roles and responsibilities.
+Establish clear ownership for schemas. Each schema should have a designated team responsible for changes. Create approval processes for breaking changes that require coordination across teams. This ownership model aligns with [data governance frameworks](https://conduktor.io/glossary/data-governance-framework-roles-and-responsibilities) that define roles and responsibilities.
 
-Document compatibility requirements in a schema evolution policy. Specify which compatibility mode is required for different types of data and what exceptions process exists for breaking changes. Define which schemas are considered [data contracts](/data-contracts-for-reliable-pipelines.md) with stricter governance requirements.
+Document compatibility requirements in a schema evolution policy. Specify which compatibility mode is required for different types of data and what exceptions process exists for breaking changes. Define which schemas are considered [data contracts](https://conduktor.io/glossary/data-contracts-for-reliable-pipelines) with stricter governance requirements.
 
-Regular schema reviews help identify technical debt like deprecated fields that can be safely removed or overly complex schemas that should be simplified. Use [data quality frameworks](/building-a-data-quality-framework.md) to validate that schema changes don't degrade data quality metrics.
+Regular schema reviews help identify technical debt like deprecated fields that can be safely removed or overly complex schemas that should be simplified. Use [data quality frameworks](https://conduktor.io/glossary/building-a-data-quality-framework) to validate that schema changes don't degrade data quality metrics.
 
 ## Summary
 

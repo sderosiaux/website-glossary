@@ -61,17 +61,17 @@ CREATE STREAM filtered_events AS
 
 ksqlDB enables joins between streams and tables, or between multiple streams. This capability is essential for enriching event data with reference information. For instance, you can join a stream of transactions with a table of user profiles to add customer demographics to each transaction in real-time.
 
-For detailed patterns on implementing stream enrichment and various join types, see [Stream Joins and Enrichment Patterns](stream-joins-and-enrichment-patterns.md).
+For detailed patterns on implementing stream enrichment and various join types, see [Stream Joins and Enrichment Patterns](https://conduktor.io/glossary/stream-joins-and-enrichment-patterns).
 
 ### Scalability and Fault Tolerance
 
 Built on Kafka Streams, ksqlDB inherits distributed processing capabilities. Queries are automatically distributed across multiple servers, and state is partitioned and replicated for fault tolerance. If a server fails, ksqlDB automatically redistributes the workload and restores state from Kafka topics.
 
-Under the hood, ksqlDB leverages the same state store mechanisms as Kafka Streams, using RocksDB for persistent state and changelog topics for recovery. For more details on how state management works in stream processing, see [State Stores in Kafka Streams](state-stores-in-kafka-streams.md).
+Under the hood, ksqlDB leverages the same state store mechanisms as Kafka Streams, using RocksDB for persistent state and changelog topics for recovery. For more details on how state management works in stream processing, see [State Stores in Kafka Streams](https://conduktor.io/glossary/state-stores-in-kafka-streams).
 
 ## ksqlDB in Data Streaming Ecosystems
 
-ksqlDB operates within the broader Apache Kafka ecosystem, working alongside several complementary technologies. It reads and writes Avro, JSON, and Protobuf formats, integrating seamlessly with Schema Registry implementations to enforce data contracts and schema evolution. For details on schema management patterns, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md).
+ksqlDB operates within the broader Apache Kafka ecosystem, working alongside several complementary technologies. It reads and writes Avro, JSON, and Protobuf formats, integrating seamlessly with Schema Registry implementations to enforce data contracts and schema evolution. For details on schema management patterns, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management).
 
 ### ksqlDB vs Kafka Streams vs Apache Flink
 
@@ -96,7 +96,7 @@ Choosing between ksqlDB, Kafka Streams, and Apache Flink depends on your team's 
 - You're processing multiple data sources beyond Kafka
 - Batch and stream unification matters for backfilling or reprocessing
 
-For a detailed comparison of Kafka Streams and Flink, see [Kafka Streams vs Apache Flink](kafka-streams-vs-apache-flink.md). For comprehensive coverage of Flink's capabilities, see [What is Apache Flink? Stateful Stream Processing](what-is-apache-flink-stateful-stream-processing.md).
+For a detailed comparison of Kafka Streams and Flink, see [Kafka Streams vs Apache Flink](https://conduktor.io/glossary/kafka-streams-vs-apache-flink). For comprehensive coverage of Flink's capabilities, see [What is Apache Flink? Stateful Stream Processing](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing).
 
 For organizations running Kafka, ksqlDB provides a natural path to stream processing without introducing additional infrastructure. It leverages existing Kafka topics as both input and output, maintaining a consistent data platform. Governance and management platforms like Conduktor enhance this experience by providing visual interfaces to develop and monitor ksqlDB queries, view query topology, troubleshoot performance issues, and ensure data quality across the streaming infrastructure.
 
@@ -129,7 +129,7 @@ FROM page_view_counts
 WHERE page_url = '/products/bestseller';
 ```
 
-Results are also written to a Kafka topic for downstream consumers. For broader context on real-time analytics patterns, see [Real-Time Analytics with Streaming Data](real-time-analytics-with-streaming-data.md).
+Results are also written to a Kafka topic for downstream consumers. For broader context on real-time analytics patterns, see [Real-Time Analytics with Streaming Data](https://conduktor.io/glossary/real-time-analytics-with-streaming-data).
 
 ### Data Enrichment and Filtering
 

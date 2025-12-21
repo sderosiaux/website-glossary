@@ -15,7 +15,7 @@ In modern data streaming architectures, securing machine-to-machine communicatio
 
 mTLS extends traditional TLS by requiring both the client and server to present valid certificates during the connection handshake. For Kafka, this means brokers authenticate clients, and clients authenticate brokers—creating a cryptographically verified identity for every participant in the streaming platform.
 
-mTLS is one of several authentication mechanisms available in Kafka. For a comprehensive comparison of authentication approaches including SASL/SCRAM, SASL/PLAIN, and OAuth 2.0, see [Kafka Authentication: SASL, SSL, OAuth](kafka-authentication-sasl-ssl-oauth.md). For broader security context covering authorization, encryption, and operational best practices, refer to [Kafka Security Best Practices](kafka-security-best-practices.md).
+mTLS is one of several authentication mechanisms available in Kafka. For a comprehensive comparison of authentication approaches including SASL/SCRAM, SASL/PLAIN, and OAuth 2.0, see [Kafka Authentication: SASL, SSL, OAuth](https://conduktor.io/glossary/kafka-authentication-sasl-ssl-oauth). For broader security context covering authorization, encryption, and operational best practices, refer to [Kafka Security Best Practices](https://conduktor.io/glossary/kafka-security-best-practices).
 
 ## Understanding mTLS vs. One-Way TLS
 
@@ -23,7 +23,7 @@ Traditional TLS (often called one-way TLS) establishes an encrypted connection w
 
 Mutual TLS adds a critical second verification step. After the client verifies the server's certificate, the server requests the client's certificate and validates it against its own trusted CA. Both parties must successfully authenticate each other before any data exchange occurs.
 
-While mTLS provides authentication (proving identity), it works in conjunction with encryption in transit. For detailed coverage of how TLS encryption protects Kafka data as it moves through your infrastructure, see [Encryption at Rest and In Transit for Kafka](encryption-at-rest-and-in-transit-for-kafka.md).
+While mTLS provides authentication (proving identity), it works in conjunction with encryption in transit. For detailed coverage of how TLS encryption protects Kafka data as it moves through your infrastructure, see [Encryption at Rest and In Transit for Kafka](https://conduktor.io/glossary/encryption-at-rest-and-in-transit-for-kafka).
 
 ![mtls-for-kafka diagram 1](images/diagrams/mtls-for-kafka-0.webp)
 

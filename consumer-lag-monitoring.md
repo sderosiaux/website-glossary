@@ -134,7 +134,7 @@ Sophisticated streaming architectures employ lag-aware patterns:
 
 **Time-Based Lag Monitoring**: In addition to message count lag, monitor time-based lag (how old the messages being processed are). For time-sensitive applications, a 5-minute time lag might be more meaningful than 10,000 message lag.
 
-**Lag-Aware Load Shedding**: When lag becomes critical, implement strategies to shed load temporarily—processing only high-priority messages, sampling data, or bypassing expensive enrichment steps to catch up faster. See [Backpressure Handling in Streaming Systems](backpressure-handling-in-streaming-systems.md) for related patterns.
+**Lag-Aware Load Shedding**: When lag becomes critical, implement strategies to shed load temporarily—processing only high-priority messages, sampling data, or bypassing expensive enrichment steps to catch up faster. See [Backpressure Handling in Streaming Systems](https://conduktor.io/glossary/backpressure-handling-in-streaming-systems) for related patterns.
 
 **Circuit Breaker Integration**: Connect lag monitoring to circuit breaker patterns. If a downstream dependency is causing backpressure and increasing lag, open the circuit breaker to prevent further degradation while alerting operators.
 

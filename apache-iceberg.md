@@ -45,7 +45,7 @@ Iceberg organizes data through multiple metadata layers that manage both data an
 
 Each write operation in Iceberg creates a **new snapshot** without altering existing data. This *copy-on-write* model allows atomic commits and concurrent readers.
 
-For comprehensive coverage of Iceberg's internal architecture, metadata layers, and snapshot mechanics, see [Iceberg Table Architecture: Metadata and Snapshots](iceberg-table-architecture-metadata-and-snapshots.md).
+For comprehensive coverage of Iceberg's internal architecture, metadata layers, and snapshot mechanics, see [Iceberg Table Architecture: Metadata and Snapshots](https://conduktor.io/glossary/iceberg-table-architecture-metadata-and-snapshots).
 
 A simplified example:
 
@@ -99,7 +99,7 @@ In a data lakehouse, Iceberg acts as the **storage and transaction layer** that 
 
 Major query engines — **Spark, Trino, Snowflake, Flink, and Dremio** — natively support Iceberg, enabling teams to query the same datasets with different compute engines. This interoperability makes Iceberg ideal for multi-engine and multi-cloud environments.
 
-Iceberg integrates with metadata catalogs such as **AWS Glue**, **Hive Metastore**, **Project Nessie**, and **Apache Polaris**, allowing unified table discovery, access control, and schema management. For detailed catalog comparisons, configuration, and migration strategies, see [Iceberg Catalog Management: Hive, Glue, and Nessie](iceberg-catalog-management-hive-glue-and-nessie.md).
+Iceberg integrates with metadata catalogs such as **AWS Glue**, **Hive Metastore**, **Project Nessie**, and **Apache Polaris**, allowing unified table discovery, access control, and schema management. For detailed catalog comparisons, configuration, and migration strategies, see [Iceberg Catalog Management: Hive, Glue, and Nessie](https://conduktor.io/glossary/iceberg-catalog-management-hive-glue-and-nessie).
 
 Combined with features like **Z-order clustering**, **configurable file compaction**, and **metadata pruning**, Iceberg delivers warehouse-grade performance on top of open storage.
 
@@ -109,7 +109,7 @@ Combined with features like **Z-order clustering**, **configurable file compacti
 
 Streaming data systems like Kafka and Flink continuously generate small batches of events — a pattern that doesn't fit traditional batch-oriented storage. Iceberg bridges this gap by supporting **incremental ingestion and CDC (Change Data Capture)** at scale.
 
-For understanding how Kafka streaming integrates with data lakes, see [Apache Kafka](apache-kafka.md). For CDC implementation details, see [Implementing CDC with Debezium](implementing-cdc-with-debezium.md).
+For understanding how Kafka streaming integrates with data lakes, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka). For CDC implementation details, see [Implementing CDC with Debezium](https://conduktor.io/glossary/implementing-cdc-with-debezium).
 
 ### Streaming Patterns
 

@@ -20,7 +20,7 @@ When a producer sends a message to a topic, Kafka assigns it to a specific parti
 
 Partitions serve three key purposes: they enable data distribution across multiple servers for fault tolerance, they allow parallel processing by multiple consumers, and they provide ordering guarantees within each partition (though not across partitions).
 
-For foundational understanding of how partitions fit into Kafka's architecture, see [Kafka Topics, Partitions, Brokers: Core Architecture](kafka-topics-partitions-brokers-core-architecture.md).
+For foundational understanding of how partitions fit into Kafka's architecture, see [Kafka Topics, Partitions, Brokers: Core Architecture](https://conduktor.io/glossary/kafka-topics-partitions-brokers-core-architecture).
 
 ## Partitioning Strategies in Kafka
 
@@ -89,7 +89,7 @@ props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class.get
 KafkaProducer<String, PriorityMessage> producer = new KafkaProducer<>(props);
 ```
 
-For more details on producer configuration and message sending patterns, see [Kafka Producers](kafka-producers.md).
+For more details on producer configuration and message sending patterns, see [Kafka Producers](https://conduktor.io/glossary/kafka-producers).
 
 ## Key Design Considerations
 
@@ -112,7 +112,7 @@ Kafka only guarantees ordering within a partition, not across partitions. If str
 
 The number of partitions determines the maximum parallelism for consumers. A consumer group can have at most one consumer per partition. If you have 10 partitions, adding an 11th consumer to the group won't increase parallelism. Plan your partition count based on your expected consumer scaling needs.
 
-For detailed coverage of consumer group behavior and partition assignment, see [Kafka Consumer Groups Explained](kafka-consumer-groups-explained.md).
+For detailed coverage of consumer group behavior and partition assignment, see [Kafka Consumer Groups Explained](https://conduktor.io/glossary/kafka-consumer-groups-explained).
 
 ### Partition Assignment Strategies
 
@@ -173,7 +173,7 @@ Excessive partitions increase memory overhead on brokers, slow down leader elect
 - Better metadata scalability for large partition counts
 - Reduced operational complexity for partition-heavy workloads
 
-For more on KRaft mode's improvements, see [Understanding KRaft Mode in Kafka](understanding-kraft-mode-in-kafka.md).
+For more on KRaft mode's improvements, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka).
 
 ### Ignoring Key Null Values
 
@@ -203,7 +203,7 @@ Calculate your initial partition count based on:
 
 **Note:** Partition throughput depends on message size, compression, replication factor, and disk I/O. Test with realistic workloads to determine your cluster's per-partition capacity.
 
-For comprehensive guidance on sizing Kafka clusters and planning partition capacity, see [Kafka Capacity Planning](kafka-capacity-planning.md).
+For comprehensive guidance on sizing Kafka clusters and planning partition capacity, see [Kafka Capacity Planning](https://conduktor.io/glossary/kafka-capacity-planning).
 
 ### Choosing Partition Keys
 
@@ -281,7 +281,7 @@ kafka_consumergroup_group_lag{partition="0",topic="orders"} 1523
 
 Significant variance in these metrics (>20% deviation from mean) indicates skew that may require addressing through key redesign or custom partitioners.
 
-For comprehensive monitoring strategies and metrics collection, see [Kafka Cluster Monitoring and Metrics](kafka-cluster-monitoring-and-metrics.md).
+For comprehensive monitoring strategies and metrics collection, see [Kafka Cluster Monitoring and Metrics](https://conduktor.io/glossary/kafka-cluster-monitoring-and-metrics).
 
 ### Consumer Lag Analysis
 

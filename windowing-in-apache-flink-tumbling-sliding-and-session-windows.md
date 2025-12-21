@@ -479,7 +479,7 @@ DataStream<Tuple3<String, Double, Long>> result = sensorStream
 
 ## Integration with Apache Kafka
 
-Apache Kafka serves as the de facto standard for event streaming, making Flink-Kafka integration crucial for production deployments. Flink's windowing capabilities work seamlessly with Kafka sources. For comprehensive coverage of Kafka fundamentals, see [Apache Kafka](apache-kafka.md).
+Apache Kafka serves as the de facto standard for event streaming, making Flink-Kafka integration crucial for production deployments. Flink's windowing capabilities work seamlessly with Kafka sources. For comprehensive coverage of Kafka fundamentals, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
 
 ### Watermarks and Late Data
 
@@ -491,11 +491,11 @@ Managing Kafka topics and ensuring data quality in streaming pipelines requires 
 
 When operating windowed Flink applications at scale, governance platforms enable:
 - **Topic monitoring**: Track message rates and partition distribution for input/output topics
-- **Schema governance**: Ensure event schemas remain compatible across pipeline stages (see [Avro vs Protobuf vs JSON Schema](avro-vs-protobuf-vs-json-schema.md))
-- **Consumer lag tracking**: Monitor Flink consumer groups and detect processing delays that could affect window accuracy (see [Consumer Lag Monitoring](consumer-lag-monitoring.md))
-- **Data quality rules**: Validate event timestamps and structure before they enter windowing logic (see [Building a Data Quality Framework](building-a-data-quality-framework.md))
+- **Schema governance**: Ensure event schemas remain compatible across pipeline stages (see [Avro vs Protobuf vs JSON Schema](https://conduktor.io/glossary/avro-vs-protobuf-vs-json-schema))
+- **Consumer lag tracking**: Monitor Flink consumer groups and detect processing delays that could affect window accuracy (see [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring))
+- **Data quality rules**: Validate event timestamps and structure before they enter windowing logic (see [Building a Data Quality Framework](https://conduktor.io/glossary/building-a-data-quality-framework))
 
-This governance layer becomes essential when managing multiple Flink jobs consuming from shared Kafka topics, ensuring consistent event time semantics across the organization. For error handling in windowed applications, see [Dead Letter Queues for Error Handling](dead-letter-queues-for-error-handling.md).
+This governance layer becomes essential when managing multiple Flink jobs consuming from shared Kafka topics, ensuring consistent event time semantics across the organization. For error handling in windowed applications, see [Dead Letter Queues for Error Handling](https://conduktor.io/glossary/dead-letter-queues-for-error-handling).
 
 ## Best Practices and Performance Considerations
 
@@ -778,11 +778,11 @@ Choosing the appropriate window type depends on your use case: tumbling for disc
 Understanding window functions—from incremental aggregations to full window processing—enables you to balance performance and functionality. Combined with proper governance tools for monitoring Kafka infrastructure, these techniques form the foundation of robust, production-ready stream processing pipelines.
 
 For deeper dives into related topics:
-- [Event Time and Watermarks in Flink](event-time-and-watermarks-in-flink.md) - Comprehensive guide to Flink's time semantics
-- [Flink DataStream API: Building Streaming Applications](flink-datastream-api-building-streaming-applications.md) - Complete DataStream API reference
-- [Flink State Management and Checkpointing](flink-state-management-and-checkpointing.md) - Managing window state at scale
-- [Handling Late-Arriving Data in Streaming](handling-late-arriving-data-in-streaming.md) - Advanced late data strategies
-- [Backpressure Handling in Streaming Systems](backpressure-handling-in-streaming-systems.md) - Managing throughput and window performance
+- [Event Time and Watermarks in Flink](https://conduktor.io/glossary/event-time-and-watermarks-in-flink) - Comprehensive guide to Flink's time semantics
+- [Flink DataStream API: Building Streaming Applications](https://conduktor.io/glossary/flink-datastream-api-building-streaming-applications) - Complete DataStream API reference
+- [Flink State Management and Checkpointing](https://conduktor.io/glossary/flink-state-management-and-checkpointing) - Managing window state at scale
+- [Handling Late-Arriving Data in Streaming](https://conduktor.io/glossary/handling-late-arriving-data-in-streaming) - Advanced late data strategies
+- [Backpressure Handling in Streaming Systems](https://conduktor.io/glossary/backpressure-handling-in-streaming-systems) - Managing throughput and window performance
 
 ## Sources and References
 

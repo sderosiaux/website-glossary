@@ -15,7 +15,7 @@ Apache Iceberg has emerged as a leading table format for data lakehouses, addres
 
 This article explores Iceberg's architectural components, focusing on how metadata layers and snapshots work together to provide reliable, scalable data management for modern data platforms.
 
-For a broader overview of Iceberg's features and ecosystem, see [Apache Iceberg](apache-iceberg.md). For practical catalog implementation guidance, refer to [Iceberg Catalog Management: Hive, Glue, and Nessie](iceberg-catalog-management-hive-glue-and-nessie.md).
+For a broader overview of Iceberg's features and ecosystem, see [Apache Iceberg](https://conduktor.io/glossary/apache-iceberg). For practical catalog implementation guidance, refer to [Iceberg Catalog Management: Hive, Glue, and Nessie](https://conduktor.io/glossary/iceberg-catalog-management-hive-glue-and-nessie).
 
 ## The Three-Layer Metadata Architecture
 
@@ -159,7 +159,7 @@ SELECT * FROM orders
 FOR SYSTEM_TIME AS OF '2025-01-15 10:00:00';
 ```
 
-For detailed time travel patterns and use cases, see [Time Travel with Apache Iceberg](time-travel-with-apache-iceberg.md).
+For detailed time travel patterns and use cases, see [Time Travel with Apache Iceberg](https://conduktor.io/glossary/time-travel-with-apache-iceberg).
 
 **Rollback**: Revert to previous snapshots instantly without data movement:
 
@@ -230,7 +230,7 @@ Iceberg tracks schema changes with unique field IDs that remain constant even wh
 
 Each schema change creates a new schema version in the metadata file, but existing data files remain valid. Query engines use the schema evolution history to correctly read older files.
 
-For comprehensive schema evolution patterns, best practices, and migration strategies, see [Schema Evolution in Apache Iceberg](schema-evolution-in-apache-iceberg.md).
+For comprehensive schema evolution patterns, best practices, and migration strategies, see [Schema Evolution in Apache Iceberg](https://conduktor.io/glossary/schema-evolution-in-apache-iceberg).
 
 ### Partition Evolution
 
@@ -246,7 +246,7 @@ ALTER TABLE events
 SET PARTITION SPEC (hour(event_time));
 ```
 
-Iceberg maintains partition evolution history, ensuring queries correctly apply partition filters regardless of when data was written. For detailed partitioning strategies and performance optimization techniques, see [Iceberg Partitioning and Performance Optimization](iceberg-partitioning-and-performance-optimization.md).
+Iceberg maintains partition evolution history, ensuring queries correctly apply partition filters regardless of when data was written. For detailed partitioning strategies and performance optimization techniques, see [Iceberg Partitioning and Performance Optimization](https://conduktor.io/glossary/iceberg-partitioning-and-performance-optimization).
 
 ## Metadata Tables for Operational Monitoring
 
@@ -293,7 +293,7 @@ Metadata tables integrate seamlessly with BI tools and monitoring dashboards, pr
 
 ## Streaming Ecosystem Integration
 
-Iceberg's architecture is well-suited for streaming data ingestion, providing exactly-once semantics and low-latency visibility of new data. For architectural patterns and best practices for streaming ingestion, see [Streaming Ingestion to Lakehouse](streaming-ingestion-to-lakehouse.md) and [Streaming to Lakehouse Tables](streaming-to-lakehouse-tables.md).
+Iceberg's architecture is well-suited for streaming data ingestion, providing exactly-once semantics and low-latency visibility of new data. For architectural patterns and best practices for streaming ingestion, see [Streaming Ingestion to Lakehouse](https://conduktor.io/glossary/streaming-ingestion-to-lakehouse) and [Streaming to Lakehouse Tables](https://conduktor.io/glossary/streaming-to-lakehouse-tables).
 
 ### Kafka and Flink Integration
 
@@ -354,7 +354,7 @@ Iceberg supports streaming reads through incremental snapshots:
 
 - **Micro-batch streaming**: Poll for new snapshots at regular intervals
 - **Continuous streaming**: Subscribe to catalog notifications for new commits
-- **CDC patterns**: Use row-level deletes and position deletes for change data capture (see [Implementing CDC with Debezium](implementing-cdc-with-debezium.md) for CDC to Iceberg patterns)
+- **CDC patterns**: Use row-level deletes and position deletes for change data capture (see [Implementing CDC with Debezium](https://conduktor.io/glossary/implementing-cdc-with-debezium) for CDC to Iceberg patterns)
 
 Tools like Apache Flink, Apache Spark Structured Streaming, and Kafka Connect can consume Iceberg tables incrementally, enabling real-time analytics pipelines.
 
@@ -373,7 +373,7 @@ This governance layer ensures that the flexibility of Iceberg's architecture doe
 
 ## Metadata Optimization and Maintenance
 
-While Iceberg's metadata architecture provides powerful capabilities, it requires periodic maintenance to prevent metadata bloat. For comprehensive maintenance procedures and strategies, see [Maintaining Iceberg Tables: Compaction and Cleanup](maintaining-iceberg-tables-compaction-and-cleanup.md).
+While Iceberg's metadata architecture provides powerful capabilities, it requires periodic maintenance to prevent metadata bloat. For comprehensive maintenance procedures and strategies, see [Maintaining Iceberg Tables: Compaction and Cleanup](https://conduktor.io/glossary/maintaining-iceberg-tables-compaction-and-cleanup).
 
 ### Snapshot Expiration
 
@@ -444,14 +444,14 @@ Understanding these architectural components is essential for data engineers bui
 As organizations adopt streaming-first architectures with tools like Kafka and Flink, Iceberg's snapshot model provides the transactional guarantees needed for production-grade real-time analytics.
 
 **Related Articles**:
-- [Apache Iceberg](apache-iceberg.md) - Comprehensive overview of Iceberg features
-- [Time Travel with Apache Iceberg](time-travel-with-apache-iceberg.md) - Advanced time travel patterns
-- [Schema Evolution in Apache Iceberg](schema-evolution-in-apache-iceberg.md) - Schema evolution best practices
-- [Iceberg Partitioning and Performance Optimization](iceberg-partitioning-and-performance-optimization.md) - Partitioning strategies
-- [Maintaining Iceberg Tables: Compaction and Cleanup](maintaining-iceberg-tables-compaction-and-cleanup.md) - Maintenance procedures
-- [Iceberg Catalog Management: Hive, Glue, and Nessie](iceberg-catalog-management-hive-glue-and-nessie.md) - Catalog implementations
-- [Streaming Ingestion to Lakehouse](streaming-ingestion-to-lakehouse.md) - Streaming architecture patterns
-- [Implementing CDC with Debezium](implementing-cdc-with-debezium.md) - CDC to Iceberg integration
+- [Apache Iceberg](https://conduktor.io/glossary/apache-iceberg) - Comprehensive overview of Iceberg features
+- [Time Travel with Apache Iceberg](https://conduktor.io/glossary/time-travel-with-apache-iceberg) - Advanced time travel patterns
+- [Schema Evolution in Apache Iceberg](https://conduktor.io/glossary/schema-evolution-in-apache-iceberg) - Schema evolution best practices
+- [Iceberg Partitioning and Performance Optimization](https://conduktor.io/glossary/iceberg-partitioning-and-performance-optimization) - Partitioning strategies
+- [Maintaining Iceberg Tables: Compaction and Cleanup](https://conduktor.io/glossary/maintaining-iceberg-tables-compaction-and-cleanup) - Maintenance procedures
+- [Iceberg Catalog Management: Hive, Glue, and Nessie](https://conduktor.io/glossary/iceberg-catalog-management-hive-glue-and-nessie) - Catalog implementations
+- [Streaming Ingestion to Lakehouse](https://conduktor.io/glossary/streaming-ingestion-to-lakehouse) - Streaming architecture patterns
+- [Implementing CDC with Debezium](https://conduktor.io/glossary/implementing-cdc-with-debezium) - CDC to Iceberg integration
 
 ## Sources and References
 

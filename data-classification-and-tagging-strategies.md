@@ -17,7 +17,7 @@ In modern data architectures, particularly those built on streaming platforms li
 
 Data classification is the systematic organization of data into categories based on sensitivity, regulatory requirements, and business criticality. This process enables organizations to apply appropriate security controls, access policies, and retention strategies to different data types.
 
-For Data Governance Officers and Security Engineers, classification serves multiple purposes: it reduces risk exposure, ensures compliance with regulations like GDPR and CCPA (see [GDPR Compliance for Data Teams](gdpr-compliance-for-data-teams.md)), and optimizes resource allocation by focusing protection efforts where they matter most.
+For Data Governance Officers and Security Engineers, classification serves multiple purposes: it reduces risk exposure, ensures compliance with regulations like GDPR and CCPA (see [GDPR Compliance for Data Teams](https://conduktor.io/glossary/gdpr-compliance-for-data-teams)), and optimizes resource allocation by focusing protection efforts where they matter most.
 
 ## Classification Levels and Frameworks
 
@@ -29,7 +29,7 @@ A well-designed classification framework typically includes four to five levels:
 
 **Confidential Data**: Sensitive business information such as financial records, strategic plans, or customer data that could cause significant harm if disclosed.
 
-**Restricted Data**: Highly sensitive information including personally identifiable information (PII), protected health information (PHI), payment card data, or trade secrets requiring the highest level of protection. For detailed PII handling strategies, see [PII Detection and Handling in Event Streams](pii-detection-and-handling-in-event-streams.md).
+**Restricted Data**: Highly sensitive information including personally identifiable information (PII), protected health information (PHI), payment card data, or trade secrets requiring the highest level of protection. For detailed PII handling strategies, see [PII Detection and Handling in Event Streams](https://conduktor.io/glossary/pii-detection-and-handling-in-event-streams).
 
 Some organizations add a fifth tier for regulated data requiring specific compliance controls under frameworks like HIPAA, PCI-DSS, or SOX.
 
@@ -39,7 +39,7 @@ In streaming architectures, classification metadata must travel with the data it
 
 ### Message Header Tagging
 
-Apache Kafka supports message headers (introduced in Kafka 0.11+, enhanced in Kafka 4.0 with KRaft mode), making them ideal for carrying classification metadata. For comprehensive Kafka header usage patterns, see [Using Kafka Headers Effectively](using-kafka-headers-effectively.md). Each event can include headers like:
+Apache Kafka supports message headers (introduced in Kafka 0.11+, enhanced in Kafka 4.0 with KRaft mode), making them ideal for carrying classification metadata. For comprehensive Kafka header usage patterns, see [Using Kafka Headers Effectively](https://conduktor.io/glossary/using-kafka-headers-effectively). Each event can include headers like:
 
 ```
 classification: CONFIDENTIAL
@@ -281,7 +281,7 @@ finally:
 
 ### Schema Registry Integration
 
-Schema Registry is Confluent's centralized service for managing and validating schemas in Kafka environments. By embedding classification metadata directly in schemas, you ensure that every message using that schema inherits the classification automatically, preventing unclassified data from entering your system. For detailed Schema Registry implementation, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md) and [Schema Evolution Best Practices](schema-evolution-best-practices.md).
+Schema Registry is Confluent's centralized service for managing and validating schemas in Kafka environments. By embedding classification metadata directly in schemas, you ensure that every message using that schema inherits the classification automatically, preventing unclassified data from entering your system. For detailed Schema Registry implementation, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) and [Schema Evolution Best Practices](https://conduktor.io/glossary/schema-evolution-best-practices).
 
 Confluent Schema Registry supports custom properties that can include:
 
@@ -525,7 +525,7 @@ owners:
     contact: customer-data@company.com
 ```
 
-Tools like **Confluent Schema Registry with Data Contracts** or **Soda Core** can validate that producers honor these classification commitments. For detailed contract implementation, see [Data Contracts for Reliable Pipelines](data-contracts-for-reliable-pipelines.md).
+Tools like **Confluent Schema Registry with Data Contracts** or **Soda Core** can validate that producers honor these classification commitments. For detailed contract implementation, see [Data Contracts for Reliable Pipelines](https://conduktor.io/glossary/data-contracts-for-reliable-pipelines).
 
 ### Classification in Stream Processing Pipelines
 
@@ -567,13 +567,13 @@ stream
     ));
 ```
 
-For more on stream processing patterns that preserve metadata, see [Introduction to Kafka Streams](introduction-to-kafka-streams.md) and [What is Apache Flink](what-is-apache-flink-stateful-stream-processing.md).
+For more on stream processing patterns that preserve metadata, see [Introduction to Kafka Streams](https://conduktor.io/glossary/introduction-to-kafka-streams) and [What is Apache Flink](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing).
 
 ## Practical Implementation Strategies
 
 ### Start with Data Discovery
 
-Before classifying data, you need to know what you have. Implement automated scanning tools that inspect message payloads and schemas to identify potential PII, financial data, or other sensitive information. Many organizations discover sensitive data flowing through systems they believed contained only operational metrics. For comprehensive data discovery approaches, see [Building a Business Glossary for Data Governance](building-a-business-glossary-for-data-governance.md).
+Before classifying data, you need to know what you have. Implement automated scanning tools that inspect message payloads and schemas to identify potential PII, financial data, or other sensitive information. Many organizations discover sensitive data flowing through systems they believed contained only operational metrics. For comprehensive data discovery approaches, see [Building a Business Glossary for Data Governance](https://conduktor.io/glossary/building-a-business-glossary-for-data-governance).
 
 ### Establish Clear Ownership
 
@@ -585,7 +585,7 @@ Manual classification doesn't scale in streaming environments. Leverage schema v
 
 ### Implement Progressive Controls
 
-Apply security controls proportional to classification levels. Public data might require only basic access logging, while restricted data demands encryption at rest and in transit, strict access controls, audit trails, and limited retention periods. For comprehensive security patterns, see [Kafka Security Best Practices](kafka-security-best-practices.md) and [Data Masking and Anonymization for Streaming](data-masking-and-anonymization-for-streaming.md).
+Apply security controls proportional to classification levels. Public data might require only basic access logging, while restricted data demands encryption at rest and in transit, strict access controls, audit trails, and limited retention periods. For comprehensive security patterns, see [Kafka Security Best Practices](https://conduktor.io/glossary/kafka-security-best-practices) and [Data Masking and Anonymization for Streaming](https://conduktor.io/glossary/data-masking-and-anonymization-for-streaming).
 
 ### Regular Classification Reviews
 
@@ -595,15 +595,15 @@ Data sensitivity changes over time. Customer emails might become public after op
 
 Classification and tagging strategies must integrate with broader security infrastructure to provide defense-in-depth. Connect Kafka classification metadata to:
 
-- **Identity and Access Management (IAM)**: Use classification tags to drive Role-Based Access Control (RBAC) policies in Kafka ACLs (Access Control Lists) and authorization systems. For example, only users with "restricted-data-access" role can consume from topics tagged as RESTRICTED. See [Data Access Control RBAC and ABAC](data-access-control-rbac-and-abac.md) for implementation patterns.
+- **Identity and Access Management (IAM)**: Use classification tags to drive Role-Based Access Control (RBAC) policies in Kafka ACLs (Access Control Lists) and authorization systems. For example, only users with "restricted-data-access" role can consume from topics tagged as RESTRICTED. See [Data Access Control RBAC and ABAC](https://conduktor.io/glossary/data-access-control-rbac-and-abac) for implementation patterns.
 
 - **Data Loss Prevention (DLP)**: Feed classification metadata to DLP systems for monitoring egress points and preventing unauthorized data exfiltration. DLP tools can automatically block or quarantine messages with CONFIDENTIAL or RESTRICTED classifications from being sent to unauthorized destinations.
 
-- **Security Information and Event Management (SIEM) platforms**: Include classification context in security event logs for better threat detection and forensics. When a security incident occurs, knowing the classification level of accessed data helps prioritize response efforts. For audit logging implementation, see [Audit Logging for Streaming Platforms](audit-logging-for-streaming-platforms.md).
+- **Security Information and Event Management (SIEM) platforms**: Include classification context in security event logs for better threat detection and forensics. When a security incident occurs, knowing the classification level of accessed data helps prioritize response efforts. For audit logging implementation, see [Audit Logging for Streaming Platforms](https://conduktor.io/glossary/audit-logging-for-streaming-platforms).
 
-- **Data catalogs**: Synchronize classification information with enterprise data catalogs for unified governance across streaming and batch systems. This ensures analysts and data scientists see consistent classification whether accessing Kafka streams or data warehouse tables. See [What is a Data Catalog](what-is-a-data-catalog-modern-data-discovery.md) for more details.
+- **Data catalogs**: Synchronize classification information with enterprise data catalogs for unified governance across streaming and batch systems. This ensures analysts and data scientists see consistent classification whether accessing Kafka streams or data warehouse tables. See [What is a Data Catalog](https://conduktor.io/glossary/what-is-a-data-catalog-modern-data-discovery) for more details.
 
-- **Encryption systems**: Automatically apply encryption policies based on classification levels. RESTRICTED data might require field-level encryption, while CONFIDENTIAL data needs encryption in transit. See [Encryption at Rest and in Transit for Kafka](encryption-at-rest-and-in-transit-for-kafka.md) for comprehensive encryption strategies.
+- **Encryption systems**: Automatically apply encryption policies based on classification levels. RESTRICTED data might require field-level encryption, while CONFIDENTIAL data needs encryption in transit. See [Encryption at Rest and in Transit for Kafka](https://conduktor.io/glossary/encryption-at-rest-and-in-transit-for-kafka) for comprehensive encryption strategies.
 
 ## Conclusion
 

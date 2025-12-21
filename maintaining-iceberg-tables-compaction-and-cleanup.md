@@ -13,7 +13,7 @@ topics:
 
 Apache Iceberg's time-travel capabilities and transactional guarantees come with a maintenance cost: small files, expired snapshots, and orphan data files can accumulate over time. Without proper maintenance, these artifacts degrade query performance, inflate storage costs, and complicate metadata management. This article explores the essential maintenance procedures that keep Iceberg tables healthy and performant in production environments.
 
-For foundational understanding of Iceberg's architecture and how maintenance relates to metadata layers, see [Iceberg Table Architecture: Metadata and Snapshots](iceberg-table-architecture-metadata-and-snapshots.md). For broader lakehouse context, refer to [Introduction to Lakehouse Architecture](introduction-to-lakehouse-architecture.md).
+For foundational understanding of Iceberg's architecture and how maintenance relates to metadata layers, see [Iceberg Table Architecture: Metadata and Snapshots](https://conduktor.io/glossary/iceberg-table-architecture-metadata-and-snapshots). For broader lakehouse context, refer to [Introduction to Lakehouse Architecture](https://conduktor.io/glossary/introduction-to-lakehouse-architecture).
 
 ## Understanding Iceberg's Maintenance Challenges
 
@@ -27,7 +27,7 @@ Iceberg tables can accumulate numerous small files through incremental writes, s
 
 ### Metadata Growth
 
-Every commit to an Iceberg table creates a new snapshot, capturing the table's state at that point in time. Each snapshot references manifest files, which in turn reference data files. Over time, this metadata accumulates (for detailed architecture, see [Iceberg Table Architecture: Metadata and Snapshots](iceberg-table-architecture-metadata-and-snapshots.md)):
+Every commit to an Iceberg table creates a new snapshot, capturing the table's state at that point in time. Each snapshot references manifest files, which in turn reference data files. Over time, this metadata accumulates (for detailed architecture, see [Iceberg Table Architecture: Metadata and Snapshots](https://conduktor.io/glossary/iceberg-table-architecture-metadata-and-snapshots)):
 
 - Snapshot history grows linearly with commit frequency
 - Manifest files accumulate faster in tables with frequent schema evolution or partition changes
@@ -671,12 +671,12 @@ By following the best practices and automation patterns outlined here, data plat
 
 ## Related Articles
 
-- [Iceberg Table Architecture: Metadata and Snapshots](iceberg-table-architecture-metadata-and-snapshots.md) - Understanding Iceberg's internal architecture
-- [Apache Iceberg](apache-iceberg.md) - Comprehensive overview of Iceberg features
-- [Introduction to Lakehouse Architecture](introduction-to-lakehouse-architecture.md) - Lakehouse fundamentals and ecosystem
-- [Time Travel with Apache Iceberg](time-travel-with-apache-iceberg.md) - Advanced time travel and snapshot management
-- [Schema Evolution in Apache Iceberg](schema-evolution-in-apache-iceberg.md) - Managing schema changes safely
-- [Iceberg Partitioning and Performance Optimization](iceberg-partitioning-and-performance-optimization.md) - Partitioning strategies
+- [Iceberg Table Architecture: Metadata and Snapshots](https://conduktor.io/glossary/iceberg-table-architecture-metadata-and-snapshots) - Understanding Iceberg's internal architecture
+- [Apache Iceberg](https://conduktor.io/glossary/apache-iceberg) - Comprehensive overview of Iceberg features
+- [Introduction to Lakehouse Architecture](https://conduktor.io/glossary/introduction-to-lakehouse-architecture) - Lakehouse fundamentals and ecosystem
+- [Time Travel with Apache Iceberg](https://conduktor.io/glossary/time-travel-with-apache-iceberg) - Advanced time travel and snapshot management
+- [Schema Evolution in Apache Iceberg](https://conduktor.io/glossary/schema-evolution-in-apache-iceberg) - Managing schema changes safely
+- [Iceberg Partitioning and Performance Optimization](https://conduktor.io/glossary/iceberg-partitioning-and-performance-optimization) - Partitioning strategies
 
 ## Sources and References
 

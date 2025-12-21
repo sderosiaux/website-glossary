@@ -15,7 +15,7 @@ In stream processing, choosing the right windowing strategy determines how you a
 
 ## What Are Session Windows?
 
-Session windows are dynamic, data-driven windows that group events together based on periods of activity separated by a configurable gap of inactivity. Unlike tumbling windows (fixed, non-overlapping intervals) or hopping windows (fixed, overlapping intervals), session windows have no predetermined start or end time. Instead, they close only after a specified period of inactivity occurs. For comprehensive coverage of all window types in Flink, see [Windowing in Apache Flink: Tumbling, Sliding, and Session Windows](windowing-in-apache-flink-tumbling-sliding-and-session-windows.md).
+Session windows are dynamic, data-driven windows that group events together based on periods of activity separated by a configurable gap of inactivity. Unlike tumbling windows (fixed, non-overlapping intervals) or hopping windows (fixed, overlapping intervals), session windows have no predetermined start or end time. Instead, they close only after a specified period of inactivity occurs. For comprehensive coverage of all window types in Flink, see [Windowing in Apache Flink: Tumbling, Sliding, and Session Windows](https://conduktor.io/glossary/windowing-in-apache-flink-tumbling-sliding-and-session-windows).
 
 The key parameter in session windowing is the **session gap** or **timeout duration**. When events from the same key arrive within this gap, they belong to the same session. If the gap exceeds the timeout, the current session closes and a new session begins with the next event.
 
@@ -136,7 +136,7 @@ Session windows are particularly sensitive to late data since late events can ex
 - In Kafka Streams, use `grace()` to allow late data within a grace period
 - In Flink, configure `allowedLateness()` on window operations
 
-Understanding how watermarks track event time progression is crucial for accurate late data handling. For detailed coverage of watermarks and how they determine when windows can close, see [Watermarks and Triggers in Stream Processing](watermarks-and-triggers-in-stream-processing.md) and [Event Time and Watermarks in Flink](event-time-and-watermarks-in-flink.md).
+Understanding how watermarks track event time progression is crucial for accurate late data handling. For detailed coverage of watermarks and how they determine when windows can close, see [Watermarks and Triggers in Stream Processing](https://conduktor.io/glossary/watermarks-and-triggers-in-stream-processing) and [Event Time and Watermarks in Flink](https://conduktor.io/glossary/event-time-and-watermarks-in-flink).
 
 ### State Management
 
@@ -150,7 +150,7 @@ Monitor state size and consider:
 - Using RocksDB state backend (Kafka Streams, Flink) for larger-than-memory state
 - Implementing session timeouts or maximum session durations
 
-For deeper understanding of how Kafka Streams manages state for windowing operations, including state stores, changelog topics, and fault tolerance mechanisms, see [State Stores in Kafka Streams](state-stores-in-kafka-streams.md).
+For deeper understanding of how Kafka Streams manages state for windowing operations, including state stores, changelog topics, and fault tolerance mechanisms, see [State Stores in Kafka Streams](https://conduktor.io/glossary/state-stores-in-kafka-streams).
 
 ### Monitoring and Observability
 
@@ -166,7 +166,7 @@ Modern observability practices for session windows (as of 2025) include:
 - **Platform monitoring**: Tools like Conduktor provide observability into Kafka Streams applications, allowing you to monitor session window state stores, track lag, and debug window behavior in production environments
 - **OpenTelemetry integration**: Instrument session window operations with distributed tracing to track event flow through windowing logic, measure latency, and correlate window closures with downstream processing
 - **Kafka 4.0 metrics**: Leverage improved metrics APIs in Kafka 4.0 for granular monitoring of window state store sizes, compaction rates, and restoration times
-- **Consumer lag monitoring**: Track windowed consumer group lag to detect processing bottlenecks. For comprehensive lag monitoring strategies, see [Consumer Lag Monitoring](consumer-lag-monitoring.md)
+- **Consumer lag monitoring**: Track windowed consumer group lag to detect processing bottlenecks. For comprehensive lag monitoring strategies, see [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring)
 
 ## Session Windows and Data Streaming Architecture
 
@@ -181,7 +181,7 @@ In a typical architecture, session windows integrate with:
 
 Session windows also interact with other streaming concepts like exactly-once semantics, compaction, and retention policies. For instance, session window results often feed into compacted topics where only the latest session state matters.
 
-Testing session window logic requires strategies for handling time progression, out-of-order events, and window merging behavior. For comprehensive testing approaches including unit testing with time manipulation and integration testing with embedded clusters, see [Testing Strategies for Streaming Applications](testing-strategies-for-streaming-applications.md).
+Testing session window logic requires strategies for handling time progression, out-of-order events, and window merging behavior. For comprehensive testing approaches including unit testing with time manipulation and integration testing with embedded clusters, see [Testing Strategies for Streaming Applications](https://conduktor.io/glossary/testing-strategies-for-streaming-applications).
 
 ## Summary
 

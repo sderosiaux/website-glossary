@@ -22,7 +22,7 @@ Resource efficiency is another key benefit. Kubernetes allows teams to run multi
 
 Infrastructure portability also matters. Kafka deployments on Kubernetes can run consistently across different cloud providers and on-premises data centers. This flexibility helps organizations avoid vendor lock-in and simplifies disaster recovery strategies.
 
-Finally, Kubernetes integrates well with modern CI/CD pipelines. Teams can version control their Kafka infrastructure as code, apply GitOps principles, and automate testing of cluster configurations before production deployment. For comprehensive guidance on streaming CI/CD patterns, see [CI/CD Best Practices for Streaming Applications](cicd-best-practices-for-streaming-applications.md) and [Testing Strategies for Streaming Applications](testing-strategies-for-streaming-applications.md).
+Finally, Kubernetes integrates well with modern CI/CD pipelines. Teams can version control their Kafka infrastructure as code, apply GitOps principles, and automate testing of cluster configurations before production deployment. For comprehensive guidance on streaming CI/CD patterns, see [CI/CD Best Practices for Streaming Applications](https://conduktor.io/glossary/cicd-best-practices-for-streaming-applications) and [Testing Strategies for Streaming Applications](https://conduktor.io/glossary/testing-strategies-for-streaming-applications).
 
 ## Key Challenges and Considerations
 
@@ -34,7 +34,7 @@ Modern Kubernetes deployments (1.27+) offer several storage options:
 - **CSI drivers** (Container Storage Interface) provide vendor-agnostic storage with volume health monitoring
 - **Local persistent volumes** with StatefulSet affinity offer SSD-level performance while maintaining data locality
 - **Network-attached storage** (NAS/SAN) provides easier operational management but may introduce latency that impacts Kafka's throughput
-- **Tiered storage** (Kafka 3.6+) enables offloading older data to object storage like S3, reducing local disk requirements significantly (see [Tiered Storage in Kafka](tiered-storage-in-kafka.md))
+- **Tiered storage** (Kafka 3.6+) enables offloading older data to object storage like S3, reducing local disk requirements significantly (see [Tiered Storage in Kafka](https://conduktor.io/glossary/tiered-storage-in-kafka))
 
 For high-throughput workloads, local SSDs offer the best performance but require careful planning for broker failures and data replication.
 
@@ -145,13 +145,13 @@ spec:
           storage: 100Gi
 ```
 
-This approach offers maximum control but requires manual management of metadata management. Modern deployments (Kafka 4.0+, released 2024) use KRaft mode as the default, which eliminates ZooKeeper dependencies entirely. KRaft mode simplifies operations by using Kafka's native Raft-based consensus protocol for cluster metadata. For details on KRaft's architecture and migration paths, see [Understanding KRaft Mode in Kafka](understanding-kraft-mode-in-kafka.md). Legacy deployments still using ZooKeeper should plan migrations as ZooKeeper support is deprecated.
+This approach offers maximum control but requires manual management of metadata management. Modern deployments (Kafka 4.0+, released 2024) use KRaft mode as the default, which eliminates ZooKeeper dependencies entirely. KRaft mode simplifies operations by using Kafka's native Raft-based consensus protocol for cluster metadata. For details on KRaft's architecture and migration paths, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka). Legacy deployments still using ZooKeeper should plan migrations as ZooKeeper support is deprecated.
 
 This manual approach also requires configuration of security, monitoring, and upgrades.
 
 **Helm charts** provide a higher-level abstraction. Charts like those from Bitnami package Kafka along with necessary dependencies and sensible defaults. They reduce initial setup time and standardize configurations across deployments.
 
-**Kubernetes Operators** represent the most sophisticated approach. Projects like Strimzi (see [Strimzi: Kafka Operator for Kubernetes](strimzi-kafka-operator-for-kubernetes.md)) automate day-two operations including rolling upgrades, automatic rebalancing, and configuration management. Strimzi 0.42+ (2025) provides enhanced KRaft support, improved security configurations, and better integration with Kubernetes observability tools. Operators understand Kafka-specific operational requirements and can make intelligent decisions about cluster health and scaling.
+**Kubernetes Operators** represent the most sophisticated approach. Projects like Strimzi (see [Strimzi: Kafka Operator for Kubernetes](https://conduktor.io/glossary/strimzi-kafka-operator-for-kubernetes)) automate day-two operations including rolling upgrades, automatic rebalancing, and configuration management. Strimzi 0.42+ (2025) provides enhanced KRaft support, improved security configurations, and better integration with Kubernetes observability tools. Operators understand Kafka-specific operational requirements and can make intelligent decisions about cluster health and scaling.
 
 For production environments, operators typically provide the best balance of automation and reliability, though they introduce additional complexity and dependencies.
 
@@ -191,15 +191,15 @@ Running production Kafka on Kubernetes requires attention to several operational
 
 Consider implementing **rack awareness** using Kubernetes topology spread constraints. This ensures that topic replicas distribute across failure domains, improving fault tolerance.
 
-**Security configuration** deserves special attention in Kubernetes environments. Enable TLS for all broker-to-broker and client-to-broker communication. Use Kubernetes Secrets to manage certificates and credentials, rotating them regularly. Implement network policies to restrict pod-to-pod communication, allowing only authorized clients to reach Kafka services. For authentication, configure SASL (typically SCRAM or OAUTHBEARER) and integrate with your organization's identity provider. Enable Kafka's ACLs (Access Control Lists) to control topic-level permissions, and consider using [Quotas and Rate Limiting in Kafka](quotas-and-rate-limiting-in-kafka.md) to prevent resource exhaustion attacks.
+**Security configuration** deserves special attention in Kubernetes environments. Enable TLS for all broker-to-broker and client-to-broker communication. Use Kubernetes Secrets to manage certificates and credentials, rotating them regularly. Implement network policies to restrict pod-to-pod communication, allowing only authorized clients to reach Kafka services. For authentication, configure SASL (typically SCRAM or OAUTHBEARER) and integrate with your organization's identity provider. Enable Kafka's ACLs (Access Control Lists) to control topic-level permissions, and consider using [Quotas and Rate Limiting in Kafka](https://conduktor.io/glossary/quotas-and-rate-limiting-in-kafka) to prevent resource exhaustion attacks.
 
-**Testing resilience** should be part of your operational practice. Apply chaos engineering principles to validate that your Kafka cluster handles node failures, network partitions, and resource constraints gracefully. Tools like Conduktor Gateway enable controlled chaos testing without impacting production workloads (see [Chaos Engineering for Streaming Systems](chaos-engineering-for-streaming-systems.md)).
+**Testing resilience** should be part of your operational practice. Apply chaos engineering principles to validate that your Kafka cluster handles node failures, network partitions, and resource constraints gracefully. Tools like Conduktor Gateway enable controlled chaos testing without impacting production workloads (see [Chaos Engineering for Streaming Systems](https://conduktor.io/glossary/chaos-engineering-for-streaming-systems)).
 
 ## Monitoring and Observability in Streaming Platforms
 
 Effective monitoring becomes even more important when running Kafka on Kubernetes. The dynamic nature of container orchestration introduces additional failure modes and makes troubleshooting more complex.
 
-Kubernetes-native monitoring tools like Prometheus integrate well with Kafka exporters to collect broker metrics, consumer lag, and cluster health indicators. Use JMX Exporter for broker metrics and Kafka Lag Exporter for consumer group monitoring (see [Consumer Lag Monitoring](consumer-lag-monitoring.md)). Configure alerts for critical metrics such as under-replicated partitions, high consumer lag, and disk space exhaustion. Popular Grafana dashboards provide pre-built visualizations for Kafka on Kubernetes deployments.
+Kubernetes-native monitoring tools like Prometheus integrate well with Kafka exporters to collect broker metrics, consumer lag, and cluster health indicators. Use JMX Exporter for broker metrics and Kafka Lag Exporter for consumer group monitoring (see [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring)). Configure alerts for critical metrics such as under-replicated partitions, high consumer lag, and disk space exhaustion. Popular Grafana dashboards provide pre-built visualizations for Kafka on Kubernetes deployments.
 
 Distributed tracing helps track message flows through complex streaming pipelines. Tools that correlate Kafka producer/consumer spans with application traces provide end-to-end visibility in microservices architectures.
 

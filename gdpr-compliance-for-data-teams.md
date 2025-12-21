@@ -29,7 +29,7 @@ This article explores practical strategies and technical implementations for ach
 
 GDPR establishes seven foundational principles that data teams must embed into their technical architecture: lawfulness, fairness, and transparency; purpose limitation; data minimization; accuracy; storage limitation; integrity and confidentiality; and accountability. These principles translate into specific technical requirements that affect every layer of your data infrastructure.
 
-The principle of **data minimization** requires teams to collect only what is necessary for specific purposes. In practice, this means implementing schema validation and filtering mechanisms at ingestion points. For streaming platforms like Apache Kafka, this might involve deploying data governance tools that enforce field-level policies before messages reach downstream consumers. For guidance on detecting and handling sensitive data in streams, see [PII Detection and Handling in Event Streams](pii-detection-and-handling-in-event-streams.md) and [PII Leakage Prevention](pii-leakage-prevention.md).
+The principle of **data minimization** requires teams to collect only what is necessary for specific purposes. In practice, this means implementing schema validation and filtering mechanisms at ingestion points. For streaming platforms like Apache Kafka, this might involve deploying data governance tools that enforce field-level policies before messages reach downstream consumers. For guidance on detecting and handling sensitive data in streams, see [PII Detection and Handling in Event Streams](https://conduktor.io/glossary/pii-detection-and-handling-in-event-streams) and [PII Leakage Prevention](https://conduktor.io/glossary/pii-leakage-prevention).
 
 **Storage limitation** demands that personal data be retained only as long as necessary. Data teams must implement automated retention policies with configurable time-to-live (TTL) settings across all storage layers—from streaming platforms to data warehouses and analytics databases.
 
@@ -42,7 +42,7 @@ GDPR grants individuals eight fundamental rights regarding their personal data. 
 When a data subject requests access to their personal data, your systems must be capable of identifying and retrieving all records across distributed systems within the GDPR-mandated 30-day window. This requires:
 
 - **Unified identity management**: Implement a consistent user identifier schema across all systems to enable efficient data retrieval
-- **Data catalog and lineage tracking**: Maintain comprehensive metadata about where personal data resides and how it flows through your pipeline. For detailed coverage of data cataloging, see [What is a Data Catalog: Modern Data Discovery](what-is-a-data-catalog-modern-data-discovery.md)
+- **Data catalog and lineage tracking**: Maintain comprehensive metadata about where personal data resides and how it flows through your pipeline. For detailed coverage of data cataloging, see [What is a Data Catalog: Modern Data Discovery](https://conduktor.io/glossary/what-is-a-data-catalog-modern-data-discovery)
 - **Export mechanisms**: Build automated processes to extract, format, and deliver data in machine-readable formats (typically JSON or CSV)
 
 ### Right to Erasure: The Streaming Challenge
@@ -154,7 +154,7 @@ deletion_mgr.process_deletion_request('user-123')
 
 **Data Pseudonymization**: Store personal identifiable information (PII) separately from event data, using tokenized references. When deletion is requested, remove the PII mapping while preserving anonymized event history for analytics.
 
-**Log Compaction with Key-Based Deletion**: Configure Kafka topics with log compaction enabled. When a deletion request arrives, publish a tombstone record with the user's identifier as the key, allowing Kafka to eventually remove all records for that key. For detailed coverage of log compaction mechanics, see [Kafka Log Compaction Explained](kafka-log-compaction-explained.md).
+**Log Compaction with Key-Based Deletion**: Configure Kafka topics with log compaction enabled. When a deletion request arrives, publish a tombstone record with the user's identifier as the key, allowing Kafka to eventually remove all records for that key. For detailed coverage of log compaction mechanics, see [Kafka Log Compaction Explained](https://conduktor.io/glossary/kafka-log-compaction-explained).
 
 **Policy Enforcement Layer**: Data governance platforms like Conduktor provide capabilities that enable teams to implement deletion policies, data masking, and field-level encryption across Kafka clusters. Conduktor's policy enforcement features can intercept, filter, and transform messages based on compliance rules without requiring changes to producer or consumer applications, making GDPR compliance enforcement more manageable at scale.
 
@@ -333,7 +333,7 @@ encrypted_event = encryptor.encrypt_fields(user_event, sensitive_fields)
 producer.send('user-events', value=encrypted_event)
 ```
 
-**Role-Based Access Control (RBAC)**: Implement granular permissions that restrict access to personal data based on job function and necessity. Modern data governance platforms provide fine-grained access controls at the topic, consumer group, and even field level. For comprehensive guidance on implementing access controls in Kafka, see [Kafka ACLs and Authorization Patterns](kafka-acls-and-authorization-patterns.md) and [Kafka Authentication: SASL, SSL, OAuth](kafka-authentication-sasl-ssl-oauth.md).
+**Role-Based Access Control (RBAC)**: Implement granular permissions that restrict access to personal data based on job function and necessity. Modern data governance platforms provide fine-grained access controls at the topic, consumer group, and even field level. For comprehensive guidance on implementing access controls in Kafka, see [Kafka ACLs and Authorization Patterns](https://conduktor.io/glossary/kafka-acls-and-authorization-patterns) and [Kafka Authentication: SASL, SSL, OAuth](https://conduktor.io/glossary/kafka-authentication-sasl-ssl-oauth).
 
 **Data Masking and Redaction**: Automatically mask or redact sensitive fields when data moves to non-production environments or when accessed by roles without appropriate clearance.
 
@@ -341,7 +341,7 @@ producer.send('user-events', value=encrypted_event)
 
 GDPR's accountability principle requires organizations to demonstrate compliance through comprehensive documentation. Data teams must implement:
 
-**Access Logging**: Record every access to personal data, including who accessed it, when, what data was accessed, and for what purpose. For implementation patterns, see [Streaming Audit Logs](streaming-audit-logs.md)
+**Access Logging**: Record every access to personal data, including who accessed it, when, what data was accessed, and for what purpose. For implementation patterns, see [Streaming Audit Logs](https://conduktor.io/glossary/streaming-audit-logs)
 
 **Processing Records**: Maintain detailed records of all data processing activities, including data sources, purposes, categories of recipients, and retention periods
 

@@ -15,7 +15,7 @@ topics:
 
 Apache Iceberg has emerged as a leading table format for data lakes, offering ACID transactions, schema evolution, and time travel capabilities. At the heart of Iceberg's architecture lies the catalog—a critical component responsible for tracking table metadata, managing table locations, and coordinating concurrent operations. Understanding the differences between catalog implementations is essential for data architects and platform engineers building scalable data infrastructures.
 
-This article explores the major catalog solutions available in 2025: the vendor-neutral REST Catalog (recommended for new deployments), traditional Hive Metastore, AWS Glue for cloud-native architectures, and Project Nessie for Git-like versioning workflows. For foundational concepts about Iceberg's architecture, see [Apache Iceberg Table Architecture: Metadata and Snapshots](iceberg-table-architecture-metadata-and-snapshots.md).
+This article explores the major catalog solutions available in 2025: the vendor-neutral REST Catalog (recommended for new deployments), traditional Hive Metastore, AWS Glue for cloud-native architectures, and Project Nessie for Git-like versioning workflows. For foundational concepts about Iceberg's architecture, see [Apache Iceberg Table Architecture: Metadata and Snapshots](https://conduktor.io/glossary/iceberg-table-architecture-metadata-and-snapshots).
 
 ## Understanding Iceberg Catalogs
 
@@ -272,7 +272,7 @@ spark.sql("MERGE BRANCH dev INTO main IN nessie")
 
 ## Streaming Ecosystem Integration
 
-Iceberg catalogs play a crucial role in streaming architectures, where real-time data pipelines continuously ingest and process events. The catalog choice impacts streaming framework integration, particularly with Apache Flink, Spark Structured Streaming, and Kafka-based pipelines. For comprehensive coverage of streaming to lakehouses, see [Streaming to Lakehouse Tables](streaming-to-lakehouse-tables.md).
+Iceberg catalogs play a crucial role in streaming architectures, where real-time data pipelines continuously ingest and process events. The catalog choice impacts streaming framework integration, particularly with Apache Flink, Spark Structured Streaming, and Kafka-based pipelines. For comprehensive coverage of streaming to lakehouses, see [Streaming to Lakehouse Tables](https://conduktor.io/glossary/streaming-to-lakehouse-tables).
 
 ### Streaming Considerations
 
@@ -280,7 +280,7 @@ Iceberg catalogs play a crucial role in streaming architectures, where real-time
 
 **Multi-Writer Scenarios**: Stream processing often involves multiple parallel writers. The catalog must provide optimistic concurrency control to prevent conflicts—this means writers detect and retry when concurrent updates occur, rather than blocking each other.
 
-**Schema Evolution**: Streaming schemas evolve over time as business requirements change. The catalog should support backward-compatible schema changes without disrupting active streams. For detailed guidance, see [Schema Evolution in Apache Iceberg](schema-evolution-in-apache-iceberg.md).
+**Schema Evolution**: Streaming schemas evolve over time as business requirements change. The catalog should support backward-compatible schema changes without disrupting active streams. For detailed guidance, see [Schema Evolution in Apache Iceberg](https://conduktor.io/glossary/schema-evolution-in-apache-iceberg).
 
 ### Apache Flink Example
 
@@ -324,7 +324,7 @@ tableEnv.executeSql(
 );
 ```
 
-For detailed Flink streaming patterns, see [Apache Flink: Stateful Stream Processing](what-is-apache-flink-stateful-stream-processing.md) and [Flink DataStream API](flink-datastream-api-building-streaming-applications.md).
+For detailed Flink streaming patterns, see [Apache Flink: Stateful Stream Processing](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing) and [Flink DataStream API](https://conduktor.io/glossary/flink-datastream-api-building-streaming-applications).
 
 ### Governance and Visibility
 
@@ -425,9 +425,9 @@ Iceberg catalogs are foundational to successful data lake implementations, and t
 
 Hive Metastore offers broad compatibility and maturity but requires infrastructure management—best for existing Hadoop environments. AWS Glue provides serverless convenience within the AWS ecosystem, ideal for AWS-native architectures. JDBC Catalog offers a lightweight option for simpler deployments. Project Nessie introduces powerful Git-like versioning semantics, enabling advanced workflows like isolated environments and multi-table transactions, at the cost of increased operational complexity.
 
-For streaming workloads (covered in [Streaming to Lakehouse Tables](streaming-to-lakehouse-tables.md)), catalog performance under frequent commits and multi-writer scenarios becomes critical. Integration with governance platforms like **Conduktor** helps maintain visibility and control as catalog complexity grows, particularly for Kafka-based data pipelines.
+For streaming workloads (covered in [Streaming to Lakehouse Tables](https://conduktor.io/glossary/streaming-to-lakehouse-tables)), catalog performance under frequent commits and multi-writer scenarios becomes critical. Integration with governance platforms like **Conduktor** helps maintain visibility and control as catalog complexity grows, particularly for Kafka-based data pipelines.
 
-When evaluating catalog options, consider your infrastructure constraints, operational capabilities, versioning requirements, and long-term platform evolution. Many organizations benefit from a multi-catalog strategy, using different implementations for different use cases or environments. For related topics, see [Lakehouse Architecture](introduction-to-lakehouse-architecture.md), [Iceberg Table Maintenance](maintaining-iceberg-tables-compaction-and-cleanup.md), and [Metadata Management](metadata-management-technical-vs-business-metadata.md).
+When evaluating catalog options, consider your infrastructure constraints, operational capabilities, versioning requirements, and long-term platform evolution. Many organizations benefit from a multi-catalog strategy, using different implementations for different use cases or environments. For related topics, see [Lakehouse Architecture](https://conduktor.io/glossary/introduction-to-lakehouse-architecture), [Iceberg Table Maintenance](https://conduktor.io/glossary/maintaining-iceberg-tables-compaction-and-cleanup), and [Metadata Management](https://conduktor.io/glossary/metadata-management-technical-vs-business-metadata).
 
 ## Sources and References
 

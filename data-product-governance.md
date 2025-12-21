@@ -11,7 +11,7 @@ topics:
 
 As organizations shift from centralized data platforms to distributed data architectures, the concept of data products has emerged as a fundamental building block. But treating data as a product isn't just about technology—it requires a robust governance framework that ensures data products are discoverable, trustworthy, and valuable to their consumers. This article explores how to establish governance practices that turn raw data streams into reliable, well-managed data products.
 
-For an overview of data products in practice, see [Building and Managing Data Products](building-and-managing-data-products.md). For organizational structures and responsibilities, refer to [Data Governance Framework: Roles and Responsibilities](data-governance-framework-roles-and-responsibilities.md).
+For an overview of data products in practice, see [Building and Managing Data Products](https://conduktor.io/glossary/building-and-managing-data-products). For organizational structures and responsibilities, refer to [Data Governance Framework: Roles and Responsibilities](https://conduktor.io/glossary/data-governance-framework-roles-and-responsibilities).
 
 ## Understanding Data Products
 
@@ -50,7 +50,7 @@ Quality governance establishes standards and monitors adherence to data quality 
 - **Accuracy contracts**: Validation rules, acceptable error rates, and reconciliation processes
 - **Schema compliance**: Enforcement of data contracts and compatibility rules
 
-For deep dives into quality dimensions, see [Data Quality Dimensions: Accuracy, Completeness, and Consistency](data-quality-dimensions-accuracy-completeness-and-consistency.md). For contract implementation, refer to [Data Contracts for Reliable Pipelines](data-contracts-for-reliable-pipelines.md).
+For deep dives into quality dimensions, see [Data Quality Dimensions: Accuracy, Completeness, and Consistency](https://conduktor.io/glossary/data-quality-dimensions-accuracy-completeness-and-consistency). For contract implementation, refer to [Data Contracts for Reliable Pipelines](https://conduktor.io/glossary/data-contracts-for-reliable-pipelines).
 
 ### Access Governance
 
@@ -70,7 +70,7 @@ Understanding data flow and transformations is critical for trust and debugging:
 - **Dependency mapping**: What downstream products or systems rely on this data?
 - **Impact analysis**: What breaks if this product changes or becomes unavailable?
 
-For detailed lineage tracking approaches, see [Data Lineage Tracking: Data from Source to Consumption](data-lineage-tracking-data-from-source-to-consumption.md).
+For detailed lineage tracking approaches, see [Data Lineage Tracking: Data from Source to Consumption](https://conduktor.io/glossary/data-lineage-tracking-data-from-source-to-consumption).
 
 ### Lifecycle Governance
 
@@ -176,7 +176,7 @@ validator.expect_table_columns_to_match_ordered_list(
 results = validator.validate()
 ```
 
-For comprehensive data quality frameworks, see [Building a Data Quality Framework](building-a-data-quality-framework.md).
+For comprehensive data quality frameworks, see [Building a Data Quality Framework](https://conduktor.io/glossary/building-a-data-quality-framework).
 
 **Policy-as-Code with OpenPolicyAgent (OPA)** enables governance automation:
 
@@ -209,7 +209,7 @@ Modern data catalogs like **OpenMetadata** and **DataHub** (2025) provide centra
 - Embedded data quality monitoring
 - Self-service access request workflows
 
-For metadata strategies, see [Metadata Management: Technical vs Business Metadata](metadata-management-technical-vs-business-metadata.md) and [What is a Data Catalog: Modern Data Discovery](what-is-a-data-catalog-modern-data-discovery.md).
+For metadata strategies, see [Metadata Management: Technical vs Business Metadata](https://conduktor.io/glossary/metadata-management-technical-vs-business-metadata) and [What is a Data Catalog: Modern Data Discovery](https://conduktor.io/glossary/what-is-a-data-catalog-modern-data-discovery).
 
 ## Lifecycle Management in Streaming Environments
 
@@ -220,7 +220,7 @@ Streaming data products present unique lifecycle challenges:
 - **Backward compatibility**: Old schema can read new data (safe for producers)
 - **Full compatibility**: Both forward and backward compatible (safest for all parties)
 
-Breaking changes require coordinated migrations with sufficient notice to consumers. For detailed schema evolution strategies, see [Schema Evolution Best Practices](schema-evolution-best-practices.md).
+Breaking changes require coordinated migrations with sufficient notice to consumers. For detailed schema evolution strategies, see [Schema Evolution Best Practices](https://conduktor.io/glossary/schema-evolution-best-practices).
 
 **Continuous Deployment**: Unlike batch datasets with discrete versions, streaming products continuously produce data. Changes must be deployed without disruption, often requiring dual-write periods or feature flags.
 
@@ -268,7 +268,7 @@ Data product governance operationalizes several data mesh principles:
 
 **Federated Computational Governance** balances centralized standards with domain autonomy—global policies enforced locally.
 
-Even if you're not implementing a full data mesh architecture, these governance practices create more trustworthy, discoverable, and valuable data products in any distributed data environment. For comprehensive coverage of data mesh implementation, see [Data Mesh Principles and Implementation](data-mesh-principles-and-implementation.md).
+Even if you're not implementing a full data mesh architecture, these governance practices create more trustworthy, discoverable, and valuable data products in any distributed data environment. For comprehensive coverage of data mesh implementation, see [Data Mesh Principles and Implementation](https://conduktor.io/glossary/data-mesh-principles-and-implementation).
 
 ## Conclusion
 

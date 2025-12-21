@@ -28,9 +28,9 @@ In streaming systems, both techniques must be applied while data is in motion, a
 
 Several factors drive the need for data protection in streaming architectures:
 
-**Compliance requirements** like GDPR, CCPA, and HIPAA mandate specific handling of personal data. GDPR Article 32 requires "pseudonymization and encryption of personal data," and violations can result in fines up to 4% of global revenue. Streaming systems that handle customer data, financial transactions, or health records must implement protection mechanisms to avoid legal and financial consequences. For comprehensive GDPR implementation guidance, see [GDPR Compliance for Data Teams](gdpr-compliance-for-data-teams.md).
+**Compliance requirements** like GDPR, CCPA, and HIPAA mandate specific handling of personal data. GDPR Article 32 requires "pseudonymization and encryption of personal data," and violations can result in fines up to 4% of global revenue. Streaming systems that handle customer data, financial transactions, or health records must implement protection mechanisms to avoid legal and financial consequences. For comprehensive GDPR implementation guidance, see [GDPR Compliance for Data Teams](https://conduktor.io/glossary/gdpr-compliance-for-data-teams).
 
-**Security and access control** become more complex in streaming environments where data flows through multiple systems and teams. Development teams need realistic data for testing, analytics teams require access to aggregated insights, and production systems need full fidelity. Each use case requires different levels of data protection. For strategies on implementing role-based and attribute-based access controls, see [Access Control for Streaming](access-control-for-streaming.md) and [Kafka ACLs and Authorization Patterns](kafka-acls-and-authorization-patterns.md).
+**Security and access control** become more complex in streaming environments where data flows through multiple systems and teams. Development teams need realistic data for testing, analytics teams require access to aggregated insights, and production systems need full fidelity. Each use case requires different levels of data protection. For strategies on implementing role-based and attribute-based access controls, see [Access Control for Streaming](https://conduktor.io/glossary/access-control-for-streaming) and [Kafka ACLs and Authorization Patterns](https://conduktor.io/glossary/kafka-acls-and-authorization-patterns).
 
 **Data sharing and partnerships** often involve sending data to third parties or across organizational boundaries. Masking and anonymization enable safer data sharing by reducing the risk of exposing sensitive information while maintaining the utility of the data for its intended purpose.
 
@@ -47,7 +47,7 @@ Several masking techniques can be applied to streaming data, each with different
 - **Substitution**: Replacing real values with fake but realistic data (e.g., replacing "John Doe" with "Jane Smith")
 - **Shuffling**: Randomly redistributing values within a column to break associations with other attributes
 - **Nulling or redaction**: Removing sensitive fields entirely or replacing them with asterisks
-- **Encryption**: Transforming data using cryptographic algorithms, making it unreadable without the decryption key. For end-to-end encryption strategies, see [Encryption at Rest and in Transit for Kafka](encryption-at-rest-and-in-transit-for-kafka.md)
+- **Encryption**: Transforming data using cryptographic algorithms, making it unreadable without the decryption key. For end-to-end encryption strategies, see [Encryption at Rest and in Transit for Kafka](https://conduktor.io/glossary/encryption-at-rest-and-in-transit-for-kafka)
 
 **Format-preserving encryption (FPE)** is particularly useful in streaming contexts because it maintains the data type and format. For example, a 16-digit credit card number remains a 16-digit number after encryption, ensuring downstream systems continue to function without modification.
 
@@ -117,7 +117,7 @@ Production systems read from raw topics, analytics teams use masked versions, an
 
 The landscape of data masking and anonymization for streaming has evolved significantly with new tools and platform capabilities in 2025:
 
-**Kafka 4.0+ with KRaft** brings improved security foundations that enhance masking implementations. With ZooKeeper removed, the simplified architecture makes it easier to implement consistent security policies across the cluster. KRaft's metadata management provides better audit trails for tracking which transformations are applied to which topics. For comprehensive audit logging strategies, see [Audit Logging for Streaming Platforms](audit-logging-for-streaming-platforms.md).
+**Kafka 4.0+ with KRaft** brings improved security foundations that enhance masking implementations. With ZooKeeper removed, the simplified architecture makes it easier to implement consistent security policies across the cluster. KRaft's metadata management provides better audit trails for tracking which transformations are applied to which topics. For comprehensive audit logging strategies, see [Audit Logging for Streaming Platforms](https://conduktor.io/glossary/audit-logging-for-streaming-platforms).
 
 **Conduktor Gateway** offers proxy-level data masking that sits between producers/consumers and Kafka brokers. This approach allows teams to define masking policies centrally without modifying application code. Gateway can apply different masking rules based on the consumer's identity, enabling a single topic to serve multiple teams with different data access levels. For example:
 
@@ -164,7 +164,7 @@ stream = env.from_source(kafka_source, watermark_strategy, "customer-events")
 masked_stream = stream.map(MaskSensitiveData())
 ```
 
-**Kafka Connect Single Message Transforms (SMTs)** provide a lightweight approach for masking data in transit. The `MaskField` and `ReplaceField` transformations can be chained to protect sensitive data without writing custom code. For more details on SMT patterns, see [Kafka Connect Single Message Transforms](kafka-connect-single-message-transforms.md):
+**Kafka Connect Single Message Transforms (SMTs)** provide a lightweight approach for masking data in transit. The `MaskField` and `ReplaceField` transformations can be chained to protect sensitive data without writing custom code. For more details on SMT patterns, see [Kafka Connect Single Message Transforms](https://conduktor.io/glossary/kafka-connect-single-message-transforms):
 
 ```json
 {
@@ -210,9 +210,9 @@ public class KAnonymityProcessor implements Processor<String, CustomerEvent, Str
 }
 ```
 
-**Schema Registry integration** has improved with better support for tracking masked fields through schema metadata. Using Avro or Protobuf with Schema Registry allows teams to mark fields as sensitive and enforce masking at the serialization layer. For comprehensive schema management patterns, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md).
+**Schema Registry integration** has improved with better support for tracking masked fields through schema metadata. Using Avro or Protobuf with Schema Registry allows teams to mark fields as sensitive and enforce masking at the serialization layer. For comprehensive schema management patterns, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management).
 
-For PII-specific handling patterns and detection techniques, see [PII Detection and Handling in Event Streams](pii-detection-and-handling-in-event-streams.md).
+For PII-specific handling patterns and detection techniques, see [PII Detection and Handling in Event Streams](https://conduktor.io/glossary/pii-detection-and-handling-in-event-streams).
 
 ## Challenges and Trade-offs
 
@@ -226,7 +226,7 @@ Implementing data protection in streaming systems involves several challenges:
 
 **Key handling**: For techniques that use encryption or tokenization, securely managing and rotating keys in a distributed streaming environment requires careful architecture. Keys must be accessible to authorized processors while remaining protected from unauthorized access.
 
-**Compliance complexity**: Different regulations have different requirements. GDPR's "right to be forgotten" requires the ability to delete or anonymize specific individuals' data, which is challenging in append-only systems like Kafka where historical data is immutable. For strategies on enforcing data policies, see [Policy Enforcement in Streaming](policy-enforcement-in-streaming.md).
+**Compliance complexity**: Different regulations have different requirements. GDPR's "right to be forgotten" requires the ability to delete or anonymize specific individuals' data, which is challenging in append-only systems like Kafka where historical data is immutable. For strategies on enforcing data policies, see [Policy Enforcement in Streaming](https://conduktor.io/glossary/policy-enforcement-in-streaming).
 
 **State management**: Stream processors applying anonymization techniques like k-anonymity need to maintain state about which records have been processed and released, adding operational complexity.
 

@@ -12,7 +12,7 @@ topics:
 
 Log aggregation is a fundamental requirement for operating distributed systems at scale. As applications grow from monoliths to microservices architectures, the challenge of collecting, centralizing, and analyzing logs from dozens or hundreds of services becomes critical for debugging, monitoring, and compliance.
 
-Apache Kafka has emerged as a popular backbone for modern log aggregation pipelines, offering durability, scalability, and real-time processing capabilities that traditional approaches struggle to match. For foundational knowledge of Kafka's architecture, see [Apache Kafka](apache-kafka.md).
+Apache Kafka has emerged as a popular backbone for modern log aggregation pipelines, offering durability, scalability, and real-time processing capabilities that traditional approaches struggle to match. For foundational knowledge of Kafka's architecture, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
 
 ## What is Log Aggregation?
 
@@ -57,7 +57,7 @@ A typical Kafka log aggregation architecture consists of several layers, each wi
 - Topics organized by log level (e.g., `logs.error`, `logs.info`)
 - Topics based on log type (e.g., `logs.access`, `logs.application`, `logs.audit`)
 
-The choice depends on consumption patterns. If different teams consume different services' logs, service-based topics make sense. If you want to route all ERROR-level logs to a paging system regardless of source, level-based topics may be better. For comprehensive guidance on topic design decisions, see [Kafka Topic Design Guidelines](kafka-topic-design-guidelines.md).
+The choice depends on consumption patterns. If different teams consume different services' logs, service-based topics make sense. If you want to route all ERROR-level logs to a paging system regardless of source, level-based topics may be better. For comprehensive guidance on topic design decisions, see [Kafka Topic Design Guidelines](https://conduktor.io/glossary/kafka-topic-design-guidelines).
 
 **Partitioning strategy** impacts both performance and ordering guarantees. Partitioning by service instance ID ensures logs from a specific instance remain ordered, which helps with debugging. Partitioning by user ID or trace ID (a unique identifier that tracks a request across multiple services) can keep related logs together, making distributed tracing more effective. When using OpenTelemetry, the trace context is automatically propagated through log fields, enabling powerful correlation between logs, traces, and metrics.
 
@@ -164,15 +164,15 @@ This configuration automatically includes OpenTelemetry trace context in each lo
 
 Successfully implementing Kafka-based log aggregation requires attention to several practical details.
 
-**Schema design** is crucial. Structured logs (JSON or Avro) enable rich querying and processing compared to unstructured text. Define a consistent schema that includes standard fields like timestamp, service name, log level, message, and trace context. OpenTelemetry provides well-defined semantic conventions for log fields, ensuring consistency across services and compatibility with observability tools. Using Schema Registry (7.0+) helps enforce consistency and enables schema evolution as requirements change. Avro is particularly useful for log data as it provides compact binary encoding, reducing network and storage costs significantly compared to JSON. For details on schema management, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md) and [Message Serialization in Kafka](message-serialization-in-kafka.md).
+**Schema design** is crucial. Structured logs (JSON or Avro) enable rich querying and processing compared to unstructured text. Define a consistent schema that includes standard fields like timestamp, service name, log level, message, and trace context. OpenTelemetry provides well-defined semantic conventions for log fields, ensuring consistency across services and compatibility with observability tools. Using Schema Registry (7.0+) helps enforce consistency and enables schema evolution as requirements change. Avro is particularly useful for log data as it provides compact binary encoding, reducing network and storage costs significantly compared to JSON. For details on schema management, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) and [Message Serialization in Kafka](https://conduktor.io/glossary/message-serialization-in-kafka).
 
-**Retention policies** balance storage costs with debugging needs. Kafka can retain logs for hours, days, or weeks depending on disk capacity. With tiered storage (Kafka 3.6+), you can extend retention dramatically by offloading older log segments to object storage (S3, GCS, Azure Blob) while maintaining transparent access through Kafka's consumer API. Configure retention based on how far back you need to investigate issues—typically 7-30 days in hot storage (local disks) and 90+ days in cold storage (object storage) for compliance and deep analysis. For comprehensive coverage of tiered storage, see [Tiered Storage in Kafka](tiered-storage-in-kafka.md).
+**Retention policies** balance storage costs with debugging needs. Kafka can retain logs for hours, days, or weeks depending on disk capacity. With tiered storage (Kafka 3.6+), you can extend retention dramatically by offloading older log segments to object storage (S3, GCS, Azure Blob) while maintaining transparent access through Kafka's consumer API. Configure retention based on how far back you need to investigate issues—typically 7-30 days in hot storage (local disks) and 90+ days in cold storage (object storage) for compliance and deep analysis. For comprehensive coverage of tiered storage, see [Tiered Storage in Kafka](https://conduktor.io/glossary/tiered-storage-in-kafka).
 
-**Volume management** prevents runaway log production from overwhelming the system. Implement sampling for high-volume debug logs while keeping all errors and warnings. Use quotas to limit how much data individual producers can send, protecting shared infrastructure from misbehaving services. For quota implementation details, see [Quotas and Rate Limiting in Kafka](quotas-and-rate-limiting-in-kafka.md).
+**Volume management** prevents runaway log production from overwhelming the system. Implement sampling for high-volume debug logs while keeping all errors and warnings. Use quotas to limit how much data individual producers can send, protecting shared infrastructure from misbehaving services. For quota implementation details, see [Quotas and Rate Limiting in Kafka](https://conduktor.io/glossary/quotas-and-rate-limiting-in-kafka).
 
-**Monitoring the monitor** is essential. Track metrics like producer send latency, consumer lag, and broker disk usage. Lag in log consumers might mean alerts aren't firing in real-time or logs aren't being archived properly. Tools like Conduktor provide comprehensive visibility into Kafka-based log pipelines, including consumer lag monitoring, topic health, throughput metrics, and schema registry management. This operational visibility is critical for maintaining reliable log aggregation at scale. For detailed strategies on tracking consumer lag, see [Consumer Lag Monitoring](consumer-lag-monitoring.md).
+**Monitoring the monitor** is essential. Track metrics like producer send latency, consumer lag, and broker disk usage. Lag in log consumers might mean alerts aren't firing in real-time or logs aren't being archived properly. Tools like Conduktor provide comprehensive visibility into Kafka-based log pipelines, including consumer lag monitoring, topic health, throughput metrics, and schema registry management. This operational visibility is critical for maintaining reliable log aggregation at scale. For detailed strategies on tracking consumer lag, see [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring).
 
-**Security considerations** include encrypting logs in transit and at rest, especially for logs containing sensitive information. Use authentication and authorization to control which services can produce logs to which topics, and which teams can consume them. For comprehensive security guidance, see [Kafka Security Best Practices](kafka-security-best-practices.md). Since logs often contain audit information, also consider the patterns in [Audit Logging for Streaming Platforms](audit-logging-for-streaming-platforms.md).
+**Security considerations** include encrypting logs in transit and at rest, especially for logs containing sensitive information. Use authentication and authorization to control which services can produce logs to which topics, and which teams can consume them. For comprehensive security guidance, see [Kafka Security Best Practices](https://conduktor.io/glossary/kafka-security-best-practices). Since logs often contain audit information, also consider the patterns in [Audit Logging for Streaming Platforms](https://conduktor.io/glossary/audit-logging-for-streaming-platforms).
 
 ## Integration with the Modern Observability Ecosystem
 
@@ -180,7 +180,7 @@ Kafka-based log aggregation doesn't exist in isolation—it integrates with a br
 
 **OpenTelemetry integration** has become the standard approach for modern log aggregation. OpenTelemetry provides SDKs for instrumenting applications to emit logs with consistent semantic conventions, including automatic trace context propagation. The OpenTelemetry Collector can receive logs from applications, process and enrich them, and export to Kafka topics. On the consumption side, collectors can read from Kafka and forward logs to various backends. This creates a vendor-neutral, standardized pipeline that works across cloud providers and observability platforms.
 
-**Stream processing frameworks** like Apache Flink 1.20+ and Kafka Streams enable sophisticated log analysis. Flink's advanced features like exactly-once processing, low-latency stateful operations, and SQL support make it ideal for complex log analysis scenarios. You can build applications that correlate logs across services to detect distributed failure patterns, calculate real-time statistics about error rates or latency, or enrich logs with contextual information from other data sources. For choosing between stream processing frameworks, see [Kafka Streams vs Apache Flink](kafka-streams-vs-apache-flink.md), and for detailed Flink capabilities, refer to [What is Apache Flink: Stateful Stream Processing](what-is-apache-flink-stateful-stream-processing.md).
+**Stream processing frameworks** like Apache Flink 1.20+ and Kafka Streams enable sophisticated log analysis. Flink's advanced features like exactly-once processing, low-latency stateful operations, and SQL support make it ideal for complex log analysis scenarios. You can build applications that correlate logs across services to detect distributed failure patterns, calculate real-time statistics about error rates or latency, or enrich logs with contextual information from other data sources. For choosing between stream processing frameworks, see [Kafka Streams vs Apache Flink](https://conduktor.io/glossary/kafka-streams-vs-apache-flink), and for detailed Flink capabilities, refer to [What is Apache Flink: Stateful Stream Processing](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing).
 
 **Modern log backends** have diversified beyond Elasticsearch. Grafana Loki provides a Prometheus-inspired approach optimized for log aggregation, indexing only metadata rather than full text content for cost efficiency. ClickHouse offers columnar storage with exceptional query performance for log analytics at massive scale. These backends typically consume logs from Kafka via dedicated connectors or custom consumers.
 
@@ -212,19 +212,19 @@ As systems grow and log data becomes increasingly central to operations, securit
 
 For deeper understanding of related concepts, explore these articles:
 
-- [Apache Kafka](apache-kafka.md) - Foundational Kafka architecture and concepts
-- [Kafka Topic Design Guidelines](kafka-topic-design-guidelines.md) - Best practices for organizing log topics
-- [Consumer Lag Monitoring](consumer-lag-monitoring.md) - Tracking log consumer health
-- [Kafka Security Best Practices](kafka-security-best-practices.md) - Securing log data in transit and at rest
-- [Audit Logging for Streaming Platforms](audit-logging-for-streaming-platforms.md) - Patterns for audit log collection
-- [Tiered Storage in Kafka](tiered-storage-in-kafka.md) - Cost-effective long-term log retention
-- [Kafka Streams vs Apache Flink](kafka-streams-vs-apache-flink.md) - Choosing stream processors for log analysis
-- [What is Apache Flink: Stateful Stream Processing](what-is-apache-flink-stateful-stream-processing.md) - Advanced log processing capabilities
-- [Schema Registry and Schema Management](schema-registry-and-schema-management.md) - Managing structured log schemas
-- [Message Serialization in Kafka](message-serialization-in-kafka.md) - Choosing log serialization formats
-- [Quotas and Rate Limiting in Kafka](quotas-and-rate-limiting-in-kafka.md) - Controlling log volume
-- [Understanding KRaft Mode in Kafka](understanding-kraft-mode-in-kafka.md) - Modern Kafka deployment without ZooKeeper
-- [What is Data Observability: The Five Pillars](what-is-data-observability-the-five-pillars.md) - Broader observability context
+- [Apache Kafka](https://conduktor.io/glossary/apache-kafka) - Foundational Kafka architecture and concepts
+- [Kafka Topic Design Guidelines](https://conduktor.io/glossary/kafka-topic-design-guidelines) - Best practices for organizing log topics
+- [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring) - Tracking log consumer health
+- [Kafka Security Best Practices](https://conduktor.io/glossary/kafka-security-best-practices) - Securing log data in transit and at rest
+- [Audit Logging for Streaming Platforms](https://conduktor.io/glossary/audit-logging-for-streaming-platforms) - Patterns for audit log collection
+- [Tiered Storage in Kafka](https://conduktor.io/glossary/tiered-storage-in-kafka) - Cost-effective long-term log retention
+- [Kafka Streams vs Apache Flink](https://conduktor.io/glossary/kafka-streams-vs-apache-flink) - Choosing stream processors for log analysis
+- [What is Apache Flink: Stateful Stream Processing](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing) - Advanced log processing capabilities
+- [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) - Managing structured log schemas
+- [Message Serialization in Kafka](https://conduktor.io/glossary/message-serialization-in-kafka) - Choosing log serialization formats
+- [Quotas and Rate Limiting in Kafka](https://conduktor.io/glossary/quotas-and-rate-limiting-in-kafka) - Controlling log volume
+- [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka) - Modern Kafka deployment without ZooKeeper
+- [What is Data Observability: The Five Pillars](https://conduktor.io/glossary/what-is-data-observability-the-five-pillars) - Broader observability context
 
 ## Sources and References
 

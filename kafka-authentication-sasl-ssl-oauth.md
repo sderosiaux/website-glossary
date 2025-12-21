@@ -20,7 +20,7 @@ This article explores the primary authentication approaches in modern Kafka 4.0+
 
 Apache Kafka operates as a distributed streaming platform that handles sensitive data across producers, consumers, brokers, and various ecosystem components. Without proper authentication, any client could connect to your cluster, publish malicious data, or consume confidential information.
 
-Authentication provides the foundation for a comprehensive security model. It works alongside authorization (ACLs) and encryption to create defense-in-depth protection. While encryption protects data in transit and authorization controls what authenticated users can do, authentication answers the fundamental question: "Who are you?" For a complete security strategy, see [Kafka Security Best Practices](kafka-security-best-practices.md), and for authorization details, refer to [Access Control for Streaming](access-control-for-streaming.md).
+Authentication provides the foundation for a comprehensive security model. It works alongside authorization (ACLs) and encryption to create defense-in-depth protection. While encryption protects data in transit and authorization controls what authenticated users can do, authentication answers the fundamental question: "Who are you?" For a complete security strategy, see [Kafka Security Best Practices](https://conduktor.io/glossary/kafka-security-best-practices), and for authorization details, refer to [Access Control for Streaming](https://conduktor.io/glossary/access-control-for-streaming).
 
 In regulated industries like finance and healthcare, authentication is not optional. Compliance frameworks such as GDPR, HIPAA, and SOC 2 require proof that only identified entities access data systems.
 
@@ -102,7 +102,7 @@ listener.name.sasl_ssl.oauthbearer.sasl.jwks.endpoint.url=\
   https://identity-provider.com/.well-known/jwks.json
 ```
 
-For detailed mTLS certificate management and automation in production environments, see [mTLS for Kafka](mtls-for-kafka.md).
+For detailed mTLS certificate management and automation in production environments, see [mTLS for Kafka](https://conduktor.io/glossary/mtls-for-kafka).
 
 ## SSL/TLS Certificate-Based Authentication
 
@@ -208,11 +208,11 @@ Kafka provides flexible authentication options suitable for diverse deployment s
 - **OAuth 2.0**: Excellent for cloud-native microservices architectures with existing identity providers
 - **SASL/PLAIN**: Acceptable only for development/testing, always with TLS encryption
 
-Understanding KRaft mode's impact on authentication is essential for modern deployments. For details on how KRaft simplifies metadata management including authentication credentials, see [Understanding KRaft Mode in Kafka](understanding-kraft-mode-in-kafka.md).
+Understanding KRaft mode's impact on authentication is essential for modern deployments. For details on how KRaft simplifies metadata management including authentication credentials, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka).
 
-Regardless of mechanism, always combine authentication with encryption and authorization. Authentication identifies who is connecting, encryption protects data in transit, and authorization determines what authenticated principals can do. For comprehensive authorization strategies, see [Access Control for Streaming](access-control-for-streaming.md).
+Regardless of mechanism, always combine authentication with encryption and authorization. Authentication identifies who is connecting, encryption protects data in transit, and authorization determines what authenticated principals can do. For comprehensive authorization strategies, see [Access Control for Streaming](https://conduktor.io/glossary/access-control-for-streaming).
 
-Proper authentication configuration is foundational to Kafka security. It protects your data streams, satisfies compliance requirements, and enables audit trails showing exactly which services accessed which topics. For operational best practices covering authentication, authorization, encryption, and monitoring, consult [Kafka Security Best Practices](kafka-security-best-practices.md).
+Proper authentication configuration is foundational to Kafka security. It protects your data streams, satisfies compliance requirements, and enables audit trails showing exactly which services accessed which topics. For operational best practices covering authentication, authorization, encryption, and monitoring, consult [Kafka Security Best Practices](https://conduktor.io/glossary/kafka-security-best-practices).
 
 ## Sources and References
 

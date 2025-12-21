@@ -15,7 +15,7 @@ For decades, enterprise security operated on the castle-and-moat principle: buil
 
 Streaming architectures expose the fundamental flaw in this model. Data flows continuously across services, cloud boundaries, and organizational units. A single compromised producer could poison data for hundreds of downstream consumers. A breached consumer could exfiltrate sensitive events in real-time. The attack surface is not a perimeter—it's a mesh of interconnected data flows.
 
-For detailed coverage of traditional access control approaches in streaming, see [Access Control for Streaming](access-control-for-streaming.md).
+For detailed coverage of traditional access control approaches in streaming, see [Access Control for Streaming](https://conduktor.io/glossary/access-control-for-streaming).
 
 Zero trust security addresses this reality with a simple principle: **never trust, always verify**. Every request, every connection, and every data access must be authenticated and authorized, regardless of where it originates. There is no "inside" the network. There is no implicit trust.
 
@@ -72,7 +72,7 @@ In a streaming system, authentication happens at multiple layers. Client authent
 
 **Mutual TLS (mTLS)** provides service-to-service authentication where both parties present certificates. Kafka clients authenticate to brokers, and brokers authenticate to each other. Certificate-based authentication is stronger than passwords and integrates naturally with service identity platforms. With Kafka 4.0's KRaft mode, certificate management becomes more streamlined as the removal of ZooKeeper eliminates an additional security surface to manage.
 
-**OAuth 2.0 and OIDC (OpenID Connect)** enable centralized identity management. Services obtain short-lived access tokens from an identity provider. Kafka can validate these tokens on every request, allowing real-time revocation when a service is compromised. Modern Kafka versions (3.x and 4.x) support OAuth 2.0 bearer tokens through the OAUTHBEARER SASL mechanism, with improved support for delegated tokens that can be scoped to specific operations and time windows. Token expiration forces periodic re-authentication, reducing the window for stolen credentials to be exploited. For implementation details, see [Kafka Authentication: SASL, SSL, OAuth](kafka-authentication-sasl-ssl-oauth.md).
+**OAuth 2.0 and OIDC (OpenID Connect)** enable centralized identity management. Services obtain short-lived access tokens from an identity provider. Kafka can validate these tokens on every request, allowing real-time revocation when a service is compromised. Modern Kafka versions (3.x and 4.x) support OAuth 2.0 bearer tokens through the OAUTHBEARER SASL mechanism, with improved support for delegated tokens that can be scoped to specific operations and time windows. Token expiration forces periodic re-authentication, reducing the window for stolen credentials to be exploited. For implementation details, see [Kafka Authentication: SASL, SSL, OAuth](https://conduktor.io/glossary/kafka-authentication-sasl-ssl-oauth).
 
 **Service mesh integration** layers authentication onto the network itself. Tools like Istio or Linkerd automatically handle mTLS between services, verify identities, and enforce policies. The streaming platform doesn't need to implement all authentication logic—it delegates to the mesh.
 
@@ -88,7 +88,7 @@ Streaming systems require authorization at multiple levels:
 
 **Partition-level controls** further restrict access. In multi-tenant systems, each tenant's data might reside in specific partitions. Authorization ensures tenants can only access their own data, even when sharing a topic.
 
-**Operation-specific access** differentiates read, write, and admin operations. Consumer groups need read access but not write. Producers need write access but not configuration privileges. Separate roles for separate functions. For comprehensive patterns and examples, see [Kafka ACLs and Authorization Patterns](kafka-acls-and-authorization-patterns.md).
+**Operation-specific access** differentiates read, write, and admin operations. Consumer groups need read access but not write. Producers need write access but not configuration privileges. Separate roles for separate functions. For comprehensive patterns and examples, see [Kafka ACLs and Authorization Patterns](https://conduktor.io/glossary/kafka-acls-and-authorization-patterns).
 
 **Dynamic policy enforcement** evaluates policies at request time, using current context. A policy might allow reads only during business hours, or restrict writes when data volume exceeds thresholds. Static ACLs can't capture these temporal and conditional requirements.
 
@@ -98,11 +98,11 @@ Zero trust architectures assume the network is hostile. Segmentation and encrypt
 
 **Micro-segmentation** divides the network into small zones with explicit access controls between them. Rather than one flat network where any service can reach any other, each segment requires authenticated and authorized traversal. A compromised service in the analytics segment can't pivot to the payment processing segment.
 
-**TLS encryption in-transit** prevents eavesdropping on the wire. Every connection between clients and brokers, and between brokers themselves, should use TLS 1.3 (or TLS 1.2 minimum for legacy compatibility). TLS 1.3 provides improved security and performance with a faster handshake and removal of vulnerable cipher suites. Encryption overhead is negligible compared to the risk of plaintext streaming data. For detailed encryption configuration, see [Encryption at Rest and in Transit for Kafka](encryption-at-rest-and-in-transit-for-kafka.md).
+**TLS encryption in-transit** prevents eavesdropping on the wire. Every connection between clients and brokers, and between brokers themselves, should use TLS 1.3 (or TLS 1.2 minimum for legacy compatibility). TLS 1.3 provides improved security and performance with a faster handshake and removal of vulnerable cipher suites. Encryption overhead is negligible compared to the risk of plaintext streaming data. For detailed encryption configuration, see [Encryption at Rest and in Transit for Kafka](https://conduktor.io/glossary/encryption-at-rest-and-in-transit-for-kafka).
 
 **At-rest encryption** protects data on disk. Even if an attacker gains access to storage volumes, encrypted data remains unreadable without keys. Kafka supports transparent encryption through encrypted volumes or filesystem-level encryption.
 
-**End-to-end encryption** goes further: producers encrypt messages before sending, and only authorized consumers can decrypt them. The streaming platform itself never sees plaintext. This pattern is essential for highly sensitive data, though it prevents server-side operations like filtering or schema validation. For use cases requiring field-level protection, see [Data Masking and Anonymization for Streaming](data-masking-and-anonymization-for-streaming.md).
+**End-to-end encryption** goes further: producers encrypt messages before sending, and only authorized consumers can decrypt them. The streaming platform itself never sees plaintext. This pattern is essential for highly sensitive data, though it prevents server-side operations like filtering or schema validation. For use cases requiring field-level protection, see [Data Masking and Anonymization for Streaming](https://conduktor.io/glossary/data-masking-and-anonymization-for-streaming).
 
 ## Continuous Verification and Monitoring
 
@@ -114,7 +114,7 @@ Zero trust doesn't end after initial authentication. Continuous verification ens
 
 **Anomaly detection** identifies unusual patterns. A consumer that typically reads 1,000 messages per second suddenly pulling millions raises flags. A producer connecting from a new geographic region warrants investigation. Machine learning models establish baselines and alert on deviations.
 
-**Behavioral analysis** builds profiles of normal service behavior. Login times, data access patterns, throughput rates—all contribute to a behavioral signature. Deviations suggest compromise or misconfiguration. For comprehensive tracking of access patterns, see [Audit Logging for Streaming Platforms](audit-logging-for-streaming-platforms.md).
+**Behavioral analysis** builds profiles of normal service behavior. Login times, data access patterns, throughput rates—all contribute to a behavioral signature. Deviations suggest compromise or misconfiguration. For comprehensive tracking of access patterns, see [Audit Logging for Streaming Platforms](https://conduktor.io/glossary/audit-logging-for-streaming-platforms).
 
 ## Implementation Challenges and Best Practices
 
@@ -136,7 +136,7 @@ Governance platforms like **Conduktor** simplify zero trust by centralizing poli
 
 **Migration strategies** matter. You can't flip a switch from perimeter security to zero trust overnight. Start with high-value data: authenticate and authorize access to topics containing PII or financial data. Expand incrementally. Use monitoring to understand existing access patterns before enforcing restrictions. Run in shadow mode initially to catch unintended blocks.
 
-**Testing security resilience** is critical. Use chaos engineering techniques to verify that security controls hold under failure conditions. For testing approaches, see [Chaos Engineering for Streaming Systems](chaos-engineering-for-streaming-systems.md).
+**Testing security resilience** is critical. Use chaos engineering techniques to verify that security controls hold under failure conditions. For testing approaches, see [Chaos Engineering for Streaming Systems](https://conduktor.io/glossary/chaos-engineering-for-streaming-systems).
 
 ## Practical Example: Zero Trust Kafka Configuration
 
@@ -204,14 +204,14 @@ Trust must be earned, continuously, at every request.
 
 ## Related Topics
 
-- [Access Control for Streaming](access-control-for-streaming.md) - Traditional and modern access control approaches
-- [Kafka Authentication: SASL, SSL, OAuth](kafka-authentication-sasl-ssl-oauth.md) - Authentication implementation details
-- [Kafka ACLs and Authorization Patterns](kafka-acls-and-authorization-patterns.md) - Authorization strategies and examples
-- [Encryption at Rest and in Transit for Kafka](encryption-at-rest-and-in-transit-for-kafka.md) - Encryption configuration guide
-- [Audit Logging for Streaming Platforms](audit-logging-for-streaming-platforms.md) - Comprehensive access tracking
-- [Data Masking and Anonymization for Streaming](data-masking-and-anonymization-for-streaming.md) - Field-level data protection
-- [Chaos Engineering for Streaming Systems](chaos-engineering-for-streaming-systems.md) - Testing security resilience
-- [Data Classification and Tagging Strategies](data-classification-and-tagging-strategies.md) - Classifying data for security policies
+- [Access Control for Streaming](https://conduktor.io/glossary/access-control-for-streaming) - Traditional and modern access control approaches
+- [Kafka Authentication: SASL, SSL, OAuth](https://conduktor.io/glossary/kafka-authentication-sasl-ssl-oauth) - Authentication implementation details
+- [Kafka ACLs and Authorization Patterns](https://conduktor.io/glossary/kafka-acls-and-authorization-patterns) - Authorization strategies and examples
+- [Encryption at Rest and in Transit for Kafka](https://conduktor.io/glossary/encryption-at-rest-and-in-transit-for-kafka) - Encryption configuration guide
+- [Audit Logging for Streaming Platforms](https://conduktor.io/glossary/audit-logging-for-streaming-platforms) - Comprehensive access tracking
+- [Data Masking and Anonymization for Streaming](https://conduktor.io/glossary/data-masking-and-anonymization-for-streaming) - Field-level data protection
+- [Chaos Engineering for Streaming Systems](https://conduktor.io/glossary/chaos-engineering-for-streaming-systems) - Testing security resilience
+- [Data Classification and Tagging Strategies](https://conduktor.io/glossary/data-classification-and-tagging-strategies) - Classifying data for security policies
 
 ## Sources and References
 

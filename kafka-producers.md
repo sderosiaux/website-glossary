@@ -28,7 +28,7 @@ Each `key:value` line becomes a keyed record.
 
 Producers must serialize keys and values into bytes. A schema keeps changes safe across teams and time.
 
-Pick a format and a registry. Avro, Protobuf, and JSON Schema pair well with a Schema Registry that stores versions and enforces compatibility. For detailed serialization guidance, see [Message Serialization in Kafka](message-serialization-in-kafka.md) and [Schema Registry and Schema Management](schema-registry-and-schema-management.md).
+Pick a format and a registry. Avro, Protobuf, and JSON Schema pair well with a Schema Registry that stores versions and enforces compatibility. For detailed serialization guidance, see [Message Serialization in Kafka](https://conduktor.io/glossary/message-serialization-in-kafka) and [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management).
 
 Key properties:
 
@@ -131,7 +131,7 @@ delivery.timeout.ms=120000  # 2 minutes
 
 ## Keys, Partitions, and Ordering
 
-Kafka guarantees order per partition per producer session. Your key choice decides partition placement and thus locality. For partition strategy details, see [Kafka Topics, Partitions, Brokers: Core Architecture](kafka-topics-partitions-brokers-core-architecture.md).
+Kafka guarantees order per partition per producer session. Your key choice decides partition placement and thus locality. For partition strategy details, see [Kafka Topics, Partitions, Brokers: Core Architecture](https://conduktor.io/glossary/kafka-topics-partitions-brokers-core-architecture).
 
 Practical rules:
 
@@ -146,7 +146,7 @@ Send a few `key:message` pairs with the console producer, then consume with part
 
 ## Batching, Backpressure, and Throughput Tuning
 
-The producer batches per partition to improve throughput. Larger batches raise efficiency and compression ratio at some latency cost. For handling downstream slowness and flow control, see [Backpressure Handling in Streaming Systems](backpressure-handling-in-streaming-systems.md).
+The producer batches per partition to improve throughput. Larger batches raise efficiency and compression ratio at some latency cost. For handling downstream slowness and flow control, see [Backpressure Handling in Streaming Systems](https://conduktor.io/glossary/backpressure-handling-in-streaming-systems).
 
 Levers that matter:
 
@@ -160,9 +160,9 @@ Watch `record-send-rate`, `record-error-rate`, `request-latency-avg`, p95 or p99
 
 ### Modern producer monitoring (2025)
 
-**Kafka 4.0+ improvements**: Kafka 4.0 runs on KRaft (no ZooKeeper), which improves producer metadata fetch times and reduces tail latencies. Enhanced producer metrics expose per-partition batch stats and compression ratios. For KRaft migration details, see [Understanding KRaft Mode in Kafka](understanding-kraft-mode-in-kafka.md) and [ZooKeeper to KRaft Migration](zookeeper-to-kraft-migration.md).
+**Kafka 4.0+ improvements**: Kafka 4.0 runs on KRaft (no ZooKeeper), which improves producer metadata fetch times and reduces tail latencies. Enhanced producer metrics expose per-partition batch stats and compression ratios. For KRaft migration details, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka) and [ZooKeeper to KRaft Migration](https://conduktor.io/glossary/zookeeper-to-kraft-migration).
 
-**Observability stack**: Use **Kafka Lag Exporter** with Prometheus to track producer throughput and errors. Export JMX metrics (`kafka.producer:*`) to Grafana dashboards. Monitor consumer lag to understand producer impact on downstream systems: [Consumer Lag Monitoring](consumer-lag-monitoring.md). For commercial environments, **Conduktor** provides unified producer monitoring, real-time error tracking, schema validation, and governance across clusters.
+**Observability stack**: Use **Kafka Lag Exporter** with Prometheus to track producer throughput and errors. Export JMX metrics (`kafka.producer:*`) to Grafana dashboards. Monitor consumer lag to understand producer impact on downstream systems: [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring). For commercial environments, **Conduktor** provides unified producer monitoring, real-time error tracking, schema validation, and governance across clusters.
 
 ## Where It Fits in Streaming Architectures
 
@@ -170,19 +170,19 @@ Producers sit at the edge of a streaming stack and shape downstream state and co
 
 Common placements:
 
-* **Microservices** publish domain events that drive other services. See [Outbox Pattern for Reliable Event Publishing](outbox-pattern-for-reliable-event-publishing.md) for safe event emission from databases.
-* **CDC to Kafka** uses Debezium to read database logs and publish to topics. Stable schemas and keys reduce reprocess churn. See [What is Change Data Capture (CDC) Fundamentals](what-is-change-data-capture-cdc-fundamentals.md).
-* **Flink** jobs read topics and write results to Kafka with exactly-once sinks that coordinate with Kafka transactions. See [What is Apache Flink: Stateful Stream Processing](what-is-apache-flink-stateful-stream-processing.md).
+* **Microservices** publish domain events that drive other services. See [Outbox Pattern for Reliable Event Publishing](https://conduktor.io/glossary/outbox-pattern-for-reliable-event-publishing) for safe event emission from databases.
+* **CDC to Kafka** uses Debezium to read database logs and publish to topics. Stable schemas and keys reduce reprocess churn. See [What is Change Data Capture (CDC) Fundamentals](https://conduktor.io/glossary/what-is-change-data-capture-cdc-fundamentals).
+* **Flink** jobs read topics and write results to Kafka with exactly-once sinks that coordinate with Kafka transactions. See [What is Apache Flink: Stateful Stream Processing](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing).
 * **Kafka Streams** reads and writes topics inside the same process. Idempotent or transactional producers prevent duplicate outputs on recovery.
 * **Kafka Connect** acts as a managed producer for databases and SaaS sources.
-* **ETL to lakehouses** publishes to topics that hydrate Iceberg or Delta tables through sinks. See [Streaming to Lakehouse Tables](streaming-to-lakehouse-tables.md).
+* **ETL to lakehouses** publishes to topics that hydrate Iceberg or Delta tables through sinks. See [Streaming to Lakehouse Tables](https://conduktor.io/glossary/streaming-to-lakehouse-tables).
 
 Design notes:
 
 * Pick keys that match downstream grouping, for example session joins on `session_id`.
-* Use compatibility rules in the registry to protect consumers. See [Schema Evolution Best Practices](schema-evolution-best-practices.md).
-* If the pipeline needs end-to-end exactly-once, combine idempotent producers, transactions, and read-committed consumers. For deep dive, see [Kafka Transactions Deep Dive](kafka-transactions-deep-dive.md).
-* For headers usage (metadata, tracing, routing), see [Using Kafka Headers Effectively](using-kafka-headers-effectively.md).
+* Use compatibility rules in the registry to protect consumers. See [Schema Evolution Best Practices](https://conduktor.io/glossary/schema-evolution-best-practices).
+* If the pipeline needs end-to-end exactly-once, combine idempotent producers, transactions, and read-committed consumers. For deep dive, see [Kafka Transactions Deep Dive](https://conduktor.io/glossary/kafka-transactions-deep-dive).
+* For headers usage (metadata, tracing, routing), see [Using Kafka Headers Effectively](https://conduktor.io/glossary/using-kafka-headers-effectively).
 
 ## Governance and Platform Support
 
@@ -190,11 +190,11 @@ The producer is the first gate for safety and reuse. Teams need clear controls o
 
 What to enforce:
 
-* **RBAC and ACLs** for write access, for example a service account with write to `orders-*`. See [Access Control for Streaming](access-control-for-streaming.md) and [Kafka Security Best Practices](kafka-security-best-practices.md).
+* **RBAC and ACLs** for write access, for example a service account with write to `orders-*`. See [Access Control for Streaming](https://conduktor.io/glossary/access-control-for-streaming) and [Kafka Security Best Practices](https://conduktor.io/glossary/kafka-security-best-practices).
 * **Schema policy** for backward or full compatibility, required fields like `event_time` or `tenant_id`, and validation in CI.
-* **Field protection** with masking or encryption on sensitive fields in transit or at a gateway. See [PII Detection and Handling in Event Streams](pii-detection-and-handling-in-event-streams.md).
-* **Quotas** per client ID to protect shared clusters. See [Quotas and Rate Limiting in Kafka](quotas-and-rate-limiting-in-kafka.md).
-* **Audit and lineage** that record who wrote, when, with which schema version, and how downstream tables or features depend on that topic. See [Audit Logging for Streaming Platforms](audit-logging-for-streaming-platforms.md).
+* **Field protection** with masking or encryption on sensitive fields in transit or at a gateway. See [PII Detection and Handling in Event Streams](https://conduktor.io/glossary/pii-detection-and-handling-in-event-streams).
+* **Quotas** per client ID to protect shared clusters. See [Quotas and Rate Limiting in Kafka](https://conduktor.io/glossary/quotas-and-rate-limiting-in-kafka).
+* **Audit and lineage** that record who wrote, when, with which schema version, and how downstream tables or features depend on that topic. See [Audit Logging for Streaming Platforms](https://conduktor.io/glossary/audit-logging-for-streaming-platforms).
 * **Standard producer libs** or config bundles to keep defaults consistent across teams.
 
 ### Platform support with Conduktor
@@ -206,7 +206,7 @@ What to enforce:
 * **Data masking**: Apply dynamic field-level masking on sensitive data (PII, credentials) at produce time
 * **Audit trail**: Track all produce operations with full lineage - who wrote what, when, and with which schema version
 * **Monitoring**: Real-time dashboards showing producer throughput, error rates, latency, and authorization failures across clusters
-* **Testing with Conduktor Gateway**: Inject chaos scenarios (latency, failures, broker outages) to test producer retry logic and resilience. For broader testing strategies, see [Testing Strategies for Streaming Applications](testing-strategies-for-streaming-applications.md).
+* **Testing with Conduktor Gateway**: Inject chaos scenarios (latency, failures, broker outages) to test producer retry logic and resilience. For broader testing strategies, see [Testing Strategies for Streaming Applications](https://conduktor.io/glossary/testing-strategies-for-streaming-applications).
 * **Impact analysis**: Visualize dependencies between producers, topics, schemas, and downstream consumers
 
 This centralized approach keeps producer changes safe, traceable, and compliant at scale without requiring custom tooling.

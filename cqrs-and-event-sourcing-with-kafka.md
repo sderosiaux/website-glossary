@@ -14,7 +14,7 @@ topics:
 
 Modern applications face increasing demands for scalability, auditability, and real-time responsiveness. Two architectural patterns—Command Query Responsibility Segregation (CQRS) and Event Sourcing—address these challenges by rethinking how we model and store data. While each pattern offers distinct benefits, they complement each other exceptionally well, especially when built on Apache Kafka's event streaming platform.
 
-This article explores how CQRS and Event Sourcing work individually and together, why Kafka serves as an ideal foundation, and what you need to know to implement these patterns successfully. For broader context on event-driven systems, see [Event-Driven Architecture](event-driven-architecture.md) and [Event-Driven Microservices Architecture](event-driven-microservices-architecture.md).
+This article explores how CQRS and Event Sourcing work individually and together, why Kafka serves as an ideal foundation, and what you need to know to implement these patterns successfully. For broader context on event-driven systems, see [Event-Driven Architecture](https://conduktor.io/glossary/event-driven-architecture) and [Event-Driven Microservices Architecture](https://conduktor.io/glossary/event-driven-microservices-architecture).
 
 ## Understanding CQRS: Separating Reads from Writes
 
@@ -42,7 +42,7 @@ For long-lived aggregates with thousands of events, replaying the entire history
 
 Instead of replaying 10,000 account transactions, you load the most recent snapshot (taken at event 9,500) and replay only the 500 events since then. Snapshots are stored alongside events but treated differently—they're performance optimizations, not the source of truth. If a snapshot is corrupted or missing, you can always rebuild it from events.
 
-Kafka's **log compaction** feature supports snapshot strategies. By using a separate compacted topic keyed by aggregate ID, you can store the latest snapshot for each entity. When consumers need to rebuild state, they first read the snapshot, then continue with the event stream. For more details on this Kafka feature, see [Kafka Log Compaction Explained](kafka-log-compaction-explained.md).
+Kafka's **log compaction** feature supports snapshot strategies. By using a separate compacted topic keyed by aggregate ID, you can store the latest snapshot for each entity. When consumers need to rebuild state, they first read the snapshot, then continue with the event stream. For more details on this Kafka feature, see [Kafka Log Compaction Explained](https://conduktor.io/glossary/kafka-log-compaction-explained).
 
 ```java
 // Snapshot strategy example
@@ -67,17 +67,17 @@ public AccountState loadAccount(String accountId) {
 
 ## Why Kafka is the Ideal Foundation
 
-Apache Kafka's architecture aligns perfectly with CQRS and Event Sourcing requirements. Kafka is a distributed commit log that stores streams of events durably and provides both pub-sub and queue semantics. For a comprehensive introduction to Kafka's core concepts, see [Apache Kafka](apache-kafka.md).
+Apache Kafka's architecture aligns perfectly with CQRS and Event Sourcing requirements. Kafka is a distributed commit log that stores streams of events durably and provides both pub-sub and queue semantics. For a comprehensive introduction to Kafka's core concepts, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
 
 Kafka topics serve as the event store. Events are written to topics and retained based on configurable policies—for days, weeks, or indefinitely. This durable log becomes the source of truth for Event Sourcing. Unlike traditional message queues that delete messages after consumption, Kafka retains events, allowing new consumers to process the entire history.
 
 Kafka's partitioning enables horizontal scaling. Events with the same key (like a customer ID) go to the same partition, maintaining order for that entity. Multiple partitions allow parallel processing across many consumers. This is crucial when rebuilding read models from potentially millions of events.
 
-Kafka's exactly-once semantics ensure events aren't lost or duplicated, which is essential for financial or transactional systems. As of Kafka 4.0+ (2024-2025), exactly-once processing is more robust with improved transactional guarantees. To achieve exactly-once delivery, configure producers with `enable.idempotence=true` and use transactional IDs for coordinated writes across multiple partitions. For detailed coverage of this critical feature, see [Exactly-Once Semantics in Kafka](exactly-once-semantics-in-kafka.md). The platform's performance—handling millions of events per second—supports even the most demanding real-time applications.
+Kafka's exactly-once semantics ensure events aren't lost or duplicated, which is essential for financial or transactional systems. As of Kafka 4.0+ (2024-2025), exactly-once processing is more robust with improved transactional guarantees. To achieve exactly-once delivery, configure producers with `enable.idempotence=true` and use transactional IDs for coordinated writes across multiple partitions. For detailed coverage of this critical feature, see [Exactly-Once Semantics in Kafka](https://conduktor.io/glossary/exactly-once-semantics-in-kafka). The platform's performance—handling millions of events per second—supports even the most demanding real-time applications.
 
 Modern Kafka deployments (4.0+) use KRaft mode, which removes the dependency on Apache ZooKeeper for metadata management. This simplifies operations, reduces infrastructure complexity, and improves cluster startup times and scalability. KRaft mode is the default and recommended configuration for all new Kafka clusters as of 2025.
 
-Kafka Connect and Kafka Streams provide robust ecosystems for integrating with external systems and building stream processing applications. For an introduction to building streaming applications, see [Introduction to Kafka Streams](introduction-to-kafka-streams.md). Additionally, modern stream processing frameworks like Apache Flink integrate seamlessly with Kafka for more complex stateful computations and event-time processing.
+Kafka Connect and Kafka Streams provide robust ecosystems for integrating with external systems and building stream processing applications. For an introduction to building streaming applications, see [Introduction to Kafka Streams](https://conduktor.io/glossary/introduction-to-kafka-streams). Additionally, modern stream processing frameworks like Apache Flink integrate seamlessly with Kafka for more complex stateful computations and event-time processing.
 
 ## Implementation Patterns and Architecture
 
@@ -246,7 +246,7 @@ Event schema evolution requires careful planning. Events are immutable, but your
 Modern schema management tools help manage this complexity:
 
 - **Confluent Schema Registry** or **Apicurio Registry** provide centralized schema storage with version control and compatibility checking
-- **Apache Avro**, **Protocol Buffers**, or **JSON Schema** define structured event formats with evolution rules (see [Avro vs Protobuf vs JSON Schema](avro-vs-protobuf-vs-json-schema.md) for a comparison)
+- **Apache Avro**, **Protocol Buffers**, or **JSON Schema** define structured event formats with evolution rules (see [Avro vs Protobuf vs JSON Schema](https://conduktor.io/glossary/avro-vs-protobuf-vs-json-schema) for a comparison)
 - **Compatibility modes** enforce constraints:
   - **Backward compatibility**: New consumers can read old events (safe to add optional fields)
   - **Forward compatibility**: Old consumers can read new events (safe to remove optional fields)
@@ -291,7 +291,7 @@ CQRS and Event Sourcing are complementary patterns that excel when built on Apac
 
 Kafka's durable, partitioned, scalable log architecture provides the ideal foundation for implementing these patterns in production systems. While they introduce complexity and operational considerations, the benefits for scalable, auditable, event-driven systems make them valuable tools for modern architectures.
 
-Success requires understanding the trade-offs, investing in proper tooling and monitoring, and applying these patterns where they provide clear value over simpler alternatives. For additional Event Sourcing implementation patterns and best practices, see [Event Sourcing Patterns with Kafka](event-sourcing-patterns-with-kafka.md).
+Success requires understanding the trade-offs, investing in proper tooling and monitoring, and applying these patterns where they provide clear value over simpler alternatives. For additional Event Sourcing implementation patterns and best practices, see [Event Sourcing Patterns with Kafka](https://conduktor.io/glossary/event-sourcing-patterns-with-kafka).
 
 ## Sources and References
 

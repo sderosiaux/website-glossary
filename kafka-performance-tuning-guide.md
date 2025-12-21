@@ -17,7 +17,7 @@ Apache Kafka has become the backbone of modern data streaming architectures, han
 
 Modern Kafka deployments benefit from significant architectural improvements. Kafka 4.0+ with KRaft mode (removing ZooKeeper dependency) delivers 30-40% faster metadata operations and lower latency. Tiered storage enables cost-effective data retention by offloading cold data to object storage. Understanding these modern capabilities is essential for optimal performance in 2025.
 
-This guide explores the key levers for optimizing Kafka performance, from producer batching to broker disk I/O, helping you build a high-performance streaming platform. For foundational understanding, see [Apache Kafka](apache-kafka.md).
+This guide explores the key levers for optimizing Kafka performance, from producer batching to broker disk I/O, helping you build a high-performance streaming platform. For foundational understanding, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
 
 ## Understanding Kafka Performance Fundamentals
 
@@ -27,7 +27,7 @@ The performance of a Kafka deployment depends on multiple components working tog
 
 Understanding your workload characteristics is essential before tuning. Are you optimizing for real-time analytics with low latency requirements, or bulk data transfer where throughput matters most? Does your use case require strict ordering guarantees or can you parallelize consumption across partitions? The answers guide your configuration decisions.
 
-**KRaft Mode Performance Benefits**: Since Kafka 3.0 and matured in 4.0+, KRaft mode eliminates ZooKeeper as an external dependency, managing metadata directly within Kafka brokers. This architectural change delivers measurable performance improvements: metadata operations are 30-40% faster, partition leader elections complete in milliseconds instead of seconds, and clusters scale to millions of partitions more efficiently. For detailed coverage, see [Understanding KRaft Mode in Kafka](understanding-kraft-mode-in-kafka.md).
+**KRaft Mode Performance Benefits**: Since Kafka 3.0 and matured in 4.0+, KRaft mode eliminates ZooKeeper as an external dependency, managing metadata directly within Kafka brokers. This architectural change delivers measurable performance improvements: metadata operations are 30-40% faster, partition leader elections complete in milliseconds instead of seconds, and clusters scale to millions of partitions more efficiently. For detailed coverage, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka).
 
 ## Producer Performance Optimization
 
@@ -35,11 +35,11 @@ Producers are often the first point of optimization. The `batch.size` parameter 
 
 The `linger.ms` setting introduces a small delay before sending batches, allowing more messages to accumulate. Setting this to 10-100ms can dramatically increase batch sizes and throughput, with minimal latency impact for most use cases. For example, a producer sending 1000 messages per second might see throughput double with `linger.ms=20` while adding only 20ms of latency.
 
-Compression reduces network bandwidth and broker disk usage. The `compression.type` parameter supports `gzip`, `snappy`, `lz4`, and `zstd`. In Kafka 3.0+, `zstd` is the recommended default, offering superior compression ratios (20-30% better than `lz4`) with improved CPU efficiency on modern hardware. For latency-sensitive workloads, `lz4` remains excellent for its minimal CPU overhead. Avoid `gzip` in 2025 deployments unless compatibility with legacy systems requires it. For serialization format selection and schema management, see [Message Serialization in Kafka](message-serialization-in-kafka.md) and [Schema Registry and Schema Management](schema-registry-and-schema-management.md).
+Compression reduces network bandwidth and broker disk usage. The `compression.type` parameter supports `gzip`, `snappy`, `lz4`, and `zstd`. In Kafka 3.0+, `zstd` is the recommended default, offering superior compression ratios (20-30% better than `lz4`) with improved CPU efficiency on modern hardware. For latency-sensitive workloads, `lz4` remains excellent for its minimal CPU overhead. Avoid `gzip` in 2025 deployments unless compatibility with legacy systems requires it. For serialization format selection and schema management, see [Message Serialization in Kafka](https://conduktor.io/glossary/message-serialization-in-kafka) and [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management).
 
 The `acks` parameter controls durability versus throughput trade-offs. Setting `acks=1` requires acknowledgment from only the leader broker, offering higher throughput but risking data loss if the leader fails before replication. Using `acks=all` ensures all in-sync replicas (ISR—brokers fully caught up with the leader) acknowledge the write, providing maximum durability at the cost of higher latency. For non-critical data streams, `acks=1` can significantly boost performance.
 
-**Producer Idempotence and Exactly-Once Semantics**: Since Kafka 3.0+, producer idempotence (`enable.idempotence=true`) is enabled by default, preventing duplicate messages from retries with minimal performance overhead (typically 1-3% throughput reduction). For transactional guarantees, configure `transactional.id` to enable exactly-once semantics. For detailed producer patterns, see [Kafka Producers](kafka-producers.md).
+**Producer Idempotence and Exactly-Once Semantics**: Since Kafka 3.0+, producer idempotence (`enable.idempotence=true`) is enabled by default, preventing duplicate messages from retries with minimal performance overhead (typically 1-3% throughput reduction). For transactional guarantees, configure `transactional.id` to enable exactly-once semantics. For detailed producer patterns, see [Kafka Producers](https://conduktor.io/glossary/kafka-producers).
 
 ## Broker Configuration Tuning
 
@@ -47,19 +47,19 @@ Broker performance heavily depends on memory allocation for the operating system
 
 **JVM and Garbage Collection Tuning**: Configure broker JVM heap between 5-8GB (more rarely improves performance and can increase GC pauses). In Kafka 4.0+ deployments, use G1GC as the default garbage collector with `-XX:+UseG1GC -XX:MaxGCPauseMillis=20 -XX:InitiatingHeapOccupancyPercent=35`. For ultra-low latency requirements, consider ZGC (`-XX:+UseZGC`) available in modern JVMs, which maintains sub-10ms pause times even under heavy load.
 
-The `num.replica.fetchers` parameter controls how many threads fetch replication data from leader brokers. Increasing from the default of 1 to 4-8 can improve replication throughput in clusters with high partition counts or cross-datacenter replication. For detailed replication architecture, see [Kafka Replication and High Availability](kafka-replication-and-high-availability.md).
+The `num.replica.fetchers` parameter controls how many threads fetch replication data from leader brokers. Increasing from the default of 1 to 4-8 can improve replication throughput in clusters with high partition counts or cross-datacenter replication. For detailed replication architecture, see [Kafka Replication and High Availability](https://conduktor.io/glossary/kafka-replication-and-high-availability).
 
-Log segment configuration affects both write performance and retention management. The `log.segment.bytes` parameter defaults to 1GB. Smaller segments (256MB) enable faster log compaction and deletion but create more files. Larger segments (2GB) reduce file system overhead but delay retention policy application. For log compaction strategies, see [Kafka Log Compaction Explained](kafka-log-compaction-explained.md).
+Log segment configuration affects both write performance and retention management. The `log.segment.bytes` parameter defaults to 1GB. Smaller segments (256MB) enable faster log compaction and deletion but create more files. Larger segments (2GB) reduce file system overhead but delay retention policy application. For log compaction strategies, see [Kafka Log Compaction Explained](https://conduktor.io/glossary/kafka-log-compaction-explained).
 
 Thread pool sizing impacts concurrency. The `num.network.threads` parameter (default 3) handles network I/O, while `num.io.threads` (default 8) processes requests. For high-throughput clusters in 2025, increasing these to 8-12 and 16-24 respectively can reduce request queuing on modern multi-core hardware, though excessive threads cause context switching overhead.
 
-**Tiered Storage for Cost-Effective Performance**: Kafka 3.6+ introduces tiered storage, enabling brokers to offload cold data to object storage (S3, Azure Blob, GCS) while keeping hot data locally. Configure `remote.log.storage.system.enable=true` and specify retention policies with `local.retention.ms` and `retention.ms`. This dramatically reduces local disk requirements—a cluster storing 100TB can operate with only 10TB of local storage while maintaining full data access. Tiered storage introduces minimal latency for historical data queries (50-200ms additional latency) while cutting storage costs by 70-80%. For detailed configuration, see [Tiered Storage in Kafka](tiered-storage-in-kafka.md).
+**Tiered Storage for Cost-Effective Performance**: Kafka 3.6+ introduces tiered storage, enabling brokers to offload cold data to object storage (S3, Azure Blob, GCS) while keeping hot data locally. Configure `remote.log.storage.system.enable=true` and specify retention policies with `local.retention.ms` and `retention.ms`. This dramatically reduces local disk requirements—a cluster storing 100TB can operate with only 10TB of local storage while maintaining full data access. Tiered storage introduces minimal latency for historical data queries (50-200ms additional latency) while cutting storage costs by 70-80%. For detailed configuration, see [Tiered Storage in Kafka](https://conduktor.io/glossary/tiered-storage-in-kafka).
 
 ## Consumer Performance Optimization
 
 Consumer throughput depends largely on `fetch.min.bytes` and `fetch.max.wait.ms`. Setting `fetch.min.bytes=100000` (100KB) ensures consumers wait for substantial data before fetching, reducing request overhead. The `fetch.max.wait.ms=500` parameter limits wait time, balancing latency and batch size.
 
-Parallelism is critical for consumer performance. Kafka partitions enable parallel consumption—each partition is consumed by exactly one consumer in a group. If you have 12 partitions but only 3 consumers, increasing to 12 consumers can multiply throughput by 4x, assuming adequate processing capacity. For detailed consumer group mechanics, see [Kafka Consumer Groups Explained](kafka-consumer-groups-explained.md).
+Parallelism is critical for consumer performance. Kafka partitions enable parallel consumption—each partition is consumed by exactly one consumer in a group. If you have 12 partitions but only 3 consumers, increasing to 12 consumers can multiply throughput by 4x, assuming adequate processing capacity. For detailed consumer group mechanics, see [Kafka Consumer Groups Explained](https://conduktor.io/glossary/kafka-consumer-groups-explained).
 
 The `max.poll.records` parameter controls how many records are returned in a single poll. The default of 500 works for many cases, but batch-oriented processing might benefit from increasing to 2000-5000, while latency-sensitive applications might reduce to 100-200.
 
@@ -75,7 +75,7 @@ Disk I/O configuration matters enormously. Kafka performs primarily sequential w
 
 File system selection affects performance and reliability. XFS is generally recommended over ext4 for Kafka workloads due to better performance with large files and more efficient handling of concurrent writes. The `noatime` mount option eliminates unnecessary metadata updates, improving write performance by 5-10%.
 
-Network topology impacts latency and bandwidth. Modern Kafka clusters benefit from high-bandwidth networking—25Gbps or 100Gbps in large deployments—minimizing bottlenecks during peak traffic. Cross-datacenter replication benefits from dedicated network links and careful tuning of `replica.lag.time.max.ms` to account for network latency. For multi-region deployments, see [Kafka MirrorMaker 2 for Cross-Cluster Replication](kafka-mirrormaker-2-for-cross-cluster-replication.md).
+Network topology impacts latency and bandwidth. Modern Kafka clusters benefit from high-bandwidth networking—25Gbps or 100Gbps in large deployments—minimizing bottlenecks during peak traffic. Cross-datacenter replication benefits from dedicated network links and careful tuning of `replica.lag.time.max.ms` to account for network latency. For multi-region deployments, see [Kafka MirrorMaker 2 for Cross-Cluster Replication](https://conduktor.io/glossary/kafka-mirrormaker-2-for-cross-cluster-replication).
 
 ## Monitoring and Measuring Performance
 
@@ -88,7 +88,7 @@ Effective performance tuning requires comprehensive monitoring. Key broker metri
 - **Conduktor Platform**: Purpose-built for Kafka, Conduktor provides specialized monitoring with pre-built dashboards for performance metrics, configuration drift detection, cluster health visualization, and performance bottleneck identification
 - **Conduktor Gateway**: For performance testing and chaos engineering, Conduktor Gateway acts as a proxy layer enabling sophisticated testing scenarios like network delay injection, partition throttling, and failure simulation
 
-For comprehensive cluster monitoring strategies, see [Kafka Cluster Monitoring and Metrics](kafka-cluster-monitoring-and-metrics.md).
+For comprehensive cluster monitoring strategies, see [Kafka Cluster Monitoring and Metrics](https://conduktor.io/glossary/kafka-cluster-monitoring-and-metrics).
 
 Load testing validates tuning changes. Tools like `kafka-producer-perf-test` and `kafka-consumer-perf-test` generate synthetic workloads to measure throughput and latency under controlled conditions. Testing different configurations helps identify optimal settings for your specific hardware and workload. Conduktor Gateway enables advanced performance testing scenarios including chaos engineering experiments to validate performance under degraded conditions.
 
@@ -100,7 +100,7 @@ Consider an e-commerce platform processing clickstream events. Initially, produc
 
 Another common scenario involves consumer lag during traffic spikes. A trading platform processes market data through 24 partitions but runs only 8 consumer instances. During high-volume periods, lag grows to millions of messages. Scaling to 24 consumers eliminates the bottleneck, and tuning `fetch.min.bytes=50000` reduces network overhead, bringing lag back to near-zero even during peaks.
 
-Over-replication can also degrade performance. A small development cluster configured with `replication.factor=3` across only 3 brokers experiences poor write performance due to network saturation from replication traffic. Reducing to `replication.factor=2` for non-critical topics frees bandwidth and improves throughput by 40%. For comprehensive topic configuration guidance, see [Kafka Topic Design Guidelines](kafka-topic-design-guidelines.md) and [Kafka Topics, Partitions, Brokers: Core Architecture](kafka-topics-partitions-brokers-core-architecture.md).
+Over-replication can also degrade performance. A small development cluster configured with `replication.factor=3` across only 3 brokers experiences poor write performance due to network saturation from replication traffic. Reducing to `replication.factor=2` for non-critical topics frees bandwidth and improves throughput by 40%. For comprehensive topic configuration guidance, see [Kafka Topic Design Guidelines](https://conduktor.io/glossary/kafka-topic-design-guidelines) and [Kafka Topics, Partitions, Brokers: Core Architecture](https://conduktor.io/glossary/kafka-topics-partitions-brokers-core-architecture).
 
 ## Performance Tuning Quick Reference
 
@@ -120,9 +120,9 @@ For common performance scenarios, start with these tuning priorities:
 - Tune `fetch.min.bytes` to smaller values
 - Deploy on NVMe storage with high-bandwidth networking
 
-**Capacity Planning**: Performance tuning works hand-in-hand with capacity planning. For comprehensive guidance on sizing clusters and predicting resource requirements, see [Kafka Capacity Planning](kafka-capacity-planning.md).
+**Capacity Planning**: Performance tuning works hand-in-hand with capacity planning. For comprehensive guidance on sizing clusters and predicting resource requirements, see [Kafka Capacity Planning](https://conduktor.io/glossary/kafka-capacity-planning).
 
-**Security Considerations**: Performance tuning must balance speed with security. Authentication (SASL, SSL, OAuth) and encryption (TLS) introduce overhead but are essential for production deployments. For guidance on minimizing security-related performance impact, see [Kafka Authentication: SASL, SSL, OAuth](kafka-authentication-sasl-ssl-oauth.md) and [Kafka Security Best Practices](kafka-security-best-practices.md).
+**Security Considerations**: Performance tuning must balance speed with security. Authentication (SASL, SSL, OAuth) and encryption (TLS) introduce overhead but are essential for production deployments. For guidance on minimizing security-related performance impact, see [Kafka Authentication: SASL, SSL, OAuth](https://conduktor.io/glossary/kafka-authentication-sasl-ssl-oauth) and [Kafka Security Best Practices](https://conduktor.io/glossary/kafka-security-best-practices).
 
 ## Summary
 

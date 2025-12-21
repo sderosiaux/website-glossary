@@ -29,7 +29,7 @@ Modern data streaming architectures often involve multiple teams, microservices,
 
 ## Authentication: Verifying Client Identity
 
-Authentication ensures that only verified clients can connect to your Kafka cluster. Kafka supports several authentication mechanisms, each with different security profiles and operational complexity. For in-depth coverage of authentication mechanisms and implementation patterns, see [Kafka Authentication: SASL, SSL, OAuth](kafka-authentication-sasl-ssl-oauth.md).
+Authentication ensures that only verified clients can connect to your Kafka cluster. Kafka supports several authentication mechanisms, each with different security profiles and operational complexity. For in-depth coverage of authentication mechanisms and implementation patterns, see [Kafka Authentication: SASL, SSL, OAuth](https://conduktor.io/glossary/kafka-authentication-sasl-ssl-oauth).
 
 ### SASL (Simple Authentication and Security Layer)
 
@@ -51,7 +51,7 @@ sasl.mechanism.inter.broker.protocol=SCRAM-SHA-512
 
 Mutual TLS authentication uses client certificates for authentication. Both the broker and client present certificates, providing strong two-way authentication. This approach eliminates password management but requires certificate infrastructure and distribution mechanisms.
 
-mTLS works well for service-to-service communication where certificate lifecycle management can be automated, though it can be more challenging for human users and dynamic client environments. For detailed implementation guidance, see [mTLS for Kafka](mtls-for-kafka.md).
+mTLS works well for service-to-service communication where certificate lifecycle management can be automated, though it can be more challenging for human users and dynamic client environments. For detailed implementation guidance, see [mTLS for Kafka](https://conduktor.io/glossary/mtls-for-kafka).
 
 ### OAuth 2.0 and OIDC (Modern Cloud-Native Authentication)
 
@@ -79,7 +79,7 @@ OAuth 2.0 is particularly valuable in multi-tenant environments, microservices a
 
 ## Authorization: Controlling Access with ACLs
 
-Authentication identifies who is connecting, but authorization determines what they can do. Kafka uses Access Control Lists (ACLs) to enforce fine-grained permissions on topics, consumer groups, and cluster operations. For comprehensive coverage of authorization patterns and implementation strategies, see [Kafka ACLs and Authorization Patterns](kafka-acls-and-authorization-patterns.md).
+Authentication identifies who is connecting, but authorization determines what they can do. Kafka uses Access Control Lists (ACLs) to enforce fine-grained permissions on topics, consumer groups, and cluster operations. For comprehensive coverage of authorization patterns and implementation strategies, see [Kafka ACLs and Authorization Patterns](https://conduktor.io/glossary/kafka-acls-and-authorization-patterns).
 
 ACLs specify which principals (users or services) can perform which operations on which resources. For example:
 
@@ -95,15 +95,15 @@ kafka-acls --add --allow-principal User:analytics-app \
 
 **Resource-specific permissions**: Avoid wildcard ACLs in production. Instead of granting access to all topics (`*`), explicitly list permitted topics. This prevents accidental access to sensitive data.
 
-**Team-based access control**: In multi-team environments, prefix topic names with team identifiers (e.g., `marketing.events`, `engineering.logs`) and grant ACLs accordingly. This creates clear ownership boundaries. For strategies on managing shared Kafka infrastructure across teams, see [Multi-Tenancy in Kafka Environments](multi-tenancy-in-kafka-environments.md).
+**Team-based access control**: In multi-team environments, prefix topic names with team identifiers (e.g., `marketing.events`, `engineering.logs`) and grant ACLs accordingly. This creates clear ownership boundaries. For strategies on managing shared Kafka infrastructure across teams, see [Multi-Tenancy in Kafka Environments](https://conduktor.io/glossary/multi-tenancy-in-kafka-environments).
 
 **Regular audits**: Review ACLs periodically to remove unused permissions and identify over-privileged accounts.
 
-Managing ACLs through command-line tools can become cumbersome as your cluster grows. Governance platforms provide visual ACL management interfaces that make it easier to understand and maintain permission structures across hundreds of topics and users. For broader access control patterns including RBAC and ABAC, see [Access Control for Streaming](access-control-for-streaming.md).
+Managing ACLs through command-line tools can become cumbersome as your cluster grows. Governance platforms provide visual ACL management interfaces that make it easier to understand and maintain permission structures across hundreds of topics and users. For broader access control patterns including RBAC and ABAC, see [Access Control for Streaming](https://conduktor.io/glossary/access-control-for-streaming).
 
 ## Encryption: Protecting Data in Transit and at Rest
 
-Encryption prevents unauthorized access to data as it moves through your infrastructure and while stored on disk. For detailed encryption implementation guidance, see [Encryption at Rest and in Transit for Kafka](encryption-at-rest-and-in-transit-for-kafka.md).
+Encryption prevents unauthorized access to data as it moves through your infrastructure and while stored on disk. For detailed encryption implementation guidance, see [Encryption at Rest and in Transit for Kafka](https://conduktor.io/glossary/encryption-at-rest-and-in-transit-for-kafka).
 
 ### Encryption in Transit (TLS 1.3)
 
@@ -177,13 +177,13 @@ Zero Trust security has become the industry standard approach for protecting cri
 
 **Microsegmentation**: Isolate different workloads and tenants using network policies, ACLs, and separate clusters when necessary. Critical financial data should not share infrastructure with lower-sensitivity workloads.
 
-For comprehensive guidance on implementing Zero Trust principles across your streaming infrastructure, see [Zero Trust for Streaming](zero-trust-for-streaming.md).
+For comprehensive guidance on implementing Zero Trust principles across your streaming infrastructure, see [Zero Trust for Streaming](https://conduktor.io/glossary/zero-trust-for-streaming).
 
 ## Monitoring and Auditing Security Events
 
 Security is not a one-time configuration but an ongoing process requiring continuous monitoring.
 
-**Audit logs**: Enable Kafka's audit logging to track authentication attempts, authorization decisions, and administrative operations. These logs are crucial for security investigations and compliance reporting. For comprehensive audit logging strategies, see [Audit Logging for Streaming Platforms](audit-logging-for-streaming-platforms.md).
+**Audit logs**: Enable Kafka's audit logging to track authentication attempts, authorization decisions, and administrative operations. These logs are crucial for security investigations and compliance reporting. For comprehensive audit logging strategies, see [Audit Logging for Streaming Platforms](https://conduktor.io/glossary/audit-logging-for-streaming-platforms).
 
 **Security metrics monitoring** (2025 tooling): Track security-related metrics using modern observability platforms:
 - **Authentication failures**: Monitor failed login attempts and authentication errors
@@ -203,11 +203,11 @@ Securing Kafka extends beyond the cluster itself to the broader streaming ecosys
 
 **Credential management**: Use secret management systems like HashiCorp Vault, AWS Secrets Manager, or Kubernetes secrets to store and distribute Kafka credentials rather than hardcoding them in configuration files.
 
-**Schema Registry security**: If using Schema Registry or other schema systems, secure these components separately as they control data formats and evolution. For schema management security considerations, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md).
+**Schema Registry security**: If using Schema Registry or other schema systems, secure these components separately as they control data formats and evolution. For schema management security considerations, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management).
 
 **Connect and ksqlDB**: These components often have elevated privileges to create topics and manage consumer groups. Secure their administrative APIs and limit their Kafka permissions appropriately.
 
-**Policy enforcement**: Implement automated policy enforcement for security standards, data classification, and compliance requirements. For comprehensive policy enforcement strategies, see [Policy Enforcement in Streaming](policy-enforcement-in-streaming.md).
+**Policy enforcement**: Implement automated policy enforcement for security standards, data classification, and compliance requirements. For comprehensive policy enforcement strategies, see [Policy Enforcement in Streaming](https://conduktor.io/glossary/policy-enforcement-in-streaming).
 
 ## Summary
 

@@ -86,7 +86,7 @@ Cloud data platforms, API gateways, and data marketplaces often implement hub-an
 
 Modern architectures increasingly use event-driven patterns where organizations publish events to shared event streams. Other organizations subscribe to relevant events and process them independently. This creates a loosely coupled mesh where producers and consumers don't need direct knowledge of each other.
 
-For foundational event-driven concepts, see [Event-Driven Architecture](event-driven-architecture.md) and [Event Stream Fundamentals](event-stream-fundamentals.md).
+For foundational event-driven concepts, see [Event-Driven Architecture](https://conduktor.io/glossary/event-driven-architecture) and [Event Stream Fundamentals](https://conduktor.io/glossary/event-stream-fundamentals).
 
 Event-driven patterns work particularly well for real-time data sharing and scenarios where multiple organizations need the same data. A manufacturer might publish inventory events that flow to distributors, logistics providers, and retailers simultaneously.
 
@@ -103,7 +103,7 @@ Organizations must verify the identity of data consumers (authentication) and co
 - **API keys and tokens** for simpler scenarios, though these require careful rotation and management
 - **SASL/SCRAM or SASL/OAUTHBEARER** for Kafka authentication, with OAuth providing better support for token-based, time-limited access
 
-For Kafka-specific authentication, see [Kafka Authentication: SASL, SSL, OAuth](kafka-authentication-sasl-ssl-oauth.md) and [mTLS for Kafka](mtls-for-kafka.md).
+For Kafka-specific authentication, see [Kafka Authentication: SASL, SSL, OAuth](https://conduktor.io/glossary/kafka-authentication-sasl-ssl-oauth) and [mTLS for Kafka](https://conduktor.io/glossary/mtls-for-kafka).
 
 Example OAuth 2.0 client credentials flow for cross-organization API access:
 
@@ -134,7 +134,7 @@ inventory_data = data_response.json()
 
 Authorization typically uses role-based access control (RBAC) or attribute-based access control (ABAC). RBAC grants permissions based on predefined roles (e.g., "partner-org-reader"), while ABAC makes access decisions based on dynamic attributes like user department, data classification, time of day, or request context. For example, a healthcare network might grant a partner hospital read access to specific patient records based on attributes like patient consent, treating physician, and active care relationship.
 
-For comprehensive access control patterns, see [Data Access Control: RBAC and ABAC](data-access-control-rbac-and-abac.md).
+For comprehensive access control patterns, see [Data Access Control: RBAC and ABAC](https://conduktor.io/glossary/data-access-control-rbac-and-abac).
 
 Example ABAC policy for cross-organization data access:
 
@@ -162,7 +162,7 @@ Sensitive data often requires masking or encryption before sharing. Organization
 - Use tokenization to replace sensitive values with non-sensitive tokens that can be mapped back only by authorized systems
 - Apply dynamic data masking based on the consumer's identity and permissions
 
-For streaming data encryption, see [Encryption at Rest and in Transit for Kafka](encryption-at-rest-and-in-transit-for-kafka.md) and [Data Masking and Anonymization for Streaming](data-masking-and-anonymization-for-streaming.md).
+For streaming data encryption, see [Encryption at Rest and in Transit for Kafka](https://conduktor.io/glossary/encryption-at-rest-and-in-transit-for-kafka) and [Data Masking and Anonymization for Streaming](https://conduktor.io/glossary/data-masking-and-anonymization-for-streaming).
 
 Example data masking before cross-organization sharing:
 
@@ -208,7 +208,7 @@ shared_transaction = mask_sensitive_fields(transaction, consumer_org='partner-ba
 
 A financial institution sharing transaction data for fraud analysis might mask customer names and account numbers while preserving transaction patterns and amounts, allowing partners to detect fraud without exposing PII.
 
-For PII handling strategies, see [PII Detection and Handling in Event Streams](pii-detection-and-handling-in-event-streams.md).
+For PII handling strategies, see [PII Detection and Handling in Event Streams](https://conduktor.io/glossary/pii-detection-and-handling-in-event-streams).
 
 ## Data Streaming in Cross-Organization Scenarios
 
@@ -222,15 +222,15 @@ Organizations can use Kafka in several ways for cross-organization sharing:
 
 **Multi-Cluster Replication**: Each organization runs its own Kafka cluster. MirrorMaker 2 or Confluent Cluster Linking replicates selected topics between clusters, maintaining data sovereignty while enabling sharing. With Kafka 4.0+, KRaft mode (replacing ZooKeeper) simplifies cluster management and improves replication performance. This pattern works well when organizations want complete control over their infrastructure.
 
-For detailed cluster replication setup, see [Kafka MirrorMaker 2 for Cross-Cluster Replication](kafka-mirrormaker-2-for-cross-cluster-replication.md).
+For detailed cluster replication setup, see [Kafka MirrorMaker 2 for Cross-Cluster Replication](https://conduktor.io/glossary/kafka-mirrormaker-2-for-cross-cluster-replication).
 
 **Shared Cluster with Multi-Tenancy**: Organizations share a Kafka cluster but use ACLs and quotas to isolate data and enforce access policies. Kafka 4.0+ provides enhanced multi-tenancy features including improved quota management and namespace isolation. This reduces operational overhead but requires careful security configuration.
 
-For comprehensive ACL configuration, see [Kafka ACLs and Authorization Patterns](kafka-acls-and-authorization-patterns.md) and [Multi-Tenancy in Kafka Environments](multi-tenancy-in-kafka-environments.md).
+For comprehensive ACL configuration, see [Kafka ACLs and Authorization Patterns](https://conduktor.io/glossary/kafka-acls-and-authorization-patterns) and [Multi-Tenancy in Kafka Environments](https://conduktor.io/glossary/multi-tenancy-in-kafka-environments).
 
 **Event Streaming as Integration Layer**: Kafka acts as the hub in a hub-and-spoke pattern. Organizations publish events to central topics, and consumers subscribe based on their needs. Schema Registry (Confluent Schema Registry, AWS Glue Schema Registry, or Apicurio Registry) ensures data compatibility across organizations.
 
-For schema management best practices, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md).
+For schema management best practices, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management).
 
 ### Real-World Example: Supply Chain Data Sharing
 
@@ -248,19 +248,19 @@ Several specialized platforms have emerged to simplify cross-organization data s
 
 **Delta Sharing**: An open protocol for secure data sharing that works with data lake tables (Delta Lake, Apache Iceberg, Apache Hudi). Organizations share live data without copying it, using a simple REST API for access control. Recipients can query shared data using their preferred tools (Spark, pandas, Power BI) without requiring direct cloud storage access.
 
-For implementation details, see [Zero-Copy Data Sharing](zero-copy-data-sharing.md).
+For implementation details, see [Zero-Copy Data Sharing](https://conduktor.io/glossary/zero-copy-data-sharing).
 
 **Apache Iceberg REST Catalog**: Provides unified metadata access across organizations. Teams can share table metadata and enforce fine-grained access controls at the table and column level while maintaining separate storage accounts.
 
 **Managed API Gateways**: Cloud platforms (AWS API Gateway, Google Cloud Apigee, Azure API Management) offer built-in authentication, rate limiting, and monitoring for API-based data sharing. GraphQL Federation enables organizations to expose unified APIs while maintaining separate backend services.
 
-For API gateway patterns, see [API Gateway Patterns for Data Platforms](api-gateway-patterns-for-data-platforms.md).
+For API gateway patterns, see [API Gateway Patterns for Data Platforms](https://conduktor.io/glossary/api-gateway-patterns-for-data-platforms).
 
 ## Governance and Compliance Considerations
 
 Cross-organization data sharing requires clear governance frameworks to manage responsibilities, quality, and compliance.
 
-For broader governance frameworks, see [Data Governance Framework: Roles and Responsibilities](data-governance-framework-roles-and-responsibilities.md) and [Data Mesh Principles and Implementation](data-mesh-principles-and-implementation.md).
+For broader governance frameworks, see [Data Governance Framework: Roles and Responsibilities](https://conduktor.io/glossary/data-governance-framework-roles-and-responsibilities) and [Data Mesh Principles and Implementation](https://conduktor.io/glossary/data-mesh-principles-and-implementation).
 
 ### Data Contracts and SLAs
 
@@ -270,9 +270,9 @@ Organizations should establish formal agreements defining:
 - **Service level agreements (SLAs)** covering availability, latency, and support
 - **Change management processes** for schema evolution and breaking changes
 
-For implementing data contracts, see [Data Contracts for Reliable Pipelines](data-contracts-for-reliable-pipelines.md).
+For implementing data contracts, see [Data Contracts for Reliable Pipelines](https://conduktor.io/glossary/data-contracts-for-reliable-pipelines).
 
-For SLA monitoring and management, see [Data Freshness Monitoring & SLA Management](data-freshness-monitoring-sla-management.md) and [SLA for Streaming](sla-for-streaming.md).
+For SLA monitoring and management, see [Data Freshness Monitoring & SLA Management](https://conduktor.io/glossary/data-freshness-monitoring-sla-management) and [SLA for Streaming](https://conduktor.io/glossary/sla-for-streaming).
 
 These contracts prevent misunderstandings and provide a foundation for resolving issues when they arise.
 
@@ -284,11 +284,11 @@ Data sharing across organizations often involves regulatory requirements:
 - **HIPAA** governs healthcare data sharing and requires business associate agreements
 - **Financial regulations** like PCI DSS control how payment card data can be shared
 
-For detailed GDPR compliance guidance, see [GDPR Compliance for Data Teams](gdpr-compliance-for-data-teams.md).
+For detailed GDPR compliance guidance, see [GDPR Compliance for Data Teams](https://conduktor.io/glossary/gdpr-compliance-for-data-teams).
 
 Organizations must map data flows to understand which regulations apply and implement appropriate controls. Audit logs tracking who accessed what data when are essential for compliance and incident response.
 
-For audit logging implementation, see [Audit Logging for Streaming Platforms](audit-logging-for-streaming-platforms.md) and [Streaming Audit Logs](streaming-audit-logs.md).
+For audit logging implementation, see [Audit Logging for Streaming Platforms](https://conduktor.io/glossary/audit-logging-for-streaming-platforms) and [Streaming Audit Logs](https://conduktor.io/glossary/streaming-audit-logs).
 
 ## Implementation Challenges and Best Practices
 
@@ -312,7 +312,7 @@ Data formats evolve over time, creating compatibility challenges. Best practices
 - Apply backward and forward compatibility rules so changes don't break consumers
 - Provide advance notice of breaking changes and support multiple schema versions during transitions
 
-For comprehensive schema evolution strategies, see [Schema Evolution Best Practices](schema-evolution-best-practices.md) and [Schema Evolution in Apache Iceberg](schema-evolution-in-apache-iceberg.md).
+For comprehensive schema evolution strategies, see [Schema Evolution Best Practices](https://conduktor.io/glossary/schema-evolution-best-practices) and [Schema Evolution in Apache Iceberg](https://conduktor.io/glossary/schema-evolution-in-apache-iceberg).
 
 Schema management tools help teams validate schema changes before deployment and understand which consumers might be affected by changes.
 
@@ -331,7 +331,7 @@ Modern observability platforms in 2025 provide:
 - **Real-time alerting**: Automated notifications when SLAs are violated or anomalies detected
 - **Cross-organization dashboards**: Unified views showing data flow health across all participating organizations
 
-For Kafka-specific monitoring, see [Kafka Cluster Monitoring and Metrics](kafka-cluster-monitoring-and-metrics.md) and [Distributed Tracing for Kafka Applications](distributed-tracing-for-kafka-applications.md).
+For Kafka-specific monitoring, see [Kafka Cluster Monitoring and Metrics](https://conduktor.io/glossary/kafka-cluster-monitoring-and-metrics) and [Distributed Tracing for Kafka Applications](https://conduktor.io/glossary/distributed-tracing-for-kafka-applications).
 
 Example OpenTelemetry instrumentation for cross-organization Kafka producer:
 
@@ -383,7 +383,7 @@ In 2025, modern data sharing platforms have significantly simplified cross-organ
 
 Successful implementations establish clear data contracts, implement layered security including authentication, authorization, and encryption, and maintain comprehensive monitoring with distributed tracing. Modern platforms that provide schema management, access control, data masking, and built-in sharing capabilities reduce the operational burden of managing these complex data flows.
 
-For quality assurance in shared data, see [Building a Data Quality Framework](building-a-data-quality-framework.md) and [Data Quality Dimensions: Accuracy, Completeness, and Consistency](data-quality-dimensions-accuracy-completeness-and-consistency.md).
+For quality assurance in shared data, see [Building a Data Quality Framework](https://conduktor.io/glossary/building-a-data-quality-framework) and [Data Quality Dimensions: Accuracy, Completeness, and Consistency](https://conduktor.io/glossary/data-quality-dimensions-accuracy-completeness-and-consistency).
 
 As organizations increasingly participate in data ecosystems, these patterns and practices become essential for building reliable, secure, and scalable data sharing architectures.
 

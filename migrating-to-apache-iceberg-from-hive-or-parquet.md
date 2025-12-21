@@ -11,7 +11,7 @@ topics:
 
 # Migrating to Apache Iceberg from Hive or Parquet
 
-Apache Iceberg has emerged as the leading table format for modern [data lakehouses](introduction-to-lakehouse-architecture.md), offering features like ACID transactions, time travel, schema evolution, and partition evolution that traditional Hive tables and raw Parquet files cannot provide. As of 2025, [Apache Iceberg](apache-iceberg.md) 1.7+ provides production-grade migration tools, REST catalog support, and advanced features like branches and tags that make migration safer and more flexible than ever.
+Apache Iceberg has emerged as the leading table format for modern [data lakehouses](https://conduktor.io/glossary/introduction-to-lakehouse-architecture), offering features like ACID transactions, time travel, schema evolution, and partition evolution that traditional Hive tables and raw Parquet files cannot provide. As of 2025, [Apache Iceberg](https://conduktor.io/glossary/apache-iceberg) 1.7+ provides production-grade migration tools, REST catalog support, and advanced features like branches and tags that make migration safer and more flexible than ever.
 
 Migrating to Iceberg unlocks these capabilities while maintaining compatibility with your existing query engines and data infrastructure. This guide explores proven migration strategies, practical conversion techniques, and critical considerations for data engineers and architects planning an Iceberg migration.
 
@@ -43,7 +43,7 @@ Before initiating a migration, assess your current state and requirements:
 - Metadata availability
 - Current read/write patterns
 
-Iceberg's design accommodates both scenarios with different migration approaches: **in-place migration** for Hive tables (converting metadata without moving data) and **metadata-based adoption** for Parquet datasets (creating Iceberg metadata to track existing files). For comprehensive coverage of Iceberg's metadata architecture, see [Iceberg Table Architecture: Metadata and Snapshots](iceberg-table-architecture-metadata-and-snapshots.md).
+Iceberg's design accommodates both scenarios with different migration approaches: **in-place migration** for Hive tables (converting metadata without moving data) and **metadata-based adoption** for Parquet datasets (creating Iceberg metadata to track existing files). For comprehensive coverage of Iceberg's metadata architecture, see [Iceberg Table Architecture: Metadata and Snapshots](https://conduktor.io/glossary/iceberg-table-architecture-metadata-and-snapshots).
 
 ## Migration Strategies
 
@@ -457,7 +457,7 @@ The migration journey requires coordinated effort across data engineering, data 
 
 Start with pilot migrations, validate rigorously using branches for isolated testing, and scale systematically. The result is a robust, flexible data lakehouse foundation that supports evolving analytics and data science requirements for years to come.
 
-For deeper understanding of Iceberg's capabilities, explore [Apache Iceberg](apache-iceberg.md) for comprehensive feature coverage, [Iceberg Table Architecture: Metadata and Snapshots](iceberg-table-architecture-metadata-and-snapshots.md) for internal architecture details, and [Introduction to Lakehouse Architecture](introduction-to-lakehouse-architecture.md) for broader architectural context.
+For deeper understanding of Iceberg's capabilities, explore [Apache Iceberg](https://conduktor.io/glossary/apache-iceberg) for comprehensive feature coverage, [Iceberg Table Architecture: Metadata and Snapshots](https://conduktor.io/glossary/iceberg-table-architecture-metadata-and-snapshots) for internal architecture details, and [Introduction to Lakehouse Architecture](https://conduktor.io/glossary/introduction-to-lakehouse-architecture) for broader architectural context.
 
 ## Sources
 

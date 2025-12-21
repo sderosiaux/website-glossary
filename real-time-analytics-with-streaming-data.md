@@ -35,9 +35,9 @@ Streaming data typically exhibits three important characteristics:
 
 Several technologies have emerged to handle the complexities of real-time analytics on streaming data.
 
-**Apache Kafka** serves as the foundation for many streaming architectures. It provides a distributed, fault-tolerant platform for ingesting, storing, and distributing streaming data. Kafka's log-based architecture ensures durability and allows consumers to replay historical data when needed. Topics partition data across multiple brokers, enabling horizontal scaling to handle massive throughput. For detailed coverage of Kafka fundamentals, see [Apache Kafka](apache-kafka.md). Modern Kafka deployments (4.0+) use [KRaft mode](understanding-kraft-mode-in-kafka.md) instead of ZooKeeper, simplifying operations and improving scalability.
+**Apache Kafka** serves as the foundation for many streaming architectures. It provides a distributed, fault-tolerant platform for ingesting, storing, and distributing streaming data. Kafka's log-based architecture ensures durability and allows consumers to replay historical data when needed. Topics partition data across multiple brokers, enabling horizontal scaling to handle massive throughput. For detailed coverage of Kafka fundamentals, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka). Modern Kafka deployments (4.0+) use [KRaft mode](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka) instead of ZooKeeper, simplifying operations and improving scalability.
 
-**Apache Flink** provides true stream processing with low latency and exactly-once semantics. Flink excels at complex stateful computations, event-time processing, and sophisticated windowing operations. For an in-depth exploration, see [What is Apache Flink](what-is-apache-flink-stateful-stream-processing.md).
+**Apache Flink** provides true stream processing with low latency and exactly-once semantics. Flink excels at complex stateful computations, event-time processing, and sophisticated windowing operations. For an in-depth exploration, see [What is Apache Flink](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing).
 
 **Apache Spark** offers Structured Streaming, which provides both micro-batch and continuous processing modes. While historically known for micro-batching, Spark 2.3+ introduced continuous processing for sub-millisecond latencies, making it viable for true streaming use cases.
 
@@ -55,11 +55,11 @@ Several patterns appear repeatedly in real-time analytics implementations.
 
 ### Windowing
 
-Since streaming data is unbounded, analytics must operate on finite subsets defined by time windows. For comprehensive coverage of windowing patterns and implementation details, see [Windowing in Apache Flink](windowing-in-apache-flink-tumbling-sliding-and-session-windows.md). Three common window types are:
+Since streaming data is unbounded, analytics must operate on finite subsets defined by time windows. For comprehensive coverage of windowing patterns and implementation details, see [Windowing in Apache Flink](https://conduktor.io/glossary/windowing-in-apache-flink-tumbling-sliding-and-session-windows). Three common window types are:
 
 - **Tumbling windows**: Fixed-size, non-overlapping windows (e.g., "count events every 5 minutes")
 - **Sliding windows**: Overlapping windows that advance by a smaller interval than their size (e.g., "calculate the average over the last 10 minutes, updated every minute")
-- **Session windows**: Dynamic windows based on activity periods, useful for user behavior analysis. For detailed session window patterns, see [Session Windows in Stream Processing](session-windows-in-stream-processing.md).
+- **Session windows**: Dynamic windows based on activity periods, useful for user behavior analysis. For detailed session window patterns, see [Session Windows in Stream Processing](https://conduktor.io/glossary/session-windows-in-stream-processing).
 
 Here's a practical example using Flink SQL to calculate average transaction amounts in 5-minute tumbling windows:
 
@@ -91,11 +91,11 @@ HAVING COUNT(*) > 10 OR SUM(amount) > 10000
 EMIT CHANGES;
 ```
 
-For detailed fraud detection patterns, see [Real-Time Fraud Detection with Streaming](real-time-fraud-detection-with-streaming.md).
+For detailed fraud detection patterns, see [Real-Time Fraud Detection with Streaming](https://conduktor.io/glossary/real-time-fraud-detection-with-streaming).
 
 ### Stateful Processing
 
-Many analytics require maintaining state across events. Counting unique users, detecting patterns, or correlating related events all need the system to remember information from previous events. For deep dive into state management, see [State Stores in Kafka Streams](state-stores-in-kafka-streams.md).
+Many analytics require maintaining state across events. Counting unique users, detecting patterns, or correlating related events all need the system to remember information from previous events. For deep dive into state management, see [State Stores in Kafka Streams](https://conduktor.io/glossary/state-stores-in-kafka-streams).
 
 Stream processors manage state in memory for fast access while checkpointing to persistent storage for fault tolerance. Modern stream processors like Flink (1.13+) and Kafka Streams (3.0+) have significantly improved exactly-once processing performance, making stateful operations reliable even at high throughput.
 
@@ -123,7 +123,7 @@ This stateful computation maintains a set of unique user IDs per page, automatic
 
 ### Stream Joins
 
-Joining multiple streams or enriching streaming data with reference data is common but complex. For instance, joining a stream of purchases with a stream of inventory updates requires handling time synchronization and dealing with late-arriving events. For comprehensive join patterns and implementation strategies, see [Stream Joins and Enrichment Patterns](stream-joins-and-enrichment-patterns.md).
+Joining multiple streams or enriching streaming data with reference data is common but complex. For instance, joining a stream of purchases with a stream of inventory updates requires handling time synchronization and dealing with late-arriving events. For comprehensive join patterns and implementation strategies, see [Stream Joins and Enrichment Patterns](https://conduktor.io/glossary/stream-joins-and-enrichment-patterns).
 
 Here's a Flink example joining order streams with customer data:
 
@@ -154,7 +154,7 @@ Real-time analytics introduces operational challenges that require careful consi
 
 Network delays and system failures mean events don't always arrive in order. A transaction that occurred at 10:00:01 might arrive after one from 10:00:05. Stream processors use **watermarks**—special markers that track progress through event time—to determine when to close windows and emit results. Watermarks define how long to wait for late events before considering a window complete.
 
-For detailed coverage of watermark strategies and trigger mechanisms, see [Watermarks and Triggers in Stream Processing](watermarks-and-triggers-in-stream-processing.md). Modern stream processors allow configuring allowed lateness and side outputs for handling extremely late data without losing it.
+For detailed coverage of watermark strategies and trigger mechanisms, see [Watermarks and Triggers in Stream Processing](https://conduktor.io/glossary/watermarks-and-triggers-in-stream-processing). Modern stream processors allow configuring allowed lateness and side outputs for handling extremely late data without losing it.
 
 ### Exactly-Once Semantics
 
@@ -168,14 +168,14 @@ As data volumes grow, streaming systems must scale horizontally. This requires p
 
 Unlike batch jobs that complete and report final status, streaming jobs run indefinitely. Detecting issues requires continuous monitoring of key metrics:
 
-- **Consumer lag**: The difference between the latest message offset and the consumer's current position. Growing lag indicates the consumer can't keep up with incoming data. For detailed lag monitoring strategies, see [Consumer Lag Monitoring](consumer-lag-monitoring.md).
+- **Consumer lag**: The difference between the latest message offset and the consumer's current position. Growing lag indicates the consumer can't keep up with incoming data. For detailed lag monitoring strategies, see [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring).
 - **Processing latency**: Time between event occurrence and processing completion. Increasing latency signals potential bottlenecks.
 - **Throughput**: Events processed per second. Declining throughput may indicate resource constraints or inefficient operations.
-- **Backpressure**: When downstream operators can't keep pace with upstream data rates. For handling strategies, see [Backpressure Handling in Streaming Systems](backpressure-handling-in-streaming-systems.md).
+- **Backpressure**: When downstream operators can't keep pace with upstream data rates. For handling strategies, see [Backpressure Handling in Streaming Systems](https://conduktor.io/glossary/backpressure-handling-in-streaming-systems).
 - **Checkpoint duration**: Time required to snapshot application state. Long checkpoint times can impact overall system performance.
 - **State size**: Memory consumed by stateful operations. Unbounded state growth leads to out-of-memory errors.
 
-Platforms like Conduktor provide comprehensive visibility into streaming pipelines, helping teams monitor these metrics, inspect message contents, validate data quality, and debug issues before they impact downstream analytics. For broader data quality concerns, see [What is Data Observability](what-is-data-observability-the-five-pillars.md).
+Platforms like Conduktor provide comprehensive visibility into streaming pipelines, helping teams monitor these metrics, inspect message contents, validate data quality, and debug issues before they impact downstream analytics. For broader data quality concerns, see [What is Data Observability](https://conduktor.io/glossary/what-is-data-observability-the-five-pillars).
 
 ## Architectural Patterns for Real-Time Analytics
 
@@ -198,23 +198,23 @@ Modern real-time analytics increasingly integrates with lakehouse architectures,
 - **ACID transactions**: Ensure consistency between streaming writes and batch operations
 - **Cost-effective storage**: Hot data in streaming processors, cold data in object storage
 
-For detailed patterns, see [Streaming to Lakehouse Tables](streaming-to-lakehouse-tables.md) and [Apache Iceberg](apache-iceberg.md).
+For detailed patterns, see [Streaming to Lakehouse Tables](https://conduktor.io/glossary/streaming-to-lakehouse-tables) and [Apache Iceberg](https://conduktor.io/glossary/apache-iceberg).
 
 ## Real-World Applications
 
 Real-time analytics powers critical systems across industries.
 
-**Fraud detection**: Financial institutions analyze transaction streams in real-time, comparing patterns against historical behavior and known fraud signatures. A credit card transaction that occurs in a different country minutes after a previous transaction can be flagged instantly, preventing fraudulent charges. For implementation details, see [Real-Time Fraud Detection with Streaming](real-time-fraud-detection-with-streaming.md).
+**Fraud detection**: Financial institutions analyze transaction streams in real-time, comparing patterns against historical behavior and known fraud signatures. A credit card transaction that occurs in a different country minutes after a previous transaction can be flagged instantly, preventing fraudulent charges. For implementation details, see [Real-Time Fraud Detection with Streaming](https://conduktor.io/glossary/real-time-fraud-detection-with-streaming).
 
 **IoT monitoring**: Manufacturing facilities monitor thousands of sensors in real-time to detect equipment failures before they occur. By analyzing temperature, vibration, and pressure readings as they stream in, predictive maintenance systems can alert operators to potential issues, reducing downtime.
 
-**Personalization engines**: E-commerce platforms track user behavior in real-time to adjust recommendations and pricing using clickstream analytics. Every click, view, and purchase updates the user's profile, enabling immediate personalization of the shopping experience. For clickstream patterns, see [Clickstream Analytics with Kafka](clickstream-analytics-with-kafka.md).
+**Personalization engines**: E-commerce platforms track user behavior in real-time to adjust recommendations and pricing using clickstream analytics. Every click, view, and purchase updates the user's profile, enabling immediate personalization of the shopping experience. For clickstream patterns, see [Clickstream Analytics with Kafka](https://conduktor.io/glossary/clickstream-analytics-with-kafka).
 
-**Gaming analytics**: Gaming companies process millions of player events per second to detect cheating, balance gameplay, and personalize experiences in real-time. For specialized gaming patterns, see [Real-Time Gaming Analytics with Streaming](real-time-gaming-analytics-with-streaming.md).
+**Gaming analytics**: Gaming companies process millions of player events per second to detect cheating, balance gameplay, and personalize experiences in real-time. For specialized gaming patterns, see [Real-Time Gaming Analytics with Streaming](https://conduktor.io/glossary/real-time-gaming-analytics-with-streaming).
 
-**Machine learning inference**: Real-time ML systems analyze streaming data to make instant predictions, from content recommendations to predictive maintenance alerts. For ML patterns, see [Real-Time ML Inference with Streaming Data](real-time-ml-inference-with-streaming-data.md).
+**Machine learning inference**: Real-time ML systems analyze streaming data to make instant predictions, from content recommendations to predictive maintenance alerts. For ML patterns, see [Real-Time ML Inference with Streaming Data](https://conduktor.io/glossary/real-time-ml-inference-with-streaming-data).
 
-**Network operations**: Telecommunications companies analyze network traffic patterns in real-time to detect anomalies, optimize routing, and identify potential security threats. Processing millions of events per second allows operators to respond to issues before customers notice degraded service. For security patterns, see [Real-Time Threat Detection](real-time-threat-detection.md).
+**Network operations**: Telecommunications companies analyze network traffic patterns in real-time to detect anomalies, optimize routing, and identify potential security threats. Processing millions of events per second allows operators to respond to issues before customers notice degraded service. For security patterns, see [Real-Time Threat Detection](https://conduktor.io/glossary/real-time-threat-detection).
 
 ## Summary
 

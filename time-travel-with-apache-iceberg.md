@@ -11,7 +11,7 @@ topics:
 
 # Time Travel with Apache Iceberg
 
-Apache Iceberg's time travel feature allows you to query your data as it appeared at any point in the past. This capability transforms how data teams approach debugging, auditing, and compliance by providing a complete historical view of table evolution without maintaining separate backup copies. For a comprehensive overview of Iceberg's architecture and capabilities, see [Apache Iceberg](apache-iceberg.md).
+Apache Iceberg's time travel feature allows you to query your data as it appeared at any point in the past. This capability transforms how data teams approach debugging, auditing, and compliance by providing a complete historical view of table evolution without maintaining separate backup copies. For a comprehensive overview of Iceberg's architecture and capabilities, see [Apache Iceberg](https://conduktor.io/glossary/apache-iceberg).
 
 ## Understanding Iceberg Snapshots
 
@@ -89,7 +89,7 @@ Time travel capabilities unlock several critical data engineering workflows that
 
 ### Audit and Compliance
 
-Financial services and healthcare organizations face strict requirements to explain exactly what data was visible at any point in time. With Iceberg time travel, compliance queries become straightforward. This complements Change Data Capture (CDC) strategies by providing queryable history without maintaining separate audit tables. For CDC implementation patterns, see [What is Change Data Capture (CDC) Fundamentals](what-is-change-data-capture-cdc-fundamentals.md).
+Financial services and healthcare organizations face strict requirements to explain exactly what data was visible at any point in time. With Iceberg time travel, compliance queries become straightforward. This complements Change Data Capture (CDC) strategies by providing queryable history without maintaining separate audit tables. For CDC implementation patterns, see [What is Change Data Capture (CDC) Fundamentals](https://conduktor.io/glossary/what-is-change-data-capture-cdc-fundamentals).
 
 ```sql
 -- Reproduce quarterly report exactly as generated
@@ -105,7 +105,7 @@ This eliminates the need to maintain separate archive databases or backup tables
 
 ### Debugging and Root Cause Analysis
 
-When data quality issues arise, time travel lets you pinpoint exactly when incorrect data entered the system. This complements modern data quality frameworks by providing historical context for validation failures. For comprehensive testing strategies, see [Great Expectations Data Testing Framework](great-expectations-data-testing-framework.md).
+When data quality issues arise, time travel lets you pinpoint exactly when incorrect data entered the system. This complements modern data quality frameworks by providing historical context for validation failures. For comprehensive testing strategies, see [Great Expectations Data Testing Framework](https://conduktor.io/glossary/great-expectations-data-testing-framework).
 
 ```sql
 -- Compare current data with yesterday's snapshot
@@ -126,7 +126,7 @@ JOIN yesterday y ON c.customer_id = y.customer_id
 WHERE ABS(c.balance - y.balance) > 10000;
 ```
 
-This query identifies accounts with significant balance changes in the last 24 hours, helping quickly isolate data pipeline issues. For systematic approaches to incident response, see [Data Incident Management and Root Cause Analysis](data-incident-management-and-root-cause-analysis.md).
+This query identifies accounts with significant balance changes in the last 24 hours, helping quickly isolate data pipeline issues. For systematic approaches to incident response, see [Data Incident Management and Root Cause Analysis](https://conduktor.io/glossary/data-incident-management-and-root-cause-analysis).
 
 ### Data Recovery and Rollback
 
@@ -144,7 +144,7 @@ This rollback capability provides a safety net for production data pipelines, al
 
 ## Streaming Ecosystem Integration
 
-Iceberg's time travel works seamlessly with streaming platforms, enabling powerful patterns for real-time analytics with historical context. For foundational understanding of streaming architectures, see [Apache Kafka](apache-kafka.md).
+Iceberg's time travel works seamlessly with streaming platforms, enabling powerful patterns for real-time analytics with historical context. For foundational understanding of streaming architectures, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
 
 ### Apache Kafka and Flink Integration
 
@@ -165,7 +165,7 @@ As of 2025, the Flink Iceberg connector supports several advanced features that 
 
 For Kafka Connect users, the Iceberg sink connector provides similar snapshot-per-commit behavior, making time travel equally powerful for no-code ingestion pipelines.
 
-This capability is crucial for debugging streaming pipelines, as you can examine exactly what data was written during a specific time window and trace issues back to their source Kafka messages. For detailed implementation guidance, see [What is Apache Flink: Stateful Stream Processing](what-is-apache-flink-stateful-stream-processing.md).
+This capability is crucial for debugging streaming pipelines, as you can examine exactly what data was written during a specific time window and trace issues back to their source Kafka messages. For detailed implementation guidance, see [What is Apache Flink: Stateful Stream Processing](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing).
 
 ### Streaming Governance Integration
 
@@ -176,7 +176,7 @@ For organizations running complex streaming infrastructures, governance platform
 - **Compliance auditing**: Record access patterns to historical data for regulatory requirements
 - **Data freshness visualization**: Monitor snapshot creation frequency and identify pipeline delays
 
-Platforms like Conduktor offer comprehensive governance for Kafka ecosystems, including lineage tracking, schema registry management, and audit logging. When integrated with Iceberg's time travel capabilities, this creates a complete audit trail from source events through analytical queries. For audit requirements, see [Audit Logging for Streaming Platforms](audit-logging-for-streaming-platforms.md).
+Platforms like Conduktor offer comprehensive governance for Kafka ecosystems, including lineage tracking, schema registry management, and audit logging. When integrated with Iceberg's time travel capabilities, this creates a complete audit trail from source events through analytical queries. For audit requirements, see [Audit Logging for Streaming Platforms](https://conduktor.io/glossary/audit-logging-for-streaming-platforms).
 
 ## Snapshot Retention and Management
 
@@ -247,7 +247,7 @@ Modern Iceberg deployments increasingly use REST catalogs (supported by AWS Glue
 - **Branching and tagging**: Create named references to specific snapshots for reproducible analytics
 - **Distributed snapshot expiration**: Coordinate retention policies across data lake zones
 
-For teams building lakehouse architectures with multiple Iceberg tables, REST catalogs ensure time travel queries maintain referential integrity across table relationships. For broader lakehouse context, see [Introduction to Lakehouse Architecture](introduction-to-lakehouse-architecture.md).
+For teams building lakehouse architectures with multiple Iceberg tables, REST catalogs ensure time travel queries maintain referential integrity across table relationships. For broader lakehouse context, see [Introduction to Lakehouse Architecture](https://conduktor.io/glossary/introduction-to-lakehouse-architecture).
 
 ## Summary
 
@@ -262,7 +262,7 @@ Apache Iceberg's time travel feature provides a robust foundation for querying h
 
 The combination of flexible query syntax (timestamp and snapshot-based), automatic snapshot management, and configurable retention policies makes Iceberg's time travel suitable for diverse use cases from development experimentation to regulatory compliance.
 
-As data volumes and regulatory requirements continue to grow, the ability to access and reason about historical data states becomes increasingly critical. Iceberg's approach—treating time travel as a first-class feature rather than an afterthought—positions it as a cornerstone technology for modern data platforms. For related data versioning patterns, see [Data Versioning in Streaming](data-versioning-in-streaming.md).
+As data volumes and regulatory requirements continue to grow, the ability to access and reason about historical data states becomes increasingly critical. Iceberg's approach—treating time travel as a first-class feature rather than an afterthought—positions it as a cornerstone technology for modern data platforms. For related data versioning patterns, see [Data Versioning in Streaming](https://conduktor.io/glossary/data-versioning-in-streaming).
 
 ## Sources and References
 

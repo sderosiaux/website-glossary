@@ -51,7 +51,7 @@ Not all data is created equal. In any organization, certain data assets represen
 
 In streaming architectures, where data flows continuously through multiple systems and services, identifying and protecting HVAs becomes both more critical and more complex. A single Kafka topic carrying payment transactions, personally identifiable information (PII), or intellectual property may represent millions of dollars in potential liability. Yet the real-time nature of streaming means traditional perimeter-based "castle-and-moat" security approaches often fall short.
 
-Modern security architectures embrace **zero trust principles**: verify every access request, assume breach, minimize blast radius, and enforce least-privilege access—regardless of network location. For HVAs in streaming systems, zero trust means authenticating and authorizing every producer and consumer, encrypting all data in transit, and continuously monitoring for anomalous behavior. For comprehensive security patterns, see [Kafka Security Best Practices](kafka-security-best-practices.md) and [Kafka ACLs and Authorization Patterns](kafka-acls-and-authorization-patterns.md).
+Modern security architectures embrace **zero trust principles**: verify every access request, assume breach, minimize blast radius, and enforce least-privilege access—regardless of network location. For HVAs in streaming systems, zero trust means authenticating and authorizing every producer and consumer, encrypting all data in transit, and continuously monitoring for anomalous behavior. For comprehensive security patterns, see [Kafka Security Best Practices](https://conduktor.io/glossary/kafka-security-best-practices) and [Kafka ACLs and Authorization Patterns](https://conduktor.io/glossary/kafka-acls-and-authorization-patterns).
 
 The cost of HVA compromise extends beyond immediate financial loss. Organizations face regulatory fines, litigation expenses, customer churn, and lasting damage to brand trust. According to IBM's 2024 Cost of a Data Breach Report, the average cost of a data breach reached $4.88 million globally, representing a 10% increase from 2023. Breaches involving sensitive customer data and regulated information command the highest price tags, with healthcare breaches averaging $9.77 million. For streaming systems processing HVAs at scale—where a single compromised topic could expose millions of records—the stakes are exponentially higher.
 
@@ -73,7 +73,7 @@ Building an HVA inventory requires systematic discovery across your streaming la
 
 **Dynamic Discovery:** Streaming topics proliferate rapidly. Teams create new data products, join streams, and derive new topics without always following formal approval processes. Automated discovery tools that continuously scan your Kafka clusters, schema registries, and stream processing applications become essential. These tools should capture topic metadata, schema definitions, data lineage, and consumer patterns.
 
-**Content Classification:** Understanding what's *in* a topic requires more than reading topic names. Schema analysis helps, but real HVAs often hide in nested fields or emerge from combinations of seemingly innocuous attributes. Data classification engines that sample streaming data, apply machine learning models, and flag sensitive patterns provide crucial visibility. For PII detection specifically, see [PII Detection and Handling in Event Streams](pii-detection-and-handling-in-event-streams.md).
+**Content Classification:** Understanding what's *in* a topic requires more than reading topic names. Schema analysis helps, but real HVAs often hide in nested fields or emerge from combinations of seemingly innocuous attributes. Data classification engines that sample streaming data, apply machine learning models, and flag sensitive patterns provide crucial visibility. For PII detection specifically, see [PII Detection and Handling in Event Streams](https://conduktor.io/glossary/pii-detection-and-handling-in-event-streams).
 
 **Lineage Tracking:** Where did this data come from? Where does it go? HVA classification must follow data lineage. If a source system contains HVA data, downstream topics inheriting that data likely qualify as HVAs too—unless effective **de-identification** (removing identifiers to prevent re-identification), **encryption** (encoding data to prevent unauthorized access), or **filtering** (removing sensitive fields entirely) occurs in transit. Each technique serves different purposes: filtering eliminates data permanently, masking obscures it reversibly for certain users, and encryption protects it while maintaining full fidelity for authorized consumers.
 
@@ -114,7 +114,7 @@ Last Review: 2025-10-15
 Next Review: 2026-01-15
 ```
 
-Treat this catalog as a living document. Schedule quarterly reviews, trigger reassessment when data usage changes, and automate alerts when new potential HVAs appear. For schema governance and evolution tracking, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md).
+Treat this catalog as a living document. Schedule quarterly reviews, trigger reassessment when data usage changes, and automate alerts when new potential HVAs appear. For schema governance and evolution tracking, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management).
 
 ## Risk-Based Protection Strategies
 
@@ -196,7 +196,7 @@ Kafka 3.1+ supports OAuth 2.0 through the `org.apache.kafka.common.security.oaut
 - **Centralized credential management** eliminating distributed secret storage
 - **Audit integration** with identity provider logs for complete access tracking
 
-For detailed OAuth implementation patterns, see [Kafka Authentication: SASL, SSL, OAuth](kafka-authentication-sasl-ssl-oauth.md).
+For detailed OAuth implementation patterns, see [Kafka Authentication: SASL, SSL, OAuth](https://conduktor.io/glossary/kafka-authentication-sasl-ssl-oauth).
 
 Example OAuth configuration for HVA consumer:
 ```properties
@@ -252,13 +252,13 @@ alerts:
 
 HVA protection isn't just technical—it requires robust governance processes:
 
-**Approval Workflows:** Creating new HVA topics or granting HVA access should trigger formal approval workflows. Data owners must review and approve requests. Security teams should validate that proposed protections meet policy requirements. Governance platforms like **Conduktor** can automate these workflows, routing requests through proper channels and maintaining immutable audit trails. For comprehensive audit logging patterns, see [Streaming Audit Logs](streaming-audit-logs.md).
+**Approval Workflows:** Creating new HVA topics or granting HVA access should trigger formal approval workflows. Data owners must review and approve requests. Security teams should validate that proposed protections meet policy requirements. Governance platforms like **Conduktor** can automate these workflows, routing requests through proper channels and maintaining immutable audit trails. For comprehensive audit logging patterns, see [Streaming Audit Logs](https://conduktor.io/glossary/streaming-audit-logs).
 
-**Regulatory Mapping:** Document which regulations apply to each HVA. PCI DSS governs payment data, HIPAA covers healthcare information, GDPR protects EU personal data, and CCPA addresses California consumer data. Each regulation imposes specific protection requirements. Your HVA program must map these requirements to technical controls and demonstrate compliance through regular assessments. For GDPR-specific considerations, see [GDPR Compliance for Data Teams](gdpr-compliance-for-data-teams.md).
+**Regulatory Mapping:** Document which regulations apply to each HVA. PCI DSS governs payment data, HIPAA covers healthcare information, GDPR protects EU personal data, and CCPA addresses California consumer data. Each regulation imposes specific protection requirements. Your HVA program must map these requirements to technical controls and demonstrate compliance through regular assessments. For GDPR-specific considerations, see [GDPR Compliance for Data Teams](https://conduktor.io/glossary/gdpr-compliance-for-data-teams).
 
 **Business Continuity:** HVAs receive priority in disaster recovery planning. **Recovery Time Objectives (RTOs)** define maximum acceptable downtime before business impact becomes severe, while **Recovery Point Objectives (RPOs)** specify maximum acceptable data loss measured in time. HVA topics typically demand RTOs under 15 minutes and RPOs under 1 minute.
 
-Implement cross-region replication using MirrorMaker 2 or cloud-native replication, maintain verified backups, and regularly test failover procedures. When HVA topics go down, critical business processes halt—your continuity plans must reflect this reality. For replication strategies, see [Kafka MirrorMaker 2 for Cross-Cluster Replication](kafka-mirrormaker-2-for-cross-cluster-replication.md).
+Implement cross-region replication using MirrorMaker 2 or cloud-native replication, maintain verified backups, and regularly test failover procedures. When HVA topics go down, critical business processes halt—your continuity plans must reflect this reality. For replication strategies, see [Kafka MirrorMaker 2 for Cross-Cluster Replication](https://conduktor.io/glossary/kafka-mirrormaker-2-for-cross-cluster-replication).
 
 **Change Management:** Changes affecting HVAs demand extra scrutiny. Schema evolution, retention policy updates, or ACL modifications should follow change control procedures with impact analysis and rollback plans. Automated governance tools can enforce these procedures, preventing unauthorized changes from reaching production.
 

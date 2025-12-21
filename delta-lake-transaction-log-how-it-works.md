@@ -529,7 +529,7 @@ In the transaction log, deletion vectors appear as a new field in the `add` acti
 
 Deletion vectors dramatically improve write performance for selective updates (10-100x faster) and reduce write amplification, making Delta Lake more efficient for use cases like CDC ingestion, real-time updates, and GDPR deletion requests.
 
-For a comprehensive exploration of deletion vectors and their performance characteristics, see [Delta Lake Deletion Vectors: Efficient Row-Level Deletes](delta-lake-deletion-vectors-efficient-row-level-deletes.md).
+For a comprehensive exploration of deletion vectors and their performance characteristics, see [Delta Lake Deletion Vectors: Efficient Row-Level Deletes](https://conduktor.io/glossary/delta-lake-deletion-vectors-efficient-row-level-deletes).
 
 ### Protocol Evolution
 
@@ -538,7 +538,7 @@ The `protocol` action specifies:
 - `minReaderVersion`: Minimum Delta Lake reader version needed
 - `minWriterVersion`: Minimum Delta Lake writer version needed
 
-This allows Delta Lake to evolve with new features (column mapping, deletion vectors, [liquid clustering](delta-lake-liquid-clustering-modern-partitioning.md), identity columns) while maintaining compatibility. Older clients that don't support new features will fail fast with clear error messages rather than producing incorrect results.
+This allows Delta Lake to evolve with new features (column mapping, deletion vectors, [liquid clustering](https://conduktor.io/glossary/delta-lake-liquid-clustering-modern-partitioning), identity columns) while maintaining compatibility. Older clients that don't support new features will fail fast with clear error messages rather than producing incorrect results.
 
 ### UniForm: Universal Format Compatibility
 

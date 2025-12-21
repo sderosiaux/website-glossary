@@ -64,7 +64,7 @@ Technical metadata forms the backbone of data operations and engineering workflo
 
 **Schema metadata** defines data structures: column names, data types, constraints, indexes, and relationships. In streaming platforms like Apache Kafka, schema metadata managed through Schema Registry (a centralized service for storing and validating schemas) becomes crucial for ensuring producer-consumer compatibility and enabling schema evolution without breaking downstream applications.
 
-**Lineage metadata** traces data movement across systems, capturing source-to-target mappings, transformation logic, and dependency chains. Understanding that a Kafka topic receives data from three upstream services, undergoes enrichment via a stream processor (a component that processes events in real-time), and feeds into five downstream consumers provides critical insight for impact analysis and troubleshooting. For comprehensive coverage of data lineage implementation, see [Data Lineage: Tracking Data from Source to Consumption](data-lineage-tracking-data-from-source-to-consumption.md).
+**Lineage metadata** traces data movement across systems, capturing source-to-target mappings, transformation logic, and dependency chains. Understanding that a Kafka topic receives data from three upstream services, undergoes enrichment via a stream processor (a component that processes events in real-time), and feeds into five downstream consumers provides critical insight for impact analysis and troubleshooting. For comprehensive coverage of data lineage implementation, see [Data Lineage: Tracking Data from Source to Consumption](https://conduktor.io/glossary/data-lineage-tracking-data-from-source-to-consumption).
 
 **Operational metadata** tracks runtime characteristics: execution times, data volumes, error rates, resource consumption, and performance metrics. For streaming architectures, this includes lag monitoring (tracking how far behind consumers are from the latest messages), throughput measurements, and partition distribution (how data is distributed across Kafka partitions)—metrics that directly impact system reliability.
 
@@ -143,7 +143,7 @@ Data contracts formalize the interface between data producers and consumers, com
 - **Quality Guarantees**: Maximum null rates, freshness SLAs, uniqueness constraints
 - **Lifecycle Policies**: Retention periods, deprecation warnings, breaking change notifications
 
-Tools like dbt contracts and Great Expectations enable contracts to be defined in code, tested automatically, and published to data catalogs as integrated metadata—creating a single source of truth that serves both engineering and business needs. For detailed guidance on implementing business terminology and definitions, see [Building a Business Glossary for Data Governance](building-a-business-glossary-for-data-governance.md).
+Tools like dbt contracts and Great Expectations enable contracts to be defined in code, tested automatically, and published to data catalogs as integrated metadata—creating a single source of truth that serves both engineering and business needs. For detailed guidance on implementing business terminology and definitions, see [Building a Business Glossary for Data Governance](https://conduktor.io/glossary/building-a-business-glossary-for-data-governance).
 
 ### Modern Metadata Platform Ecosystem
 
@@ -264,7 +264,7 @@ Unlike technical metadata, business metadata often requires human input. Impleme
 
 ### Creating Unified Discovery Experiences
 
-Data catalogs should present both metadata types in context. When a data analyst searches for "customer revenue," they should see technical details (location, schema, refresh frequency) alongside business context (definition, owner, certified status) in a single view. This integration accelerates understanding and reduces time-to-insight. For guidance on building discoverable data platforms, see [What is a Data Catalog? Modern Data Discovery](what-is-a-data-catalog-modern-data-discovery.md).
+Data catalogs should present both metadata types in context. When a data analyst searches for "customer revenue," they should see technical details (location, schema, refresh frequency) alongside business context (definition, owner, certified status) in a single view. This integration accelerates understanding and reduces time-to-insight. For guidance on building discoverable data platforms, see [What is a Data Catalog? Modern Data Discovery](https://conduktor.io/glossary/what-is-a-data-catalog-modern-data-discovery).
 
 ## Governance Implications
 

@@ -141,13 +141,13 @@ Different compliance frameworks have specific audit logging requirements:
 
 **SOC2**: Requires tracking all administrative changes, user access, and data modifications with timestamps and user attribution.
 
-**GDPR**: Mandates logging access to personal data, data deletions (right to be forgotten), and data exports (data portability). For comprehensive GDPR implementation guidance, see [GDPR Compliance for Data Teams](gdpr-compliance-for-data-teams.md).
+**GDPR**: Mandates logging access to personal data, data deletions (right to be forgotten), and data exports (data portability). For comprehensive GDPR implementation guidance, see [GDPR Compliance for Data Teams](https://conduktor.io/glossary/gdpr-compliance-for-data-teams).
 
 **HIPAA**: Requires tracking all access to protected health information (PHI), including who viewed what data and when.
 
 **PCI-DSS**: Demands detailed logs of access to cardholder data environments, with secure storage and regular review.
 
-Streaming platforms need to map their audit events to these framework requirements. Tracking what data flows where becomes essential—for comprehensive guidance on building this visibility, see [Data Lineage Tracking: Data from Source to Consumption](data-lineage-tracking-data-from-source-to-consumption.md).
+Streaming platforms need to map their audit events to these framework requirements. Tracking what data flows where becomes essential—for comprehensive guidance on building this visibility, see [Data Lineage Tracking: Data from Source to Consumption](https://conduktor.io/glossary/data-lineage-tracking-data-from-source-to-consumption).
 
 For example, a GDPR-compliant audit log might track:
 

@@ -18,7 +18,7 @@ At its core, a data catalog collects and organizes **metadata**—the data about
 - **Operational metadata**: Data lineage, refresh schedules, data quality metrics, usage statistics (e.g., "Refreshed daily at 2 AM UTC, 99.8% completeness score, queried 847 times last month")
 - **Business metadata**: Descriptions, glossary terms, data classifications, ownership information (e.g., "Contains PII, owned by Customer Analytics team, relates to 'Customer Lifetime Value' business metric")
 
-For comprehensive coverage of metadata types and management strategies, see [Metadata Management: Technical vs Business Metadata](metadata-management-technical-vs-business-metadata.md).
+For comprehensive coverage of metadata types and management strategies, see [Metadata Management: Technical vs Business Metadata](https://conduktor.io/glossary/metadata-management-technical-vs-business-metadata).
 
 Unlike traditional data dictionaries that simply list tables and columns, modern data catalogs are intelligent systems that automatically discover data sources, track how data flows through your systems, and provide collaborative features for teams to share knowledge.
 
@@ -50,7 +50,7 @@ Users can search for datasets using natural language, keywords, or filters. Adva
 
 **Data Lineage**
 
-Lineage visualizations show how data flows from source systems through transformations to final consumption points. This helps teams understand dependencies, trace errors upstream, and assess the impact of changes before making them. For example, if a dashboard shows incorrect revenue figures, lineage traces the problem back through the flow: Revenue Dashboard → Aggregation Table → ETL Job → Raw Transactions Database, helping you pinpoint where the calculation went wrong. For detailed exploration of lineage concepts, see [Data Lineage Tracking: Data from Source to Consumption](data-lineage-tracking-data-from-source-to-consumption.md).
+Lineage visualizations show how data flows from source systems through transformations to final consumption points. This helps teams understand dependencies, trace errors upstream, and assess the impact of changes before making them. For example, if a dashboard shows incorrect revenue figures, lineage traces the problem back through the flow: Revenue Dashboard → Aggregation Table → ETL Job → Raw Transactions Database, helping you pinpoint where the calculation went wrong. For detailed exploration of lineage concepts, see [Data Lineage Tracking: Data from Source to Consumption](https://conduktor.io/glossary/data-lineage-tracking-data-from-source-to-consumption).
 
 **Collaboration and Knowledge Sharing**
 
@@ -58,11 +58,11 @@ Catalogs enable teams to document datasets with descriptions, add tags, rate dat
 
 **Data Governance and Access Control**
 
-Integration with access management systems lets governance officers see who has access to what data. Catalogs can classify data (e.g., PII, financial, public) and track compliance with data retention policies. For comprehensive governance strategies, see [Data Governance Framework: Roles and Responsibilities](data-governance-framework-roles-and-responsibilities.md) and [Building a Business Glossary for Data Governance](building-a-business-glossary-for-data-governance.md).
+Integration with access management systems lets governance officers see who has access to what data. Catalogs can classify data (e.g., PII, financial, public) and track compliance with data retention policies. For comprehensive governance strategies, see [Data Governance Framework: Roles and Responsibilities](https://conduktor.io/glossary/data-governance-framework-roles-and-responsibilities) and [Building a Business Glossary for Data Governance](https://conduktor.io/glossary/building-a-business-glossary-for-data-governance).
 
 ## Streaming Integration: Beyond Batch Data
 
-Traditional data catalogs focused on static data sources like databases and files. However, modern architectures increasingly rely on **streaming data** from platforms like Apache Kafka, which powers real-time applications. For more on streaming fundamentals, see [What is Real-Time Data Streaming](what-is-real-time-data-streaming.md).
+Traditional data catalogs focused on static data sources like databases and files. However, modern architectures increasingly rely on **streaming data** from platforms like Apache Kafka, which powers real-time applications. For more on streaming fundamentals, see [What is Real-Time Data Streaming](https://conduktor.io/glossary/what-is-real-time-data-streaming).
 
 Streaming introduces unique challenges for data discovery:
 
@@ -72,11 +72,11 @@ Streaming introduces unique challenges for data discovery:
 - **Access patterns**: Identifying which applications produce and consume specific topics, including consumer group tracking
 - **Async API documentation**: Modern catalogs in 2025 increasingly support AsyncAPI specifications for documenting event-driven APIs, similar to how OpenAPI documents REST APIs
 
-Modern data catalogs must extend beyond batch data to catalog streaming assets. This means discovering Kafka topics, capturing schema registry metadata (supporting Avro, Protobuf, and JSON Schema), and providing visibility into real-time data pipelines. For deeper coverage of schema management strategies, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md).
+Modern data catalogs must extend beyond batch data to catalog streaming assets. This means discovering Kafka topics, capturing schema registry metadata (supporting Avro, Protobuf, and JSON Schema), and providing visibility into real-time data pipelines. For deeper coverage of schema management strategies, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management).
 
 In 2025, leading open-source catalogs like OpenMetadata and DataHub have added native support for Kafka topic discovery, schema evolution tracking, and consumer group monitoring. These tools integrate with OpenLineage to provide end-to-end visibility from streaming sources through transformations to final consumption.
 
-For organizations using Kafka, tools like **Conduktor** provide specialized capabilities for managing and discovering streaming data. Conduktor helps teams visualize topic schemas, monitor consumer groups, and understand how data flows through Kafka clusters—bridging the gap between traditional data catalogs and streaming infrastructure. By integrating streaming metadata into your broader data discovery strategy, you ensure that both batch and real-time data assets are findable and understandable. For comprehensive Kafka coverage, see [Apache Kafka](apache-kafka.md).
+For organizations using Kafka, tools like **Conduktor** provide specialized capabilities for managing and discovering streaming data. Conduktor helps teams visualize topic schemas, monitor consumer groups, and understand how data flows through Kafka clusters—bridging the gap between traditional data catalogs and streaming infrastructure. By integrating streaming metadata into your broader data discovery strategy, you ensure that both batch and real-time data assets are findable and understandable. For comprehensive Kafka coverage, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
 
 ## Getting Started with a Data Catalog
 
@@ -101,9 +101,9 @@ Technology alone won't solve data discovery problems. Encourage teams to documen
 Data catalogs have evolved from passive inventories to active intelligence layers. As of 2025, leading platforms provide:
 
 - **AI-powered insights**: Tools like OpenMetadata use LLMs to automatically generate dataset descriptions, suggest business glossary terms, and detect quality anomalies. Some catalogs now offer conversational interfaces where users can ask "Show me all customer datasets updated in the last week" in natural language.
-- **Active metadata**: Modern catalogs track real-time usage patterns to surface popular datasets, identify stale or unused data consuming storage costs, and recommend relevant datasets based on user roles and past queries. For insights on monitoring data freshness, see [Data Freshness Monitoring & SLA Management](data-freshness-monitoring-sla-management.md).
-- **Data mesh integration**: Catalogs now support federated architectures where domain teams own their data products while maintaining centralized discoverability. For more on data mesh patterns, see [Data Mesh Principles and Implementation](data-mesh-principles-and-implementation.md) and [Building and Managing Data Products](building-and-managing-data-products.md).
-- **Observability integration**: Leading catalogs integrate with data observability platforms to surface quality metrics, incident history, and reliability scores directly in search results. This helps users assess data trustworthiness before use. See [What is Data Observability: The Five Pillars](what-is-data-observability-the-five-pillars.md) for comprehensive coverage.
+- **Active metadata**: Modern catalogs track real-time usage patterns to surface popular datasets, identify stale or unused data consuming storage costs, and recommend relevant datasets based on user roles and past queries. For insights on monitoring data freshness, see [Data Freshness Monitoring & SLA Management](https://conduktor.io/glossary/data-freshness-monitoring-sla-management).
+- **Data mesh integration**: Catalogs now support federated architectures where domain teams own their data products while maintaining centralized discoverability. For more on data mesh patterns, see [Data Mesh Principles and Implementation](https://conduktor.io/glossary/data-mesh-principles-and-implementation) and [Building and Managing Data Products](https://conduktor.io/glossary/building-and-managing-data-products).
+- **Observability integration**: Leading catalogs integrate with data observability platforms to surface quality metrics, incident history, and reliability scores directly in search results. This helps users assess data trustworthiness before use. See [What is Data Observability: The Five Pillars](https://conduktor.io/glossary/what-is-data-observability-the-five-pillars) for comprehensive coverage.
 
 As organizations embrace hybrid architectures combining batch, streaming, and real-time analytics, comprehensive data catalogs that span all modalities have become essential infrastructure rather than optional tooling.
 

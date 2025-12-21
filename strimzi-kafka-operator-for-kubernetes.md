@@ -14,7 +14,7 @@ topics:
 
 Running Apache Kafka on Kubernetes presents unique challenges. Kafka is a stateful, distributed system that requires careful configuration of brokers, storage, networking, and security. Traditional deployment methods involve manual setup and ongoing maintenance, which becomes increasingly complex as clusters scale. Strimzi addresses these challenges by providing a Kubernetes operator that automates deployment and management using cloud-native principles.
 
-For context on how Kafka fits into modern architectures, see [Event-Driven Architecture](event-driven-architecture.md).
+For context on how Kafka fits into modern architectures, see [Event-Driven Architecture](https://conduktor.io/glossary/event-driven-architecture).
 
 ## The Challenge of Running Kafka on Kubernetes
 
@@ -79,7 +79,7 @@ Strimzi is a Cloud Native Computing Foundation (CNCF) incubating project that im
 
 The core of Strimzi is the Cluster Operator, which must be deployed first. This operator watches for Kafka custom resources and manages the lifecycle of Kafka clusters, including brokers and supporting components like Kafka Connect, MirrorMaker 2, and Kafka Bridge.
 
-**Note:** Modern Kafka deployments use KRaft mode, which eliminates the ZooKeeper dependency. ZooKeeper mode is deprecated as of Kafka 3.3 and should only be used for legacy systems. For detailed information on KRaft, see [Understanding KRaft Mode in Kafka](understanding-kraft-mode-in-kafka.md).
+**Note:** Modern Kafka deployments use KRaft mode, which eliminates the ZooKeeper dependency. ZooKeeper mode is deprecated as of Kafka 3.3 and should only be used for legacy systems. For detailed information on KRaft, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka).
 
 The Entity Operator comprises two sub-operators: the Topic Operator manages KafkaTopic resources, and the User Operator manages KafkaUser resources. This design allows you to declare topics and users as Kubernetes resources, which can be version-controlled and managed using standard Kubernetes tools.
 
@@ -225,19 +225,19 @@ spec:
           - Read
 ```
 
-Strimzi handles several critical operational tasks automatically. It generates TLS certificates for secure communication between brokers and clients. It configures persistent volumes to ensure data durability. It sets up network policies and services to expose Kafka to applications inside and outside the Kubernetes cluster. For comprehensive security configuration, see [Encryption at Rest and in Transit for Kafka](encryption-at-rest-and-in-transit-for-kafka.md).
+Strimzi handles several critical operational tasks automatically. It generates TLS certificates for secure communication between brokers and clients. It configures persistent volumes to ensure data durability. It sets up network policies and services to expose Kafka to applications inside and outside the Kubernetes cluster. For comprehensive security configuration, see [Encryption at Rest and in Transit for Kafka](https://conduktor.io/glossary/encryption-at-rest-and-in-transit-for-kafka).
 
-Advanced configuration options include rack awareness to spread brokers across availability zones for high availability, resource limits and requests for CPU and memory optimization, and various authentication mechanisms like TLS client certificates, SCRAM-SHA-512, and OAuth 2.0 for enterprise integration. For access control patterns, see [Access Control for Streaming](access-control-for-streaming.md).
+Advanced configuration options include rack awareness to spread brokers across availability zones for high availability, resource limits and requests for CPU and memory optimization, and various authentication mechanisms like TLS client certificates, SCRAM-SHA-512, and OAuth 2.0 for enterprise integration. For access control patterns, see [Access Control for Streaming](https://conduktor.io/glossary/access-control-for-streaming).
 
 ## Strimzi in Data Streaming Architectures
 
-Modern data streaming architectures rely on real-time event processing and integration across multiple systems. Kafka serves as the central nervous system for these architectures, handling high-throughput data ingestion, storage, and distribution. For a comprehensive overview of Kafka's role in streaming, see [Apache Kafka](apache-kafka.md).
+Modern data streaming architectures rely on real-time event processing and integration across multiple systems. Kafka serves as the central nervous system for these architectures, handling high-throughput data ingestion, storage, and distribution. For a comprehensive overview of Kafka's role in streaming, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
 
-Strimzi enables cloud-native deployment of Kafka, which is essential for organizations adopting microservices and event-driven patterns. By running Kafka on Kubernetes, teams can deploy streaming applications alongside their processing workloads, such as Apache Flink jobs or custom stream processors. For details on Flink integration, see [What is Apache Flink: Stateful Stream Processing](what-is-apache-flink-stateful-stream-processing.md).
+Strimzi enables cloud-native deployment of Kafka, which is essential for organizations adopting microservices and event-driven patterns. By running Kafka on Kubernetes, teams can deploy streaming applications alongside their processing workloads, such as Apache Flink jobs or custom stream processors. For details on Flink integration, see [What is Apache Flink: Stateful Stream Processing](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing).
 
 This co-location simplifies infrastructure management and improves resource utilization. Kubernetes provides a unified platform for deploying, scaling, and monitoring both Kafka and the applications that depend on it. Strimzi integrates with Kubernetes-native monitoring tools like Prometheus, allowing teams to observe their entire streaming pipeline in one place.
 
-For example, an e-commerce platform might use Strimzi to deploy Kafka clusters that handle order events, inventory updates, and customer notifications. These events feed into Flink jobs running in the same Kubernetes cluster, which perform real-time analytics and fraud detection. The entire system scales dynamically based on load, with Kubernetes managing resource allocation. For e-commerce streaming patterns, see [E-Commerce Streaming Architecture Patterns](e-commerce-streaming-architecture-patterns.md).
+For example, an e-commerce platform might use Strimzi to deploy Kafka clusters that handle order events, inventory updates, and customer notifications. These events feed into Flink jobs running in the same Kubernetes cluster, which perform real-time analytics and fraud detection. The entire system scales dynamically based on load, with Kubernetes managing resource allocation. For e-commerce streaming patterns, see [E-Commerce Streaming Architecture Patterns](https://conduktor.io/glossary/e-commerce-streaming-architecture-patterns).
 
 ## Monitoring and Managing Kafka at Scale
 
@@ -245,7 +245,7 @@ Operating Kafka in production requires continuous monitoring and management. Str
 
 However, monitoring infrastructure metrics is only part of the story. Teams also need visibility into data flows, topic configurations, consumer lag, and schema management. For comprehensive Kafka management and observability, platforms like [Conduktor](https://www.conduktor.io/) offer unified interfaces for managing multiple Kafka clusters, including those deployed with Strimzi. Conduktor provides features like consumer lag monitoring, schema registry management, data governance policy enforcement, and self-service access controls for application developers. These tools complement Strimzi's infrastructure automation with application-level management and observability.
 
-For consumer lag monitoring specifically, see [Consumer Lag Monitoring](consumer-lag-monitoring.md) for detailed strategies and best practices.
+For consumer lag monitoring specifically, see [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring) for detailed strategies and best practices.
 
 Strimzi simplifies operational tasks like cluster upgrades and broker scaling. Rolling upgrades are performed automatically by the Cluster Operator, which updates one broker at a time while ensuring the cluster remains available. If you need to scale the cluster, you simply update the `replicas` field in the KafkaNodePool resource, and Strimzi handles the provisioning and rebalancing.
 
@@ -275,7 +275,7 @@ Key capabilities in 2025 include:
 
 For organizations building data streaming platforms, Strimzi provides a solid foundation for running Kafka at scale. Combined with management platforms like Conduktor for application-level governance and observability, teams can build robust, production-grade streaming architectures. As a CNCF incubating project with broad community support, Strimzi continues to evolve and adapt to emerging Kafka and Kubernetes capabilities.
 
-For schema management in your Strimzi deployment, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md). For disaster recovery strategies, see [Disaster Recovery Strategies for Kafka Clusters](disaster-recovery-strategies-for-kafka-clusters.md).
+For schema management in your Strimzi deployment, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management). For disaster recovery strategies, see [Disaster Recovery Strategies for Kafka Clusters](https://conduktor.io/glossary/disaster-recovery-strategies-for-kafka-clusters).
 
 ## Sources and References
 

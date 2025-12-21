@@ -13,7 +13,7 @@ topics:
 
 Change Data Capture (CDC) is a fundamental pattern in modern data engineering that enables real-time data synchronization between systems. As organizations move toward event-driven architectures and real-time analytics, choosing the right CDC approach becomes critical. This article compares the two primary CDC strategies—log-based and query-based—to help data architects and engineers make informed decisions.
 
-For foundational CDC concepts, see [What is Change Data Capture (CDC): Fundamentals](what-is-change-data-capture-cdc-fundamentals.md). For hands-on implementation guidance, refer to [Implementing CDC with Debezium](implementing-cdc-with-debezium.md).
+For foundational CDC concepts, see [What is Change Data Capture (CDC): Fundamentals](https://conduktor.io/glossary/what-is-change-data-capture-cdc-fundamentals). For hands-on implementation guidance, refer to [Implementing CDC with Debezium](https://conduktor.io/glossary/implementing-cdc-with-debezium).
 
 ## Understanding CDC Approaches
 
@@ -183,7 +183,7 @@ Database transaction logs record every committed change for recovery and replica
 
 ## Streaming Ecosystem Integration
 
-Modern data architectures increasingly rely on streaming platforms for event distribution, making CDC integration with streaming ecosystems essential. For comprehensive coverage of Apache Kafka's role in CDC pipelines, see [Apache Kafka](apache-kafka.md).
+Modern data architectures increasingly rely on streaming platforms for event distribution, making CDC integration with streaming ecosystems essential. For comprehensive coverage of Apache Kafka's role in CDC pipelines, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
 
 ### Kafka and Debezium
 
@@ -263,7 +263,7 @@ Key fields:
 As CDC implementations scale, governance and visibility become critical. Modern streaming governance platforms like **Conduktor** provide centralized management for Kafka-based CDC pipelines, offering:
 
 - **Schema Registry Management**: Track schema evolution across CDC topics with version history
-- **Data Flow Visualization**: Map data lineage from source databases through Kafka to consumers (see [Data Lineage Tracking: Data from Source to Consumption](data-lineage-tracking-data-from-source-to-consumption.md) for detailed coverage)
+- **Data Flow Visualization**: Map data lineage from source databases through Kafka to consumers (see [Data Lineage Tracking: Data from Source to Consumption](https://conduktor.io/glossary/data-lineage-tracking-data-from-source-to-consumption) for detailed coverage)
 - **Connector Health Monitoring**: Real-time visibility into Debezium connector status, throughput, and errors
 - **Consumer Lag Tracking**: Identify downstream bottlenecks consuming CDC events
 - **Quality Monitoring**: Detect data quality issues, lag, and throughput anomalies
@@ -404,10 +404,10 @@ Select your CDC strategy based on these criteria:
 - Near real-time data (seconds) is required
 - Source database performance must be protected
 - Complete audit trail including deletes is necessary
-- Integrating with streaming platforms like [Apache Kafka](apache-kafka.md)
+- Integrating with streaming platforms like [Apache Kafka](https://conduktor.io/glossary/apache-kafka)
 - Organization has database administration capabilities
 - Data consistency and ordering matter
-- Supporting event-driven architectures (see [CDC for Microservices Event-Driven Architectures](cdc-for-microservices-event-driven-architectures.md))
+- Supporting event-driven architectures (see [CDC for Microservices Event-Driven Architectures](https://conduktor.io/glossary/cdc-for-microservices-event-driven-architectures))
 
 ### Hybrid Approaches
 
@@ -425,7 +425,7 @@ Log-based and query-based CDC serve the same fundamental purpose but differ sign
 
 **Log-based CDC** delivers near real-time capture with minimal source impact by reading transaction logs directly. While operationally complex and database-specific, it excels in streaming architectures and event-driven systems where latency and completeness matter.
 
-For modern data engineering scenarios involving real-time analytics (see [CDC for Real-Time Data Warehousing](cdc-for-real-time-data-warehousing.md)), microservices integration, or event streaming platforms like Kafka, log-based CDC with tools like Debezium generally provides superior capabilities. Organizations implementing these solutions should leverage governance platforms to maintain visibility and control as CDC pipelines scale.
+For modern data engineering scenarios involving real-time analytics (see [CDC for Real-Time Data Warehousing](https://conduktor.io/glossary/cdc-for-real-time-data-warehousing)), microservices integration, or event streaming platforms like Kafka, log-based CDC with tools like Debezium generally provides superior capabilities. Organizations implementing these solutions should leverage governance platforms to maintain visibility and control as CDC pipelines scale.
 
 The choice ultimately depends on your specific requirements: if you need simplicity and can accept delays, query-based CDC suffices. If real-time data, minimal source impact, and complete change capture are priorities, invest in log-based CDC infrastructure.
 

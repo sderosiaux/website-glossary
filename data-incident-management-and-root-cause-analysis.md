@@ -33,9 +33,9 @@ Effective incident management follows a structured lifecycle that minimizes Mean
 
 The first step is knowing an incident occurred. Modern data platforms should implement multi-layered monitoring:
 
-**Data Quality Monitoring**: Automated checks on row counts, schema validation, null rates, and business logic constraints. Modern tools like Great Expectations 1.0+, Soda Core 3.x, and dbt tests validate both technical correctness and business expectations. For detailed coverage of data quality frameworks, see [Data Quality Dimensions: Accuracy, Completeness, and Consistency](data-quality-dimensions-accuracy-completeness-and-consistency.md).
+**Data Quality Monitoring**: Automated checks on row counts, schema validation, null rates, and business logic constraints. Modern tools like Great Expectations 1.0+, Soda Core 3.x, and dbt tests validate both technical correctness and business expectations. For detailed coverage of data quality frameworks, see [Data Quality Dimensions: Accuracy, Completeness, and Consistency](https://conduktor.io/glossary/data-quality-dimensions-accuracy-completeness-and-consistency).
 
-**Freshness Monitoring**: Track when data was last updated. For streaming systems like Apache Kafka 4.0+ (now running KRaft mode without ZooKeeper), monitor consumer lag across topics using tools like Kafka Lag Exporter, Burrow, or Confluent Control Center to identify when processing falls behind production. For more on monitoring strategies, see [Kafka Cluster Monitoring and Metrics](kafka-cluster-monitoring-and-metrics.md).
+**Freshness Monitoring**: Track when data was last updated. For streaming systems like Apache Kafka 4.0+ (now running KRaft mode without ZooKeeper), monitor consumer lag across topics using tools like Kafka Lag Exporter, Burrow, or Confluent Control Center to identify when processing falls behind production. For more on monitoring strategies, see [Kafka Cluster Monitoring and Metrics](https://conduktor.io/glossary/kafka-cluster-monitoring-and-metrics).
 
 **Pipeline Health**: Monitor job execution status, resource utilization, and dependency chains. Modern incident management platforms like Datadog Incident Management, PagerDuty Incident Workflows with AIOps, and Grafana IRM (Incident Response Management) provide unified visibility across data pipelines. Failed jobs should trigger immediate alerts with context about the failure point.
 
@@ -59,9 +59,9 @@ When an alert fires, rapid triage determines incident severity and guides respon
 
 The goal is restoring service while minimizing additional damage:
 
-**Immediate Mitigation**: Stop the bleeding. This might mean pausing pipelines, rolling back deployments, or switching to backup data sources. In Kafka environments, you might need to reset consumer offsets or pause specific consumers to prevent poison messages (corrupted or malformed messages that cause consumer crashes) from blocking processing. For error handling patterns, see [Dead Letter Queues for Error Handling](dead-letter-queues-for-error-handling.md).
+**Immediate Mitigation**: Stop the bleeding. This might mean pausing pipelines, rolling back deployments, or switching to backup data sources. In Kafka environments, you might need to reset consumer offsets or pause specific consumers to prevent poison messages (corrupted or malformed messages that cause consumer crashes) from blocking processing. For error handling patterns, see [Dead Letter Queues for Error Handling](https://conduktor.io/glossary/dead-letter-queues-for-error-handling).
 
-**Root Cause Investigation**: While mitigating, begin deeper investigation. Streaming systems add complexity—issues might stem from broker configuration, partition rebalancing (redistribution of topic partitions across consumers), message serialization, or consumer processing logic. Modern observability approaches using OpenTelemetry and distributed tracing help examine topic configurations, consumer group assignments, and message contents, accelerating diagnosis. For advanced debugging techniques, see [Distributed Tracing for Kafka Applications](distributed-tracing-for-kafka-applications.md).
+**Root Cause Investigation**: While mitigating, begin deeper investigation. Streaming systems add complexity—issues might stem from broker configuration, partition rebalancing (redistribution of topic partitions across consumers), message serialization, or consumer processing logic. Modern observability approaches using OpenTelemetry and distributed tracing help examine topic configurations, consumer group assignments, and message contents, accelerating diagnosis. For advanced debugging techniques, see [Distributed Tracing for Kafka Applications](https://conduktor.io/glossary/distributed-tracing-for-kafka-applications).
 
 **Fix Implementation**: Apply the fix with appropriate testing. For streaming systems, consider:
 - Will the fix handle backlog replay correctly?
@@ -142,7 +142,7 @@ Root cause analysis should produce actionable improvements:
 
 **Documentation and Runbooks**: Capture incident response procedures, architecture decisions, and configuration standards. This organizational memory prevents repeated mistakes. Modern incident management platforms like PagerDuty and Grafana IRM integrate runbooks directly into alert workflows.
 
-**Testing Enhancement**: Add regression tests, chaos engineering experiments, or failure injection to validate resilience. Test how your streaming system handles broker failures, network partitions, or poison messages. Tools like Chaos Mesh and Litmus help inject failures into Kafka clusters to validate recovery procedures. For more on proactive testing, see [Chaos Engineering for Streaming Systems](chaos-engineering-for-streaming-systems.md).
+**Testing Enhancement**: Add regression tests, chaos engineering experiments, or failure injection to validate resilience. Test how your streaming system handles broker failures, network partitions, or poison messages. Tools like Chaos Mesh and Litmus help inject failures into Kafka clusters to validate recovery procedures. For more on proactive testing, see [Chaos Engineering for Streaming Systems](https://conduktor.io/glossary/chaos-engineering-for-streaming-systems).
 
 ## Modern Observability and Incident Management (2025)
 
@@ -164,7 +164,7 @@ The shift toward observability-driven incident management emphasizes understandi
 
 **Build Observability In**: Design systems with debugging in mind. Comprehensive logging, distributed tracing (using OpenTelemetry), and metadata tracking enable faster diagnosis. Instrument custom metrics for business-specific KPIs, not just infrastructure metrics.
 
-**Automate Recovery**: Where possible, implement self-healing mechanisms—automatic retries with exponential backoff, dead letter queues for poison messages, and circuit breakers for failing dependencies. For streaming error patterns, see [Dead Letter Queues for Error Handling](dead-letter-queues-for-error-handling.md).
+**Automate Recovery**: Where possible, implement self-healing mechanisms—automatic retries with exponential backoff, dead letter queues for poison messages, and circuit breakers for failing dependencies. For streaming error patterns, see [Dead Letter Queues for Error Handling](https://conduktor.io/glossary/dead-letter-queues-for-error-handling).
 
 **Maintain Communication Channels**: During incidents, clear communication with stakeholders prevents panic and sets appropriate expectations. Modern incident management platforms integrate with Slack, Microsoft Teams, and status page tools for automated stakeholder updates.
 
@@ -180,12 +180,12 @@ The goal isn't eliminating all incidents—that's unrealistic in complex distrib
 
 ## Related Topics
 
-- [Data Quality Dimensions: Accuracy, Completeness, and Consistency](data-quality-dimensions-accuracy-completeness-and-consistency.md) - Understanding data quality metrics for incident detection
-- [Kafka Cluster Monitoring and Metrics](kafka-cluster-monitoring-and-metrics.md) - Comprehensive Kafka monitoring strategies
-- [Dead Letter Queues for Error Handling](dead-letter-queues-for-error-handling.md) - Patterns for handling failed messages
-- [Distributed Tracing for Kafka Applications](distributed-tracing-for-kafka-applications.md) - End-to-end visibility in streaming systems
-- [Chaos Engineering for Streaming Systems](chaos-engineering-for-streaming-systems.md) - Proactive resilience testing
-- [Data Quality Incidents](data-quality-incidents.md) - Specific incident patterns in data quality
+- [Data Quality Dimensions: Accuracy, Completeness, and Consistency](https://conduktor.io/glossary/data-quality-dimensions-accuracy-completeness-and-consistency) - Understanding data quality metrics for incident detection
+- [Kafka Cluster Monitoring and Metrics](https://conduktor.io/glossary/kafka-cluster-monitoring-and-metrics) - Comprehensive Kafka monitoring strategies
+- [Dead Letter Queues for Error Handling](https://conduktor.io/glossary/dead-letter-queues-for-error-handling) - Patterns for handling failed messages
+- [Distributed Tracing for Kafka Applications](https://conduktor.io/glossary/distributed-tracing-for-kafka-applications) - End-to-end visibility in streaming systems
+- [Chaos Engineering for Streaming Systems](https://conduktor.io/glossary/chaos-engineering-for-streaming-systems) - Proactive resilience testing
+- [Data Quality Incidents](https://conduktor.io/glossary/data-quality-incidents) - Specific incident patterns in data quality
 
 ## Sources
 

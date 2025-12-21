@@ -16,7 +16,7 @@ topics:
 
 Serialization is the process of converting data structures or objects into a byte format that can be transmitted over a network or stored on disk. Deserialization is the reverse process—reconstructing the original data structure from bytes.
 
-In [Apache Kafka](apache-kafka.md), every message is stored and transmitted as an array of bytes. This means that before a [producer](kafka-producers.md) sends a message to Kafka, it must serialize the data. Similarly, when a consumer reads a message, it must deserialize those bytes back into a meaningful data structure.
+In [Apache Kafka](https://conduktor.io/glossary/apache-kafka), every message is stored and transmitted as an array of bytes. This means that before a [producer](https://conduktor.io/glossary/kafka-producers) sends a message to Kafka, it must serialize the data. Similarly, when a consumer reads a message, it must deserialize those bytes back into a meaningful data structure.
 
 The choice of serialization format affects multiple critical aspects of your streaming architecture: message size, processing speed, schema evolution capabilities, interoperability between systems, and developer productivity.
 
@@ -73,9 +73,9 @@ JSON is human-readable, widely supported, and familiar to most developers. Howev
 
 ### Apache Avro
 
-Avro is a binary serialization format that separates schema from data. Messages contain only the values, making them compact. Schemas are typically stored in a [Schema Registry](schema-registry-and-schema-management.md), and messages reference the schema by ID.
+Avro is a binary serialization format that separates schema from data. Messages contain only the values, making them compact. Schemas are typically stored in a [Schema Registry](https://conduktor.io/glossary/schema-registry-and-schema-management), and messages reference the schema by ID.
 
-Avro supports rich schema evolution rules, allowing you to add fields with defaults, remove optional fields, and maintain backward and forward compatibility. This makes it ideal for long-lived streaming applications where schemas evolve over time. For detailed comparison with other formats, see [Avro vs Protobuf vs JSON Schema](avro-vs-protobuf-vs-json-schema.md).
+Avro supports rich schema evolution rules, allowing you to add fields with defaults, remove optional fields, and maintain backward and forward compatibility. This makes it ideal for long-lived streaming applications where schemas evolve over time. For detailed comparison with other formats, see [Avro vs Protobuf vs JSON Schema](https://conduktor.io/glossary/avro-vs-protobuf-vs-json-schema).
 
 **Use case**: High-throughput data pipelines, analytics platforms, event-driven architectures requiring schema evolution.
 
@@ -93,7 +93,7 @@ Consider this real-world scenario: You have a `CustomerOrder` event with fields 
 
 With Avro, you can add this field with a default value (e.g., 0.0). Old consumers that don't know about the discount field will continue working. New consumers can read both old messages (using the default) and new messages (with the actual discount value). This is **backward compatibility**.
 
-**Forward compatibility** means old consumers can read messages produced by new producers, even if those messages have fields the consumer doesn't know about. The [Schema Registry](schema-registry-and-schema-management.md) enforces compatibility rules to prevent breaking changes.
+**Forward compatibility** means old consumers can read messages produced by new producers, even if those messages have fields the consumer doesn't know about. The [Schema Registry](https://conduktor.io/glossary/schema-registry-and-schema-management) enforces compatibility rules to prevent breaking changes.
 
 A Schema Registry typically supports four compatibility modes:
 
@@ -102,7 +102,7 @@ A Schema Registry typically supports four compatibility modes:
 - **FULL**: Both backward and forward compatible
 - **NONE**: No compatibility checking
 
-For comprehensive guidance on managing schema changes safely, see [Schema Evolution Best Practices](schema-evolution-best-practices.md).
+For comprehensive guidance on managing schema changes safely, see [Schema Evolution Best Practices](https://conduktor.io/glossary/schema-evolution-best-practices).
 
 Without proper schema management, you risk runtime errors, data loss, or forcing synchronized deployments across all producers and consumers—a significant operational burden.
 
@@ -124,7 +124,7 @@ Different serialization formats have distinct performance characteristics:
 
 Message serialization is foundational to the broader data streaming ecosystem. Apache Kafka acts as the central nervous system, but data flows through multiple systems—stream processing frameworks like Apache Flink or Kafka Streams, data warehouses, analytics platforms, and microservices.
 
-Choosing a well-supported serialization format ensures interoperability across these systems. Avro's tight integration with [Schema Registry](schema-registry-and-schema-management.md) makes it a de facto standard in Kafka-based ecosystems. Protobuf's wide language support makes it popular in polyglot microservices architectures.
+Choosing a well-supported serialization format ensures interoperability across these systems. Avro's tight integration with [Schema Registry](https://conduktor.io/glossary/schema-registry-and-schema-management) makes it a de facto standard in Kafka-based ecosystems. Protobuf's wide language support makes it popular in polyglot microservices architectures.
 
 Stream processing frameworks like Flink support multiple serialization formats and can automatically handle schema evolution when integrated with a Schema Registry. This enables complex transformations while maintaining data consistency.
 
@@ -240,7 +240,7 @@ record.headers().add("trace-id", traceId.getBytes());
 producer.send(record);
 ```
 
-For comprehensive guidance on leveraging headers effectively, see [Using Kafka Headers Effectively](using-kafka-headers-effectively.md).
+For comprehensive guidance on leveraging headers effectively, see [Using Kafka Headers Effectively](https://conduktor.io/glossary/using-kafka-headers-effectively).
 
 ## Summary
 
@@ -249,8 +249,8 @@ Message serialization in Kafka is more than a technical implementation detail—
 **Key Takeaways**:
 - Binary formats like Avro and Protobuf offer the best combination of performance, schema evolution capabilities, and ecosystem support for production streaming applications
 - JSON remains useful for development and debugging but comes with trade-offs in production (2-3x larger messages, slower parsing)
-- [Schema Registry](schema-registry-and-schema-management.md) is essential for managing schema evolution and enforcing compatibility rules
-- [Schema evolution best practices](schema-evolution-best-practices.md) prevent runtime errors and enable independent evolution of producers and consumers
+- [Schema Registry](https://conduktor.io/glossary/schema-registry-and-schema-management) is essential for managing schema evolution and enforcing compatibility rules
+- [Schema evolution best practices](https://conduktor.io/glossary/schema-evolution-best-practices) prevent runtime errors and enable independent evolution of producers and consumers
 
 **2025 Recommendations**:
 - Use **Zstd compression** (`compression.type=zstd`) for optimal throughput-to-storage ratio
@@ -259,7 +259,7 @@ Message serialization in Kafka is more than a technical implementation detail—
 - Use Kafka headers for metadata like schema versions, content types, and tracing information
 
 **Choosing Your Format**:
-- **Avro**: High-throughput data pipelines with frequent schema changes ([comparison details](avro-vs-protobuf-vs-json-schema.md))
+- **Avro**: High-throughput data pipelines with frequent schema changes ([comparison details](https://conduktor.io/glossary/avro-vs-protobuf-vs-json-schema))
 - **Protobuf**: High-performance microservices requiring strong typing and cross-language support
 - **JSON**: APIs, debugging, initial development (use JSON Schema for validation)
 - **Primitives**: Simple values, metrics, logs

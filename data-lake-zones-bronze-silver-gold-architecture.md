@@ -84,7 +84,7 @@ TBLPROPERTIES (
 );
 ```
 
-For more details on modern table formats, see [Apache Iceberg](apache-iceberg.md) and [Delta Lake Transaction Log](delta-lake-transaction-log-how-it-works.md).
+For more details on modern table formats, see [Apache Iceberg](https://conduktor.io/glossary/apache-iceberg) and [Delta Lake Transaction Log](https://conduktor.io/glossary/delta-lake-transaction-log-how-it-works).
 
 ## Silver Layer: Cleaned and Conformed
 
@@ -95,7 +95,7 @@ The Silver layer represents your cleaned, validated, and standardized data. This
 - **Data quality enforcement**: Invalid records are filtered or corrected using validation rules
 - **Schema standardization**: Consistent data types and column names across sources
 - **Deduplication**: Removes duplicate records based on business keys
-- **Change data capture (CDC)**: Efficiently tracks and processes only changed/new records from Bronze, reducing processing costs. For detailed CDC patterns, see [What is Change Data Capture](what-is-change-data-capture-cdc-fundamentals.md)
+- **Change data capture (CDC)**: Efficiently tracks and processes only changed/new records from Bronze, reducing processing costs. For detailed CDC patterns, see [What is Change Data Capture](https://conduktor.io/glossary/what-is-change-data-capture-cdc-fundamentals)
 - **PII handling**: Sensitive data is masked, encrypted, or tokenized for compliance
 
 ### Transformation Logic
@@ -138,7 +138,7 @@ For streaming architectures, the Silver layer often implements **incremental pro
 - **Apache Flink** (1.18+): True streaming with exactly-once semantics and state management
 - **dbt** (1.7+): Incremental models for batch transformations with SQL
 
-Schema registry integration (Confluent Schema Registry or AWS Glue Schema Registry) ensures that as schemas evolve in Kafka topics, your Silver layer transformations can adapt accordingly, preventing breaking changes from propagating downstream. For more on schema management, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md).
+Schema registry integration (Confluent Schema Registry or AWS Glue Schema Registry) ensures that as schemas evolve in Kafka topics, your Silver layer transformations can adapt accordingly, preventing breaking changes from propagating downstream. For more on schema management, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management).
 
 ## Gold Layer: Business Value
 
@@ -201,8 +201,8 @@ The Medallion Architecture is typically implemented using modern **lakehouse tab
 Delta Lake is the most widely adopted format, offering:
 - **ACID transactions** for reliable concurrent writes
 - **Time travel** to query historical versions of data
-- **Liquid Clustering** (2025): Replaces traditional partitioning with adaptive, multi-dimensional clustering for better query performance. See [Delta Lake Liquid Clustering](delta-lake-liquid-clustering-modern-partitioning.md)
-- **Deletion Vectors** (2025): Efficient row-level deletes without rewriting entire files. See [Delta Lake Deletion Vectors](delta-lake-deletion-vectors-efficient-row-level-deletes.md)
+- **Liquid Clustering** (2025): Replaces traditional partitioning with adaptive, multi-dimensional clustering for better query performance. See [Delta Lake Liquid Clustering](https://conduktor.io/glossary/delta-lake-liquid-clustering-modern-partitioning)
+- **Deletion Vectors** (2025): Efficient row-level deletes without rewriting entire files. See [Delta Lake Deletion Vectors](https://conduktor.io/glossary/delta-lake-deletion-vectors-efficient-row-level-deletes)
 - **Change Data Feed**: Native CDC support for incremental processing
 
 ### Apache Iceberg
@@ -213,7 +213,7 @@ Apache Iceberg provides enterprise-grade features:
 - **Multi-catalog support**: Works with Hive, Glue, Nessie, and Unity Catalog
 - **Metadata management**: Efficient snapshot management and metadata pruning
 
-For comprehensive coverage, see [Introduction to Lakehouse Architecture](introduction-to-lakehouse-architecture.md) and [Streaming Ingestion to Lakehouse](streaming-ingestion-to-lakehouse.md).
+For comprehensive coverage, see [Introduction to Lakehouse Architecture](https://conduktor.io/glossary/introduction-to-lakehouse-architecture) and [Streaming Ingestion to Lakehouse](https://conduktor.io/glossary/streaming-ingestion-to-lakehouse).
 
 ### Implementation Example
 
@@ -255,13 +255,13 @@ The immutable Bronze layer provides an audit trail, while Silver and Gold can im
 
 **Idempotency**: Ensure all transformations can be safely re-run without creating duplicates or inconsistencies. Use merge operations (MERGE INTO in SQL) rather than INSERT to handle updates gracefully.
 
-**Incremental Processing**: Process only new or changed data between layers to minimize compute costs. Delta Lake's Change Data Feed and Iceberg's incremental scan make this efficient. See [Streaming to Lakehouse Tables](streaming-to-lakehouse-tables.md).
+**Incremental Processing**: Process only new or changed data between layers to minimize compute costs. Delta Lake's Change Data Feed and Iceberg's incremental scan make this efficient. See [Streaming to Lakehouse Tables](https://conduktor.io/glossary/streaming-to-lakehouse-tables).
 
 **Data Lineage**: Maintain metadata about data transformations to track how Gold metrics are derived from raw sources. Modern catalogs like Unity Catalog and tools like dbt automatically capture lineage.
 
-**Schema Evolution**: Plan for schema changes by versioning your data and using backward-compatible transformations. See [Schema Evolution in Apache Iceberg](schema-evolution-in-apache-iceberg.md) for best practices.
+**Schema Evolution**: Plan for schema changes by versioning your data and using backward-compatible transformations. See [Schema Evolution in Apache Iceberg](https://conduktor.io/glossary/schema-evolution-in-apache-iceberg) for best practices.
 
-**Data Quality**: Implement validation checks at each layer boundary. Use frameworks like Great Expectations for comprehensive testing. See [Building a Data Quality Framework](building-a-data-quality-framework.md) and [Automated Data Quality Testing](automated-data-quality-testing.md).
+**Data Quality**: Implement validation checks at each layer boundary. Use frameworks like Great Expectations for comprehensive testing. See [Building a Data Quality Framework](https://conduktor.io/glossary/building-a-data-quality-framework) and [Automated Data Quality Testing](https://conduktor.io/glossary/automated-data-quality-testing).
 
 **Monitoring**: Use **Conduktor** for Kafka/streaming monitoring (consumer lag, schema validation, throughput) and data observability platforms for data quality metrics. Implement alerting for pipeline failures and SLA violations.
 
@@ -276,24 +276,24 @@ This architectural pattern has proven its value across organizations of all size
 ## Related Topics
 
 ### Table Formats & Architecture
-- [Apache Iceberg](apache-iceberg.md) - Modern table format with schema evolution and hidden partitioning
-- [Delta Lake Liquid Clustering](delta-lake-liquid-clustering-modern-partitioning.md) - 2025 approach to optimizing table layout
-- [Delta Lake Transaction Log](delta-lake-transaction-log-how-it-works.md) - How ACID transactions work in Delta Lake
-- [Introduction to Lakehouse Architecture](introduction-to-lakehouse-architecture.md) - Combining data lake and warehouse capabilities
+- [Apache Iceberg](https://conduktor.io/glossary/apache-iceberg) - Modern table format with schema evolution and hidden partitioning
+- [Delta Lake Liquid Clustering](https://conduktor.io/glossary/delta-lake-liquid-clustering-modern-partitioning) - 2025 approach to optimizing table layout
+- [Delta Lake Transaction Log](https://conduktor.io/glossary/delta-lake-transaction-log-how-it-works) - How ACID transactions work in Delta Lake
+- [Introduction to Lakehouse Architecture](https://conduktor.io/glossary/introduction-to-lakehouse-architecture) - Combining data lake and warehouse capabilities
 
 ### Data Quality & Processing
-- [Building a Data Quality Framework](building-a-data-quality-framework.md) - Implementing validation across layers
-- [Automated Data Quality Testing](automated-data-quality-testing.md) - Testing strategies for data pipelines
-- [What is Change Data Capture](what-is-change-data-capture-cdc-fundamentals.md) - Efficient incremental processing patterns
+- [Building a Data Quality Framework](https://conduktor.io/glossary/building-a-data-quality-framework) - Implementing validation across layers
+- [Automated Data Quality Testing](https://conduktor.io/glossary/automated-data-quality-testing) - Testing strategies for data pipelines
+- [What is Change Data Capture](https://conduktor.io/glossary/what-is-change-data-capture-cdc-fundamentals) - Efficient incremental processing patterns
 
 ### Streaming Integration
-- [Streaming Ingestion to Lakehouse](streaming-ingestion-to-lakehouse.md) - Real-time data ingestion patterns
-- [Streaming to Lakehouse Tables](streaming-to-lakehouse-tables.md) - Writing streaming data to Delta/Iceberg tables
-- [Apache Kafka](apache-kafka.md) - Streaming platform for Bronze layer ingestion
+- [Streaming Ingestion to Lakehouse](https://conduktor.io/glossary/streaming-ingestion-to-lakehouse) - Real-time data ingestion patterns
+- [Streaming to Lakehouse Tables](https://conduktor.io/glossary/streaming-to-lakehouse-tables) - Writing streaming data to Delta/Iceberg tables
+- [Apache Kafka](https://conduktor.io/glossary/apache-kafka) - Streaming platform for Bronze layer ingestion
 
 ### Schema Management
-- [Schema Evolution in Apache Iceberg](schema-evolution-in-apache-iceberg.md) - Handling schema changes gracefully
-- [Schema Registry and Schema Management](schema-registry-and-schema-management.md) - Managing schemas in streaming pipelines
+- [Schema Evolution in Apache Iceberg](https://conduktor.io/glossary/schema-evolution-in-apache-iceberg) - Handling schema changes gracefully
+- [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) - Managing schemas in streaming pipelines
 
 ## Sources and References
 

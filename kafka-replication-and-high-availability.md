@@ -14,11 +14,11 @@ topics:
 
 Apache Kafka has become the backbone of modern data streaming architectures, processing trillions of messages daily across organizations worldwide. At the core of Kafka's reliability lies its replication system, which ensures data durability and high availability even when hardware fails or network partitions occur.
 
-Understanding how Kafka achieves fault tolerance is essential for anyone designing or operating production streaming platforms. This article explores the mechanics of Kafka replication, high availability features, and practical considerations for building resilient systems. For foundational Kafka concepts, see [Apache Kafka](apache-kafka.md). To understand Kafka's modern architecture, refer to [Understanding KRaft Mode in Kafka](understanding-kraft-mode-in-kafka.md).
+Understanding how Kafka achieves fault tolerance is essential for anyone designing or operating production streaming platforms. This article explores the mechanics of Kafka replication, high availability features, and practical considerations for building resilient systems. For foundational Kafka concepts, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka). To understand Kafka's modern architecture, refer to [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka).
 
 ## Understanding Kafka Replication
 
-Kafka replication works by maintaining multiple copies of data across different brokers in a cluster. When you create a topic, you specify a replication factor that determines how many copies of each partition will exist. For detailed coverage of topics, partitions, and brokers, see [Kafka Topics, Partitions, Brokers: Core Architecture](kafka-topics-partitions-brokers-core-architecture.md).
+Kafka replication works by maintaining multiple copies of data across different brokers in a cluster. When you create a topic, you specify a replication factor that determines how many copies of each partition will exist. For detailed coverage of topics, partitions, and brokers, see [Kafka Topics, Partitions, Brokers: Core Architecture](https://conduktor.io/glossary/kafka-topics-partitions-brokers-core-architecture).
 
 ![kafka-replication-and-high-availability diagram 1](images/diagrams/kafka-replication-and-high-availability-0.webp)
 
@@ -144,7 +144,7 @@ props.put("max.in.flight.requests.per.connection", "5");  // Kafka 3.0+ safe wit
 KafkaProducer<String, String> producer = new KafkaProducer<>(props);
 ```
 
-For comprehensive producer configuration guidance, see [Kafka Producers](kafka-producers.md).
+For comprehensive producer configuration guidance, see [Kafka Producers](https://conduktor.io/glossary/kafka-producers).
 
 **Rack Awareness**: Configure rack awareness (`broker.rack`) to ensure replicas are distributed across physical failure domains like availability zones or data centers. This protects against correlated failures from power outages or network issues.
 
@@ -223,11 +223,11 @@ rules:
 - `MaxLag > 10000` messages (warning - investigate broker performance)
 - `IsrShrinksPerSec > 5` sustained rate (warning - cluster instability)
 
-For comprehensive monitoring strategies, see [Consumer Lag Monitoring](consumer-lag-monitoring.md). For Kubernetes deployments, refer to [Running Kafka on Kubernetes](running-kafka-on-kubernetes.md) and [Strimzi Kafka Operator for Kubernetes](strimzi-kafka-operator-for-kubernetes.md).
+For comprehensive monitoring strategies, see [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring). For Kubernetes deployments, refer to [Running Kafka on Kubernetes](https://conduktor.io/glossary/running-kafka-on-kubernetes) and [Strimzi Kafka Operator for Kubernetes](https://conduktor.io/glossary/strimzi-kafka-operator-for-kubernetes).
 
 ## Role in Data Streaming Platforms
 
-Replication and high availability are foundational to building reliable data streaming platforms. Stream processing frameworks like Apache Flink, Kafka Streams, and ksqlDB depend on Kafka's durability guarantees to maintain processing state and ensure exactly-once semantics. For details on exactly-once semantics, see [Kafka Transactions Deep Dive](kafka-transactions-deep-dive.md).
+Replication and high availability are foundational to building reliable data streaming platforms. Stream processing frameworks like Apache Flink, Kafka Streams, and ksqlDB depend on Kafka's durability guarantees to maintain processing state and ensure exactly-once semantics. For details on exactly-once semantics, see [Kafka Transactions Deep Dive](https://conduktor.io/glossary/kafka-transactions-deep-dive).
 
 When a stream processor checkpoints its state to Kafka topics, replication ensures that state survives broker failures. This allows processors to recover and resume from the last checkpoint without data loss or duplicate processing.
 
@@ -238,10 +238,10 @@ In multi-datacenter deployments, Apache Kafka's MirrorMaker 2 (MM2) extends repl
 **MirrorMaker 2 Features for High Availability**:
 - **Active-Active Replication**: Bi-directional mirroring enables writes to multiple clusters with conflict resolution
 - **Offset Translation**: Automatically maps consumer offsets between clusters for seamless failover
-- **Topic Configuration Sync**: Replicates topic configurations, ACLs, and quotas across datacenters (see [Kafka Security Best Practices](kafka-security-best-practices.md) for ACL design)
+- **Topic Configuration Sync**: Replicates topic configurations, ACLs, and quotas across datacenters (see [Kafka Security Best Practices](https://conduktor.io/glossary/kafka-security-best-practices) for ACL design)
 - **Exactly-Once Semantics**: Supports transactional producers for consistent cross-cluster replication
 
-**Tiered Storage (Kafka 3.6+)**: Kafka's tiered storage feature offloads older log segments to object storage (S3, Azure Blob, GCS) while maintaining recent data on local disks. This reduces storage costs and improves recovery times by limiting the data that needs replication when brokers restart. While tiered storage doesn't replace replication for high availability, it complements it by reducing the cost of maintaining high replication factors for long retention periods. For detailed information, see [Tiered Storage in Kafka](tiered-storage-in-kafka.md).
+**Tiered Storage (Kafka 3.6+)**: Kafka's tiered storage feature offloads older log segments to object storage (S3, Azure Blob, GCS) while maintaining recent data on local disks. This reduces storage costs and improves recovery times by limiting the data that needs replication when brokers restart. While tiered storage doesn't replace replication for high availability, it complements it by reducing the cost of maintaining high replication factors for long retention periods. For detailed information, see [Tiered Storage in Kafka](https://conduktor.io/glossary/tiered-storage-in-kafka).
 
 The combination of local replication for fault tolerance, cross-datacenter replication for disaster recovery, and tiered storage for cost-effective retention creates a comprehensive availability strategy. Organizations can achieve five-nines (99.999%) availability by carefully designing their replication topology and failover procedures.
 

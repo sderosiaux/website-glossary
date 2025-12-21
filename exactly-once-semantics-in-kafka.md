@@ -100,7 +100,7 @@ An idempotent producer ensures that retrying a send operation won't create dupli
 
 When a producer sends a message, it includes its PID and a sequence number. The broker tracks the last sequence number it received from each producer for each partition. If the broker receives a message with a sequence number it has already seen, it acknowledges the write without actually writing a duplicate. This makes retries safe and automatic.
 
-To enable idempotent producers, set `enable.idempotence=true` in your producer configuration. Kafka 3.0+ enables this by default for all producers, making idempotent production the standard behavior. For more details on producer configuration and patterns, see [Kafka Producers](kafka-producers.md).
+To enable idempotent producers, set `enable.idempotence=true` in your producer configuration. Kafka 3.0+ enables this by default for all producers, making idempotent production the standard behavior. For more details on producer configuration and patterns, see [Kafka Producers](https://conduktor.io/glossary/kafka-producers).
 
 ### Transactions
 
@@ -108,13 +108,13 @@ For end-to-end exactly-once semantics, Kafka provides transactions. A transactio
 
 Transactions work through a transaction coordinator, a broker component that manages the two-phase commit protocol (a distributed algorithm that ensures all participants agree to commit or abort). The producer begins a transaction, writes messages to various partitions, and then commits. The coordinator ensures that either all messages are visible to consumers or none are.
 
-To use transactions, assign a `transactional.id` to your producer. This ID is persistent across producer restarts, allowing Kafka to fence out zombie producers (old instances that haven't fully shut down due to network partitions or slow shutdowns) and prevent split-brain scenarios (where two instances of the same producer could write simultaneously). For a comprehensive technical deep dive into Kafka's transactional mechanisms, see [Kafka Transactions Deep Dive](kafka-transactions-deep-dive.md).
+To use transactions, assign a `transactional.id` to your producer. This ID is persistent across producer restarts, allowing Kafka to fence out zombie producers (old instances that haven't fully shut down due to network partitions or slow shutdowns) and prevent split-brain scenarios (where two instances of the same producer could write simultaneously). For a comprehensive technical deep dive into Kafka's transactional mechanisms, see [Kafka Transactions Deep Dive](https://conduktor.io/glossary/kafka-transactions-deep-dive).
 
 ### Transactional Consumers
 
 Consumers can participate in exactly-once processing by setting `isolation.level=read_committed`. This ensures they only read messages that are part of committed transactions, filtering out messages from aborted or in-progress transactions.
 
-When processing messages transactionally, the consumer reads messages, processes them, produces results to output topics, and commits its offsets—all within a single transaction. This atomic operation ensures exactly-once processing: if the transaction fails, none of the effects are visible. For more information on consumer offset management and group coordination, see [Kafka Consumer Groups Explained](kafka-consumer-groups-explained.md).
+When processing messages transactionally, the consumer reads messages, processes them, produces results to output topics, and commits its offsets—all within a single transaction. This atomic operation ensures exactly-once processing: if the transaction fails, none of the effects are visible. For more information on consumer offset management and group coordination, see [Kafka Consumer Groups Explained](https://conduktor.io/glossary/kafka-consumer-groups-explained).
 
 Tools like Conduktor provide visual monitoring of transaction markers in Kafka topics and real-time tracking of transactional producer states, making it easier to debug exactly-once configurations, verify transaction completion, and troubleshoot issues like stalled transactions or coordinator problems.
 
@@ -126,7 +126,7 @@ Stream processing frameworks like Kafka Streams and Apache Flink leverage Kafka'
 
 **Apache Flink** integrates with Kafka's transactional producers to achieve exactly-once semantics from Flink to Kafka. Flink uses its checkpointing mechanism to align with Kafka transactions. When a checkpoint completes, Flink commits the Kafka transaction, making all output visible. If a failure occurs before a checkpoint, Flink rolls back to the last successful checkpoint and Kafka aborts the incomplete transaction.
 
-This integration between stream processors and Kafka enables complex, stateful stream processing applications that maintain data consistency even in the face of failures—a critical requirement for use cases like real-time analytics, fraud detection, and financial processing. For a detailed comparison of these stream processing frameworks, see [Kafka Streams vs Apache Flink](kafka-streams-vs-apache-flink.md).
+This integration between stream processors and Kafka enables complex, stateful stream processing applications that maintain data consistency even in the face of failures—a critical requirement for use cases like real-time analytics, fraud detection, and financial processing. For a detailed comparison of these stream processing frameworks, see [Kafka Streams vs Apache Flink](https://conduktor.io/glossary/kafka-streams-vs-apache-flink).
 
 ## Trade-offs and Performance Considerations
 
@@ -146,7 +146,7 @@ Platforms like Conduktor help you understand the performance impact of exactly-o
 
 **Financial Services**: A payments platform uses exactly-once semantics to ensure that each payment instruction is processed exactly once. When a customer initiates a wire transfer, the system publishes a transaction event to Kafka. Downstream services consume this event to debit the sender's account, credit the receiver's account, and record the transaction for compliance. Without exactly-once guarantees, a retry could cause a double charge or duplicate accounting entry.
 
-**E-commerce Order Processing**: An online retailer processes orders through Kafka. When a customer places an order, an order service publishes the event transactionally along with inventory updates. The inventory service consumes these events with exactly-once semantics to ensure that each order decrements inventory counts exactly once. This prevents overselling products due to duplicate inventory decrements or underselling due to lost messages. For more e-commerce streaming patterns, see [E-commerce Streaming Architecture Patterns](e-commerce-streaming-architecture-patterns.md).
+**E-commerce Order Processing**: An online retailer processes orders through Kafka. When a customer places an order, an order service publishes the event transactionally along with inventory updates. The inventory service consumes these events with exactly-once semantics to ensure that each order decrements inventory counts exactly once. This prevents overselling products due to duplicate inventory decrements or underselling due to lost messages. For more e-commerce streaming patterns, see [E-commerce Streaming Architecture Patterns](https://conduktor.io/glossary/e-commerce-streaming-architecture-patterns).
 
 ## Summary
 
@@ -154,7 +154,7 @@ Exactly-once semantics in Kafka provides the strongest delivery guarantee for di
 
 While exactly-once semantics introduces some performance overhead, it is essential for applications where data consistency and correctness are paramount. Stream processing frameworks like Kafka Streams and Apache Flink build on these primitives to enable complex, stateful processing with end-to-end exactly-once guarantees.
 
-Understanding when to use exactly-once semantics—and how to configure it properly—is crucial for building reliable data streaming systems. For handling distributed transactions across microservices using event-driven patterns, see [Saga Pattern for Distributed Transactions](saga-pattern-for-distributed-transactions.md).
+Understanding when to use exactly-once semantics—and how to configure it properly—is crucial for building reliable data streaming systems. For handling distributed transactions across microservices using event-driven patterns, see [Saga Pattern for Distributed Transactions](https://conduktor.io/glossary/saga-pattern-for-distributed-transactions).
 
 ## Sources and References
 

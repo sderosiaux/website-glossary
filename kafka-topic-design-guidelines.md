@@ -19,7 +19,7 @@ Topics are the fundamental unit of organization in Apache Kafka. They define how
 
 A well-designed topic structure supports multiple teams working independently, enables efficient data processing, and makes governance manageable. Conversely, poorly designed topics can create bottlenecks, increase operational overhead, and make debugging difficult.
 
-Modern Kafka (4.0+ with KRaft mode) has removed many historical limitations around partition counts and cluster management, enabling more flexible topic designs. However, the core principles of good topic architecture remain essential for building scalable streaming systems. For foundational understanding of Kafka's architecture, see [Kafka Topics, Partitions, and Brokers: Core Architecture](kafka-topics-partitions-brokers-core-architecture.md).
+Modern Kafka (4.0+ with KRaft mode) has removed many historical limitations around partition counts and cluster management, enabling more flexible topic designs. However, the core principles of good topic architecture remain essential for building scalable streaming systems. For foundational understanding of Kafka's architecture, see [Kafka Topics, Partitions, and Brokers: Core Architecture](https://conduktor.io/glossary/kafka-topics-partitions-brokers-core-architecture).
 
 ## Naming Conventions
 
@@ -47,14 +47,14 @@ Partitions are Kafka's unit of parallelism. The number of partitions determines 
 
 Start with your throughput requirements. If you need to process 100 MB/s and each consumer can handle 10 MB/s, you need at least 10 partitions. Also consider:
 
-- **Consumer parallelism**: You can't have more active consumers in a consumer group than partitions (see [Kafka Consumer Groups Explained](kafka-consumer-groups-explained.md))
+- **Consumer parallelism**: You can't have more active consumers in a consumer group than partitions (see [Kafka Consumer Groups Explained](https://conduktor.io/glossary/kafka-consumer-groups-explained))
 - **Broker distribution**: Partitions should be distributed across brokers for fault tolerance
 - **Future growth**: Adding partitions later affects message ordering guarantees
 - **Cluster capabilities**: Kafka 4.0 with KRaft mode eliminates the ZooKeeper-era partition scaling limitations, supporting 100,000+ partitions per cluster efficiently
 
 **2025 Guidance**: Start with 12-30 partitions for production topics to allow for growth. The old conservative guidance of 6-12 partitions was based on ZooKeeper's metadata limitations, which no longer apply with KRaft. However, don't over-partition unnecessarily—each partition adds overhead for replication and broker management.
 
-For capacity planning and partition sizing calculations, refer to [Kafka Capacity Planning and Performance Tuning](kafka-capacity-planning-performance-tuning.md).
+For capacity planning and partition sizing calculations, refer to [Kafka Capacity Planning and Performance Tuning](https://conduktor.io/glossary/kafka-capacity-planning-performance-tuning).
 
 ### Partition Key Selection
 
@@ -107,7 +107,7 @@ props.put("max.in.flight.requests.per.connection", "5");
 - **Follower fetching (KIP-392)**: Consumers can read from nearby follower replicas to reduce cross-AZ traffic and improve latency
 - **Tiered Storage Integration**: Replicas in hot tier with historical data in object storage
 
-For comprehensive replication architecture, see [Kafka Replication and High Availability](kafka-replication-and-high-availability.md).
+For comprehensive replication architecture, see [Kafka Replication and High Availability](https://conduktor.io/glossary/kafka-replication-and-high-availability).
 
 ## Retention Policies
 
@@ -184,7 +184,7 @@ retention.ms=-1
 retention.bytes=-1
 ```
 
-For detailed tiered storage architecture and use cases, see [Tiered Storage in Kafka](tiered-storage-in-kafka.md).
+For detailed tiered storage architecture and use cases, see [Tiered Storage in Kafka](https://conduktor.io/glossary/tiered-storage-in-kafka).
 
 ## Schema Design Considerations
 
@@ -204,7 +204,7 @@ Using a schema registry enables:
 - **AWS Glue Schema Registry**: Integrated with AWS services
 - **Conduktor**: Commercial platform providing visual schema management, compatibility testing, and governance workflows across multiple clusters
 
-For comprehensive schema management practices, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md) and [Schema Evolution Best Practices](schema-evolution-best-practices.md).
+For comprehensive schema management practices, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) and [Schema Evolution Best Practices](https://conduktor.io/glossary/schema-evolution-best-practices).
 
 ### Evolution Strategies
 
@@ -250,7 +250,7 @@ Design schemas with evolution in mind:
 }
 ```
 
-Formats like Avro, Protobuf, and JSON Schema support backward and forward compatibility when followed correctly. See [Avro vs Protobuf vs JSON Schema](avro-vs-protobuf-vs-json-schema.md) for format-specific guidance.
+Formats like Avro, Protobuf, and JSON Schema support backward and forward compatibility when followed correctly. See [Avro vs Protobuf vs JSON Schema](https://conduktor.io/glossary/avro-vs-protobuf-vs-json-schema) for format-specific guidance.
 
 ## Organizational and Governance Patterns
 
@@ -294,7 +294,7 @@ kafka-acls --bootstrap-server localhost:9092 \
 - **OPA (Open Policy Agent)**: Policy-as-code for automated authorization decisions
 - **Kafka KRaft ACLs**: Simplified ACL storage and management without ZooKeeper dependency
 
-For comprehensive security practices, see [Kafka Security Best Practices](kafka-security-best-practices.md) and [Access Control for Streaming](access-control-for-streaming.md).
+For comprehensive security practices, see [Kafka Security Best Practices](https://conduktor.io/glossary/kafka-security-best-practices) and [Access Control for Streaming](https://conduktor.io/glossary/access-control-for-streaming).
 
 ### Topic Lifecycle Management
 
@@ -310,10 +310,10 @@ Document these processes and enforce them through automation where possible.
 
 Kafka topics are the connective tissue of modern data streaming architectures. They integrate with:
 
-- **Stream processing frameworks**: Kafka Streams, Apache Flink, and Spark Structured Streaming consume from and produce to topics. See [Kafka Streams vs Apache Flink](kafka-streams-vs-apache-flink.md) for framework selection guidance.
-- **CDC pipelines**: Change Data Capture tools like Debezium write database changes to topics. See [Implementing CDC with Debezium](implementing-cdc-with-debezium.md) for topic design considerations in CDC scenarios.
-- **Data lakes and lakehouses**: Connectors stream data from topics to object storage and table formats. See [Streaming to Lakehouse Tables](streaming-to-lakehouse-tables.md) for integration patterns.
-- **Microservices**: Services communicate asynchronously through topics using event-driven patterns. See [CQRS and Event Sourcing with Kafka](cqrs-and-event-sourcing-with-kafka.md) for architectural patterns.
+- **Stream processing frameworks**: Kafka Streams, Apache Flink, and Spark Structured Streaming consume from and produce to topics. See [Kafka Streams vs Apache Flink](https://conduktor.io/glossary/kafka-streams-vs-apache-flink) for framework selection guidance.
+- **CDC pipelines**: Change Data Capture tools like Debezium write database changes to topics. See [Implementing CDC with Debezium](https://conduktor.io/glossary/implementing-cdc-with-debezium) for topic design considerations in CDC scenarios.
+- **Data lakes and lakehouses**: Connectors stream data from topics to object storage and table formats. See [Streaming to Lakehouse Tables](https://conduktor.io/glossary/streaming-to-lakehouse-tables) for integration patterns.
+- **Microservices**: Services communicate asynchronously through topics using event-driven patterns. See [CQRS and Event Sourcing with Kafka](https://conduktor.io/glossary/cqrs-and-event-sourcing-with-kafka) for architectural patterns.
 
 Proper topic design ensures these integrations remain maintainable as your architecture evolves:
 
@@ -358,15 +358,15 @@ These principles help build Kafka deployments that scale efficiently and remain 
 
 ## Related Articles
 
-- [Kafka Topics, Partitions, and Brokers: Core Architecture](kafka-topics-partitions-brokers-core-architecture.md) - Foundational concepts
-- [Understanding KRaft Mode in Kafka](understanding-kraft-mode-in-kafka.md) - ZooKeeper-free architecture
-- [Tiered Storage in Kafka](tiered-storage-in-kafka.md) - Long-term retention strategies
-- [Kafka Replication and High Availability](kafka-replication-and-high-availability.md) - Durability and fault tolerance
-- [Kafka Consumer Groups Explained](kafka-consumer-groups-explained.md) - Consumer parallelism and partition assignment
-- [Schema Registry and Schema Management](schema-registry-and-schema-management.md) - Managing message schemas
-- [Schema Evolution Best Practices](schema-evolution-best-practices.md) - Safe schema changes
-- [Kafka Security Best Practices](kafka-security-best-practices.md) - Authentication and authorization
-- [Consumer Lag Monitoring](consumer-lag-monitoring.md) - Tracking partition consumption
+- [Kafka Topics, Partitions, and Brokers: Core Architecture](https://conduktor.io/glossary/kafka-topics-partitions-brokers-core-architecture) - Foundational concepts
+- [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka) - ZooKeeper-free architecture
+- [Tiered Storage in Kafka](https://conduktor.io/glossary/tiered-storage-in-kafka) - Long-term retention strategies
+- [Kafka Replication and High Availability](https://conduktor.io/glossary/kafka-replication-and-high-availability) - Durability and fault tolerance
+- [Kafka Consumer Groups Explained](https://conduktor.io/glossary/kafka-consumer-groups-explained) - Consumer parallelism and partition assignment
+- [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) - Managing message schemas
+- [Schema Evolution Best Practices](https://conduktor.io/glossary/schema-evolution-best-practices) - Safe schema changes
+- [Kafka Security Best Practices](https://conduktor.io/glossary/kafka-security-best-practices) - Authentication and authorization
+- [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring) - Tracking partition consumption
 
 ## Sources and References
 

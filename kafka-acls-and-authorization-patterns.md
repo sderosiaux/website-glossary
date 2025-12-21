@@ -19,9 +19,9 @@ This article explores how Kafka ACLs work in modern KRaft-based clusters (Kafka 
 
 Before diving into Kafka ACLs, you should understand:
 - Basic Kafka concepts (topics, partitions, producers, consumers)
-- Authentication mechanisms (see [Kafka Authentication: SASL, SSL, and OAuth](kafka-authentication-sasl-ssl-oauth.md))
+- Authentication mechanisms (see [Kafka Authentication: SASL, SSL, and OAuth](https://conduktor.io/glossary/kafka-authentication-sasl-ssl-oauth))
 - The distinction between authentication (proving identity) and authorization (controlling access)
-- KRaft mode architecture (see [Understanding KRaft Mode in Kafka](understanding-kraft-mode-in-kafka.md))
+- KRaft mode architecture (see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka))
 
 ## Understanding Kafka ACLs
 
@@ -38,7 +38,7 @@ Kafka ACLs follow a structured format with four core components:
 
 Principals represent authenticated identities in Kafka ACLs. The format depends on the authentication mechanism:
 
-- **User principals**: `User:username` or `User:CN=service-name` (for mTLS, see [mTLS for Kafka](mtls-for-kafka.md))
+- **User principals**: `User:username` or `User:CN=service-name` (for mTLS, see [mTLS for Kafka](https://conduktor.io/glossary/mtls-for-kafka))
 - **Group principals**: `Group:team-analytics` (when using group-based authorization)
 - **Wildcard**: `User:*` grants permissions to all authenticated users (use with extreme caution)
 
@@ -53,7 +53,7 @@ In modern Kafka deployments (Kafka 3.3+), ACLs are stored in the `__cluster_meta
 - **Better scalability**: The metadata topic scales with Kafka's proven log architecture
 - **Consistent views**: All brokers read from the same replicated log, eliminating metadata inconsistencies
 
-Legacy note: Kafka versions prior to 3.3 stored ACLs in ZooKeeper under `/kafka-acl` znodes. If migrating from ZooKeeper to KRaft, see [ZooKeeper to KRaft Migration](zookeeper-to-kraft-migration.md).
+Legacy note: Kafka versions prior to 3.3 stored ACLs in ZooKeeper under `/kafka-acl` znodes. If migrating from ZooKeeper to KRaft, see [ZooKeeper to KRaft Migration](https://conduktor.io/glossary/zookeeper-to-kraft-migration).
 
 ### Authorizer Implementation
 
@@ -376,7 +376,7 @@ sasl.jaas.config=org.apache.kafka.common.security.oauthbearer.OAuthBearerLoginMo
 sasl.login.callback.handler.class=io.strimzi.kafka.oauth.client.JaasClientOauthLoginCallbackHandler
 ```
 
-Once OAuth authentication establishes identity, traditional ACLs control what the authenticated principal can access. For comprehensive OAuth setup, see [Kafka Authentication: SASL, SSL, and OAuth](kafka-authentication-sasl-ssl-oauth.md).
+Once OAuth authentication establishes identity, traditional ACLs control what the authenticated principal can access. For comprehensive OAuth setup, see [Kafka Authentication: SASL, SSL, and OAuth](https://conduktor.io/glossary/kafka-authentication-sasl-ssl-oauth).
 
 ### Open Policy Agent (OPA) Integration
 
@@ -418,7 +418,7 @@ allow if {
 
 Integrating OPA with Kafka requires a custom authorizer that delegates decisions to the OPA service. Several open-source implementations exist, including those from Bisnode and Confluent's commercial offerings.
 
-OPA excels in environments requiring complex authorization logic that goes beyond simple principal-resource-operation matching. For implementing broader policy enforcement, see [Policy Enforcement in Streaming](policy-enforcement-in-streaming.md).
+OPA excels in environments requiring complex authorization logic that goes beyond simple principal-resource-operation matching. For implementing broader policy enforcement, see [Policy Enforcement in Streaming](https://conduktor.io/glossary/policy-enforcement-in-streaming).
 
 ### Attribute-Based Access Control (ABAC)
 
@@ -464,7 +464,7 @@ kafka-acls.sh --bootstrap-server localhost:9092 \
 # New topics following the convention automatically inherit permissions
 ```
 
-For multi-team environments, see [Multi-Tenancy in Kafka Environments](multi-tenancy-in-kafka-environments.md) for comprehensive RBAC strategies.
+For multi-team environments, see [Multi-Tenancy in Kafka Environments](https://conduktor.io/glossary/multi-tenancy-in-kafka-environments) for comprehensive RBAC strategies.
 
 ## ACLs in Data Streaming Ecosystems
 
@@ -880,13 +880,13 @@ Effective authorization is not a one-time configuration but an ongoing process t
 
 ## Related Topics
 
-- **[Kafka Authentication: SASL, SSL, and OAuth](kafka-authentication-sasl-ssl-oauth.md)**: Authentication mechanisms that establish identity before ACL evaluation
-- **[Kafka Security Best Practices](kafka-security-best-practices.md)**: Comprehensive security patterns including encryption, network isolation, and compliance
-- **[mTLS for Kafka](mtls-for-kafka.md)**: Certificate-based mutual authentication providing cryptographic identity
-- **[Understanding KRaft Mode in Kafka](understanding-kraft-mode-in-kafka.md)**: Modern metadata management that stores ACLs in `__cluster_metadata` topic
-- **[Multi-Tenancy in Kafka Environments](multi-tenancy-in-kafka-environments.md)**: Isolation strategies and ACL patterns for shared infrastructure
-- **[Policy Enforcement in Streaming](policy-enforcement-in-streaming.md)**: Broader governance patterns including OPA integration and policy-based controls
-- **[ZooKeeper to KRaft Migration](zookeeper-to-kraft-migration.md)**: Migrating ACLs from ZooKeeper storage to KRaft metadata
+- **[Kafka Authentication: SASL, SSL, and OAuth](https://conduktor.io/glossary/kafka-authentication-sasl-ssl-oauth)**: Authentication mechanisms that establish identity before ACL evaluation
+- **[Kafka Security Best Practices](https://conduktor.io/glossary/kafka-security-best-practices)**: Comprehensive security patterns including encryption, network isolation, and compliance
+- **[mTLS for Kafka](https://conduktor.io/glossary/mtls-for-kafka)**: Certificate-based mutual authentication providing cryptographic identity
+- **[Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka)**: Modern metadata management that stores ACLs in `__cluster_metadata` topic
+- **[Multi-Tenancy in Kafka Environments](https://conduktor.io/glossary/multi-tenancy-in-kafka-environments)**: Isolation strategies and ACL patterns for shared infrastructure
+- **[Policy Enforcement in Streaming](https://conduktor.io/glossary/policy-enforcement-in-streaming)**: Broader governance patterns including OPA integration and policy-based controls
+- **[ZooKeeper to KRaft Migration](https://conduktor.io/glossary/zookeeper-to-kraft-migration)**: Migrating ACLs from ZooKeeper storage to KRaft metadata
 
 ## Sources and References
 

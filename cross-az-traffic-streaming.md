@@ -13,7 +13,7 @@ topics:
 
 Cross-availability-zone (cross-AZ) traffic refers to data transfer between different availability zones within the same cloud region. Availability zones are isolated data centers with independent power, cooling, and networking, designed to provide fault tolerance and high availability.
 
-In streaming architectures, cross-AZ traffic occurs whenever data moves between components deployed in different zones. This includes broker-to-broker replication, consumer fetches from brokers in other zones, and producer writes to leaders in different zones. For foundational Kafka concepts including brokers, topics, and partitions, see [Kafka Topics, Partitions, and Brokers: Core Architecture](kafka-topics-partitions-brokers-core-architecture.md).
+In streaming architectures, cross-AZ traffic occurs whenever data moves between components deployed in different zones. This includes broker-to-broker replication, consumer fetches from brokers in other zones, and producer writes to leaders in different zones. For foundational Kafka concepts including brokers, topics, and partitions, see [Kafka Topics, Partitions, and Brokers: Core Architecture](https://conduktor.io/glossary/kafka-topics-partitions-brokers-core-architecture).
 
 Unlike traffic within a single availability zone (typically free) or between regions (significantly more expensive), cross-AZ traffic occupies a middle ground that can become a substantial cost factor at scale. Understanding and optimizing this traffic is essential for cost-effective streaming deployments.
 
@@ -35,11 +35,11 @@ Apache Kafka generates cross-AZ traffic through several mechanisms. With Kafka 4
 
 ### Replication Traffic
 
-With a replication factor greater than 1, Kafka replicates partition data across multiple brokers. If these brokers reside in different availability zones, replication generates cross-AZ traffic. For a replication factor of 3, this can triple your ingress data volume. For detailed coverage of replication mechanisms and high availability, see [Kafka Replication and High Availability](kafka-replication-and-high-availability.md).
+With a replication factor greater than 1, Kafka replicates partition data across multiple brokers. If these brokers reside in different availability zones, replication generates cross-AZ traffic. For a replication factor of 3, this can triple your ingress data volume. For detailed coverage of replication mechanisms and high availability, see [Kafka Replication and High Availability](https://conduktor.io/glossary/kafka-replication-and-high-availability).
 
 ### Consumer Fetch Patterns
 
-Consumers fetch data from partition leaders. If a consumer in zone A fetches from a leader in zone B, all consumed data traverses zones. With multiple consumer groups, this traffic multiplies rapidly. For in-depth understanding of consumer group mechanics, see [Kafka Consumer Groups Explained](kafka-consumer-groups-explained.md).
+Consumers fetch data from partition leaders. If a consumer in zone A fetches from a leader in zone B, all consumed data traverses zones. With multiple consumer groups, this traffic multiplies rapidly. For in-depth understanding of consumer group mechanics, see [Kafka Consumer Groups Explained](https://conduktor.io/glossary/kafka-consumer-groups-explained).
 
 ### Producer Acknowledgments
 
@@ -47,7 +47,7 @@ Producers receive acknowledgments from partition leaders. When `acks=all`, produ
 
 ### Partition Leadership Distribution
 
-Kafka distributes partition leadership across brokers. Without rack awareness, leaders may be evenly distributed across zones, maximizing cross-AZ traffic potential. For detailed coverage of partition distribution strategies, see [Kafka Partitioning Strategies and Best Practices](kafka-partitioning-strategies-and-best-practices.md).
+Kafka distributes partition leadership across brokers. Without rack awareness, leaders may be evenly distributed across zones, maximizing cross-AZ traffic potential. For detailed coverage of partition distribution strategies, see [Kafka Partitioning Strategies and Best Practices](https://conduktor.io/glossary/kafka-partitioning-strategies-and-best-practices).
 
 ## Optimization Strategies
 
@@ -144,7 +144,7 @@ For comprehensive cross-AZ traffic monitoring, modern deployments typically use:
 - **Cloud provider cost dashboards**: AWS Cost Explorer, GCP Cost Management, Azure Cost Analysis with resource tagging
 - **Kafka UI tools**: Conduktor for comprehensive visual monitoring and management
 
-For comprehensive coverage of Kafka monitoring strategies, see [Kafka Cluster Monitoring and Metrics](kafka-cluster-monitoring-and-metrics.md).
+For comprehensive coverage of Kafka monitoring strategies, see [Kafka Cluster Monitoring and Metrics](https://conduktor.io/glossary/kafka-cluster-monitoring-and-metrics).
 
 ### Cost Attribution
 
@@ -160,11 +160,11 @@ The fundamental trade-off in cross-AZ optimization is between high availability 
 - **Development environments**: Use single-zone deployment or replication factor 2
 - **Archival topics**: Lower replication requirements may be acceptable
 
-For disaster recovery strategies beyond availability zone failures, see [Disaster Recovery Strategies for Kafka Clusters](disaster-recovery-strategies-for-kafka-clusters.md).
+For disaster recovery strategies beyond availability zone failures, see [Disaster Recovery Strategies for Kafka Clusters](https://conduktor.io/glossary/disaster-recovery-strategies-for-kafka-clusters).
 
 ### Performance vs Redundancy
 
-Follower fetching improves performance and reduces costs but creates dependencies on local replicas. If a zone's replicas fall behind, consumers may experience increased latency or fall back to cross-AZ fetches. For comprehensive performance optimization techniques, see [Kafka Performance Tuning Guide](kafka-performance-tuning-guide.md).
+Follower fetching improves performance and reduces costs but creates dependencies on local replicas. If a zone's replicas fall behind, consumers may experience increased latency or fall back to cross-AZ fetches. For comprehensive performance optimization techniques, see [Kafka Performance Tuning Guide](https://conduktor.io/glossary/kafka-performance-tuning-guide).
 
 ### Zone-Aware Consumer Configuration
 
@@ -184,7 +184,7 @@ However, you still control consumer deployment and topic configuration, making z
 
 ## Cost Modeling and Planning
 
-Understanding cross-AZ costs is essential for capacity planning and infrastructure budgeting. For comprehensive capacity planning guidance, see [Kafka Capacity Planning](kafka-capacity-planning.md).
+Understanding cross-AZ costs is essential for capacity planning and infrastructure budgeting. For comprehensive capacity planning guidance, see [Kafka Capacity Planning](https://conduktor.io/glossary/kafka-capacity-planning).
 
 ### Estimating Monthly Costs
 

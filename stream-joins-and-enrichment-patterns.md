@@ -13,7 +13,7 @@ topics:
 
 Real-time data processing often requires combining information from multiple sources. A single event stream rarely contains all the context needed for meaningful analysis or decision-making. Stream joins and enrichment patterns solve this challenge by correlating data across streams and augmenting events with additional information in real-time.
 
-Understanding these patterns is essential for building robust streaming applications that deliver timely, contextualized insights. Whether you're enriching clickstream data with user profiles, correlating sensor readings, or joining transaction events with fraud detection signals, mastering stream joins is fundamental to effective stream processing. For foundational knowledge of the underlying platform, see [Apache Kafka](apache-kafka.md).
+Understanding these patterns is essential for building robust streaming applications that deliver timely, contextualized insights. Whether you're enriching clickstream data with user profiles, correlating sensor readings, or joining transaction events with fraud detection signals, mastering stream joins is fundamental to effective stream processing. For foundational knowledge of the underlying platform, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
 
 ## Key Concepts
 
@@ -167,9 +167,9 @@ Sliding windows define a time range relative to each event. A 10-minute sliding 
 
 ### Session Windows
 
-Session windows group events by periods of activity separated by inactivity gaps. These are useful for user session analysis but less common for joins. For detailed coverage of session-based processing, see [Session Windows in Stream Processing](session-windows-in-stream-processing.md).
+Session windows group events by periods of activity separated by inactivity gaps. These are useful for user session analysis but less common for joins. For detailed coverage of session-based processing, see [Session Windows in Stream Processing](https://conduktor.io/glossary/session-windows-in-stream-processing).
 
-For comprehensive window patterns in Flink, see [Windowing in Apache Flink: Tumbling, Sliding, and Session Windows](windowing-in-apache-flink-tumbling-sliding-and-session-windows.md).
+For comprehensive window patterns in Flink, see [Windowing in Apache Flink: Tumbling, Sliding, and Session Windows](https://conduktor.io/glossary/windowing-in-apache-flink-tumbling-sliding-and-session-windows).
 
 ### Choosing Window Sizes
 
@@ -195,7 +195,7 @@ Real-world streams produce late-arriving events due to network delays, system fa
 
 **Grace periods** extend how long the system accepts late data after a window closes. For example, with a 10-minute join window and a 2-minute grace period, an event arriving 11 minutes after its timestamp will still be processed (within grace), but one arriving after 12 minutes will be dropped as too late.
 
-Balancing completeness (accepting late data) with latency (closing windows quickly) is a key operational consideration. For deep dive into watermark strategies and late data handling, see [Watermarks and Triggers in Stream Processing](watermarks-and-triggers-in-stream-processing.md).
+Balancing completeness (accepting late data) with latency (closing windows quickly) is a key operational consideration. For deep dive into watermark strategies and late data handling, see [Watermarks and Triggers in Stream Processing](https://conduktor.io/glossary/watermarks-and-triggers-in-stream-processing).
 
 ## Implementation with Kafka Streams and Flink
 
@@ -207,7 +207,7 @@ Key considerations:
 - Join inputs must be co-partitioned (same number of partitions, same partitioning key) - this means both input topics must have identical partitioning schemes so matching keys end up on the same processing instance
 - State stores consume local disk and memory, with RocksDB-based stores providing efficient disk-backed storage
 - Changelog topics enable state recovery but increase storage costs
-- With Kafka 4.0+ and KRaft mode (ZooKeeper-free), cluster rebalancing during joins is faster and more predictable, reducing join disruption. For migration details, see [Understanding KRaft Mode in Kafka](understanding-kraft-mode-in-kafka.md)
+- With Kafka 4.0+ and KRaft mode (ZooKeeper-free), cluster rebalancing during joins is faster and more predictable, reducing join disruption. For migration details, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka)
 
 Modern Kafka Streams features (3.x+) include versioned state stores, which allow querying historical join state, and improved grace period handling for more flexible late-data processing.
 
@@ -230,7 +230,7 @@ JOIN payments p
                           AND o.order_time + INTERVAL '5' MINUTE;
 ```
 
-For Flink-specific patterns and watermark strategies, see [What is Apache Flink: Stateful Stream Processing](what-is-apache-flink-stateful-stream-processing.md) and [Event Time and Watermarks in Flink](event-time-and-watermarks-in-flink.md).
+For Flink-specific patterns and watermark strategies, see [What is Apache Flink: Stateful Stream Processing](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing) and [Event Time and Watermarks in Flink](https://conduktor.io/glossary/event-time-and-watermarks-in-flink).
 
 ### Choosing Between Frameworks
 
@@ -244,7 +244,7 @@ Joins require maintaining state for events within time windows. State stores are
 
 Monitor state store size and tune retention policies to balance completeness with resource usage. RocksDB-based state stores (used by both Kafka Streams and Flink) provide disk-backed storage for large state with memory caching for performance.
 
-For Kafka Streams specifically, state stores are backed by changelog topics for fault tolerance, enabling recovery after failures. For detailed state management patterns, see [State Stores in Kafka Streams](state-stores-in-kafka-streams.md).
+For Kafka Streams specifically, state stores are backed by changelog topics for fault tolerance, enabling recovery after failures. For detailed state management patterns, see [State Stores in Kafka Streams](https://conduktor.io/glossary/state-stores-in-kafka-streams).
 
 ### Data Skew
 
@@ -254,7 +254,7 @@ Mitigation strategies include key salting (adding randomness to keys), increasin
 
 ### Schema Evolution
 
-As systems evolve, data schemas change. Joins between streams with different schema versions can fail. Use schema registries to manage compatibility and version schemas explicitly. Tools like Conduktor provide visualization of schema dependencies across joined streams, making it easier to identify compatibility issues before they cause runtime failures. For detailed schema management strategies, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md).
+As systems evolve, data schemas change. Joins between streams with different schema versions can fail. Use schema registries to manage compatibility and version schemas explicitly. Tools like Conduktor provide visualization of schema dependencies across joined streams, making it easier to identify compatibility issues before they cause runtime failures. For detailed schema management strategies, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management).
 
 ### Join Ordering
 
@@ -264,11 +264,11 @@ When enriching with multiple tables, join order affects performance and state re
 
 Stream joins are harder to test than batch joins due to time semantics and state. Use test frameworks that support time manipulation (Kafka Streams TopologyTestDriver, Flink testing utilities) to verify join behavior with controlled event sequences.
 
-For integration testing and chaos engineering, Conduktor Gateway can simulate network delays, message reordering, and partition failures to verify join behavior under adverse conditions. This helps validate that your watermark strategies and grace periods handle real-world scenarios appropriately. For comprehensive testing strategies, see [Chaos Engineering for Streaming Systems](chaos-engineering-for-streaming-systems.md).
+For integration testing and chaos engineering, Conduktor Gateway can simulate network delays, message reordering, and partition failures to verify join behavior under adverse conditions. This helps validate that your watermark strategies and grace periods handle real-world scenarios appropriately. For comprehensive testing strategies, see [Chaos Engineering for Streaming Systems](https://conduktor.io/glossary/chaos-engineering-for-streaming-systems).
 
 ### Monitoring
 
-Track metrics like join rate, watermark lag, late events dropped, and state store size. Conduktor provides real-time visualization of stream topologies and data lineage, helping teams understand how data flows through complex join operations and identify bottlenecks. For production deployments, monitor consumer lag to ensure join operations keep pace with input streams - see [Consumer Lag Monitoring](consumer-lag-monitoring.md).
+Track metrics like join rate, watermark lag, late events dropped, and state store size. Conduktor provides real-time visualization of stream topologies and data lineage, helping teams understand how data flows through complex join operations and identify bottlenecks. For production deployments, monitor consumer lag to ensure join operations keep pace with input streams - see [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring).
 
 ## Troubleshooting Common Issues
 

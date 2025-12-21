@@ -14,7 +14,7 @@ topics:
 
 Apache Kafka is designed as a distributed, fault-tolerant commit log. While Kafka brokers manage storage and replication, the actual transfer of data relies on two critical client components: producers and consumers. These client applications determine the data quality, latency, throughput, and reliability of modern data streaming architectures.
 
-Understanding how producers and consumers work—their configuration options, delivery guarantees, and operational characteristics—is essential for building scalable, reliable streaming systems. For foundational architecture concepts, see [Apache Kafka](apache-kafka.md) and [Kafka Topics, Partitions, Brokers: Core Architecture](kafka-topics-partitions-brokers-core-architecture.md).
+Understanding how producers and consumers work—their configuration options, delivery guarantees, and operational characteristics—is essential for building scalable, reliable streaming systems. For foundational architecture concepts, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka) and [Kafka Topics, Partitions, Brokers: Core Architecture](https://conduktor.io/glossary/kafka-topics-partitions-brokers-core-architecture).
 
 ## Producers and Consumers: The Communication Protocol
 
@@ -32,7 +32,7 @@ The producer is responsible for reliably packaging, routing, and delivering mess
 
 ### Producer Responsibilities
 
-**Serialization**: Producers convert application data structures (JSON objects, Avro records, Protobuf messages) into byte arrays before sending them over the network. A Kafka record consists of a key (optional), value, headers (optional metadata), and timestamp. Common serializers include StringSerializer, ByteArraySerializer, and schema-aware serializers like Avro or Protobuf that integrate with Schema Registry for structured data validation. For detailed coverage of serialization formats and trade-offs, see [Message Serialization in Kafka](message-serialization-in-kafka.md) and [Schema Registry and Schema Management](schema-registry-and-schema-management.md).
+**Serialization**: Producers convert application data structures (JSON objects, Avro records, Protobuf messages) into byte arrays before sending them over the network. A Kafka record consists of a key (optional), value, headers (optional metadata), and timestamp. Common serializers include StringSerializer, ByteArraySerializer, and schema-aware serializers like Avro or Protobuf that integrate with Schema Registry for structured data validation. For detailed coverage of serialization formats and trade-offs, see [Message Serialization in Kafka](https://conduktor.io/glossary/message-serialization-in-kafka) and [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management).
 
 **Partitioning**: Producers determine which partition receives each record. If a key is provided, Kafka uses consistent hashing to map the key to a partition:
 ```
@@ -91,13 +91,13 @@ producer.send(new ProducerRecord<>("orders", "key123", "order data"),
 
 ## How Kafka Consumers Work: Tracking Progress with Offsets
 
-Consumers read records from Kafka partitions by subscribing to one or more topics and pulling data from assigned partitions. Unlike push-based messaging systems, Kafka's pull model allows consumers to control their read rate and handle backpressure naturally. For strategies on managing consumer processing rates, see [Backpressure Handling in Streaming Systems](backpressure-handling-in-streaming-systems.md).
+Consumers read records from Kafka partitions by subscribing to one or more topics and pulling data from assigned partitions. Unlike push-based messaging systems, Kafka's pull model allows consumers to control their read rate and handle backpressure naturally. For strategies on managing consumer processing rates, see [Backpressure Handling in Streaming Systems](https://conduktor.io/glossary/backpressure-handling-in-streaming-systems).
 
 ### Sequential Reading and Offset Management
 
 Consumers read records sequentially based on their **offset** within a partition—a monotonically increasing identifier that serves as the consumer's position in the log. Each partition maintains its own offset sequence independently.
 
-**Offset Commitment**: A consumer periodically commits its latest successfully processed offset back to Kafka, specifically to an internal topic named `__consumer_offsets`. This commit serves as a checkpoint, indicating which records have been successfully processed. In Kafka 4.0+ with KRaft mode (Kafka's ZooKeeper-free architecture), offset management remains identical from a client perspective, but the underlying coordination is handled by Kafka's internal Raft-based consensus protocol. For details on KRaft's architecture, see [Understanding KRaft Mode in Kafka](understanding-kraft-mode-in-kafka.md).
+**Offset Commitment**: A consumer periodically commits its latest successfully processed offset back to Kafka, specifically to an internal topic named `__consumer_offsets`. This commit serves as a checkpoint, indicating which records have been successfully processed. In Kafka 4.0+ with KRaft mode (Kafka's ZooKeeper-free architecture), offset management remains identical from a client perspective, but the underlying coordination is handled by Kafka's internal Raft-based consensus protocol. For details on KRaft's architecture, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka).
 
 **Failure Recovery**: If a consumer instance fails or restarts, it retrieves the last committed offset from `__consumer_offsets` and resumes reading from the next record. This ensures continuous processing, though it may result in reprocessing records if the consumer failed between processing and committing.
 
@@ -172,13 +172,13 @@ Records are delivered and processed exactly once, even during failures. Kafka ac
 - Transactional producers: Atomic writes across multiple partitions
 - Transactional consumers: Read only committed messages (`isolation.level=read_committed`)
 
-Exactly-once semantics require careful configuration but provide the strongest guarantees for financial transactions, inventory updates, or billing systems where duplicates or data loss cause incorrect results. For comprehensive coverage of transactional mechanics, see [Kafka Transactions Deep Dive](kafka-transactions-deep-dive.md).
+Exactly-once semantics require careful configuration but provide the strongest guarantees for financial transactions, inventory updates, or billing systems where duplicates or data loss cause incorrect results. For comprehensive coverage of transactional mechanics, see [Kafka Transactions Deep Dive](https://conduktor.io/glossary/kafka-transactions-deep-dive).
 
 ## Producers and Consumers in Streaming Architectures
 
 The producer-consumer model powers real-time data pipelines and advanced stream processing across modern architectures:
 
-**Change Data Capture Pipelines**: Tools like Debezium act as specialized producers (Kafka Connect Source Connectors), continuously capturing database change events and writing them into Kafka topics, enabling real-time replication and analytics. For detailed coverage of CDC patterns, see [What is Change Data Capture (CDC) Fundamentals](what-is-change-data-capture-cdc-fundamentals.md).
+**Change Data Capture Pipelines**: Tools like Debezium act as specialized producers (Kafka Connect Source Connectors), continuously capturing database change events and writing them into Kafka topics, enabling real-time replication and analytics. For detailed coverage of CDC patterns, see [What is Change Data Capture (CDC) Fundamentals](https://conduktor.io/glossary/what-is-change-data-capture-cdc-fundamentals).
 
 **Stream Processing Engines**: Frameworks like Apache Flink and Kafka Streams are built on the consumer API. They read records from topics, perform complex stateful transformations (aggregations, joins, windowing), and write results back using the producer API.
 
@@ -192,7 +192,7 @@ As Kafka deployments grow, managing producer and consumer behavior becomes incre
 
 ### Key Operational Challenges
 
-**Consumer Lag**: The difference (in offsets or time) between the latest record written to a partition and the last record committed by a consumer group indicates processing delays. High consumer lag suggests consumers can't keep up, requiring optimization, additional consumer instances, or investigation of processing bottlenecks. Modern tools like Kafka Lag Exporter (with Prometheus/Grafana integration) provide automated lag monitoring and alerting. For comprehensive strategies and best practices, see [Consumer Lag Monitoring](consumer-lag-monitoring.md).
+**Consumer Lag**: The difference (in offsets or time) between the latest record written to a partition and the last record committed by a consumer group indicates processing delays. High consumer lag suggests consumers can't keep up, requiring optimization, additional consumer instances, or investigation of processing bottlenecks. Modern tools like Kafka Lag Exporter (with Prometheus/Grafana integration) provide automated lag monitoring and alerting. For comprehensive strategies and best practices, see [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring).
 
 **Producer Throughput and Error Rates**: Monitoring producer metrics like record send rate, batch size, compression ratio, and network errors helps identify performance bottlenecks. Misconfigured batching, serialization failures, or broker unavailability can significantly impact pipeline reliability.
 
@@ -200,7 +200,7 @@ As Kafka deployments grow, managing producer and consumer behavior becomes incre
 
 ### Client Governance and Access Control
 
-In enterprise environments, managing access for numerous client applications is a major governance challenge. Kafka uses ACLs (Access Control Lists) to manage permissions—allowing only specific client IDs to write to sensitive topics or limiting which consumer groups can read confidential data streams. For comprehensive security patterns and best practices, see [Kafka Security Best Practices](kafka-security-best-practices.md).
+In enterprise environments, managing access for numerous client applications is a major governance challenge. Kafka uses ACLs (Access Control Lists) to manage permissions—allowing only specific client IDs to write to sensitive topics or limiting which consumer groups can read confidential data streams. For comprehensive security patterns and best practices, see [Kafka Security Best Practices](https://conduktor.io/glossary/kafka-security-best-practices).
 
 Without centralized governance, tracking producer and consumer activity becomes challenging. Questions like "Which applications are producing to this topic?", "Who's consuming this sensitive data?", and "Why is this consumer group lagging?" require manual investigation across application logs and metrics systems.
 

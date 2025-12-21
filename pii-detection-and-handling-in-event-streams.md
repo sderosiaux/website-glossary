@@ -16,11 +16,11 @@ topics:
 
 Personally Identifiable Information (PII) refers to any data that can identify a specific individual. This includes obvious identifiers like social security numbers, email addresses, and phone numbers, as well as less obvious data like IP addresses, device IDs, or combinations of demographic information that could uniquely identify someone.
 
-In event streaming systems, PII presents unique challenges. Unlike batch processing where data can be scanned and cleaned before use, streaming data flows continuously and must be processed in real-time. A single event containing unprotected PII can propagate through multiple downstream systems in milliseconds, creating compliance risks and potential data breaches. For comprehensive strategies on preventing unintended PII exposure, see [PII Leakage Prevention](pii-leakage-prevention.md).
+In event streaming systems, PII presents unique challenges. Unlike batch processing where data can be scanned and cleaned before use, streaming data flows continuously and must be processed in real-time. A single event containing unprotected PII can propagate through multiple downstream systems in milliseconds, creating compliance risks and potential data breaches. For comprehensive strategies on preventing unintended PII exposure, see [PII Leakage Prevention](https://conduktor.io/glossary/pii-leakage-prevention).
 
 Consider an e-commerce platform streaming checkout events. These events might contain customer names, addresses, credit card numbers, and email addresses. Without proper PII handling, this sensitive data could end up in analytics databases, logs, monitoring dashboards, or third-party systems where it shouldn't be accessible.
 
-The stakes are high. Regulations like GDPR and CCPA impose strict requirements on how PII must be handled, with significant penalties for violations. Organizations need to detect and protect PII at the point of ingestion, not downstream where the data has already spread. For detailed guidance on GDPR compliance, see [GDPR Compliance for Data Teams](gdpr-compliance-for-data-teams.md).
+The stakes are high. Regulations like GDPR and CCPA impose strict requirements on how PII must be handled, with significant penalties for violations. Organizations need to detect and protect PII at the point of ingestion, not downstream where the data has already spread. For detailed guidance on GDPR compliance, see [GDPR Compliance for Data Teams](https://conduktor.io/glossary/gdpr-compliance-for-data-teams).
 
 ## PII Detection Techniques in Event Streams
 
@@ -28,7 +28,7 @@ Detecting PII in real-time streams requires automated approaches that can keep p
 
 **Pattern Matching and Regular Expressions**: The most straightforward approach uses regex patterns to identify common PII formats. Credit card numbers follow predictable patterns (using the Luhn algorithm, which validates credit card numbers by checking digit sequences), email addresses match standard formats, and social security numbers have consistent structures. While fast and deterministic, this approach can generate false positives and misses PII in unexpected formats.
 
-**Schema-Based Detection**: When using schema registries with formats like Avro or Protobuf, field names and metadata can indicate PII. Fields named "email", "ssn", or "credit_card" are obvious candidates. Schema annotations can explicitly mark fields as containing PII, enabling automated detection and handling policies. For comprehensive schema management strategies, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md) and [Data Classification and Tagging Strategies](data-classification-and-tagging-strategies.md).
+**Schema-Based Detection**: When using schema registries with formats like Avro or Protobuf, field names and metadata can indicate PII. Fields named "email", "ssn", or "credit_card" are obvious candidates. Schema annotations can explicitly mark fields as containing PII, enabling automated detection and handling policies. For comprehensive schema management strategies, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) and [Data Classification and Tagging Strategies](https://conduktor.io/glossary/data-classification-and-tagging-strategies).
 
 **Machine Learning Classifiers**: More sophisticated systems use ML models trained on labeled PII datasets. Modern 2025 tools include:
 - **AWS Macie**: Provides automated PII discovery using machine learning, supporting 40+ PII types including credentials, financial data, and health records
@@ -52,15 +52,15 @@ Once PII is detected, it must be protected. Different strategies offer different
 
 **Tokenization**: Replaces PII with randomly generated tokens stored in a secure token vault (a dedicated, access-controlled database or key management service). The original value can be retrieved when needed (by authorized systems) but the token itself reveals nothing. This preserves data utility while maintaining strong security, though it requires maintaining a token mapping database.
 
-**Encryption**: Applies symmetric or asymmetric encryption to PII. Unlike hashing, encryption is reversible with the proper key. This works well when some downstream systems need access to the original data, but key management becomes critical. For comprehensive encryption strategies, see [Encryption at Rest and in Transit for Kafka](encryption-at-rest-and-in-transit-for-kafka.md).
+**Encryption**: Applies symmetric or asymmetric encryption to PII. Unlike hashing, encryption is reversible with the proper key. This works well when some downstream systems need access to the original data, but key management becomes critical. For comprehensive encryption strategies, see [Encryption at Rest and in Transit for Kafka](https://conduktor.io/glossary/encryption-at-rest-and-in-transit-for-kafka).
 
-In streaming architectures, these techniques are typically applied at ingestion time using stream processors or Single Message Transforms (SMTs - reusable transformation components in Kafka Connect that modify messages in flight) in Kafka Connect. For detailed masking and anonymization techniques, see [Data Masking and Anonymization for Streaming](data-masking-and-anonymization-for-streaming.md).
+In streaming architectures, these techniques are typically applied at ingestion time using stream processors or Single Message Transforms (SMTs - reusable transformation components in Kafka Connect that modify messages in flight) in Kafka Connect. For detailed masking and anonymization techniques, see [Data Masking and Anonymization for Streaming](https://conduktor.io/glossary/data-masking-and-anonymization-for-streaming).
 
 ## PII in Data Streaming Architectures
 
 Modern streaming platforms provide various mechanisms for PII handling:
 
-**Apache Kafka 4.0+ with KRaft**: Kafka 4.0 brings improved security foundations with KRaft mode (removing ZooKeeper dependency), making PII protection implementations more streamlined. The simplified architecture enables better audit trails and consistent policy enforcement. For details on KRaft's benefits, see [Understanding KRaft Mode in Kafka](understanding-kraft-mode-in-kafka.md). Kafka Connect offers SMTs that can mask, redact, or encrypt fields during data movement (see [Kafka Connect Single Message Transforms](kafka-connect-single-message-transforms.md)). Kafka Streams applications can implement custom PII detection and handling logic within stream processing topologies (see [Introduction to Kafka Streams](introduction-to-kafka-streams.md)).
+**Apache Kafka 4.0+ with KRaft**: Kafka 4.0 brings improved security foundations with KRaft mode (removing ZooKeeper dependency), making PII protection implementations more streamlined. The simplified architecture enables better audit trails and consistent policy enforcement. For details on KRaft's benefits, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka). Kafka Connect offers SMTs that can mask, redact, or encrypt fields during data movement (see [Kafka Connect Single Message Transforms](https://conduktor.io/glossary/kafka-connect-single-message-transforms)). Kafka Streams applications can implement custom PII detection and handling logic within stream processing topologies (see [Introduction to Kafka Streams](https://conduktor.io/glossary/introduction-to-kafka-streams)).
 
 Here's a practical example using Kafka Connect SMT to mask PII fields:
 
@@ -88,7 +88,7 @@ Here's a practical example using Kafka Connect SMT to mask PII fields:
 }
 ```
 
-**Apache Flink 1.18+**: Flink's rich DataStream API enables complex PII detection and transformation logic. The latest versions include enhanced Python support and improved state backends optimized for stateful PII operations. Custom functions can implement ML-based detection, while built-in operators handle filtering and transformation. Flink's state management can maintain tokenization mappings or detection models. For comprehensive Flink guidance, see [What is Apache Flink](what-is-apache-flink-stateful-stream-processing.md) and [Flink State Management and Checkpointing](flink-state-management-and-checkpointing.md).
+**Apache Flink 1.18+**: Flink's rich DataStream API enables complex PII detection and transformation logic. The latest versions include enhanced Python support and improved state backends optimized for stateful PII operations. Custom functions can implement ML-based detection, while built-in operators handle filtering and transformation. Flink's state management can maintain tokenization mappings or detection models. For comprehensive Flink guidance, see [What is Apache Flink](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing) and [Flink State Management and Checkpointing](https://conduktor.io/glossary/flink-state-management-and-checkpointing).
 
 Example PII masking with Flink DataStream API:
 
@@ -246,9 +246,9 @@ tombstone.headers().add("deleted-by", "privacy-team".getBytes());
 producer.send(tombstone);
 ```
 
-**Data Residency**: Some regulations require PII to remain within specific geographic boundaries. Multi-region streaming architectures must prevent PII from flowing to unauthorized regions, potentially using topic-level geo-fencing or region-specific clusters. Modern Kafka deployments use cluster linking with filters to enforce data sovereignty requirements. For multi-region architecture patterns, see [Disaster Recovery Strategies for Kafka Clusters](disaster-recovery-strategies-for-kafka-clusters.md).
+**Data Residency**: Some regulations require PII to remain within specific geographic boundaries. Multi-region streaming architectures must prevent PII from flowing to unauthorized regions, potentially using topic-level geo-fencing or region-specific clusters. Modern Kafka deployments use cluster linking with filters to enforce data sovereignty requirements. For multi-region architecture patterns, see [Disaster Recovery Strategies for Kafka Clusters](https://conduktor.io/glossary/disaster-recovery-strategies-for-kafka-clusters).
 
-**Audit Trails**: Compliance often requires detailed logs of who accessed PII and when. Streaming systems need to capture access patterns, transformation operations, and downstream consumption for audit purposes. Modern platforms integrate with SIEM systems for real-time audit monitoring. For comprehensive audit strategies, see [Audit Logging for Streaming Platforms](audit-logging-for-streaming-platforms.md) and [Streaming Audit Logs](streaming-audit-logs.md).
+**Audit Trails**: Compliance often requires detailed logs of who accessed PII and when. Streaming systems need to capture access patterns, transformation operations, and downstream consumption for audit purposes. Modern platforms integrate with SIEM systems for real-time audit monitoring. For comprehensive audit strategies, see [Audit Logging for Streaming Platforms](https://conduktor.io/glossary/audit-logging-for-streaming-platforms) and [Streaming Audit Logs](https://conduktor.io/glossary/streaming-audit-logs).
 
 **Retention Policies**: Different PII types have different retention requirements. Credit card data (PCI-DSS) requires minimal retention after transaction completion, while tax-related PII might need seven-year retention. Topic-level retention policies and time-based deletion strategies help meet these requirements:
 
@@ -278,11 +278,11 @@ Building production-grade PII protection requires careful planning:
 
 **Consider Performance Impact**: Real-time PII detection and transformation add latency and computational overhead. Benchmark your approaches under realistic load. Sometimes simpler pattern matching outperforms ML-based detection when latency budgets are tight.
 
-**Use Specialized Tools**: Platforms like Conduktor provide built-in data masking capabilities, schema validation, and audit trails specifically designed for Kafka environments. These tools can accelerate implementation and ensure consistent policy enforcement across teams. For access control patterns that complement PII protection, see [Access Control for Streaming](access-control-for-streaming.md) and [Kafka ACLs and Authorization Patterns](kafka-acls-and-authorization-patterns.md).
+**Use Specialized Tools**: Platforms like Conduktor provide built-in data masking capabilities, schema validation, and audit trails specifically designed for Kafka environments. These tools can accelerate implementation and ensure consistent policy enforcement across teams. For access control patterns that complement PII protection, see [Access Control for Streaming](https://conduktor.io/glossary/access-control-for-streaming) and [Kafka ACLs and Authorization Patterns](https://conduktor.io/glossary/kafka-acls-and-authorization-patterns).
 
 **Test Thoroughly**: Validate that PII detection catches actual sensitive data without excessive false positives. Test that masked or tokenized data still enables necessary downstream analytics. Verify that compliance requirements are met through regular audits.
 
-**Monitor Continuously**: Implement alerting for potential PII leaks. Monitor for schema changes that might introduce new PII fields. Track PII-related metrics like detection rates, masking operations, and access patterns. For monitoring strategies, see [Kafka Cluster Monitoring and Metrics](kafka-cluster-monitoring-and-metrics.md) and [Data Observability](what-is-data-observability-the-five-pillars.md).
+**Monitor Continuously**: Implement alerting for potential PII leaks. Monitor for schema changes that might introduce new PII fields. Track PII-related metrics like detection rates, masking operations, and access patterns. For monitoring strategies, see [Kafka Cluster Monitoring and Metrics](https://conduktor.io/glossary/kafka-cluster-monitoring-and-metrics) and [Data Observability](https://conduktor.io/glossary/what-is-data-observability-the-five-pillars).
 
 ## Summary
 

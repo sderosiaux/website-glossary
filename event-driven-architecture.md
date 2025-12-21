@@ -109,11 +109,11 @@ In orchestration, a central workflow engine coordinates the process by sending c
 
 Apache Kafka has emerged as the dominant platform for event-driven systems due to its unique architecture. Unlike traditional message queues that delete messages after consumption, Kafka is a distributed, durable, and ordered commit log (a persistent, append-only data structure where events are stored sequentially):
 
-**Durability and Replayability**: Kafka persists events for a configurable period (days, weeks, or indefinitely). If a consumer fails, it can resume from where it left off. New services can replay the entire history of events to build their initial state—enabling event sourcing (an architectural pattern where all state changes are stored as a sequence of events), where the event log becomes the system of record. For detailed coverage of this pattern, see [Event Sourcing Patterns with Kafka](event-sourcing-patterns-with-kafka.md).
+**Durability and Replayability**: Kafka persists events for a configurable period (days, weeks, or indefinitely). If a consumer fails, it can resume from where it left off. New services can replay the entire history of events to build their initial state—enabling event sourcing (an architectural pattern where all state changes are stored as a sequence of events), where the event log becomes the system of record. For detailed coverage of this pattern, see [Event Sourcing Patterns with Kafka](https://conduktor.io/glossary/event-sourcing-patterns-with-kafka).
 
-**Ordering Guarantees**: Events with the same partition key (a routing attribute that determines which partition an event goes to, such as order_id or customer_id) are written to the same partition, ensuring they're processed in the order they occurred. This maintains business logic integrity—all events for order #12345 process sequentially, while events for order #67890 process in parallel on different partitions. For partition strategy details, see [Kafka Partitioning Strategies and Best Practices](kafka-partitioning-strategies-and-best-practices.md).
+**Ordering Guarantees**: Events with the same partition key (a routing attribute that determines which partition an event goes to, such as order_id or customer_id) are written to the same partition, ensuring they're processed in the order they occurred. This maintains business logic integrity—all events for order #12345 process sequentially, while events for order #67890 process in parallel on different partitions. For partition strategy details, see [Kafka Partitioning Strategies and Best Practices](https://conduktor.io/glossary/kafka-partitioning-strategies-and-best-practices).
 
-**Scalable Distribution**: Multiple independent consumers read the same events at their own pace without interfering. A real-time analytics service and a data warehouse loader both consume "OrderPlaced" events simultaneously, each processing at different speeds. For consumer group mechanics, see [Kafka Consumer Groups Explained](kafka-consumer-groups-explained.md).
+**Scalable Distribution**: Multiple independent consumers read the same events at their own pace without interfering. A real-time analytics service and a data warehouse loader both consume "OrderPlaced" events simultaneously, each processing at different speeds. For consumer group mechanics, see [Kafka Consumer Groups Explained](https://conduktor.io/glossary/kafka-consumer-groups-explained).
 
 **Elastic Buffering**: Kafka accommodates high event traffic bursts by acting as a buffer between producers and consumers, preventing overload. Modern Kafka 4.0+ clusters with optimized configurations can handle millions of events per second per broker, with throughput scaling linearly as brokers are added.
 
@@ -127,7 +127,7 @@ Since Kafka 4.0 (2024), Apache Kafka has eliminated its dependency on ZooKeeper 
 
 **Better Scalability**: KRaft supports larger clusters (10,000+ partitions) with improved metadata performance. Metadata operations that previously scaled with ZooKeeper's limitations now scale with Kafka's distributed log architecture.
 
-**Production Ready**: KRaft became production-ready in Kafka 3.3 and is now the standard deployment mode in Kafka 4.0+. All new Kafka deployments should use KRaft mode. For migration details, see [Understanding KRaft Mode in Kafka](understanding-kraft-mode-in-kafka.md).
+**Production Ready**: KRaft became production-ready in Kafka 3.3 and is now the standard deployment mode in Kafka 4.0+. All new Kafka deployments should use KRaft mode. For migration details, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka).
 
 ## Building Event-Driven Systems: Design Considerations
 
@@ -137,19 +137,19 @@ Events need well-defined schemas (structured definitions of event format and fie
 
 Common schema formats include **Avro** (compact binary format with strong typing), **Protobuf** (Google's efficient binary protocol), and **JSON Schema** (human-readable but larger). Avro and Protobuf offer better performance and built-in versioning support.
 
-Design events as immutable facts about what happened, including event type and version, timestamp, entity identifiers, and relevant state changes. For detailed schema management patterns, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md) and [Schema Evolution Best Practices](schema-evolution-best-practices.md).
+Design events as immutable facts about what happened, including event type and version, timestamp, entity identifiers, and relevant state changes. For detailed schema management patterns, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) and [Schema Evolution Best Practices](https://conduktor.io/glossary/schema-evolution-best-practices).
 
 ### Handling Eventual Consistency
 
 Event-driven systems embrace eventual consistency—state across services converges over time rather than being immediately consistent. Design systems to handle this by using correlation IDs (unique identifiers like order-123-correlation-id) that propagate through all events in a workflow, allowing you to trace the entire chain from OrderPlaced through StockReserved to PaymentCompleted.
 
-Implement the Saga Pattern to manage multi-step business transactions through a sequence of local transactions. If one step fails, compensating transactions (rollback actions that undo previous steps) undo previous steps—for example, if payment fails after inventory reservation, a compensation transaction releases the reserved stock. For comprehensive Saga implementation details, see [Saga Pattern for Distributed Transactions](saga-pattern-for-distributed-transactions.md).
+Implement the Saga Pattern to manage multi-step business transactions through a sequence of local transactions. If one step fails, compensating transactions (rollback actions that undo previous steps) undo previous steps—for example, if payment fails after inventory reservation, a compensation transaction releases the reserved stock. For comprehensive Saga implementation details, see [Saga Pattern for Distributed Transactions](https://conduktor.io/glossary/saga-pattern-for-distributed-transactions).
 
 ### Event Processing Styles
 
 **Event Notification (Simple Reaction)**: A consumer performs an immediate, isolated action based on the received event—for example, sending a confirmation email when OrderPlaced arrives.
 
-**Event Stream Processing (Stateful Computation)**: Consumers use dedicated stream processing engines like Apache Flink (1.19+) or Kafka Streams for complex, continuous, and stateful computations. For example, fraud detection reads PaymentAttempt events, maintains state per user, and blocks attempts after detecting five failures within 60 seconds. For framework comparisons, see [Kafka Streams vs Apache Flink](kafka-streams-vs-apache-flink.md) and [Introduction to Kafka Streams](introduction-to-kafka-streams.md).
+**Event Stream Processing (Stateful Computation)**: Consumers use dedicated stream processing engines like Apache Flink (1.19+) or Kafka Streams for complex, continuous, and stateful computations. For example, fraud detection reads PaymentAttempt events, maintains state per user, and blocks attempts after detecting five failures within 60 seconds. For framework comparisons, see [Kafka Streams vs Apache Flink](https://conduktor.io/glossary/kafka-streams-vs-apache-flink) and [Introduction to Kafka Streams](https://conduktor.io/glossary/introduction-to-kafka-streams).
 
 ### Ensuring Idempotency
 
@@ -173,7 +173,7 @@ Common idempotency techniques include:
 
 2. **Natural Idempotency**: Design operations that are inherently idempotent. For example, setting `order_status = "SHIPPED"` multiple times has the same effect.
 
-3. **Exactly-Once Semantics**: Modern Kafka (3.0+) provides exactly-once processing guarantees through transactions. When enabled, Kafka ensures each event is processed exactly once, even with retries. For implementation details, see [Exactly-Once Semantics](exactly-once-semantics.md) and [Kafka Transactions Deep Dive](kafka-transactions-deep-dive.md).
+3. **Exactly-Once Semantics**: Modern Kafka (3.0+) provides exactly-once processing guarantees through transactions. When enabled, Kafka ensures each event is processed exactly once, even with retries. For implementation details, see [Exactly-Once Semantics](https://conduktor.io/glossary/exactly-once-semantics) and [Kafka Transactions Deep Dive](https://conduktor.io/glossary/kafka-transactions-deep-dive).
 
 ### Error Handling and Dead Letter Queues
 
@@ -181,7 +181,7 @@ Implement retry logic with exponential backoff for transient failures. For event
 
 Dead letter queues enable operations teams to inspect failures, fix issues, and replay events once resolved. Modern error handling strategies also include circuit breakers (automatically stopping processing after repeated failures to prevent cascade effects) and alerting on DLQ accumulation.
 
-For reliable event publishing from databases, the **Outbox Pattern** ensures events are published atomically with database transactions, preventing data inconsistencies when services crash between database commits and event publishing. See [Outbox Pattern for Reliable Event Publishing](outbox-pattern-for-reliable-event-publishing.md) for implementation details.
+For reliable event publishing from databases, the **Outbox Pattern** ensures events are published atomically with database transactions, preventing data inconsistencies when services crash between database commits and event publishing. See [Outbox Pattern for Reliable Event Publishing](https://conduktor.io/glossary/outbox-pattern-for-reliable-event-publishing) for implementation details.
 
 ## Observability and Governance in Event-Driven Systems
 
@@ -226,7 +226,7 @@ Success with event-driven architecture requires:
 - **Monitoring end-to-end latency** and consumer lag to identify performance bottlenecks
 - **Establishing governance practices** for cataloging, lineage tracking, schema enforcement, and access control
 
-As systems grow, governance becomes as critical as technical implementation. Platforms like Conduktor provide the centralized visibility, testing capabilities, and operational controls needed to operate event-driven architectures at scale. For related architectural patterns, see [Event-Driven Microservices Architecture](event-driven-microservices-architecture.md) and [Event Stream Fundamentals](event-stream-fundamentals.md).
+As systems grow, governance becomes as critical as technical implementation. Platforms like Conduktor provide the centralized visibility, testing capabilities, and operational controls needed to operate event-driven architectures at scale. For related architectural patterns, see [Event-Driven Microservices Architecture](https://conduktor.io/glossary/event-driven-microservices-architecture) and [Event Stream Fundamentals](https://conduktor.io/glossary/event-stream-fundamentals).
 
 ## Sources and References
 

@@ -31,6 +31,9 @@ For data platforms specifically, API gateways solve several problems. They provi
 ![### BFF Architecture](images/diagrams/api-gateway-patterns-for-data-platforms-0.webp)
 
 <!-- ORIGINAL_DIAGRAM
+![api-gateway-patterns-for-data-platforms diagram 1](images/diagrams/api-gateway-patterns-for-data-platforms-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
                API Gateway Architecture
 
@@ -57,6 +60,7 @@ For data platforms specifically, API gateways solve several problems. They provi
 │ Service │      │ Cluster │      │  API    │
 └─────────┘      └─────────┘      └─────────┘
 ```
+-->
 -->
 -->
 
@@ -92,9 +96,9 @@ Streaming platforms like Apache Kafka present unique gateway requirements. Tradi
 
 Kafka gateways must handle long-lived connections for consuming message streams. A WebSocket gateway can maintain persistent connections that stream Kafka messages to browsers or mobile apps. This enables real-time data delivery without constant polling.
 
-For comprehensive understanding of Kafka's core architecture and how topics, partitions, and consumer groups work, see [Apache Kafka](apache-kafka.md).
+For comprehensive understanding of Kafka's core architecture and how topics, partitions, and consumer groups work, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
 
-![api-gateway-patterns-for-data-platforms diagram 2](images/diagrams/api-gateway-patterns-for-data-platforms-1.webp)
+![### BFF Architecture](images/diagrams/api-gateway-patterns-for-data-platforms-1.webp)
 
 <!-- ORIGINAL_DIAGRAM
 ```
@@ -142,7 +146,7 @@ An API gateway solves this by exposing a WebSocket endpoint at `/orders/stream`.
 
 The choice depends on delivery semantics (at-least-once vs at-most-once) and reconnection requirements. This pattern keeps Kafka internals hidden while providing real-time capabilities to clients.
 
-For detailed consumer group mechanics and offset management strategies, see [Kafka Consumer Groups Explained](kafka-consumer-groups-explained.md).
+For detailed consumer group mechanics and offset management strategies, see [Kafka Consumer Groups Explained](https://conduktor.io/glossary/kafka-consumer-groups-explained).
 
 ### Specialized Kafka Gateways
 
@@ -166,7 +170,7 @@ Comprehensive audit trails are essential for data governance. Gateways log every
 
 For compliance regimes like GDPR or HIPAA, gateways can enforce retention policies, log data lineage, and provide evidence of proper data handling. The centralized position makes gateways ideal for compliance enforcement.
 
-For comprehensive audit logging patterns in streaming environments, see [Audit Logging for Streaming Platforms](audit-logging-for-streaming-platforms.md).
+For comprehensive audit logging patterns in streaming environments, see [Audit Logging for Streaming Platforms](https://conduktor.io/glossary/audit-logging-for-streaming-platforms).
 
 ## Performance and Scalability Considerations
 

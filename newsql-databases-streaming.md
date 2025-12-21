@@ -11,9 +11,9 @@ topics:
 
 ## Introduction: The NewSQL Evolution
 
-For decades, organizations faced a difficult choice when selecting databases. Traditional relational databases (RDBMS) like PostgreSQL and MySQL offered strong ACID guarantees and familiar SQL interfaces, but struggled to scale horizontally. [NoSQL databases](nosql-databases-real-time.md) like Cassandra and MongoDB provided massive scalability, but sacrificed transactional consistency and the powerful querying capabilities of SQL.
+For decades, organizations faced a difficult choice when selecting databases. Traditional relational databases (RDBMS) like PostgreSQL and MySQL offered strong ACID guarantees and familiar SQL interfaces, but struggled to scale horizontally. [NoSQL databases](https://conduktor.io/glossary/nosql-databases-real-time) like Cassandra and MongoDB provided massive scalability, but sacrificed transactional consistency and the powerful querying capabilities of SQL.
 
-NewSQL databases emerged to bridge this gap, offering the best of both worlds: the familiar SQL interface and ACID guarantees of traditional RDBMS, combined with the horizontal scalability and fault tolerance of NoSQL systems. As [real-time data streaming](what-is-real-time-data-streaming.md) becomes essential for modern applications, NewSQL databases provide the transactional guarantees and scale needed to power [event-driven architectures](event-driven-architecture.md).
+NewSQL databases emerged to bridge this gap, offering the best of both worlds: the familiar SQL interface and ACID guarantees of traditional RDBMS, combined with the horizontal scalability and fault tolerance of NoSQL systems. As [real-time data streaming](https://conduktor.io/glossary/what-is-real-time-data-streaming) becomes essential for modern applications, NewSQL databases provide the transactional guarantees and scale needed to power [event-driven architectures](https://conduktor.io/glossary/event-driven-architecture).
 
 ## What is NewSQL?
 
@@ -82,7 +82,7 @@ NewSQL databases play several critical roles in real-time streaming architecture
 
 ### Change Data Capture (CDC)
 
-NewSQL databases can serve as source systems for event streams through [Change Data Capture (CDC)](what-is-change-data-capture-cdc-fundamentals.md). Tools like [Debezium](implementing-cdc-with-debezium.md) can capture row-level changes from databases like CockroachDB and YugabyteDB, publishing them to Kafka topics. Because NewSQL databases support transactions, CDC can capture changes in a consistent, ordered manner that preserves transactional boundaries—meaning if three table updates happen in one database transaction, CDC ensures all three changes are captured as a cohesive unit with the same transaction ID.
+NewSQL databases can serve as source systems for event streams through [Change Data Capture (CDC)](https://conduktor.io/glossary/what-is-change-data-capture-cdc-fundamentals). Tools like [Debezium](https://conduktor.io/glossary/implementing-cdc-with-debezium) can capture row-level changes from databases like CockroachDB and YugabyteDB, publishing them to Kafka topics. Because NewSQL databases support transactions, CDC can capture changes in a consistent, ordered manner that preserves transactional boundaries—meaning if three table updates happen in one database transaction, CDC ensures all three changes are captured as a cohesive unit with the same transaction ID.
 
 **Example: Financial Transaction CDC**
 
@@ -97,7 +97,7 @@ COMMIT;
 
 Debezium captures both updates from the transaction log and publishes them to Kafka with metadata indicating they belong to the same transaction. Downstream consumers can reconstruct the transactional boundary, ensuring the transfer is processed atomically in the streaming pipeline.
 
-For scenarios requiring guaranteed event publishing alongside database writes, consider the [Outbox pattern](outbox-pattern-for-reliable-event-publishing.md), which uses CDC to reliably publish events from an outbox table within the same transaction as business data updates.
+For scenarios requiring guaranteed event publishing alongside database writes, consider the [Outbox pattern](https://conduktor.io/glossary/outbox-pattern-for-reliable-event-publishing), which uses CDC to reliably publish events from an outbox table within the same transaction as business data updates.
 
 **CockroachDB CDC Configuration**
 
@@ -271,7 +271,7 @@ public class InventoryStreamProcessor {
 
 ### Event Sourcing and CQRS
 
-In [event sourcing](event-sourcing-patterns-with-kafka.md) architectures, NewSQL databases often serve as the read model (query side) in [CQRS patterns](cqrs-and-event-sourcing-with-kafka.md). Events from Kafka are consumed and projected into queryable tables that support complex analytical queries. The distributed nature of NewSQL databases allows these read models to scale independently of the write-optimized event log.
+In [event sourcing](https://conduktor.io/glossary/event-sourcing-patterns-with-kafka) architectures, NewSQL databases often serve as the read model (query side) in [CQRS patterns](https://conduktor.io/glossary/cqrs-and-event-sourcing-with-kafka). Events from Kafka are consumed and projected into queryable tables that support complex analytical queries. The distributed nature of NewSQL databases allows these read models to scale independently of the write-optimized event log.
 
 **Event Sourcing Concept Primer**: In event sourcing, every state change is captured as an immutable event in Kafka. Instead of updating database records directly, you append events to a log. To determine current state, you replay events from the beginning (or from a snapshot). CQRS (Command Query Responsibility Segregation) separates write operations (commands that generate events) from read operations (queries against optimized read models).
 
@@ -364,7 +364,7 @@ This pattern leverages NewSQL's strengths:
 
 ### Stream Processing State Stores
 
-Modern stream processors like [Kafka Streams](introduction-to-kafka-streams.md) and [Apache Flink](what-is-apache-flink-stateful-stream-processing.md) typically use embedded state stores (RocksDB) for optimal performance. However, NewSQL databases serve as external state stores in specific scenarios:
+Modern stream processors like [Kafka Streams](https://conduktor.io/glossary/introduction-to-kafka-streams) and [Apache Flink](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing) typically use embedded state stores (RocksDB) for optimal performance. However, NewSQL databases serve as external state stores in specific scenarios:
 
 **When to Use External NewSQL State**:
 
@@ -429,7 +429,7 @@ public class NewSQLConnectionPool {
 
 ### Idempotency and Exactly-Once Semantics
 
-Achieving [exactly-once semantics](exactly-once-semantics-in-kafka.md) when writing from Kafka to NewSQL requires careful coordination. The earlier inventory example demonstrated offset tracking tables. Here's an alternative using Kafka transactions with database writes:
+Achieving [exactly-once semantics](https://conduktor.io/glossary/exactly-once-semantics-in-kafka) when writing from Kafka to NewSQL requires careful coordination. The earlier inventory example demonstrated offset tracking tables. Here's an alternative using Kafka transactions with database writes:
 
 **Transactional Writes Pattern:**
 
@@ -493,7 +493,7 @@ public void processOrder(OrderEvent event) {
    - **Phase 3**: Update producers to new schema
    - **Phase 4**: Remove backward compatibility code
 
-**Schema Registry Integration**: Use [Schema Registry](schema-registry-and-schema-management.md) with compatibility rules that match your database evolution strategy. Set `BACKWARD` compatibility for additive-only changes, `FULL` for bidirectional compatibility during migrations.
+**Schema Registry Integration**: Use [Schema Registry](https://conduktor.io/glossary/schema-registry-and-schema-management) with compatibility rules that match your database evolution strategy. Set `BACKWARD` compatibility for additive-only changes, `FULL` for bidirectional compatibility during migrations.
 
 ## NewSQL vs Traditional Databases and NoSQL
 
@@ -515,7 +515,7 @@ The CAP theorem states that distributed systems can provide at most two of three
 - Read replicas for distributing query load without impacting write performance
 - Sophisticated consensus protocols (Raft, Multi-Paxos) that minimize coordination overhead
 
-While they may have slightly lower availability during network partitions compared to AP systems like [Cassandra](nosql-databases-real-time.md), modern NewSQL databases achieve 99.95%+ availability—sufficient for most production requirements. For comparison with NoSQL trade-offs, see [NoSQL Databases for Real-Time Streaming](nosql-databases-real-time.md).
+While they may have slightly lower availability during network partitions compared to AP systems like [Cassandra](https://conduktor.io/glossary/nosql-databases-real-time), modern NewSQL databases achieve 99.95%+ availability—sufficient for most production requirements. For comparison with NoSQL trade-offs, see [NoSQL Databases for Real-Time Streaming](https://conduktor.io/glossary/nosql-databases-real-time).
 
 ## When to Choose NewSQL
 
@@ -523,13 +523,13 @@ While they may have slightly lower availability during network partitions compar
 
 NewSQL databases are particularly well-suited for:
 
-**Financial Services**: Transaction processing that requires strong consistency, such as payment systems, trading platforms, and account management. The combination of ACID guarantees and horizontal scalability makes NewSQL ideal for [financial workloads](streaming-data-in-financial-services.md) that can't tolerate inconsistency but need to scale globally. For complex multi-service financial transactions, combine NewSQL with the [Saga pattern](saga-pattern-for-distributed-transactions.md).
+**Financial Services**: Transaction processing that requires strong consistency, such as payment systems, trading platforms, and account management. The combination of ACID guarantees and horizontal scalability makes NewSQL ideal for [financial workloads](https://conduktor.io/glossary/streaming-data-in-financial-services) that can't tolerate inconsistency but need to scale globally. For complex multi-service financial transactions, combine NewSQL with the [Saga pattern](https://conduktor.io/glossary/saga-pattern-for-distributed-transactions).
 
-**Inventory and Supply Chain**: Real-time [inventory management](supply-chain-visibility-with-real-time-streaming.md) where overselling prevention is critical. NewSQL transactions ensure that concurrent order processing doesn't violate stock constraints, while scalability handles peak shopping periods.
+**Inventory and Supply Chain**: Real-time [inventory management](https://conduktor.io/glossary/supply-chain-visibility-with-real-time-streaming) where overselling prevention is critical. NewSQL transactions ensure that concurrent order processing doesn't violate stock constraints, while scalability handles peak shopping periods.
 
 **User-Facing Applications**: Social platforms, SaaS applications, and gaming systems that need responsive queries, transactional updates, and the ability to scale with user growth. The SQL interface accelerates development with familiar tools and patterns.
 
-**IoT and Time-Series**: Ingesting sensor data at scale while supporting complex analytical queries. NewSQL databases can handle high write throughput while maintaining the ability to run sophisticated SQL analytics on [IoT streams](iot-data-streaming-architectures.md).
+**IoT and Time-Series**: Ingesting sensor data at scale while supporting complex analytical queries. NewSQL databases can handle high write throughput while maintaining the ability to run sophisticated SQL analytics on [IoT streams](https://conduktor.io/glossary/iot-data-streaming-architectures).
 
 **Multi-Region Deployments**: Applications serving global users with low-latency requirements across regions. NewSQL databases like CockroachDB and Spanner can place data close to users while maintaining consistency.
 
@@ -546,26 +546,26 @@ Choose NewSQL when you need:
 
 Consider alternatives when:
 
-- Simple key-value access patterns dominate (consider [NoSQL](nosql-databases-real-time.md))
+- Simple key-value access patterns dominate (consider [NoSQL](https://conduktor.io/glossary/nosql-databases-real-time))
 - Eventual consistency is acceptable (consider NoSQL)
 - You don't need horizontal scalability (consider traditional RDBMS)
 - Cost is the primary concern and scale is limited (traditional RDBMS is typically cheaper)
 
 ### Governance and Compliance
 
-In regulated industries, NewSQL databases offer advantages for [data governance](data-governance-framework-roles-and-responsibilities.md). When NewSQL databases feed streams via [CDC](what-is-change-data-capture-cdc-fundamentals.md), governance tooling ensures that sensitive database changes are properly classified, masked, and audited as they flow through the streaming platform.
+In regulated industries, NewSQL databases offer advantages for [data governance](https://conduktor.io/glossary/data-governance-framework-roles-and-responsibilities). When NewSQL databases feed streams via [CDC](https://conduktor.io/glossary/what-is-change-data-capture-cdc-fundamentals), governance tooling ensures that sensitive database changes are properly classified, masked, and audited as they flow through the streaming platform.
 
 **Governance Integration Patterns:**
 
-1. **Schema Governance**: Use [Schema Registry](schema-registry-and-schema-management.md) to enforce compatibility rules between CDC event schemas and downstream consumers.
+1. **Schema Governance**: Use [Schema Registry](https://conduktor.io/glossary/schema-registry-and-schema-management) to enforce compatibility rules between CDC event schemas and downstream consumers.
 
-2. **Access Control**: Implement [data access controls](data-access-control-rbac-and-abac.md) at both the NewSQL database layer (row-level security) and streaming layer (Kafka ACLs, governance tooling).
+2. **Access Control**: Implement [data access controls](https://conduktor.io/glossary/data-access-control-rbac-and-abac) at both the NewSQL database layer (row-level security) and streaming layer (Kafka ACLs, governance tooling).
 
-3. **Data Masking**: Apply [masking and anonymization](data-masking-and-anonymization-for-streaming.md) to CDC streams containing PII before downstream consumers access sensitive fields.
+3. **Data Masking**: Apply [masking and anonymization](https://conduktor.io/glossary/data-masking-and-anonymization-for-streaming) to CDC streams containing PII before downstream consumers access sensitive fields.
 
-4. **Audit Logging**: Combine NewSQL transaction logs with [streaming audit logs](streaming-audit-logs.md) for comprehensive compliance reporting.
+4. **Audit Logging**: Combine NewSQL transaction logs with [streaming audit logs](https://conduktor.io/glossary/streaming-audit-logs) for comprehensive compliance reporting.
 
-5. **Data Quality**: Monitor [data quality dimensions](data-quality-dimensions-accuracy-completeness-and-consistency.md) (completeness, accuracy, consistency) as data flows from NewSQL sources through streaming pipelines.
+5. **Data Quality**: Monitor [data quality dimensions](https://conduktor.io/glossary/data-quality-dimensions-accuracy-completeness-and-consistency) (completeness, accuracy, consistency) as data flows from NewSQL sources through streaming pipelines.
 
 The combination of transactional guarantees in NewSQL and streaming governance creates end-to-end data integrity—from the database transaction log through Kafka topics to downstream consumers. Tools like Conduktor provide centralized governance for streaming platforms, offering policy enforcement, data lineage tracking, and compliance auditing across your entire NewSQL-to-stream-to-consumer pipeline.
 

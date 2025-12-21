@@ -63,9 +63,9 @@ topics:
 
 The lakehouse architecture has fundamentally changed how organizations handle analytics at scale, combining the flexibility of data lakes with the reliability of data warehouses. While early lakehouses were primarily batch-oriented, modern table formats—Delta Lake, Apache Iceberg, Apache Hudi, and Apache Paimon—were built with streaming workloads in mind.
 
-Streaming writes to lakehouse tables enable real-time analytics without sacrificing data quality or consistency. Unlike raw file writes to object storage, table formats provide ACID guarantees, schema enforcement, and time travel capabilities that make streaming data immediately queryable and trustworthy. For foundational concepts, see [What is Real-Time Data Streaming](what-is-real-time-data-streaming.md).
+Streaming writes to lakehouse tables enable real-time analytics without sacrificing data quality or consistency. Unlike raw file writes to object storage, table formats provide ACID guarantees, schema enforcement, and time travel capabilities that make streaming data immediately queryable and trustworthy. For foundational concepts, see [What is Real-Time Data Streaming](https://conduktor.io/glossary/what-is-real-time-data-streaming).
 
-The key innovation is treating streaming data as a continuous flow of incremental updates to versioned tables, rather than as separate batch snapshots. This approach bridges the gap between real-time processing and historical analytics, allowing organizations to query both fresh and historical data through the same interface. This pattern is particularly powerful for CDC use cases—see [What is Change Data Capture: CDC Fundamentals](what-is-change-data-capture-cdc-fundamentals.md) for details on capturing database changes and streaming them to lakehouse tables.
+The key innovation is treating streaming data as a continuous flow of incremental updates to versioned tables, rather than as separate batch snapshots. This approach bridges the gap between real-time processing and historical analytics, allowing organizations to query both fresh and historical data through the same interface. This pattern is particularly powerful for CDC use cases—see [What is Change Data Capture: CDC Fundamentals](https://conduktor.io/glossary/what-is-change-data-capture-cdc-fundamentals) for details on capturing database changes and streaming them to lakehouse tables.
 
 ## Table Formats for Streaming Workloads
 
@@ -143,7 +143,7 @@ query = kafka_df \
 
 Apache Iceberg's architecture (version 1.5+ in 2025) makes it particularly well-suited for streaming scenarios where data freshness and query performance must coexist:
 
-**Flink Integration**: Iceberg has first-class Apache Flink support (Flink 1.19+), enabling sophisticated event-time processing with features like watermarking and equality-based upserts. For comprehensive coverage of Flink's capabilities, see [What is Apache Flink: Stateful Stream Processing](what-is-apache-flink-stateful-stream-processing.md).
+**Flink Integration**: Iceberg has first-class Apache Flink support (Flink 1.19+), enabling sophisticated event-time processing with features like watermarking and equality-based upserts. For comprehensive coverage of Flink's capabilities, see [What is Apache Flink: Stateful Stream Processing](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing).
 
 ```java
 // Flink 1.19+ streaming to Iceberg
@@ -177,11 +177,11 @@ tableEnv.executeSql(
 );
 ```
 
-**Watermarking and Event-Time Processing**: Iceberg preserves event-time semantics during writes. Flink's watermarks control when data becomes visible to readers, ensuring downstream consumers only see data that's sufficiently "complete" according to event time, not processing time. For detailed watermarking strategies, see [Watermarks and Triggers in Stream Processing](watermarks-and-triggers-in-stream-processing.md).
+**Watermarking and Event-Time Processing**: Iceberg preserves event-time semantics during writes. Flink's watermarks control when data becomes visible to readers, ensuring downstream consumers only see data that's sufficiently "complete" according to event time, not processing time. For detailed watermarking strategies, see [Watermarks and Triggers in Stream Processing](https://conduktor.io/glossary/watermarks-and-triggers-in-stream-processing).
 
 **Hidden Partitioning Advantages**: Iceberg's hidden partitioning is particularly valuable for streaming workloads. You can partition by time (hours, days) without exposing this to queries. Streaming writers automatically route events to the correct partition, and queries prune partitions automatically based on time predicates.
 
-**Snapshot Isolation**: Each Iceberg write creates a new snapshot. Streaming jobs can commit small, frequent snapshots (every few seconds), while readers see consistent point-in-time views. This isolation prevents "read-your-own-writes" anomalies in real-time dashboards. For more on Iceberg's architecture, see [Apache Iceberg](apache-iceberg.md).
+**Snapshot Isolation**: Each Iceberg write creates a new snapshot. Streaming jobs can commit small, frequent snapshots (every few seconds), while readers see consistent point-in-time views. This isolation prevents "read-your-own-writes" anomalies in real-time dashboards. For more on Iceberg's architecture, see [Apache Iceberg](https://conduktor.io/glossary/apache-iceberg).
 
 ## Apache Hudi's Streaming Capabilities
 
@@ -277,7 +277,7 @@ FROM kafka_source;
 - **Hudi**: Configure `hoodie.schema.on.read.enable` to handle schema evolution during reads.
 - **Paimon**: Supports automatic schema evolution without additional configuration.
 
-For robust schema management, integrate with [Schema Registry and Schema Management](schema-registry-and-schema-management.md) to validate schemas before writes.
+For robust schema management, integrate with [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) to validate schemas before writes.
 
 **Compaction and File Management**: Streaming writes create many small files. Compaction merges them into optimal sizes:
 
@@ -294,33 +294,33 @@ For robust schema management, integrate with [Schema Registry and Schema Managem
 2. **Checkpointing**: Spark/Flink checkpoints track Kafka offsets and output states atomically.
 3. **Transactional Commits**: Table formats ensure atomic commits—no partial writes are visible.
 
-The checkpoint location and table format's transaction log together guarantee exactly-once processing. For deeper understanding of exactly-once guarantees, see [Exactly-Once Semantics in Kafka](exactly-once-semantics-in-kafka.md).
+The checkpoint location and table format's transaction log together guarantee exactly-once processing. For deeper understanding of exactly-once guarantees, see [Exactly-Once Semantics in Kafka](https://conduktor.io/glossary/exactly-once-semantics-in-kafka).
 
 ## Governance and Data Quality
 
 **Quality Gates Before the Lakehouse**: Streaming pipelines should enforce data quality *before* writing to lakehouse tables. Modern approaches combine multiple validation layers:
 
 - **Stream-Time Validation**: Tools like Conduktor provide data governance capabilities that validate schemas, check data quality rules, and enforce compliance policies in real-time as data flows through Kafka.
-- **Pre-Write Quality Checks**: Integrate tools like [Soda Core](https://www.soda.io/) or [Great Expectations](great-expectations-data-testing-framework.md) into streaming jobs to validate data quality before committing to lakehouse tables.
-- **Contract-Based Validation**: Define and enforce [Data Contracts](data-contracts-for-reliable-pipelines.md) that specify expected schemas, data types, and business rules.
+- **Pre-Write Quality Checks**: Integrate tools like [Soda Core](https://www.soda.io/) or [Great Expectations](https://conduktor.io/glossary/great-expectations-data-testing-framework) into streaming jobs to validate data quality before committing to lakehouse tables.
+- **Contract-Based Validation**: Define and enforce [Data Contracts](https://conduktor.io/glossary/data-contracts-for-reliable-pipelines) that specify expected schemas, data types, and business rules.
 
 By validating data upstream in the streaming platform, you prevent bad data from polluting the lakehouse. This "shift-left" approach to governance means lakehouse tables remain clean and trustworthy, reducing the need for downstream data cleaning.
 
 **Monitoring Streaming Table Health**: Key metrics to track using tools like Prometheus, Grafana, and OpenTelemetry:
 
-- **Write Latency**: Time from event creation to table commit. Spikes indicate backpressure or resource constraints. See [Backpressure Handling in Streaming Systems](backpressure-handling-in-streaming-systems.md).
+- **Write Latency**: Time from event creation to table commit. Spikes indicate backpressure or resource constraints. See [Backpressure Handling in Streaming Systems](https://conduktor.io/glossary/backpressure-handling-in-streaming-systems).
 - **File Count**: Too many small files degrades query performance. Monitor files-per-partition and trigger compaction accordingly.
 - **Schema Drift**: Unexpected schema changes can break downstream consumers. Alert on schema evolution events using schema registry monitoring.
-- **Data Freshness**: Time lag between event time and availability in the table. Essential for SLA monitoring. See [Data Freshness Monitoring & SLA Management](data-freshness-monitoring-sla-management.md).
+- **Data Freshness**: Time lag between event time and availability in the table. Essential for SLA monitoring. See [Data Freshness Monitoring & SLA Management](https://conduktor.io/glossary/data-freshness-monitoring-sla-management).
 
-**Lineage and Observability**: Understanding data flow through streaming pipelines is critical. For comprehensive strategies, see [What is Data Observability: The Five Pillars](what-is-data-observability-the-five-pillars.md):
+**Lineage and Observability**: Understanding data flow through streaming pipelines is critical. For comprehensive strategies, see [What is Data Observability: The Five Pillars](https://conduktor.io/glossary/what-is-data-observability-the-five-pillars):
 
-- Track which source topics feed which tables through [Data Lineage Tracking](data-lineage-tracking-data-from-source-to-consumption.md)
+- Track which source topics feed which tables through [Data Lineage Tracking](https://conduktor.io/glossary/data-lineage-tracking-data-from-source-to-consumption)
 - Monitor transformation logic versions using Git integration and CI/CD practices
 - Correlate data quality issues back to source systems with distributed tracing
-- Audit who reads streaming tables and when using [Audit Logging for Streaming Platforms](audit-logging-for-streaming-platforms.md)
+- Audit who reads streaming tables and when using [Audit Logging for Streaming Platforms](https://conduktor.io/glossary/audit-logging-for-streaming-platforms)
 
-Modern data catalogs like [What is a Data Catalog: Modern Data Discovery](what-is-a-data-catalog-modern-data-discovery.md) integrate with table formats to provide automatic lineage tracking, showing how streaming data flows from sources through transformations into lakehouse tables and ultimately into analytics. Apache Iceberg's metadata tables expose detailed commit history and data lineage information.
+Modern data catalogs like [What is a Data Catalog: Modern Data Discovery](https://conduktor.io/glossary/what-is-a-data-catalog-modern-data-discovery) integrate with table formats to provide automatic lineage tracking, showing how streaming data flows from sources through transformations into lakehouse tables and ultimately into analytics. Apache Iceberg's metadata tables expose detailed commit history and data lineage information.
 
 ## Choosing the Right Format: Comparison
 
@@ -345,7 +345,7 @@ Delta Lake offers the tightest Spark integration with simple append and merge pa
 
 Regardless of format choice, success requires attention to operational details: schema evolution strategies, compaction policies, partition management, and exactly-once semantics. Most critically, data quality must be enforced upstream—before data reaches the lakehouse—to ensure streaming tables remain reliable sources of truth.
 
-The streaming lakehouse is no longer emerging technology—it's production-ready architecture powering real-time analytics at scale. For broader context on streaming architectures, see [What is Real-Time Data Streaming](what-is-real-time-data-streaming.md) and [Streaming Data Pipeline](streaming-data-pipeline.md).
+The streaming lakehouse is no longer emerging technology—it's production-ready architecture powering real-time analytics at scale. For broader context on streaming architectures, see [What is Real-Time Data Streaming](https://conduktor.io/glossary/what-is-real-time-data-streaming) and [Streaming Data Pipeline](https://conduktor.io/glossary/streaming-data-pipeline).
 
 ## Sources and References
 

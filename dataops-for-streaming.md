@@ -92,7 +92,7 @@ inputTopic.pipeInput("key1", "value1");
 assertEquals(1L, outputTopic.readValue());
 ```
 
-**Integration testing**: Validate interactions between components using embedded brokers or containerized environments (Testcontainers with Kafka). Test schema compatibility, serialization, error handling, and state management. Verify [data quality](building-a-data-quality-framework.md) rules are enforced at pipeline boundaries.
+**Integration testing**: Validate interactions between components using embedded brokers or containerized environments (Testcontainers with Kafka). Test schema compatibility, serialization, error handling, and state management. Verify [data quality](https://conduktor.io/glossary/building-a-data-quality-framework) rules are enforced at pipeline boundaries.
 
 **End-to-end testing**: Deploy complete pipelines in staging environments and validate end-to-end behavior with realistic data volumes and patterns. Test failover scenarios, exactly-once semantics, and recovery from failures.
 
@@ -146,9 +146,9 @@ Properties config = new Properties();
 config.put(ConsumerConfig.GROUP_ID_CONFIG, "consumer-group-v2"); // Green version
 ```
 
-**Canary Deployments**: Deploy new versions to a small subset of instances first, monitoring metrics and error rates before rolling out to all instances. For Kafka Streams applications, this might mean directing a single partition to the new version initially. Monitor [consumer lag](consumer-lag-monitoring.md) and error rates closely during canary phases.
+**Canary Deployments**: Deploy new versions to a small subset of instances first, monitoring metrics and error rates before rolling out to all instances. For Kafka Streams applications, this might mean directing a single partition to the new version initially. Monitor [consumer lag](https://conduktor.io/glossary/consumer-lag-monitoring) and error rates closely during canary phases.
 
-**Rolling Deployments**: Gradually replace old instances with new ones, maintaining availability throughout. Critical for stateful applications where state must be migrated or rebuilt during deployment. Kafka Streams handles state store migrations automatically, but monitor state restoration progress and [backpressure](backpressure-handling-in-streaming-systems.md) during transitions.
+**Rolling Deployments**: Gradually replace old instances with new ones, maintaining availability throughout. Critical for stateful applications where state must be migrated or rebuilt during deployment. Kafka Streams handles state store migrations automatically, but monitor state restoration progress and [backpressure](https://conduktor.io/glossary/backpressure-handling-in-streaming-systems) during transitions.
 
 **Shadow Mode**: Run new versions alongside production, processing the same data but without affecting downstream systems, enabling validation with production traffic before full deployment. Use separate output topics for shadow deployments to compare results without impacting downstream consumers.
 
@@ -158,7 +158,7 @@ Comprehensive observability enables teams to understand system behavior and quic
 
 **Metrics collection**: Track application-level metrics (processing rate, latency, error rate) and infrastructure metrics (CPU, memory, network, disk) using tools like Prometheus, Datadog, or New Relic. Kafka exposes JMX metrics that should be scraped and monitored continuously.
 
-**Key performance indicators**: Monitor [consumer lag](consumer-lag-monitoring.md) (how far consumers are behind producers), throughput, end-to-end latency, and error rates. Set SLOs (Service Level Objectives—quantifiable targets like "99.9% of messages processed within 500ms") and alert when they're breached.
+**Key performance indicators**: Monitor [consumer lag](https://conduktor.io/glossary/consumer-lag-monitoring) (how far consumers are behind producers), throughput, end-to-end latency, and error rates. Set SLOs (Service Level Objectives—quantifiable targets like "99.9% of messages processed within 500ms") and alert when they're breached.
 
 ```yaml
 # Example: Prometheus alerting rule for consumer lag
@@ -203,13 +203,13 @@ When issues occur in 24/7 streaming systems, rapid response is essential:
 - Rollback recent deployment if regression introduced
 ```
 
-**Alerting strategy**: Configure alerts that are actionable and minimize false positives. Alert on symptoms (high latency, errors) rather than just causes (high CPU). Follow the [consumer lag monitoring](consumer-lag-monitoring.md) best practices for streaming-specific alerting.
+**Alerting strategy**: Configure alerts that are actionable and minimize false positives. Alert on symptoms (high latency, errors) rather than just causes (high CPU). Follow the [consumer lag monitoring](https://conduktor.io/glossary/consumer-lag-monitoring) best practices for streaming-specific alerting.
 
 **On-call rotation**: Establish clear on-call responsibilities with escalation paths. Ensure on-call engineers have access to necessary tools and documentation.
 
 **Post-incident reviews**: Conduct blameless postmortems after incidents to identify root causes and prevent recurrence. Document learnings and update runbooks.
 
-**Chaos engineering**: Proactively test system resilience by injecting failures in non-production environments, validating failover mechanisms and recovery procedures. Tools like Conduktor Gateway enable controlled failure injection (network delays, message corruption, broker failures) without modifying application code. See [chaos engineering for streaming systems](chaos-engineering-for-streaming-systems.md) for comprehensive testing strategies.
+**Chaos engineering**: Proactively test system resilience by injecting failures in non-production environments, validating failover mechanisms and recovery procedures. Tools like Conduktor Gateway enable controlled failure injection (network delays, message corruption, broker failures) without modifying application code. See [chaos engineering for streaming systems](https://conduktor.io/glossary/chaos-engineering-for-streaming-systems) for comprehensive testing strategies.
 
 ## Cross-Team Collaboration
 
@@ -219,7 +219,7 @@ DataOps success depends on effective collaboration across organizational boundar
 
 **Self-service platforms**: Build internal platforms that enable data teams to provision infrastructure, deploy applications, and monitor systems without constant platform team involvement. Platform teams should provide guardrails and observability while empowering data teams to move independently.
 
-**Clear interfaces**: Define clear contracts between teams through schemas, APIs, and SLAs. [Governance frameworks](data-governance-framework-roles-and-responsibilities.md) help establish practices that clarify data ownership, [access policies](access-control-for-streaming.md), and quality standards across streaming platforms. Schema registries enforce compatibility rules, preventing breaking changes from propagating to consumers.
+**Clear interfaces**: Define clear contracts between teams through schemas, APIs, and SLAs. [Governance frameworks](https://conduktor.io/glossary/data-governance-framework-roles-and-responsibilities) help establish practices that clarify data ownership, [access policies](https://conduktor.io/glossary/access-control-for-streaming), and quality standards across streaming platforms. Schema registries enforce compatibility rules, preventing breaking changes from propagating to consumers.
 
 **Knowledge sharing**: Regular demos, documentation, and training sessions ensure teams stay aligned on best practices and platform capabilities.
 
@@ -257,7 +257,7 @@ Quantifiable metrics help teams assess DataOps maturity and identify improvement
 
 **Change failure rate**: Percentage of deployments causing incidents. Effective testing and gradual rollouts minimize failures. Target: < 5% for production deployments.
 
-**Data quality metrics**: Track schema validation failures, data completeness, and accuracy to ensure pipeline quality. Implement [automated data quality testing](automated-data-quality-testing.md) and monitor quality SLOs.
+**Data quality metrics**: Track schema validation failures, data completeness, and accuracy to ensure pipeline quality. Implement [automated data quality testing](https://conduktor.io/glossary/automated-data-quality-testing) and monitor quality SLOs.
 
 **Pipeline availability**: Percentage of time streaming pipelines are processing data within SLA. Target: 99.9% (43 minutes downtime/month) or better for critical pipelines.
 
@@ -269,11 +269,11 @@ Integrating security into DataOps workflows ensures streaming systems meet compl
 
 **Secrets management**: Never commit credentials to version control. Use secret management tools (Vault, AWS Secrets Manager) integrated into CI/CD pipelines to inject secrets at runtime.
 
-**Access control**: Implement [role-based access control](access-control-for-streaming.md) and audit all administrative actions. Define who can deploy to production, modify topic configurations, or access sensitive data through policy-as-code.
+**Access control**: Implement [role-based access control](https://conduktor.io/glossary/access-control-for-streaming) and audit all administrative actions. Define who can deploy to production, modify topic configurations, or access sensitive data through policy-as-code.
 
 **Encryption**: Enforce TLS for data in transit and encryption at rest for state stores and logs. Automate certificate rotation to prevent expiration incidents.
 
-**Compliance automation**: Embed compliance checks into CI/CD pipelines. Validate data retention policies, PII handling, and geographic restrictions before deployment. [Audit logging](audit-logging-for-streaming-platforms.md) provides the trail necessary for compliance verification.
+**Compliance automation**: Embed compliance checks into CI/CD pipelines. Validate data retention policies, PII handling, and geographic restrictions before deployment. [Audit logging](https://conduktor.io/glossary/audit-logging-for-streaming-platforms) provides the trail necessary for compliance verification.
 
 **Shift-left security**: Catch security issues during development through automated scanning of container images, dependency vulnerability checks, and configuration validation.
 

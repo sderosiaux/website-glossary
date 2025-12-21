@@ -14,7 +14,7 @@ topics:
 
 Apache Kafka clusters serve multiple applications simultaneously, each with varying workloads and resource demands. Without proper controls, a single misbehaving or resource-intensive client can degrade performance for all users. Quotas and rate limiting provide the mechanisms to prevent this scenario, ensuring fair resource allocation and stable cluster operation.
 
-Understanding how Kafka implements quotas is essential for anyone operating production clusters, especially in multi-tenant environments where predictable performance is critical. For foundational understanding of Kafka architecture, see [Apache Kafka](apache-kafka.md).
+Understanding how Kafka implements quotas is essential for anyone operating production clusters, especially in multi-tenant environments where predictable performance is critical. For foundational understanding of Kafka architecture, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
 
 ## What Are Quotas in Kafka?
 
@@ -172,7 +172,7 @@ With Kafka 4.0's KRaft mode becoming the standard (ZooKeeper support has been re
 - **Better consistency**: No risk of ZooKeeper-Kafka state divergence
 - **Simplified operations**: Single source of truth for all cluster configuration
 
-For clusters running on KRaft, quota changes take effect within milliseconds rather than seconds, improving operational responsiveness. For detailed information on KRaft architecture and migration, see [Understanding KRaft Mode in Kafka](understanding-kraft-mode-in-kafka.md).
+For clusters running on KRaft, quota changes take effect within milliseconds rather than seconds, improving operational responsiveness. For detailed information on KRaft architecture and migration, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka).
 
 ### Client Metrics and Observability (KIP-714)
 
@@ -188,7 +188,7 @@ Client metrics plugins integrate with tools like Conduktor to provide comprehens
 
 Multi-tenant Kafka deployments particularly benefit from quotas. When multiple teams or customers share a cluster, quotas ensure fair resource distribution and prevent noisy neighbor problems (situations where one tenant's resource usage negatively impacts others).
 
-Consider a SaaS platform running Kafka for multiple customer applications. One customer might run a large batch job that reads historical data at maximum speed. Without quotas, this batch job could saturate broker network interfaces, causing latency spikes for other customers running real-time streaming applications. For comprehensive coverage of multi-tenant patterns and best practices, see [Multi-Tenancy in Kafka Environments](multi-tenancy-in-kafka-environments.md).
+Consider a SaaS platform running Kafka for multiple customer applications. One customer might run a large batch job that reads historical data at maximum speed. Without quotas, this batch job could saturate broker network interfaces, causing latency spikes for other customers running real-time streaming applications. For comprehensive coverage of multi-tenant patterns and best practices, see [Multi-Tenancy in Kafka Environments](https://conduktor.io/glossary/multi-tenancy-in-kafka-environments).
 
 By implementing consumer quotas, the platform operator can limit the batch job to a reasonable throughput, perhaps 20 MB/sec, while ensuring real-time applications maintain low-latency access to their data streams.
 
@@ -233,7 +233,7 @@ Tools like Conduktor provide visual interfaces for quota management, making it e
 - **Historical analysis**: Track quota patterns over time to inform capacity planning
 - **Multi-cluster views**: Manage quotas consistently across development, staging, and production environments
 
-Establishing quota violation alerts ensures operators can respond to issues proactively. If a critical application consistently hits quota limits, this might indicate the need for infrastructure scaling or quota increases rather than simply throttling the client. For strategies on tracking consumer performance and identifying quota-related lag issues, see [Consumer Lag Monitoring](consumer-lag-monitoring.md).
+Establishing quota violation alerts ensures operators can respond to issues proactively. If a critical application consistently hits quota limits, this might indicate the need for infrastructure scaling or quota increases rather than simply throttling the client. For strategies on tracking consumer performance and identifying quota-related lag issues, see [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring).
 
 ## Quotas and Data Streaming Pipelines
 
@@ -241,7 +241,7 @@ Quotas play a vital role in maintaining stable data streaming pipelines. Stream 
 
 When quotas are properly configured, streaming applications experience consistent latency and throughput. This stability enables accurate watermarking (temporal markers for event-time processing), reduces backpressure in processing pipelines, and helps maintain exactly-once semantics.
 
-Conversely, without quotas, a sudden spike in producer traffic can cause broker saturation, leading to increased latency for all consumers. This latency spike propagates through stream processing applications, potentially causing processing delays, state store lag, and missed SLAs. For detailed coverage of managing flow control in streaming systems, see [Backpressure Handling in Streaming Systems](backpressure-handling-in-streaming-systems.md).
+Conversely, without quotas, a sudden spike in producer traffic can cause broker saturation, leading to increased latency for all consumers. This latency spike propagates through stream processing applications, potentially causing processing delays, state store lag, and missed SLAs. For detailed coverage of managing flow control in streaming systems, see [Backpressure Handling in Streaming Systems](https://conduktor.io/glossary/backpressure-handling-in-streaming-systems).
 
 For organizations building real-time analytics or event-driven architectures, quotas are not just a nice-to-have feature but a fundamental requirement for production reliability.
 
@@ -302,7 +302,7 @@ Test quota behavior proactively using tools like Conduktor Gateway for chaos eng
 - **Measure throttle behavior**: Verify brokers throttle correctly without dropping data
 - **Test client resilience**: Ensure applications handle throttling gracefully
 
-For comprehensive testing strategies, see [Chaos Engineering for Streaming Systems](chaos-engineering-for-streaming-systems.md).
+For comprehensive testing strategies, see [Chaos Engineering for Streaming Systems](https://conduktor.io/glossary/chaos-engineering-for-streaming-systems).
 
 ### Best Practices for Quota Management
 
@@ -322,7 +322,7 @@ Modern Kafka deployments (4.0+) benefit from enhanced quota features including K
 
 Effective quota management requires ongoing monitoring of quota metrics and violations, with tools available to simplify configuration and alerting. For data streaming pipelines, properly configured quotas are fundamental to achieving consistent performance and meeting processing SLAs.
 
-Whether operating a shared Kafka cluster or managing dedicated infrastructure, understanding and implementing quotas should be a standard part of any Kafka deployment strategy. For additional performance optimization techniques, see [Kafka Performance Tuning Guide](kafka-performance-tuning-guide.md).
+Whether operating a shared Kafka cluster or managing dedicated infrastructure, understanding and implementing quotas should be a standard part of any Kafka deployment strategy. For additional performance optimization techniques, see [Kafka Performance Tuning Guide](https://conduktor.io/glossary/kafka-performance-tuning-guide).
 
 ## Sources and References
 

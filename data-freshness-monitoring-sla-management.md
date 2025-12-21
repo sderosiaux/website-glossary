@@ -13,7 +13,7 @@ topics:
 
 In modern data engineering, ensuring that data arrives on time is just as critical as ensuring it arrives correctly. Data freshness monitoring and Service Level Agreement (SLA) management have become essential practices for maintaining reliable data pipelines and meeting business expectations. This article explores how to implement robust freshness monitoring, define meaningful SLAs, and respond effectively when data doesn't meet timeliness requirements.
 
-Freshness is one of the five pillars of data observability, alongside data quality, volume, schema, and lineage. For a comprehensive overview, see [What is Data Observability: The Five Pillars](what-is-data-observability-the-five-pillars.md). To understand how freshness relates to other quality dimensions, refer to [Data Quality vs Data Observability: Key Differences](data-quality-vs-data-observability-key-differences.md).
+Freshness is one of the five pillars of data observability, alongside data quality, volume, schema, and lineage. For a comprehensive overview, see [What is Data Observability: The Five Pillars](https://conduktor.io/glossary/what-is-data-observability-the-five-pillars). To understand how freshness relates to other quality dimensions, refer to [Data Quality vs Data Observability: Key Differences](https://conduktor.io/glossary/data-quality-vs-data-observability-key-differences).
 
 ## Understanding Data Freshness
 
@@ -156,7 +156,7 @@ Streaming monitoring capabilities should extend beyond basic lag metrics to prov
 - Alert thresholds that trigger before SLA violations occur
 - Time-based lag (not just record count) to measure actual freshness impact
 
-This level of visibility is crucial for streaming pipelines where even brief lag spikes can cascade into SLA failures. For detailed coverage of consumer groups and lag mechanics, see [Kafka Consumer Groups Explained](kafka-consumer-groups-explained.md).
+This level of visibility is crucial for streaming pipelines where even brief lag spikes can cascade into SLA failures. For detailed coverage of consumer groups and lag mechanics, see [Kafka Consumer Groups Explained](https://conduktor.io/glossary/kafka-consumer-groups-explained).
 
 ### Heartbeat and Canary Metrics
 
@@ -238,7 +238,7 @@ dbt source freshness
 dbt source freshness --select source:production_db
 ```
 
-For more on dbt testing practices, see [dbt Tests and Data Quality Checks](dbt-tests-and-data-quality-checks.md).
+For more on dbt testing practices, see [dbt Tests and Data Quality Checks](https://conduktor.io/glossary/dbt-tests-and-data-quality-checks).
 
 **Great Expectations 1.0+** provides sophisticated freshness expectations with custom thresholds:
 
@@ -303,11 +303,11 @@ Run Soda checks in your pipeline:
 soda scan -d production -c configuration.yml checks/orders_freshness.yml
 ```
 
-**Monte Carlo** and other enterprise data observability platforms provide automated freshness anomaly detection using machine learning. They learn your typical data arrival patterns and alert when deviations occur, reducing manual threshold tuning. For more on data quality frameworks, see [Data Quality Dimensions: Accuracy, Completeness, and Consistency](data-quality-dimensions-accuracy-completeness-and-consistency.md).
+**Monte Carlo** and other enterprise data observability platforms provide automated freshness anomaly detection using machine learning. They learn your typical data arrival patterns and alert when deviations occur, reducing manual threshold tuning. For more on data quality frameworks, see [Data Quality Dimensions: Accuracy, Completeness, and Consistency](https://conduktor.io/glossary/data-quality-dimensions-accuracy-completeness-and-consistency).
 
 ## Responding to Freshness Violations
 
-Monitoring without action is just observation. When freshness SLAs are breached, your response should be systematic. For detailed incident response procedures, see [Data Incident Management and Root Cause Analysis](data-incident-management-and-root-cause-analysis.md).
+Monitoring without action is just observation. When freshness SLAs are breached, your response should be systematic. For detailed incident response procedures, see [Data Incident Management and Root Cause Analysis](https://conduktor.io/glossary/data-incident-management-and-root-cause-analysis).
 
 ### Automated Alerting
 
@@ -334,7 +334,7 @@ Short-term mitigations include:
 - Scaling compute resources to process backlog faster
 - Temporarily increasing parallelism or partition count
 - Pausing non-critical workloads to free resources
-- Implementing backpressure to prevent cascade failures (see [Backpressure Handling in Streaming Systems](backpressure-handling-in-streaming-systems.md))
+- Implementing backpressure to prevent cascade failures (see [Backpressure Handling in Streaming Systems](https://conduktor.io/glossary/backpressure-handling-in-streaming-systems))
 
 Long-term improvements address systemic issues:
 - Optimizing processing logic to reduce per-event latency
@@ -346,11 +346,11 @@ Long-term improvements address systemic issues:
 
 Technical solutions alone don't ensure fresh data. Organizational practices matter:
 
-**SLA documentation** should be centralized, version-controlled, and accessible to both engineering and business stakeholders. When everyone understands the commitments, they can make informed decisions about dependencies. Consider incorporating freshness SLAs into your data contracts—explicit agreements between data producers and consumers. For detailed guidance, see [Data Contracts for Reliable Pipelines](data-contracts-for-reliable-pipelines.md).
+**SLA documentation** should be centralized, version-controlled, and accessible to both engineering and business stakeholders. When everyone understands the commitments, they can make informed decisions about dependencies. Consider incorporating freshness SLAs into your data contracts—explicit agreements between data producers and consumers. For detailed guidance, see [Data Contracts for Reliable Pipelines](https://conduktor.io/glossary/data-contracts-for-reliable-pipelines).
 
 **Regular SLA reviews** adapt targets as business needs evolve. Quarterly reviews assess whether SLAs remain relevant and achievable.
 
-**Freshness dashboards** provide self-service visibility. Data consumers should see current freshness metrics for datasets they depend on, reducing surprise and enabling proactive mitigation. Integrating freshness metrics with data lineage tools provides end-to-end visibility into how delays propagate through dependent datasets. For more on tracking data flow, see [Data Lineage Tracking: Data From Source to Consumption](data-lineage-tracking-data-from-source-to-consumption.md).
+**Freshness dashboards** provide self-service visibility. Data consumers should see current freshness metrics for datasets they depend on, reducing surprise and enabling proactive mitigation. Integrating freshness metrics with data lineage tools provides end-to-end visibility into how delays propagate through dependent datasets. For more on tracking data flow, see [Data Lineage Tracking: Data From Source to Consumption](https://conduktor.io/glossary/data-lineage-tracking-data-from-source-to-consumption).
 
 ## Conclusion
 

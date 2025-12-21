@@ -55,7 +55,7 @@ In streaming architectures, data quality incidents are particularly critical bec
 
 The key distinction between an incident and normal variance lies in **impact and deviation from acceptable bounds**. A 5% increase in null values might be within normal operating parameters, while a sudden 50% spike in nulls represents an incident requiring immediate attention. Organizations define these thresholds through **Service Level Objectives (SLOs)**—measurable targets for system reliability and data quality—and data quality contracts that specify acceptable ranges for metrics like completeness, accuracy, and timeliness.
 
-For detailed coverage of these quality dimensions, see [Data Quality Dimensions](data-quality-dimensions-accuracy-completeness-and-consistency.md).
+For detailed coverage of these quality dimensions, see [Data Quality Dimensions](https://conduktor.io/glossary/data-quality-dimensions-accuracy-completeness-and-consistency).
 
 ## Types of Data Quality Incidents
 
@@ -69,7 +69,7 @@ Schema violations occur when incoming data doesn't match the expected structure.
 
 Modern Schema Registry (2025) offers advanced compatibility modes like `FULL_TRANSITIVE` that check compatibility across all schema versions, preventing incidents from incompatible evolution. These incidents often cause immediate consumer failures, as applications cannot deserialize or process malformed records.
 
-For comprehensive schema management practices, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md) and [Schema Evolution Best Practices](schema-evolution-best-practices.md).
+For comprehensive schema management practices, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) and [Schema Evolution Best Practices](https://conduktor.io/glossary/schema-evolution-best-practices).
 
 ### Null Explosions and Missing Data
 
@@ -101,7 +101,7 @@ Timeliness incidents occur when:
 
 Delays can render time-sensitive applications ineffective, such as fraud detection or real-time recommendations.
 
-**Modern monitoring (2025)**: Tools like [Kafka Lag Exporter](https://github.com/seglo/kafka-lag-exporter) provide Prometheus metrics for consumer lag with configurable alerting thresholds. Kafka 4.0's KRaft mode eliminates ZooKeeper-related latency issues, reducing incident surface area. For detailed consumer lag strategies, see [Consumer Lag Monitoring](consumer-lag-monitoring.md).
+**Modern monitoring (2025)**: Tools like [Kafka Lag Exporter](https://github.com/seglo/kafka-lag-exporter) provide Prometheus metrics for consumer lag with configurable alerting thresholds. Kafka 4.0's KRaft mode eliminates ZooKeeper-related latency issues, reducing incident surface area. For detailed consumer lag strategies, see [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring).
 
 ## Detection Methods
 
@@ -127,7 +127,7 @@ checks for orders_stream:
 
 **Governance platforms** like Conduktor enable policy enforcement at the Kafka protocol level, validating data quality before it enters topics and preventing bad data from polluting streams. Conduktor Gateway can intercept messages, apply validation rules, and route violations to dead letter queues automatically.
 
-For comprehensive testing strategies, see [Automated Data Quality Testing](automated-data-quality-testing.md) and [Building a Data Quality Framework](building-a-data-quality-framework.md).
+For comprehensive testing strategies, see [Automated Data Quality Testing](https://conduktor.io/glossary/automated-data-quality-testing) and [Building a Data Quality Framework](https://conduktor.io/glossary/building-a-data-quality-framework).
 
 ### Anomaly Detection and Statistical Monitoring
 
@@ -139,7 +139,7 @@ Beyond rule-based validation, statistical anomaly detection identifies unusual p
 
 **2025 ML-based detection**: Modern observability platforms integrate machine learning models trained on historical data patterns to automatically flag deviations. OpenTelemetry provides standardized instrumentation for streaming applications, enabling correlation of data quality metrics with infrastructure signals. These systems can detect subtle incidents like gradual data drift that rule-based checks might miss.
 
-For related drift patterns, see [Data Drift in Streaming](data-drift-in-streaming.md) and [Model Drift in Streaming](model-drift-in-streaming.md).
+For related drift patterns, see [Data Drift in Streaming](https://conduktor.io/glossary/data-drift-in-streaming) and [Model Drift in Streaming](https://conduktor.io/glossary/model-drift-in-streaming).
 
 ### User Reports and Feedback Loops
 
@@ -174,7 +174,7 @@ A structured response process ensures consistent handling:
 **4. Resolve**: Identify root cause and implement fix (repair data, deploy corrected code, adjust configurations)
 **5. Review**: Conduct post-mortem to prevent recurrence
 
-For error isolation strategies, see [Dead Letter Queues for Error Handling](dead-letter-queues-for-error-handling.md).
+For error isolation strategies, see [Dead Letter Queues for Error Handling](https://conduktor.io/glossary/dead-letter-queues-for-error-handling).
 
 ### Root Cause Analysis for Streaming Incidents
 
@@ -186,7 +186,7 @@ Effective RCA in streaming systems requires examining multiple layers:
 
 **Modern tooling (2025)**: OpenTelemetry distributed tracing connects data quality incidents across the entire pipeline—from producer instrumentation through Kafka brokers to consumer processing. Audit logging platforms capture all configuration changes and schema modifications with timestamps, enabling precise correlation with incident onset. Kafka 4.0's improved observability APIs provide richer metadata for incident investigation.
 
-For implementation guidance, see [Distributed Tracing for Kafka Applications](distributed-tracing-for-kafka-applications.md) and [Audit Logging for Streaming Platforms](audit-logging-for-streaming-platforms.md).
+For implementation guidance, see [Distributed Tracing for Kafka Applications](https://conduktor.io/glossary/distributed-tracing-for-kafka-applications) and [Audit Logging for Streaming Platforms](https://conduktor.io/glossary/audit-logging-for-streaming-platforms).
 
 ## Communication and Post-Mortems
 
@@ -228,7 +228,7 @@ Blameless culture encourages transparency and prevents future incidents by addre
 
 Schema-based approaches using Protobuf with [buf](https://buf.build/) or Avro with Schema Registry provide compile-time and runtime validation, catching contract violations before deployment.
 
-For contract implementation patterns, see [Data Contracts for Reliable Pipelines](data-contracts-for-reliable-pipelines.md).
+For contract implementation patterns, see [Data Contracts for Reliable Pipelines](https://conduktor.io/glossary/data-contracts-for-reliable-pipelines).
 
 ### Testing Strategies
 
@@ -240,7 +240,7 @@ Preventing incidents requires comprehensive testing:
 
 **2025 testing practices**: Modern CI/CD pipelines integrate data quality gates that prevent deployment of code or schema changes that violate contracts. Conduktor Gateway enables controlled chaos testing by injecting schema violations, delays, or duplicates in non-production environments to validate incident response procedures.
 
-For testing methodologies, see [Testing Strategies for Streaming Applications](testing-strategies-for-streaming-applications.md), [Great Expectations Data Testing Framework](great-expectations-data-testing-framework.md), and [Chaos Engineering for Streaming Systems](chaos-engineering-for-streaming-systems.md).
+For testing methodologies, see [Testing Strategies for Streaming Applications](https://conduktor.io/glossary/testing-strategies-for-streaming-applications), [Great Expectations Data Testing Framework](https://conduktor.io/glossary/great-expectations-data-testing-framework), and [Chaos Engineering for Streaming Systems](https://conduktor.io/glossary/chaos-engineering-for-streaming-systems).
 
 ### Key Metrics
 
@@ -301,7 +301,7 @@ Playbooks provide step-by-step procedures for frequent incident types:
 
 **Kafka 4.0 benefits**: KRaft mode simplifies incident response by eliminating ZooKeeper dependencies, reducing operational complexity and failure modes. Improved metrics APIs provide richer incident context.
 
-Automation reduces MTTD and MTTR by enabling instant response to common scenarios. For operational best practices, see [Kafka Cluster Monitoring and Metrics](kafka-cluster-monitoring-and-metrics.md) and [DataOps for Streaming](dataops-for-streaming.md).
+Automation reduces MTTD and MTTR by enabling instant response to common scenarios. For operational best practices, see [Kafka Cluster Monitoring and Metrics](https://conduktor.io/glossary/kafka-cluster-monitoring-and-metrics) and [DataOps for Streaming](https://conduktor.io/glossary/dataops-for-streaming).
 
 ## Conclusion
 
@@ -311,7 +311,7 @@ The combination of automated validation, statistical anomaly detection, and well
 
 **2025 best practices** emphasize prevention through data contracts, governance platforms like Conduktor, and comprehensive testing with modern frameworks (Soda Core, Great Expectations 1.0+, dbt tests). Kafka 4.0's KRaft mode and improved observability reduce incident complexity, while OpenTelemetry provides end-to-end visibility across distributed streaming architectures.
 
-For understanding the relationship between data quality and observability, see [Data Quality vs Data Observability: Key Differences](data-quality-vs-data-observability-key-differences.md). For incident management patterns, refer to [Data Incident Management and Root Cause Analysis](data-incident-management-and-root-cause-analysis.md).
+For understanding the relationship between data quality and observability, see [Data Quality vs Data Observability: Key Differences](https://conduktor.io/glossary/data-quality-vs-data-observability-key-differences). For incident management patterns, refer to [Data Incident Management and Root Cause Analysis](https://conduktor.io/glossary/data-incident-management-and-root-cause-analysis).
 
 ## Sources and References
 

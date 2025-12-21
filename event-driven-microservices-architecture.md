@@ -40,11 +40,11 @@ Producers are services that publish events when their internal state changes. Co
 
 **Command Query Responsibility Segregation (CQRS)** separates write operations (commands) from read operations (queries). Events update specialized read models optimized for specific queries, improving performance and scalability.
 
-For detailed implementation patterns combining these approaches, see [CQRS and Event Sourcing with Kafka](cqrs-and-event-sourcing-with-kafka.md).
+For detailed implementation patterns combining these approaches, see [CQRS and Event Sourcing with Kafka](https://conduktor.io/glossary/cqrs-and-event-sourcing-with-kafka).
 
-**Saga Pattern** manages distributed transactions across multiple services. Instead of a two-phase commit, each service performs its local transaction and publishes an event. If something fails, compensating events undo previous operations. For a comprehensive guide to implementing sagas, see [Saga Pattern for Distributed Transactions](saga-pattern-for-distributed-transactions.md).
+**Saga Pattern** manages distributed transactions across multiple services. Instead of a two-phase commit, each service performs its local transaction and publishes an event. If something fails, compensating events undo previous operations. For a comprehensive guide to implementing sagas, see [Saga Pattern for Distributed Transactions](https://conduktor.io/glossary/saga-pattern-for-distributed-transactions).
 
-**Outbox Pattern** ensures reliable event publishing by writing events to a database table in the same transaction as business data, then asynchronously publishing them to the event broker. This prevents lost events when services crash after updating data but before publishing. For implementation details, see [Outbox Pattern for Reliable Event Publishing](outbox-pattern-for-reliable-event-publishing.md).
+**Outbox Pattern** ensures reliable event publishing by writing events to a database table in the same transaction as business data, then asynchronously publishing them to the event broker. This prevents lost events when services crash after updating data but before publishing. For implementation details, see [Outbox Pattern for Reliable Event Publishing](https://conduktor.io/glossary/outbox-pattern-for-reliable-event-publishing).
 
 ## Benefits and Trade-offs
 
@@ -70,7 +70,7 @@ For detailed implementation patterns combining these approaches, see [CQRS and E
 
 Data streaming platforms like Apache Kafka and Apache Flink are the foundation of modern event-driven microservices. While a simple message queue might work for basic use cases, streaming platforms provide critical capabilities for production systems.
 
-Modern Kafka deployments (Kafka 4.0+) use **KRaft mode**, which eliminates the ZooKeeper dependency and simplifies operations. KRaft provides faster metadata propagation, improved scalability, and easier cluster management, making it the recommended architecture for new deployments in 2025. For more details on this architectural change, see [Understanding KRaft Mode in Kafka](understanding-kraft-mode-in-kafka.md).
+Modern Kafka deployments (Kafka 4.0+) use **KRaft mode**, which eliminates the ZooKeeper dependency and simplifies operations. KRaft provides faster metadata propagation, improved scalability, and easier cluster management, making it the recommended architecture for new deployments in 2025. For more details on this architectural change, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka).
 
 ### Event Persistence and Replay
 
@@ -80,13 +80,13 @@ Unlike traditional message queues that delete messages after consumption, Kafka 
 
 Apache Flink and Kafka Streams enable real-time event processing. You can filter, aggregate, join, and transform events as they flow through the system. For example, you might compute running totals, detect patterns, or enrich events with data from other sources.
 
-For comprehensive coverage of stream processing frameworks, see [What is Apache Flink: Stateful Stream Processing](what-is-apache-flink-stateful-stream-processing.md) and [Introduction to Kafka Streams](introduction-to-kafka-streams.md).
+For comprehensive coverage of stream processing frameworks, see [What is Apache Flink: Stateful Stream Processing](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing) and [Introduction to Kafka Streams](https://conduktor.io/glossary/introduction-to-kafka-streams).
 
 ### Scalability Through Partitioning
 
 Kafka partitions events by key, enabling parallel processing across multiple consumer instances. If you partition orders by customer ID, different consumers can independently process different customers' orders, dramatically increasing throughput.
 
-To understand how consumer groups enable parallel processing, see [Kafka Consumer Groups Explained](kafka-consumer-groups-explained.md).
+To understand how consumer groups enable parallel processing, see [Kafka Consumer Groups Explained](https://conduktor.io/glossary/kafka-consumer-groups-explained).
 
 ### Schema Evolution
 
@@ -94,7 +94,7 @@ As your system evolves, event structures change. Schema registries enforce compa
 
 The Schema Registry manages event schemas with compatibility modes (backward, forward, full) that ensure consumers can handle both old and new versions. Avro, Protobuf, and JSON Schema are common serialization formats that enable type safety and schema evolution.
 
-For detailed guidance on managing schemas, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md) and [Schema Evolution Best Practices](schema-evolution-best-practices.md). For comparing serialization formats, see [Avro vs Protobuf vs JSON Schema](avro-vs-protobuf-vs-json-schema.md).
+For detailed guidance on managing schemas, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) and [Schema Evolution Best Practices](https://conduktor.io/glossary/schema-evolution-best-practices). For comparing serialization formats, see [Avro vs Protobuf vs JSON Schema](https://conduktor.io/glossary/avro-vs-protobuf-vs-json-schema).
 
 Tools like Conduktor provide visual monitoring of event flows, schema validation, and data governance capabilities across your streaming infrastructure, making it easier to track schema evolution and enforce compatibility rules.
 

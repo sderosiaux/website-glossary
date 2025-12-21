@@ -56,7 +56,7 @@ Flink natively supports event time semantics with watermarks, allowing accurate 
 
 **Watermarks** are special timestamps that flow through the stream indicating "all events with timestamps before this watermark have been received." This allows Flink to trigger computations on complete data even when events arrive late or out of order. For example, if you're computing 5-minute windows of user activity, watermarks tell Flink when it's safe to close a window and emit results, even if some events from that time period arrived late due to network delays.
 
-This capability is essential for real-world streaming where network delays and distributed systems introduce timing complexities. For detailed coverage of watermark strategies and handling late-arriving data, see [Event Time and Watermarks in Flink](event-time-and-watermarks-in-flink.md).
+This capability is essential for real-world streaming where network delays and distributed systems introduce timing complexities. For detailed coverage of watermark strategies and handling late-arriving data, see [Event Time and Watermarks in Flink](https://conduktor.io/glossary/event-time-and-watermarks-in-flink).
 
 ## How Apache Flink Works
 
@@ -204,19 +204,19 @@ This example demonstrates:
 - **Keyed state** via `keyBy()` for per-user aggregation
 - **Windowing** with 5-minute tumbling windows
 
-For more detailed examples and advanced patterns, see [Flink DataStream API: Building Streaming Applications](flink-datastream-api-building-streaming-applications.md) and [Flink State Management and Checkpointing](flink-state-management-and-checkpointing.md).
+For more detailed examples and advanced patterns, see [Flink DataStream API: Building Streaming Applications](https://conduktor.io/glossary/flink-datastream-api-building-streaming-applications) and [Flink State Management and Checkpointing](https://conduktor.io/glossary/flink-state-management-and-checkpointing).
 
 ## Flink and the Data Streaming Ecosystem
 
 ### Kafka Integration
 
-Apache Flink and Apache Kafka form a powerful combination in modern data architectures. Kafka serves as the distributed messaging backbone, while Flink provides the stream processing engine. For foundational Kafka concepts, see [Apache Kafka](apache-kafka.md).
+Apache Flink and Apache Kafka form a powerful combination in modern data architectures. Kafka serves as the distributed messaging backbone, while Flink provides the stream processing engine. For foundational Kafka concepts, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
 
 **Flink Kafka Connector features (Flink 1.14+):**
-- Exactly-once source/sink semantics with Kafka transactions (see [Exactly-Once Semantics in Kafka](exactly-once-semantics-in-kafka.md))
+- Exactly-once source/sink semantics with Kafka transactions (see [Exactly-Once Semantics in Kafka](https://conduktor.io/glossary/exactly-once-semantics-in-kafka))
 - Dynamic partition discovery—automatically detects new Kafka partitions and adjusts processing
 - Consumer position tracking for fault tolerance
-- Support for multiple serialization formats: Avro, JSON, Protobuf (see [Avro vs Protobuf vs JSON Schema](avro-vs-protobuf-vs-json-schema.md))
+- Support for multiple serialization formats: Avro, JSON, Protobuf (see [Avro vs Protobuf vs JSON Schema](https://conduktor.io/glossary/avro-vs-protobuf-vs-json-schema))
 
 A typical architecture pattern:
 
@@ -267,16 +267,16 @@ As Flink applications scale across multiple Kafka topics and processing stages, 
 **Flink Application Monitoring:**
 - **Flink Web UI**: Built-in dashboard for job metrics, checkpoints, and task management
 - **Metrics reporters**: Export metrics to Prometheus, Grafana, or other monitoring systems
-- **Consumer lag monitoring**: Track processing lag for Kafka sources (see [Consumer Lag Monitoring](consumer-lag-monitoring.md))
-- **Backpressure detection**: Identify bottlenecks in processing pipelines (see [Backpressure Handling in Streaming Systems](backpressure-handling-in-streaming-systems.md))
+- **Consumer lag monitoring**: Track processing lag for Kafka sources (see [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring))
+- **Backpressure detection**: Identify bottlenecks in processing pipelines (see [Backpressure Handling in Streaming Systems](https://conduktor.io/glossary/backpressure-handling-in-streaming-systems))
 
 **Kafka Ecosystem Governance:**
-- **Data lineage tracking**: Understanding how data flows through Flink jobs and Kafka topics (see [Data Lineage Tracking](data-lineage-tracking-data-from-source-to-consumption.md))
+- **Data lineage tracking**: Understanding how data flows through Flink jobs and Kafka topics (see [Data Lineage Tracking](https://conduktor.io/glossary/data-lineage-tracking-data-from-source-to-consumption))
 - **Schema management**: Ensuring compatibility across producers and consumers
 - **Topic monitoring**: Observing throughput, lag, and consumer group health using tools like Conduktor for comprehensive Kafka governance, monitoring, and data quality validation
-- **Data quality gates**: Validating stream data quality before and after Flink processing (see [Building a Data Quality Framework](building-a-data-quality-framework.md))
+- **Data quality gates**: Validating stream data quality before and after Flink processing (see [Building a Data Quality Framework](https://conduktor.io/glossary/building-a-data-quality-framework))
 
-This governance layer is essential for production environments where data teams need to understand dependencies, debug issues, and ensure compliance. For audit requirements, see [Audit Logging for Streaming Platforms](audit-logging-for-streaming-platforms.md).
+This governance layer is essential for production environments where data teams need to understand dependencies, debug issues, and ensure compliance. For audit requirements, see [Audit Logging for Streaming Platforms](https://conduktor.io/glossary/audit-logging-for-streaming-platforms).
 
 ### Other Integrations
 
@@ -284,8 +284,8 @@ Flink integrates with numerous systems in the data ecosystem:
 - **Cloud Storage**: S3, GCS, Azure Blob Storage for state backends and checkpoints (modern deployments); HDFS for on-premises
 - **Databases**: Elasticsearch, Cassandra, PostgreSQL, MySQL via JDBC for sinks
 - **Messaging**: Amazon Kinesis, Apache Pulsar, RabbitMQ as sources/sinks
-- **Data Formats**: Avro, Parquet, ORC, JSON for serialization (see [Avro vs Protobuf vs JSON Schema](avro-vs-protobuf-vs-json-schema.md))
-- **Table Formats**: Apache Iceberg integration for lakehouse architectures (see [Apache Iceberg](apache-iceberg.md))
+- **Data Formats**: Avro, Parquet, ORC, JSON for serialization (see [Avro vs Protobuf vs JSON Schema](https://conduktor.io/glossary/avro-vs-protobuf-vs-json-schema))
+- **Table Formats**: Apache Iceberg integration for lakehouse architectures (see [Apache Iceberg](https://conduktor.io/glossary/apache-iceberg))
 
 ## Flink SQL and Table API
 
@@ -325,7 +325,7 @@ Flink SQL supports:
 - **Temporal tables**: Join streaming data with slowly-changing dimensions
 - **User-defined functions**: Extend SQL with custom logic
 
-For comprehensive coverage, see [Flink SQL and Table API for Stream Processing](flink-sql-and-table-api-for-stream-processing.md).
+For comprehensive coverage, see [Flink SQL and Table API for Stream Processing](https://conduktor.io/glossary/flink-sql-and-table-api-for-stream-processing).
 
 ## Deployment Options
 
@@ -363,7 +363,7 @@ spec:
       cpu: 2
 ```
 
-For production deployments, see [Infrastructure as Code for Kafka Deployments](infrastructure-as-code-for-kafka-deployments.md) for deployment automation patterns.
+For production deployments, see [Infrastructure as Code for Kafka Deployments](https://conduktor.io/glossary/infrastructure-as-code-for-kafka-deployments) for deployment automation patterns.
 
 ### Modern Features (Flink 1.13+)
 
@@ -381,13 +381,13 @@ Calculating metrics, dashboards, and KPIs as events occur. Example: processing 1
 
 ### Event-Driven Applications
 
-Building applications that react to patterns and conditions in data streams. Example: fraud detection systems that analyze transaction patterns and trigger alerts within milliseconds. For architectural patterns, see [Event-Driven Architecture](event-driven-architecture.md) and [Event-Driven Microservices Architecture](event-driven-microservices-architecture.md).
+Building applications that react to patterns and conditions in data streams. Example: fraud detection systems that analyze transaction patterns and trigger alerts within milliseconds. For architectural patterns, see [Event-Driven Architecture](https://conduktor.io/glossary/event-driven-architecture) and [Event-Driven Microservices Architecture](https://conduktor.io/glossary/event-driven-microservices-architecture).
 
 ### Data Pipelines and ETL
 
-Continuous ingestion, transformation, and delivery of data streams. Example: enriching clickstream data with user profiles and writing to a data warehouse for analytics (see [Clickstream Analytics with Kafka](clickstream-analytics-with-kafka.md)). Flink is commonly used for:
-- **Change Data Capture (CDC)**: Capturing database changes in real-time (see [Implementing CDC with Debezium](implementing-cdc-with-debezium.md))
-- **Data warehouse loading**: Continuous ETL pipelines (see [CDC for Real-Time Data Warehousing](cdc-for-real-time-data-warehousing.md))
+Continuous ingestion, transformation, and delivery of data streams. Example: enriching clickstream data with user profiles and writing to a data warehouse for analytics (see [Clickstream Analytics with Kafka](https://conduktor.io/glossary/clickstream-analytics-with-kafka)). Flink is commonly used for:
+- **Change Data Capture (CDC)**: Capturing database changes in real-time (see [Implementing CDC with Debezium](https://conduktor.io/glossary/implementing-cdc-with-debezium))
+- **Data warehouse loading**: Continuous ETL pipelines (see [CDC for Real-Time Data Warehousing](https://conduktor.io/glossary/cdc-for-real-time-data-warehousing))
 - **Lakehouse ingestion**: Writing to Apache Iceberg tables with exactly-once guarantees
 
 ### Stream Joins and Enrichment
@@ -408,8 +408,8 @@ Combining multiple streams or joining streams with reference data. Example: join
 - **Advanced operations**: Complex event processing, pattern matching, temporal joins
 
 **Consider alternatives when:**
-- **Simple transformations**: Kafka Streams may be simpler for basic Kafka-to-Kafka processing (see [Introduction to Kafka Streams](introduction-to-kafka-streams.md))
-- **Batch-oriented workloads**: Spark may be better for primarily batch processing with occasional streaming (see [Flink vs Spark Streaming: When to Choose Each](flink-vs-spark-streaming-when-to-choose-each.md))
+- **Simple transformations**: Kafka Streams may be simpler for basic Kafka-to-Kafka processing (see [Introduction to Kafka Streams](https://conduktor.io/glossary/introduction-to-kafka-streams))
+- **Batch-oriented workloads**: Spark may be better for primarily batch processing with occasional streaming (see [Flink vs Spark Streaming: When to Choose Each](https://conduktor.io/glossary/flink-vs-spark-streaming-when-to-choose-each))
 - **SQL-only requirements**: If your team only knows SQL and doesn't need advanced DataStream features, consider lighter SQL engines
 
 ## Common Pitfalls and Best Practices
@@ -434,7 +434,7 @@ Combining multiple streams or joining streams with reference data. Example: join
 - **Pitfall**: Insufficient memory for RocksDB state backend causing disk thrashing
 - **Solution**: Allocate sufficient managed memory; consider HashMapStateBackend for smaller state
 
-For production deployment best practices, see [Kafka Performance Tuning Guide](kafka-performance-tuning-guide.md) and [CI/CD Best Practices for Streaming Applications](cicd-best-practices-for-streaming-applications.md).
+For production deployment best practices, see [Kafka Performance Tuning Guide](https://conduktor.io/glossary/kafka-performance-tuning-guide) and [CI/CD Best Practices for Streaming Applications](https://conduktor.io/glossary/cicd-best-practices-for-streaming-applications).
 
 ## Summary
 

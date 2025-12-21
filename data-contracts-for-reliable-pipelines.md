@@ -33,7 +33,7 @@ Consider an e-commerce platform where the order service publishes events to Kafk
 
 ### Schema Definition
 
-The foundation is a machine-readable schema. For streaming systems, this typically means Avro, Protobuf, or JSON Schema. For a detailed comparison of these formats, see [Avro vs Protobuf vs JSON Schema](avro-vs-protobuf-vs-json-schema.md). These formats support:
+The foundation is a machine-readable schema. For streaming systems, this typically means Avro, Protobuf, or JSON Schema. For a detailed comparison of these formats, see [Avro vs Protobuf vs JSON Schema](https://conduktor.io/glossary/avro-vs-protobuf-vs-json-schema). These formats support:
 
 - Primitive types (string, integer, boolean, etc.)
 - Complex types (nested objects, arrays, maps)
@@ -66,7 +66,7 @@ Beyond structure, contracts specify constraints:
 - `created_at` must be within the last 24 hours (detecting replay issues)
 - Required fields cannot be null
 
-These rules can be validated at write time (producer validation) or read time (consumer validation). For comprehensive coverage of quality dimensions, see [Data Quality Dimensions: Accuracy, Completeness, and Consistency](data-quality-dimensions-accuracy-completeness-and-consistency.md).
+These rules can be validated at write time (producer validation) or read time (consumer validation). For comprehensive coverage of quality dimensions, see [Data Quality Dimensions: Accuracy, Completeness, and Consistency](https://conduktor.io/glossary/data-quality-dimensions-accuracy-completeness-and-consistency).
 
 ### Compatibility Modes
 
@@ -96,7 +96,7 @@ Contracts should specify:
 - Business meaning of fields
 - Known limitations or edge cases
 
-For enterprise-scale governance of data contracts, see [Data Governance Framework: Roles and Responsibilities](data-governance-framework-roles-and-responsibilities.md).
+For enterprise-scale governance of data contracts, see [Data Governance Framework: Roles and Responsibilities](https://conduktor.io/glossary/data-governance-framework-roles-and-responsibilities).
 
 ## Data Contracts in Streaming Pipelines
 
@@ -104,7 +104,7 @@ Streaming systems like Apache Kafka and Apache Flink are prime candidates for da
 
 ### Schema Registry Integration
 
-Schema Registry acts as the contract enforcement layer. For detailed implementation guidance, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md). When a Kafka producer serializes a message:
+Schema Registry acts as the contract enforcement layer. For detailed implementation guidance, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management). When a Kafka producer serializes a message:
 
 1. Producer checks if the schema is registered
 2. If new, Schema Registry validates compatibility with previous versions
@@ -147,7 +147,7 @@ validOrders.getSideOutput(invalidOrders)
     .addSink(new FlinkKafkaProducer<>("orders-dlq", ...));
 ```
 
-This pattern prevents pipeline crashes while preserving invalid data for investigation. For detailed error handling patterns, see [Dead Letter Queues for Error Handling](dead-letter-queues-for-error-handling.md).
+This pattern prevents pipeline crashes while preserving invalid data for investigation. For detailed error handling patterns, see [Dead Letter Queues for Error Handling](https://conduktor.io/glossary/dead-letter-queues-for-error-handling).
 
 ### Multi-Consumer Coordination
 
@@ -182,7 +182,7 @@ Beyond schema formats, modern data contract platforms provide comprehensive cont
 - **Monte Carlo**: Data observability platform with ML-driven anomaly detection for contract violations
 - **Atlan**: Data catalog with contract enforcement and lineage tracking across streaming and batch systems
 
-These tools shift from pure schema validation to comprehensive data quality contracts covering completeness, freshness, distribution, and custom business rules. For practical implementation patterns, see [Building a Data Quality Framework](building-a-data-quality-framework.md).
+These tools shift from pure schema validation to comprehensive data quality contracts covering completeness, freshness, distribution, and custom business rules. For practical implementation patterns, see [Building a Data Quality Framework](https://conduktor.io/glossary/building-a-data-quality-framework).
 
 ### Establish Governance Process
 
@@ -217,7 +217,7 @@ Track metrics on:
 - Quality rule violations
 - Consumer lag spikes (often caused by malformed data)
 
-For comprehensive monitoring approaches, see [What is Data Observability: The Five Pillars](what-is-data-observability-the-five-pillars.md).
+For comprehensive monitoring approaches, see [What is Data Observability: The Five Pillars](https://conduktor.io/glossary/what-is-data-observability-the-five-pillars).
 
 Modern schema management platforms provide visibility into schema usage across Kafka clusters:
 
@@ -251,7 +251,7 @@ These platforms show which consumers use which schema versions, enabling coordin
 **Version everything**: Even if you think a field will never change, version it
 **Test compatibility**: Include schema compatibility tests in your CI pipeline
 **Document semantics, not just structure**: Explain what `order_total_cents` means, don't just specify it's a long
-**Plan for evolution**: Design schemas with optional fields and defaults to enable backward-compatible additions. See [Schema Evolution Best Practices](schema-evolution-best-practices.md) for detailed guidance
+**Plan for evolution**: Design schemas with optional fields and defaults to enable backward-compatible additions. See [Schema Evolution Best Practices](https://conduktor.io/glossary/schema-evolution-best-practices) for detailed guidance
 **Establish clear ownership**: Every schema should have a responsible team
 
 ## Summary

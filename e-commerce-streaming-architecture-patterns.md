@@ -12,7 +12,7 @@ topics:
 
 # E-Commerce Streaming Architecture Patterns
 
-Modern e-commerce platforms face unprecedented demands for real-time responsiveness. Customers expect instant inventory updates, personalized recommendations, and seamless experiences across web, mobile, and physical stores. Traditional batch-oriented architectures struggle to meet these expectations, leading organizations to adopt streaming-first approaches built on [Event-Driven Architecture](event-driven-architecture.md) principles.
+Modern e-commerce platforms face unprecedented demands for real-time responsiveness. Customers expect instant inventory updates, personalized recommendations, and seamless experiences across web, mobile, and physical stores. Traditional batch-oriented architectures struggle to meet these expectations, leading organizations to adopt streaming-first approaches built on [Event-Driven Architecture](https://conduktor.io/glossary/event-driven-architecture) principles.
 
 This article explores the core architecture patterns that enable real-time e-commerce operations, the technologies that power them, and the practical challenges teams face when implementing these systems.
 
@@ -39,7 +39,7 @@ Several proven patterns form the foundation of streaming e-commerce architecture
 
 Event sourcing stores every state change as an immutable event. Rather than updating a database record for an order status, the system appends events like "OrderPlaced," "PaymentConfirmed," "ItemsShipped," and "OrderDelivered."
 
-This pattern provides a complete audit trail and enables temporal queries: "What was the inventory state at 2 PM yesterday?" It also allows rebuilding derived views by replaying events, which proves valuable when introducing new features or fixing bugs. For detailed coverage of implementing event sourcing with Kafka, see [Event Sourcing Patterns with Kafka](event-sourcing-patterns-with-kafka.md).
+This pattern provides a complete audit trail and enables temporal queries: "What was the inventory state at 2 PM yesterday?" It also allows rebuilding derived views by replaying events, which proves valuable when introducing new features or fixing bugs. For detailed coverage of implementing event sourcing with Kafka, see [Event Sourcing Patterns with Kafka](https://conduktor.io/glossary/event-sourcing-patterns-with-kafka).
 
 ### Command Query Responsibility Segregation (CQRS)
 
@@ -60,7 +60,7 @@ When customers search for "blue running shoes," the query reads from Elasticsear
 
 Many e-commerce platforms integrate with existing relational databases. CDC tools capture database changes (inserts, updates, deletes) and publish them as events to a streaming platform like Kafka.
 
-This allows legacy order management or ERP systems to participate in real-time architectures without requiring application rewrites. CDC bridges traditional and modern components, enabling gradual migration strategies. For implementation details, see [Log-Based vs Query-Based CDC Comparison](log-based-vs-query-based-cdc-comparison.md).
+This allows legacy order management or ERP systems to participate in real-time architectures without requiring application rewrites. CDC bridges traditional and modern components, enabling gradual migration strategies. For implementation details, see [Log-Based vs Query-Based CDC Comparison](https://conduktor.io/glossary/log-based-vs-query-based-cdc-comparison).
 
 ## Real-Time Inventory and Order Processing
 
@@ -117,13 +117,13 @@ Kafka topics are divided into partitions for parallelism and scalability. E-comm
 
 For example, all events for order #12345 must be processed in sequence: OrderCreated → PaymentProcessed → InventoryAllocated → OrderShipped. By partitioning on order_id, Kafka guarantees these events land in the same partition, preserving order. However, different orders process independently across partitions, enabling high throughput.
 
-Inventory events often use product_id as the partition key, ensuring all updates for a specific product are processed sequentially while different products update in parallel. For comprehensive guidance on choosing partition keys and strategies, see [Kafka Partitioning Strategies and Best Practices](kafka-partitioning-strategies-and-best-practices.md).
+Inventory events often use product_id as the partition key, ensuring all updates for a specific product are processed sequentially while different products update in parallel. For comprehensive guidance on choosing partition keys and strategies, see [Kafka Partitioning Strategies and Best Practices](https://conduktor.io/glossary/kafka-partitioning-strategies-and-best-practices).
 
 ### Reliable Event Publishing with Transactional Outbox
 
 A critical challenge is ensuring database changes and Kafka events stay synchronized. If an order service writes to its database but fails before publishing the OrderCreated event, the system becomes inconsistent.
 
-The **transactional outbox pattern** solves this by writing events to an outbox table within the same database transaction. A separate process (often using CDC) reads the outbox table and publishes events to Kafka. This guarantees that database state changes and event publishing succeed or fail together, maintaining system-wide consistency. For a comprehensive guide to this pattern, see [Outbox Pattern for Reliable Event Publishing](outbox-pattern-for-reliable-event-publishing.md).
+The **transactional outbox pattern** solves this by writing events to an outbox table within the same database transaction. A separate process (often using CDC) reads the outbox table and publishes events to Kafka. This guarantees that database state changes and event publishing succeed or fail together, maintaining system-wide consistency. For a comprehensive guide to this pattern, see [Outbox Pattern for Reliable Event Publishing](https://conduktor.io/glossary/outbox-pattern-for-reliable-event-publishing).
 
 ### Example: Publishing Order Events with Kafka
 
@@ -184,7 +184,7 @@ A fashion retailer uses Kafka to stream clickstream data to Apache Flink. Flink 
 3. Publishes personalized recommendations to a cache
 4. The web application retrieves and displays these recommendations in milliseconds
 
-This real-time processing increases conversion rates by showing relevant products while customer intent is high. For related use cases, see [Real-Time Fraud Detection with Streaming](real-time-fraud-detection-with-streaming.md) which discusses pattern detection techniques applicable to personalization engines.
+This real-time processing increases conversion rates by showing relevant products while customer intent is high. For related use cases, see [Real-Time Fraud Detection with Streaming](https://conduktor.io/glossary/real-time-fraud-detection-with-streaming) which discusses pattern detection techniques applicable to personalization engines.
 
 ## Data Streaming Technologies in E-Commerce
 
@@ -193,14 +193,14 @@ Apache Kafka has become the de facto standard for e-commerce event streaming. It
 Key Kafka capabilities for e-commerce:
 - **Durability:** Events persist to disk, enabling replay for recovery or new consumer applications
 - **Scalability:** Horizontal scaling supports growing transaction volumes
-- **Exactly-once semantics:** Critical for financial transactions and inventory operations. This guarantees that even with failures or retries, an order payment is processed exactly once—preventing duplicate charges or lost transactions. Kafka achieves this through idempotent producers and transactional writes. For a deep dive, see [Exactly-Once Semantics in Kafka](exactly-once-semantics-in-kafka.md).
-- **Consumer groups:** Multiple applications process the same events independently. For details on consumer group behavior, see [Kafka Consumer Groups Explained](kafka-consumer-groups-explained.md).
+- **Exactly-once semantics:** Critical for financial transactions and inventory operations. This guarantees that even with failures or retries, an order payment is processed exactly once—preventing duplicate charges or lost transactions. Kafka achieves this through idempotent producers and transactional writes. For a deep dive, see [Exactly-Once Semantics in Kafka](https://conduktor.io/glossary/exactly-once-semantics-in-kafka).
+- **Consumer groups:** Multiple applications process the same events independently. For details on consumer group behavior, see [Kafka Consumer Groups Explained](https://conduktor.io/glossary/kafka-consumer-groups-explained).
 
 Stream processing frameworks complement Kafka:
 
-**Apache Flink** (version 1.18+) excels at stateful stream processing with low latency. E-commerce use cases include real-time analytics, complex event processing for fraud detection, and maintaining materialized views. Flink's SQL API enables business analysts to query streaming data using familiar SQL syntax. For implementation guidance, see [Flink DataStream API: Building Streaming Applications](flink-datastream-api-building-streaming-applications.md) and [Flink SQL and Table API for Stream Processing](flink-sql-and-table-api-for-stream-processing.md).
+**Apache Flink** (version 1.18+) excels at stateful stream processing with low latency. E-commerce use cases include real-time analytics, complex event processing for fraud detection, and maintaining materialized views. Flink's SQL API enables business analysts to query streaming data using familiar SQL syntax. For implementation guidance, see [Flink DataStream API: Building Streaming Applications](https://conduktor.io/glossary/flink-datastream-api-building-streaming-applications) and [Flink SQL and Table API for Stream Processing](https://conduktor.io/glossary/flink-sql-and-table-api-for-stream-processing).
 
-**Kafka Streams** provides a lightweight library for building streaming applications. Its simplicity makes it attractive for teams already invested in the Kafka ecosystem. Use it for straightforward transformations and aggregations where low latency matters more than complex stateful logic. For an introduction, see [Introduction to Kafka Streams](introduction-to-kafka-streams.md).
+**Kafka Streams** provides a lightweight library for building streaming applications. Its simplicity makes it attractive for teams already invested in the Kafka ecosystem. Use it for straightforward transformations and aggregations where low latency matters more than complex stateful logic. For an introduction, see [Introduction to Kafka Streams](https://conduktor.io/glossary/introduction-to-kafka-streams).
 
 **Apache Spark Structured Streaming** bridges batch and streaming paradigms, useful for organizations with existing Spark expertise. Its micro-batching approach trades some latency for throughput efficiency.
 
@@ -214,7 +214,7 @@ Operating streaming architectures at e-commerce scale introduces significant ope
 
 Product catalogs change frequently—new attributes, seasonal categories, promotional fields. Each change potentially impacts dozens of microservices consuming product events. Managing schema evolution without breaking consumers requires discipline and tooling.
 
-Schema registries enforce compatibility rules, preventing producers from publishing incompatible changes. Teams must decide between forward compatibility (new consumers can read old data), backward compatibility (old consumers can read new data), or full compatibility (both directions work) based on their deployment practices. For detailed coverage of compatibility modes and best practices, see [Schema Evolution Best Practices](schema-evolution-best-practices.md) and [Schema Registry and Schema Management](schema-registry-and-schema-management.md).
+Schema registries enforce compatibility rules, preventing producers from publishing incompatible changes. Teams must decide between forward compatibility (new consumers can read old data), backward compatibility (old consumers can read new data), or full compatibility (both directions work) based on their deployment practices. For detailed coverage of compatibility modes and best practices, see [Schema Evolution Best Practices](https://conduktor.io/glossary/schema-evolution-best-practices) and [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management).
 
 Platforms like **Conduktor** provide comprehensive governance capabilities including schema visualization, impact analysis, and data lineage tracking. These tools help teams understand how schema changes ripple through the ecosystem before deployment. This governance becomes critical when dozens of teams independently develop services consuming shared event streams.
 
@@ -235,12 +235,12 @@ Distributed tracing (using OpenTelemetry) helps diagnose issues across microserv
 ### Compliance and Data Privacy
 
 E-commerce systems process sensitive customer data subject to regulations like GDPR and CCPA. Streaming architectures must implement:
-- **Data masking:** Removing or encrypting PII in events. See [PII Detection and Handling in Event Streams](pii-detection-and-handling-in-event-streams.md) for practical techniques.
+- **Data masking:** Removing or encrypting PII in events. See [PII Detection and Handling in Event Streams](https://conduktor.io/glossary/pii-detection-and-handling-in-event-streams) for practical techniques.
 - **Retention policies:** Automatically purging events after specified periods
-- **Access controls:** Ensuring only authorized services consume sensitive topics. For detailed coverage, see [Kafka ACLs and Authorization Patterns](kafka-acls-and-authorization-patterns.md).
+- **Access controls:** Ensuring only authorized services consume sensitive topics. For detailed coverage, see [Kafka ACLs and Authorization Patterns](https://conduktor.io/glossary/kafka-acls-and-authorization-patterns).
 - **Audit trails:** Tracking who accessed what data and when
 
-These requirements demand robust governance frameworks with data masking and access control features to enforce these policies consistently across streaming infrastructure. For broader compliance considerations, see [GDPR Compliance for Data Teams](gdpr-compliance-for-data-teams.md).
+These requirements demand robust governance frameworks with data masking and access control features to enforce these policies consistently across streaming infrastructure. For broader compliance considerations, see [GDPR Compliance for Data Teams](https://conduktor.io/glossary/gdpr-compliance-for-data-teams).
 
 ## Summary
 

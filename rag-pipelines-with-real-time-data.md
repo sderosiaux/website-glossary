@@ -267,20 +267,20 @@ This example demonstrates key patterns: consuming from Kafka with manual offset 
 
 The pipeline begins with capturing changes from source systems. Common patterns include:
 
-- **Database CDC (Change Data Capture)**: Tools like Debezium capture row-level changes from databases (INSERT, UPDATE, DELETE) and publish them as events. CDC monitors database transaction logs to detect changes without impacting application performance. For detailed implementation guidance, see [Implementing CDC with Debezium](implementing-cdc-with-debezium.md) and [What is Change Data Capture (CDC) Fundamentals](what-is-change-data-capture-cdc-fundamentals.md).
+- **Database CDC (Change Data Capture)**: Tools like Debezium capture row-level changes from databases (INSERT, UPDATE, DELETE) and publish them as events. CDC monitors database transaction logs to detect changes without impacting application performance. For detailed implementation guidance, see [Implementing CDC with Debezium](https://conduktor.io/glossary/implementing-cdc-with-debezium) and [What is Change Data Capture (CDC) Fundamentals](https://conduktor.io/glossary/what-is-change-data-capture-cdc-fundamentals).
 - **Application events**: Services emit events when business actions occur (new ticket created, document updated, transaction completed)
 - **File system watchers**: Monitor directories for new or modified files
 - **API webhooks**: External systems push updates via HTTP callbacks
 
 ### Streaming Platform
 
-A streaming platform like Apache Kafka (4.0+ with KRaft mode) acts as the central nervous system, organizing events by data type. Events are retained for configurable periods, enabling replay and recovery. Multiple consumers can process the same events independently, and partitioning enables parallel processing for high throughput. Modern Kafka deployments using KRaft (Kafka Raft) eliminate ZooKeeper dependencies, simplifying operations and improving metadata scalability for real-time pipelines. For foundational understanding, see [Apache Kafka](apache-kafka.md) and [Understanding KRaft Mode in Kafka](understanding-kraft-mode-in-kafka.md).
+A streaming platform like Apache Kafka (4.0+ with KRaft mode) acts as the central nervous system, organizing events by data type. Events are retained for configurable periods, enabling replay and recovery. Multiple consumers can process the same events independently, and partitioning enables parallel processing for high throughput. Modern Kafka deployments using KRaft (Kafka Raft) eliminate ZooKeeper dependencies, simplifying operations and improving metadata scalability for real-time pipelines. For foundational understanding, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka) and [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka).
 
 ### Transformation and Enrichment
 
 Raw change events often need processing before embedding generation: data cleaning (remove HTML tags, standardize formats, filter sensitive fields), enrichment (join with reference data), chunking (split large documents), and format conversion (transform to text suitable for semantic search).
 
-Apache Flink or Kafka Streams can perform these transformations in real-time, maintaining exactly-once processing semantics (guaranteeing each event is processed exactly once, even during failures) to ensure data consistency. For implementation details, see [What is Apache Flink: Stateful Stream Processing](what-is-apache-flink-stateful-stream-processing.md) and [Kafka Streams vs Apache Flink](kafka-streams-vs-apache-flink.md).
+Apache Flink or Kafka Streams can perform these transformations in real-time, maintaining exactly-once processing semantics (guaranteeing each event is processed exactly once, even during failures) to ensure data consistency. For implementation details, see [What is Apache Flink: Stateful Stream Processing](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing) and [Kafka Streams vs Apache Flink](https://conduktor.io/glossary/kafka-streams-vs-apache-flink).
 
 ### Embedding Generation
 
@@ -307,7 +307,7 @@ Finally, embeddings and metadata are written to a vector database. Modern vector
 - **Milvus**: Distributed vector database designed for billion-scale deployments
 - **Weaviate**: Vector database with built-in vectorization and hybrid search capabilities
 
-For comprehensive guidance on vector databases in streaming architectures, see [Vector Databases and Streaming Architectures](vector-databases-and-streaming-architectures.md) and [Vector Embeddings in Streaming](vector-embeddings-in-streaming.md).
+For comprehensive guidance on vector databases in streaming architectures, see [Vector Databases and Streaming Architectures](https://conduktor.io/glossary/vector-databases-and-streaming-architectures) and [Vector Embeddings in Streaming](https://conduktor.io/glossary/vector-embeddings-in-streaming).
 
 **Key Operations:**
 - **Upsert operations**: Handle both new documents and updates to existing ones atomically, using document IDs as keys
@@ -327,7 +327,7 @@ Data streaming platforms are essential to real-time RAG for several reasons:
 
 **Ordering and consistency**: Kafka maintains message ordering within partitions, ensuring updates to the same document are processed sequentially. This prevents race conditions where an old version overwrites a newer one in the vector database.
 
-**Schema evolution**: As data structures change over time, schema registries enable backward and forward compatibility, allowing producers and consumers to evolve at different rates. Apache Kafka's Schema Registry manages schemas centrally, ensuring data consistency across the pipeline. For schema management best practices, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md) and [Schema Evolution Best Practices](schema-evolution-best-practices.md).
+**Schema evolution**: As data structures change over time, schema registries enable backward and forward compatibility, allowing producers and consumers to evolve at different rates. Apache Kafka's Schema Registry manages schemas centrally, ensuring data consistency across the pipeline. For schema management best practices, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) and [Schema Evolution Best Practices](https://conduktor.io/glossary/schema-evolution-best-practices).
 
 Platforms like Conduktor provide comprehensive governance and monitoring for these streaming pipelines, offering visibility into data quality issues before they affect the RAG system:
 
@@ -362,7 +362,7 @@ Operating a real-time RAG pipeline introduces operational challenges:
 
 **Vector database consistency**: Ensure that document deletes propagate to the vector database. Orphaned embeddings can pollute search results.
 
-**Monitoring and alerting**: Track metrics like embedding generation lag, vector database write throughput, and search relevance. Anomalies might indicate pipeline degradation or data quality issues. For monitoring best practices, see [Consumer Lag Monitoring](consumer-lag-monitoring.md) and [What is Data Observability: The Five Pillars](what-is-data-observability-the-five-pillars.md).
+**Monitoring and alerting**: Track metrics like embedding generation lag, vector database write throughput, and search relevance. Anomalies might indicate pipeline degradation or data quality issues. For monitoring best practices, see [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring) and [What is Data Observability: The Five Pillars](https://conduktor.io/glossary/what-is-data-observability-the-five-pillars).
 
 ## Practical Use Cases
 
@@ -374,7 +374,7 @@ Real-time RAG pipelines deliver value in scenarios where information freshness i
 
 **Monitoring and Incident Response**: System logs, metrics, and alerts flow into a RAG system that helps engineers diagnose issues. When an outage occurs, the knowledge base includes recent deployments, configuration changes, and similar past incidents.
 
-For related ML and streaming use cases, see [Real-Time ML Inference with Streaming Data](real-time-ml-inference-with-streaming-data.md) and [Real-Time ML Pipelines](real-time-ml-pipelines.md).
+For related ML and streaming use cases, see [Real-Time ML Inference with Streaming Data](https://conduktor.io/glossary/real-time-ml-inference-with-streaming-data) and [Real-Time ML Pipelines](https://conduktor.io/glossary/real-time-ml-pipelines).
 
 ## Summary
 

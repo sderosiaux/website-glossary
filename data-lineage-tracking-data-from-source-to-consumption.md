@@ -23,7 +23,7 @@ Think of data lineage as a genealogy tree for your data. Just as a family tree s
 
 ### Regulatory Compliance
 
-With regulations like GDPR, CCPA, and industry-specific mandates, organizations must demonstrate where personal or sensitive data originates, how it's processed, and who accesses it. Data lineage provides the audit trail needed to prove compliance and respond to data subject requests. For comprehensive guidance on governance frameworks, see [Data Governance Framework: Roles and Responsibilities](data-governance-framework-roles-and-responsibilities.md).
+With regulations like GDPR, CCPA, and industry-specific mandates, organizations must demonstrate where personal or sensitive data originates, how it's processed, and who accesses it. Data lineage provides the audit trail needed to prove compliance and respond to data subject requests. For comprehensive guidance on governance frameworks, see [Data Governance Framework: Roles and Responsibilities](https://conduktor.io/glossary/data-governance-framework-roles-and-responsibilities).
 
 ### Impact Analysis
 
@@ -31,11 +31,11 @@ Before making changes to a data source or transformation logic, you need to unde
 
 ### Root Cause Analysis
 
-When data quality issues arise—incorrect metrics in a report, anomalous ML predictions—data lineage helps you trace the problem back to its source. You can navigate upstream through transformations to identify where corruption, logic errors, or unexpected data entered the pipeline. For strategies on managing quality issues, see [Data Quality Incidents](data-quality-incidents.md) and [Data Quality vs Data Observability: Key Differences](data-quality-vs-data-observability-key-differences.md).
+When data quality issues arise—incorrect metrics in a report, anomalous ML predictions—data lineage helps you trace the problem back to its source. You can navigate upstream through transformations to identify where corruption, logic errors, or unexpected data entered the pipeline. For strategies on managing quality issues, see [Data Quality Incidents](https://conduktor.io/glossary/data-quality-incidents) and [Data Quality vs Data Observability: Key Differences](https://conduktor.io/glossary/data-quality-vs-data-observability-key-differences).
 
 ### Data Discovery and Understanding
 
-New team members or data consumers need to understand what data exists and where it comes from. Data lineage serves as living documentation, helping users discover datasets and understand their trustworthiness based on source quality and transformation complexity. For more on enabling discovery, see [What is a Data Catalog? Modern Data Discovery](what-is-a-data-catalog-modern-data-discovery.md).
+New team members or data consumers need to understand what data exists and where it comes from. Data lineage serves as living documentation, helping users discover datasets and understand their trustworthiness based on source quality and transformation complexity. For more on enabling discovery, see [What is a Data Catalog? Modern Data Discovery](https://conduktor.io/glossary/what-is-a-data-catalog-modern-data-discovery).
 
 ## Components of Effective Data Lineage
 
@@ -65,7 +65,7 @@ In streaming architectures built on Apache Kafka, data flows through topics, is 
 
 ### Schema Evolution
 
-Streaming systems frequently handle schema evolution, where message structures change over time. Lineage systems must track schema versions from registries and map how downstream consumers adapt to these changes. For detailed coverage of managing schema changes, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md) and [Schema Evolution Best Practices](schema-evolution-best-practices.md).
+Streaming systems frequently handle schema evolution, where message structures change over time. Lineage systems must track schema versions from registries and map how downstream consumers adapt to these changes. For detailed coverage of managing schema changes, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) and [Schema Evolution Best Practices](https://conduktor.io/glossary/schema-evolution-best-practices).
 
 ### Complex Topology
 
@@ -223,7 +223,7 @@ Manual lineage documentation is dead on arrival. Invest in automation and integr
 
 ### Include Business Context
 
-Technical lineage alone isn't sufficient. Enrich your lineage with business glossary terms, data ownership information, and quality metrics. When a business analyst looks at lineage, they should understand not just the technical path but also what the data means. For guidance on building business context, see [Building a Business Glossary for Data Governance](building-a-business-glossary-for-data-governance.md) and [Metadata Management: Technical vs Business Metadata](metadata-management-technical-vs-business-metadata.md).
+Technical lineage alone isn't sufficient. Enrich your lineage with business glossary terms, data ownership information, and quality metrics. When a business analyst looks at lineage, they should understand not just the technical path but also what the data means. For guidance on building business context, see [Building a Business Glossary for Data Governance](https://conduktor.io/glossary/building-a-business-glossary-for-data-governance) and [Metadata Management: Technical vs Business Metadata](https://conduktor.io/glossary/metadata-management-technical-vs-business-metadata).
 
 ### Keep It Fresh
 

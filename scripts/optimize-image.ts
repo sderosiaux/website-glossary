@@ -10,7 +10,7 @@ interface OptimizeOptions {
 }
 
 const DEFAULT_OPTIONS: OptimizeOptions = {
-  maxWidth: 800,
+  maxWidth: 1600,
   webpQuality: 85,
   pngCompressionLevel: 9,
 };

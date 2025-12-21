@@ -13,7 +13,7 @@ topics:
 
 Change Data Capture (CDC) has become a foundational pattern for modern data architectures, enabling real-time data streaming from operational databases to downstream systems. Debezium, an open-source distributed platform built on Apache Kafka Connect, provides a robust solution for implementing CDC across various database systems.
 
-This guide walks through the practical aspects of implementing CDC with Debezium, from understanding the underlying mechanisms to configuring connectors and integrating with the broader data streaming ecosystem. For foundational CDC concepts and architecture patterns, see [What is Change Data Capture (CDC) Fundamentals](what-is-change-data-capture-cdc-fundamentals.md).
+This guide walks through the practical aspects of implementing CDC with Debezium, from understanding the underlying mechanisms to configuring connectors and integrating with the broader data streaming ecosystem. For foundational CDC concepts and architecture patterns, see [What is Change Data Capture (CDC) Fundamentals](https://conduktor.io/glossary/what-is-change-data-capture-cdc-fundamentals).
 
 ## Understanding Debezium's CDC Approach
 
@@ -30,7 +30,7 @@ The key benefit of this architecture is that Debezium acts as a passive observer
 
 ## Connector Architecture and Components
 
-A Debezium deployment consists of several components working together. At the core is the Kafka Connect framework, which provides the runtime environment for Debezium connectors. Each connector is database-specific (MySQL, PostgreSQL, MongoDB, SQL Server, Oracle, etc.) and understands how to parse that database's transaction log format. For comprehensive coverage of Kafka Connect architecture and patterns, see [Kafka Connect: Building Data Integration Pipelines](kafka-connect-building-data-integration-pipelines.md).
+A Debezium deployment consists of several components working together. At the core is the Kafka Connect framework, which provides the runtime environment for Debezium connectors. Each connector is database-specific (MySQL, PostgreSQL, MongoDB, SQL Server, Oracle, etc.) and understands how to parse that database's transaction log format. For comprehensive coverage of Kafka Connect architecture and patterns, see [Kafka Connect: Building Data Integration Pipelines](https://conduktor.io/glossary/kafka-connect-building-data-integration-pipelines).
 
 ![implementing-cdc-with-debezium diagram 1](images/diagrams/implementing-cdc-with-debezium-0.webp)
 
@@ -257,7 +257,7 @@ The simplified output looks like:
 }
 ```
 
-For more on transformation patterns, see [Kafka Connect Single Message Transforms](kafka-connect-single-message-transforms.md).
+For more on transformation patterns, see [Kafka Connect Single Message Transforms](https://conduktor.io/glossary/kafka-connect-single-message-transforms).
 
 **Handling Schema Changes**: Debezium tracks schema evolution through a schema history topic. This ensures connectors can correctly interpret older log entries even after table schema changes. Configure appropriate retention policies for this topic to prevent data loss.
 
@@ -302,7 +302,7 @@ When deploying Debezium with KRaft-based Kafka clusters:
 
 For production KRaft deployments, ensure these internal topics have appropriate replication factors (typically 3) and configure partition counts based on your connector scale. Higher partition counts for offset topics improve parallelism when running many connectors.
 
-**Performance Benefits**: KRaft mode reduces metadata latency from ~50ms to ~5ms in typical deployments, resulting in faster connector task rebalancing and improved recovery times. For detailed KRaft architecture, see [Understanding KRaft Mode in Kafka](understanding-kraft-mode-in-kafka.md).
+**Performance Benefits**: KRaft mode reduces metadata latency from ~50ms to ~5ms in typical deployments, resulting in faster connector task rebalancing and improved recovery times. For detailed KRaft architecture, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka).
 
 ## Cloud-Native Deployment Patterns
 
@@ -391,7 +391,7 @@ spec:
 - **Secret Management**: Integrate with Kubernetes secrets for database credentials
 - **Health Monitoring**: Leverage Kubernetes liveness/readiness probes for automatic recovery
 
-For comprehensive Kubernetes deployment patterns, see [Running Kafka on Kubernetes](running-kafka-on-kubernetes.md) and [Strimzi Kafka Operator](strimzi-kafka-operator-for-kubernetes.md).
+For comprehensive Kubernetes deployment patterns, see [Running Kafka on Kubernetes](https://conduktor.io/glossary/running-kafka-on-kubernetes) and [Strimzi Kafka Operator](https://conduktor.io/glossary/strimzi-kafka-operator-for-kubernetes).
 
 ### Debezium Server (Standalone Mode)
 
@@ -447,11 +447,11 @@ Debezium Server includes a health endpoint at `/q/health` for monitoring and a P
 
 Debezium connectors produce events to Kafka topics, making them immediately available to the broader Kafka ecosystem. This integration enables several powerful patterns:
 
-**Stream Processing**: Use Kafka Streams, ksqlDB, or Apache Flink to process CDC events in real-time. For example, joining order changes with customer data to build enriched materialized views. Apache Flink has become the industry standard for stateful stream processing in 2025, offering superior state management and exactly-once guarantees. For a detailed comparison, see [Kafka Streams vs Apache Flink](kafka-streams-vs-apache-flink.md).
+**Stream Processing**: Use Kafka Streams, ksqlDB, or Apache Flink to process CDC events in real-time. For example, joining order changes with customer data to build enriched materialized views. Apache Flink has become the industry standard for stateful stream processing in 2025, offering superior state management and exactly-once guarantees. For a detailed comparison, see [Kafka Streams vs Apache Flink](https://conduktor.io/glossary/kafka-streams-vs-apache-flink).
 
-**Data Lake Ingestion**: Connect Debezium to sink connectors that write to object storage or data warehouses, creating an automated pipeline from operational databases to analytical systems. For lakehouse integration, see [Streaming to Lakehouse Tables](streaming-to-lakehouse-tables.md) and [Streaming Ingestion to Lakehouse](streaming-ingestion-to-lakehouse.md).
+**Data Lake Ingestion**: Connect Debezium to sink connectors that write to object storage or data warehouses, creating an automated pipeline from operational databases to analytical systems. For lakehouse integration, see [Streaming to Lakehouse Tables](https://conduktor.io/glossary/streaming-to-lakehouse-tables) and [Streaming Ingestion to Lakehouse](https://conduktor.io/glossary/streaming-ingestion-to-lakehouse).
 
-**Event-Driven Architecture**: CDC events can trigger downstream microservices. An order status change captured by Debezium might trigger fulfillment systems, notification services, or analytics pipelines. For related patterns, see [Outbox Pattern for Reliable Event Publishing](outbox-pattern-for-reliable-event-publishing.md) and [Saga Pattern for Distributed Transactions](saga-pattern-for-distributed-transactions.md).
+**Event-Driven Architecture**: CDC events can trigger downstream microservices. An order status change captured by Debezium might trigger fulfillment systems, notification services, or analytics pipelines. For related patterns, see [Outbox Pattern for Reliable Event Publishing](https://conduktor.io/glossary/outbox-pattern-for-reliable-event-publishing) and [Saga Pattern for Distributed Transactions](https://conduktor.io/glossary/saga-pattern-for-distributed-transactions).
 
 **Schema Management**: Integrate Debezium with Schema Registry to enforce schema evolution rules and maintain a centralized schema catalog. Debezium 2.x+ supports multiple serialization formats:
 
@@ -490,7 +490,7 @@ Debezium connectors produce events to Kafka topics, making them immediately avai
 }
 ```
 
-Schema Registry ensures backward and forward compatibility as database schemas evolve, preventing breaking changes from impacting downstream consumers. For comprehensive schema management strategies, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md) and [Schema Evolution Best Practices](schema-evolution-best-practices.md).
+Schema Registry ensures backward and forward compatibility as database schemas evolve, preventing breaking changes from impacting downstream consumers. For comprehensive schema management strategies, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) and [Schema Evolution Best Practices](https://conduktor.io/glossary/schema-evolution-best-practices).
 
 **Monitoring and Governance**: Governance platforms provide visibility into Debezium topics, helping teams monitor data quality, track schema evolution, and govern access to sensitive CDC streams. Conduktor offers comprehensive data governance capabilities including data masking for CDC pipelines containing PII, lineage tracking, and quality monitoring - all without modifying connector configurations. This allows teams to enforce privacy policies and compliance requirements centrally.
 
@@ -502,7 +502,7 @@ Schema Registry ensures backward and forward compatibility as database schemas e
 
 **Cache Invalidation**: Propagate database changes to distributed caches in real-time, ensuring cache consistency without complex invalidation logic.
 
-**Microservices Data Synchronization**: Share data between microservices while maintaining service autonomy. Each service consumes relevant CDC topics to maintain its own local copy of data owned by other services. For architectural considerations, see [Apache Kafka](apache-kafka.md) for foundational concepts and [Kafka Consumer Groups Explained](kafka-consumer-groups-explained.md) for consumption patterns.
+**Microservices Data Synchronization**: Share data between microservices while maintaining service autonomy. Each service consumes relevant CDC topics to maintain its own local copy of data owned by other services. For architectural considerations, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka) for foundational concepts and [Kafka Consumer Groups Explained](https://conduktor.io/glossary/kafka-consumer-groups-explained) for consumption patterns.
 
 ## Monitoring and Troubleshooting
 
@@ -581,7 +581,7 @@ Common causes: database connection issues, insufficient permissions, or schema c
 - Health checks via Kafka Connect REST API
 - Alerting on connector state changes
 
-For comprehensive monitoring strategies, see [Kafka Cluster Monitoring and Metrics](kafka-cluster-monitoring-and-metrics.md).
+For comprehensive monitoring strategies, see [Kafka Cluster Monitoring and Metrics](https://conduktor.io/glossary/kafka-cluster-monitoring-and-metrics).
 
 ## Security Configuration
 
@@ -685,7 +685,7 @@ For sensitive data in CDC streams, implement field-level transformations:
 
 For more sophisticated data governance including dynamic masking, tokenization, and role-based access, Conduktor provides enterprise-grade governance capabilities that integrate seamlessly with Debezium CDC pipelines.
 
-For comprehensive security patterns, see [Kafka Security Best Practices](kafka-security-best-practices.md), [Kafka Authentication (SASL, SSL, OAuth)](kafka-authentication-sasl-ssl-oauth.md), and [mTLS for Kafka](mtls-for-kafka.md).
+For comprehensive security patterns, see [Kafka Security Best Practices](https://conduktor.io/glossary/kafka-security-best-practices), [Kafka Authentication (SASL, SSL, OAuth)](https://conduktor.io/glossary/kafka-authentication-sasl-ssl-oauth), and [mTLS for Kafka](https://conduktor.io/glossary/mtls-for-kafka).
 
 ## Summary
 
@@ -697,7 +697,7 @@ The key to successful implementation lies in understanding your specific require
 
 Start with a single table connector in a non-production environment to understand the event format and behavior. Gradually expand to more tables, implement monitoring, and integrate with downstream systems. This incremental approach reduces risk while building team expertise with CDC patterns.
 
-For broader streaming architecture context, see [Streaming Data Pipeline](streaming-data-pipeline.md), [Real-Time Data Streaming](what-is-real-time-data-streaming.md), and [Streaming ETL vs Traditional ETL](streaming-etl-vs-traditional-etl.md).
+For broader streaming architecture context, see [Streaming Data Pipeline](https://conduktor.io/glossary/streaming-data-pipeline), [Real-Time Data Streaming](https://conduktor.io/glossary/what-is-real-time-data-streaming), and [Streaming ETL vs Traditional ETL](https://conduktor.io/glossary/streaming-etl-vs-traditional-etl).
 
 ## Sources and References
 

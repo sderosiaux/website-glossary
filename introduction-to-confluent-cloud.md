@@ -15,7 +15,7 @@ As organizations adopt real-time data architectures, managing Apache Kafka infra
 
 This article explores what Confluent Cloud is, how it works, and when organizations should consider using it versus self-managed Apache Kafka with platforms like Conduktor for governance and monitoring.
 
-For foundational Kafka concepts, see [Apache Kafka](apache-kafka.md).
+For foundational Kafka concepts, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
 
 ## What is Confluent Cloud?
 
@@ -23,7 +23,7 @@ Confluent Cloud is a fully managed Apache Kafka service developed by Confluent, 
 
 Unlike self-hosted Kafka deployments, Confluent Cloud removes the operational burden of managing brokers, maintaining clusters, scaling infrastructure, and handling upgrades. The platform handles these tasks automatically while providing guaranteed uptime SLAs (Service Level Agreements - commitments to availability percentages).
 
-As of 2025, Confluent Cloud runs on Apache Kafka 4.0+ using KRaft mode (Kafka Raft metadata mode), which eliminates the ZooKeeper dependency that existed in earlier Kafka versions. This architecture provides faster metadata operations, improved scalability, and simpler cluster management. For more on this transition, see [Understanding KRaft Mode in Kafka](understanding-kraft-mode-in-kafka.md).
+As of 2025, Confluent Cloud runs on Apache Kafka 4.0+ using KRaft mode (Kafka Raft metadata mode), which eliminates the ZooKeeper dependency that existed in earlier Kafka versions. This architecture provides faster metadata operations, improved scalability, and simpler cluster management. For more on this transition, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka).
 
 The service goes beyond basic Kafka functionality by including additional components like Schema Registry, managed Apache Flink and ksqlDB for stream processing, and a rich ecosystem of pre-built connectors for data integration.
 
@@ -41,7 +41,7 @@ Confluent Cloud provides several key capabilities that distinguish it from self-
 
 **Stream Governance (2025)**: Confluent Cloud includes advanced governance capabilities such as Stream Lineage for tracking data flows, data quality rules enforcement, and business metadata management. These features provide visibility into how data moves through streaming pipelines.
 
-**Enterprise Security**: Built-in encryption at rest and in transit, role-based access control (RBAC - Role-Based Access Control), audit logging, and compliance with standards like SOC 2, ISO 27001, and HIPAA. Private networking options include AWS PrivateLink, Azure Private Link, and GCP Private Service Connect for secure connectivity without exposing traffic to the public internet. For detailed security practices, see [Kafka Security Best Practices](kafka-security-best-practices.md).
+**Enterprise Security**: Built-in encryption at rest and in transit, role-based access control (RBAC - Role-Based Access Control), audit logging, and compliance with standards like SOC 2, ISO 27001, and HIPAA. Private networking options include AWS PrivateLink, Azure Private Link, and GCP Private Service Connect for secure connectivity without exposing traffic to the public internet. For detailed security practices, see [Kafka Security Best Practices](https://conduktor.io/glossary/kafka-security-best-practices).
 
 ## Architecture and Deployment Models
 
@@ -55,21 +55,21 @@ Confluent Cloud offers four main cluster types designed for different use cases 
 
 **Serverless Clusters (2025)** provide on-demand Kafka capacity that automatically scales based on actual usage without pre-provisioning resources. Organizations pay only for data transferred and stored, making serverless ideal for variable workloads, development environments, and proof-of-concepts where predictable costs matter less than operational simplicity.
 
-For example, a financial services company might use a Dedicated cluster for transaction processing in their primary region, with Cluster Linking replicating data to Standard clusters in other regions for analytics and disaster recovery. For infrastructure planning, see [Kafka Capacity Planning](kafka-capacity-planning.md).
+For example, a financial services company might use a Dedicated cluster for transaction processing in their primary region, with Cluster Linking replicating data to Standard clusters in other regions for analytics and disaster recovery. For infrastructure planning, see [Kafka Capacity Planning](https://conduktor.io/glossary/kafka-capacity-planning).
 
 ## Confluent Cloud in the Data Streaming Ecosystem
 
 Confluent Cloud serves as a central hub in modern data streaming architectures, integrating with various technologies and platforms.
 
-**Apache Kafka Core**: At its foundation, Confluent Cloud provides fully compatible Apache Kafka APIs. Applications using standard Kafka clients can connect without modification, ensuring portability and avoiding vendor lock-in. For core concepts, see [Kafka Topics, Partitions, Brokers: Core Architecture](kafka-topics-partitions-brokers-core-architecture.md).
+**Apache Kafka Core**: At its foundation, Confluent Cloud provides fully compatible Apache Kafka APIs. Applications using standard Kafka clients can connect without modification, ensuring portability and avoiding vendor lock-in. For core concepts, see [Kafka Topics, Partitions, Brokers: Core Architecture](https://conduktor.io/glossary/kafka-topics-partitions-brokers-core-architecture).
 
-**Stream Processing**: The platform includes both managed Apache Flink (as of 2025) and ksqlDB, enabling SQL-based stream processing directly within Confluent Cloud. Teams can also connect external stream processing engines or Kafka Streams applications running in their own infrastructure. For Flink details, see [What is Apache Flink: Stateful Stream Processing](what-is-apache-flink-stateful-stream-processing.md) and [ksqlDB for Real-Time Data Processing](ksqldb-for-real-time-data-processing.md).
+**Stream Processing**: The platform includes both managed Apache Flink (as of 2025) and ksqlDB, enabling SQL-based stream processing directly within Confluent Cloud. Teams can also connect external stream processing engines or Kafka Streams applications running in their own infrastructure. For Flink details, see [What is Apache Flink: Stateful Stream Processing](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing) and [ksqlDB for Real-Time Data Processing](https://conduktor.io/glossary/ksqldb-for-real-time-data-processing).
 
-**Data Integration**: Kafka Connect provides pre-built connectors for databases, data warehouses, cloud storage, and SaaS applications. This enables building real-time data pipelines without custom integration code. For detailed connector patterns, see [Kafka Connect: Building Data Integration Pipelines](kafka-connect-building-data-integration-pipelines.md).
+**Data Integration**: Kafka Connect provides pre-built connectors for databases, data warehouses, cloud storage, and SaaS applications. This enables building real-time data pipelines without custom integration code. For detailed connector patterns, see [Kafka Connect: Building Data Integration Pipelines](https://conduktor.io/glossary/kafka-connect-building-data-integration-pipelines).
 
-**Schema Management**: Schema Registry provides centralized schema storage and evolution management. It ensures data compatibility across producers and consumers, preventing breaking changes in streaming pipelines. See [Schema Registry and Schema Management](schema-registry-and-schema-management.md) for implementation details.
+**Schema Management**: Schema Registry provides centralized schema storage and evolution management. It ensures data compatibility across producers and consumers, preventing breaking changes in streaming pipelines. See [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) for implementation details.
 
-**Observability Integration**: Confluent Cloud exports metrics to monitoring platforms like Datadog, Prometheus, and CloudWatch, enabling integration with existing observability stacks. For comprehensive monitoring strategies, see [Kafka Cluster Monitoring and Metrics](kafka-cluster-monitoring-and-metrics.md).
+**Observability Integration**: Confluent Cloud exports metrics to monitoring platforms like Datadog, Prometheus, and CloudWatch, enabling integration with existing observability stacks. For comprehensive monitoring strategies, see [Kafka Cluster Monitoring and Metrics](https://conduktor.io/glossary/kafka-cluster-monitoring-and-metrics).
 
 This ecosystem approach allows organizations to build complete data streaming platforms where Confluent Cloud handles the message broker while integrating with specialized tools for processing, storage, and analysis.
 
@@ -81,7 +81,7 @@ Organizations adopt Confluent Cloud for various real-time data scenarios.
 
 **Real-Time Analytics**: Streaming data from applications, IoT devices, or clickstreams into data warehouses or analytics platforms. A ride-sharing company might stream location updates, ride events, and payment transactions for real-time dashboards and dynamic pricing algorithms.
 
-**Data Integration and CDC**: Capturing database changes in real-time using change data capture (CDC) connectors and replicating them to analytics systems. This creates near-real-time data warehouses without batch ETL processes. For CDC fundamentals, see [What is Change Data Capture: CDC Fundamentals](what-is-change-data-capture-cdc-fundamentals.md).
+**Data Integration and CDC**: Capturing database changes in real-time using change data capture (CDC) connectors and replicating them to analytics systems. This creates near-real-time data warehouses without batch ETL processes. For CDC fundamentals, see [What is Change Data Capture: CDC Fundamentals](https://conduktor.io/glossary/what-is-change-data-capture-cdc-fundamentals).
 
 **Log Aggregation**: Centralizing application logs, metrics, and traces from distributed systems for analysis and troubleshooting. Multiple services across regions send logs to Kafka topics, which feed into log analysis platforms.
 
@@ -91,15 +91,15 @@ Organizations adopt Confluent Cloud for various real-time data scenarios.
 
 While Confluent Cloud manages infrastructure, organizations still need to handle application-level operations and governance.
 
-**Monitoring and Observability**: Confluent Cloud provides built-in metrics dashboards showing throughput, latency, and consumer lag. Teams should establish alerting on key metrics like under-replicated partitions, consumer lag exceeding thresholds, and connector failures. The 2025 Stream Designer visual interface provides real-time topology views of data flows. For consumer lag patterns, see [Consumer Lag Monitoring](consumer-lag-monitoring.md).
+**Monitoring and Observability**: Confluent Cloud provides built-in metrics dashboards showing throughput, latency, and consumer lag. Teams should establish alerting on key metrics like under-replicated partitions, consumer lag exceeding thresholds, and connector failures. The 2025 Stream Designer visual interface provides real-time topology views of data flows. For consumer lag patterns, see [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring).
 
-**Security and Access Control**: Implementing proper RBAC policies ensures teams have appropriate access levels. Service accounts with API keys enable applications to authenticate securely without sharing credentials. For detailed access patterns, see [Kafka ACLs and Authorization Patterns](kafka-acls-and-authorization-patterns.md).
+**Security and Access Control**: Implementing proper RBAC policies ensures teams have appropriate access levels. Service accounts with API keys enable applications to authenticate securely without sharing credentials. For detailed access patterns, see [Kafka ACLs and Authorization Patterns](https://conduktor.io/glossary/kafka-acls-and-authorization-patterns).
 
-**Topic and Schema Governance**: As Kafka deployments grow, managing hundreds or thousands of topics becomes challenging. Establishing naming conventions, retention policies, and schema evolution standards prevents sprawl and maintains data quality. See [Kafka Topic Design Guidelines](kafka-topic-design-guidelines.md) for best practices.
+**Topic and Schema Governance**: As Kafka deployments grow, managing hundreds or thousands of topics becomes challenging. Establishing naming conventions, retention policies, and schema evolution standards prevents sprawl and maintains data quality. See [Kafka Topic Design Guidelines](https://conduktor.io/glossary/kafka-topic-design-guidelines) for best practices.
 
-**Comparison with Self-Managed Kafka**: Organizations running self-managed Apache Kafka can achieve similar governance and monitoring capabilities using platforms like Conduktor. Conduktor provides topic visualization, schema management, consumer group monitoring, data masking, and permission management across self-managed Kafka clusters. This approach offers more infrastructure control while maintaining operational efficiency through modern tooling. For self-managed operations, see [Kafka Admin Operations and Maintenance](kafka-admin-operations-and-maintenance.md).
+**Comparison with Self-Managed Kafka**: Organizations running self-managed Apache Kafka can achieve similar governance and monitoring capabilities using platforms like Conduktor. Conduktor provides topic visualization, schema management, consumer group monitoring, data masking, and permission management across self-managed Kafka clusters. This approach offers more infrastructure control while maintaining operational efficiency through modern tooling. For self-managed operations, see [Kafka Admin Operations and Maintenance](https://conduktor.io/glossary/kafka-admin-operations-and-maintenance).
 
-**Cost Optimization**: Monitoring usage patterns helps optimize costs. This includes adjusting retention periods, archiving cold data to object storage using Tiered Storage, rightsizing cluster types, and using committed use discounts for predictable workloads. The 2025 Kora engine provides improved storage efficiency and faster queries. See [Tiered Storage in Kafka](tiered-storage-in-kafka.md) for archival strategies.
+**Cost Optimization**: Monitoring usage patterns helps optimize costs. This includes adjusting retention periods, archiving cold data to object storage using Tiered Storage, rightsizing cluster types, and using committed use discounts for predictable workloads. The 2025 Kora engine provides improved storage efficiency and faster queries. See [Tiered Storage in Kafka](https://conduktor.io/glossary/tiered-storage-in-kafka) for archival strategies.
 
 ## Pricing and Total Cost of Ownership
 
@@ -117,7 +117,7 @@ Confluent Cloud uses consumption-based pricing with several components (as of 20
 
 When comparing with self-managed Kafka, organizations should consider the total cost of ownership. Self-managed deployments require infrastructure costs (compute, storage, networking), operational staff time for maintenance and on-call support, expertise for upgrades and troubleshooting, and potential costs of downtime. However, organizations gain full control over infrastructure, security configurations, and can leverage platforms like Conduktor for governance and monitoring without vendor lock-in.
 
-Confluent Cloud typically provides better economics for small to medium deployments, teams without deep Kafka expertise, or when engineering time is expensive. Very large deployments with predictable workloads and experienced Kafka teams may find self-managed Apache Kafka with Conduktor more cost-effective while maintaining operational efficiency. For detailed cost analysis, see [Streaming Total Cost of Ownership](streaming-total-cost-of-ownership.md).
+Confluent Cloud typically provides better economics for small to medium deployments, teams without deep Kafka expertise, or when engineering time is expensive. Very large deployments with predictable workloads and experienced Kafka teams may find self-managed Apache Kafka with Conduktor more cost-effective while maintaining operational efficiency. For detailed cost analysis, see [Streaming Total Cost of Ownership](https://conduktor.io/glossary/streaming-total-cost-of-ownership).
 
 ## Summary
 

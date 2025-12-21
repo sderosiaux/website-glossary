@@ -35,7 +35,7 @@ Streaming embedding generation solves this by processing data as it arrives:
 
 **Real-time RAG pipelines**: When new documentation, support tickets, or knowledge base articles are published, they're immediately embedded and searchable. LLMs can retrieve the freshest context for their responses.
 
-**Live personalization**: User interactions stream into the system, generating embeddings that update recommendation models in real-time. The system learns from clicks, purchases, and feedback as they happen. For comprehensive coverage of recommendation architectures, see [Building Recommendation Systems with Streaming Data](building-recommendation-systems-with-streaming-data.md).
+**Live personalization**: User interactions stream into the system, generating embeddings that update recommendation models in real-time. The system learns from clicks, purchases, and feedback as they happen. For comprehensive coverage of recommendation architectures, see [Building Recommendation Systems with Streaming Data](https://conduktor.io/glossary/building-recommendation-systems-with-streaming-data).
 
 **Anomaly detection**: Transaction streams are embedded and compared against historical patterns. Unusual patterns trigger alerts within seconds, not hours later during batch processing.
 
@@ -51,7 +51,7 @@ A typical streaming embedding pipeline follows this pattern:
 Event Source → Stream Processor → Embedding Service → Vector Database → AI Application
 ```
 
-**Event ingestion**: Data flows into a streaming platform like Apache Kafka (4.0+ with KRaft for simplified operations), Amazon Kinesis, or Apache Pulsar. Events might be new documents, chat messages, product descriptions, or image uploads. For foundational Kafka concepts, see [Apache Kafka](apache-kafka.md).
+**Event ingestion**: Data flows into a streaming platform like Apache Kafka (4.0+ with KRaft for simplified operations), Amazon Kinesis, or Apache Pulsar. Events might be new documents, chat messages, product descriptions, or image uploads. For foundational Kafka concepts, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
 
 **Stream processing**: A processing layer (Apache Flink, Kafka Streams, or custom microservices) consumes events, performs preprocessing, and routes them to embedding services. This layer handles:
 - Chunking long documents into manageable segments
@@ -79,9 +79,9 @@ Event Source → Stream Processor → Embedding Service → Vector Database → 
 
 ## Processing Patterns and Implementation
 
-**Apache Flink** excels at stateful stream processing with exactly-once semantics. A Flink pipeline can consume from Kafka, maintain state about which documents have been processed, call embedding APIs with parallelism, and write results to vector stores while guaranteeing each event is processed exactly once even during failures. For exactly-once guarantees in Kafka specifically, see [Exactly-Once Semantics in Kafka](exactly-once-semantics-in-kafka.md). For comprehensive coverage of Flink's capabilities, see [What is Apache Flink: Stateful Stream Processing](what-is-apache-flink-stateful-stream-processing.md).
+**Apache Flink** excels at stateful stream processing with exactly-once semantics. A Flink pipeline can consume from Kafka, maintain state about which documents have been processed, call embedding APIs with parallelism, and write results to vector stores while guaranteeing each event is processed exactly once even during failures. For exactly-once guarantees in Kafka specifically, see [Exactly-Once Semantics in Kafka](https://conduktor.io/glossary/exactly-once-semantics-in-kafka). For comprehensive coverage of Flink's capabilities, see [What is Apache Flink: Stateful Stream Processing](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing).
 
-**Kafka Streams** provides a simpler programming model for teams already invested in Kafka. Stream processing logic embeds directly in your application, and Kafka manages state and fault tolerance. You can implement embedding generation as a stateful transformation that tracks request quotas and retries. For getting started with Kafka Streams, see [Introduction to Kafka Streams](introduction-to-kafka-streams.md).
+**Kafka Streams** provides a simpler programming model for teams already invested in Kafka. Stream processing logic embeds directly in your application, and Kafka manages state and fault tolerance. You can implement embedding generation as a stateful transformation that tracks request quotas and retries. For getting started with Kafka Streams, see [Introduction to Kafka Streams](https://conduktor.io/glossary/introduction-to-kafka-streams).
 
 **Dedicated embedding services** abstract the complexity. Services like Jina AI, txtai, or custom microservices expose REST or gRPC endpoints that stream processors invoke. This separation allows independent scaling: you can run many embedding service instances during high load without reconfiguring stream processors.
 
@@ -102,7 +102,7 @@ Event Source → Stream Processor → Embedding Service → Vector Database → 
 
 **Embedding drift**: Like ML models, embedding quality can degrade over time as language evolves or your domain shifts. Monitoring cosine similarity distributions, search result relevance, and user satisfaction helps detect drift before it impacts users.
 
-**Versioning and lineage**: A vector database might contain embeddings from multiple models, processed at different times, from different source versions. Without proper metadata tracking, debugging quality issues becomes impossible. Every embedding needs lineage: which model generated it, from what source data, at what timestamp. For comprehensive lineage tracking strategies, see [Data Lineage: Tracking Data from Source to Consumption](data-lineage-tracking-data-from-source-to-consumption.md).
+**Versioning and lineage**: A vector database might contain embeddings from multiple models, processed at different times, from different source versions. Without proper metadata tracking, debugging quality issues becomes impossible. Every embedding needs lineage: which model generated it, from what source data, at what timestamp. For comprehensive lineage tracking strategies, see [Data Lineage: Tracking Data from Source to Consumption](https://conduktor.io/glossary/data-lineage-tracking-data-from-source-to-consumption).
 
 ## Governance and Quality Monitoring
 
@@ -115,17 +115,17 @@ Production streaming embedding systems require robust governance:
 - **Similarity score distributions**: Unusually high or low similarities indicate problems
 - **Search recall**: Are queries returning relevant results?
 - **Model drift indicators**: Statistical tests comparing new embeddings against historical baselines
-For monitoring strategies, see [Consumer Lag Monitoring](consumer-lag-monitoring.md) for tracking processing delays.
+For monitoring strategies, see [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring) for tracking processing delays.
 
-**Schema evolution**: As your embedding model changes (dimension size, normalization), ensure vector stores can handle multiple schemas simultaneously or manage migrations without downtime. For broader schema management strategies, see [Avro vs Protobuf vs JSON Schema](avro-vs-protobuf-vs-json-schema.md) and [Data Contracts for Reliable Pipelines](data-contracts-for-reliable-pipelines.md).
+**Schema evolution**: As your embedding model changes (dimension size, normalization), ensure vector stores can handle multiple schemas simultaneously or manage migrations without downtime. For broader schema management strategies, see [Avro vs Protobuf vs JSON Schema](https://conduktor.io/glossary/avro-vs-protobuf-vs-json-schema) and [Data Contracts for Reliable Pipelines](https://conduktor.io/glossary/data-contracts-for-reliable-pipelines).
 
-**Data governance integration**: Vector embeddings inherit sensitivity from source data. If a document contains PII, its embedding might encode that information. Governance platforms like **Conduktor** extend to streaming embedding pipelines, enforcing policies about what data can be embedded, who can access vector stores, and retention periods for vectors derived from sensitive sources. Conduktor provides comprehensive data governance capabilities including schema registry management, data quality testing, and access control enforcement across streaming pipelines. For broader governance frameworks, see [Data Governance Framework: Roles and Responsibilities](data-governance-framework-roles-and-responsibilities.md).
+**Data governance integration**: Vector embeddings inherit sensitivity from source data. If a document contains PII, its embedding might encode that information. Governance platforms like **Conduktor** extend to streaming embedding pipelines, enforcing policies about what data can be embedded, who can access vector stores, and retention periods for vectors derived from sensitive sources. Conduktor provides comprehensive data governance capabilities including schema registry management, data quality testing, and access control enforcement across streaming pipelines. For broader governance frameworks, see [Data Governance Framework: Roles and Responsibilities](https://conduktor.io/glossary/data-governance-framework-roles-and-responsibilities).
 
 **Reprocessing and backfill**: When you discover a bug in preprocessing or want to upgrade embedding models, you need infrastructure to reprocess data without disrupting live traffic. Dual-pipeline patterns run old and new systems in parallel, comparing outputs before cutover.
 
 ## Integration with LLMs and Agentic AI
 
-Modern AI applications combine embeddings with large language models. For comprehensive coverage of LLM integration patterns, see [Integrating LLMs with Streaming Platforms](integrating-llms-with-streaming-platforms.md).
+Modern AI applications combine embeddings with large language models. For comprehensive coverage of LLM integration patterns, see [Integrating LLMs with Streaming Platforms](https://conduktor.io/glossary/integrating-llms-with-streaming-platforms).
 
 **RAG (Retrieval-Augmented Generation)**: When a user asks a question, the system:
 1. Embeds the question using the same model as the document corpus
@@ -136,7 +136,7 @@ Modern AI applications combine embeddings with large language models. For compre
 
 Streaming ensures the vector store contains the latest information. A RAG system with streaming embeddings answers questions about events that happened minutes ago, not just historical data.
 
-**Agentic AI systems**: Autonomous agents that plan, execute, and reflect need access to constantly updating knowledge. An agent helping with software development queries a vector database of recent code changes, documentation updates, and resolved issues—all embedded in real-time as they occur. For detailed coverage of building agentic systems with streaming data, see [Agentic AI Pipelines](agentic-ai-pipelines.md).
+**Agentic AI systems**: Autonomous agents that plan, execute, and reflect need access to constantly updating knowledge. An agent helping with software development queries a vector database of recent code changes, documentation updates, and resolved issues—all embedded in real-time as they occur. For detailed coverage of building agentic systems with streaming data, see [Agentic AI Pipelines](https://conduktor.io/glossary/agentic-ai-pipelines).
 
 **Hybrid search**: Combining vector similarity with traditional filters (date ranges, categories, metadata) requires coordination between vector databases and operational data stores. Streaming architectures can dual-write to both, maintaining consistency.
 
@@ -156,15 +156,15 @@ Each chunk is embedded separately, but metadata links chunks to parent documents
 
 **Multi-modal embeddings**: Modern models generate embeddings for text, images, and audio in the same vector space. Streaming pipelines can handle heterogeneous data types, routing each to appropriate embedding services.
 
-**Feature store integration**: Vector embeddings can be managed alongside traditional ML features in feature stores, providing unified versioning and serving infrastructure. For details on feature store patterns, see [Feature Stores for Machine Learning](feature-stores-for-machine-learning.md).
+**Feature store integration**: Vector embeddings can be managed alongside traditional ML features in feature stores, providing unified versioning and serving infrastructure. For details on feature store patterns, see [Feature Stores for Machine Learning](https://conduktor.io/glossary/feature-stores-for-machine-learning).
 
-**Testing and validation**: Embedding quality is hard to measure objectively. Build test sets with known similar/dissimilar pairs. Track metrics like Mean Reciprocal Rank (MRR) or Normalized Discounted Cumulative Gain (NDCG) to detect regressions when changing models or processing logic. For comprehensive testing strategies, see [Building a Data Quality Framework](building-a-data-quality-framework.md) and [Automated Data Quality Testing](automated-data-quality-testing.md).
+**Testing and validation**: Embedding quality is hard to measure objectively. Build test sets with known similar/dissimilar pairs. Track metrics like Mean Reciprocal Rank (MRR) or Normalized Discounted Cumulative Gain (NDCG) to detect regressions when changing models or processing logic. For comprehensive testing strategies, see [Building a Data Quality Framework](https://conduktor.io/glossary/building-a-data-quality-framework) and [Automated Data Quality Testing](https://conduktor.io/glossary/automated-data-quality-testing).
 
 ## Conclusion
 
 Streaming vector embeddings unlock real-time AI capabilities that batch processing cannot match. As applications increasingly rely on RAG, semantic search, and agentic AI, the ability to embed and index information as it arrives becomes a competitive advantage.
 
-Building these systems requires careful architecture: choosing embedding models that balance quality and latency, stream processors that handle backpressure and failures, vector databases optimized for your query patterns, and governance frameworks that ensure quality and compliance. For managing backpressure in streaming systems, see [Backpressure Handling in Streaming Systems](backpressure-handling-in-streaming-systems.md).
+Building these systems requires careful architecture: choosing embedding models that balance quality and latency, stream processors that handle backpressure and failures, vector databases optimized for your query patterns, and governance frameworks that ensure quality and compliance. For managing backpressure in streaming systems, see [Backpressure Handling in Streaming Systems](https://conduktor.io/glossary/backpressure-handling-in-streaming-systems).
 
 The investment pays off in AI systems that respond to the world as it changes, not as it was when batch jobs last ran. Whether you're building customer support chatbots, recommendation engines, or autonomous agents, streaming embeddings provide the fresh context that separates reactive systems from truly intelligent ones.
 

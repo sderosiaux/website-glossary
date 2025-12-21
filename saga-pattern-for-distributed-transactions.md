@@ -89,7 +89,7 @@ Choreographed Saga:
 3. Inventory Service listens for `PaymentProcessed`, reserves items, publishes `InventoryReserved`
 4. Shipping Service listens for `InventoryReserved` and initiates delivery
 
-Choreography is decentralized and follows [event-driven architecture](event-driven-architecture.md) principles, but can become difficult to understand and debug as complexity grows. For more details on building systems with this pattern, see [Event-Driven Microservices Architecture](event-driven-microservices-architecture.md).
+Choreography is decentralized and follows [event-driven architecture](https://conduktor.io/glossary/event-driven-architecture) principles, but can become difficult to understand and debug as complexity grows. For more details on building systems with this pattern, see [Event-Driven Microservices Architecture](https://conduktor.io/glossary/event-driven-microservices-architecture).
 
 ### Orchestration
 
@@ -134,7 +134,7 @@ Orchestration provides better visibility and easier testing, but introduces a po
 
 ## Saga Pattern in Event-Driven Architecture
 
-The saga pattern fits naturally with event-driven architectures and streaming platforms like [Apache Kafka](apache-kafka.md). Kafka's distributed event log provides an ideal foundation for implementing choreographed sagas.
+The saga pattern fits naturally with event-driven architectures and streaming platforms like [Apache Kafka](https://conduktor.io/glossary/apache-kafka). Kafka's distributed event log provides an ideal foundation for implementing choreographed sagas.
 
 Each service in a saga can publish events to Kafka topics, and other services consume these events to trigger their local transactions. Kafka's durability guarantees ensure that events aren't lost, while its ordering guarantees within partitions help maintain saga sequencing.
 
@@ -344,9 +344,9 @@ Implementing sagas in production requires attention to several practical concern
 
 ### State Management
 
-Saga state must be persisted to survive service restarts. In orchestrated sagas, the orchestrator maintains state in a database. In choreographed sagas, each service tracks its own state using techniques like [event sourcing](cqrs-and-event-sourcing-with-kafka.md).
+Saga state must be persisted to survive service restarts. In orchestrated sagas, the orchestrator maintains state in a database. In choreographed sagas, each service tracks its own state using techniques like [event sourcing](https://conduktor.io/glossary/cqrs-and-event-sourcing-with-kafka).
 
-**Outbox Pattern for Reliable Publishing**: When a saga step needs to atomically update local state and publish an event, use the [Outbox Pattern](outbox-pattern-for-reliable-event-publishing.md) to avoid the dual-write problem. This ensures saga events are always published, even if the message broker is temporarily unavailable.
+**Outbox Pattern for Reliable Publishing**: When a saga step needs to atomically update local state and publish an event, use the [Outbox Pattern](https://conduktor.io/glossary/outbox-pattern-for-reliable-event-publishing) to avoid the dual-write problem. This ensures saga events are always published, even if the message broker is temporarily unavailable.
 
 ### Timeouts and Deadlines
 
@@ -452,10 +452,10 @@ The saga pattern isn't a universal solution—simple workflows within service bo
 
 Sagas work best when combined with complementary distributed system patterns:
 
-- **[Outbox Pattern](outbox-pattern-for-reliable-event-publishing.md)**: Ensures atomic database updates and event publishing within each saga step, solving the dual-write problem.
-- **[CQRS and Event Sourcing](cqrs-and-event-sourcing-with-kafka.md)**: Event sourcing naturally complements sagas by providing complete audit trails and the ability to rebuild state from events.
-- **[Event-Driven Microservices](event-driven-microservices-architecture.md)**: Provides the architectural foundation for choreographed sagas using asynchronous event communication.
-- **[Distributed Tracing](distributed-tracing-for-kafka-applications.md)**: Essential for debugging and monitoring saga execution across multiple services.
+- **[Outbox Pattern](https://conduktor.io/glossary/outbox-pattern-for-reliable-event-publishing)**: Ensures atomic database updates and event publishing within each saga step, solving the dual-write problem.
+- **[CQRS and Event Sourcing](https://conduktor.io/glossary/cqrs-and-event-sourcing-with-kafka)**: Event sourcing naturally complements sagas by providing complete audit trails and the ability to rebuild state from events.
+- **[Event-Driven Microservices](https://conduktor.io/glossary/event-driven-microservices-architecture)**: Provides the architectural foundation for choreographed sagas using asynchronous event communication.
+- **[Distributed Tracing](https://conduktor.io/glossary/distributed-tracing-for-kafka-applications)**: Essential for debugging and monitoring saga execution across multiple services.
 
 ## Sources and References
 

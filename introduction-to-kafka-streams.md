@@ -18,9 +18,9 @@ This article introduces Kafka Streams, explaining its core concepts, architectur
 
 Kafka Streams is a client library for building stream processing applications on top of Apache Kafka. Unlike heavyweight frameworks that require separate clusters, Kafka Streams runs as part of your application. It's simply a Java library you add to your project.
 
-For foundational understanding of Apache Kafka's architecture, topics, and partitions, see [Apache Kafka](apache-kafka.md).
+For foundational understanding of Apache Kafka's architecture, topics, and partitions, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
 
-As of Kafka 3.6+ and Kafka 4.0, Kafka Streams has matured significantly with features like versioned state stores, improved exactly-once semantics, and full compatibility with KRaft mode (Kafka's ZooKeeper-free architecture). These advancements make it production-ready for the most demanding real-time applications. For details on KRaft mode, see [Understanding KRaft Mode in Kafka](understanding-kraft-mode-in-kafka.md).
+As of Kafka 3.6+ and Kafka 4.0, Kafka Streams has matured significantly with features like versioned state stores, improved exactly-once semantics, and full compatibility with KRaft mode (Kafka's ZooKeeper-free architecture). These advancements make it production-ready for the most demanding real-time applications. For details on KRaft mode, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka).
 
 The key advantage is simplicity. You write standard Java applications that read from and write to Kafka topics. No separate processing cluster is needed. Your application instances can be deployed, scaled, and managed like any other microservice.
 
@@ -129,7 +129,7 @@ props.put(StreamsConfig.PROCESSING_GUARANTEE_CONFIG, StreamsConfig.EXACTLY_ONCE_
 
 Kafka 3.0+ introduced **exactly-once semantics v2 (EXACTLY_ONCE_V2)**, which significantly improves performance by reducing coordination overhead between brokers. Always use v2 for new applications.
 
-For in-depth coverage of state store internals, RocksDB configuration, and optimization strategies, see [State Stores in Kafka Streams](state-stores-in-kafka-streams.md).
+For in-depth coverage of state store internals, RocksDB configuration, and optimization strategies, see [State Stores in Kafka Streams](https://conduktor.io/glossary/state-stores-in-kafka-streams).
 
 ### Parallel Processing
 
@@ -137,7 +137,7 @@ Kafka Streams automatically parallelizes processing based on Kafka's partition m
 
 This design provides elastic scalability. Add more application instances to handle increased load. Remove instances when load decreases. Kafka's consumer group protocol handles partition assignment automatically.
 
-For detailed coverage of how Kafka Streams uses consumer groups for coordination, see [Kafka Consumer Groups Explained](kafka-consumer-groups-explained.md). For partitioning strategies that maximize parallel processing, see [Kafka Partitioning Strategies and Best Practices](kafka-partitioning-strategies-and-best-practices.md).
+For detailed coverage of how Kafka Streams uses consumer groups for coordination, see [Kafka Consumer Groups Explained](https://conduktor.io/glossary/kafka-consumer-groups-explained). For partitioning strategies that maximize parallel processing, see [Kafka Partitioning Strategies and Best Practices](https://conduktor.io/glossary/kafka-partitioning-strategies-and-best-practices).
 
 ## Stream Processing Fundamentals
 
@@ -194,7 +194,7 @@ KStream<String, Long> profileUpdates = userProfiles.toStream();
 - Use **KTable** when you care about current state (user settings, inventory levels, account balances)
 - A KTable is essentially a KStream with log compaction - only the latest value per key is retained
 
-For details on how log compaction works and its role in KTables, see [Kafka Log Compaction Explained](kafka-log-compaction-explained.md). To understand the transactional guarantees underlying exactly-once processing, see [Kafka Transactions Deep Dive](kafka-transactions-deep-dive.md).
+For details on how log compaction works and its role in KTables, see [Kafka Log Compaction Explained](https://conduktor.io/glossary/kafka-log-compaction-explained). To understand the transactional guarantees underlying exactly-once processing, see [Kafka Transactions Deep Dive](https://conduktor.io/glossary/kafka-transactions-deep-dive).
 
 ### Stateless vs Stateful Operations
 
@@ -212,7 +212,7 @@ Stateful operations require remembering previous data:
 
 Stateful operations use state stores and are more complex but enable powerful stream processing patterns.
 
-For detailed coverage of windowing strategies including tumbling, sliding, and session windows, see [Session Windows in Stream Processing](session-windows-in-stream-processing.md). For join patterns and stream enrichment techniques, see [Stream Joins and Enrichment Patterns](stream-joins-and-enrichment-patterns.md). To understand how Kafka Streams handles out-of-order data and event time processing, see [Watermarks and Triggers in Stream Processing](watermarks-and-triggers-in-stream-processing.md).
+For detailed coverage of windowing strategies including tumbling, sliding, and session windows, see [Session Windows in Stream Processing](https://conduktor.io/glossary/session-windows-in-stream-processing). For join patterns and stream enrichment techniques, see [Stream Joins and Enrichment Patterns](https://conduktor.io/glossary/stream-joins-and-enrichment-patterns). To understand how Kafka Streams handles out-of-order data and event time processing, see [Watermarks and Triggers in Stream Processing](https://conduktor.io/glossary/watermarks-and-triggers-in-stream-processing).
 
 ## Building Your First Kafka Streams Application
 
@@ -449,7 +449,7 @@ Kafka Streams exposes metrics through JMX:
 
 High lag indicates the application can't keep up with incoming data. Frequent rebalances suggest instability. Monitoring these metrics is essential for maintaining healthy stream processing.
 
-For comprehensive monitoring strategies and alerting best practices, see [Kafka Cluster Monitoring and Metrics](kafka-cluster-monitoring-and-metrics.md).
+For comprehensive monitoring strategies and alerting best practices, see [Kafka Cluster Monitoring and Metrics](https://conduktor.io/glossary/kafka-cluster-monitoring-and-metrics).
 
 ### Debugging Stream Processing
 
@@ -531,7 +531,7 @@ public class WordCountApplicationTest {
 - **State inspection**: Access state stores directly for assertions
 - **CI/CD friendly**: Fast enough for every commit
 
-For comprehensive testing strategies including integration testing and chaos engineering approaches, see [Testing Strategies for Streaming Applications](testing-strategies-for-streaming-applications.md).
+For comprehensive testing strategies including integration testing and chaos engineering approaches, see [Testing Strategies for Streaming Applications](https://conduktor.io/glossary/testing-strategies-for-streaming-applications).
 
 ## Summary
 
@@ -549,9 +549,9 @@ Key takeaways:
 
 Whether you're building fraud detection, real-time analytics, or event-driven microservices, Kafka Streams provides the building blocks for reliable stream processing. Start with simple transformations and gradually adopt more advanced patterns as your needs grow.
 
-The stream processing landscape includes alternatives like Apache Flink and ksqlDB, each with different trade-offs. Kafka Streams excels when you want library-based processing, tight Kafka integration, and operational simplicity. For a detailed comparison, see [Kafka Streams vs Apache Flink](kafka-streams-vs-apache-flink.md). For SQL-based stream processing, see [ksqlDB for Real-Time Data Processing](ksqldb-for-real-time-data-processing.md).
+The stream processing landscape includes alternatives like Apache Flink and ksqlDB, each with different trade-offs. Kafka Streams excels when you want library-based processing, tight Kafka integration, and operational simplicity. For a detailed comparison, see [Kafka Streams vs Apache Flink](https://conduktor.io/glossary/kafka-streams-vs-apache-flink). For SQL-based stream processing, see [ksqlDB for Real-Time Data Processing](https://conduktor.io/glossary/ksqldb-for-real-time-data-processing).
 
-For real-world implementation examples, see [Real-Time Fraud Detection with Streaming](real-time-fraud-detection-with-streaming.md) which demonstrates advanced Kafka Streams patterns for production systems.
+For real-world implementation examples, see [Real-Time Fraud Detection with Streaming](https://conduktor.io/glossary/real-time-fraud-detection-with-streaming) which demonstrates advanced Kafka Streams patterns for production systems.
 
 ## Sources and References
 

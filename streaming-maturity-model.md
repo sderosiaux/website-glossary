@@ -26,13 +26,13 @@ The value of a maturity model lies in its ability to:
 
 Before diving into maturity levels, here are essential concepts you'll encounter:
 
-- **Schema Registry**: A centralized service that stores and validates data schemas, ensuring all producers and consumers agree on data formats. For detailed coverage, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md).
-- **Data Contracts**: Explicit agreements between data producers and consumers defining schema, SLAs, and quality expectations. Learn more in [Data Contracts for Reliable Pipelines](data-contracts-for-reliable-pipelines.md).
+- **Schema Registry**: A centralized service that stores and validates data schemas, ensuring all producers and consumers agree on data formats. For detailed coverage, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management).
+- **Data Contracts**: Explicit agreements between data producers and consumers defining schema, SLAs, and quality expectations. Learn more in [Data Contracts for Reliable Pipelines](https://conduktor.io/glossary/data-contracts-for-reliable-pipelines).
 - **Consumer Groups**: Mechanism for distributing message processing across multiple consumers for scalability and fault tolerance.
-- **Dead Letter Queue (DLQ)**: A separate queue for messages that fail processing after retries, enabling error isolation and investigation. See [Dead Letter Queues for Error Handling](dead-letter-queues-for-error-handling.md).
+- **Dead Letter Queue (DLQ)**: A separate queue for messages that fail processing after retries, enabling error isolation and investigation. See [Dead Letter Queues for Error Handling](https://conduktor.io/glossary/dead-letter-queues-for-error-handling).
 - **Stream Processing**: Real-time transformation and analysis of data as it flows through the system, often involving stateful operations like aggregations and joins.
-- **Data Lineage**: Tracking data flow from source through transformations to consumption, essential for debugging and compliance. For more details, see [Data Lineage Tracking](data-lineage-tracking-data-from-source-to-consumption.md).
-- **KRaft Mode**: Kafka's modern consensus mechanism (as of Kafka 4.0) that eliminates ZooKeeper dependency. See [Understanding KRaft Mode in Kafka](understanding-kraft-mode-in-kafka.md) for the full story.
+- **Data Lineage**: Tracking data flow from source through transformations to consumption, essential for debugging and compliance. For more details, see [Data Lineage Tracking](https://conduktor.io/glossary/data-lineage-tracking-data-from-source-to-consumption).
+- **KRaft Mode**: Kafka's modern consensus mechanism (as of Kafka 4.0) that eliminates ZooKeeper dependency. See [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka) for the full story.
 
 ## The Five Levels of Streaming Maturity
 
@@ -246,11 +246,11 @@ finally:
 ```
 
 The key differences between Level 1 and Level 3 implementations:
-- **Schema enforcement** via schema registry ensures data contracts. For schema strategy details, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md) and [Avro vs Protobuf vs JSON Schema](avro-vs-protobuf-vs-json-schema.md).
+- **Schema enforcement** via schema registry ensures data contracts. For schema strategy details, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) and [Avro vs Protobuf vs JSON Schema](https://conduktor.io/glossary/avro-vs-protobuf-vs-json-schema).
 - **Structured logging** for observability and debugging with context propagation
 - **Metrics instrumentation** for monitoring and alerting using Prometheus patterns
-- **Error handling** with dead letter queues and retry logic. See [Dead Letter Queues for Error Handling](dead-letter-queues-for-error-handling.md).
-- **Manual commit control** for exactly-once processing guarantees. For deep dive, see [Exactly-Once Semantics in Kafka](exactly-once-semantics-in-kafka.md).
+- **Error handling** with dead letter queues and retry logic. See [Dead Letter Queues for Error Handling](https://conduktor.io/glossary/dead-letter-queues-for-error-handling).
+- **Manual commit control** for exactly-once processing guarantees. For deep dive, see [Exactly-Once Semantics in Kafka](https://conduktor.io/glossary/exactly-once-semantics-in-kafka).
 - **Consumer groups** for scalable parallel processing with automatic rebalancing
 
 ### Level 4: Optimized
@@ -258,15 +258,15 @@ The key differences between Level 1 and Level 3 implementations:
 Organizations reach this level when streaming becomes deeply integrated into the technical architecture, with advanced patterns like stream processing, real-time analytics, and machine learning pipelines operating at scale.
 
 **Characteristics:**
-- Complex event processing with Apache Flink 1.18+ or Kafka Streams 3.x for stateful operations (windowing, joins, aggregations). For Flink capabilities, see [What is Apache Flink: Stateful Stream Processing](what-is-apache-flink-stateful-stream-processing.md).
+- Complex event processing with Apache Flink 1.18+ or Kafka Streams 3.x for stateful operations (windowing, joins, aggregations). For Flink capabilities, see [What is Apache Flink: Stateful Stream Processing](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing).
 - Real-time analytics and dashboards with sub-second latency
-- ML model serving on streaming data with feature stores. See [Feature Stores for Machine Learning](feature-stores-for-machine-learning.md).
+- ML model serving on streaming data with feature stores. See [Feature Stores for Machine Learning](https://conduktor.io/glossary/feature-stores-for-machine-learning).
 - Multi-region/multi-cloud streaming with cross-cluster replication
 - Advanced governance with automated data lineage tracking and impact analysis
-- Performance optimization and cost management (tiered storage, compression tuning). For Kafka's tiered storage, see [Tiered Storage in Kafka](tiered-storage-in-kafka.md).
-- Streaming data quality frameworks with automated testing (Soda Core, Great Expectations). Learn more in [Automated Data Quality Testing](automated-data-quality-testing.md) and [Building a Data Quality Framework](building-a-data-quality-framework.md).
-- Chaos engineering practices using tools like Conduktor Gateway to test resilience and failure scenarios. See [Chaos Engineering for Streaming Systems](chaos-engineering-for-streaming-systems.md).
-- OpenTelemetry-based distributed tracing for end-to-end observability. For Kafka-specific tracing, see [Distributed Tracing for Kafka Applications](distributed-tracing-for-kafka-applications.md).
+- Performance optimization and cost management (tiered storage, compression tuning). For Kafka's tiered storage, see [Tiered Storage in Kafka](https://conduktor.io/glossary/tiered-storage-in-kafka).
+- Streaming data quality frameworks with automated testing (Soda Core, Great Expectations). Learn more in [Automated Data Quality Testing](https://conduktor.io/glossary/automated-data-quality-testing) and [Building a Data Quality Framework](https://conduktor.io/glossary/building-a-data-quality-framework).
+- Chaos engineering practices using tools like Conduktor Gateway to test resilience and failure scenarios. See [Chaos Engineering for Streaming Systems](https://conduktor.io/glossary/chaos-engineering-for-streaming-systems).
+- OpenTelemetry-based distributed tracing for end-to-end observability. For Kafka-specific tracing, see [Distributed Tracing for Kafka Applications](https://conduktor.io/glossary/distributed-tracing-for-kafka-applications).
 
 **Common pitfalls:**
 - Premature optimization
@@ -283,7 +283,7 @@ Organizations reach this level when streaming becomes deeply integrated into the
 
 ### Level 5: Data Products
 
-The most mature organizations treat streaming data as first-class products aligned with business domains. This level embodies streaming data mesh principles where domain teams own and publish high-quality data products consumed across the organization. For comprehensive coverage of data mesh concepts, see [Data Mesh Principles and Implementation](data-mesh-principles-and-implementation.md).
+The most mature organizations treat streaming data as first-class products aligned with business domains. This level embodies streaming data mesh principles where domain teams own and publish high-quality data products consumed across the organization. For comprehensive coverage of data mesh concepts, see [Data Mesh Principles and Implementation](https://conduktor.io/glossary/data-mesh-principles-and-implementation).
 
 **Characteristics:**
 - Domain-oriented data product ownership (e.g., Marketing owns "Customer 360" product, Sales owns "Lead Scoring" product)
@@ -318,21 +318,21 @@ The Marketing domain owns a "Customer Engagement Events" data product that publi
 - **Tracks consumption**: Data catalog shows 12 downstream consumers across Sales, Analytics, and Product domains
 - **Maintains lineage**: Full visibility from source (web/mobile apps) through Kafka topics to data warehouse
 
-The Product team can self-service subscribe to this data product through the catalog, automatically inheriting proper access controls and monitoring. When Marketing updates the schema, consumers receive notifications and compatibility is automatically validated. For more on data product management, see [Building and Managing Data Products](building-and-managing-data-products.md).
+The Product team can self-service subscribe to this data product through the catalog, automatically inheriting proper access controls and monitoring. When Marketing updates the schema, consumers receive notifications and compatibility is automatically validated. For more on data product management, see [Building and Managing Data Products](https://conduktor.io/glossary/building-and-managing-data-products).
 
 ## Dimensions of Streaming Maturity
 
 Assessing maturity requires evaluating multiple dimensions simultaneously:
 
-**Technology:** Infrastructure sophistication, tooling, integration capabilities, scalability, and reliability of the streaming platform. Modern stacks typically include Kafka 4.0+ with KRaft, container orchestration via Kubernetes (using Strimzi operator), and integration with cloud-native services. For Kubernetes deployment details, see [Strimzi Kafka Operator for Kubernetes](strimzi-kafka-operator-for-kubernetes.md).
+**Technology:** Infrastructure sophistication, tooling, integration capabilities, scalability, and reliability of the streaming platform. Modern stacks typically include Kafka 4.0+ with KRaft, container orchestration via Kubernetes (using Strimzi operator), and integration with cloud-native services. For Kubernetes deployment details, see [Strimzi Kafka Operator for Kubernetes](https://conduktor.io/glossary/strimzi-kafka-operator-for-kubernetes).
 
-**Governance:** Schema management, data contracts, access controls, compliance frameworks, and data quality standards. Platforms like Conduktor provide visibility into streaming ecosystems and help enforce policies across infrastructure. Topics include schema evolution strategies, data masking for PII, and audit logging. See [Data Governance Framework](data-governance-framework-roles-and-responsibilities.md) and [Audit Logging for Streaming Platforms](audit-logging-for-streaming-platforms.md).
+**Governance:** Schema management, data contracts, access controls, compliance frameworks, and data quality standards. Platforms like Conduktor provide visibility into streaming ecosystems and help enforce policies across infrastructure. Topics include schema evolution strategies, data masking for PII, and audit logging. See [Data Governance Framework](https://conduktor.io/glossary/data-governance-framework-roles-and-responsibilities) and [Audit Logging for Streaming Platforms](https://conduktor.io/glossary/audit-logging-for-streaming-platforms).
 
-**Skills:** Team expertise in streaming patterns, available training, community of practice, and knowledge sharing mechanisms. Advanced teams understand exactly-once semantics, stateful processing, watermarking, and distributed systems concepts. For testing knowledge, refer to [Testing Strategies for Streaming Applications](testing-strategies-for-streaming-applications.md).
+**Skills:** Team expertise in streaming patterns, available training, community of practice, and knowledge sharing mechanisms. Advanced teams understand exactly-once semantics, stateful processing, watermarking, and distributed systems concepts. For testing knowledge, refer to [Testing Strategies for Streaming Applications](https://conduktor.io/glossary/testing-strategies-for-streaming-applications).
 
-**Operations:** Monitoring, alerting, incident response, disaster recovery, performance optimization, and cost management. Critical practices include consumer lag monitoring (using Kafka Lag Exporter), distributed tracing with OpenTelemetry, and chaos engineering to validate resilience. For monitoring guidance, see [Consumer Lag Monitoring](consumer-lag-monitoring.md) and [Chaos Engineering for Streaming Systems](chaos-engineering-for-streaming-systems.md).
+**Operations:** Monitoring, alerting, incident response, disaster recovery, performance optimization, and cost management. Critical practices include consumer lag monitoring (using Kafka Lag Exporter), distributed tracing with OpenTelemetry, and chaos engineering to validate resilience. For monitoring guidance, see [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring) and [Chaos Engineering for Streaming Systems](https://conduktor.io/glossary/chaos-engineering-for-streaming-systems).
 
-**Business Value:** Measurable impact on business outcomes, stakeholder satisfaction, time-to-value for new use cases, and ROI demonstration. Mature organizations track data product consumption, streaming TCO, and business KPIs enabled by real-time data. See [Streaming Total Cost of Ownership](streaming-total-cost-of-ownership.md) for cost optimization strategies.
+**Business Value:** Measurable impact on business outcomes, stakeholder satisfaction, time-to-value for new use cases, and ROI demonstration. Mature organizations track data product consumption, streaming TCO, and business KPIs enabled by real-time data. See [Streaming Total Cost of Ownership](https://conduktor.io/glossary/streaming-total-cost-of-ownership) for cost optimization strategies.
 
 ## Assessing Your Current State
 
@@ -412,14 +412,14 @@ Advancing maturity levels requires a structured roadmap:
 - Implement advanced monitoring: OpenTelemetry distributed tracing, data quality testing (Soda Core, Great Expectations)
 - Introduce chaos engineering with Conduktor Gateway to test failure scenarios
 - Optimize for performance (compression, batching, partitioning) and cost (tiered storage, retention tuning)
-- Enable multi-region replication for disaster recovery. See [Disaster Recovery Strategies for Kafka Clusters](disaster-recovery-strategies-for-kafka-clusters.md).
+- Enable multi-region replication for disaster recovery. See [Disaster Recovery Strategies for Kafka Clusters](https://conduktor.io/glossary/disaster-recovery-strategies-for-kafka-clusters).
 
 **For Level 4 → 5:**
 - Adopt data mesh principles with domain-oriented ownership model
 - Define domain-oriented data products with clear boundaries and ownership
 - Federate ownership while maintaining platform standards (schemas, security, quality)
 - Build data marketplace or catalog (DataHub, Amundsen, or commercial solutions)
-- Establish data product SLOs and contracts. See [Data Contracts for Reliable Pipelines](data-contracts-for-reliable-pipelines.md).
+- Establish data product SLOs and contracts. See [Data Contracts for Reliable Pipelines](https://conduktor.io/glossary/data-contracts-for-reliable-pipelines).
 - Automate compliance (PII detection, retention policies, access reviews) and governance workflows
 - Create cross-functional teams with product management, engineering, and domain expertise
 
@@ -454,7 +454,7 @@ Start by honestly assessing where you are today. Whether you're running experime
 
 Remember that maturity is not about reaching Level 5 quickly, but about building sustainable capabilities that deliver business value at each stage. Focus on mastering your current level before advancing, and ensure your governance and operational practices keep pace with your technological ambitions.
 
-As you advance through maturity levels, invest in observability and monitoring from the start. Data observability—tracking data quality, freshness, volume, schema, and lineage—becomes increasingly critical at higher maturity levels. For comprehensive coverage of observability practices, see [What is Data Observability: The Five Pillars](what-is-data-observability-the-five-pillars.md) and [Data Quality vs Data Observability: Key Differences](data-quality-vs-data-observability-key-differences.md).
+As you advance through maturity levels, invest in observability and monitoring from the start. Data observability—tracking data quality, freshness, volume, schema, and lineage—becomes increasingly critical at higher maturity levels. For comprehensive coverage of observability practices, see [What is Data Observability: The Five Pillars](https://conduktor.io/glossary/what-is-data-observability-the-five-pillars) and [Data Quality vs Data Observability: Key Differences](https://conduktor.io/glossary/data-quality-vs-data-observability-key-differences).
 
 ## Sources and References
 

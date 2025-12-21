@@ -49,7 +49,7 @@ For example, a "customer-events-v1" data product might include:
 - Access controls and compliance documentation
 - Usage examples and documentation
 
-For detailed guidance on building and managing data products, see [Building and Managing Data Products](building-and-managing-data-products.md). For governance aspects, refer to [Data Product Governance](data-product-governance.md).
+For detailed guidance on building and managing data products, see [Building and Managing Data Products](https://conduktor.io/glossary/building-and-managing-data-products). For governance aspects, refer to [Data Product Governance](https://conduktor.io/glossary/data-product-governance).
 
 ### Self-Serve Data Infrastructure as a Platform
 
@@ -67,7 +67,7 @@ For instance, policies might automatically enforce:
 - Naming conventions and metadata requirements
 - Quality thresholds before publishing
 
-This allows domains to move fast while maintaining organizational standards. For comprehensive coverage of governance frameworks, see [Data Governance Framework: Roles and Responsibilities](data-governance-framework-roles-and-responsibilities.md).
+This allows domains to move fast while maintaining organizational standards. For comprehensive coverage of governance frameworks, see [Data Governance Framework: Roles and Responsibilities](https://conduktor.io/glossary/data-governance-framework-roles-and-responsibilities).
 
 ## Data Mesh vs Traditional Architectures
 
@@ -195,7 +195,7 @@ Data Mesh and streaming technologies like Apache Kafka are natural complements. 
 
 **Real-time data products**: Instead of batch-only data products, streaming enables real-time data products. A "customer-events-v1" Kafka topic becomes a continuously updated data product.
 
-**Schema governance**: Kafka's Schema Registry provides the foundation for data contracts, version management, and compatibility checks—key requirements for the "data as a product" principle. For details on schema management strategies, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md) and [Schema Evolution Best Practices](schema-evolution-best-practices.md).
+**Schema governance**: Kafka's Schema Registry provides the foundation for data contracts, version management, and compatibility checks—key requirements for the "data as a product" principle. For details on schema management strategies, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) and [Schema Evolution Best Practices](https://conduktor.io/glossary/schema-evolution-best-practices).
 
 **Self-serve infrastructure**: Platforms like Conduktor provide a self-serve layer on top of Kafka, allowing domain teams to create topics, manage schemas, and configure access controls through intuitive interfaces without requiring deep Kafka expertise. This addresses the "self-serve infrastructure" principle by democratizing access to streaming infrastructure.
 
@@ -242,7 +242,7 @@ Modern Data Mesh implementations include comprehensive observability for each da
 - **Usage analytics**: Active consumers, query patterns, access frequency
 - **Cost attribution**: Infrastructure costs allocated per data product
 
-This observability enables domain teams to treat data products like software products, with clear SLIs (Service Level Indicators) and SLOs (Service Level Objectives). For understanding quality metrics, see [Data Quality Dimensions: Accuracy, Completeness, and Consistency](data-quality-dimensions-accuracy-completeness-and-consistency.md).
+This observability enables domain teams to treat data products like software products, with clear SLIs (Service Level Indicators) and SLOs (Service Level Objectives). For understanding quality metrics, see [Data Quality Dimensions: Accuracy, Completeness, and Consistency](https://conduktor.io/glossary/data-quality-dimensions-accuracy-completeness-and-consistency).
 
 ### Kafka 4.0 and KRaft
 
@@ -273,7 +273,7 @@ Organizations looking to adopt Data Mesh should follow an incremental approach:
 
 2. **Define data product standards**: Establish what constitutes a good data product—schema requirements, documentation, SLAs, etc.
 
-3. **Build platform capabilities**: Start with basic self-serve capabilities like topic creation, schema management, and access control. Expand based on domain team feedback. For topic design guidance, see [Kafka Topic Design Guidelines](kafka-topic-design-guidelines.md).
+3. **Build platform capabilities**: Start with basic self-serve capabilities like topic creation, schema management, and access control. Expand based on domain team feedback. For topic design guidance, see [Kafka Topic Design Guidelines](https://conduktor.io/glossary/kafka-topic-design-guidelines).
 
 4. **Implement computational governance**: Encode key policies as automated checks (schema validation, naming conventions, quality metrics).
 

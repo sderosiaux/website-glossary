@@ -14,7 +14,7 @@ topics:
 
 Continuous Integration and Continuous Deployment (CI/CD) practices have become standard in modern software development, but streaming applications present unique challenges that traditional CI/CD approaches don't fully address. Unlike stateless request-response services, streaming applications process data continuously, maintain state, and must evolve schemas without breaking downstream consumers.
 
-This article explores best practices for implementing robust CI/CD pipelines specifically designed for streaming applications built on platforms like Apache Kafka, Apache Flink, Kafka Streams, and similar event-driven architectures. For foundational knowledge about these platforms, see [Apache Kafka](apache-kafka.md), [What is Apache Flink](what-is-apache-flink-stateful-stream-processing.md), and [Introduction to Kafka Streams](introduction-to-kafka-streams.md).
+This article explores best practices for implementing robust CI/CD pipelines specifically designed for streaming applications built on platforms like Apache Kafka, Apache Flink, Kafka Streams, and similar event-driven architectures. For foundational knowledge about these platforms, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka), [What is Apache Flink](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing), and [Introduction to Kafka Streams](https://conduktor.io/glossary/introduction-to-kafka-streams).
 
 ## Understanding the Unique Challenges
 
@@ -30,11 +30,11 @@ These characteristics require specialized CI/CD practices that go beyond standar
 
 ## Testing Strategies for Streaming Applications
 
-Effective testing is foundational to any CI/CD pipeline, but streaming applications require a multi-layered testing approach. For comprehensive coverage of testing patterns, see [Testing Strategies for Streaming Applications](testing-strategies-for-streaming-applications.md).
+Effective testing is foundational to any CI/CD pipeline, but streaming applications require a multi-layered testing approach. For comprehensive coverage of testing patterns, see [Testing Strategies for Streaming Applications](https://conduktor.io/glossary/testing-strategies-for-streaming-applications).
 
 **Unit tests** should cover business logic in isolation. For Kafka Streams applications, frameworks like Kafka Streams Test Utils provide a TopologyTestDriver that allows testing stream processing logic without running a full Kafka cluster. Similarly, Flink provides testing harnesses for validating operator behavior.
 
-**Integration tests** verify that components work together correctly. These tests should use embedded Kafka clusters (like the one provided by Testcontainers) to validate actual message production, consumption, and processing. With Kafka 4.0+ running in KRaft mode (ZooKeeper-free), test environments are faster to start and simpler to configure, making integration testing more efficient. For details on KRaft, see [Understanding KRaft Mode in Kafka](understanding-kraft-mode-in-kafka.md). For example:
+**Integration tests** verify that components work together correctly. These tests should use embedded Kafka clusters (like the one provided by Testcontainers) to validate actual message production, consumption, and processing. With Kafka 4.0+ running in KRaft mode (ZooKeeper-free), test environments are faster to start and simpler to configure, making integration testing more efficient. For details on KRaft, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka). For example:
 
 ```java
 @Test
@@ -59,21 +59,21 @@ Modern testing frameworks for streaming applications include:
 
 **Contract testing** ensures compatibility between producers and consumers. Schema registries play a crucial role here. By validating schemas against a registry during CI builds, teams can catch breaking changes before they reach production. Modern tools like Confluent Schema Registry's Maven/Gradle plugins, or AWS Glue Schema Registry's validation APIs, can automate schema validation and compatibility checks as part of the CI pipeline. Additionally, tools like Schemathesis can generate contract tests automatically from OpenAPI/AsyncAPI specifications, preventing incompatible schema changes from being deployed.
 
-**End-to-end tests** validate entire data pipelines in staging environments. These tests should include realistic data volumes and processing patterns to catch performance issues and edge cases. For validating resilience under failure conditions, see [Chaos Engineering for Streaming Systems](chaos-engineering-for-streaming-systems.md).
+**End-to-end tests** validate entire data pipelines in staging environments. These tests should include realistic data volumes and processing patterns to catch performance issues and edge cases. For validating resilience under failure conditions, see [Chaos Engineering for Streaming Systems](https://conduktor.io/glossary/chaos-engineering-for-streaming-systems).
 
 ## Managing State and Schema Evolution
 
 State management and schema evolution are perhaps the most critical aspects of CI/CD for streaming applications.
 
-For **stateful applications**, deployments must preserve processing state. Apache Flink addresses this through savepoints—consistent snapshots of application state taken before deployment. For detailed information, see [Flink State Management and Checkpointing](flink-state-management-and-checkpointing.md). A proper CI/CD pipeline should:
+For **stateful applications**, deployments must preserve processing state. Apache Flink addresses this through savepoints—consistent snapshots of application state taken before deployment. For detailed information, see [Flink State Management and Checkpointing](https://conduktor.io/glossary/flink-state-management-and-checkpointing). A proper CI/CD pipeline should:
 
 1. Trigger a savepoint before stopping the application
 2. Deploy the new version
 3. Restore from the savepoint when starting the new version
 
-Kafka Streams handles this through state stores and changelog topics. For more details, see [State Stores in Kafka Streams](state-stores-in-kafka-streams.md). When upgrading a Kafka Streams application, ensure that state store formats remain compatible or plan for state rebuilding.
+Kafka Streams handles this through state stores and changelog topics. For more details, see [State Stores in Kafka Streams](https://conduktor.io/glossary/state-stores-in-kafka-streams). When upgrading a Kafka Streams application, ensure that state store formats remain compatible or plan for state rebuilding.
 
-**Schema evolution** requires careful governance. For comprehensive guidance, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md) and [Schema Evolution Best Practices](schema-evolution-best-practices.md). Adopt these practices:
+**Schema evolution** requires careful governance. For comprehensive guidance, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) and [Schema Evolution Best Practices](https://conduktor.io/glossary/schema-evolution-best-practices). Adopt these practices:
 
 - Use a schema registry (Confluent Schema Registry, AWS Glue Schema Registry) as the source of truth
 - Enforce compatibility rules (backward, forward, or full compatibility)
@@ -81,13 +81,13 @@ Kafka Streams handles this through state stores and changelog topics. For more d
 - Version schemas alongside application code
 - Test both old and new schema versions in integration tests
 
-Modern data governance platforms like Atlan, Collibra, or open-source tools like DataHub (2025) provide schema management capabilities that integrate with CI/CD workflows. These platforms automatically validate schema changes, track schema lineage, and ensure compatibility across environments. Additionally, data quality tools like Soda Core, Great Expectations, or Monte Carlo can validate data contracts as part of CI pipelines. For detailed guidance on implementing data quality testing, see [Great Expectations Data Testing Framework](great-expectations-data-testing-framework.md) and [Building a Data Quality Framework](building-a-data-quality-framework.md).
+Modern data governance platforms like Atlan, Collibra, or open-source tools like DataHub (2025) provide schema management capabilities that integrate with CI/CD workflows. These platforms automatically validate schema changes, track schema lineage, and ensure compatibility across environments. Additionally, data quality tools like Soda Core, Great Expectations, or Monte Carlo can validate data contracts as part of CI pipelines. For detailed guidance on implementing data quality testing, see [Great Expectations Data Testing Framework](https://conduktor.io/glossary/great-expectations-data-testing-framework) and [Building a Data Quality Framework](https://conduktor.io/glossary/building-a-data-quality-framework).
 
 ## Deployment Patterns for Zero-Downtime
 
 Achieving zero-downtime deployments for streaming applications requires thoughtful deployment strategies.
 
-**Blue-green deployments** work well for stateless streaming applications. Deploy the new version (green) alongside the existing version (blue), validate its behavior, then switch traffic. For Kafka consumers, this means starting a new consumer group with the new application version, monitoring its lag and error rates, then stopping the old consumer group once confidence is established. For details on consumer groups, see [Kafka Consumer Groups Explained](kafka-consumer-groups-explained.md).
+**Blue-green deployments** work well for stateless streaming applications. Deploy the new version (green) alongside the existing version (blue), validate its behavior, then switch traffic. For Kafka consumers, this means starting a new consumer group with the new application version, monitoring its lag and error rates, then stopping the old consumer group once confidence is established. For details on consumer groups, see [Kafka Consumer Groups Explained](https://conduktor.io/glossary/kafka-consumer-groups-explained).
 
 **Canary deployments** are ideal for gradually rolling out changes. Deploy the new version to a small subset of instances or partitions first. For example, if your Kafka Streams application processes 100 partitions, initially deploy the new version to instances handling just 10 partitions. Monitor metrics closely, and if no issues arise, gradually expand to more instances.
 
@@ -108,7 +108,7 @@ For Kafka-based applications running in Kubernetes, use rolling updates with pro
 
 Streaming applications often involve complex infrastructure—Kafka clusters, schema registries, stream processing frameworks, and supporting databases. Managing this infrastructure manually across development, staging, and production environments leads to configuration drift and deployment failures.
 
-**Infrastructure as Code** (IaC) ensures consistency. For comprehensive guidance on Kafka deployments, see [Infrastructure as Code for Kafka Deployments](infrastructure-as-code-for-kafka-deployments.md) and [Running Kafka on Kubernetes](running-kafka-on-kubernetes.md). Use tools like:
+**Infrastructure as Code** (IaC) ensures consistency. For comprehensive guidance on Kafka deployments, see [Infrastructure as Code for Kafka Deployments](https://conduktor.io/glossary/infrastructure-as-code-for-kafka-deployments) and [Running Kafka on Kubernetes](https://conduktor.io/glossary/running-kafka-on-kubernetes). Use tools like:
 
 - **Terraform** for provisioning Kafka clusters, schema registries, and cloud resources
 - **Kubernetes Helm charts** for deploying Flink jobs or Kafka Streams applications
@@ -175,8 +175,8 @@ Even with thorough testing, production monitoring is essential for validating de
 
 **Key metrics to monitor** include:
 
-- Consumer lag—indicates processing performance and potential bottlenecks (see [Consumer Lag Monitoring](consumer-lag-monitoring.md))
-- Error rates and dead letter queue volumes (see [Dead Letter Queues for Error Handling](dead-letter-queues-for-error-handling.md))
+- Consumer lag—indicates processing performance and potential bottlenecks (see [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring))
+- Error rates and dead letter queue volumes (see [Dead Letter Queues for Error Handling](https://conduktor.io/glossary/dead-letter-queues-for-error-handling))
 - Processing throughput (messages/second)
 - State store sizes (for stateful applications)
 - Schema validation failures

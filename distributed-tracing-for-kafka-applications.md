@@ -490,10 +490,10 @@ As event-driven architectures become increasingly complex, distributed tracing i
 
 ## Related Articles
 
-- [Consumer Lag](/consumer-lag.md) - Understanding and monitoring consumer lag, which traces help diagnose
-- [Backpressure](/backpressure.md) - Managing flow control in streaming systems, visible through trace latencies
-- [Chaos Engineering](/chaos-engineering.md) - Testing system resilience with tools like Conduktor Gateway
-- [Message Ordering](/message-ordering.md) - Guaranteeing order in Kafka, which affects trace interpretation
+- [Consumer Lag](https://conduktor.io/glossary/consumer-lag) - Understanding and monitoring consumer lag, which traces help diagnose
+- [Backpressure](https://conduktor.io/glossary/backpressure) - Managing flow control in streaming systems, visible through trace latencies
+- [Chaos Engineering](https://conduktor.io/glossary/chaos-engineering) - Testing system resilience with tools like Conduktor Gateway
+- [Message Ordering](https://conduktor.io/glossary/message-ordering) - Guaranteeing order in Kafka, which affects trace interpretation
 
 ## Sources and References
 

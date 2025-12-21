@@ -17,7 +17,7 @@ Apache Kafka is widely known for its ability to retain message streams for exten
 
 Log compaction is a retention policy that ensures a Kafka topic retains at least the last known value for each message key within a partition. Unlike standard deletion-based retention (which removes old data after a specified time or when a size limit is reached), compaction keeps the most recent update for each key indefinitely.
 
-For foundational understanding of Kafka's architecture including topics, partitions, and brokers, see [Kafka Topics, Partitions, and Brokers: Core Architecture](kafka-topics-partitions-brokers-core-architecture.md).
+For foundational understanding of Kafka's architecture including topics, partitions, and brokers, see [Kafka Topics, Partitions, and Brokers: Core Architecture](https://conduktor.io/glossary/kafka-topics-partitions-brokers-core-architecture).
 
 This approach transforms a Kafka topic from an append-only log of events into something closer to a table of current states. However, the log structure remains intact—compaction doesn't remove messages immediately, and it preserves message offsets so consumers can still track their position reliably.
 
@@ -63,7 +63,7 @@ Log compaction enables several important patterns in data streaming:
 
 When capturing database changes into Kafka, each message represents a row update keyed by the primary key. Log compaction ensures the topic always contains the latest state of each row without storing the complete change history indefinitely.
 
-For a comprehensive introduction to CDC patterns and implementation strategies, see [What is Change Data Capture (CDC) Fundamentals](what-is-change-data-capture-cdc-fundamentals.md).
+For a comprehensive introduction to CDC patterns and implementation strategies, see [What is Change Data Capture (CDC) Fundamentals](https://conduktor.io/glossary/what-is-change-data-capture-cdc-fundamentals).
 
 For example, consider a `users` table synced to Kafka:
 
@@ -83,7 +83,7 @@ Applications that build local state from Kafka topics benefit from compaction. W
 
 Distributed systems often use compacted topics to share configuration across services. Each configuration key holds its current value, and services can reconstruct the full configuration by reading the compacted topic.
 
-For broader guidance on designing topics for different use cases, including configuration management, see [Kafka Topic Design Guidelines](kafka-topic-design-guidelines.md).
+For broader guidance on designing topics for different use cases, including configuration management, see [Kafka Topic Design Guidelines](https://conduktor.io/glossary/kafka-topic-design-guidelines).
 
 ## Configuring Log Compaction
 
@@ -132,7 +132,7 @@ Kafka 3.6+ introduced tiered storage, which allows older log segments to be move
 2. **Monitor compaction lag**: Track the dirty ratio and ensure segments are compacted before tiering
 3. **Consider compaction-only policies**: For true state store topics, use `cleanup.policy=compact` without tiered storage, or use very high local retention thresholds
 
-For detailed coverage of tiered storage architecture and configuration, see [Tiered Storage in Kafka](tiered-storage-in-kafka.md).
+For detailed coverage of tiered storage architecture and configuration, see [Tiered Storage in Kafka](https://conduktor.io/glossary/tiered-storage-in-kafka).
 
 ## Log Compaction in Data Streaming Architectures
 
@@ -183,13 +183,13 @@ usersTable
     .to("users-compacted");   // Eventually removes the key entirely
 ```
 
-For detailed coverage of state store architecture and recovery mechanisms, see [State Stores in Kafka Streams](state-stores-in-kafka-streams.md).
+For detailed coverage of state store architecture and recovery mechanisms, see [State Stores in Kafka Streams](https://conduktor.io/glossary/state-stores-in-kafka-streams).
 
 ### Event Sourcing and Materialized Views
 
 Event sourcing architectures also leverage log compaction. While the complete event history might be preserved in one topic, a compacted topic can maintain the current projection or materialized view derived from those events. This pattern is common in CQRS (Command Query Responsibility Segregation) architectures where read models are built from event streams.
 
-For comparing stream processing frameworks and their approaches to state management, see [Kafka Streams vs Apache Flink](kafka-streams-vs-apache-flink.md).
+For comparing stream processing frameworks and their approaches to state management, see [Kafka Streams vs Apache Flink](https://conduktor.io/glossary/kafka-streams-vs-apache-flink).
 
 ## Monitoring and Troubleshooting
 
@@ -217,7 +217,7 @@ In 2025, managing compaction across multiple clusters and environments is signif
 
 Conduktor Gateway also enables testing compaction behavior in development environments by introducing controlled delays or failures in the compaction process.
 
-For comprehensive monitoring strategies across your Kafka infrastructure, see [Kafka Cluster Monitoring and Metrics](kafka-cluster-monitoring-and-metrics.md).
+For comprehensive monitoring strategies across your Kafka infrastructure, see [Kafka Cluster Monitoring and Metrics](https://conduktor.io/glossary/kafka-cluster-monitoring-and-metrics).
 
 ### Common Issues
 

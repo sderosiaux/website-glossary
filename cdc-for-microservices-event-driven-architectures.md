@@ -15,7 +15,7 @@ Change Data Capture (CDC) has emerged as a critical enabler for modern event-dri
 
 In this article, we'll explore how CDC powers event-driven architectures, supports advanced patterns like event sourcing and CQRS, and integrates with streaming platforms to create scalable, resilient microservices ecosystems.
 
-For a comprehensive guide on implementing CDC with specific tools and configurations, see [Implementing CDC with Debezium](implementing-cdc-with-debezium.md). For a comparison of different CDC approaches, refer to [Log-Based vs Query-Based CDC Comparison](log-based-vs-query-based-cdc-comparison.md).
+For a comprehensive guide on implementing CDC with specific tools and configurations, see [Implementing CDC with Debezium](https://conduktor.io/glossary/implementing-cdc-with-debezium). For a comparison of different CDC approaches, refer to [Log-Based vs Query-Based CDC Comparison](https://conduktor.io/glossary/log-based-vs-query-based-cdc-comparison).
 
 ## Understanding CDC in Event-Driven Systems
 
@@ -83,7 +83,7 @@ CDC complements event sourcing by:
 2. **Event Store Population**: CDC can populate event stores from existing databases without application refactoring
 3. **Hybrid Approaches**: Combine application-generated domain events with CDC-derived data change events
 
-For detailed coverage of event sourcing patterns and implementation strategies with Kafka, see [Event Sourcing Patterns with Kafka](event-sourcing-patterns-with-kafka.md) and [CQRS and Event Sourcing with Kafka](cqrs-and-event-sourcing-with-kafka.md).
+For detailed coverage of event sourcing patterns and implementation strategies with Kafka, see [Event Sourcing Patterns with Kafka](https://conduktor.io/glossary/event-sourcing-patterns-with-kafka) and [CQRS and Event Sourcing with Kafka](https://conduktor.io/glossary/cqrs-and-event-sourcing-with-kafka).
 
 ### Practical Event Sourcing with CDC
 
@@ -168,9 +168,9 @@ Apache Kafka has become the de facto standard for event streaming in microservic
 
 - **Apache Flink CDC**: Native CDC connectors for Flink providing low-latency streaming with exactly-once guarantees, ideal for real-time data pipelines and stream processing.
 
-- **Kafka Streams & ksqlDB**: Process CDC events in real-time using stream processing, enabling event enrichment, filtering, and aggregation directly within the Kafka ecosystem. See [Introduction to Kafka Streams](introduction-to-kafka-streams.md) and [ksqlDB for Real-Time Data Processing](ksqldb-for-real-time-data-processing.md) for details.
+- **Kafka Streams & ksqlDB**: Process CDC events in real-time using stream processing, enabling event enrichment, filtering, and aggregation directly within the Kafka ecosystem. See [Introduction to Kafka Streams](https://conduktor.io/glossary/introduction-to-kafka-streams) and [ksqlDB for Real-Time Data Processing](https://conduktor.io/glossary/ksqldb-for-real-time-data-processing) for details.
 
-For foundational knowledge about Apache Kafka, refer to [Apache Kafka](apache-kafka.md). To understand Kafka Connect's role in CDC pipelines, see [Kafka Connect: Building Data Integration Pipelines](kafka-connect-building-data-integration-pipelines.md).
+For foundational knowledge about Apache Kafka, refer to [Apache Kafka](https://conduktor.io/glossary/apache-kafka). To understand Kafka Connect's role in CDC pipelines, see [Kafka Connect: Building Data Integration Pipelines](https://conduktor.io/glossary/kafka-connect-building-data-integration-pipelines).
 
 ### The Outbox Pattern
 
@@ -237,7 +237,7 @@ config:
 
 The Debezium outbox transformation extracts events from the outbox table and routes them to appropriate Kafka topics, transforming database rows into clean business events.
 
-For a comprehensive guide to the outbox pattern and its implementation, see [Outbox Pattern for Reliable Event Publishing](outbox-pattern-for-reliable-event-publishing.md). To understand exactly-once guarantees in this context, refer to [Exactly-Once Semantics in Kafka](exactly-once-semantics-in-kafka.md).
+For a comprehensive guide to the outbox pattern and its implementation, see [Outbox Pattern for Reliable Event Publishing](https://conduktor.io/glossary/outbox-pattern-for-reliable-event-publishing). To understand exactly-once guarantees in this context, refer to [Exactly-Once Semantics in Kafka](https://conduktor.io/glossary/exactly-once-semantics-in-kafka).
 
 ### Governance and Visibility
 
@@ -247,13 +247,13 @@ As CDC-based event-driven architectures scale, managing the proliferation of eve
 - CDC generates events with evolving schemas as database schemas change
 - Schema registries track schema versions and enforce compatibility rules
 - Prevents breaking changes from propagating through the event pipeline
-- See [Avro vs Protobuf vs JSON Schema](avro-vs-protobuf-vs-json-schema.md) for schema format comparisons and [Schema Registry for Kafka](schema-registry-for-kafka.md) for registry implementation
+- See [Avro vs Protobuf vs JSON Schema](https://conduktor.io/glossary/avro-vs-protobuf-vs-json-schema) for schema format comparisons and [Schema Registry for Kafka](https://conduktor.io/glossary/schema-registry-for-kafka) for registry implementation
 
 **Data Lineage and Discovery**:
 - Visualize data flows from source databases through CDC to consuming services
 - Understand dependencies between services through event consumption patterns
 - Impact analysis: identify which services are affected by schema or data changes
-- For comprehensive data lineage tracking, see [Data Lineage: Tracking Data from Source to Consumption](data-lineage-tracking-data-from-source-to-consumption.md)
+- For comprehensive data lineage tracking, see [Data Lineage: Tracking Data from Source to Consumption](https://conduktor.io/glossary/data-lineage-tracking-data-from-source-to-consumption)
 
 **Quality and Monitoring**:
 - Monitor CDC lag and throughput metrics
@@ -297,7 +297,7 @@ Different services use optimal storage technologies (e.g., PostgreSQL for transa
 
 CDC-based integration requires robust error handling:
 
-**Dead Letter Queues**: Failed events are routed to DLQs for analysis and replay. See [Dead Letter Queues for Error Handling](dead-letter-queues-for-error-handling.md) for implementation patterns.
+**Dead Letter Queues**: Failed events are routed to DLQs for analysis and replay. See [Dead Letter Queues for Error Handling](https://conduktor.io/glossary/dead-letter-queues-for-error-handling) for implementation patterns.
 **Idempotency**: Consumers must handle duplicate events gracefully by tracking processed event IDs
 **Circuit Breakers**: Prevent cascading failures when downstream services are unavailable
 **Compensation Events**: Publish compensating events when operations need to be reversed
@@ -327,13 +327,13 @@ Implement comprehensive monitoring using modern observability tools:
 **Key CDC Metrics (2025)**:
 - **CDC Lag**: Time between database change and event availability in Kafka
 - **Replication Slot Growth**: Monitor PostgreSQL replication slots (Write-Ahead Log segments retained for CDC) to prevent disk exhaustion
-- **Consumer Lag**: Track how far behind consumers are from the latest events using tools like Kafka Lag Exporter or Burrow. Understanding consumer groups is essential—see [Kafka Consumer Groups Explained](kafka-consumer-groups-explained.md)
+- **Consumer Lag**: Track how far behind consumers are from the latest events using tools like Kafka Lag Exporter or Burrow. Understanding consumer groups is essential—see [Kafka Consumer Groups Explained](https://conduktor.io/glossary/kafka-consumer-groups-explained)
 - **Schema Compatibility**: Alert on schema incompatibilities detected by Schema Registry
 - **Throughput & Errors**: Monitor CDC connector throughput, error rates, and restart counts
 
 **Modern Observability Stack**:
-- **OpenTelemetry**: Standardized telemetry collection for distributed tracing across CDC pipelines, Kafka brokers, and consuming services. See [Distributed Tracing for Kafka Applications](distributed-tracing-for-kafka-applications.md) for implementation guidance.
-- **Prometheus & Grafana**: Metrics collection and visualization for CDC lag, Kafka throughput, and consumer health. For comprehensive Kafka metrics, see [Kafka Cluster Monitoring and Metrics](kafka-cluster-monitoring-and-metrics.md).
+- **OpenTelemetry**: Standardized telemetry collection for distributed tracing across CDC pipelines, Kafka brokers, and consuming services. See [Distributed Tracing for Kafka Applications](https://conduktor.io/glossary/distributed-tracing-for-kafka-applications) for implementation guidance.
+- **Prometheus & Grafana**: Metrics collection and visualization for CDC lag, Kafka throughput, and consumer health. For comprehensive Kafka metrics, see [Kafka Cluster Monitoring and Metrics](https://conduktor.io/glossary/kafka-cluster-monitoring-and-metrics).
 - **Kafka Lag Exporter**: Dedicated tool for monitoring consumer group lag with Prometheus integration
 - **Conduktor Platform**: Unified governance and monitoring for Kafka-based CDC architectures
 
@@ -343,10 +343,10 @@ Governance platforms provide centralized monitoring across the entire CDC pipeli
 
 CDC streams contain sensitive data:
 
-- **Encryption**: Encrypt data in transit (TLS) and at rest. See [Encryption at Rest and in Transit for Kafka](encryption-at-rest-and-in-transit-for-kafka.md) for implementation details.
-- **Access Control**: Implement fine-grained ACLs on Kafka topics. Refer to [Kafka ACLs and Authorization Patterns](kafka-acls-and-authorization-patterns.md) for access control strategies.
-- **Data Masking**: Use Kafka Connect transformations to mask PII before events reach consumers. For PII handling strategies, see [Data Masking and Anonymization for Streaming](data-masking-and-anonymization-for-streaming.md) and [PII Detection and Handling in Event Streams](pii-detection-and-handling-in-event-streams.md).
-- **Audit Logging**: Track who accesses CDC event streams. For comprehensive audit logging, see [Audit Logging for Streaming Platforms](audit-logging-for-streaming-platforms.md).
+- **Encryption**: Encrypt data in transit (TLS) and at rest. See [Encryption at Rest and in Transit for Kafka](https://conduktor.io/glossary/encryption-at-rest-and-in-transit-for-kafka) for implementation details.
+- **Access Control**: Implement fine-grained ACLs on Kafka topics. Refer to [Kafka ACLs and Authorization Patterns](https://conduktor.io/glossary/kafka-acls-and-authorization-patterns) for access control strategies.
+- **Data Masking**: Use Kafka Connect transformations to mask PII before events reach consumers. For PII handling strategies, see [Data Masking and Anonymization for Streaming](https://conduktor.io/glossary/data-masking-and-anonymization-for-streaming) and [PII Detection and Handling in Event Streams](https://conduktor.io/glossary/pii-detection-and-handling-in-event-streams).
+- **Audit Logging**: Track who accesses CDC event streams. For comprehensive audit logging, see [Audit Logging for Streaming Platforms](https://conduktor.io/glossary/audit-logging-for-streaming-platforms).
 
 ## Summary
 

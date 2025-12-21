@@ -43,7 +43,7 @@ These limitations lead to increased costs, poor customer experiences, and inabil
 
 Streaming platforms address these challenges by treating supply chain activities as continuous streams of events rather than periodic snapshots. At the core of this approach are technologies like Apache Kafka and Apache Flink.
 
-For foundational concepts, see [Apache Kafka](apache-kafka.md) and [Event-Driven Architecture](event-driven-architecture.md).
+For foundational concepts, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka) and [Event-Driven Architecture](https://conduktor.io/glossary/event-driven-architecture).
 
 **Event-Driven Architecture**: Every meaningful action in the supply chain generates an event—a purchase order created, inventory received, shipment departed, delivery attempted. These events are published to Kafka topics, creating a real-time log of supply chain activity.
 
@@ -112,11 +112,11 @@ The streaming ecosystem has evolved significantly, with several key improvements
 
 **Kafka 4.0 and KRaft Mode**: Apache Kafka 4.0 (released in 2024) eliminated the dependency on Apache ZooKeeper by introducing KRaft (Kafka Raft) mode for consensus. This simplifies cluster operations, reduces latency, and improves scalability—critical for supply chains managing millions of events per second across global deployments. KRaft mode also enables faster failover and simpler cluster management, reducing operational overhead.
 
-For details on migrating existing clusters, see [Understanding KRaft Mode in Kafka](understanding-kraft-mode-in-kafka.md).
+For details on migrating existing clusters, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka).
 
 **Flink 1.18+ Enhancements**: Apache Flink 1.18 and 1.19 introduced improved state management, adaptive query execution, and better integration with table stores like Apache Iceberg. These features enable more efficient stream processing for complex supply chain analytics, such as multi-dimensional inventory aggregations and real-time demand forecasting.
 
-For Flink fundamentals, see [What is Apache Flink: Stateful Stream Processing](what-is-apache-flink-stateful-stream-processing.md).
+For Flink fundamentals, see [What is Apache Flink: Stateful Stream Processing](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing).
 
 **Change Data Capture (CDC) Integration**: Modern supply chain architectures use CDC tools like Debezium with Kafka Connect to stream changes from legacy ERP, WMS, and TMS databases without modifying application code. This enables real-time visibility into systems that were designed for batch processing.
 
@@ -136,11 +136,11 @@ transforms.addPrefix.regex: .*
 transforms.addPrefix.replacement: erp.$0
 ```
 
-For comprehensive CDC patterns, see [What is Change Data Capture (CDC) Fundamentals](what-is-change-data-capture-cdc-fundamentals.md).
+For comprehensive CDC patterns, see [What is Change Data Capture (CDC) Fundamentals](https://conduktor.io/glossary/what-is-change-data-capture-cdc-fundamentals).
 
 **Schema Management**: Modern deployments use schema registries (Karapace, AWS Glue Schema Registry) to enforce data contracts between supply chain systems. Schema evolution rules ensure that changes to event structures don't break downstream consumers.
 
-For detailed schema strategies, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md).
+For detailed schema strategies, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management).
 
 **Exactly-Once Semantics**: Kafka transactions and Flink's checkpointing provide exactly-once processing guarantees—essential for financial operations like inventory valuation and order billing. Configure Kafka producers with `enable.idempotence=true` and Flink applications with checkpointing enabled to ensure no duplicate or lost events during failures.
 
@@ -152,7 +152,7 @@ props.put(StreamsConfig.PROCESSING_GUARANTEE_CONFIG, StreamsConfig.EXACTLY_ONCE_
 props.put(StreamsConfig.REPLICATION_FACTOR_CONFIG, 3);
 ```
 
-For implementation details, see [Exactly-Once Semantics in Kafka](exactly-once-semantics-in-kafka.md).
+For implementation details, see [Exactly-Once Semantics in Kafka](https://conduktor.io/glossary/exactly-once-semantics-in-kafka).
 
 ## Key Use Cases and Patterns
 
@@ -225,11 +225,11 @@ Building real-time supply chain visibility requires careful attention to several
 
 **Data Quality and Schema Management**: With events flowing from dozens of systems, maintaining data quality becomes paramount. Schema registries ensure that producers and consumers agree on event structures. Organizations need governance processes to manage schema evolution as systems change over time.
 
-For comprehensive data quality strategies, see [Building a Data Quality Framework](building-a-data-quality-framework.md) and [Automated Data Quality Testing](automated-data-quality-testing.md). For testing stream processing applications, see [Testing Strategies for Streaming Applications](testing-strategies-for-streaming-applications.md).
+For comprehensive data quality strategies, see [Building a Data Quality Framework](https://conduktor.io/glossary/building-a-data-quality-framework) and [Automated Data Quality Testing](https://conduktor.io/glossary/automated-data-quality-testing). For testing stream processing applications, see [Testing Strategies for Streaming Applications](https://conduktor.io/glossary/testing-strategies-for-streaming-applications).
 
 **Integration Complexity**: Connecting legacy ERP systems, modern cloud applications, IoT devices, and partner systems requires robust integration strategies. Change Data Capture (CDC) tools can stream changes from databases, while API gateways can convert REST API calls into events. When downstream systems can't keep up with event rates, backpressure mechanisms prevent data loss. Failed events should be routed to dead letter queues for investigation.
 
-For error handling patterns, see [Dead Letter Queues for Error Handling](dead-letter-queues-for-error-handling.md) and [Backpressure Handling in Streaming Systems](backpressure-handling-in-streaming-systems.md).
+For error handling patterns, see [Dead Letter Queues for Error Handling](https://conduktor.io/glossary/dead-letter-queues-for-error-handling) and [Backpressure Handling in Streaming Systems](https://conduktor.io/glossary/backpressure-handling-in-streaming-systems).
 
 **Data Security and Compliance**: Supply chain data often includes sensitive information—customer details, pricing, proprietary business processes. Streaming platforms must implement encryption, access controls, and audit logging. For global supply chains, data residency and cross-border data transfer regulations add additional complexity.
 
@@ -237,7 +237,7 @@ For error handling patterns, see [Dead Letter Queues for Error Handling](dead-le
 
 **Monitoring and Observability**: Real-time systems require real-time monitoring. Organizations need visibility into Kafka cluster health, topic throughput, consumer lag, and stream processing application performance. Without proper observability, detecting and diagnosing issues in production becomes nearly impossible.
 
-For comprehensive observability strategies, see [What is Data Observability: The Five Pillars](what-is-data-observability-the-five-pillars.md).
+For comprehensive observability strategies, see [What is Data Observability: The Five Pillars](https://conduktor.io/glossary/what-is-data-observability-the-five-pillars).
 
 ## Managing Streaming Supply Chain Infrastructure
 
@@ -250,7 +250,7 @@ Operating streaming platforms at scale requires specialized tooling for monitori
 - **Stream processing performance**: Are Flink jobs processing events within acceptable latency bounds?
 - **Data quality**: Are events arriving with valid schemas and expected data ranges?
 
-For comprehensive lag monitoring strategies, see [Consumer Lag Monitoring](consumer-lag-monitoring.md).
+For comprehensive lag monitoring strategies, see [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring).
 
 **Platform Management with Conduktor**: Conduktor provides enterprise-grade management capabilities for Kafka-based supply chain platforms, including:
 
@@ -266,7 +266,7 @@ For comprehensive lag monitoring strategies, see [Consumer Lag Monitoring](consu
 - **Audit logging**: Track who accessed which supply chain events and when, critical for compliance investigations
 - **Data masking**: Redact PII from supply chain events when streaming to analytics environments
 
-For security best practices, see [Access Control for Streaming](access-control-for-streaming.md) and [Audit Logging for Streaming Platforms](audit-logging-for-streaming-platforms.md).
+For security best practices, see [Access Control for Streaming](https://conduktor.io/glossary/access-control-for-streaming) and [Audit Logging for Streaming Platforms](https://conduktor.io/glossary/audit-logging-for-streaming-platforms).
 
 ## Summary
 

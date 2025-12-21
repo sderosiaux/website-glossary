@@ -11,7 +11,7 @@ topics:
 
 # Kafka MirrorMaker 2 for Cross-Cluster Replication
 
-Modern data streaming architectures often span multiple Kafka clusters across different data centers, cloud regions, or even cloud providers. Organizations need robust solutions to replicate data between these clusters for disaster recovery, regulatory compliance, low-latency regional access, and data aggregation. Kafka MirrorMaker 2 (MM2) is the Apache Kafka project's solution for reliable, scalable cross-cluster replication. For comprehensive disaster recovery planning beyond cross-cluster replication, see [Disaster Recovery Strategies for Kafka Clusters](disaster-recovery-strategies-for-kafka-clusters.md).
+Modern data streaming architectures often span multiple Kafka clusters across different data centers, cloud regions, or even cloud providers. Organizations need robust solutions to replicate data between these clusters for disaster recovery, regulatory compliance, low-latency regional access, and data aggregation. Kafka MirrorMaker 2 (MM2) is the Apache Kafka project's solution for reliable, scalable cross-cluster replication. For comprehensive disaster recovery planning beyond cross-cluster replication, see [Disaster Recovery Strategies for Kafka Clusters](https://conduktor.io/glossary/disaster-recovery-strategies-for-kafka-clusters).
 
 ## What is Kafka MirrorMaker 2
 
@@ -21,7 +21,7 @@ While MirrorMaker 1 was a simple consumer-producer pair that could replicate top
 
 MM2 was introduced in Apache Kafka 2.4 through KIP-382 and has become the recommended approach for cross-cluster replication. It leverages the Kafka Connect framework, which means it benefits from Connect's scalability, fault tolerance, and operational characteristics.
 
-**Modern Deployment with Kafka 4.0+ and KRaft**: As of Kafka 4.0 and later, MirrorMaker 2 runs seamlessly on KRaft-based clusters (Kafka's consensus protocol that replaced ZooKeeper). KRaft simplifies operations by eliminating ZooKeeper dependencies, reducing operational complexity and improving cluster startup times. When deploying MM2 with KRaft clusters, the connectors interact with cluster metadata through the KRaft controller layer, maintaining the same replication semantics while benefiting from KRaft's improved metadata management and faster failover capabilities. For organizations migrating from ZooKeeper-based Kafka, MM2 can replicate between mixed environments, making it valuable during transitions. For details on KRaft architecture, see [Understanding KRaft Mode in Kafka](understanding-kraft-mode-in-kafka.md).
+**Modern Deployment with Kafka 4.0+ and KRaft**: As of Kafka 4.0 and later, MirrorMaker 2 runs seamlessly on KRaft-based clusters (Kafka's consensus protocol that replaced ZooKeeper). KRaft simplifies operations by eliminating ZooKeeper dependencies, reducing operational complexity and improving cluster startup times. When deploying MM2 with KRaft clusters, the connectors interact with cluster metadata through the KRaft controller layer, maintaining the same replication semantics while benefiting from KRaft's improved metadata management and faster failover capabilities. For organizations migrating from ZooKeeper-based Kafka, MM2 can replicate between mixed environments, making it valuable during transitions. For details on KRaft architecture, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka).
 
 ## Architecture and Components
 
@@ -60,11 +60,11 @@ MirrorMaker 2 consists of three main connector types that work together to provi
 
 **MirrorCheckpointConnector** synchronizes consumer group offsets between clusters. This is crucial for disaster recovery scenarios where applications need to fail over from one cluster to another. By tracking which offsets have been replicated, the checkpoint connector enables applications to resume consumption from the correct position after a failover.
 
-Understanding how offset translation works is essential for successful failover. When MM2 replicates messages from the source cluster, the target cluster assigns new offsets to these messages (starting from 0 for new topics). The checkpoint connector maintains a mapping between source offsets and target offsets. For example, if a consumer has read up to offset 1000 in the source cluster's `orders` topic, the checkpoint connector calculates the equivalent offset in the target cluster's `us-west.orders` topic (perhaps offset 1000 maps to target offset 998 if two messages failed replication). This translation is stored in the `*.checkpoints.internal` topic on the target cluster. During failover, consumers can query this mapping to determine where to start reading in the target cluster, ensuring continuity without message loss or duplication. For more on consumer offset management, see [Kafka Consumer Groups Explained](kafka-consumer-groups-explained.md).
+Understanding how offset translation works is essential for successful failover. When MM2 replicates messages from the source cluster, the target cluster assigns new offsets to these messages (starting from 0 for new topics). The checkpoint connector maintains a mapping between source offsets and target offsets. For example, if a consumer has read up to offset 1000 in the source cluster's `orders` topic, the checkpoint connector calculates the equivalent offset in the target cluster's `us-west.orders` topic (perhaps offset 1000 maps to target offset 998 if two messages failed replication). This translation is stored in the `*.checkpoints.internal` topic on the target cluster. During failover, consumers can query this mapping to determine where to start reading in the target cluster, ensuring continuity without message loss or duplication. For more on consumer offset management, see [Kafka Consumer Groups Explained](https://conduktor.io/glossary/kafka-consumer-groups-explained).
 
 **MirrorHeartbeatConnector** monitors replication health by emitting heartbeat messages. These heartbeats help track replication lag and detect connectivity issues between clusters.
 
-All three connectors run within the Kafka Connect framework, either in standalone mode for simple setups or distributed mode for production deployments. The distributed mode provides fault tolerance and horizontal scaling, allowing MM2 to handle high-throughput replication across large Kafka deployments. For detailed coverage of Kafka Connect architecture and building integration pipelines, see [Kafka Connect: Building Data Integration Pipelines](kafka-connect-building-data-integration-pipelines.md).
+All three connectors run within the Kafka Connect framework, either in standalone mode for simple setups or distributed mode for production deployments. The distributed mode provides fault tolerance and horizontal scaling, allowing MM2 to handle high-throughput replication across large Kafka deployments. For detailed coverage of Kafka Connect architecture and building integration pipelines, see [Kafka Connect: Building Data Integration Pipelines](https://conduktor.io/glossary/kafka-connect-building-data-integration-pipelines).
 
 One notable aspect of MM2's design is its topic naming convention. By default, replicated topics are prefixed with the source cluster name. For example, a topic named `orders` in a cluster designated as `us-west` would appear as `us-west.orders` in the target cluster. This naming pattern prevents conflicts and makes the data lineage clear, though it can be customized if needed.
 
@@ -72,7 +72,7 @@ One notable aspect of MM2's design is its topic naming convention. By default, r
 
 MirrorMaker 2 supports several replication patterns, each suited to different business and technical requirements:
 
-**Active-Passive Replication** is the most common pattern for disaster recovery. A primary cluster handles all production traffic while MM2 continuously replicates data to a secondary cluster in a different region or availability zone. If the primary cluster fails, applications can fail over to the secondary cluster. The checkpoint connector ensures that consumers can resume from the correct offset, minimizing data loss and duplication. For broader disaster recovery strategies including RTO/RPO planning and backup mechanisms, see [Disaster Recovery Strategies for Kafka Clusters](disaster-recovery-strategies-for-kafka-clusters.md).
+**Active-Passive Replication** is the most common pattern for disaster recovery. A primary cluster handles all production traffic while MM2 continuously replicates data to a secondary cluster in a different region or availability zone. If the primary cluster fails, applications can fail over to the secondary cluster. The checkpoint connector ensures that consumers can resume from the correct offset, minimizing data loss and duplication. For broader disaster recovery strategies including RTO/RPO planning and backup mechanisms, see [Disaster Recovery Strategies for Kafka Clusters](https://conduktor.io/glossary/disaster-recovery-strategies-for-kafka-clusters).
 
 ![kafka-mirrormaker-2-for-cross-cluster-replication diagram 2](images/diagrams/kafka-mirrormaker-2-for-cross-cluster-replication-1.webp)
 
@@ -213,7 +213,7 @@ replication.policy.separator = .
 
 This production configuration demonstrates several critical features:
 
-**Security**: Both clusters use SASL/SSL with SCRAM-SHA-512 authentication. Passwords are externalized using Kafka's configuration provider mechanism (the `${file:...}` syntax), preventing credential exposure. For detailed security configuration, see [Kafka Authentication: SASL, SSL, and OAuth](kafka-authentication-sasl-ssl-oauth.md).
+**Security**: Both clusters use SASL/SSL with SCRAM-SHA-512 authentication. Passwords are externalized using Kafka's configuration provider mechanism (the `${file:...}` syntax), preventing credential exposure. For detailed security configuration, see [Kafka Authentication: SASL, SSL, and OAuth](https://conduktor.io/glossary/kafka-authentication-sasl-ssl-oauth).
 
 **Exactly-Once Semantics**: Setting `exactly.once.support = enabled` activates transactional replication, ensuring that messages are replicated exactly once even during failures. This uses Kafka's transactional API under the hood, writing to the target cluster atomically. Note that exactly-once replication requires both clusters to support transactions (Kafka 2.5+) and adds some latency overhead due to transaction coordination.
 
@@ -229,7 +229,7 @@ MM2 can be deployed as a dedicated cluster or co-located with existing Kafka Con
 
 Modern organizations increasingly deploy MirrorMaker 2 on Kubernetes for better resource management, automated scaling, and declarative infrastructure. Kubernetes deployments offer advantages including pod-level isolation, horizontal scaling, health monitoring, and integration with cloud-native observability stacks.
 
-**Deploying MM2 with Strimzi Operator**: The Strimzi Kafka Operator provides Kubernetes-native support for running both Kafka clusters and Kafka Connect (which powers MM2) as custom resources. For comprehensive Strimzi guidance, see [Strimzi Kafka Operator for Kubernetes](strimzi-kafka-operator-for-kubernetes.md).
+**Deploying MM2 with Strimzi Operator**: The Strimzi Kafka Operator provides Kubernetes-native support for running both Kafka clusters and Kafka Connect (which powers MM2) as custom resources. For comprehensive Strimzi guidance, see [Strimzi Kafka Operator for Kubernetes](https://conduktor.io/glossary/strimzi-kafka-operator-for-kubernetes).
 
 Here's a Kubernetes manifest for deploying MM2 using Strimzi:
 
@@ -388,7 +388,7 @@ kafka_connect_task_error_total{connector="MirrorSourceConnector"}
 kafka_connect_mirror_checkpoint_connector_checkpoint_latency_ms > 30000
 ```
 
-Set up Prometheus alerts for replication lag exceeding SLA thresholds (e.g., >60 seconds for real-time use cases) and failed record counts. For comprehensive Kafka monitoring patterns, see [Kafka Cluster Monitoring and Metrics](kafka-cluster-monitoring-and-metrics.md).
+Set up Prometheus alerts for replication lag exceeding SLA thresholds (e.g., >60 seconds for real-time use cases) and failed record counts. For comprehensive Kafka monitoring patterns, see [Kafka Cluster Monitoring and Metrics](https://conduktor.io/glossary/kafka-cluster-monitoring-and-metrics).
 
 **Conduktor Platform for Multi-Cluster Management**: Conduktor provides enterprise-grade visibility and management capabilities specifically designed for multi-cluster Kafka environments. Conduktor's replication monitoring features include:
 
@@ -415,7 +415,7 @@ For disaster recovery scenarios, Conduktor's failover simulation capabilities le
 
 Automate this procedure where possible using orchestration tools (Kubernetes operators, Ansible playbooks) to reduce recovery time objectives (RTO).
 
-**Operational Challenges**: Managing topic configuration drift between clusters, handling schema evolution, and coordinating failover procedures remain key challenges. When using Schema Registry, synchronize schemas between clusters using Schema Registry replication or backup/restore procedures. For schema management best practices, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md). Topic configuration drift (different retention policies, partition counts, compression settings) can occur over time—regularly audit and reconcile configurations to prevent issues during failover. Understanding Kafka's built-in replication mechanisms helps optimize MM2 configurations; see [Kafka Replication and High Availability](kafka-replication-and-high-availability.md) for details.
+**Operational Challenges**: Managing topic configuration drift between clusters, handling schema evolution, and coordinating failover procedures remain key challenges. When using Schema Registry, synchronize schemas between clusters using Schema Registry replication or backup/restore procedures. For schema management best practices, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management). Topic configuration drift (different retention policies, partition counts, compression settings) can occur over time—regularly audit and reconcile configurations to prevent issues during failover. Understanding Kafka's built-in replication mechanisms helps optimize MM2 configurations; see [Kafka Replication and High Availability](https://conduktor.io/glossary/kafka-replication-and-high-availability) for details.
 
 **Network Bandwidth and Cost Optimization**: Replicating high-throughput topics across cloud regions can incur significant egress charges. Organizations should monitor bandwidth usage and consider:
 - **Compression**: Use zstd compression (Kafka 4.0+) for superior compression ratios

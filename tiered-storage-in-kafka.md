@@ -10,7 +10,7 @@ topics:
 
 # Tiered Storage in Kafka
 
-Apache Kafka has traditionally stored all topic data on local broker disks, tightly coupling compute and storage resources. As organizations retain data for longer periods to support compliance requirements, data analytics, and [event-driven architectures](event-driven-architecture.md), this model has become increasingly expensive and operationally challenging. Tiered storage, introduced in KIP-405 and reaching general availability in Kafka 3.9, fundamentally changes this by separating hot and cold data across two storage tiers. The feature is fully compatible with [KRaft mode](understanding-kraft-mode-in-kafka.md), which has become the standard deployment model in 2025, eliminating the need for ZooKeeper.
+Apache Kafka has traditionally stored all topic data on local broker disks, tightly coupling compute and storage resources. As organizations retain data for longer periods to support compliance requirements, data analytics, and [event-driven architectures](https://conduktor.io/glossary/event-driven-architecture), this model has become increasingly expensive and operationally challenging. Tiered storage, introduced in KIP-405 and reaching general availability in Kafka 3.9, fundamentally changes this by separating hot and cold data across two storage tiers. The feature is fully compatible with [KRaft mode](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka), which has become the standard deployment model in 2025, eliminating the need for ZooKeeper.
 
 ## Introduction to Tiered Storage
 
@@ -142,15 +142,15 @@ Important considerations: Topics must be created with tiered storage enabled fro
 
 Tiered storage transforms Kafka's role in data streaming architectures. Traditionally, organizations built separate systems for real-time streaming (Kafka) and historical data storage (data lakes or warehouses). Consumers would read recent events from Kafka, while analytics on older data required querying a different system entirely. This dual-system approach created complexity in maintaining data consistency and developing applications that span historical and real-time data.
 
-With tiered storage, Kafka can serve as a unified event store for both real-time and historical use cases. Stream processing frameworks like [Apache Flink](what-is-apache-flink-stateful-stream-processing.md) or [Kafka Streams](introduction-to-kafka-streams.md) can process data spanning days, weeks, or months without architectural changes. A fraud detection system might analyze patterns over the past 90 days, all accessible through standard Kafka consumer APIs.
+With tiered storage, Kafka can serve as a unified event store for both real-time and historical use cases. Stream processing frameworks like [Apache Flink](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing) or [Kafka Streams](https://conduktor.io/glossary/introduction-to-kafka-streams) can process data spanning days, weeks, or months without architectural changes. A fraud detection system might analyze patterns over the past 90 days, all accessible through standard Kafka consumer APIs.
 
 This capability enables several new streaming patterns:
 
 **Reprocessing and Backfilling**: When deploying new stream processing logic, teams can reprocess historical data in its original order without maintaining separate historical datasets. If a bug is discovered in a stream processor, teams can reprocess weeks of data to regenerate corrected output.
 
-**Long-Term Event Sourcing**: [Event-sourced systems](event-sourcing-patterns-with-kafka.md) can maintain complete event histories in Kafka itself, rather than periodically snapshotting to external databases. This simplifies architecture and ensures all event data remains queryable through consistent Kafka interfaces.
+**Long-Term Event Sourcing**: [Event-sourced systems](https://conduktor.io/glossary/event-sourcing-patterns-with-kafka) can maintain complete event histories in Kafka itself, rather than periodically snapshotting to external databases. This simplifies architecture and ensures all event data remains queryable through consistent Kafka interfaces.
 
-**Disaster Recovery and Compliance**: Regulated industries can retain complete event histories for audit and compliance without expensive dedicated storage infrastructure. For detailed strategies on protecting Kafka clusters, see [Disaster Recovery Strategies for Kafka Clusters](disaster-recovery-strategies-for-kafka-clusters.md). In disaster scenarios, systems can rebuild state from retained events rather than complex backup/restore processes.
+**Disaster Recovery and Compliance**: Regulated industries can retain complete event histories for audit and compliance without expensive dedicated storage infrastructure. For detailed strategies on protecting Kafka clusters, see [Disaster Recovery Strategies for Kafka Clusters](https://conduktor.io/glossary/disaster-recovery-strategies-for-kafka-clusters). In disaster scenarios, systems can rebuild state from retained events rather than complex backup/restore processes.
 
 Real-world example: A ride-sharing platform uses tiered storage to retain trip events for 180 days. Their real-time pricing algorithm consumes recent trip data from the local tier for low-latency decisions. Meanwhile, their analytics team runs weekly batch jobs in Flink that read 30-60 day windows of historical trip data from remote storage to optimize driver allocation models. Both workloads use the same Kafka topics with no architectural duplication.
 

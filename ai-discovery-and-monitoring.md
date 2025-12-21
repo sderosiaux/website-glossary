@@ -51,9 +51,9 @@ A comprehensive AI asset inventory serves as the single source of truth for your
 
 **Models and Versions**: Each model entry should capture the algorithm type, version history, training date, accuracy metrics, owner, and deployment status. Version control is critical—production systems may depend on specific model versions, and rollbacks require knowing exactly what was deployed when.
 
-**Training Data Lineage**: Document the datasets used to train each model, including data sources, transformation logic, and temporal snapshots. This enables reproducibility, helps diagnose performance issues, and supports compliance requirements around data usage and retention. For comprehensive lineage tracking practices, see [Data Lineage Tracking: Data from Source to Consumption](data-lineage-tracking-data-from-source-to-consumption.md).
+**Training Data Lineage**: Document the datasets used to train each model, including data sources, transformation logic, and temporal snapshots. This enables reproducibility, helps diagnose performance issues, and supports compliance requirements around data usage and retention. For comprehensive lineage tracking practices, see [Data Lineage Tracking: Data from Source to Consumption](https://conduktor.io/glossary/data-lineage-tracking-data-from-source-to-consumption).
 
-**Features and Engineering**: Feature stores—centralized repositories where ML features are stored, managed, and served to models—are becoming central to modern ML architectures. Your inventory should track feature definitions, computation logic, dependencies, and which models consume which features. This prevents duplicate feature engineering and enables feature reuse across teams. For detailed coverage of feature store patterns, see [Feature Stores for Machine Learning](feature-stores-for-machine-learning.md).
+**Features and Engineering**: Feature stores—centralized repositories where ML features are stored, managed, and served to models—are becoming central to modern ML architectures. Your inventory should track feature definitions, computation logic, dependencies, and which models consume which features. This prevents duplicate feature engineering and enables feature reuse across teams. For detailed coverage of feature store patterns, see [Feature Stores for Machine Learning](https://conduktor.io/glossary/feature-stores-for-machine-learning).
 
 **Endpoints and APIs**: Production models are typically accessed through APIs. Catalog each endpoint's URL, authentication method, rate limits, SLA commitments, and consuming applications. This mapping is essential for impact analysis when changes are planned.
 
@@ -170,9 +170,9 @@ Once AI assets are discovered, continuous monitoring tracks their health and per
 
 **Performance Metrics**: Track prediction latency, throughput, error rates, and resource utilization. Compare actual performance against SLA commitments. Set alerts for degradation that impacts user experience or breaches service agreements.
 
-**Model Drift**: Monitor statistical properties of input data and model predictions to detect drift—when the data distribution shifts from what the model was trained on, degrading accuracy. Drift detection is crucial because models don't explicitly fail; they just become gradually less effective, often invisibly to users. For in-depth coverage of drift patterns and mitigation strategies, see [Model Drift in Streaming](model-drift-in-streaming.md).
+**Model Drift**: Monitor statistical properties of input data and model predictions to detect drift—when the data distribution shifts from what the model was trained on, degrading accuracy. Drift detection is crucial because models don't explicitly fail; they just become gradually less effective, often invisibly to users. For in-depth coverage of drift patterns and mitigation strategies, see [Model Drift in Streaming](https://conduktor.io/glossary/model-drift-in-streaming).
 
-**Data Quality**: Track completeness, validity, and freshness of features fed to models. Missing values, schema changes, or stale data can silently corrupt predictions. Quality monitoring catches these issues before they cascade into business impact. For understanding quality dimensions, see [Data Quality Dimensions: Accuracy, Completeness, and Consistency](data-quality-dimensions-accuracy-completeness-and-consistency.md).
+**Data Quality**: Track completeness, validity, and freshness of features fed to models. Missing values, schema changes, or stale data can silently corrupt predictions. Quality monitoring catches these issues before they cascade into business impact. For understanding quality dimensions, see [Data Quality Dimensions: Accuracy, Completeness, and Consistency](https://conduktor.io/glossary/data-quality-dimensions-accuracy-completeness-and-consistency).
 
 **Usage Patterns**: Understand who uses each model, how often, and for what purposes. Usage tracking identifies models ready for decommissioning (no users) or requiring scaling (growing demand). It also supports chargeback models where consumers pay for the AI services they use.
 
@@ -245,11 +245,11 @@ drift_results = detector.monitor_all_features(current_production_data)
 
 AI systems built on streaming architectures present unique discovery and monitoring challenges:
 
-**Real-time Model Serving**: Models that process event streams (fraud detection on payment events, personalization on clickstreams) operate in a fundamentally different paradigm than batch systems. Discovery must track event schemas, topic subscriptions, and the temporal dependencies between events and predictions. For building end-to-end streaming ML systems, see [Real-Time ML Pipelines](real-time-ml-pipelines.md).
+**Real-time Model Serving**: Models that process event streams (fraud detection on payment events, personalization on clickstreams) operate in a fundamentally different paradigm than batch systems. Discovery must track event schemas, topic subscriptions, and the temporal dependencies between events and predictions. For building end-to-end streaming ML systems, see [Real-Time ML Pipelines](https://conduktor.io/glossary/real-time-ml-pipelines).
 
 **Feature Pipelines**: Real-time feature engineering often involves complex streaming aggregations—windowed calculations, joins across multiple event streams, and stateful transformations. These pipelines are difficult to discover because the logic is distributed across stream processors, and the lineage is implicit in event flows rather than explicit in code.
 
-**Event-Driven Architectures**: In platforms like Kafka, models consume events from topics and produce predictions to other topics, creating intricate graphs of dependencies. Discovery requires understanding these topic-level relationships and tracing data lineage through asynchronous event flows. For Kafka infrastructure monitoring, see [Kafka Cluster Monitoring and Metrics](kafka-cluster-monitoring-and-metrics.md).
+**Event-Driven Architectures**: In platforms like Kafka, models consume events from topics and produce predictions to other topics, creating intricate graphs of dependencies. Discovery requires understanding these topic-level relationships and tracing data lineage through asynchronous event flows. For Kafka infrastructure monitoring, see [Kafka Cluster Monitoring and Metrics](https://conduktor.io/glossary/kafka-cluster-monitoring-and-metrics).
 
 Governance platforms provide streaming-native capabilities to address these challenges, enabling teams to discover data products flowing through Kafka, enforce quality policies on event streams, and maintain visibility into the complex topologies that connect producers, stream processors, and consumers—including AI models and feature pipelines. This streaming-focused approach complements traditional model registries by capturing the real-time data context that batch-oriented tools miss.
 
@@ -352,7 +352,7 @@ Discovery and monitoring enable proactive governance workflows throughout the AI
 
 **Audit Trails**: Every change to model configuration, training data, or deployment status is logged with timestamps and responsible parties. These audit trails support compliance reporting, incident investigations, and continuous improvement of AI operations.
 
-Mature organizations encode these workflows in their discovery and monitoring platforms, automating routine checks and providing clear handoffs between teams. For broader governance practices, see [Data Governance Framework: Roles and Responsibilities](data-governance-framework-roles-and-responsibilities.md).
+Mature organizations encode these workflows in their discovery and monitoring platforms, automating routine checks and providing clear handoffs between teams. For broader governance practices, see [Data Governance Framework: Roles and Responsibilities](https://conduktor.io/glossary/data-governance-framework-roles-and-responsibilities).
 
 ## Building an AI Operations Center
 

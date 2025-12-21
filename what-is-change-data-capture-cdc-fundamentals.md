@@ -11,7 +11,7 @@ topics:
 
 # What is Change Data Capture? CDC Fundamentals
 
-Change Data Capture (CDC) is a design pattern that identifies and captures changes made to data in a database, then delivers those changes in real-time or near real-time to downstream systems. Rather than periodically querying entire tables to detect changes, CDC monitors database transaction logs or triggers to capture inserts, updates, and deletes as they occur. For foundational concepts on real-time data delivery, see [What is Real-Time Data Streaming?](what-is-real-time-data-streaming.md).
+Change Data Capture (CDC) is a design pattern that identifies and captures changes made to data in a database, then delivers those changes in real-time or near real-time to downstream systems. Rather than periodically querying entire tables to detect changes, CDC monitors database transaction logs or triggers to capture inserts, updates, and deletes as they occur. For foundational concepts on real-time data delivery, see [What is Real-Time Data Streaming?](https://conduktor.io/glossary/what-is-real-time-data-streaming).
 
 For data engineers and database administrators, CDC solves a fundamental challenge: how to keep multiple systems synchronized without impacting database performance or creating data inconsistencies.
 
@@ -172,7 +172,7 @@ This event shows an order status changing from "pending" to "shipped". The `befo
 
 ### Schema Management with Schema Registry
 
-Production CDC deployments typically integrate with Schema Registry to manage event schemas, providing type safety and enabling schema evolution. For detailed coverage of schema serialization formats and trade-offs, see [Avro vs Protobuf vs JSON Schema](avro-vs-protobuf-vs-json-schema.md).
+Production CDC deployments typically integrate with Schema Registry to manage event schemas, providing type safety and enabling schema evolution. For detailed coverage of schema serialization formats and trade-offs, see [Avro vs Protobuf vs JSON Schema](https://conduktor.io/glossary/avro-vs-protobuf-vs-json-schema).
 
 **Why Schema Registry matters for CDC:**
 
@@ -188,9 +188,9 @@ When a database schema changes (new column, type change, etc.), Debezium registe
 
 As of 2025, the CDC landscape has matured with several production-ready options:
 
-**Debezium 2.5+**: The dominant open-source CDC platform with connectors for PostgreSQL, MySQL, MongoDB, SQL Server, Oracle, Db2, and more. Debezium 2.x introduced significant improvements including better exactly-once semantics support, incremental snapshots without table locks, and native support for Kafka 4.0's KRaft mode. For implementation details, see [Implementing CDC with Debezium](implementing-cdc-with-debezium.md).
+**Debezium 2.5+**: The dominant open-source CDC platform with connectors for PostgreSQL, MySQL, MongoDB, SQL Server, Oracle, Db2, and more. Debezium 2.x introduced significant improvements including better exactly-once semantics support, incremental snapshots without table locks, and native support for Kafka 4.0's KRaft mode. For implementation details, see [Implementing CDC with Debezium](https://conduktor.io/glossary/implementing-cdc-with-debezium).
 
-**Apache Flink CDC Connectors**: Native CDC sources for Apache Flink (as of Flink 1.18+), enabling direct streaming from databases into Flink jobs without Kafka as an intermediary. This reduces latency and infrastructure complexity for Flink-based pipelines. See [What is Apache Flink?](what-is-apache-flink-stateful-stream-processing.md) for more on Flink's streaming capabilities.
+**Apache Flink CDC Connectors**: Native CDC sources for Apache Flink (as of Flink 1.18+), enabling direct streaming from databases into Flink jobs without Kafka as an intermediary. This reduces latency and infrastructure complexity for Flink-based pipelines. See [What is Apache Flink?](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing) for more on Flink's streaming capabilities.
 
 **Airbyte**: Open-source data integration platform with CDC support and a growing connector ecosystem. Airbyte provides a more user-friendly UI compared to raw Kafka Connect and supports both CDC and batch ingestion.
 
@@ -265,7 +265,7 @@ Governance platforms like Conduktor provide unified visibility across CDC pipeli
 - **Access Control**: Implement topic-level permissions and field-level encryption to protect sensitive change data
 - **Chaos Testing**: Use Conduktor Gateway to test CDC pipeline resilience by simulating network failures, latency spikes, and broker outages
 
-For additional context on data lineage tracking across streaming systems, see [Data Lineage Tracking](data-lineage-tracking-data-from-source-to-consumption.md). For audit trail requirements, see [Audit Logging for Streaming Platforms](audit-logging-for-streaming-platforms.md).
+For additional context on data lineage tracking across streaming systems, see [Data Lineage Tracking](https://conduktor.io/glossary/data-lineage-tracking-data-from-source-to-consumption). For audit trail requirements, see [Audit Logging for Streaming Platforms](https://conduktor.io/glossary/audit-logging-for-streaming-platforms).
 
 This visibility is particularly valuable when managing multiple CDC sources feeding a data platform, where understanding data provenance and ensuring consistency across replicated systems requires centralized monitoring.
 
@@ -273,7 +273,7 @@ This visibility is particularly valuable when managing multiple CDC sources feed
 
 ### Database Replication
 
-Replicate production databases to analytics environments without impacting operational performance. CDC enables near real-time replication while avoiding expensive database read replicas. For detailed coverage of CDC-based data warehouse patterns, see [CDC for Real-Time Data Warehousing](cdc-for-real-time-data-warehousing.md).
+Replicate production databases to analytics environments without impacting operational performance. CDC enables near real-time replication while avoiding expensive database read replicas. For detailed coverage of CDC-based data warehouse patterns, see [CDC for Real-Time Data Warehousing](https://conduktor.io/glossary/cdc-for-real-time-data-warehousing).
 
 ### Cache Invalidation
 
@@ -285,15 +285,15 @@ Maintain search indexes (Elasticsearch, Solr) in sync with relational databases.
 
 ### Data Warehouse Loading
 
-Replace batch ETL processes with continuous data ingestion. CDC streams feed data warehouses with incremental updates, reducing latency and improving data freshness. This pattern integrates well with lakehouse architectures—see [Introduction to Lakehouse Architecture](introduction-to-lakehouse-architecture.md) for modern data platform designs.
+Replace batch ETL processes with continuous data ingestion. CDC streams feed data warehouses with incremental updates, reducing latency and improving data freshness. This pattern integrates well with lakehouse architectures—see [Introduction to Lakehouse Architecture](https://conduktor.io/glossary/introduction-to-lakehouse-architecture) for modern data platform designs.
 
 ### Event-Driven Architectures
 
-CDC converts database changes into events that trigger business processes. For example, a new order insertion triggers inventory checks, payment processing, and shipping workflows. For comprehensive coverage of CDC in microservices contexts, see [CDC for Microservices Event-Driven Architectures](cdc-for-microservices-event-driven-architectures.md). For broader event-driven patterns, see [Event-Driven Architecture](event-driven-architecture.md).
+CDC converts database changes into events that trigger business processes. For example, a new order insertion triggers inventory checks, payment processing, and shipping workflows. For comprehensive coverage of CDC in microservices contexts, see [CDC for Microservices Event-Driven Architectures](https://conduktor.io/glossary/cdc-for-microservices-event-driven-architectures). For broader event-driven patterns, see [Event-Driven Architecture](https://conduktor.io/glossary/event-driven-architecture).
 
 ### Audit and Compliance
 
-Maintain complete change history for compliance and auditing. CDC captures who changed what and when, creating an immutable audit trail. For audit logging best practices in streaming platforms, see [Audit Logging for Streaming Platforms](audit-logging-for-streaming-platforms.md).
+Maintain complete change history for compliance and auditing. CDC captures who changed what and when, creating an immutable audit trail. For audit logging best practices in streaming platforms, see [Audit Logging for Streaming Platforms](https://conduktor.io/glossary/audit-logging-for-streaming-platforms).
 
 ## Implementation Considerations
 
@@ -301,7 +301,7 @@ When implementing CDC, consider these factors:
 
 **Database Compatibility**: Not all databases expose transaction logs equally. PostgreSQL and MySQL have mature CDC support through their write-ahead log (WAL) and binary log (binlog) respectively. The WAL is a sequential record of all changes that PostgreSQL writes before applying them to the main database files, ensuring crash recovery and replication capabilities. Some proprietary databases require vendor-specific tools or may not support log-based CDC at all.
 
-**Network and Latency**: CDC introduces network hops between source databases and consumers. Plan for appropriate network capacity and monitor latency. Typical CDC latency ranges from sub-second to a few seconds depending on network topology, log parsing complexity, and serialization overhead. For latency-sensitive applications, use consumer lag monitoring—see [Consumer Lag Monitoring](consumer-lag-monitoring.md) for best practices.
+**Network and Latency**: CDC introduces network hops between source databases and consumers. Plan for appropriate network capacity and monitor latency. Typical CDC latency ranges from sub-second to a few seconds depending on network topology, log parsing complexity, and serialization overhead. For latency-sensitive applications, use consumer lag monitoring—see [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring) for best practices.
 
 **Schema Evolution**: Database schema changes (adding columns, changing types, renaming fields) must be handled gracefully. When a schema change occurs:
 
@@ -318,7 +318,7 @@ For breaking changes (e.g., removing a required field), consumers must be update
 - Kafka producer retries
 - Consumer group rebalances
 
-Downstream systems should implement **idempotent processing**—operations that produce the same result when applied multiple times. For example, "set status to shipped" is idempotent, while "increment count by 1" is not. Alternatively, implement deduplication using message keys or transaction IDs. For comprehensive coverage of delivery guarantees, see [Exactly-Once Semantics in Kafka](exactly-once-semantics-in-kafka.md).
+Downstream systems should implement **idempotent processing**—operations that produce the same result when applied multiple times. For example, "set status to shipped" is idempotent, while "increment count by 1" is not. Alternatively, implement deduplication using message keys or transaction IDs. For comprehensive coverage of delivery guarantees, see [Exactly-Once Semantics in Kafka](https://conduktor.io/glossary/exactly-once-semantics-in-kafka).
 
 **Initial Snapshot Strategy**: When starting CDC for the first time, you need to capture the current state of existing data before streaming changes. Debezium supports several snapshot modes:
 
@@ -336,7 +336,7 @@ Choose the appropriate mode based on table size, acceptable downtime, and whethe
 - Monitor connector error metrics and set up alerting
 - Have a plan for connector recovery and reprocessing
 
-For error handling patterns in streaming systems, see [Dead Letter Queues for Error Handling](dead-letter-queues-for-error-handling.md).
+For error handling patterns in streaming systems, see [Dead Letter Queues for Error Handling](https://conduktor.io/glossary/dead-letter-queues-for-error-handling).
 
 **Resource Planning**: While CDC is efficient compared to batch ETL, reading transaction logs and publishing events consumes resources. Size connector infrastructure appropriately based on:
 
@@ -346,13 +346,13 @@ For error handling patterns in streaming systems, see [Dead Letter Queues for Er
 - Required processing latency
 - Number of concurrent connectors
 
-Monitor CPU, memory, and network utilization on Kafka Connect workers. For Kafka-specific infrastructure considerations, see [Apache Kafka](apache-kafka.md) for cluster sizing guidance.
+Monitor CPU, memory, and network utilization on Kafka Connect workers. For Kafka-specific infrastructure considerations, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka) for cluster sizing guidance.
 
 ## Summary
 
 Change Data Capture is a foundational pattern for modern data architectures, enabling real-time data synchronization without the performance penalties and limitations of traditional batch approaches. Log-based CDC, implemented through tools like Debezium 2.5+, provides the most robust solution by capturing all database changes with minimal source impact.
 
-By integrating CDC with streaming platforms like Apache Kafka (see [Apache Kafka](apache-kafka.md) for foundational concepts), organizations build event-driven architectures that keep multiple systems synchronized in real-time. As of 2025, CDC implementations benefit from Kafka 4.0's KRaft mode, improved exactly-once semantics, and mature Schema Registry integration. This capability powers use cases from real-time data warehouse loading to microservices communication.
+By integrating CDC with streaming platforms like Apache Kafka (see [Apache Kafka](https://conduktor.io/glossary/apache-kafka) for foundational concepts), organizations build event-driven architectures that keep multiple systems synchronized in real-time. As of 2025, CDC implementations benefit from Kafka 4.0's KRaft mode, improved exactly-once semantics, and mature Schema Registry integration. This capability powers use cases from real-time data warehouse loading to microservices communication.
 
 Success with CDC requires attention to monitoring, governance, and operational concerns. Key implementation considerations include:
 

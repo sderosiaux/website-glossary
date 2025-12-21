@@ -11,7 +11,7 @@ topics:
 
 # Schema Evolution in Apache Iceberg
 
-Schema evolution is a critical capability for modern data lakehouses, allowing data engineers to adapt table structures as business requirements change without disrupting existing workloads or rewriting massive datasets. [Apache Iceberg](apache-iceberg.md) provides robust schema evolution capabilities that surpass traditional data lake formats, making it the preferred choice for enterprise data platforms.
+Schema evolution is a critical capability for modern data lakehouses, allowing data engineers to adapt table structures as business requirements change without disrupting existing workloads or rewriting massive datasets. [Apache Iceberg](https://conduktor.io/glossary/apache-iceberg) provides robust schema evolution capabilities that surpass traditional data lake formats, making it the preferred choice for enterprise data platforms.
 
 As of 2025, with Iceberg versions 1.8.0 through 1.10.0, schema evolution has expanded to support new data types including Variant for semi-structured data, nanosecond-precision timestamps, and geospatial types, alongside enhanced performance through deletion vectors and row lineage tracking.
 
@@ -23,7 +23,7 @@ Iceberg fundamentally reimagines this process by decoupling the schema definitio
 
 Iceberg tracks schema changes through versioned metadata, allowing multiple schema versions to coexist. Each data file retains its original schema, while Iceberg's metadata layer handles the translation between different schema versions at read time. This architecture enables zero-copy schema evolution for most operations—meaning schema changes don't require copying or rewriting data files—dramatically reducing the operational overhead of schema changes.
 
-For comprehensive guidance on schema evolution patterns across different systems, see [Schema Evolution Best Practices](schema-evolution-best-practices.md).
+For comprehensive guidance on schema evolution patterns across different systems, see [Schema Evolution Best Practices](https://conduktor.io/glossary/schema-evolution-best-practices).
 
 ## Safe Schema Changes in Iceberg
 
@@ -177,7 +177,7 @@ Schema evolution in Iceberg integrates seamlessly with streaming data pipelines,
 
 ### Streaming Writes with Evolving Schemas
 
-Iceberg supports streaming writes from Apache Spark Structured Streaming and Apache Flink with automatic schema evolution. For details on designing streaming pipelines to lakehouses, see [Streaming Ingestion to Lakehouse](streaming-ingestion-to-lakehouse.md).
+Iceberg supports streaming writes from Apache Spark Structured Streaming and Apache Flink with automatic schema evolution. For details on designing streaming pipelines to lakehouses, see [Streaming Ingestion to Lakehouse](https://conduktor.io/glossary/streaming-ingestion-to-lakehouse).
 
 ```python
 # Spark Structured Streaming with schema evolution
@@ -201,7 +201,7 @@ When `mergeSchema` is enabled, Iceberg automatically incorporates new columns di
 
 ### Schema Registry Integration
 
-For production streaming environments, combining Iceberg with a schema registry provides governed schema evolution. For comprehensive coverage of schema registry patterns, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md).
+For production streaming environments, combining Iceberg with a schema registry provides governed schema evolution. For comprehensive coverage of schema registry patterns, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management).
 
 The integration pattern typically involves:
 1. Producer registers schema changes in the schema registry
@@ -224,7 +224,7 @@ SELECT * FROM catalog.db.events
 VERSION AS OF 'snapshot-id-here';
 ```
 
-This time-travel capability extends to schema evolution, allowing you to query data with historical schemas for debugging, auditing, or regulatory compliance. When reading older snapshots, Iceberg applies the schema that was active at that point in time. For comprehensive coverage of time travel features, see [Time Travel with Apache Iceberg](time-travel-with-apache-iceberg.md).
+This time-travel capability extends to schema evolution, allowing you to query data with historical schemas for debugging, auditing, or regulatory compliance. When reading older snapshots, Iceberg applies the schema that was active at that point in time. For comprehensive coverage of time travel features, see [Time Travel with Apache Iceberg](https://conduktor.io/glossary/time-travel-with-apache-iceberg).
 
 ### Managing Breaking Changes
 

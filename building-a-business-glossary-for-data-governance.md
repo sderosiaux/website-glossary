@@ -11,13 +11,13 @@ topics:
 
 # Building a Business Glossary for Data Governance
 
-In the complex landscape of modern data management, one of the most persistent challenges organizations face is establishing a common language across business and technical teams. A well-constructed business glossary serves as the cornerstone of effective data governance, providing the semantic layer that connects business terminology with technical data assets. For a deeper exploration of semantic layers in streaming contexts, see [Semantic Layer for Streaming](semantic-layer-for-streaming.md).
+In the complex landscape of modern data management, one of the most persistent challenges organizations face is establishing a common language across business and technical teams. A well-constructed business glossary serves as the cornerstone of effective data governance, providing the semantic layer that connects business terminology with technical data assets. For a deeper exploration of semantic layers in streaming contexts, see [Semantic Layer for Streaming](https://conduktor.io/glossary/semantic-layer-for-streaming).
 
 ## Understanding the Business Glossary
 
 A business glossary is more than a simple dictionary of terms. It's a living, governed repository that defines business concepts, their relationships, and their mappings to physical data assets. While a data dictionary focuses on technical metadata—column names, data types, and constraints—a business glossary operates at a higher level of abstraction, capturing the meaning and context that data holds within your organization.
 
-Business glossaries are typically managed within data catalogs, which provide the technical infrastructure for discovery, search, and governance. For an overview of modern data catalog capabilities, see [What is a Data Catalog? Modern Data Discovery](what-is-a-data-catalog-modern-data-discovery.md).
+Business glossaries are typically managed within data catalogs, which provide the technical infrastructure for discovery, search, and governance. For an overview of modern data catalog capabilities, see [What is a Data Catalog? Modern Data Discovery](https://conduktor.io/glossary/what-is-a-data-catalog-modern-data-discovery).
 
 For instance, "customer" might mean different things across departments. Marketing might define it as anyone who has engaged with promotional content, while finance considers only those who have completed a purchase. Without a business glossary, these inconsistencies propagate through dashboards, reports, and analytics, leading to conflicting insights and eroded trust in data.
 
@@ -35,13 +35,13 @@ Terms rarely exist in isolation. Document how concepts relate to one another thr
 
 The real power of a business glossary emerges when you link business terms to their technical implementations. Map terms to database tables, columns, API endpoints, and even streaming topics. This bidirectional linkage allows business analysts to find the data they need and data engineers to understand the business impact of technical changes.
 
-When combined with data lineage tracking, glossary terms flow through transformation pipelines, enabling end-to-end business context from source to consumption. For detailed coverage of lineage tracking, see [Data Lineage: Tracking Data from Source to Consumption](data-lineage-tracking-data-from-source-to-consumption.md).
+When combined with data lineage tracking, glossary terms flow through transformation pipelines, enabling end-to-end business context from source to consumption. For detailed coverage of lineage tracking, see [Data Lineage: Tracking Data from Source to Consumption](https://conduktor.io/glossary/data-lineage-tracking-data-from-source-to-consumption).
 
 ### Ownership and Stewardship
 
 Assign clear ownership to each term. Data stewards should be subject matter experts who can validate definitions, approve changes, and resolve ambiguities. This governance layer ensures the glossary remains authoritative and current.
 
-For detailed guidance on establishing roles and responsibilities, see [Data Governance Framework: Roles and Responsibilities](data-governance-framework-roles-and-responsibilities.md).
+For detailed guidance on establishing roles and responsibilities, see [Data Governance Framework: Roles and Responsibilities](https://conduktor.io/glossary/data-governance-framework-roles-and-responsibilities).
 
 ## Building Your Glossary: A Practical Approach
 
@@ -78,7 +78,7 @@ The value of your business glossary multiplies when integrated with your technic
 
 These platforms automatically link business terms to database schemas, data warehouse models, BI dashboards, and streaming topics. This integration enables impact analysis—when a business term changes, you can immediately see which reports, dashboards, pipelines, and systems are affected.
 
-For detailed coverage of technical versus business metadata and their relationship, see [Metadata Management: Technical vs Business Metadata](metadata-management-technical-vs-business-metadata.md).
+For detailed coverage of technical versus business metadata and their relationship, see [Metadata Management: Technical vs Business Metadata](https://conduktor.io/glossary/metadata-management-technical-vs-business-metadata).
 
 ## Streaming Integration and Real-Time Glossaries
 
@@ -128,7 +128,7 @@ Modern platforms enable glossary integration:
 
 These tools enforce naming conventions, validate topic alignment with approved business terms, and maintain semantic consistency across batch and streaming ecosystems. This integration proves valuable for data governance officers managing hybrid architectures, allowing business analysts to discover relevant topics through business terminology rather than navigating technical names and schemas.
 
-For implementation details on schema management and evolution, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md). For broader streaming governance patterns, refer to [Apache Kafka](apache-kafka.md).
+For implementation details on schema management and evolution, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management). For broader streaming governance patterns, refer to [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
 
 ## Maintaining Glossary Quality
 
@@ -171,7 +171,7 @@ Machine learning algorithms automatically:
 - Identify potential duplicates or conflicting definitions
 - Automatically tag sensitive terms (PII, financial data) for compliance
 
-For comprehensive strategies on data classification and tagging, see [Data Classification and Tagging Strategies](data-classification-and-tagging-strategies.md).
+For comprehensive strategies on data classification and tagging, see [Data Classification and Tagging Strategies](https://conduktor.io/glossary/data-classification-and-tagging-strategies).
 
 ### Usage Analytics and Recommendations
 
@@ -182,7 +182,7 @@ AI-powered systems track how data assets are queried and consumed, then recommen
 
 Tools like Atlan's AI-powered glossary assistant, Alation's behavioral AI, and Collibra's ML-driven recommendations demonstrate these capabilities in production environments.
 
-For related automation in data quality, see [Automated Data Quality Testing](automated-data-quality-testing.md) and [Building a Data Quality Framework](building-a-data-quality-framework.md).
+For related automation in data quality, see [Automated Data Quality Testing](https://conduktor.io/glossary/automated-data-quality-testing) and [Building a Data Quality Framework](https://conduktor.io/glossary/building-a-data-quality-framework).
 
 ## Data Mesh and Domain-Specific Glossaries
 
@@ -217,7 +217,7 @@ Modern implementations support glossary federation where:
 
 This approach balances consistency with domain autonomy, preventing the glossary from becoming a centralized bottleneck.
 
-For comprehensive coverage of data mesh principles, see [Data Mesh Principles and Implementation](data-mesh-principles-and-implementation.md). For data product governance patterns, refer to [Building and Managing Data Products](building-and-managing-data-products.md) and [Data Product Governance](data-product-governance.md).
+For comprehensive coverage of data mesh principles, see [Data Mesh Principles and Implementation](https://conduktor.io/glossary/data-mesh-principles-and-implementation). For data product governance patterns, refer to [Building and Managing Data Products](https://conduktor.io/glossary/building-and-managing-data-products) and [Data Product Governance](https://conduktor.io/glossary/data-product-governance).
 
 ## Common Challenges and Best Practices
 

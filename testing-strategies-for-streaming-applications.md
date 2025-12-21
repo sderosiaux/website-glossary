@@ -11,7 +11,7 @@ topics:
 
 # Testing Strategies for Streaming Applications
 
-Testing streaming applications presents unique challenges that traditional software testing approaches often fail to address. Unlike batch processing or request-response systems, streaming applications operate continuously, process unbounded data, maintain state across time, and handle complex temporal semantics. This article explores effective testing strategies for building reliable streaming applications on platforms like Apache Kafka, Apache Flink, and Kafka Streams. For foundational understanding of Kafka, see [Apache Kafka](apache-kafka.md).
+Testing streaming applications presents unique challenges that traditional software testing approaches often fail to address. Unlike batch processing or request-response systems, streaming applications operate continuously, process unbounded data, maintain state across time, and handle complex temporal semantics. This article explores effective testing strategies for building reliable streaming applications on platforms like Apache Kafka, Apache Flink, and Kafka Streams. For foundational understanding of Kafka, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
 
 ## The Testing Challenge in Streaming Systems
 
@@ -19,7 +19,7 @@ Streaming applications differ fundamentally from traditional software in several
 
 Traditional unit tests that verify input-output behavior struggle with the asynchronous nature of stream processing. Integration tests face challenges reproducing timing-dependent bugs. Performance tests must account for sustained throughput over hours or days, not just peak bursts.
 
-The distributed nature of streaming platforms like Kafka adds another layer of complexity. Tests must account for network partitions, broker failures, consumer rebalancing, and exactly-once semantics. For details on exactly-once processing guarantees, see [Exactly-Once Semantics in Kafka](exactly-once-semantics-in-kafka.md). A comprehensive testing strategy requires multiple layers, from isolated unit tests to full end-to-end validation.
+The distributed nature of streaming platforms like Kafka adds another layer of complexity. Tests must account for network partitions, broker failures, consumer rebalancing, and exactly-once semantics. For details on exactly-once processing guarantees, see [Exactly-Once Semantics in Kafka](https://conduktor.io/glossary/exactly-once-semantics-in-kafka). A comprehensive testing strategy requires multiple layers, from isolated unit tests to full end-to-end validation.
 
 ## Unit Testing Stream Processors
 
@@ -39,7 +39,7 @@ OrderTotal result = outputTopic.readValue();
 assertEquals(100.0, result.getTotal());
 ```
 
-Apache Flink (1.18+) provides similar capabilities with `MiniCluster` for testing complete job graphs (the dataflow execution plan), and utilities like `DataStreamTestHarness` for testing individual operators. A job graph in Flink represents the logical execution plan of your streaming application—how operators transform data as it flows through the pipeline. The key is to abstract your business logic into pure functions that can be tested independently of the streaming framework. For detailed coverage of Flink's stateful processing model, see [What is Apache Flink: Stateful Stream Processing](what-is-apache-flink-stateful-stream-processing.md).
+Apache Flink (1.18+) provides similar capabilities with `MiniCluster` for testing complete job graphs (the dataflow execution plan), and utilities like `DataStreamTestHarness` for testing individual operators. A job graph in Flink represents the logical execution plan of your streaming application—how operators transform data as it flows through the pipeline. The key is to abstract your business logic into pure functions that can be tested independently of the streaming framework. For detailed coverage of Flink's stateful processing model, see [What is Apache Flink: Stateful Stream Processing](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing).
 
 ## Integration Testing with Embedded Clusters
 
@@ -62,11 +62,11 @@ public class OrderProcessorIT {
 }
 ```
 
-This approach provides high confidence that your application will work in production while keeping tests fast and isolated. You can test schema evolution (see [Schema Registry and Schema Management](schema-registry-and-schema-management.md)), serialization, partitioning strategies, and consumer group behavior without external dependencies.
+This approach provides high confidence that your application will work in production while keeping tests fast and isolated. You can test schema evolution (see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management)), serialization, partitioning strategies, and consumer group behavior without external dependencies.
 
 ### Testing with Kafka 4.0 and KRaft Mode
 
-Kafka 4.0 (released in 2024) eliminated ZooKeeper in favor of KRaft mode, where Kafka itself manages cluster metadata using the Raft consensus protocol. This architectural change affects testing strategies in several ways. For background on KRaft, see [Understanding KRaft Mode in Kafka](understanding-kraft-mode-in-kafka.md).
+Kafka 4.0 (released in 2024) eliminated ZooKeeper in favor of KRaft mode, where Kafka itself manages cluster metadata using the Raft consensus protocol. This architectural change affects testing strategies in several ways. For background on KRaft, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka).
 
 When using TestContainers with Kafka 4.0+, containers start faster and require less memory since ZooKeeper is no longer needed. The KRaft configuration is simpler, but tests should verify:
 
@@ -80,9 +80,9 @@ Most integration tests work identically under KRaft, but if your application dir
 
 Many streaming applications maintain state—aggregations, joins, sessionization, and pattern detection all require remembering previous events. Testing stateful operations requires verifying not just correct output, but correct state evolution and recovery from failures.
 
-For Kafka Streams applications, you can inspect state stores directly during testing using the `TopologyTestDriver.getKeyValueStore()` method. This lets you verify that state is being built correctly over time. For comprehensive coverage of state management, see [State Stores in Kafka Streams](state-stores-in-kafka-streams.md).
+For Kafka Streams applications, you can inspect state stores directly during testing using the `TopologyTestDriver.getKeyValueStore()` method. This lets you verify that state is being built correctly over time. For comprehensive coverage of state management, see [State Stores in Kafka Streams](https://conduktor.io/glossary/state-stores-in-kafka-streams).
 
-Failure recovery testing is equally important. Your tests should simulate failures—process crashes, network partitions, broker outages—and verify that your application recovers correctly using checkpoints or changelog topics. Flink provides utilities for triggering and recovering from savepoints during tests. For handling backpressure during failures, see [Backpressure Handling in Streaming Systems](backpressure-handling-in-streaming-systems.md).
+Failure recovery testing is equally important. Your tests should simulate failures—process crashes, network partitions, broker outages—and verify that your application recovers correctly using checkpoints or changelog topics. Flink provides utilities for triggering and recovering from savepoints during tests. For handling backpressure during failures, see [Backpressure Handling in Streaming Systems](https://conduktor.io/glossary/backpressure-handling-in-streaming-systems).
 
 Consider testing these scenarios:
 - State accumulation over many events
@@ -93,7 +93,7 @@ Consider testing these scenarios:
 
 ## Testing Time Semantics and Windows
 
-Time is fundamental to stream processing but notoriously difficult to test. Most streaming applications use event time (the timestamp when events occurred) rather than processing time (when they're processed), with watermarks tracking progress through the event timeline. Watermarks are special markers that flow through the data stream, indicating that no events with timestamps earlier than the watermark should be expected—allowing the system to safely close windows and emit results. Windowed operations—tumbling, sliding, and session windows—depend critically on correct time handling. For a comprehensive explanation of watermarks, see [Watermarks and Triggers in Stream Processing](watermarks-and-triggers-in-stream-processing.md).
+Time is fundamental to stream processing but notoriously difficult to test. Most streaming applications use event time (the timestamp when events occurred) rather than processing time (when they're processed), with watermarks tracking progress through the event timeline. Watermarks are special markers that flow through the data stream, indicating that no events with timestamps earlier than the watermark should be expected—allowing the system to safely close windows and emit results. Windowed operations—tumbling, sliding, and session windows—depend critically on correct time handling. For a comprehensive explanation of watermarks, see [Watermarks and Triggers in Stream Processing](https://conduktor.io/glossary/watermarks-and-triggers-in-stream-processing).
 
 The key to testing time-based operations is controlling time explicitly. Kafka Streams' `TopologyTestDriver` allows you to advance time manually, simulating hours of processing in milliseconds of test execution.
 
@@ -124,9 +124,9 @@ For streaming applications, data quality tests should validate:
 - **Business rules**: Domain-specific constraints (e.g., order totals are non-negative)
 - **Duplicate detection**: Exactly-once semantics are maintained
 
-You can run these tests in multiple ways: as part of integration tests using TestContainers, as shadow tests comparing production and test outputs, or as continuous monitors in production. For comprehensive coverage of data quality testing, see [Automated Data Quality Testing](automated-data-quality-testing.md) and [Great Expectations Data Testing Framework](great-expectations-data-testing-framework.md).
+You can run these tests in multiple ways: as part of integration tests using TestContainers, as shadow tests comparing production and test outputs, or as continuous monitors in production. For comprehensive coverage of data quality testing, see [Automated Data Quality Testing](https://conduktor.io/glossary/automated-data-quality-testing) and [Great Expectations Data Testing Framework](https://conduktor.io/glossary/great-expectations-data-testing-framework).
 
-Consider implementing data contracts between producers and consumers that codify quality expectations. When tests detect violations, they can route problematic records to dead letter queues for investigation. For error handling patterns, see [Dead Letter Queues for Error Handling](dead-letter-queues-for-error-handling.md).
+Consider implementing data contracts between producers and consumers that codify quality expectations. When tests detect violations, they can route problematic records to dead letter queues for investigation. For error handling patterns, see [Dead Letter Queues for Error Handling](https://conduktor.io/glossary/dead-letter-queues-for-error-handling).
 
 ## Performance and Load Testing
 
@@ -158,7 +158,7 @@ Modern tools like Conduktor Gateway enable proxy-based chaos testing for Kafka a
 
 For example, you might test how your application handles a broker becoming unavailable during peak load, or how consumers recover from a rebalance when processing a backlog of events. These scenarios are difficult to reproduce reliably without specialized tooling.
 
-Chaos testing should be part of your CI/CD pipeline for critical streaming applications, with automated tests that inject failures and verify recovery within acceptable time bounds. For comprehensive coverage of chaos engineering patterns, see [Chaos Engineering for Streaming Systems](chaos-engineering-for-streaming-systems.md).
+Chaos testing should be part of your CI/CD pipeline for critical streaming applications, with automated tests that inject failures and verify recovery within acceptable time bounds. For comprehensive coverage of chaos engineering patterns, see [Chaos Engineering for Streaming Systems](https://conduktor.io/glossary/chaos-engineering-for-streaming-systems).
 
 ## Testing in Production and Observability
 
@@ -168,9 +168,9 @@ Shadow testing runs new versions of your application in parallel with production
 
 Canary deployments gradually roll out changes to small percentages of traffic while monitoring key metrics. If error rates or latency degrade, you can roll back before widespread impact.
 
-Effective observability is essential for both testing strategies. Instrument your applications to emit metrics, traces, and logs that help you understand behavior. For Kafka applications, this includes consumer lag (monitored with tools like Kafka Lag Exporter), processing time per record, exception rates, and state store sizes. Modern observability platforms using OpenTelemetry provide distributed tracing that tracks individual events through complex streaming pipelines. For details on distributed tracing, see [Distributed Tracing for Kafka Applications](distributed-tracing-for-kafka-applications.md).
+Effective observability is essential for both testing strategies. Instrument your applications to emit metrics, traces, and logs that help you understand behavior. For Kafka applications, this includes consumer lag (monitored with tools like Kafka Lag Exporter), processing time per record, exception rates, and state store sizes. Modern observability platforms using OpenTelemetry provide distributed tracing that tracks individual events through complex streaming pipelines. For details on distributed tracing, see [Distributed Tracing for Kafka Applications](https://conduktor.io/glossary/distributed-tracing-for-kafka-applications).
 
-Platforms like Conduktor provide real-time monitoring, data quality validation, and governance that helps teams detect issues quickly in production environments. Schema validation, data lineage tracking, and anomaly detection can catch problems that traditional testing misses. For understanding consumer lag monitoring patterns, see [Consumer Lag Monitoring](consumer-lag-monitoring.md).
+Platforms like Conduktor provide real-time monitoring, data quality validation, and governance that helps teams detect issues quickly in production environments. Schema validation, data lineage tracking, and anomaly detection can catch problems that traditional testing misses. For understanding consumer lag monitoring patterns, see [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring).
 
 ## Best Practices and Tooling
 
@@ -192,7 +192,7 @@ The streaming ecosystem provides excellent tooling:
 - **Kafka Lag Exporter** for consumer lag monitoring in test and production environments
 - **Great Expectations** and **Soda Core** for data quality validation
 
-Remember that testing streaming applications requires patience and rigor. Invest in good testing infrastructure early—it pays dividends as applications grow in complexity. For CI/CD integration, see [CI/CD Best Practices for Streaming Applications](cicd-best-practices-for-streaming-applications.md).
+Remember that testing streaming applications requires patience and rigor. Invest in good testing infrastructure early—it pays dividends as applications grow in complexity. For CI/CD integration, see [CI/CD Best Practices for Streaming Applications](https://conduktor.io/glossary/cicd-best-practices-for-streaming-applications).
 
 ## Summary
 

@@ -26,7 +26,7 @@ Automated testing provides:
 
 ## Core Testing Dimensions
 
-Effective data quality testing covers multiple dimensions. For broader context on quality dimensions and how they relate to organizational data strategy, see [Data Quality Dimensions: Accuracy, Completeness, and Consistency](data-quality-dimensions-accuracy-completeness-and-consistency.md).
+Effective data quality testing covers multiple dimensions. For broader context on quality dimensions and how they relate to organizational data strategy, see [Data Quality Dimensions: Accuracy, Completeness, and Consistency](https://conduktor.io/glossary/data-quality-dimensions-accuracy-completeness-and-consistency).
 
 ### 1. Schema Validation
 
@@ -158,7 +158,7 @@ if result['is_anomaly']:
 
 For streaming pipelines, data quality testing must happen in real-time. When using Apache Kafka, streaming management tools provide valuable capabilities for monitoring and validating data quality in real-time contexts.
 
-For foundational understanding of Kafka architecture and streaming patterns, see [Apache Kafka](apache-kafka.md).
+For foundational understanding of Kafka architecture and streaming patterns, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
 
 ### Real-Time Validation Pattern
 
@@ -258,9 +258,9 @@ class StreamingQualityTester:
 
 Streaming management platforms provide visual monitoring and testing capabilities for Kafka streams:
 
-- **Monitor schema registry**: Track schema evolution and catch breaking changes. For details on schema management patterns, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md).
+- **Monitor schema registry**: Track schema evolution and catch breaking changes. For details on schema management patterns, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management).
 - **Validate message format**: Configure validation rules for incoming data
-- **Dead letter queue management**: Easily inspect and replay failed messages. For error handling patterns, see [Dead Letter Queues for Error Handling](dead-letter-queues-for-error-handling.md).
+- **Dead letter queue management**: Easily inspect and replay failed messages. For error handling patterns, see [Dead Letter Queues for Error Handling](https://conduktor.io/glossary/dead-letter-queues-for-error-handling).
 - **Data lineage tracking**: Understand how data flows through quality gates
 
 Set up quality gates to automatically route messages through validation topics, making it easy to visualize quality metrics and troubleshoot issues.
@@ -333,7 +333,7 @@ class DataQualityTestSuite:
 
 Automated data quality testing transforms data reliability from a reactive problem into a proactive practice. By implementing comprehensive validation across schema, completeness, and statistical dimensions—especially in streaming architectures—you build resilient data systems that teams can trust.
 
-For production-grade implementation using established frameworks, see [Great Expectations: Data Testing Framework](great-expectations-data-testing-framework.md). For establishing formal agreements between data producers and consumers, explore [Data Contracts for Reliable Pipelines](data-contracts-for-reliable-pipelines.md).
+For production-grade implementation using established frameworks, see [Great Expectations: Data Testing Framework](https://conduktor.io/glossary/great-expectations-data-testing-framework). For establishing formal agreements between data producers and consumers, explore [Data Contracts for Reliable Pipelines](https://conduktor.io/glossary/data-contracts-for-reliable-pipelines).
 
 The investment in automated testing pays dividends through reduced debugging time, increased confidence in data-driven decisions, and faster incident resolution when issues do occur.
 

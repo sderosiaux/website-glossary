@@ -250,7 +250,7 @@ public class StreamingQualityValidator {
 }
 ```
 
-Consider quality check performance carefully in streaming contexts. Quality validations must process data at the rate it arrives without creating backpressure or latency. Design checks to be computationally efficient and scalable, using techniques like sampling for expensive validations that don't need to run on every record. For backpressure handling strategies, see [Backpressure Handling in Streaming Systems](backpressure-handling-in-streaming-systems.md).
+Consider quality check performance carefully in streaming contexts. Quality validations must process data at the rate it arrives without creating backpressure or latency. Design checks to be computationally efficient and scalable, using techniques like sampling for expensive validations that don't need to run on every record. For backpressure handling strategies, see [Backpressure Handling in Streaming Systems](https://conduktor.io/glossary/backpressure-handling-in-streaming-systems).
 
 ## Modern Data Quality Tools (2025)
 
@@ -262,9 +262,9 @@ The data quality tooling landscape has evolved significantly. Modern frameworks 
 
 **Elementary Data**: Observability platform for dbt that provides automatic data quality monitoring, anomaly detection, and lineage tracking. Complements dbt's built-in testing with ML-based anomaly detection.
 
-**Great Expectations**: Comprehensive data validation framework with extensive built-in expectations. See [Great Expectations: Data Testing Framework](great-expectations-data-testing-framework.md) for implementation patterns.
+**Great Expectations**: Comprehensive data validation framework with extensive built-in expectations. See [Great Expectations: Data Testing Framework](https://conduktor.io/glossary/great-expectations-data-testing-framework) for implementation patterns.
 
-**Data Contracts (ODCS)**: The Open Data Contract Standard (ODCS v3.1.0) provides a specification for formal data contracts. See [Data Contracts for Reliable Pipelines](data-contracts-for-reliable-pipelines.md) for implementation guidance.
+**Data Contracts (ODCS)**: The Open Data Contract Standard (ODCS v3.1.0) provides a specification for formal data contracts. See [Data Contracts for Reliable Pipelines](https://conduktor.io/glossary/data-contracts-for-reliable-pipelines) for implementation guidance.
 
 These tools integrate with streaming platforms like Kafka, enabling real-time quality validation alongside custom code solutions.
 

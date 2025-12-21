@@ -76,7 +76,7 @@ Total: 30-500ms+ (varies by optimization)
 
 **Garbage collection pauses** in JVM-based systems like Kafka or Flink can cause intermittent spikes. A poorly tuned JVM might pause for hundreds of milliseconds during a major GC cycle, creating latency outliers that violate SLAs.
 
-**Queue waiting times** occur when messages sit in buffers waiting for processing. If your pipeline can't keep pace with incoming data, queues grow and latency increases proportionally. For strategies to manage this, see [Backpressure Handling in Streaming Systems](backpressure-handling-in-streaming-systems.md).
+**Queue waiting times** occur when messages sit in buffers waiting for processing. If your pipeline can't keep pace with incoming data, queues grow and latency increases proportionally. For strategies to manage this, see [Backpressure Handling in Streaming Systems](https://conduktor.io/glossary/backpressure-handling-in-streaming-systems).
 
 ## Design Principles for Low-Latency Pipelines
 
@@ -96,7 +96,7 @@ Building a low-latency pipeline requires architectural discipline from the start
 
 Your technology stack profoundly impacts achievable latency. Understanding the characteristics of each component helps you make informed decisions:
 
-**Apache Kafka** excels at low-latency message delivery when properly configured. Unlike traditional message queues that optimize for guaranteed delivery semantics, Kafka's log-based architecture allows for extremely fast appends and sequential reads. For detailed configuration strategies, see [Kafka Performance Tuning Guide](kafka-performance-tuning-guide.md).
+**Apache Kafka** excels at low-latency message delivery when properly configured. Unlike traditional message queues that optimize for guaranteed delivery semantics, Kafka's log-based architecture allows for extremely fast appends and sequential reads. For detailed configuration strategies, see [Kafka Performance Tuning Guide](https://conduktor.io/glossary/kafka-performance-tuning-guide).
 
 With Kafka 4.0+ and KRaft mode (eliminating ZooKeeper overhead), you can achieve sub-5ms producer-to-broker latencies. Critical producer settings for low latency:
 
@@ -120,19 +120,19 @@ fetch.max.wait.ms=0            # Return immediately with available data
 max.poll.records=500           # Smaller batches for faster processing
 ```
 
-KRaft mode (Kafka 4.0+) eliminates controller election overhead and reduces broker communication latency by 20-50% compared to ZooKeeper-based deployments. For fundamentals, see [Apache Kafka](apache-kafka.md).
+KRaft mode (Kafka 4.0+) eliminates controller election overhead and reduces broker communication latency by 20-50% compared to ZooKeeper-based deployments. For fundamentals, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
 
 Traditional message queues like RabbitMQ or ActiveMQ provide different guarantees but often introduce higher latency due to acknowledgment protocols and message routing overhead. They excel in scenarios requiring complex routing or transactional guarantees, not raw speed.
 
-**For stream processing,** Apache Flink 1.19+ is purpose-built for low latency with true streaming semantics and event-time processing. It processes events individually as they arrive, making it ideal for millisecond-latency requirements. For in-depth coverage, see [What is Apache Flink: Stateful Stream Processing](what-is-apache-flink-stateful-stream-processing.md).
+**For stream processing,** Apache Flink 1.19+ is purpose-built for low latency with true streaming semantics and event-time processing. It processes events individually as they arrive, making it ideal for millisecond-latency requirements. For in-depth coverage, see [What is Apache Flink: Stateful Stream Processing](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing).
 
 Flink's state backend choice significantly impacts latency:
 - **HashMapStateBackend**: In-memory state for lowest latency (sub-millisecond access), requires sufficient heap
 - **EmbeddedRocksDBStateBackend**: Disk-backed state for larger state sizes, adds 1-5ms latency per access
 
-Spark Structured Streaming, while continuously improving, uses micro-batching (even with continuous processing mode), which introduces inherent latency from batch intervals. For understanding micro-batching trade-offs, see [Micro-Batching in Streaming](micro-batching-streaming.md).
+Spark Structured Streaming, while continuously improving, uses micro-batching (even with continuous processing mode), which introduces inherent latency from batch intervals. For understanding micro-batching trade-offs, see [Micro-Batching in Streaming](https://conduktor.io/glossary/micro-batching-streaming).
 
-**Serialization formats** present a classic latency-throughput-compatibility trade-off. JSON is human-readable and flexible but verbose and slow to parse. Apache Avro provides schema evolution and compact encoding with good performance. Protocol Buffers offer excellent performance and smaller message sizes but require more rigid schema management. For lowest latency, Protocol Buffers or even more specialized formats like FlatBuffers reduce serialization overhead. For detailed comparison and best practices, see [Message Serialization in Kafka](message-serialization-in-kafka.md).
+**Serialization formats** present a classic latency-throughput-compatibility trade-off. JSON is human-readable and flexible but verbose and slow to parse. Apache Avro provides schema evolution and compact encoding with good performance. Protocol Buffers offer excellent performance and smaller message sizes but require more rigid schema management. For lowest latency, Protocol Buffers or even more specialized formats like FlatBuffers reduce serialization overhead. For detailed comparison and best practices, see [Message Serialization in Kafka](https://conduktor.io/glossary/message-serialization-in-kafka).
 
 ## Optimization Techniques
 
@@ -169,7 +169,7 @@ You cannot optimize what you don't measure. Effective latency monitoring require
 
 **End-to-end latency tracking** follows individual events from source to sink. Embed timestamps in your messages at origin, then measure elapsed time at each processing stage. This reveals which components contribute most to total latency and where optimization efforts should focus.
 
-**Percentile metrics** matter more than averages. Your median (p50) latency might be 10ms, but if your p99 is 500ms, 1% of users experience terrible performance. Monitor p50, p95, p99, and p99.9 latencies separately. Many SLAs focus on p99 because outliers often indicate systemic issues. For comprehensive lag tracking strategies, see [Consumer Lag Monitoring](consumer-lag-monitoring.md).
+**Percentile metrics** matter more than averages. Your median (p50) latency might be 10ms, but if your p99 is 500ms, 1% of users experience terrible performance. Monitor p50, p95, p99, and p99.9 latencies separately. Many SLAs focus on p99 because outliers often indicate systemic issues. For comprehensive lag tracking strategies, see [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring).
 
 **Identifying bottlenecks** requires correlation between latency metrics and system metrics. Is high latency correlated with CPU saturation? Network throughput limits? Garbage collection pauses? Tools like distributed tracing (Jaeger, Zipkin) visualize latency breakdowns across microservices, making bottlenecks obvious.
 
@@ -252,15 +252,15 @@ This configuration prioritizes latency over throughput and durability. For produ
 
 Understanding which applications truly need low latency helps prioritize engineering investment:
 
-**Fraud detection** systems must evaluate transactions in milliseconds before authorizing payment. A 100ms latency budget leaves little room for complex rule evaluation and machine learning inference, driving architectural decisions around pre-computed features and in-memory state. For implementation patterns, see [Real-Time Fraud Detection with Streaming](real-time-fraud-detection-with-streaming.md).
+**Fraud detection** systems must evaluate transactions in milliseconds before authorizing payment. A 100ms latency budget leaves little room for complex rule evaluation and machine learning inference, driving architectural decisions around pre-computed features and in-memory state. For implementation patterns, see [Real-Time Fraud Detection with Streaming](https://conduktor.io/glossary/real-time-fraud-detection-with-streaming).
 
 **High-frequency trading** operates at microsecond scales where even minor latency improvements provide competitive advantage. These systems often bypass general-purpose stream processors entirely in favor of custom C++ applications with kernel bypass networking.
 
-**Real-time recommendation engines** power e-commerce and content platforms where user engagement depends on immediate, relevant suggestions. Latencies above 100ms create perceptible lag in user interfaces, degrading experience and conversion rates. For building these systems, see [Building Recommendation Systems with Streaming Data](building-recommendation-systems-with-streaming-data.md).
+**Real-time recommendation engines** power e-commerce and content platforms where user engagement depends on immediate, relevant suggestions. Latencies above 100ms create perceptible lag in user interfaces, degrading experience and conversion rates. For building these systems, see [Building Recommendation Systems with Streaming Data](https://conduktor.io/glossary/building-recommendation-systems-with-streaming-data).
 
 **IoT and industrial applications** like autonomous vehicles or manufacturing process control require deterministic latencies to ensure safety and coordination. These systems often use specialized real-time operating systems and dedicated networks.
 
-**Real-time machine learning inference** requires low-latency feature extraction, model serving, and result delivery. For comprehensive patterns, see [Real-Time ML Inference with Streaming Data](real-time-ml-inference-with-streaming-data.md).
+**Real-time machine learning inference** requires low-latency feature extraction, model serving, and result delivery. For comprehensive patterns, see [Real-Time ML Inference with Streaming Data](https://conduktor.io/glossary/real-time-ml-inference-with-streaming-data).
 
 ## Troubleshooting High Latency
 
@@ -290,14 +290,14 @@ Use tools like Conduktor for real-time latency monitoring across your entire Kaf
 
 For deeper exploration of related concepts:
 
-- **[Apache Kafka](apache-kafka.md)** - Foundational platform architecture and capabilities
-- **[Kafka Performance Tuning Guide](kafka-performance-tuning-guide.md)** - Comprehensive configuration optimization strategies
-- **[What is Apache Flink: Stateful Stream Processing](what-is-apache-flink-stateful-stream-processing.md)** - Stream processing engine for low-latency applications
-- **[Message Serialization in Kafka](message-serialization-in-kafka.md)** - Choosing and optimizing serialization formats
-- **[Backpressure Handling in Streaming Systems](backpressure-handling-in-streaming-systems.md)** - Managing flow control and queue buildup
-- **[Consumer Lag Monitoring](consumer-lag-monitoring.md)** - Tracking and alerting on processing delays
-- **[Understanding KRaft Mode in Kafka](understanding-kraft-mode-in-kafka.md)** - Modern Kafka architecture without ZooKeeper
-- **[Real-Time Fraud Detection with Streaming](real-time-fraud-detection-with-streaming.md)** - Practical low-latency use case
+- **[Apache Kafka](https://conduktor.io/glossary/apache-kafka)** - Foundational platform architecture and capabilities
+- **[Kafka Performance Tuning Guide](https://conduktor.io/glossary/kafka-performance-tuning-guide)** - Comprehensive configuration optimization strategies
+- **[What is Apache Flink: Stateful Stream Processing](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing)** - Stream processing engine for low-latency applications
+- **[Message Serialization in Kafka](https://conduktor.io/glossary/message-serialization-in-kafka)** - Choosing and optimizing serialization formats
+- **[Backpressure Handling in Streaming Systems](https://conduktor.io/glossary/backpressure-handling-in-streaming-systems)** - Managing flow control and queue buildup
+- **[Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring)** - Tracking and alerting on processing delays
+- **[Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka)** - Modern Kafka architecture without ZooKeeper
+- **[Real-Time Fraud Detection with Streaming](https://conduktor.io/glossary/real-time-fraud-detection-with-streaming)** - Practical low-latency use case
 
 ## Conclusion
 

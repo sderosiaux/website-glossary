@@ -17,7 +17,7 @@ In distributed systems, ensuring that messages are processed exactly once is not
 
 Apache Kafka introduced transactions to solve this challenge, enabling exactly-once semantics (EOS) across producers, brokers, and consumers. This capability transforms Kafka from a reliable message broker into a platform capable of handling mission-critical operations where duplicate processing or data loss is unacceptable.
 
-This article provides a comprehensive technical deep dive into Kafka's transaction implementation. For a broader overview of exactly-once semantics including use cases and simpler explanations, see [Exactly-Once Semantics in Kafka](exactly-once-semantics-in-kafka.md). For foundational Kafka concepts, refer to [Apache Kafka](apache-kafka.md).
+This article provides a comprehensive technical deep dive into Kafka's transaction implementation. For a broader overview of exactly-once semantics including use cases and simpler explanations, see [Exactly-Once Semantics in Kafka](https://conduktor.io/glossary/exactly-once-semantics-in-kafka). For foundational Kafka concepts, refer to [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
 
 ## Understanding Kafka Transactions
 
@@ -46,7 +46,7 @@ The transaction coordinator is a broker-side component responsible for managing 
 - Coordinates the two-phase commit protocol across partitions (a distributed algorithm ensuring all participants agree to commit or abort)
 - Handles transaction timeouts and recovery
 
-In Kafka 4.0+ with KRaft mode (Kafka's ZooKeeper-free architecture), transaction coordinator performance has been significantly improved. KRaft-based transaction coordinators provide faster transaction commits, reduced coordinator overhead, and better scalability compared to the legacy ZooKeeper-based implementation. For more on KRaft's benefits, see [Understanding KRaft Mode in Kafka](understanding-kraft-mode-in-kafka.md).
+In Kafka 4.0+ with KRaft mode (Kafka's ZooKeeper-free architecture), transaction coordinator performance has been significantly improved. KRaft-based transaction coordinators provide faster transaction commits, reduced coordinator overhead, and better scalability compared to the legacy ZooKeeper-based implementation. For more on KRaft's benefits, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka).
 
 ### Transactional Producer Flow
 
@@ -89,7 +89,7 @@ try {
 }
 ```
 
-The `transactional.id` must be unique per producer instance and enables the coordinator to identify and fence zombie producers (producers that appear to have failed but resume later). Note that idempotent producers (`enable.idempotence=true`) are the default since Kafka 3.0+, providing automatic duplicate prevention even without explicit transactions. For comprehensive coverage of producer configuration and idempotence, see [Kafka Producers](kafka-producers.md).
+The `transactional.id` must be unique per producer instance and enables the coordinator to identify and fence zombie producers (producers that appear to have failed but resume later). Note that idempotent producers (`enable.idempotence=true`) are the default since Kafka 3.0+, providing automatic duplicate prevention even without explicit transactions. For comprehensive coverage of producer configuration and idempotence, see [Kafka Producers](https://conduktor.io/glossary/kafka-producers).
 
 ### Consumer Configuration
 
@@ -103,7 +103,7 @@ props.put("enable.auto.commit", "false");
 KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
 ```
 
-Disabling auto-commit is crucial when using transactions, as you'll manually commit offsets within the transaction boundary. For more details on consumer group coordination and offset management, see [Kafka Consumer Groups Explained](kafka-consumer-groups-explained.md).
+Disabling auto-commit is crucial when using transactions, as you'll manually commit offsets within the transaction boundary. For more details on consumer group coordination and offset management, see [Kafka Consumer Groups Explained](https://conduktor.io/glossary/kafka-consumer-groups-explained).
 
 ### Consume-Process-Produce Pattern
 
@@ -138,15 +138,15 @@ while (true) {
 
 ### Financial Payment Processing
 
-A payment processing system reads payment requests from a Kafka topic, validates them, debits accounts, and writes confirmation records. Transactions ensure that if any step fails, the entire operation rolls back, preventing partial payments or duplicate charges. For patterns implementing reliable payment processing and financial data flows, see [Streaming Data in Financial Services](streaming-data-in-financial-services.md).
+A payment processing system reads payment requests from a Kafka topic, validates them, debits accounts, and writes confirmation records. Transactions ensure that if any step fails, the entire operation rolls back, preventing partial payments or duplicate charges. For patterns implementing reliable payment processing and financial data flows, see [Streaming Data in Financial Services](https://conduktor.io/glossary/streaming-data-in-financial-services).
 
 ### Multi-System Data Synchronization
 
-When synchronizing data between a database and Kafka, transactions guarantee that database changes and Kafka messages are committed together. For example, an e-commerce platform updating inventory in PostgreSQL while publishing availability events to Kafka can use transactions to maintain consistency. For coordinating transactions across multiple microservices using event-driven patterns, see [Saga Pattern for Distributed Transactions](saga-pattern-for-distributed-transactions.md). For reliable event publishing from databases, the [Outbox Pattern for Reliable Event Publishing](outbox-pattern-for-reliable-event-publishing.md) provides complementary guarantees.
+When synchronizing data between a database and Kafka, transactions guarantee that database changes and Kafka messages are committed together. For example, an e-commerce platform updating inventory in PostgreSQL while publishing availability events to Kafka can use transactions to maintain consistency. For coordinating transactions across multiple microservices using event-driven patterns, see [Saga Pattern for Distributed Transactions](https://conduktor.io/glossary/saga-pattern-for-distributed-transactions). For reliable event publishing from databases, the [Outbox Pattern for Reliable Event Publishing](https://conduktor.io/glossary/outbox-pattern-for-reliable-event-publishing) provides complementary guarantees.
 
 ### Stream Processing Pipelines
 
-Kafka Streams and Flink use transactions internally to provide exactly-once processing guarantees. When aggregating real-time analytics or joining multiple streams, transactions ensure that state stores and output topics remain consistent even during failures. Kafka Streams leverages the `exactly_once_v2` protocol (introduced in Kafka 2.5) for improved performance, and Kafka 4.0+ further optimizes transaction handling in KRaft mode. For a detailed comparison of these frameworks and their transactional capabilities, see [Kafka Streams vs Apache Flink](kafka-streams-vs-apache-flink.md).
+Kafka Streams and Flink use transactions internally to provide exactly-once processing guarantees. When aggregating real-time analytics or joining multiple streams, transactions ensure that state stores and output topics remain consistent even during failures. Kafka Streams leverages the `exactly_once_v2` protocol (introduced in Kafka 2.5) for improved performance, and Kafka 4.0+ further optimizes transaction handling in KRaft mode. For a detailed comparison of these frameworks and their transactional capabilities, see [Kafka Streams vs Apache Flink](https://conduktor.io/glossary/kafka-streams-vs-apache-flink).
 
 ## Monitoring and Troubleshooting Transactions
 
@@ -163,7 +163,7 @@ Monitor these critical transaction metrics to ensure healthy operation:
 
 **Open-source monitoring**: For Prometheus-based monitoring, Kafka Lag Exporter (the 2025 standard for consumer lag tracking) provides transaction-aware metrics. JMX metrics can be scraped using Prometheus JMX Exporter to track transaction coordinator performance. Tools like Burrow can detect consumer lag issues related to transaction processing delays.
 
-**Commercial platforms**: Tools like Conduktor provide comprehensive visibility into transactional flows, allowing teams to visualize transaction states, identify hanging transactions, and debug configuration issues. The platform can surface warnings when transaction timeouts are misconfigured or when zombie producers are detected, and provides real-time alerts on transaction performance degradation. Conduktor Gateway also enables chaos testing of transactional scenarios by injecting faults, latency, and network partitions to validate transaction behavior under failure conditions. For comprehensive testing strategies including transaction testing, see [Testing Strategies for Streaming Applications](testing-strategies-for-streaming-applications.md) and [Chaos Engineering for Streaming Systems](chaos-engineering-for-streaming-systems.md).
+**Commercial platforms**: Tools like Conduktor provide comprehensive visibility into transactional flows, allowing teams to visualize transaction states, identify hanging transactions, and debug configuration issues. The platform can surface warnings when transaction timeouts are misconfigured or when zombie producers are detected, and provides real-time alerts on transaction performance degradation. Conduktor Gateway also enables chaos testing of transactional scenarios by injecting faults, latency, and network partitions to validate transaction behavior under failure conditions. For comprehensive testing strategies including transaction testing, see [Testing Strategies for Streaming Applications](https://conduktor.io/glossary/testing-strategies-for-streaming-applications) and [Chaos Engineering for Streaming Systems](https://conduktor.io/glossary/chaos-engineering-for-streaming-systems).
 
 ### Common Issues
 
@@ -201,7 +201,7 @@ Batch messages within transactions to amortize the coordination overhead. A tran
 
 ### Idempotence vs. Transactions
 
-Kafka's idempotent producer (`enable.idempotence=true`, default since Kafka 3.0+) prevents duplicate writes within a single partition but doesn't coordinate across partitions or provide atomic multi-partition writes. Transactions build on idempotence to provide cross-partition atomicity and exactly-once semantics (EOS). Use idempotence alone when you only need duplicate prevention without multi-partition coordination. For a broader overview of exactly-once semantics including idempotence, transactions, and their relationship, see [Exactly-Once Semantics in Kafka](exactly-once-semantics-in-kafka.md).
+Kafka's idempotent producer (`enable.idempotence=true`, default since Kafka 3.0+) prevents duplicate writes within a single partition but doesn't coordinate across partitions or provide atomic multi-partition writes. Transactions build on idempotence to provide cross-partition atomicity and exactly-once semantics (EOS). Use idempotence alone when you only need duplicate prevention without multi-partition coordination. For a broader overview of exactly-once semantics including idempotence, transactions, and their relationship, see [Exactly-Once Semantics in Kafka](https://conduktor.io/glossary/exactly-once-semantics-in-kafka).
 
 ### Transaction Timeout Configuration
 

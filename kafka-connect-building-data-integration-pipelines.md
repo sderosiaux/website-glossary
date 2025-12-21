@@ -178,25 +178,25 @@ This configuration demonstrates several production best practices: batching for 
 
 Kafka Connect serves as a critical integration layer within broader streaming architectures. It complements other streaming components:
 
-**Stream Processing**: While Kafka Streams and ksqlDB transform data within Kafka, Connect handles the integration boundaries. A typical pipeline might use a source connector to ingest database changes, Kafka Streams to enrich and aggregate data, and a sink connector to write results to a data warehouse. For detailed stream processing patterns, see [What is Apache Flink: Stateful Stream Processing](what-is-apache-flink-stateful-stream-processing.md) and [ksqlDB for Real-Time Data Processing](ksqldb-for-real-time-data-processing.md).
+**Stream Processing**: While Kafka Streams and ksqlDB transform data within Kafka, Connect handles the integration boundaries. A typical pipeline might use a source connector to ingest database changes, Kafka Streams to enrich and aggregate data, and a sink connector to write results to a data warehouse. For detailed stream processing patterns, see [What is Apache Flink: Stateful Stream Processing](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing) and [ksqlDB for Real-Time Data Processing](https://conduktor.io/glossary/ksqldb-for-real-time-data-processing).
 
-**Schema Management**: Connect integrates tightly with Schema Registry to enforce schema validation. Connectors can automatically register schemas for data they produce and validate schemas for data they consume, ensuring data quality across the pipeline. This prevents schema compatibility issues and enables safe schema evolution. For comprehensive schema management strategies, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md) and [Schema Evolution Best Practices](schema-evolution-best-practices.md).
+**Schema Management**: Connect integrates tightly with Schema Registry to enforce schema validation. Connectors can automatically register schemas for data they produce and validate schemas for data they consume, ensuring data quality across the pipeline. This prevents schema compatibility issues and enables safe schema evolution. For comprehensive schema management strategies, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) and [Schema Evolution Best Practices](https://conduktor.io/glossary/schema-evolution-best-practices).
 
-**Change Data Capture (CDC)**: Debezium connectors running on Kafka Connect provide CDC capabilities, capturing row-level changes from databases in real-time. This enables event-driven architectures and keeps multiple data stores synchronized. CDC is essential for building real-time data pipelines and maintaining consistency across distributed systems. For CDC implementation details, see [What is Change Data Capture: CDC Fundamentals](what-is-change-data-capture-cdc-fundamentals.md) and [Log-Based vs Query-Based CDC Comparison](log-based-vs-query-based-cdc-comparison.md).
+**Change Data Capture (CDC)**: Debezium connectors running on Kafka Connect provide CDC capabilities, capturing row-level changes from databases in real-time. This enables event-driven architectures and keeps multiple data stores synchronized. CDC is essential for building real-time data pipelines and maintaining consistency across distributed systems. For CDC implementation details, see [What is Change Data Capture: CDC Fundamentals](https://conduktor.io/glossary/what-is-change-data-capture-cdc-fundamentals) and [Log-Based vs Query-Based CDC Comparison](https://conduktor.io/glossary/log-based-vs-query-based-cdc-comparison).
 
-**Governance and Monitoring**: Tools like Conduktor provide visibility into Connect deployments, allowing teams to monitor connector health, track data lineage, and enforce governance policies across integration pipelines. This visibility is essential as organizations scale to dozens or hundreds of connectors. For broader monitoring strategies, see [Kafka Cluster Monitoring and Metrics](kafka-cluster-monitoring-and-metrics.md) and [What is Data Observability: The Five Pillars](what-is-data-observability-the-five-pillars.md).
+**Governance and Monitoring**: Tools like Conduktor provide visibility into Connect deployments, allowing teams to monitor connector health, track data lineage, and enforce governance policies across integration pipelines. This visibility is essential as organizations scale to dozens or hundreds of connectors. For broader monitoring strategies, see [Kafka Cluster Monitoring and Metrics](https://conduktor.io/glossary/kafka-cluster-monitoring-and-metrics) and [What is Data Observability: The Five Pillars](https://conduktor.io/glossary/what-is-data-observability-the-five-pillars).
 
 ## Configuration and Deployment Best Practices
 
 Running Kafka Connect reliably requires attention to several operational concerns:
 
-**Distributed Mode Configuration**: Always use distributed mode in production. Configure multiple workers with the same `group.id` to form a Connect cluster. Store connector configurations and offsets in Kafka topics (specified by `config.storage.topic`, `offset.storage.topic`, and `status.storage.topic`) to enable automatic failover. With Kafka 4.0+ running in KRaft mode, these topics are managed without ZooKeeper, simplifying the architecture. For organizations migrating from older Kafka versions, see [ZooKeeper to KRaft Migration](zookeeper-to-kraft-migration.md).
+**Distributed Mode Configuration**: Always use distributed mode in production. Configure multiple workers with the same `group.id` to form a Connect cluster. Store connector configurations and offsets in Kafka topics (specified by `config.storage.topic`, `offset.storage.topic`, and `status.storage.topic`) to enable automatic failover. With Kafka 4.0+ running in KRaft mode, these topics are managed without ZooKeeper, simplifying the architecture. For organizations migrating from older Kafka versions, see [ZooKeeper to KRaft Migration](https://conduktor.io/glossary/zookeeper-to-kraft-migration).
 
 **Resource Allocation**: Allocate sufficient CPU and memory for connector tasks. Complex transformations and high-throughput connectors require adequate resources. Monitor JVM metrics and adjust heap sizes accordingly.
 
 **Error Handling**: Configure dead letter queues (DLQ) for sink connectors to capture records that fail processing. This prevents connector failures from blocking the entire pipeline. The DLQ pattern writes failed records to a separate Kafka topic where they can be analyzed and reprocessed.
 
-**Security**: Use externalized secrets (via ConfigProviders) instead of hardcoding credentials. Enable SSL/TLS for communication between Connect and both Kafka and external systems. Modern deployments should use OAuth 2.0 for authentication and mTLS (mutual TLS) for service-to-service communication. For detailed security patterns, see [Kafka Security Best Practices](kafka-security-best-practices.md) and [mTLS for Kafka](mtls-for-kafka.md).
+**Security**: Use externalized secrets (via ConfigProviders) instead of hardcoding credentials. Enable SSL/TLS for communication between Connect and both Kafka and external systems. Modern deployments should use OAuth 2.0 for authentication and mTLS (mutual TLS) for service-to-service communication. For detailed security patterns, see [Kafka Security Best Practices](https://conduktor.io/glossary/kafka-security-best-practices) and [mTLS for Kafka](https://conduktor.io/glossary/mtls-for-kafka).
 
 **Monitoring**: Track key metrics including connector state, task status, offset lag, throughput, and error rates. Set up alerts for connector failures and performance degradation. Tools like Conduktor provide centralized visibility into all connectors across your organization, with features for monitoring, governance, and troubleshooting.
 
@@ -278,7 +278,7 @@ This Kubernetes-native approach provides several advantages:
 - **Resource isolation**: Kubernetes manages CPU and memory allocation
 - **Observability**: Native integration with Prometheus and Grafana for metrics
 
-For detailed Kubernetes deployment patterns, see [Running Kafka on Kubernetes](running-kafka-on-kubernetes.md) and [Strimzi Kafka Operator for Kubernetes](strimzi-kafka-operator-for-kubernetes.md).
+For detailed Kubernetes deployment patterns, see [Running Kafka on Kubernetes](https://conduktor.io/glossary/running-kafka-on-kubernetes) and [Strimzi Kafka Operator for Kubernetes](https://conduktor.io/glossary/strimzi-kafka-operator-for-kubernetes).
 
 ## Performance Tuning and Monitoring
 
@@ -313,7 +313,7 @@ Optimizing Kafka Connect performance requires tuning several key parameters:
 | `offset-commit-skip-total` | Skipped offset commits | Increasing trend |
 | `task-error-total` | Total task errors | Any increase |
 
-For comprehensive monitoring strategies, see [Kafka Cluster Monitoring and Metrics](kafka-cluster-monitoring-and-metrics.md) and [Kafka Performance Tuning Guide](kafka-performance-tuning-guide.md).
+For comprehensive monitoring strategies, see [Kafka Cluster Monitoring and Metrics](https://conduktor.io/glossary/kafka-cluster-monitoring-and-metrics) and [Kafka Performance Tuning Guide](https://conduktor.io/glossary/kafka-performance-tuning-guide).
 
 ## Single Message Transforms (SMTs)
 
@@ -377,7 +377,7 @@ Here are practical examples of frequently used transformations:
 }
 ```
 
-For detailed SMT patterns and use cases, see [Kafka Connect Single Message Transforms](kafka-connect-single-message-transforms.md).
+For detailed SMT patterns and use cases, see [Kafka Connect Single Message Transforms](https://conduktor.io/glossary/kafka-connect-single-message-transforms).
 
 ## Connector Development and Customization
 
@@ -399,13 +399,13 @@ Understanding connector configuration, deployment patterns, and operational best
 
 For deeper understanding of Kafka Connect and its ecosystem, explore:
 
-- **Architecture Foundation**: [Apache Kafka](apache-kafka.md) for core concepts and [Understanding KRaft Mode in Kafka](understanding-kraft-mode-in-kafka.md) for modern deployment
-- **Data Integration Patterns**: [Streaming ETL vs Traditional ETL](streaming-etl-vs-traditional-etl.md) and [Streaming Data Pipeline](streaming-data-pipeline.md)
-- **Security**: [Kafka Security Best Practices](kafka-security-best-practices.md), [Kafka Authentication: SASL, SSL, OAuth](kafka-authentication-sasl-ssl-oauth.md), and [mTLS for Kafka](mtls-for-kafka.md)
-- **Data Quality**: [Automated Data Quality Testing](automated-data-quality-testing.md) and [Building a Data Quality Framework](building-a-data-quality-framework.md)
-- **PII Protection**: [PII Detection and Handling in Event Streams](pii-detection-and-handling-in-event-streams.md)
-- **Lakehouse Integration**: [Streaming to Lakehouse Tables](streaming-to-lakehouse-tables.md) and [Streaming Ingestion to Lakehouse](streaming-ingestion-to-lakehouse.md)
-- **Serialization**: [Message Serialization in Kafka](message-serialization-in-kafka.md) and [Avro vs Protobuf vs JSON Schema](avro-vs-protobuf-vs-json-schema.md)
+- **Architecture Foundation**: [Apache Kafka](https://conduktor.io/glossary/apache-kafka) for core concepts and [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka) for modern deployment
+- **Data Integration Patterns**: [Streaming ETL vs Traditional ETL](https://conduktor.io/glossary/streaming-etl-vs-traditional-etl) and [Streaming Data Pipeline](https://conduktor.io/glossary/streaming-data-pipeline)
+- **Security**: [Kafka Security Best Practices](https://conduktor.io/glossary/kafka-security-best-practices), [Kafka Authentication: SASL, SSL, OAuth](https://conduktor.io/glossary/kafka-authentication-sasl-ssl-oauth), and [mTLS for Kafka](https://conduktor.io/glossary/mtls-for-kafka)
+- **Data Quality**: [Automated Data Quality Testing](https://conduktor.io/glossary/automated-data-quality-testing) and [Building a Data Quality Framework](https://conduktor.io/glossary/building-a-data-quality-framework)
+- **PII Protection**: [PII Detection and Handling in Event Streams](https://conduktor.io/glossary/pii-detection-and-handling-in-event-streams)
+- **Lakehouse Integration**: [Streaming to Lakehouse Tables](https://conduktor.io/glossary/streaming-to-lakehouse-tables) and [Streaming Ingestion to Lakehouse](https://conduktor.io/glossary/streaming-ingestion-to-lakehouse)
+- **Serialization**: [Message Serialization in Kafka](https://conduktor.io/glossary/message-serialization-in-kafka) and [Avro vs Protobuf vs JSON Schema](https://conduktor.io/glossary/avro-vs-protobuf-vs-json-schema)
 
 ## Sources and References
 

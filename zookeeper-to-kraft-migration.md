@@ -13,7 +13,7 @@ topics:
 
 Apache Kafka's shift from ZooKeeper to KRaft (Kafka Raft) represents one of the most significant architectural changes in the platform's history. This migration simplifies Kafka's operational model, reduces infrastructure complexity, and improves cluster performance. Understanding how to migrate from ZooKeeper to KRaft is essential for teams managing production Kafka environments.
 
-For foundational knowledge of Apache Kafka's architecture, see [Apache Kafka](apache-kafka.md).
+For foundational knowledge of Apache Kafka's architecture, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
 
 ## Understanding Apache Kafka's Metadata Management
 
@@ -56,7 +56,7 @@ The migration to KRaft offers substantial benefits that impact both operations a
 
 **Faster Metadata Operations**: Metadata changes propagate in milliseconds rather than seconds. Controller failover typically completes in under a second with KRaft, compared to several seconds with ZooKeeper.
 
-**Enhanced Recovery**: Since metadata is stored in a Kafka topic, standard Kafka replication and recovery mechanisms apply. Metadata snapshots and log compaction make recovery faster and more predictable. For broader disaster recovery planning, see [Disaster Recovery Strategies for Kafka Clusters](disaster-recovery-strategies-for-kafka-clusters.md).
+**Enhanced Recovery**: Since metadata is stored in a Kafka topic, standard Kafka replication and recovery mechanisms apply. Metadata snapshots and log compaction make recovery faster and more predictable. For broader disaster recovery planning, see [Disaster Recovery Strategies for Kafka Clusters](https://conduktor.io/glossary/disaster-recovery-strategies-for-kafka-clusters).
 
 **Future-Proofing**: ZooKeeper support was deprecated in Kafka 3.5 and completely removed in Kafka 4.0 (released October 2024). Migrating to KRaft is now mandatory for accessing new features and security updates in Kafka 4.0 and beyond.
 
@@ -197,7 +197,7 @@ After completing the migration, thorough validation ensures cluster health and c
 - Monitor broker and controller resource utilization
 - Track client request latency for any regressions
 
-For comprehensive coverage of Kafka monitoring strategies and metrics, see [Kafka Cluster Monitoring and Metrics](kafka-cluster-monitoring-and-metrics.md).
+For comprehensive coverage of Kafka monitoring strategies and metrics, see [Kafka Cluster Monitoring and Metrics](https://conduktor.io/glossary/kafka-cluster-monitoring-and-metrics).
 
 **Key Metrics to Watch**:
 - `kafka.controller:type=KafkaController,name=ActiveControllerCount` (should be 1)

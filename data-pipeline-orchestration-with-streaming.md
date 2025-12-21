@@ -27,9 +27,9 @@ Streaming data processing fundamentally differs from batch in one critical way: 
 
 **Deployment vs Runtime Management**: In batch systems, orchestration means scheduling when jobs run. In streaming, it often means deploying long-running applications and ensuring they stay healthy. A Flink job processing clickstream data might run for months without restarting.
 
-**Stateful Processing**: Streaming applications maintain state across millions of events. Orchestrating these systems means managing checkpoints, state backends, and ensuring exactly-once processing semantics survive failures and redeployments. For detailed coverage of state management in Flink, see [Flink State Management and Checkpointing](flink-state-management-and-checkpointing.md). For exactly-once semantics implementation, refer to [Exactly-Once Semantics in Kafka](exactly-once-semantics-in-kafka.md).
+**Stateful Processing**: Streaming applications maintain state across millions of events. Orchestrating these systems means managing checkpoints, state backends, and ensuring exactly-once processing semantics survive failures and redeployments. For detailed coverage of state management in Flink, see [Flink State Management and Checkpointing](https://conduktor.io/glossary/flink-state-management-and-checkpointing). For exactly-once semantics implementation, refer to [Exactly-Once Semantics in Kafka](https://conduktor.io/glossary/exactly-once-semantics-in-kafka).
 
-**Dynamic Scaling**: Streaming workloads vary throughout the day. Orchestration must handle scaling consumer groups, rebalancing partitions, and adjusting resources without data loss. To understand how consumer groups coordinate and rebalance, see [Kafka Consumer Groups Explained](kafka-consumer-groups-explained.md).
+**Dynamic Scaling**: Streaming workloads vary throughout the day. Orchestration must handle scaling consumer groups, rebalancing partitions, and adjusting resources without data loss. To understand how consumer groups coordinate and rebalance, see [Kafka Consumer Groups Explained](https://conduktor.io/glossary/kafka-consumer-groups-explained).
 
 Consider an e-commerce fraud detection pipeline:
 
@@ -136,7 +136,7 @@ These tools orchestrate at the stream processing level—managing how data flows
 
 Container orchestration platforms like Kubernetes increasingly manage streaming applications. Modern operators like Strimzi 0.40+ manage Kafka 4.0 clusters with KRaft mode (eliminating ZooKeeper dependencies), the Flink Kubernetes Operator 1.7+ handles Flink 1.18+ jobs with improved autoscaling, and standard Kubernetes primitives (deployments, services, config maps) orchestrate the entire streaming infrastructure.
 
-This approach provides consistent orchestration across streaming and non-streaming components, unified monitoring, and declarative infrastructure management. With Kafka 4.0's KRaft mode, orchestration becomes simpler as there's no need to coordinate ZooKeeper clusters alongside Kafka, reducing operational complexity and improving deployment reliability. For detailed guidance on Kubernetes deployments, see [Running Kafka on Kubernetes](running-kafka-on-kubernetes.md) and [Infrastructure as Code for Kafka Deployments](infrastructure-as-code-for-kafka-deployments.md).
+This approach provides consistent orchestration across streaming and non-streaming components, unified monitoring, and declarative infrastructure management. With Kafka 4.0's KRaft mode, orchestration becomes simpler as there's no need to coordinate ZooKeeper clusters alongside Kafka, reducing operational complexity and improving deployment reliability. For detailed guidance on Kubernetes deployments, see [Running Kafka on Kubernetes](https://conduktor.io/glossary/running-kafka-on-kubernetes) and [Infrastructure as Code for Kafka Deployments](https://conduktor.io/glossary/infrastructure-as-code-for-kafka-deployments).
 
 ## Streaming and Data Pipeline Orchestration in Practice
 
@@ -144,9 +144,9 @@ Apache Kafka ecosystems demonstrate the interplay between different orchestratio
 
 **Topic Management**: Creating topics with appropriate partitioning, replication, and retention policies. Changes must be coordinated across environments.
 
-**Schema Evolution**: As data structures evolve, schemas in the schema registry must be updated compatibly. Producers and consumers must handle multiple schema versions during transitions. For comprehensive guidance on managing schemas, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md) and [Schema Evolution Best Practices](schema-evolution-best-practices.md).
+**Schema Evolution**: As data structures evolve, schemas in the schema registry must be updated compatibly. Producers and consumers must handle multiple schema versions during transitions. For comprehensive guidance on managing schemas, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) and [Schema Evolution Best Practices](https://conduktor.io/glossary/schema-evolution-best-practices).
 
-**Connector Lifecycle**: Kafka Connect source and sink connectors need deployment, configuration updates, and monitoring. A connector failure can create data gaps that require orchestrated recovery procedures. For detailed coverage of building and managing connectors, see [Kafka Connect: Building Data Integration Pipelines](kafka-connect-building-data-integration-pipelines.md).
+**Connector Lifecycle**: Kafka Connect source and sink connectors need deployment, configuration updates, and monitoring. A connector failure can create data gaps that require orchestrated recovery procedures. For detailed coverage of building and managing connectors, see [Kafka Connect: Building Data Integration Pipelines](https://conduktor.io/glossary/kafka-connect-building-data-integration-pipelines).
 
 **Consumer Group Coordination**: Multiple applications consuming from the same topics need coordination. If a new consumer version deploys, orchestration ensures graceful handoff without duplicate processing or data loss.
 
@@ -168,7 +168,7 @@ Enforce schema validation at ingestion. Use the schema registry as a source of t
 
 Traditional batch orchestration focuses on task success or failure. Streaming orchestration must monitor consumer lag—the gap between produced and consumed messages. Growing lag indicates problems even when no errors appear in logs.
 
-Modern tools like Kafka Lag Exporter (Prometheus-based) provide real-time lag metrics that integrate with orchestration workflows. Platforms like Conduktor offer comprehensive monitoring dashboards that track consumer lag, throughput, and pipeline health across your entire streaming infrastructure. Orchestration systems should trigger alerts when lag exceeds thresholds and potentially scale resources automatically. For comprehensive monitoring strategies, see [Kafka Cluster Monitoring and Metrics](kafka-cluster-monitoring-and-metrics.md).
+Modern tools like Kafka Lag Exporter (Prometheus-based) provide real-time lag metrics that integrate with orchestration workflows. Platforms like Conduktor offer comprehensive monitoring dashboards that track consumer lag, throughput, and pipeline health across your entire streaming infrastructure. Orchestration systems should trigger alerts when lag exceeds thresholds and potentially scale resources automatically. For comprehensive monitoring strategies, see [Kafka Cluster Monitoring and Metrics](https://conduktor.io/glossary/kafka-cluster-monitoring-and-metrics).
 
 ### Design for Reprocessing
 
@@ -176,7 +176,7 @@ Build streaming pipelines that can rewind to earlier offsets and reprocess data.
 
 ### Dead Letter Queues for Poison Pills
 
-Individual malformed events shouldn't crash entire streaming pipelines. Orchestrate error handling through dead letter topics that capture problematic events for later analysis and reprocessing. For detailed implementation guidance, see [Dead Letter Queues for Error Handling](dead-letter-queues-for-error-handling.md).
+Individual malformed events shouldn't crash entire streaming pipelines. Orchestrate error handling through dead letter topics that capture problematic events for later analysis and reprocessing. For detailed implementation guidance, see [Dead Letter Queues for Error Handling](https://conduktor.io/glossary/dead-letter-queues-for-error-handling).
 
 ### Testing in Streaming Environments
 

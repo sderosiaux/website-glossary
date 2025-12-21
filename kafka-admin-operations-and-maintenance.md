@@ -45,7 +45,7 @@ In KRaft mode, Kafka brokers elect controllers using the Raft consensus protocol
 - **Quorum sizing**: Typically 3 or 5 controller nodes for production (must be odd for majority voting)
 - **Metadata logs**: Stored in `__cluster_metadata` topic, separate from data logs
 
-For detailed coverage of KRaft architecture, see [Understanding KRaft Mode in Kafka](understanding-kraft-mode-in-kafka.md). For migration from legacy ZooKeeper-based clusters, see [ZooKeeper to KRaft Migration](zookeeper-to-kraft-migration.md).
+For detailed coverage of KRaft architecture, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka). For migration from legacy ZooKeeper-based clusters, see [ZooKeeper to KRaft Migration](https://conduktor.io/glossary/zookeeper-to-kraft-migration).
 
 ## Cluster Health Monitoring
 
@@ -83,7 +83,7 @@ For example, an alert for under-replicated partitions exceeding zero for more th
 
 **Commercial platforms:** [Conduktor](https://www.conduktor.io) provides unified dashboards that aggregate cluster health metrics, topic statistics, and consumer lag in a single interface, reducing the complexity of monitoring distributed systems. Conduktor includes built-in alerting, governance, and operational features beyond basic monitoring.
 
-For comprehensive coverage of Kafka monitoring architecture and best practices, see [Kafka Cluster Monitoring and Metrics](kafka-cluster-monitoring-and-metrics.md).
+For comprehensive coverage of Kafka monitoring architecture and best practices, see [Kafka Cluster Monitoring and Metrics](https://conduktor.io/glossary/kafka-cluster-monitoring-and-metrics).
 
 ## Topic and Partition Management
 
@@ -143,7 +143,7 @@ try (AdminClient admin = AdminClient.create(props)) {
 }
 ```
 
-For detailed topic design guidelines, see [Kafka Topic Design Guidelines](kafka-topic-design-guidelines.md).
+For detailed topic design guidelines, see [Kafka Topic Design Guidelines](https://conduktor.io/glossary/kafka-topic-design-guidelines).
 
 ### Real-World Example: Retention Tuning
 
@@ -191,7 +191,7 @@ kafka-acls.sh --bootstrap-server localhost:9092 \
 
 Authorization uses Access Control Lists (ACLs) to define who can produce to topics, consume from topics, or perform admin operations. For example, an ACL might grant the `analytics-team` group read access to `customer-events` but deny write access.
 
-For detailed security architecture and best practices, see [Kafka Security Best Practices](kafka-security-best-practices.md), [Kafka ACLs and Authorization Patterns](kafka-acls-and-authorization-patterns.md), and [Kafka Authentication (SASL, SSL, OAuth)](kafka-authentication-sasl-ssl-oauth.md). For mutual TLS implementation, see [mTLS for Kafka](mtls-for-kafka.md).
+For detailed security architecture and best practices, see [Kafka Security Best Practices](https://conduktor.io/glossary/kafka-security-best-practices), [Kafka ACLs and Authorization Patterns](https://conduktor.io/glossary/kafka-acls-and-authorization-patterns), and [Kafka Authentication (SASL, SSL, OAuth)](https://conduktor.io/glossary/kafka-authentication-sasl-ssl-oauth). For mutual TLS implementation, see [mTLS for Kafka](https://conduktor.io/glossary/mtls-for-kafka).
 
 ### Audit Logging
 
@@ -250,7 +250,7 @@ kafka-leader-election.sh --bootstrap-server localhost:9092 \
   --all-topic-partitions
 ```
 
-For comprehensive performance optimization strategies, see [Kafka Performance Tuning Guide](kafka-performance-tuning-guide.md) and [Kafka Capacity Planning](kafka-capacity-planning.md).
+For comprehensive performance optimization strategies, see [Kafka Performance Tuning Guide](https://conduktor.io/glossary/kafka-performance-tuning-guide) and [Kafka Capacity Planning](https://conduktor.io/glossary/kafka-capacity-planning).
 
 ## Backup, Recovery, and Disaster Planning
 
@@ -260,7 +260,7 @@ While Kafka's replication provides durability within a cluster, administrators m
 
 **Within-cluster replication** (via replication factor) protects against individual broker failures. **Multi-datacenter replication** using tools like MirrorMaker 2 (part of Kafka Connect framework) provides disaster recovery across geographic regions.
 
-For detailed coverage of replication architecture, see [Kafka Replication and High Availability](kafka-replication-and-high-availability.md). For cross-cluster replication patterns, see [Kafka MirrorMaker 2 for Cross-Cluster Replication](kafka-mirrormaker-2-for-cross-cluster-replication.md).
+For detailed coverage of replication architecture, see [Kafka Replication and High Availability](https://conduktor.io/glossary/kafka-replication-and-high-availability). For cross-cluster replication patterns, see [Kafka MirrorMaker 2 for Cross-Cluster Replication](https://conduktor.io/glossary/kafka-mirrormaker-2-for-cross-cluster-replication).
 
 ### Backup Approaches and Tiered Storage
 
@@ -306,7 +306,7 @@ kafka-reassign-partitions.sh --bootstrap-server localhost:9092 \
   --verify
 ```
 
-Testing recovery procedures is essential. Many organizations discover gaps in their disaster recovery plans only when attempting actual recovery. For comprehensive disaster recovery planning, see [Disaster Recovery Strategies for Kafka Clusters](disaster-recovery-strategies-for-kafka-clusters.md). For tiered storage details, see [Tiered Storage in Kafka](tiered-storage-in-kafka.md).
+Testing recovery procedures is essential. Many organizations discover gaps in their disaster recovery plans only when attempting actual recovery. For comprehensive disaster recovery planning, see [Disaster Recovery Strategies for Kafka Clusters](https://conduktor.io/glossary/disaster-recovery-strategies-for-kafka-clusters). For tiered storage details, see [Tiered Storage in Kafka](https://conduktor.io/glossary/tiered-storage-in-kafka).
 
 ## Troubleshooting Common Issues
 
@@ -330,7 +330,7 @@ Growing consumer lag indicates consumers cannot keep pace with producers. Soluti
 - Increasing partition count to enable more parallelism
 - Checking for network or serialization bottlenecks
 
-For detailed coverage of consumer group management, see [Kafka Consumer Groups Explained](kafka-consumer-groups-explained.md). For monitoring consumer lag patterns, see [Consumer Lag Monitoring](consumer-lag-monitoring.md).
+For detailed coverage of consumer group management, see [Kafka Consumer Groups Explained](https://conduktor.io/glossary/kafka-consumer-groups-explained). For monitoring consumer lag patterns, see [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring).
 
 ### Broker Restarts and Leadership Changes
 
@@ -420,7 +420,7 @@ kubectl patch kafka production-cluster --type merge \
 kubectl get pods -l strimzi.io/cluster=production-cluster -w
 ```
 
-For comprehensive Kubernetes deployment patterns, see [Running Kafka on Kubernetes](running-kafka-on-kubernetes.md) and [Strimzi Kafka Operator for Kubernetes](strimzi-kafka-operator-for-kubernetes.md). For infrastructure automation, see [Infrastructure as Code for Kafka Deployments](infrastructure-as-code-for-kafka-deployments.md).
+For comprehensive Kubernetes deployment patterns, see [Running Kafka on Kubernetes](https://conduktor.io/glossary/running-kafka-on-kubernetes) and [Strimzi Kafka Operator for Kubernetes](https://conduktor.io/glossary/strimzi-kafka-operator-for-kubernetes). For infrastructure automation, see [Infrastructure as Code for Kafka Deployments](https://conduktor.io/glossary/infrastructure-as-code-for-kafka-deployments).
 
 ## Kafka Admin Operations in Streaming Architectures
 
@@ -449,16 +449,16 @@ By investing in proper tooling, automation, and monitoring, organizations can op
 
 ## Related Articles
 
-- [Understanding KRaft Mode in Kafka](understanding-kraft-mode-in-kafka.md) - Modern metadata management without ZooKeeper
-- [Kafka Cluster Monitoring and Metrics](kafka-cluster-monitoring-and-metrics.md) - Comprehensive monitoring strategies
-- [Kafka Performance Tuning Guide](kafka-performance-tuning-guide.md) - Optimization techniques
-- [Kafka Security Best Practices](kafka-security-best-practices.md) - Security architecture
-- [Running Kafka on Kubernetes](running-kafka-on-kubernetes.md) - Kubernetes deployment patterns
-- [Strimzi Kafka Operator for Kubernetes](strimzi-kafka-operator-for-kubernetes.md) - Automated K8s operations
-- [Infrastructure as Code for Kafka Deployments](infrastructure-as-code-for-kafka-deployments.md) - IaC automation
-- [Tiered Storage in Kafka](tiered-storage-in-kafka.md) - Cost-effective storage management
-- [Kafka Consumer Groups Explained](kafka-consumer-groups-explained.md) - Consumer group operations
-- [Kafka Replication and High Availability](kafka-replication-and-high-availability.md) - Replication strategies
+- [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka) - Modern metadata management without ZooKeeper
+- [Kafka Cluster Monitoring and Metrics](https://conduktor.io/glossary/kafka-cluster-monitoring-and-metrics) - Comprehensive monitoring strategies
+- [Kafka Performance Tuning Guide](https://conduktor.io/glossary/kafka-performance-tuning-guide) - Optimization techniques
+- [Kafka Security Best Practices](https://conduktor.io/glossary/kafka-security-best-practices) - Security architecture
+- [Running Kafka on Kubernetes](https://conduktor.io/glossary/running-kafka-on-kubernetes) - Kubernetes deployment patterns
+- [Strimzi Kafka Operator for Kubernetes](https://conduktor.io/glossary/strimzi-kafka-operator-for-kubernetes) - Automated K8s operations
+- [Infrastructure as Code for Kafka Deployments](https://conduktor.io/glossary/infrastructure-as-code-for-kafka-deployments) - IaC automation
+- [Tiered Storage in Kafka](https://conduktor.io/glossary/tiered-storage-in-kafka) - Cost-effective storage management
+- [Kafka Consumer Groups Explained](https://conduktor.io/glossary/kafka-consumer-groups-explained) - Consumer group operations
+- [Kafka Replication and High Availability](https://conduktor.io/glossary/kafka-replication-and-high-availability) - Replication strategies
 
 ## Sources and References
 

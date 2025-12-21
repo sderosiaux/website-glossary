@@ -36,7 +36,7 @@ Monitoring freshness involves:
 
 For example, if your e-commerce platform expects user clickstream events every few seconds, a 10-minute gap in data arrival is a clear indicator that something upstream has failed.
 
-For comprehensive guidance on implementing freshness monitoring with modern tools and SLA management practices, see [Data Freshness Monitoring: SLA Management](data-freshness-monitoring-sla-management.md). To understand consumer lag mechanics in depth, refer to [Consumer Lag: Monitoring and Managing Streaming Health](consumer-lag-monitoring.md).
+For comprehensive guidance on implementing freshness monitoring with modern tools and SLA management practices, see [Data Freshness Monitoring: SLA Management](https://conduktor.io/glossary/data-freshness-monitoring-sla-management). To understand consumer lag mechanics in depth, refer to [Consumer Lag: Monitoring and Managing Streaming Health](https://conduktor.io/glossary/consumer-lag-monitoring).
 
 ### 2. Data Volume
 
@@ -66,7 +66,7 @@ Effective schema monitoring involves:
 
 Modern streaming platforms leverage schema registries (like Apicurio Registry or Confluent's open-source Schema Registry) to version and validate schemas. Governance platforms like Conduktor integrate with these registries, allowing teams to visualize schema evolution, test compatibility, and prevent breaking changes from being deployed.
 
-For detailed guidance on implementing schema management infrastructure, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md). To understand compatibility rules and versioning strategies, refer to [Schema Evolution Best Practices](schema-evolution-best-practices.md).
+For detailed guidance on implementing schema management infrastructure, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management). To understand compatibility rules and versioning strategies, refer to [Schema Evolution Best Practices](https://conduktor.io/glossary/schema-evolution-best-practices).
 
 ### 4. Data Distribution
 
@@ -82,7 +82,7 @@ Distribution monitoring covers:
 
 For instance, if your user age field suddenly shows values above 150, or your country code field contains values not in ISO standards, you have a data quality issue that needs investigation.
 
-To understand the full spectrum of data quality dimensions and how distribution relates to accuracy and completeness, see [Data Quality Dimensions: Accuracy, Completeness, and Consistency](data-quality-dimensions-accuracy-completeness-and-consistency.md). For distinguishing between observability and quality testing, refer to [Data Quality vs Data Observability: Key Differences](data-quality-vs-data-observability-key-differences.md).
+To understand the full spectrum of data quality dimensions and how distribution relates to accuracy and completeness, see [Data Quality Dimensions: Accuracy, Completeness, and Consistency](https://conduktor.io/glossary/data-quality-dimensions-accuracy-completeness-and-consistency). For distinguishing between observability and quality testing, refer to [Data Quality vs Data Observability: Key Differences](https://conduktor.io/glossary/data-quality-vs-data-observability-key-differences).
 
 ### 5. Data Lineage
 
@@ -98,7 +98,7 @@ Lineage capabilities include:
 
 In complex streaming architectures with multiple Kafka clusters, connectors, and stream processing applications, maintaining clear lineage becomes challenging. This is where comprehensive data platforms become essential for visualizing the entire data topology.
 
-For detailed implementation guidance including OpenLineage integration, automated extraction strategies, and platform selection, see [Data Lineage Tracking: Data From Source to Consumption](data-lineage-tracking-data-from-source-to-consumption.md).
+For detailed implementation guidance including OpenLineage integration, automated extraction strategies, and platform selection, see [Data Lineage Tracking: Data From Source to Consumption](https://conduktor.io/glossary/data-lineage-tracking-data-from-source-to-consumption).
 
 ## Implementing Data Observability in Streaming Systems
 
@@ -115,7 +115,7 @@ The data observability ecosystem has matured significantly, offering both open-s
 
 **Data Quality Frameworks:**
 - **Soda Core 3.0+**: Open-source framework for declarative data quality checks using YAML. Integrates with streaming platforms to validate data quality in real-time.
-- **Great Expectations (GX) 1.0+**: Comprehensive validation framework with extensive built-in expectations. Can validate streaming data quality at ingestion points. See [Great Expectations: Data Testing Framework](great-expectations-data-testing-framework.md) for implementation patterns.
+- **Great Expectations (GX) 1.0+**: Comprehensive validation framework with extensive built-in expectations. Can validate streaming data quality at ingestion points. See [Great Expectations: Data Testing Framework](https://conduktor.io/glossary/great-expectations-data-testing-framework) for implementation patterns.
 - **dbt Tests**: Native data quality testing in transformation workflows with freshness checks and contract enforcement (dbt 1.5+).
 
 **Lineage and Metadata:**
@@ -222,7 +222,7 @@ This monitoring script demonstrates the **freshness** pillar by tracking event-t
 - **Data quality checks**: Use Soda Core or GX to validate distribution metrics (nulls, outliers)
 - **Lineage tracking**: Emit OpenLineage events to capture data flow topology
 
-For comprehensive guidance on building data quality validation into your pipelines, see [Building a Data Quality Framework](building-a-data-quality-framework.md).
+For comprehensive guidance on building data quality validation into your pipelines, see [Building a Data Quality Framework](https://conduktor.io/glossary/building-a-data-quality-framework).
 
 ### Advanced Pattern: ML-Based Anomaly Detection
 
@@ -244,11 +244,11 @@ Implementing data observability isn't just about deploying tools—it requires c
 
 1. **Establish baselines**: Understand normal patterns in freshness, volume, and distribution before you can detect anomalies. Use historical data to set realistic thresholds rather than arbitrary targets.
 
-2. **Define SLAs**: Set clear expectations for data freshness and quality that align with business requirements. Document these agreements in data contracts that formalize the relationship between producers and consumers. For guidance on implementing contracts, see [Data Contracts for Reliable Pipelines](data-contracts-for-reliable-pipelines.md).
+2. **Define SLAs**: Set clear expectations for data freshness and quality that align with business requirements. Document these agreements in data contracts that formalize the relationship between producers and consumers. For guidance on implementing contracts, see [Data Contracts for Reliable Pipelines](https://conduktor.io/glossary/data-contracts-for-reliable-pipelines).
 
 3. **Automate alerting**: Configure alerts for critical metrics, but avoid alert fatigue by focusing on actionable signals. Use tiered severity levels (info, warning, critical) and route alerts to appropriate teams based on impact.
 
-4. **Create runbooks**: Document common issues and resolution steps to speed up incident response. When data quality incidents occur, follow systematic root cause analysis processes as outlined in [Data Incident Management and Root Cause Analysis](data-incident-management-and-root-cause-analysis.md).
+4. **Create runbooks**: Document common issues and resolution steps to speed up incident response. When data quality incidents occur, follow systematic root cause analysis processes as outlined in [Data Incident Management and Root Cause Analysis](https://conduktor.io/glossary/data-incident-management-and-root-cause-analysis).
 
 5. **Foster collaboration**: Break down silos between data producers, platform teams, and consumers. Observability metrics should be visible to all stakeholders, not just the engineering team.
 

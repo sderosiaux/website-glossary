@@ -10,7 +10,7 @@ topics:
 
 # State Stores in Kafka Streams
 
-Stream processing applications often need to remember information across multiple events. Counting page views, calculating running totals, joining streams of data, or tracking user sessions all require maintaining state. Kafka Streams uses state stores to enable these stateful operations while preserving the distributed, fault-tolerant nature of stream processing. For foundational knowledge about Apache Kafka and its ecosystem, see [Apache Kafka](apache-kafka.md).
+Stream processing applications often need to remember information across multiple events. Counting page views, calculating running totals, joining streams of data, or tracking user sessions all require maintaining state. Kafka Streams uses state stores to enable these stateful operations while preserving the distributed, fault-tolerant nature of stream processing. For foundational knowledge about Apache Kafka and its ecosystem, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
 
 ## What Are State Stores?
 
@@ -66,7 +66,7 @@ Kafka Streams optimizes restoration using standby replicas—duplicate copies of
 
 ### State Stores in Modern Kafka (3.5+ and 4.0+)
 
-With Kafka 4.0's KRaft architecture (which removes ZooKeeper dependencies), state store management remains largely unchanged at the application level. However, KRaft provides more predictable metadata operations, which improves changelog topic creation and management. State restoration benefits from KRaft's faster metadata propagation, especially noticeable in large-scale deployments with many partitions. For detailed information about KRaft, see [Understanding KRaft Mode in Kafka](understanding-kraft-mode-in-kafka.md).
+With Kafka 4.0's KRaft architecture (which removes ZooKeeper dependencies), state store management remains largely unchanged at the application level. However, KRaft provides more predictable metadata operations, which improves changelog topic creation and management. State restoration benefits from KRaft's faster metadata propagation, especially noticeable in large-scale deployments with many partitions. For detailed information about KRaft, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka).
 
 Recent Kafka versions have introduced several state store enhancements:
 
@@ -94,7 +94,7 @@ This example creates a state store named "user-login-counts" that maintains the 
 
 ### Stream Joins
 
-Joining two streams requires buffering events from both streams in state stores until matching events arrive. For example, joining a stream of orders with a stream of payments requires temporarily storing unmatched orders and payments. For comprehensive coverage of join patterns and strategies, see [Stream Joins and Enrichment Patterns](stream-joins-and-enrichment-patterns.md).
+Joining two streams requires buffering events from both streams in state stores until matching events arrive. For example, joining a stream of orders with a stream of payments requires temporarily storing unmatched orders and payments. For comprehensive coverage of join patterns and strategies, see [Stream Joins and Enrichment Patterns](https://conduktor.io/glossary/stream-joins-and-enrichment-patterns).
 
 ### Windowed Computations
 
@@ -107,7 +107,7 @@ KTable<Windowed<String>, Long> transactionVolume = transactions
     .count();
 ```
 
-This creates a state store that maintains counts for non-overlapping 10-minute windows. The `ofSizeWithNoGrace` method (introduced in Kafka 2.4+) creates windows without a grace period. Grace periods allow late-arriving events to be included in already-closed windows, useful when event timestamps don't arrive in perfect order. Without a grace period, windows close immediately after their time boundary, optimizing for lower latency at the cost of potentially missing late events. For detailed information on windowing strategies, see [Session Windows in Stream Processing](session-windows-in-stream-processing.md).
+This creates a state store that maintains counts for non-overlapping 10-minute windows. The `ofSizeWithNoGrace` method (introduced in Kafka 2.4+) creates windows without a grace period. Grace periods allow late-arriving events to be included in already-closed windows, useful when event timestamps don't arrive in perfect order. Without a grace period, windows close immediately after their time boundary, optimizing for lower latency at the cost of potentially missing late events. For detailed information on windowing strategies, see [Session Windows in Stream Processing](https://conduktor.io/glossary/session-windows-in-stream-processing).
 
 ### Stateful Transformations
 
@@ -134,11 +134,11 @@ Changelog topics use log compaction to retain only the latest value for each key
 
 ### Monitoring
 
-Monitoring state store metrics is crucial for production applications. Key metrics include state store size, restoration time, and changelog lag. Tools like Conduktor provide comprehensive visibility into state store health, allowing you to inspect state contents in real-time, monitor restoration progress, debug slow restores, and identify excessive state growth. Configure JMX metrics (such as `state-store-size`, `restore-time`, and `record-cache-hit-ratio`) and integrate with monitoring systems like Prometheus and Grafana for production observability. For broader monitoring strategies, see [Consumer Lag Monitoring](consumer-lag-monitoring.md).
+Monitoring state store metrics is crucial for production applications. Key metrics include state store size, restoration time, and changelog lag. Tools like Conduktor provide comprehensive visibility into state store health, allowing you to inspect state contents in real-time, monitor restoration progress, debug slow restores, and identify excessive state growth. Configure JMX metrics (such as `state-store-size`, `restore-time`, and `record-cache-hit-ratio`) and integrate with monitoring systems like Prometheus and Grafana for production observability. For broader monitoring strategies, see [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring).
 
 ## State Stores in Data Streaming Platforms
 
-State stores are fundamental to stateful stream processing across modern data streaming platforms. While Kafka Streams uses RocksDB-backed stores, other frameworks like Apache Flink use similar concepts with different implementations. For more information on Flink's approach to stateful processing, see [What is Apache Flink: Stateful Stream Processing](what-is-apache-flink-stateful-stream-processing.md).
+State stores are fundamental to stateful stream processing across modern data streaming platforms. While Kafka Streams uses RocksDB-backed stores, other frameworks like Apache Flink use similar concepts with different implementations. For more information on Flink's approach to stateful processing, see [What is Apache Flink: Stateful Stream Processing](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing).
 
 The changelog-based approach to fault tolerance has become a standard pattern in stream processing. By maintaining state locally for performance while durably logging changes to Kafka topics, applications achieve both low latency and high reliability.
 

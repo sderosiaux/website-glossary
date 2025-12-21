@@ -29,7 +29,7 @@ Key Kafka features that support event sourcing include:
 
 **Immutability and Durability**: Events written to Kafka are immutable and persisted durably across multiple brokers, ensuring no data loss.
 
-**Replay Capability**: Consumers can replay events from any point in the log by adjusting their offset, enabling state reconstruction and processing corrections. For details on managing consumer offsets and coordination, see [Kafka Consumer Groups Explained](kafka-consumer-groups-explained.md).
+**Replay Capability**: Consumers can replay events from any point in the log by adjusting their offset, enabling state reconstruction and processing corrections. For details on managing consumer offsets and coordination, see [Kafka Consumer Groups Explained](https://conduktor.io/glossary/kafka-consumer-groups-explained).
 
 **Ordering Guarantees**: Kafka maintains event order within a partition, critical for correctly reconstructing state when events must be processed sequentially.
 
@@ -81,7 +81,7 @@ The most fundamental pattern uses Kafka topics as event stores. Each aggregate o
 
 Replaying thousands or millions of events to reconstruct state can be slow. The snapshot pattern periodically saves the current state as a snapshot, then only replays events after the snapshot.
 
-Kafka's compacted topics are useful here. By periodically publishing a snapshot event with the same key as the aggregate, Kafka's log compaction retains the latest snapshot while eventually removing older events, balancing storage with replay speed. For details on log compaction mechanics, see [Kafka Log Compaction Explained](kafka-log-compaction-explained.md).
+Kafka's compacted topics are useful here. By periodically publishing a snapshot event with the same key as the aggregate, Kafka's log compaction retains the latest snapshot while eventually removing older events, balancing storage with replay speed. For details on log compaction mechanics, see [Kafka Log Compaction Explained](https://conduktor.io/glossary/kafka-log-compaction-explained).
 
 ### CQRS Integration
 
@@ -135,13 +135,13 @@ When business logic changes or bugs are fixed, event replay allows reprocessing 
 
 ### Schema Evolution
 
-Events are long-lived, so schema evolution is critical. Using a schema registry with formats like Avro or Protobuf enables backward and forward compatibility. Events must be designed to evolve without breaking existing consumers. For detailed coverage of schema management strategies, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md).
+Events are long-lived, so schema evolution is critical. Using a schema registry with formats like Avro or Protobuf enables backward and forward compatibility. Events must be designed to evolve without breaking existing consumers. For detailed coverage of schema management strategies, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management).
 
 For example, adding optional fields is safe, but removing required fields or changing types requires careful versioning. Platforms like Conduktor provide schema management capabilities that help teams visualize schema evolution, validate compatibility rules, and prevent breaking changes before they reach production.
 
 ### Partitioning Strategy
 
-Choosing the right partition key ensures event ordering. Typically, the aggregate ID (customer ID, order ID) serves as the key. However, if multiple aggregates interact, consider whether strict ordering across aggregates is needed, which might require single-partition topics or other coordination mechanisms. For comprehensive guidance on partitioning decisions, see [Kafka Partitioning Strategies and Best Practices](kafka-partitioning-strategies-and-best-practices.md).
+Choosing the right partition key ensures event ordering. Typically, the aggregate ID (customer ID, order ID) serves as the key. However, if multiple aggregates interact, consider whether strict ordering across aggregates is needed, which might require single-partition topics or other coordination mechanisms. For comprehensive guidance on partitioning decisions, see [Kafka Partitioning Strategies and Best Practices](https://conduktor.io/glossary/kafka-partitioning-strategies-and-best-practices).
 
 ### Event Versioning
 
@@ -153,7 +153,7 @@ As events evolve, versioning strategies become necessary. Common approaches incl
 
 ### Handling Failures
 
-Event sourcing with Kafka requires idempotent consumers. Since events may be replayed, consumers must handle duplicate processing gracefully. Kafka 3.0+ provides mature exactly-once semantics through transactions, enabling atomic writes across multiple partitions and topics. Alternatively, implementing idempotency keys in downstream systems prevents duplicate effects. For comprehensive coverage of idempotency and transactional guarantees, see [Exactly-Once Semantics](exactly-once-semantics.md).
+Event sourcing with Kafka requires idempotent consumers. Since events may be replayed, consumers must handle duplicate processing gracefully. Kafka 3.0+ provides mature exactly-once semantics through transactions, enabling atomic writes across multiple partitions and topics. Alternatively, implementing idempotency keys in downstream systems prevents duplicate effects. For comprehensive coverage of idempotency and transactional guarantees, see [Exactly-Once Semantics](https://conduktor.io/glossary/exactly-once-semantics).
 
 ## Common Challenges and Solutions
 
@@ -177,8 +177,8 @@ Event sourcing with Kafka requires idempotent consumers. Since events may be rep
 
 Event sourcing often works in combination with other architectural patterns:
 
-- **[Outbox Pattern](outbox-pattern-for-reliable-event-publishing.md)**: Ensures reliable event publishing by storing events alongside application state in a transactional outbox before publishing to Kafka
-- **[Saga Pattern](saga-pattern-for-distributed-transactions.md)**: Manages distributed transactions across event-sourced services using compensating events
+- **[Outbox Pattern](https://conduktor.io/glossary/outbox-pattern-for-reliable-event-publishing)**: Ensures reliable event publishing by storing events alongside application state in a transactional outbox before publishing to Kafka
+- **[Saga Pattern](https://conduktor.io/glossary/saga-pattern-for-distributed-transactions)**: Manages distributed transactions across event-sourced services using compensating events
 - **CQRS**: Separates command (write) and query (read) responsibilities, naturally complementing event sourcing's append-only write model
 
 ## Summary

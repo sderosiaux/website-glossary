@@ -158,7 +158,7 @@ classified_stream.sink_to(kafka_sink)
 
 **Data Scanning and Profiling**: Systematic scanning analyzes data distribution, uniqueness, and statistical properties to flag potentially sensitive fields. High-cardinality string fields with person-name-like characteristics, fields containing consistent geographic patterns, or columns showing birthdate distributions warrant investigation. Profiling complements pattern matching by identifying sensitive data not matching known formats.
 
-**Schema-Level Metadata**: The most reliable detection approach marks sensitive fields directly in schemas. Avro, Protobuf, and JSON schemas can include annotations or tags identifying fields containing PII. This metadata-driven approach enables consistent handling across the pipeline without per-message inspection overhead. For comprehensive schema management patterns, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md).
+**Schema-Level Metadata**: The most reliable detection approach marks sensitive fields directly in schemas. Avro, Protobuf, and JSON schemas can include annotations or tags identifying fields containing PII. This metadata-driven approach enables consistent handling across the pipeline without per-message inspection overhead. For comprehensive schema management patterns, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management).
 
 ### Comparing Detection Approaches
 
@@ -174,7 +174,7 @@ classified_stream.sink_to(kafka_sink)
 
 Prevention strategies operate at multiple levels:
 
-**Data Masking and Tokenization**: Replace PII with masked values or tokens before data enters logs, metrics, or lower-security environments. Format-preserving encryption (FPE) maintains data characteristics for testing while protecting actual values—for example, encrypting a 16-digit credit card number into another valid-looking 16-digit number that preserves the format but protects the actual value. Tokenization replaces sensitive fields with random identifiers, storing the mapping in a secure token vault accessible only to authorized systems. For comprehensive masking techniques and implementation patterns, see [Data Masking and Anonymization for Streaming](data-masking-and-anonymization-for-streaming.md).
+**Data Masking and Tokenization**: Replace PII with masked values or tokens before data enters logs, metrics, or lower-security environments. Format-preserving encryption (FPE) maintains data characteristics for testing while protecting actual values—for example, encrypting a 16-digit credit card number into another valid-looking 16-digit number that preserves the format but protects the actual value. Tokenization replaces sensitive fields with random identifiers, storing the mapping in a secure token vault accessible only to authorized systems. For comprehensive masking techniques and implementation patterns, see [Data Masking and Anonymization for Streaming](https://conduktor.io/glossary/data-masking-and-anonymization-for-streaming).
 
 Here's a practical tokenization example using Kafka Streams with a token vault:
 
@@ -285,11 +285,11 @@ customer = {
 producer.send_customer_event(customer)
 ```
 
-**Schema Enforcement and Validation**: Use schema registries to define and enforce which fields contain PII. Reject messages that include sensitive fields in contexts where they shouldn't appear. Implement schema evolution policies that require approval and documentation when adding PII fields to existing schemas. For comprehensive schema management patterns, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md).
+**Schema Enforcement and Validation**: Use schema registries to define and enforce which fields contain PII. Reject messages that include sensitive fields in contexts where they shouldn't appear. Implement schema evolution policies that require approval and documentation when adding PII fields to existing schemas. For comprehensive schema management patterns, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management).
 
-**Access Control and Topic Segregation**: Implement fine-grained ACLs ensuring only authorized applications and users can access topics containing PII. Separate sensitive and non-sensitive data into different topics with distinct security policies. Use encryption at rest and in transit for all streams carrying personal data. For detailed access control implementation, see [Access Control for Streaming](access-control-for-streaming.md).
+**Access Control and Topic Segregation**: Implement fine-grained ACLs ensuring only authorized applications and users can access topics containing PII. Separate sensitive and non-sensitive data into different topics with distinct security policies. Use encryption at rest and in transit for all streams carrying personal data. For detailed access control implementation, see [Access Control for Streaming](https://conduktor.io/glossary/access-control-for-streaming).
 
-**Data Classification and Tagging**: Systematically classify data by sensitivity level and use Kafka headers or schema metadata to tag messages with classification information. This enables automated policy enforcement based on data sensitivity. For comprehensive classification strategies, see [Data Classification and Tagging Strategies](data-classification-and-tagging-strategies.md).
+**Data Classification and Tagging**: Systematically classify data by sensitivity level and use Kafka headers or schema metadata to tag messages with classification information. This enables automated policy enforcement based on data sensitivity. For comprehensive classification strategies, see [Data Classification and Tagging Strategies](https://conduktor.io/glossary/data-classification-and-tagging-strategies).
 
 **Data Minimization**: Design applications to avoid collecting, processing, or transmitting PII unless absolutely necessary. Aggregate data early in the pipeline, removing individual identifiers before downstream processing. Question whether each PII field truly needs to flow through the entire system or could be stripped at ingestion.
 
@@ -363,7 +363,7 @@ quality_rules:
 - **Faster ACL Enforcement**: Improved authorization performance enables more granular, field-level access controls
 - **Centralized Metadata**: Simplified architecture makes it easier to implement consistent PII protection policies across the entire cluster
 
-For comprehensive policy enforcement patterns, see [Policy Enforcement in Streaming](policy-enforcement-in-streaming.md).
+For comprehensive policy enforcement patterns, see [Policy Enforcement in Streaming](https://conduktor.io/glossary/policy-enforcement-in-streaming).
 
 **Handling Detected PII**: When PII is detected where it shouldn't exist:
 - **Quarantine**: Route messages to secure holding topics for investigation
@@ -437,8 +437,8 @@ Modern streaming platforms provide PII protection capabilities across multiple c
 
 **Monitoring and Observability**:
 
-- **Data Quality Platforms**: Tools like Great Expectations, Soda Core, and Monte Carlo can monitor for unexpected PII patterns in streams, alerting when sensitive data appears where it shouldn't. For detailed data quality implementation, see [Building a Data Quality Framework](building-a-data-quality-framework.md).
-- **Audit Logging Systems**: Comprehensive audit trails showing who accessed PII data, when, and what operations were performed. See [Audit Logging for Streaming Platforms](audit-logging-for-streaming-platforms.md) for implementation patterns.
+- **Data Quality Platforms**: Tools like Great Expectations, Soda Core, and Monte Carlo can monitor for unexpected PII patterns in streams, alerting when sensitive data appears where it shouldn't. For detailed data quality implementation, see [Building a Data Quality Framework](https://conduktor.io/glossary/building-a-data-quality-framework).
+- **Audit Logging Systems**: Comprehensive audit trails showing who accessed PII data, when, and what operations were performed. See [Audit Logging for Streaming Platforms](https://conduktor.io/glossary/audit-logging-for-streaming-platforms) for implementation patterns.
 
 ## Conclusion
 
@@ -458,11 +458,11 @@ Modern tools in 2025—from AI-powered detection services to comprehensive gover
 8. **Expand coverage**: Gradually add ML-based detection for contextual PII and advanced anonymization techniques
 
 For deeper exploration of related topics, see:
-- [PII Detection and Handling in Event Streams](pii-detection-and-handling-in-event-streams.md) - Comprehensive guide to PII handling strategies
-- [Data Masking and Anonymization for Streaming](data-masking-and-anonymization-for-streaming.md) - Detailed masking implementation patterns
-- [Data Classification and Tagging Strategies](data-classification-and-tagging-strategies.md) - How to classify and tag sensitive data systematically
-- [Policy Enforcement in Streaming](policy-enforcement-in-streaming.md) - Automated governance for real-time data
-- [Access Control for Streaming](access-control-for-streaming.md) - Implementing fine-grained access controls
+- [PII Detection and Handling in Event Streams](https://conduktor.io/glossary/pii-detection-and-handling-in-event-streams) - Comprehensive guide to PII handling strategies
+- [Data Masking and Anonymization for Streaming](https://conduktor.io/glossary/data-masking-and-anonymization-for-streaming) - Detailed masking implementation patterns
+- [Data Classification and Tagging Strategies](https://conduktor.io/glossary/data-classification-and-tagging-strategies) - How to classify and tag sensitive data systematically
+- [Policy Enforcement in Streaming](https://conduktor.io/glossary/policy-enforcement-in-streaming) - Automated governance for real-time data
+- [Access Control for Streaming](https://conduktor.io/glossary/access-control-for-streaming) - Implementing fine-grained access controls
 
 ## Sources and References
 

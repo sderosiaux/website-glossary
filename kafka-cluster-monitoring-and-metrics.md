@@ -53,7 +53,7 @@ With KRaft mode replacing ZooKeeper as Kafka's consensus mechanism, new controll
 
 - **Controller event queue size** (`kafka.controller:type=ControllerEventManager,name=EventQueueSize`): Number of pending controller events. High values (>100) suggest the controller is overwhelmed, which can delay partition leadership elections and topic operations.
 
-KRaft mode eliminates ZooKeeper monitoring complexity while introducing cleaner, more predictable controller metrics. For clusters still using ZooKeeper, see [Understanding KRaft Mode in Kafka](understanding-kraft-mode-in-kafka.md) for migration guidance.
+KRaft mode eliminates ZooKeeper monitoring complexity while introducing cleaner, more predictable controller metrics. For clusters still using ZooKeeper, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka) for migration guidance.
 
 ### Topic and Partition Metrics
 
@@ -68,7 +68,7 @@ Uneven partition distribution can overload specific brokers while others sit und
 
 ### Consumer Group Metrics
 
-Consumer lag is often the most critical metric for application teams. For comprehensive consumer monitoring strategies, see [Consumer Lag Monitoring](consumer-lag-monitoring.md).
+Consumer lag is often the most critical metric for application teams. For comprehensive consumer monitoring strategies, see [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring).
 
 - **Consumer lag** (`kafka.consumer:type=consumer-fetch-manager-metrics,client-id=*,topic=*,partition=*`): Number of messages between the consumer's current offset and the log end offset. Lag of 1,000 messages might be normal during steady state, but 1,000,000+ messages indicates the consumer cannot keep pace with production rate.
 
@@ -319,13 +319,13 @@ As Kafka clusters grow in size and criticality, monitoring becomes non-negotiabl
 
 For comprehensive Kafka operations and management, explore these related topics:
 
-- **[Understanding KRaft Mode in Kafka](understanding-kraft-mode-in-kafka.md)**: Learn about KRaft's architecture and monitoring implications for modern Kafka deployments
-- **[Consumer Lag Monitoring](consumer-lag-monitoring.md)**: Deep dive into consumer lag tracking strategies and tools
-- **[Kafka Performance Tuning Guide](kafka-performance-tuning-guide.md)**: Use monitoring insights to optimize Kafka performance
-- **[Kafka Capacity Planning](kafka-capacity-planning.md)**: Apply monitoring data to capacity planning decisions
-- **[Kafka Replication and High Availability](kafka-replication-and-high-availability.md)**: Understand replication metrics and availability monitoring
-- **[Running Kafka on Kubernetes](running-kafka-on-kubernetes.md)**: Container-native monitoring approaches for Kubernetes-based deployments
-- **[What is Data Observability: The Five Pillars](what-is-data-observability-the-five-pillars.md)**: Broader context for observability practices beyond metrics
+- **[Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka)**: Learn about KRaft's architecture and monitoring implications for modern Kafka deployments
+- **[Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring)**: Deep dive into consumer lag tracking strategies and tools
+- **[Kafka Performance Tuning Guide](https://conduktor.io/glossary/kafka-performance-tuning-guide)**: Use monitoring insights to optimize Kafka performance
+- **[Kafka Capacity Planning](https://conduktor.io/glossary/kafka-capacity-planning)**: Apply monitoring data to capacity planning decisions
+- **[Kafka Replication and High Availability](https://conduktor.io/glossary/kafka-replication-and-high-availability)**: Understand replication metrics and availability monitoring
+- **[Running Kafka on Kubernetes](https://conduktor.io/glossary/running-kafka-on-kubernetes)**: Container-native monitoring approaches for Kubernetes-based deployments
+- **[What is Data Observability: The Five Pillars](https://conduktor.io/glossary/what-is-data-observability-the-five-pillars)**: Broader context for observability practices beyond metrics
 
 ## Sources and References
 

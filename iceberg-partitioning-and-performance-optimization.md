@@ -13,7 +13,7 @@ topics:
 
 Apache Iceberg revolutionizes how modern data platforms handle partitioning by introducing hidden partitioning and partition evolution capabilities. Unlike traditional table formats that expose partitioning as part of the schema and require users to manually manage partition predicates, Iceberg abstracts partitioning away from queries while maintaining exceptional performance. This article explores advanced partitioning strategies, performance optimization techniques, and practical implementations for data engineers building high-performance data lakehouses.
 
-For foundational concepts about Iceberg's role in modern data architectures, see [Introduction to Lakehouse Architecture](introduction-to-lakehouse-architecture.md).
+For foundational concepts about Iceberg's role in modern data architectures, see [Introduction to Lakehouse Architecture](https://conduktor.io/glossary/introduction-to-lakehouse-architecture).
 
 ## Understanding Hidden Partitioning
 
@@ -122,7 +122,7 @@ The REST catalog has become the recommended catalog implementation for 2025 depl
 - **Multi-table transactions** for atomic operations across tables
 - **Built-in credential vending** for secure data access
 
-For catalog management details, see [Iceberg Catalog Management: Hive, Glue, and Nessie](iceberg-catalog-management-hive-glue-and-nessie.md), which now includes REST catalog patterns alongside traditional implementations.
+For catalog management details, see [Iceberg Catalog Management: Hive, Glue, and Nessie](https://conduktor.io/glossary/iceberg-catalog-management-hive-glue-and-nessie), which now includes REST catalog patterns alongside traditional implementations.
 
 ## Partition Evolution
 
@@ -159,7 +159,7 @@ This zero-copy evolution enables continuous optimization without expensive migra
 
 ### Partition Pruning
 
-Iceberg's advanced metadata layer enables aggressive partition pruning. The table metadata stores min/max statistics for each partition, allowing the query engine to skip entire partitions before reading any data files. For detailed coverage of how Iceberg's metadata architecture supports this functionality, see [Iceberg Table Architecture: Metadata and Snapshots](iceberg-table-architecture-metadata-and-snapshots.md).
+Iceberg's advanced metadata layer enables aggressive partition pruning. The table metadata stores min/max statistics for each partition, allowing the query engine to skip entire partitions before reading any data files. For detailed coverage of how Iceberg's metadata architecture supports this functionality, see [Iceberg Table Architecture: Metadata and Snapshots](https://conduktor.io/glossary/iceberg-table-architecture-metadata-and-snapshots).
 
 ```sql
 -- Partition pruning with range predicate
@@ -222,11 +222,11 @@ CALL catalog.system.rewrite_data_files(
 | Query Scan Time | 45 sec | 3 sec |
 | Metadata Read Time | 2 sec | 0.1 sec |
 
-For comprehensive coverage of compaction strategies, snapshot expiration, and orphan file cleanup, see [Maintaining Iceberg Tables: Compaction and Cleanup](maintaining-iceberg-tables-compaction-and-cleanup.md).
+For comprehensive coverage of compaction strategies, snapshot expiration, and orphan file cleanup, see [Maintaining Iceberg Tables: Compaction and Cleanup](https://conduktor.io/glossary/maintaining-iceberg-tables-compaction-and-cleanup).
 
 ## Streaming Ecosystem Integration
 
-Iceberg's partitioning integrates seamlessly with streaming platforms, enabling real-time data ingestion with optimal partition layouts. For broader patterns on streaming data to lakehouse formats, see [Streaming to Lakehouse Tables: Delta Lake, Iceberg, and Hudi](streaming-to-lakehouse-tables.md).
+Iceberg's partitioning integrates seamlessly with streaming platforms, enabling real-time data ingestion with optimal partition layouts. For broader patterns on streaming data to lakehouse formats, see [Streaming to Lakehouse Tables: Delta Lake, Iceberg, and Hudi](https://conduktor.io/glossary/streaming-to-lakehouse-tables).
 
 ### Apache Kafka with Iceberg
 

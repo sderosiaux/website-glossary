@@ -33,7 +33,7 @@ The challenge is performance. Computing distances across millions of vectors for
 
 ## Streaming Architectures Fundamentals
 
-Streaming architectures process data continuously as it arrives, rather than in batch jobs. Systems like Apache Kafka 4.0+ (now running on KRaft consensus instead of ZooKeeper), Apache Flink 2.0+, and Apache Pulsar 3.x+ form the backbone of modern data streaming platforms, enabling organizations to react to events in real-time. For detailed coverage of Kafka fundamentals and architecture, see [Apache Kafka](apache-kafka.md).
+Streaming architectures process data continuously as it arrives, rather than in batch jobs. Systems like Apache Kafka 4.0+ (now running on KRaft consensus instead of ZooKeeper), Apache Flink 2.0+, and Apache Pulsar 3.x+ form the backbone of modern data streaming platforms, enabling organizations to react to events in real-time. For detailed coverage of Kafka fundamentals and architecture, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
 
 In a streaming architecture, data flows through pipelines as events. Producers write events to topics, consumers read and process them, and stream processors transform, aggregate, or enrich the data. This creates a continuous flow of information that can power real-time applications, dashboards, and machine learning models.
 
@@ -195,7 +195,7 @@ Some vector databases provide built-in connectors for streaming platforms, simpl
 
 **Pinecone Spark Connector**: While not streaming-native, Pinecone's Spark connector can be used with Spark Structured Streaming to process micro-batches from Kafka and write to Pinecone with optimized batching.
 
-**Qdrant with Change Data Capture**: Qdrant can integrate with CDC tools like Debezium (see [Implementing CDC with Debezium](implementing-cdc-with-debezium.md)) to automatically sync embeddings when source database records change, useful for scenarios where vector embeddings represent database entities.
+**Qdrant with Change Data Capture**: Qdrant can integrate with CDC tools like Debezium (see [Implementing CDC with Debezium](https://conduktor.io/glossary/implementing-cdc-with-debezium)) to automatically sync embeddings when source database records change, useful for scenarios where vector embeddings represent database entities.
 
 These native integrations can significantly reduce development time and operational complexity, though they may offer less flexibility than custom stream processing pipelines. Evaluate whether the connector supports your required throughput, error handling, and monitoring needs before choosing this approach.
 
@@ -217,7 +217,7 @@ These native integrations can significantly reduce development time and operatio
 
 **Scalability**: As data volume grows, both the streaming infrastructure and vector database must scale. This often means partitioning data, using multiple vector database instances, or implementing tiered storage where recent embeddings are hot and older ones are archived.
 
-**Data Quality**: Poor quality input data leads to poor embeddings. Common issues include missing fields, malformed text, encoding problems, or data that violates business rules. Implementing validation, schema enforcement, and monitoring throughout the pipeline is essential. For comprehensive data quality strategies, see [Building a Data Quality Framework](building-a-data-quality-framework.md) and [Automated Data Quality Testing](automated-data-quality-testing.md). Dead letter queues for failed embedding generation and alerting on embedding quality metrics help maintain system health. For error handling patterns, refer to [Dead Letter Queues for Error Handling](dead-letter-queues-for-error-handling.md).
+**Data Quality**: Poor quality input data leads to poor embeddings. Common issues include missing fields, malformed text, encoding problems, or data that violates business rules. Implementing validation, schema enforcement, and monitoring throughout the pipeline is essential. For comprehensive data quality strategies, see [Building a Data Quality Framework](https://conduktor.io/glossary/building-a-data-quality-framework) and [Automated Data Quality Testing](https://conduktor.io/glossary/automated-data-quality-testing). Dead letter queues for failed embedding generation and alerting on embedding quality metrics help maintain system health. For error handling patterns, refer to [Dead Letter Queues for Error Handling](https://conduktor.io/glossary/dead-letter-queues-for-error-handling).
 
 **Cost Management**: Generating embeddings at scale can be expensive, especially when using third-party APIs. Caching frequently embedded content, using batch processing where real-time isn't required, and considering self-hosted embedding models can reduce costs significantly.
 
@@ -244,13 +244,13 @@ Organizations building these systems should focus on incremental implementation,
 
 For deeper understanding of the technologies and patterns discussed in this article:
 
-- **Streaming Fundamentals**: [Apache Kafka](apache-kafka.md) provides the foundational architecture for event streaming
-- **Stream Processing**: [Introduction to Kafka Streams](introduction-to-kafka-streams.md) and [Flink DataStream API](flink-datastream-api-building-streaming-applications.md) for building processing pipelines
-- **ML Integration**: [Feature Stores for Machine Learning](feature-stores-for-machine-learning.md) for managing embeddings and features at scale
-- **Monitoring**: [Consumer Lag Monitoring](consumer-lag-monitoring.md) and [Kafka Cluster Monitoring and Metrics](kafka-cluster-monitoring-and-metrics.md) for operational visibility
-- **Data Governance**: [Schema Registry and Schema Management](schema-registry-and-schema-management.md) for managing event schemas and [Data Contracts for Reliable Pipelines](data-contracts-for-reliable-pipelines.md)
-- **Testing**: [Chaos Engineering for Streaming Systems](chaos-engineering-for-streaming-systems.md) for resilience testing
-- **Recommendations Use Case**: [Building Recommendation Systems with Streaming Data](building-recommendation-systems-with-streaming-data.md) provides additional context on this use case
+- **Streaming Fundamentals**: [Apache Kafka](https://conduktor.io/glossary/apache-kafka) provides the foundational architecture for event streaming
+- **Stream Processing**: [Introduction to Kafka Streams](https://conduktor.io/glossary/introduction-to-kafka-streams) and [Flink DataStream API](https://conduktor.io/glossary/flink-datastream-api-building-streaming-applications) for building processing pipelines
+- **ML Integration**: [Feature Stores for Machine Learning](https://conduktor.io/glossary/feature-stores-for-machine-learning) for managing embeddings and features at scale
+- **Monitoring**: [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring) and [Kafka Cluster Monitoring and Metrics](https://conduktor.io/glossary/kafka-cluster-monitoring-and-metrics) for operational visibility
+- **Data Governance**: [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) for managing event schemas and [Data Contracts for Reliable Pipelines](https://conduktor.io/glossary/data-contracts-for-reliable-pipelines)
+- **Testing**: [Chaos Engineering for Streaming Systems](https://conduktor.io/glossary/chaos-engineering-for-streaming-systems) for resilience testing
+- **Recommendations Use Case**: [Building Recommendation Systems with Streaming Data](https://conduktor.io/glossary/building-recommendation-systems-with-streaming-data) provides additional context on this use case
 
 ## Sources and References
 

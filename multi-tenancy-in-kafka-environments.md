@@ -20,7 +20,7 @@ In a multi-tenant Kafka environment, different business units might share the sa
 
 The alternative to multi-tenancy is deploying dedicated clusters for each use case. While this provides maximum isolation, it significantly increases infrastructure costs, operational complexity, and management overhead.
 
-For background on Kafka's architecture and capabilities, see [Apache Kafka](apache-kafka.md).
+For background on Kafka's architecture and capabilities, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
 
 ## Multi-Tenancy Models in Kafka
 
@@ -93,7 +93,7 @@ Kafka's KRaft mode (production-ready in Kafka 4.0+) brings significant advantage
 
 **Simplified Operations**: Removing ZooKeeper reduces operational complexity, infrastructure costs, and the failure domains in multi-tenant clusters—one less distributed system to manage.
 
-For detailed information on KRaft mode, see [Understanding KRaft Mode in Kafka](understanding-kraft-mode-in-kafka.md).
+For detailed information on KRaft mode, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka).
 
 ## Isolation Strategies
 
@@ -113,7 +113,7 @@ For example, you might configure ACLs so that the `analytics-team` principal has
 
 Governance platforms can simplify ACL management by providing visual interfaces to create, review, and audit permissions across tenants, reducing the risk of misconfiguration.
 
-For comprehensive coverage of ACL patterns and best practices, see [Kafka ACLs and Authorization Patterns](kafka-acls-and-authorization-patterns.md).
+For comprehensive coverage of ACL patterns and best practices, see [Kafka ACLs and Authorization Patterns](https://conduktor.io/glossary/kafka-acls-and-authorization-patterns).
 
 ### Quotas and Rate Limiting
 
@@ -146,7 +146,7 @@ kafka-configs.sh --bootstrap-server localhost:9092 \
 
 Modern Kafka (3.0+) allows dynamic quota updates without broker restarts, enabling real-time adjustment based on tenant behavior or SLA changes.
 
-For detailed quota implementation patterns, see [Quotas and Rate Limiting in Kafka](quotas-and-rate-limiting-in-kafka.md).
+For detailed quota implementation patterns, see [Quotas and Rate Limiting in Kafka](https://conduktor.io/glossary/quotas-and-rate-limiting-in-kafka).
 
 ## Security and Access Control
 
@@ -156,7 +156,7 @@ Security is paramount in multi-tenant environments where sensitive data from dif
 
 Kafka supports multiple authentication mechanisms including SASL/PLAIN, SASL/SCRAM, SASL/OAUTHBEARER (OAuth/OIDC), Kerberos, and mutual TLS (mTLS). Each tenant should have unique credentials, preventing unauthorized access if one tenant's credentials are compromised.
 
-Modern deployments (Kafka 2.0+) increasingly use OAuth/OIDC for authentication, enabling integration with enterprise identity providers and centralized access management. For more on securing Kafka with mutual TLS, see [mTLS for Kafka](mtls-for-kafka.md).
+Modern deployments (Kafka 2.0+) increasingly use OAuth/OIDC for authentication, enabling integration with enterprise identity providers and centralized access management. For more on securing Kafka with mutual TLS, see [mTLS for Kafka](https://conduktor.io/glossary/mtls-for-kafka).
 
 ### Authorization
 
@@ -193,7 +193,7 @@ Multi-tenant clusters require careful capacity planning. Consider:
 
 KRaft mode (Kafka 3.0+, production-ready in 4.0+) dramatically improves metadata performance for multi-tenant clusters, enabling faster topic creation, partition rebalancing, and controller operations—critical for environments with many tenants.
 
-Tools that provide tenant-level observability can help platform teams understand usage patterns and plan capacity accordingly. For comprehensive capacity planning guidance, see [Kafka Capacity Planning](kafka-capacity-planning.md).
+Tools that provide tenant-level observability can help platform teams understand usage patterns and plan capacity accordingly. For comprehensive capacity planning guidance, see [Kafka Capacity Planning](https://conduktor.io/glossary/kafka-capacity-planning).
 
 ## Operational Challenges and Best Practices
 
@@ -223,7 +223,7 @@ Tagging resources by tenant and using tenant-aware dashboards helps teams quickl
 
 When multiple teams produce data to shared clusters, schema management becomes critical. Using a schema registry with permissions aligned to tenants prevents incompatible schema changes from breaking downstream consumers.
 
-In multi-tenant environments, the schema registry itself should support namespace isolation, ensuring tenants can only modify schemas for their own topics. For comprehensive coverage of schema management strategies, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md).
+In multi-tenant environments, the schema registry itself should support namespace isolation, ensuring tenants can only modify schemas for their own topics. For comprehensive coverage of schema management strategies, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management).
 
 ### Cost Allocation
 

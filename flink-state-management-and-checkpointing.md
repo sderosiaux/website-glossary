@@ -11,7 +11,7 @@ topics:
 
 # Flink State Management and Checkpointing
 
-Apache Flink's ability to maintain stateful computations with strong fault tolerance guarantees is one of its defining features. Understanding state management and checkpointing is essential for building reliable, production-grade streaming applications that can recover from failures without data loss or duplication. For a broader overview of Flink's architecture and capabilities, see [What is Apache Flink: Stateful Stream Processing](what-is-apache-flink-stateful-stream-processing.md).
+Apache Flink's ability to maintain stateful computations with strong fault tolerance guarantees is one of its defining features. Understanding state management and checkpointing is essential for building reliable, production-grade streaming applications that can recover from failures without data loss or duplication. For a broader overview of Flink's architecture and capabilities, see [What is Apache Flink: Stateful Stream Processing](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing).
 
 ## Understanding State in Flink
 
@@ -27,7 +27,7 @@ State in Flink represents information about past events that influences the proc
 
 **Operator State** (or non-keyed state) is associated with parallel instances of operators rather than with specific keys. This is commonly used for source operators that need to track partition offsets or maintain buffered data.
 
-State serves critical functions in streaming applications: maintaining session windows, tracking user interactions over time, computing running aggregations, and implementing complex event processing patterns. Without proper state management, streaming applications would be limited to stateless transformations. For practical implementation details, see [Flink DataStream API: Building Streaming Applications](flink-datastream-api-building-streaming-applications.md).
+State serves critical functions in streaming applications: maintaining session windows, tracking user interactions over time, computing running aggregations, and implementing complex event processing patterns. Without proper state management, streaming applications would be limited to stateless transformations. For practical implementation details, see [Flink DataStream API: Building Streaming Applications](https://conduktor.io/glossary/flink-datastream-api-building-streaming-applications).
 
 ## State Backends: Storage and Retrieval
 
@@ -181,7 +181,7 @@ state.backend.incremental: true  # Enable incremental checkpoints for RocksDB
 
 Checkpoint intervals represent a trade-off: shorter intervals reduce potential data reprocessing after failure but increase overhead and storage costs. Production applications typically checkpoint every 30-120 seconds, depending on data volume and recovery time requirements.
 
-The **exactly-once** processing semantics guarantee that each record affects the final results exactly once, even in the presence of failures. This requires coordinating checkpoints with external systems (sources and sinks) that support transactional or idempotent writes. For more on exactly-once guarantees in Kafka, see [Kafka Transactions Deep Dive](kafka-transactions-deep-dive.md).
+The **exactly-once** processing semantics guarantee that each record affects the final results exactly once, even in the presence of failures. This requires coordinating checkpoints with external systems (sources and sinks) that support transactional or idempotent writes. For more on exactly-once guarantees in Kafka, see [Kafka Transactions Deep Dive](https://conduktor.io/glossary/kafka-transactions-deep-dive).
 
 ## Savepoints: Versioned Application State
 
@@ -238,7 +238,7 @@ DataStream<Event> events = env.fromSource(
 
 Similarly, the Kafka sink provides exactly-once guarantees through two-phase commit protocol, coordinating with Flink's checkpointing. Transactions are committed only when checkpoints complete successfully.
 
-For organizations managing complex streaming infrastructures, governance platforms like Conduktor provide visibility into Kafka-Flink integration patterns. Monitoring topic consumption lag (see [Consumer Lag Monitoring and Alerting](consumer-lag-monitoring-and-alerting.md)), offset commits aligned with Flink checkpoints, and data flow observability helps identify state management issues before they impact production systems. For comprehensive cluster monitoring, see [Kafka Cluster Monitoring and Metrics](kafka-cluster-monitoring-and-metrics.md).
+For organizations managing complex streaming infrastructures, governance platforms like Conduktor provide visibility into Kafka-Flink integration patterns. Monitoring topic consumption lag (see [Consumer Lag Monitoring and Alerting](https://conduktor.io/glossary/consumer-lag-monitoring-and-alerting)), offset commits aligned with Flink checkpoints, and data flow observability helps identify state management issues before they impact production systems. For comprehensive cluster monitoring, see [Kafka Cluster Monitoring and Metrics](https://conduktor.io/glossary/kafka-cluster-monitoring-and-metrics).
 
 ## Production Considerations and Best Practices
 
@@ -299,9 +299,9 @@ execution.checkpointing.max-retained-checkpoints: 3
 
 Flink's state management and checkpointing system provides the foundation for fault-tolerant stateful stream processing. Keyed and operator state enable complex computations across time, while configurable state backends balance performance and scalability requirements. Checkpointing implements the Chandy-Lamport algorithm to create consistent distributed snapshots with exactly-once semantics, and savepoints enable operational flexibility through versioned state snapshots.
 
-Production deployments require careful configuration of checkpoint intervals, state backends (typically RocksDB with incremental checkpointing), and integration with external systems like Kafka. Monitoring state size, checkpoint duration, and alignment metrics helps identify issues before they cause outages. For broader Flink architectural decisions, see [Flink vs Spark Streaming: When to Choose Each](flink-vs-spark-streaming-when-to-choose-each.md) and [Kafka Streams vs Apache Flink](kafka-streams-vs-apache-flink.md).
+Production deployments require careful configuration of checkpoint intervals, state backends (typically RocksDB with incremental checkpointing), and integration with external systems like Kafka. Monitoring state size, checkpoint duration, and alignment metrics helps identify issues before they cause outages. For broader Flink architectural decisions, see [Flink vs Spark Streaming: When to Choose Each](https://conduktor.io/glossary/flink-vs-spark-streaming-when-to-choose-each) and [Kafka Streams vs Apache Flink](https://conduktor.io/glossary/kafka-streams-vs-apache-flink).
 
-Understanding these mechanisms transforms Flink from a computational framework into a reliable platform for mission-critical streaming applications that maintain correctness guarantees even in the face of failures. For testing strategies to validate your state management implementation, see [Testing Strategies for Streaming Applications](testing-strategies-for-streaming-applications.md).
+Understanding these mechanisms transforms Flink from a computational framework into a reliable platform for mission-critical streaming applications that maintain correctness guarantees even in the face of failures. For testing strategies to validate your state management implementation, see [Testing Strategies for Streaming Applications](https://conduktor.io/glossary/testing-strategies-for-streaming-applications).
 
 ## Sources and References
 

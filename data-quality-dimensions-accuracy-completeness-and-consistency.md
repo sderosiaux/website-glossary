@@ -80,7 +80,7 @@ checks for products:
       valid max: 10000
 ```
 
-For comprehensive testing frameworks, see [Automated Data Quality Testing](automated-data-quality-testing.md) and [Great Expectations Framework](great-expectations-data-testing-framework.md).
+For comprehensive testing frameworks, see [Automated Data Quality Testing](https://conduktor.io/glossary/automated-data-quality-testing) and [Great Expectations Framework](https://conduktor.io/glossary/great-expectations-data-testing-framework).
 
 ### Maintaining Accuracy in Streaming Systems
 
@@ -94,7 +94,7 @@ In streaming data platforms like Apache Kafka, maintaining accuracy presents uni
 
 These platforms enable you to set up schema validation to catch malformed records, implement custom quality checks on message content, and create alerts when accuracy thresholds are breached. This proactive approach prevents inaccurate data from propagating downstream where it might corrupt analytics or trigger incorrect automated actions.
 
-For more on streaming validation patterns, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md) and [Building a Data Quality Framework](building-a-data-quality-framework.md).
+For more on streaming validation patterns, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) and [Building a Data Quality Framework](https://conduktor.io/glossary/building-a-data-quality-framework).
 
 ## Completeness: Having All the Data You Need
 
@@ -185,7 +185,7 @@ orders
 
 Modern streaming platforms provide mechanisms to handle these scenarios. When monitoring streaming pipelines with tools like Conduktor, you can track message delivery rates, identify missing sequence numbers, and detect partition lag that might indicate incomplete data delivery.
 
-For deeper coverage of streaming completeness patterns, see [Watermarks and Triggers in Stream Processing](watermarks-and-triggers-in-stream-processing.md) and [Consumer Lag Monitoring](consumer-lag-monitoring.md).
+For deeper coverage of streaming completeness patterns, see [Watermarks and Triggers in Stream Processing](https://conduktor.io/glossary/watermarks-and-triggers-in-stream-processing) and [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring).
 
 ## Consistency: Keeping Data Aligned
 
@@ -251,7 +251,7 @@ sla:
   availability: 99.9%
 ```
 
-For more on data contracts and streaming consistency, see [Data Contracts for Reliable Pipelines](data-contracts-for-reliable-pipelines.md) and [Exactly-Once Semantics in Kafka](exactly-once-semantics-in-kafka.md).
+For more on data contracts and streaming consistency, see [Data Contracts for Reliable Pipelines](https://conduktor.io/glossary/data-contracts-for-reliable-pipelines) and [Exactly-Once Semantics in Kafka](https://conduktor.io/glossary/exactly-once-semantics-in-kafka).
 
 ## Integrating Quality Dimensions
 
@@ -299,7 +299,7 @@ models:
               max_value: 1000000
 ```
 
-This approach combines accuracy (value range checks), completeness (not_null tests), and consistency (accepted_values) in a unified framework. For implementation guidance, see [Building a Data Quality Framework](building-a-data-quality-framework.md) and [dbt Tests and Data Quality Checks](dbt-tests-and-data-quality-checks.md).
+This approach combines accuracy (value range checks), completeness (not_null tests), and consistency (accepted_values) in a unified framework. For implementation guidance, see [Building a Data Quality Framework](https://conduktor.io/glossary/building-a-data-quality-framework) and [dbt Tests and Data Quality Checks](https://conduktor.io/glossary/dbt-tests-and-data-quality-checks).
 
 ## Conclusion
 
@@ -315,7 +315,7 @@ By implementing quality checks at every stage of your data pipelines, monitoring
 4. Combine multiple dimensions in your quality framework - no single dimension tells the full story
 5. Track quality metrics over time to identify trends and prevent issues before they impact downstream systems
 
-For comprehensive coverage of related topics, explore [Data Observability](what-is-data-observability-the-five-pillars.md), [Data Quality Incidents](data-quality-incidents.md), and [Data Governance Framework](data-governance-framework-roles-and-responsibilities.md).
+For comprehensive coverage of related topics, explore [Data Observability](https://conduktor.io/glossary/what-is-data-observability-the-five-pillars), [Data Quality Incidents](https://conduktor.io/glossary/data-quality-incidents), and [Data Governance Framework](https://conduktor.io/glossary/data-governance-framework-roles-and-responsibilities).
 
 ## Sources and References
 

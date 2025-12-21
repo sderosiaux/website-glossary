@@ -138,7 +138,7 @@ All three formats support schema evolution, but managing compatibility becomes c
 - **Forward compatibility**: Old schemas can read new data (producers upgrade before consumers)
 - **Full compatibility**: Both backward and forward compatible (most restrictive)
 
-For a comprehensive guide to schema compatibility modes, validation rules, and practical evolution patterns, see the [Schema Registry and Schema Management](schema-registry-and-schema-management.md) article. Schema Registry works with all three formats covered here (Avro, Protobuf, JSON Schema) and provides the safety guardrails needed to evolve schemas without breaking production systems.
+For a comprehensive guide to schema compatibility modes, validation rules, and practical evolution patterns, see the [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) article. Schema Registry works with all three formats covered here (Avro, Protobuf, JSON Schema) and provides the safety guardrails needed to evolve schemas without breaking production systems.
 
 ## Choosing the Right Format
 

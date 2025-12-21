@@ -19,7 +19,7 @@ Data drift is an umbrella term that encompasses several distinct types of change
 
 **Data drift** (sometimes called statistical drift) refers to changes in the statistical properties of your data—the distribution, range, or patterns within the data itself. The same schema might persist, but the values flowing through your pipeline shift. Average transaction amounts might increase, user activity patterns might change, or the ratio between different event types might evolve. This type of drift is particularly insidious because it often goes undetected by schema validation alone.
 
-**Concept drift** affects machine learning models specifically. It occurs when the relationship between input features and target predictions changes over time. A fraud detection model trained on historical patterns may degrade as fraudsters adapt their tactics. The model's inputs (transaction features) might follow the same schema and distributions, but their predictive relationship to fraud has fundamentally changed. For comprehensive coverage of ML-specific drift challenges, see [Model Drift in Streaming](model-drift-in-streaming.md).
+**Concept drift** affects machine learning models specifically. It occurs when the relationship between input features and target predictions changes over time. A fraud detection model trained on historical patterns may degrade as fraudsters adapt their tactics. The model's inputs (transaction features) might follow the same schema and distributions, but their predictive relationship to fraud has fundamentally changed. For comprehensive coverage of ML-specific drift challenges, see [Model Drift in Streaming](https://conduktor.io/glossary/model-drift-in-streaming).
 
 ## Root Causes of Drift in Streaming
 
@@ -238,7 +238,7 @@ Preventing drift requires organizational processes and technical controls workin
 
 **Schema registries** enforce contracts between data producers and consumers. By centralizing schema definitions and validating compatibility rules (backward, forward, or full compatibility), registries prevent breaking changes from reaching production. Producers must evolve schemas following compatibility guidelines, ensuring consumers continue functioning as schemas change.
 
-**Producer-consumer contracts** establish explicit agreements about data formats, value ranges, required fields, and evolution policies. These contracts—whether formal (like Protobuf definitions) or documented (like API specifications)—create shared expectations. When changes are necessary, contract owners coordinate migrations rather than surprising downstream teams. For implementation guidance, see [Data Contracts for Reliable Pipelines](data-contracts-for-reliable-pipelines.md).
+**Producer-consumer contracts** establish explicit agreements about data formats, value ranges, required fields, and evolution policies. These contracts—whether formal (like Protobuf definitions) or documented (like API specifications)—create shared expectations. When changes are necessary, contract owners coordinate migrations rather than surprising downstream teams. For implementation guidance, see [Data Contracts for Reliable Pipelines](https://conduktor.io/glossary/data-contracts-for-reliable-pipelines).
 
 **Governance policies** define how data can evolve. Data governance platforms enable organizations to enforce validation rules, approval workflows for schema changes, and quality checks before data reaches production streams. Policies might require backward compatibility for all schema changes, mandate documentation for new fields, or restrict who can modify critical event types.
 
@@ -254,7 +254,7 @@ When drift occurs despite prevention efforts, effective remediation minimizes im
 
 **Graceful degradation** designs consumers to handle unexpected data. Rather than failing on unknown fields, consumers ignore them. When expected fields are missing, they use sensible defaults or skip processing. When types mismatch, they log warnings and continue processing valid records. This resilience prevents complete failures from drift.
 
-**Dead letter queues** capture problematic events for later analysis and reprocessing. When drift causes processing failures, routing failed events to a separate queue preserves them for investigation. Teams can fix issues, update consumers, and replay failed events once systems are drift-compatible. For detailed coverage of error handling patterns, see [Dead Letter Queues for Error Handling](dead-letter-queues-for-error-handling.md).
+**Dead letter queues** capture problematic events for later analysis and reprocessing. When drift causes processing failures, routing failed events to a separate queue preserves them for investigation. Teams can fix issues, update consumers, and replay failed events once systems are drift-compatible. For detailed coverage of error handling patterns, see [Dead Letter Queues for Error Handling](https://conduktor.io/glossary/dead-letter-queues-for-error-handling).
 
 Here's an example of implementing drift-aware error handling with dead letter queues:
 
@@ -377,11 +377,11 @@ if __name__ == "__main__":
 
 Modern tooling helps detect, prevent, and manage drift across streaming pipelines.
 
-**Schema registries** like Confluent Schema Registry (v7.x+), AWS Glue Schema Registry, and Karapace (open-source alternative) centralize schema management and enforce compatibility rules. They integrate with streaming platforms to validate events at production time. For detailed coverage of schema management strategies, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md) and [Schema Evolution Best Practices](schema-evolution-best-practices.md).
+**Schema registries** like Confluent Schema Registry (v7.x+), AWS Glue Schema Registry, and Karapace (open-source alternative) centralize schema management and enforce compatibility rules. They integrate with streaming platforms to validate events at production time. For detailed coverage of schema management strategies, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) and [Schema Evolution Best Practices](https://conduktor.io/glossary/schema-evolution-best-practices).
 
 **Data quality frameworks** provide comprehensive validation capabilities:
 
-- **Great Expectations (GX 1.0+)**: Production-grade data validation framework with 300+ built-in expectations. The August 2024 release introduced breaking API changes with a fluent interface. See [Great Expectations: Data Testing Framework](great-expectations-data-testing-framework.md) for streaming integration patterns.
+- **Great Expectations (GX 1.0+)**: Production-grade data validation framework with 300+ built-in expectations. The August 2024 release introduced breaking API changes with a fluent interface. See [Great Expectations: Data Testing Framework](https://conduktor.io/glossary/great-expectations-data-testing-framework) for streaming integration patterns.
 - **Soda Core**: Open-source framework using YAML-based quality checks, designed for modern data stacks with native dbt and orchestration tool integration.
 - **Elementary Data**: Observability platform for dbt with ML-based anomaly detection, automatic data quality monitoring, and lineage tracking.
 - **dbt Tests and Contracts**: dbt 1.5+ includes native data contracts with automatic validation during transformation workflows, providing explicit interfaces between models.
@@ -401,7 +401,7 @@ Managing data drift requires treating it as a normal condition rather than an ex
 
 Start by establishing schema contracts with backward compatibility requirements. Implement statistical monitoring to detect distribution shifts early. Design consumers to degrade gracefully when encountering unexpected data. Build feedback loops that trigger model retraining when concept drift degrades predictions. Treat drift detection as seriously as error monitoring—both indicate your system's health.
 
-For comprehensive approaches to quality management, see [Building a Data Quality Framework](building-a-data-quality-framework.md) and [Automated Data Quality Testing](automated-data-quality-testing.md). When drift causes incidents, refer to [Data Quality Incidents](data-quality-incidents.md) for response strategies.
+For comprehensive approaches to quality management, see [Building a Data Quality Framework](https://conduktor.io/glossary/building-a-data-quality-framework) and [Automated Data Quality Testing](https://conduktor.io/glossary/automated-data-quality-testing). When drift causes incidents, refer to [Data Quality Incidents](https://conduktor.io/glossary/data-quality-incidents) for response strategies.
 
 The organizations that succeed with streaming data don't prevent all drift—they build systems that detect, adapt to, and recover from drift automatically. In a world where change is constant, resilience comes from expecting the unexpected.
 

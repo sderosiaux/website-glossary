@@ -23,15 +23,15 @@ This phenomenon is particularly acute in streaming architectures, where the velo
 
 The most immediate symptom of data obesity is degraded performance. Massive, uncurated datasets slow down every operation that touches them. Query latency increases. Batch jobs take hours instead of minutes. Real-time systems start to lag.
 
-In streaming environments, this manifests as "fat" payloads that cause backpressure (downstream processing slowdowns due to overwhelming data volume) throughout the pipeline. When event producers serialize entire database rows—including large BLOB fields, audit columns, and metadata that downstream consumers never touch—they force every component in the chain to process, transmit, and store unnecessary bytes. For detailed coverage of backpressure patterns, see [Backpressure Handling in Streaming Systems](backpressure-handling-in-streaming-systems.md).
+In streaming environments, this manifests as "fat" payloads that cause backpressure (downstream processing slowdowns due to overwhelming data volume) throughout the pipeline. When event producers serialize entire database rows—including large BLOB fields, audit columns, and metadata that downstream consumers never touch—they force every component in the chain to process, transmit, and store unnecessary bytes. For detailed coverage of backpressure patterns, see [Backpressure Handling in Streaming Systems](https://conduktor.io/glossary/backpressure-handling-in-streaming-systems).
 
-A Kafka consumer that needs only a customer ID and purchase amount shouldn't receive a 50KB payload containing product images, full address history, and marketing preferences. Yet this pattern is common in Change Data Capture (CDC)—the process of capturing database changes as events—implementations where convenience takes precedence over efficiency. For more on CDC patterns, refer to [What is Change Data Capture (CDC)](what-is-change-data-capture-cdc-fundamentals.md).
+A Kafka consumer that needs only a customer ID and purchase amount shouldn't receive a 50KB payload containing product images, full address history, and marketing preferences. Yet this pattern is common in Change Data Capture (CDC)—the process of capturing database changes as events—implementations where convenience takes precedence over efficiency. For more on CDC patterns, refer to [What is Change Data Capture (CDC)](https://conduktor.io/glossary/what-is-change-data-capture-cdc-fundamentals).
 
 ### Operational Rigidity: Loss of Agility
 
 Obese data systems are difficult to maneuver. What should be routine operations—upgrading a database, migrating to a new cloud region, implementing a new storage tier—become high-risk, multi-month projects.
 
-The cost isn't just time. When your streaming platform contains 500TB of data with 90-day retention, even small architectural changes require careful choreography. Reprocessing historical data becomes prohibitively expensive. Testing new features against realistic data volumes becomes impractical. Teams become locked into legacy architectures simply because the migration path is too daunting. For capacity planning strategies to avoid this rigidity, see [Kafka Capacity Planning](kafka-capacity-planning.md).
+The cost isn't just time. When your streaming platform contains 500TB of data with 90-day retention, even small architectural changes require careful choreography. Reprocessing historical data becomes prohibitively expensive. Testing new features against realistic data volumes becomes impractical. Teams become locked into legacy architectures simply because the migration path is too daunting. For capacity planning strategies to avoid this rigidity, see [Kafka Capacity Planning](https://conduktor.io/glossary/kafka-capacity-planning).
 
 This rigidity creates a dangerous cycle: the system becomes harder to change, so technical debt accumulates, making future changes even more difficult.
 
@@ -71,7 +71,7 @@ The rationale is usually defensive: "We might need this data someday." But indef
 
 Effective streaming architectures distinguish between hot data (active processing), warm data (recent historical queries), and cold data (long-term archival). Conflating these tiers in a single Kafka cluster creates unnecessary burden.
 
-For cold data archival, modern lakehouse architectures provide better economics and query capabilities than indefinite Kafka retention. Streaming data to Delta Lake or Apache Iceberg tables enables cost-effective long-term storage with ACID guarantees and SQL analytics. For details on lakehouse patterns, see [Introduction to Lakehouse Architecture](introduction-to-lakehouse-architecture.md) and [Streaming to Lakehouse Tables](streaming-to-lakehouse-tables.md).
+For cold data archival, modern lakehouse architectures provide better economics and query capabilities than indefinite Kafka retention. Streaming data to Delta Lake or Apache Iceberg tables enables cost-effective long-term storage with ACID guarantees and SQL analytics. For details on lakehouse patterns, see [Introduction to Lakehouse Architecture](https://conduktor.io/glossary/introduction-to-lakehouse-architecture) and [Streaming to Lakehouse Tables](https://conduktor.io/glossary/streaming-to-lakehouse-tables).
 
 **Modern Solution: Tiered Storage (Kafka 3.6+)**
 
@@ -82,11 +82,11 @@ Kafka's tiered storage feature (production-ready as of Kafka 3.6) addresses the 
 - **Cost optimization**: Pay ~$0.02/GB/month for cold data vs. ~$0.10/GB/month for provisioned disk
 - **Simplified operations**: No manual archival pipelines or separate long-term storage systems
 
-For organizations on Kafka 4.0+ with KRaft mode, tiered storage becomes even more efficient due to improved metadata handling and elimination of ZooKeeper coordination overhead. This combination represents the modern approach to retention management without infrastructure obesity. For more on Kafka's evolution, see [Understanding KRaft Mode in Kafka](understanding-kraft-mode-in-kafka.md) and [Tiered Storage in Kafka](tiered-storage-in-kafka.md).
+For organizations on Kafka 4.0+ with KRaft mode, tiered storage becomes even more efficient due to improved metadata handling and elimination of ZooKeeper coordination overhead. This combination represents the modern approach to retention management without infrastructure obesity. For more on Kafka's evolution, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka) and [Tiered Storage in Kafka](https://conduktor.io/glossary/tiered-storage-in-kafka).
 
 ### Backpressure Cascades
 
-When producers overwhelm consumers with "obese" streams, backpressure propagates upstream. Consumers fall behind, lag metrics increase, and the system enters a degraded state where catch-up becomes impossible without intervention. For monitoring techniques to detect and respond to consumer lag, see [Consumer Lag Monitoring](consumer-lag-monitoring.md).
+When producers overwhelm consumers with "obese" streams, backpressure propagates upstream. Consumers fall behind, lag metrics increase, and the system enters a degraded state where catch-up becomes impossible without intervention. For monitoring techniques to detect and respond to consumer lag, see [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring).
 
 This often creates a vicious cycle:
 1. Fat payloads slow consumer processing
@@ -134,7 +134,7 @@ Configure Single Message Transforms (SMTs) to:
 - Filter out rows that don't meet relevance criteria
 - Extract nested structures into separate topics
 
-For detailed SMT patterns, see [Kafka Connect: Single Message Transforms](kafka-connect-single-message-transforms.md).
+For detailed SMT patterns, see [Kafka Connect: Single Message Transforms](https://conduktor.io/glossary/kafka-connect-single-message-transforms).
 
 Example connector configuration to reduce payload obesity:
 
@@ -168,11 +168,11 @@ This configuration drops audit fields, filters records with large BLOBs, and rou
 - Use event types with specific purposes rather than generic "data dump" events
 - Establish data contracts that define payload expectations and SLAs
 
-For establishing clear expectations between producers and consumers, see [Data Contracts for Reliable Pipelines](data-contracts-for-reliable-pipelines.md). For overall topic design principles, refer to [Kafka Topic Design Guidelines](kafka-topic-design-guidelines.md).
+For establishing clear expectations between producers and consumers, see [Data Contracts for Reliable Pipelines](https://conduktor.io/glossary/data-contracts-for-reliable-pipelines). For overall topic design principles, refer to [Kafka Topic Design Guidelines](https://conduktor.io/glossary/kafka-topic-design-guidelines).
 
 ### Aggressive Compaction
 
-For topics maintaining current state (e.g., customer profiles, product catalogs), log compaction automatically removes historical values for each key, retaining only the latest. For deep dive into compaction mechanics, see [Kafka Log Compaction Explained](kafka-log-compaction-explained.md).
+For topics maintaining current state (e.g., customer profiles, product catalogs), log compaction automatically removes historical values for each key, retaining only the latest. For deep dive into compaction mechanics, see [Kafka Log Compaction Explained](https://conduktor.io/glossary/kafka-log-compaction-explained).
 
 Compaction strategies and configuration example:
 
@@ -206,7 +206,7 @@ For topics with time-series data, implement retention policies aligned with actu
 
 ### Schema Evolution and Projection
 
-As consumer needs evolve, schemas should too. Removing deprecated fields prevents perpetuating obesity through inertia. For comprehensive coverage of schema management, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md) and [Schema Evolution Best Practices](schema-evolution-best-practices.md).
+As consumer needs evolve, schemas should too. Removing deprecated fields prevents perpetuating obesity through inertia. For comprehensive coverage of schema management, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) and [Schema Evolution Best Practices](https://conduktor.io/glossary/schema-evolution-best-practices).
 
 Strategies:
 - Use schema registries to version and govern event structures
@@ -218,7 +218,7 @@ Strategies:
 - `order.created.full` (50 fields for data warehouse)
 - `order.created.audit` (20 fields for compliance systems)
 
-For serialization format comparisons that impact payload size, refer to [Avro vs Protobuf vs JSON Schema](avro-vs-protobuf-vs-json-schema.md).
+For serialization format comparisons that impact payload size, refer to [Avro vs Protobuf vs JSON Schema](https://conduktor.io/glossary/avro-vs-protobuf-vs-json-schema).
 
 ## Governance as Prevention
 
@@ -238,7 +238,7 @@ Modern tooling for data obesity monitoring:
 - **Kafka Lag Exporter**: Open-source tool for monitoring consumer lag patterns that indicate processing bottlenecks
 - **Cruise Control**: LinkedIn's open-source tool for automated cluster rebalancing and capacity planning
 
-For comprehensive governance frameworks, see [Data Governance Framework: Roles and Responsibilities](data-governance-framework-roles-and-responsibilities.md) and [Policy Enforcement in Streaming](policy-enforcement-in-streaming.md).
+For comprehensive governance frameworks, see [Data Governance Framework: Roles and Responsibilities](https://conduktor.io/glossary/data-governance-framework-roles-and-responsibilities) and [Policy Enforcement in Streaming](https://conduktor.io/glossary/policy-enforcement-in-streaming).
 
 ### Policy Enforcement
 
@@ -266,7 +266,7 @@ Modern organizations apply FinOps principles to streaming infrastructure:
 - **Right-sizing recommendations**: ML-driven analysis suggesting optimal partition counts, retention periods, and compression settings
 - **Cross-AZ transfer optimization**: Identifying and minimizing expensive cross-availability-zone traffic
 
-Data obesity directly correlates with "dark data tax"—the hidden costs of maintaining unused or low-value data. For more on this economic challenge, see [Dark Data Tax](dark-data-tax.md) and [Streaming Total Cost of Ownership](streaming-total-cost-of-ownership.md).
+Data obesity directly correlates with "dark data tax"—the hidden costs of maintaining unused or low-value data. For more on this economic challenge, see [Dark Data Tax](https://conduktor.io/glossary/dark-data-tax) and [Streaming Total Cost of Ownership](https://conduktor.io/glossary/streaming-total-cost-of-ownership).
 
 ## Summary: Building Sustainable Data Infrastructure
 

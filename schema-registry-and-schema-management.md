@@ -37,7 +37,7 @@ Beyond simple storage, Schema Registry enforces compatibility rules. Before acce
 
 ## How Schema Registry Works
 
-The architecture centers on a REST API service backed by a storage layer. In most implementations (including Confluent Schema Registry), this storage layer is a Kafka topic, making the registry itself fault-tolerant and distributed. This design choice leverages Kafka's durability guarantees—the `_schemas` topic stores all schema registrations as an immutable log. Schema Registry instances read this topic on startup to build their in-memory cache, ensuring all instances have a consistent view. Using Kafka as storage eliminates the need for external databases and aligns the registry's availability with your Kafka cluster. As of Kafka 4.0+ (released in 2024), Schema Registry works seamlessly with KRaft mode, Kafka's ZooKeeper-less architecture that's now the default. For details on KRaft migration, see [Understanding KRaft Mode in Kafka](understanding-kraft-mode-in-kafka.md).
+The architecture centers on a REST API service backed by a storage layer. In most implementations (including Confluent Schema Registry), this storage layer is a Kafka topic, making the registry itself fault-tolerant and distributed. This design choice leverages Kafka's durability guarantees—the `_schemas` topic stores all schema registrations as an immutable log. Schema Registry instances read this topic on startup to build their in-memory cache, ensuring all instances have a consistent view. Using Kafka as storage eliminates the need for external databases and aligns the registry's availability with your Kafka cluster. As of Kafka 4.0+ (released in 2024), Schema Registry works seamlessly with KRaft mode, Kafka's ZooKeeper-less architecture that's now the default. For details on KRaft migration, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka).
 
 When a producer wants to send data, it follows this sequence:
 
@@ -203,13 +203,13 @@ The registry validates compatibility before accepting new schema versions. If a 
 
 ## Schema Registry in Data Streaming
 
-Schema Registry integrates deeply with streaming platforms. For comprehensive coverage of Apache Kafka fundamentals, see [Apache Kafka](apache-kafka.md).
+Schema Registry integrates deeply with streaming platforms. For comprehensive coverage of Apache Kafka fundamentals, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
 
 In Kafka ecosystems, the registry works seamlessly with serializers and deserializers. Kafka producers use schema-aware serializers (like Avro, Protobuf, or JSON Schema serializers) that automatically register schemas and embed schema IDs. Consumers use corresponding deserializers that fetch schemas and reconstruct objects.
 
-For stream processing with Apache Flink, schema registry integration enables type-safe transformations. Flink can derive table schemas from registry definitions, ensuring consistency between streaming data and SQL queries. To understand Flink's stateful processing capabilities, see [What is Apache Flink: Stateful Stream Processing](what-is-apache-flink-stateful-stream-processing.md).
+For stream processing with Apache Flink, schema registry integration enables type-safe transformations. Flink can derive table schemas from registry definitions, ensuring consistency between streaming data and SQL queries. To understand Flink's stateful processing capabilities, see [What is Apache Flink: Stateful Stream Processing](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing).
 
-In event-driven architectures, Schema Registry serves as a contract between services. Teams can evolve their event formats independently while maintaining compatibility guarantees. This decoupling enables faster development without coordination overhead. For deeper exploration of event-driven patterns, see [Event-Driven Architecture](event-driven-architecture.md). **Conduktor** provides visual interfaces for browsing schemas, testing compatibility changes, and managing schema governance policies, helping teams understand schema lineage and impact before making changes in production.
+In event-driven architectures, Schema Registry serves as a contract between services. Teams can evolve their event formats independently while maintaining compatibility guarantees. This decoupling enables faster development without coordination overhead. For deeper exploration of event-driven patterns, see [Event-Driven Architecture](https://conduktor.io/glossary/event-driven-architecture). **Conduktor** provides visual interfaces for browsing schemas, testing compatibility changes, and managing schema governance policies, helping teams understand schema lineage and impact before making changes in production.
 
 ## Schema Formats and Serialization
 
@@ -221,7 +221,7 @@ Schema Registry supports multiple serialization formats, each with distinct char
 
 **JSON Schema** validates JSON documents against defined structures. While JSON is less compact than binary formats, it remains human-readable and widely supported. JSON Schema works well when interoperability and debugging ease outweigh performance concerns.
 
-The choice depends on your requirements. Avro excels in data streaming scenarios with dynamic schemas. Protobuf suits service-to-service communication with strong typing. JSON Schema bridges systems where JSON is already standard. For detailed comparison of these formats including performance benchmarks and evolution capabilities, see [Avro vs Protobuf vs JSON Schema](avro-vs-protobuf-vs-json-schema.md).
+The choice depends on your requirements. Avro excels in data streaming scenarios with dynamic schemas. Protobuf suits service-to-service communication with strong typing. JSON Schema bridges systems where JSON is already standard. For detailed comparison of these formats including performance benchmarks and evolution capabilities, see [Avro vs Protobuf vs JSON Schema](https://conduktor.io/glossary/avro-vs-protobuf-vs-json-schema).
 
 ## Schema Registry Implementations
 
@@ -256,7 +256,7 @@ Schema Registry security involves multiple layers to protect your data contracts
 
 **Authentication and authorization.** Most implementations support authentication via SSL/TLS client certificates, SASL mechanisms (PLAIN, SCRAM, OAUTHBEARER), or integration with identity providers. Authorization controls which users or applications can register new schemas versus only read existing ones. Confluent Platform integrates with LDAP/Active Directory for enterprise authentication.
 
-**Encryption.** Protect schemas in transit using HTTPS for REST API calls and SSL/TLS for Kafka connections (where schemas are stored). Enable encryption at rest for the underlying Kafka topics to protect stored schema definitions. For comprehensive security patterns, see [Encryption at Rest and in Transit for Kafka](encryption-at-rest-and-in-transit-for-kafka.md).
+**Encryption.** Protect schemas in transit using HTTPS for REST API calls and SSL/TLS for Kafka connections (where schemas are stored). Enable encryption at rest for the underlying Kafka topics to protect stored schema definitions. For comprehensive security patterns, see [Encryption at Rest and in Transit for Kafka](https://conduktor.io/glossary/encryption-at-rest-and-in-transit-for-kafka).
 
 **Network isolation.** Deploy Schema Registry in private networks, accessible only from your application layer. Use network policies or security groups to restrict access. Avoid exposing the registry directly to the public internet.
 
@@ -270,7 +270,7 @@ Schema Registry is designed for high throughput with minimal latency:
 
 **Storage considerations.** The `_schemas` Kafka topic typically remains small (megabytes to low gigabytes) even in large deployments. Each schema version is stored once, regardless of message volume. Configure appropriate retention for this topic (often infinite retention with compaction enabled).
 
-**Monitoring.** Track key metrics including schema registration rate, retrieval latency, cache hit ratio, and compatibility check duration. High retrieval latency or low cache hit ratios indicate configuration issues. For detailed monitoring patterns, see [Consumer Lag Monitoring](consumer-lag-monitoring.md) for related Kafka monitoring approaches.
+**Monitoring.** Track key metrics including schema registration rate, retrieval latency, cache hit ratio, and compatibility check duration. High retrieval latency or low cache hit ratios indicate configuration issues. For detailed monitoring patterns, see [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring) for related Kafka monitoring approaches.
 
 ## Schema Management Best Practices
 
@@ -287,15 +287,15 @@ Topic-based naming couples schemas to Kafka topics, making it easy to find which
 
 **Implement schema validation in CI/CD pipelines.** Test schema changes against existing data before deployment. Automated compatibility checks catch issues early. **Conduktor** enables testing environments where teams can validate changes against production-like conditions.
 
-**Document your schemas.** Add descriptions to fields explaining their purpose and valid values. Future maintainers will thank you. Schema documentation becomes your data contract specification. For comprehensive guidance on defining and enforcing data contracts, see [Data Contracts for Reliable Pipelines](data-contracts-for-reliable-pipelines.md).
+**Document your schemas.** Add descriptions to fields explaining their purpose and valid values. Future maintainers will thank you. Schema documentation becomes your data contract specification. For comprehensive guidance on defining and enforcing data contracts, see [Data Contracts for Reliable Pipelines](https://conduktor.io/glossary/data-contracts-for-reliable-pipelines).
 
 **Monitor schema usage.** Track which schema versions are actively used. Old versions with no traffic can potentially be deprecated. Understanding schema adoption patterns informs migration planning.
 
 **Control schema registration permissions.** Not every application should register schemas directly. Central teams often manage canonical schemas while application teams consume them. This governance prevents schema sprawl and maintains data quality.
 
-**Integrate with data catalogs.** Modern data catalogs can discover schemas from Schema Registry and provide additional metadata like business glossary terms, data ownership, and lineage visualization. This integration bridges technical schemas with business context. For comprehensive coverage of catalog capabilities, see [What is a Data Catalog: Modern Data Discovery](what-is-a-data-catalog-modern-data-discovery.md).
+**Integrate with data catalogs.** Modern data catalogs can discover schemas from Schema Registry and provide additional metadata like business glossary terms, data ownership, and lineage visualization. This integration bridges technical schemas with business context. For comprehensive coverage of catalog capabilities, see [What is a Data Catalog: Modern Data Discovery](https://conduktor.io/glossary/what-is-a-data-catalog-modern-data-discovery).
 
-**Plan for multi-region deployments.** If your Kafka cluster spans multiple regions or data centers, consider schema replication strategies. Confluent Platform 7.0+ introduced Schema Linking for automatic schema replication across clusters. Alternative approaches include CI/CD-based promotion or manual schema synchronization. For disaster recovery strategies, see [Disaster Recovery Strategies for Kafka Clusters](disaster-recovery-strategies-for-kafka-clusters.md).
+**Plan for multi-region deployments.** If your Kafka cluster spans multiple regions or data centers, consider schema replication strategies. Confluent Platform 7.0+ introduced Schema Linking for automatic schema replication across clusters. Alternative approaches include CI/CD-based promotion or manual schema synchronization. For disaster recovery strategies, see [Disaster Recovery Strategies for Kafka Clusters](https://conduktor.io/glossary/disaster-recovery-strategies-for-kafka-clusters).
 
 ## Summary
 

@@ -24,13 +24,13 @@ Key concepts:
 - **Combining permissions**: Consumers need Read on both topic AND consumer group; producers need Write on topics plus IdempotentWrite for exactly-once semantics
 - **Prefixed patterns**: Use `team-alpha.*` to grant access to all topics with that prefix, dramatically reducing ACL management overhead
 
-For comprehensive coverage of ACL components, authorization flows, and production management strategies, see [Kafka ACLs and Authorization Patterns](kafka-acls-and-authorization-patterns.md).
+For comprehensive coverage of ACL components, authorization flows, and production management strategies, see [Kafka ACLs and Authorization Patterns](https://conduktor.io/glossary/kafka-acls-and-authorization-patterns).
 
 ## Authentication: Proving Identity
 
 Before Kafka can enforce ACLs, it must verify identity through authentication. Kafka supports several mechanisms including SASL/PLAIN, SASL/SCRAM, mutual TLS (mTLS), and SASL/OAUTHBEARER.
 
-For detailed coverage of authentication mechanisms, configuration examples, and security tradeoffs, see [Kafka Authentication: SASL, SSL, OAuth](kafka-authentication-sasl-ssl-oauth.md).
+For detailed coverage of authentication mechanisms, configuration examples, and security tradeoffs, see [Kafka Authentication: SASL, SSL, OAuth](https://conduktor.io/glossary/kafka-authentication-sasl-ssl-oauth).
 
 Most enterprises combine authentication methods: mTLS for internal services, OAuth for user-facing applications, and SASL/SCRAM for legacy systems.
 
@@ -49,7 +49,7 @@ authorizer.class.name=kafka.security.authorizer.AclAuthorizer
 super.users=User:admin;User:kafka
 ```
 
-After enabling ACLs, all access is denied by default. Use the `kafka-acls` command-line tool to grant permissions. For complete CLI examples covering consumer access, producer permissions, prefixed patterns, and ACL management, see [Kafka ACLs and Authorization Patterns](kafka-acls-and-authorization-patterns.md).
+After enabling ACLs, all access is denied by default. Use the `kafka-acls` command-line tool to grant permissions. For complete CLI examples covering consumer access, producer permissions, prefixed patterns, and ACL management, see [Kafka ACLs and Authorization Patterns](https://conduktor.io/glossary/kafka-acls-and-authorization-patterns).
 
 ## Authorization Patterns and Granularity
 
@@ -60,7 +60,7 @@ Common patterns:
 - **Consumers**: Read on topics + Read on consumer groups
 - **Admins**: Create/Delete/Alter on cluster resources
 
-For team-based access patterns, environment separation strategies, and service-based permission models, see the authorization patterns section in [Kafka ACLs and Authorization Patterns](kafka-acls-and-authorization-patterns.md).
+For team-based access patterns, environment separation strategies, and service-based permission models, see the authorization patterns section in [Kafka ACLs and Authorization Patterns](https://conduktor.io/glossary/kafka-acls-and-authorization-patterns).
 
 ## Multi-Tenancy and Isolation
 

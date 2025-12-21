@@ -17,7 +17,7 @@ The DataStream API is Apache Flink's foundational interface for building streami
 
 Unlike batch processing frameworks that operate on bounded datasets, the DataStream API is designed for continuous, unbounded streams of data. This makes it suitable for use cases such as real-time analytics, fraud detection, event-driven applications, and IoT data processing. The API supports Java, Scala, and Python (PyFlink), allowing developers to write type-safe transformations that Flink optimizes and executes across distributed clusters.
 
-As of Flink 2.0+ (released in 2025), the DataStream API has matured with significant improvements to state backends, async state operations, and unified source/sink APIs that simplify integration with systems like Apache Kafka. For a broader introduction to Flink's capabilities, see [What is Apache Flink? Stateful Stream Processing](/what-is-apache-flink-stateful-stream-processing.md).
+As of Flink 2.0+ (released in 2025), the DataStream API has matured with significant improvements to state backends, async state operations, and unified source/sink APIs that simplify integration with systems like Apache Kafka. For a broader introduction to Flink's capabilities, see [What is Apache Flink? Stateful Stream Processing](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing).
 
 ## Core Concepts and Architecture
 
@@ -106,7 +106,7 @@ public class EnrichmentMapper extends RichMapFunction<Event, EnrichedEvent> {
 }
 ```
 
-For high-performance state access patterns, Flink 1.19+ introduces the Async State API, which allows non-blocking state operations that can significantly improve throughput in I/O-bound applications. This is particularly beneficial when using remote state backends. For comprehensive coverage of state management patterns, see [Flink State Management and Checkpointing](/flink-state-management-and-checkpointing.md).
+For high-performance state access patterns, Flink 1.19+ introduces the Async State API, which allows non-blocking state operations that can significantly improve throughput in I/O-bound applications. This is particularly beneficial when using remote state backends. For comprehensive coverage of state management patterns, see [Flink State Management and Checkpointing](https://conduktor.io/glossary/flink-state-management-and-checkpointing).
 
 ## Windowing and Time Semantics
 
@@ -125,7 +125,7 @@ DataStream<Event> events = env
     );
 ```
 
-Watermarks allow Flink to determine when all events up to a certain timestamp have arrived, triggering window computations and handling late data appropriately. For a deep dive into watermark mechanics, see [Watermarks and Triggers in Stream Processing](/watermarks-and-triggers-in-stream-processing.md). For strategies to handle events that arrive after watermarks have passed, see [Handling Late-Arriving Data in Streaming](/handling-late-arriving-data-in-streaming.md).
+Watermarks allow Flink to determine when all events up to a certain timestamp have arrived, triggering window computations and handling late data appropriately. For a deep dive into watermark mechanics, see [Watermarks and Triggers in Stream Processing](https://conduktor.io/glossary/watermarks-and-triggers-in-stream-processing). For strategies to handle events that arrive after watermarks have passed, see [Handling Late-Arriving Data in Streaming](https://conduktor.io/glossary/handling-late-arriving-data-in-streaming).
 
 ### Window Types
 
@@ -256,7 +256,7 @@ The Flink DataStream API provides a powerful, expressive framework for building 
 
 By mastering these concepts, data engineers can build robust, production-grade streaming applications that process billions of events with low latency and strong consistency guarantees. The combination of Flink's processing capabilities and Kafka's messaging infrastructure forms the backbone of modern real-time data platforms.
 
-For alternative declarative approaches to stream processing in Flink, explore [Flink SQL and Table API for Stream Processing](/flink-sql-and-table-api-for-stream-processing.md).
+For alternative declarative approaches to stream processing in Flink, explore [Flink SQL and Table API for Stream Processing](https://conduktor.io/glossary/flink-sql-and-table-api-for-stream-processing).
 
 ## References and Further Reading
 

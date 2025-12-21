@@ -60,7 +60,7 @@ Trust zones provide a security architecture pattern that creates isolated enviro
 
 A **trust zone** is an isolated security perimeter designed to protect data based on its classification level. Think of it as a secure room within a building—only authorized personnel can enter, and everything that comes in or goes out is carefully controlled and logged.
 
-For a comprehensive overview of modern security approaches beyond traditional perimeter-based models, see [Zero Trust for Streaming](zero-trust-for-streaming.md).
+For a comprehensive overview of modern security approaches beyond traditional perimeter-based models, see [Zero Trust for Streaming](https://conduktor.io/glossary/zero-trust-for-streaming).
 
 In streaming architectures, trust zones implement a **defense in depth** strategy—a security approach using multiple, layered security controls so that if one layer fails, others provide backup protection:
 
@@ -75,7 +75,7 @@ The core principle is simple: data classified as highly sensitive should only be
 
 ### Data Classification Requirements
 
-Not all data deserves the same level of protection. A well-designed trust zone architecture starts with **data classification** (for detailed strategies, see [Data Classification and Tagging Strategies](data-classification-and-tagging-strategies.md)):
+Not all data deserves the same level of protection. A well-designed trust zone architecture starts with **data classification** (for detailed strategies, see [Data Classification and Tagging Strategies](https://conduktor.io/glossary/data-classification-and-tagging-strategies)):
 
 - **Public**: Marketing metrics, product catalogs, public APIs
 - **Internal**: Employee directories, operational metrics, business KPIs
@@ -92,7 +92,7 @@ Compliance frameworks like **PCI DSS**, **HIPAA**, and **GDPR** mandate specific
 - **HIPAA zones** protect electronic protected health information (ePHI) with encryption at rest and in transit
 - **GDPR zones** implement data minimization and purpose limitation for personal data processing
 
-By mapping compliance requirements to specific zones, audit teams can verify controls without examining the entire streaming infrastructure. For comprehensive audit trail implementation, see [Audit Logging for Streaming Platforms](audit-logging-for-streaming-platforms.md).
+By mapping compliance requirements to specific zones, audit teams can verify controls without examining the entire streaming infrastructure. For comprehensive audit trail implementation, see [Audit Logging for Streaming Platforms](https://conduktor.io/glossary/audit-logging-for-streaming-platforms).
 
 ### Risk Mitigation Through Isolation
 
@@ -255,7 +255,7 @@ Trust zones enforce **role-based access control (RBAC)** with different requirem
 
 ### Encryption Requirements
 
-Each zone defines minimum encryption standards (2025 recommendations). For detailed implementation guidance, see [Encryption at Rest and in Transit for Kafka](encryption-at-rest-and-in-transit-for-kafka.md):
+Each zone defines minimum encryption standards (2025 recommendations). For detailed implementation guidance, see [Encryption at Rest and in Transit for Kafka](https://conduktor.io/glossary/encryption-at-rest-and-in-transit-for-kafka):
 
 
 
@@ -341,7 +341,7 @@ Transformation pipelines run in the **source zone** (higher security) and write 
 
 ### Data Redaction Techniques
 
-Common redaction patterns for cross-zone movement. For comprehensive coverage of data protection techniques, see [Data Masking and Anonymization for Streaming](data-masking-and-anonymization-for-streaming.md):
+Common redaction patterns for cross-zone movement. For comprehensive coverage of data protection techniques, see [Data Masking and Anonymization for Streaming](https://conduktor.io/glossary/data-masking-and-anonymization-for-streaming):
 
 - **Masking**: Replace sensitive characters with asterisks (e.g., 123-45-6789 becomes ***-**-6789)
 - **Hashing**: One-way cryptographic transformation—same input always produces same output, but cannot be reversed
@@ -455,13 +455,13 @@ Map trust zones to compliance requirements:
 - **Personal Data Zone**: Confidential zone with data minimization and purpose limitation
 - **Anonymized Data**: Public zone after irreversible anonymization
 
-Regular audits verify zone controls match compliance obligations. For detailed GDPR implementation guidance, see [GDPR Compliance for Data Teams](gdpr-compliance-for-data-teams.md).
+Regular audits verify zone controls match compliance obligations. For detailed GDPR implementation guidance, see [GDPR Compliance for Data Teams](https://conduktor.io/glossary/gdpr-compliance-for-data-teams).
 
 ## Implementation Examples
 
 ### Kafka ACL Configuration for Trust Zones
 
-Configure Kafka Access Control Lists to enforce zone boundaries. For comprehensive ACL patterns and best practices, see [Kafka ACLs and Authorization Patterns](kafka-acls-and-authorization-patterns.md):
+Configure Kafka Access Control Lists to enforce zone boundaries. For comprehensive ACL patterns and best practices, see [Kafka ACLs and Authorization Patterns](https://conduktor.io/glossary/kafka-acls-and-authorization-patterns):
 
 ```bash
 # Restricted zone - only specific service account can produce

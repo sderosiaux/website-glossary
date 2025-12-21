@@ -76,7 +76,7 @@ For organizations managing streaming data platforms, the DGO must understand rea
 - **Atlan** and **Collibra** for enterprise-wide data governance with streaming integration
 - **Apache Atlas** for metadata management in distributed data ecosystems
 
-These tools provide centralized governance capabilities without becoming bottlenecks to real-time data flows. For detailed guidance on implementing governance for streaming data, see [Building and Managing Data Products](building-and-managing-data-products.md) and [Data Mesh Principles and Implementation](data-mesh-principles-and-implementation.md).
+These tools provide centralized governance capabilities without becoming bottlenecks to real-time data flows. For detailed guidance on implementing governance for streaming data, see [Building and Managing Data Products](https://conduktor.io/glossary/building-and-managing-data-products) and [Data Mesh Principles and Implementation](https://conduktor.io/glossary/data-mesh-principles-and-implementation).
 
 ### Data Owners
 
@@ -103,7 +103,7 @@ Data Stewards are the operational champions of data governance, working closely 
 - Review and process access requests
 - Provide training to data consumers
 
-In streaming environments, Data Stewards manage schema registries (see [Schema Registry and Schema Management](schema-registry-and-schema-management.md)), define topic naming conventions, and ensure proper data classification tags flow through Kafka topics. They work with platform teams to implement governance controls without impeding real-time data flows. For comprehensive approaches to data quality monitoring, see [Building a Data Quality Framework](building-a-data-quality-framework.md) and [Automated Data Quality Testing](automated-data-quality-testing.md).
+In streaming environments, Data Stewards manage schema registries (see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management)), define topic naming conventions, and ensure proper data classification tags flow through Kafka topics. They work with platform teams to implement governance controls without impeding real-time data flows. For comprehensive approaches to data quality monitoring, see [Building a Data Quality Framework](https://conduktor.io/glossary/building-a-data-quality-framework) and [Automated Data Quality Testing](https://conduktor.io/glossary/automated-data-quality-testing).
 
 ### Data Custodians
 
@@ -116,7 +116,7 @@ Data Custodians are technical professionals responsible for the physical managem
 - Apply security patches and updates
 - Execute data retention and deletion procedures
 
-For streaming platforms, Data Custodians configure authentication and authorization for Kafka clusters (running on Kafka 4.0+ with KRaft mode for simplified operations), implement encryption in transit and at rest, and manage disaster recovery procedures. Modern governance platforms enable Data Custodians to implement fine-grained access controls and comprehensive audit logging (see [Audit Logging for Streaming Platforms](audit-logging-for-streaming-platforms.md)) without extensive custom development. For security implementation details, see [Kafka ACLs and Authorization Patterns](kafka-acls-and-authorization-patterns.md).
+For streaming platforms, Data Custodians configure authentication and authorization for Kafka clusters (running on Kafka 4.0+ with KRaft mode for simplified operations), implement encryption in transit and at rest, and manage disaster recovery procedures. Modern governance platforms enable Data Custodians to implement fine-grained access controls and comprehensive audit logging (see [Audit Logging for Streaming Platforms](https://conduktor.io/glossary/audit-logging-for-streaming-platforms)) without extensive custom development. For security implementation details, see [Kafka ACLs and Authorization Patterns](https://conduktor.io/glossary/kafka-acls-and-authorization-patterns).
 
 ### Compliance Officers
 
@@ -147,7 +147,7 @@ In Data Mesh architectures, the Data Product Owner combines business domain expe
 - Manage data product SLAs and consumer relationships
 - Collaborate with platform teams on infrastructure needs
 
-The Data Product Owner bridges traditional Data Owner and Data Steward responsibilities but with product management discipline. For detailed guidance, see [Building and Managing Data Products](building-and-managing-data-products.md) and [Data Product Governance](data-product-governance.md).
+The Data Product Owner bridges traditional Data Owner and Data Steward responsibilities but with product management discipline. For detailed guidance, see [Building and Managing Data Products](https://conduktor.io/glossary/building-and-managing-data-products) and [Data Product Governance](https://conduktor.io/glossary/data-product-governance).
 
 ### AI/ML Governance Officer
 
@@ -221,7 +221,7 @@ Document roles clearly, but start with a lightweight framework that grows with y
 - Implement federated computational governance (policy as code)
 - Use self-serve platforms for domain teams
 - Balance autonomy with global standards
-- See [Data Mesh Principles and Implementation](data-mesh-principles-and-implementation.md) for detailed guidance
+- See [Data Mesh Principles and Implementation](https://conduktor.io/glossary/data-mesh-principles-and-implementation) for detailed guidance
 
 **For Streaming Data Platforms:**
 - Invest in Kafka-native governance tools (Conduktor for comprehensive governance and monitoring)
@@ -229,7 +229,7 @@ Document roles clearly, but start with a lightweight framework that grows with y
 - Establish topic naming and tagging conventions
 - Enable self-serve access with guardrails
 - Track data lineage through stream processing pipelines
-- See [Schema Registry and Schema Management](schema-registry-and-schema-management.md)
+- See [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management)
 
 **For AI/ML Environments:**
 - Add ML model governance tools (MLflow, Weights & Biases with governance extensions)
@@ -249,10 +249,10 @@ As data environments evolve in 2025, new roles emerge to address contemporary ch
 Whether you're implementing centralized governance, adopting Data Mesh principles, managing streaming platforms, or deploying AI systems, the key is establishing clear accountability while enabling innovation. With the right roles, responsibilities, and modern tooling, data governance becomes an enabler rather than a bottleneck.
 
 For related guidance on specific governance domains, see:
-- [Data Product Governance](data-product-governance.md) for product-centric governance
-- [Metadata Management: Technical vs Business Metadata](metadata-management-technical-vs-business-metadata.md) for metadata governance
-- [What is a Data Catalog: Modern Data Discovery](what-is-a-data-catalog-modern-data-discovery.md) for discovery and cataloging
-- [Building a Business Glossary for Data Governance](building-a-business-glossary-for-data-governance.md) for semantic governance
+- [Data Product Governance](https://conduktor.io/glossary/data-product-governance) for product-centric governance
+- [Metadata Management: Technical vs Business Metadata](https://conduktor.io/glossary/metadata-management-technical-vs-business-metadata) for metadata governance
+- [What is a Data Catalog: Modern Data Discovery](https://conduktor.io/glossary/what-is-a-data-catalog-modern-data-discovery) for discovery and cataloging
+- [Building a Business Glossary for Data Governance](https://conduktor.io/glossary/building-a-business-glossary-for-data-governance) for semantic governance
 
 ## Sources and References
 

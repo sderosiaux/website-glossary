@@ -15,7 +15,7 @@ Modern gaming platforms generate enormous volumes of data every second. From pla
 
 For example, when a player fires a weapon in a multiplayer shooter, that action generates an event containing the player's ID, weapon type, target, position, and timestamp. This event must be processed immediately to update kill/death statistics, detect potential cheating (impossible accuracy or reaction times), and adjust matchmaking rankings - all within milliseconds.
 
-This article explores how [streaming data platforms](./what-is-real-time-data-streaming.md) like Apache Kafka and Apache Flink enable real-time analytics in gaming, the technical challenges involved, and the architectural patterns that make it possible.
+This article explores how [streaming data platforms](https://conduktor.io/glossary/what-is-real-time-data-streaming) like Apache Kafka and Apache Flink enable real-time analytics in gaming, the technical challenges involved, and the architectural patterns that make it possible.
 
 ## Understanding Gaming Analytics in Real-Time
 
@@ -37,7 +37,7 @@ A typical multiplayer game generates diverse event types across multiple dimensi
 
 **System Telemetry**: Server performance metrics, network latency measurements, client frame rates, and error logs provide operational visibility. This technical telemetry is essential for maintaining service quality.
 
-Each event type requires different processing logic, retention policies, and latency requirements. A streaming architecture must handle this heterogeneity while maintaining order guarantees and [exactly-once processing](./exactly-once-semantics-in-kafka.md) semantics where required.
+Each event type requires different processing logic, retention policies, and latency requirements. A streaming architecture must handle this heterogeneity while maintaining order guarantees and [exactly-once processing](https://conduktor.io/glossary/exactly-once-semantics-in-kafka) semantics where required.
 
 Here's an example of a player action event schema using Avro format:
 
@@ -70,13 +70,13 @@ This schema provides type safety, enables schema evolution, and includes metadat
 
 ## Streaming Architecture for Gaming Analytics
 
-Apache Kafka has become the backbone of gaming analytics pipelines due to its ability to handle high-throughput event ingestion, durable storage, and exactly-once processing semantics. Modern deployments (2025) use [KRaft mode](./understanding-kraft-mode-in-kafka.md), which eliminates the ZooKeeper dependency and reduces operational complexity while improving scalability to millions of partitions.
+Apache Kafka has become the backbone of gaming analytics pipelines due to its ability to handle high-throughput event ingestion, durable storage, and exactly-once processing semantics. Modern deployments (2025) use [KRaft mode](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka), which eliminates the ZooKeeper dependency and reduces operational complexity while improving scalability to millions of partitions.
 
 Game servers and clients publish events to Kafka topics, partitioned by player ID or game session to maintain ordering within a player's event stream. This partitioning strategy ensures that all events for a given player are processed in sequence, which is critical for game state reconstruction and detecting temporal patterns.
 
 A typical architecture includes several layers:
 
-**Ingestion Layer**: Game servers write events to Kafka topics through high-performance producers configured with idempotent writes and transactional guarantees. Events are typically serialized using [Avro, Protocol Buffers, or JSON Schema](./avro-vs-protobuf-vs-json-schema.md) to ensure [schema evolution](./schema-evolution-best-practices.md) compatibility as game features change. [Schema Registry](./schema-registry-and-schema-management.md) validates all events against registered schemas before they enter the pipeline, preventing malformed data from corrupting downstream analytics.
+**Ingestion Layer**: Game servers write events to Kafka topics through high-performance producers configured with idempotent writes and transactional guarantees. Events are typically serialized using [Avro, Protocol Buffers, or JSON Schema](https://conduktor.io/glossary/avro-vs-protobuf-vs-json-schema) to ensure [schema evolution](https://conduktor.io/glossary/schema-evolution-best-practices) compatibility as game features change. [Schema Registry](https://conduktor.io/glossary/schema-registry-and-schema-management) validates all events against registered schemas before they enter the pipeline, preventing malformed data from corrupting downstream analytics.
 
 ```java
 // Example: Publishing player action events with idempotent producer
@@ -110,7 +110,7 @@ producer.send(record, (metadata, exception) -> {
 });
 ```
 
-**Processing Layer**: [Apache Flink](./what-is-apache-flink-stateful-stream-processing.md) and Kafka Streams applications consume events from Kafka topics and perform stateful computations. This might include calculating player statistics, detecting anomalous behavior patterns, or aggregating metrics across game sessions.
+**Processing Layer**: [Apache Flink](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing) and Kafka Streams applications consume events from Kafka topics and perform stateful computations. This might include calculating player statistics, detecting anomalous behavior patterns, or aggregating metrics across game sessions.
 
 Modern gaming platforms (2025) increasingly use Flink SQL for ad-hoc analytics queries, enabling analysts to query streaming data using familiar SQL syntax. For example, calculating real-time player engagement metrics:
 
@@ -127,7 +127,7 @@ FROM TABLE(
 GROUP BY window_start;
 ```
 
-Kafka Streams provides lightweight [stateful processing](./state-stores-in-kafka-streams.md) for scenarios requiring embedded stream processing within game services:
+Kafka Streams provides lightweight [stateful processing](https://conduktor.io/glossary/state-stores-in-kafka-streams) for scenarios requiring embedded stream processing within game services:
 
 ```java
 // Kafka Streams: Real-time player statistics
@@ -194,7 +194,7 @@ DataStream<Alert> alerts = CEP.pattern(playerActions, teleportPattern)
     });
 ```
 
-For ML-based detection, features like headshot percentage, reaction time, aiming patterns, and movement consistency are extracted in real-time and fed to lightweight models (XGBoost, ONNX) deployed within Flink jobs for [real-time ML inference](./real-time-ml-inference-with-streaming-data.md):
+For ML-based detection, features like headshot percentage, reaction time, aiming patterns, and movement consistency are extracted in real-time and fed to lightweight models (XGBoost, ONNX) deployed within Flink jobs for [real-time ML inference](https://conduktor.io/glossary/real-time-ml-inference-with-streaming-data):
 
 ```java
 // Real-time ML inference for cheat detection
@@ -298,7 +298,7 @@ Successful gaming analytics implementations follow several key patterns:
 
 **Event Schema Design**: Use structured formats with explicit schemas. Include event metadata like timestamp, version, and player ID in every event. Partition events by player ID to maintain ordering of a player's action sequence.
 
-**Stateful Stream Processing**: Leverage Flink's managed state for aggregations and pattern detection. For example, maintaining a [tumbling window](./windowing-in-apache-flink-tumbling-sliding-and-session-windows.md) of the last 100 player actions enables detection of suspicious patterns without reprocessing historical data. [Session windows](./session-windows-in-stream-processing.md) are particularly useful for analyzing player behavior within game sessions that have variable lengths.
+**Stateful Stream Processing**: Leverage Flink's managed state for aggregations and pattern detection. For example, maintaining a [tumbling window](https://conduktor.io/glossary/windowing-in-apache-flink-tumbling-sliding-and-session-windows) of the last 100 player actions enables detection of suspicious patterns without reprocessing historical data. [Session windows](https://conduktor.io/glossary/session-windows-in-stream-processing) are particularly useful for analyzing player behavior within game sessions that have variable lengths.
 
 **Exactly-Once Semantics**: For critical analytics like purchase tracking or achievement awards, configure exactly-once processing to prevent duplicate counting or missed events.
 
@@ -356,7 +356,7 @@ Operating streaming analytics at gaming scale requires robust operational toolin
 
 - **Duplicate Event Detection**: Despite exactly-once semantics, monitor for duplicate event IDs. Duplicates can occur due to client retries or network issues, and must be deduplicated to maintain accurate statistics.
 
-- **[Consumer Lag](./consumer-lag-monitoring.md) by Use Case Priority**: Different consumers have different latency requirements. Anti-cheat systems require near-zero lag, while batch analytics can tolerate hours of lag. Set alerting thresholds based on use case criticality:
+- **[Consumer Lag](https://conduktor.io/glossary/consumer-lag-monitoring) by Use Case Priority**: Different consumers have different latency requirements. Anti-cheat systems require near-zero lag, while batch analytics can tolerate hours of lag. Set alerting thresholds based on use case criticality:
 
 ```yaml
 # Example monitoring thresholds for gaming analytics

@@ -21,7 +21,7 @@ Real-time ML inference means generating predictions as data arrives, rather than
 
 The key distinction is latency. Batch inference might process millions of records overnight with latency measured in hours. Real-time inference handles individual events with latency targets ranging from sub-50ms (fraud detection, high-frequency trading) to a few hundred milliseconds (personalized recommendations, dynamic pricing). This shift requires fundamentally different architecture and infrastructure.
 
-For foundational understanding of streaming architectures, see [What is Real-Time Data Streaming](what-is-real-time-data-streaming.md).
+For foundational understanding of streaming architectures, see [What is Real-Time Data Streaming](https://conduktor.io/glossary/what-is-real-time-data-streaming).
 
 Model inference is separate from model training. Training happens periodically using historical data and significant compute resources. Inference uses the trained model to make predictions on new data with minimal computational overhead. In streaming contexts, inference must be lightweight, fast, and highly available.
 
@@ -35,15 +35,15 @@ The choice between batch and streaming depends on business requirements. If pred
 
 ## Streaming Architecture for ML Inference
 
-Apache Kafka serves as the central nervous system for streaming ML inference. Input events (transactions, clicks, sensor readings) flow into Kafka topics. Inference services consume these events, apply ML models, and publish predictions to output topics. This decoupled architecture allows independent scaling of data ingestion, model serving, and downstream applications. Modern Kafka deployments (2025) use KRaft mode for simplified operations and improved performance—see [Understanding KRaft Mode in Kafka](understanding-kraft-mode-in-kafka.md) for details on the latest architecture.
+Apache Kafka serves as the central nervous system for streaming ML inference. Input events (transactions, clicks, sensor readings) flow into Kafka topics. Inference services consume these events, apply ML models, and publish predictions to output topics. This decoupled architecture allows independent scaling of data ingestion, model serving, and downstream applications. Modern Kafka deployments (2025) use KRaft mode for simplified operations and improved performance—see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka) for details on the latest architecture.
 
-For comprehensive coverage of Apache Kafka fundamentals, see [Apache Kafka](apache-kafka.md).
+For comprehensive coverage of Apache Kafka fundamentals, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
 
-Apache Flink excels at stateful stream processing, which is crucial for feature engineering. Many ML models require aggregated features—a user's average purchase amount over 30 days, or the standard deviation of sensor readings in the last hour. Flink can compute these features in real-time using windowing and state management, joining streaming data with reference tables to create complete feature vectors for inference. For deep dive into Flink's capabilities, see [What is Apache Flink: Stateful Stream Processing](what-is-apache-flink-stateful-stream-processing.md). Feature enrichment patterns are covered extensively in [Stream Joins and Enrichment Patterns](stream-joins-and-enrichment-patterns.md).
+Apache Flink excels at stateful stream processing, which is crucial for feature engineering. Many ML models require aggregated features—a user's average purchase amount over 30 days, or the standard deviation of sensor readings in the last hour. Flink can compute these features in real-time using windowing and state management, joining streaming data with reference tables to create complete feature vectors for inference. For deep dive into Flink's capabilities, see [What is Apache Flink: Stateful Stream Processing](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing). Feature enrichment patterns are covered extensively in [Stream Joins and Enrichment Patterns](https://conduktor.io/glossary/stream-joins-and-enrichment-patterns).
 
 Feature stores bridge the gap between offline training and online inference. Systems like Feast, Tecton, Feathr, Featureform, and Hopsworks store pre-computed features that can be retrieved with low latency during inference. Features calculated during training must match those available at inference time—a challenge known as **train-serve skew**. For example, if you train a fraud model using the last 90 days of transaction history but only compute 30-day aggregates at inference time, your predictions will be inconsistent and less accurate. Feature stores help enforce consistency by serving the exact same feature definitions for both training and inference.
 
-Data quality matters enormously in streaming contexts. Schema validation ensures events match expected formats before inference. Tools like Conduktor can validate schemas, monitor data quality, and alert on anomalies in Kafka streams, preventing corrupted data from reaching ML models and producing unreliable predictions. For schema management best practices, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md). To understand the relationship between data quality and observability, see [Data Quality vs Data Observability: Key Differences](data-quality-vs-data-observability-key-differences.md).
+Data quality matters enormously in streaming contexts. Schema validation ensures events match expected formats before inference. Tools like Conduktor can validate schemas, monitor data quality, and alert on anomalies in Kafka streams, preventing corrupted data from reaching ML models and producing unreliable predictions. For schema management best practices, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management). To understand the relationship between data quality and observability, see [Data Quality vs Data Observability: Key Differences](https://conduktor.io/glossary/data-quality-vs-data-observability-key-differences).
 
 ## Implementation Patterns and Frameworks
 
@@ -157,7 +157,7 @@ public class AsyncModelInferenceFunction extends RichAsyncFunction<FeatureVector
 }
 ```
 
-Error handling is critical—timeouts, retries, and **circuit breakers** (which temporarily stop calling failing services after a threshold) prevent cascading failures when model services are slow or unavailable. For testing streaming resilience, see [Chaos Engineering for Streaming Systems](chaos-engineering-for-streaming-systems.md).
+Error handling is critical—timeouts, retries, and **circuit breakers** (which temporarily stop calling failing services after a threshold) prevent cascading failures when model services are slow or unavailable. For testing streaming resilience, see [Chaos Engineering for Streaming Systems](https://conduktor.io/glossary/chaos-engineering-for-streaming-systems).
 
 ## Challenges and Considerations
 
@@ -192,13 +192,13 @@ Tools for observability:
 - **MLflow**: Track model versions, performance metrics, and experiment history
 - **Evidently AI**: Monitor ML model quality and data drift in production
 
-When predictions degrade, teams need tools to trace issues through the entire pipeline—from input data quality to model behavior. For comprehensive guidance on building data quality frameworks, see [Building a Data Quality Framework](building-a-data-quality-framework.md).
+When predictions degrade, teams need tools to trace issues through the entire pipeline—from input data quality to model behavior. For comprehensive guidance on building data quality frameworks, see [Building a Data Quality Framework](https://conduktor.io/glossary/building-a-data-quality-framework).
 
 ## Real-World Use Cases
 
-**Fraud detection** exemplifies real-time ML inference. When a payment transaction occurs, features are extracted (transaction amount, merchant category, user location, recent spending patterns). These features feed a model that outputs a fraud probability within milliseconds. High-risk transactions trigger additional verification or blocking before completion. Companies like PayPal and Stripe process millions of such predictions per second. For detailed architecture patterns, see [Real-Time Fraud Detection with Streaming](real-time-fraud-detection-with-streaming.md).
+**Fraud detection** exemplifies real-time ML inference. When a payment transaction occurs, features are extracted (transaction amount, merchant category, user location, recent spending patterns). These features feed a model that outputs a fraud probability within milliseconds. High-risk transactions trigger additional verification or blocking before completion. Companies like PayPal and Stripe process millions of such predictions per second. For detailed architecture patterns, see [Real-Time Fraud Detection with Streaming](https://conduktor.io/glossary/real-time-fraud-detection-with-streaming).
 
-**Personalized recommendations** use real-time inference to adapt to user behavior. As users browse products or content, their actions stream into Kafka. Models consume this activity to update recommendations dynamically. Netflix and YouTube continuously refine what content to suggest based on viewing patterns, with models updating predictions as users interact with the platform. For implementation guidance, see [Building Recommendation Systems with Streaming Data](building-recommendation-systems-with-streaming-data.md).
+**Personalized recommendations** use real-time inference to adapt to user behavior. As users browse products or content, their actions stream into Kafka. Models consume this activity to update recommendations dynamically. Netflix and YouTube continuously refine what content to suggest based on viewing patterns, with models updating predictions as users interact with the platform. For implementation guidance, see [Building Recommendation Systems with Streaming Data](https://conduktor.io/glossary/building-recommendation-systems-with-streaming-data).
 
 **Predictive maintenance** in manufacturing monitors sensor data from equipment. Vibration, temperature, and pressure readings stream from industrial IoT devices. ML models detect anomalies or predict failures before they occur, triggering maintenance workflows. This reduces unplanned downtime and extends equipment life. Edge inference is particularly valuable here—deploying lightweight models directly on IoT gateways enables sub-10ms latency even when network connectivity is unreliable.
 

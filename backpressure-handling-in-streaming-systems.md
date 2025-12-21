@@ -108,8 +108,8 @@ Process multiple events together to improve throughput. Instead of writing each 
 
 Kafka handles backpressure through several mechanisms:
 
-- **Partitions and Consumer Groups**: Scale consumption by adding partitions and consumer instances. Each partition is consumed by one consumer in a group. For detailed consumer group mechanics, see [Kafka Consumer Groups Explained](kafka-consumer-groups-explained.md).
-- **Consumer Lag Monitoring**: Track how far behind consumers are. High lag indicates backpressure. See [Consumer Lag Monitoring](consumer-lag-monitoring.md) for monitoring strategies.
+- **Partitions and Consumer Groups**: Scale consumption by adding partitions and consumer instances. Each partition is consumed by one consumer in a group. For detailed consumer group mechanics, see [Kafka Consumer Groups Explained](https://conduktor.io/glossary/kafka-consumer-groups-explained).
+- **Consumer Lag Monitoring**: Track how far behind consumers are. High lag indicates backpressure. See [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring) for monitoring strategies.
 - **Producer Controls**: Configure `buffer.memory`, `max.block.ms`, and `linger.ms` to control producer behavior when brokers can't keep up.
 - **Quotas**: Enforce rate limits on producers and consumers to prevent any single client from overwhelming the system.
 - **KRaft Mode (Kafka 4.0+)**: The modern consensus protocol improves metadata operations, reducing coordination overhead during scaling events. KRaft's faster leader elections help systems recover from backpressure-induced failures more quickly than legacy ZooKeeper mode.
@@ -171,7 +171,7 @@ When consumer lag in the payment processing topic exceeds 10,000 messages, the o
 - **Set Explicit Limits**: Configure memory limits, buffer sizes, and timeouts explicitly rather than relying on defaults
 - **Plan for Peak Load**: Design capacity for 2-3x normal load to handle spikes
 - **Implement Graceful Degradation**: Define which data can be sampled or delayed when backpressure occurs
-- **Use Dead Letter Queues**: Route problematic messages to separate topics for later investigation instead of blocking processing. See [Dead Letter Queues for Error Handling](dead-letter-queues-for-error-handling.md) for implementation patterns.
+- **Use Dead Letter Queues**: Route problematic messages to separate topics for later investigation instead of blocking processing. See [Dead Letter Queues for Error Handling](https://conduktor.io/glossary/dead-letter-queues-for-error-handling) for implementation patterns.
 
 ### Monitor Key Metrics
 

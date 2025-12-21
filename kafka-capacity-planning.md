@@ -29,13 +29,13 @@ With Kafka 4.0+ running in KRaft mode (without ZooKeeper), capacity planning has
 
 For capacity planning, this means you can allocate more resources to data processing rather than coordination overhead. A typical 3-node ZooKeeper ensemble (previously required) can be eliminated, and brokers themselves handle metadata with minimal overhead.
 
-When planning for Kafka 4.0+ deployments, factor in KRaft's efficiency gains—you may need fewer resources than older ZooKeeper-based architectures for the same workload. For detailed information on KRaft architecture, see [Understanding KRaft Mode in Kafka](understanding-kraft-mode-in-kafka.md).
+When planning for Kafka 4.0+ deployments, factor in KRaft's efficiency gains—you may need fewer resources than older ZooKeeper-based architectures for the same workload. For detailed information on KRaft architecture, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka).
 
 ## What is Kafka Capacity Planning?
 
-Kafka capacity planning is the process of estimating the hardware and infrastructure resources needed to support your expected workload. This includes determining the number of brokers, amount of storage, network bandwidth, CPU, and memory required to handle your message throughput, retention policies, and consumer patterns. For foundational understanding of Kafka's core components, see [Kafka Topics, Partitions, and Brokers: Core Architecture](kafka-topics-partitions-brokers-core-architecture.md).
+Kafka capacity planning is the process of estimating the hardware and infrastructure resources needed to support your expected workload. This includes determining the number of brokers, amount of storage, network bandwidth, CPU, and memory required to handle your message throughput, retention policies, and consumer patterns. For foundational understanding of Kafka's core components, see [Kafka Topics, Partitions, and Brokers: Core Architecture](https://conduktor.io/glossary/kafka-topics-partitions-brokers-core-architecture).
 
-Unlike traditional databases where capacity planning often focuses on transaction volume and query performance, Kafka's distributed log architecture requires considering factors like replication, partition count, message retention, and the continuous nature of streaming data. To understand how replication impacts availability, see [Kafka Replication and High Availability](kafka-replication-and-high-availability.md).
+Unlike traditional databases where capacity planning often focuses on transaction volume and query performance, Kafka's distributed log architecture requires considering factors like replication, partition count, message retention, and the continuous nature of streaming data. To understand how replication impacts availability, see [Kafka Replication and High Availability](https://conduktor.io/glossary/kafka-replication-and-high-availability).
 
 Proper capacity planning ensures your Kafka cluster can handle peak loads, maintain low latency, and scale as your data streaming needs grow. It also directly impacts cost efficiency, especially in cloud environments where you pay for provisioned resources.
 
@@ -119,13 +119,13 @@ Notice that remote storage doesn't require replication factor multiplication—t
 - Cost-sensitive environments where local NVMe storage is expensive
 - Workloads where most consumers read recent data, with occasional historical queries
 
-For detailed setup and operational guidance, see [Tiered Storage in Kafka](tiered-storage-in-kafka.md).
+For detailed setup and operational guidance, see [Tiered Storage in Kafka](https://conduktor.io/glossary/tiered-storage-in-kafka).
 
 ## Network and CPU Considerations
 
 Network bandwidth requirements multiply quickly. Producer traffic is written to disk and replicated to other brokers. If you have a replication factor of 3, each message is written once by the producer but transmitted twice more for replication.
 
-Consumer traffic adds to network usage. Each consumer group reads the full dataset, so multiple consumer groups multiply your read traffic. A common mistake is planning only for producer throughput and being surprised when adding consumer groups saturates network links. For more on consumer behavior and performance considerations, see [Kafka Consumer Groups Explained](kafka-consumer-groups-explained.md).
+Consumer traffic adds to network usage. Each consumer group reads the full dataset, so multiple consumer groups multiply your read traffic. A common mistake is planning only for producer throughput and being surprised when adding consumer groups saturates network links. For more on consumer behavior and performance considerations, see [Kafka Consumer Groups Explained](https://conduktor.io/glossary/kafka-consumer-groups-explained).
 
 **Network bandwidth calculation:**
 
@@ -211,7 +211,7 @@ Capacity planning differs significantly between cloud and on-premises deployment
 
 **Managed services:**
 - AWS MSK, Azure Event Hubs (Kafka-compatible), GCP Managed Kafka abstract some capacity planning but still require sizing decisions.
-- For detailed guidance on AWS, see [Amazon MSK: Managed Kafka on AWS](amazon-msk-managed-kafka-on-aws.md).
+- For detailed guidance on AWS, see [Amazon MSK: Managed Kafka on AWS](https://conduktor.io/glossary/amazon-msk-managed-kafka-on-aws).
 
 **On-premises considerations:**
 
@@ -231,7 +231,7 @@ Capacity planning differs significantly between cloud and on-premises deployment
 - **Cloud**: Variable workloads, fast iteration, limited ops team, global distribution needs
 - **On-premises**: Predictable sustained workloads, data sovereignty requirements, existing datacenter infrastructure, cost optimization at scale
 
-For Kubernetes-based deployments (whether cloud or on-premises), see [Running Kafka on Kubernetes](running-kafka-on-kubernetes.md) for container-specific capacity considerations.
+For Kubernetes-based deployments (whether cloud or on-premises), see [Running Kafka on Kubernetes](https://conduktor.io/glossary/running-kafka-on-kubernetes) for container-specific capacity considerations.
 
 ## Monitoring and Scaling in Data Streaming
 
@@ -244,9 +244,9 @@ Key metrics to track include:
 - **Network throughput**: Monitor bytes in/out per broker to identify network bottlenecks
 - **Consumer lag**: Growing lag indicates consumers can't keep up, which may require scaling
 
-Platforms like Conduktor provide comprehensive monitoring dashboards that track these metrics across your cluster, making it easier to spot capacity issues before they impact production. Being able to visualize throughput trends, partition distribution, and resource utilization in one place helps teams make informed scaling decisions. For comprehensive coverage of monitoring strategies and key metrics, see [Kafka Cluster Monitoring and Metrics](kafka-cluster-monitoring-and-metrics.md).
+Platforms like Conduktor provide comprehensive monitoring dashboards that track these metrics across your cluster, making it easier to spot capacity issues before they impact production. Being able to visualize throughput trends, partition distribution, and resource utilization in one place helps teams make informed scaling decisions. For comprehensive coverage of monitoring strategies and key metrics, see [Kafka Cluster Monitoring and Metrics](https://conduktor.io/glossary/kafka-cluster-monitoring-and-metrics).
 
-When scaling Kafka, you can scale vertically (larger machines) or horizontally (more brokers). Horizontal scaling is generally preferred as it improves fault tolerance and allows for better load distribution across partitions. For detailed performance optimization strategies, see [Kafka Performance Tuning Guide](kafka-performance-tuning-guide.md).
+When scaling Kafka, you can scale vertically (larger machines) or horizontally (more brokers). Horizontal scaling is generally preferred as it improves fault tolerance and allows for better load distribution across partitions. For detailed performance optimization strategies, see [Kafka Performance Tuning Guide](https://conduktor.io/glossary/kafka-performance-tuning-guide).
 
 ## Common Pitfalls and Best Practices
 
@@ -254,7 +254,7 @@ Several common mistakes can derail capacity planning:
 
 **Underestimating replication overhead** is frequent. Remember that replication multiplies your network and storage needs. A replication factor of 3 doesn't just triple storage—it also triples write network traffic.
 
-**Ignoring partition count** can limit scalability. Since partitions are the unit of parallelism in Kafka, having too few partitions means you can't fully utilize multiple brokers or scale consumer throughput. However, too many partitions increase metadata overhead and recovery time in older ZooKeeper-based clusters. With Kafka 4.0+ and KRaft mode, the partition limit has increased significantly—KRaft can efficiently handle millions of partitions compared to ZooKeeper's practical limit of ~200,000. For guidance on topic and partition design, see [Kafka Topic Design Guidelines](kafka-topic-design-guidelines.md) and [Kafka Partitioning Strategies and Best Practices](kafka-partitioning-strategies-and-best-practices.md).
+**Ignoring partition count** can limit scalability. Since partitions are the unit of parallelism in Kafka, having too few partitions means you can't fully utilize multiple brokers or scale consumer throughput. However, too many partitions increase metadata overhead and recovery time in older ZooKeeper-based clusters. With Kafka 4.0+ and KRaft mode, the partition limit has increased significantly—KRaft can efficiently handle millions of partitions compared to ZooKeeper's practical limit of ~200,000. For guidance on topic and partition design, see [Kafka Topic Design Guidelines](https://conduktor.io/glossary/kafka-topic-design-guidelines) and [Kafka Partitioning Strategies and Best Practices](https://conduktor.io/glossary/kafka-partitioning-strategies-and-best-practices).
 
 **Not planning for peaks** is another common issue. Average load might be manageable, but if your system experiences traffic spikes (e.g., end-of-day processing), you need capacity for peak load, not average.
 

@@ -102,7 +102,7 @@ query = windowed_counts.writeStream \
     .start()
 ```
 
-For organizations managing complex Spark streaming deployments at scale, monitoring and governance become critical. Conduktor provides comprehensive capabilities for monitoring streaming pipeline health, tracking data lineage across micro-batch jobs, enforcing data quality policies, and ensuring compliance as your streaming infrastructure grows. For Kafka-specific details, see [Apache Kafka](apache-kafka.md).
+For organizations managing complex Spark streaming deployments at scale, monitoring and governance become critical. Conduktor provides comprehensive capabilities for monitoring streaming pipeline health, tracking data lineage across micro-batch jobs, enforcing data quality policies, and ensuring compliance as your streaming infrastructure grows. For Kafka-specific details, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
 
 ## Latency and Performance Trade-offs
 
@@ -122,9 +122,9 @@ Performance tuning focuses on finding the right balance. Increase parallelism to
 
 ## Micro-Batching vs True Streaming
 
-The distinction between micro-batching and true streaming matters for architecture decisions. For deep comparisons, see [Flink vs Spark Streaming: When to Choose Each](flink-vs-spark-streaming-when-to-choose-each.md) and [Kafka Streams vs Apache Flink](kafka-streams-vs-apache-flink.md). For foundational Kafka knowledge, see [Apache Kafka](apache-kafka.md).
+The distinction between micro-batching and true streaming matters for architecture decisions. For deep comparisons, see [Flink vs Spark Streaming: When to Choose Each](https://conduktor.io/glossary/flink-vs-spark-streaming-when-to-choose-each) and [Kafka Streams vs Apache Flink](https://conduktor.io/glossary/kafka-streams-vs-apache-flink). For foundational Kafka knowledge, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
 
-**True streaming engines** like Apache Flink (1.19+) process events one-at-a-time through a dataflow graph. This enables single-digit millisecond latencies and more natural event-time semantics. Flink's state backend has matured significantly—RocksDB state backend now supports incremental checkpointing, state TTL (time-to-live) for automatic cleanup, and changelog-based recovery in Flink 1.15+. For comprehensive coverage, see [Flink State Management and Checkpointing](flink-state-management-and-checkpointing.md). However, it requires sophisticated state management, complex checkpointing mechanisms, and careful watermark handling to achieve exactly-once guarantees.
+**True streaming engines** like Apache Flink (1.19+) process events one-at-a-time through a dataflow graph. This enables single-digit millisecond latencies and more natural event-time semantics. Flink's state backend has matured significantly—RocksDB state backend now supports incremental checkpointing, state TTL (time-to-live) for automatic cleanup, and changelog-based recovery in Flink 1.15+. For comprehensive coverage, see [Flink State Management and Checkpointing](https://conduktor.io/glossary/flink-state-management-and-checkpointing). However, it requires sophisticated state management, complex checkpointing mechanisms, and careful watermark handling to achieve exactly-once guarantees.
 
 **Kafka Streams** (3.0+) takes a different approach to true streaming, embedding stream processing directly into your application as a library. It processes records individually but maintains local state stores and coordinates distributed processing through Kafka's consumer groups. With `processing.guarantee=exactly_once_v2` (introduced in Kafka 2.5, refined in 3.0+), Kafka Streams achieves exactly-once semantics with significantly lower overhead than earlier implementations. This achieves low latency while leveraging Kafka's durability and replication.
 

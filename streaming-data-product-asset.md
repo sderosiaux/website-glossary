@@ -66,15 +66,15 @@ Automated provisioning, clear onboarding documentation, consumer support channel
 
 ### Observability
 
-Real-time metrics (throughput, latency, errors), consumer lag monitoring using tools like Kafka Lag Exporter (2025 standard for Prometheus-based monitoring), usage analytics, and alerting on quality degradation. For monitoring patterns, see [Consumer Lag Monitoring](consumer-lag-monitoring.md) and [What Is Data Observability: The Five Pillars](what-is-data-observability-the-five-pillars.md).
+Real-time metrics (throughput, latency, errors), consumer lag monitoring using tools like Kafka Lag Exporter (2025 standard for Prometheus-based monitoring), usage analytics, and alerting on quality degradation. For monitoring patterns, see [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring) and [What Is Data Observability: The Five Pillars](https://conduktor.io/glossary/what-is-data-observability-the-five-pillars).
 
 ## Anatomy of a Streaming Data Product
 
 A complete streaming data product consists of:
 
-**Input Streams:** Raw Kafka topics or CDC logs consumed as the foundation. For CDC implementation details, see [What Is Change Data Capture: CDC Fundamentals](what-is-change-data-capture-cdc-fundamentals.md).
+**Input Streams:** Raw Kafka topics or CDC logs consumed as the foundation. For CDC implementation details, see [What Is Change Data Capture: CDC Fundamentals](https://conduktor.io/glossary/what-is-change-data-capture-cdc-fundamentals).
 
-**Stream Processing Logic:** Flink jobs (Flink 1.18+) or Kafka Streams applications performing continuous transformations—joining, aggregating, filtering, or enriching before publishing. For in-depth coverage, see [What Is Apache Flink: Stateful Stream Processing](what-is-apache-flink-stateful-stream-processing.md).
+**Stream Processing Logic:** Flink jobs (Flink 1.18+) or Kafka Streams applications performing continuous transformations—joining, aggregating, filtering, or enriching before publishing. For in-depth coverage, see [What Is Apache Flink: Stateful Stream Processing](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing).
 
 **Output Stream (The API):** Well-defined, versioned Kafka topics:
 - `payments.transactions.authorized`
@@ -92,13 +92,13 @@ A complete streaming data product consists of:
   ]
 }
 ```
-For schema management patterns, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md) and [Avro vs Protobuf vs JSON Schema](avro-vs-protobuf-vs-json-schema.md).
+For schema management patterns, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) and [Avro vs Protobuf vs JSON Schema](https://conduktor.io/glossary/avro-vs-protobuf-vs-json-schema).
 
-**Access Policies:** ACLs defining which teams can read topics. For access control patterns, see [Access Control for Streaming](access-control-for-streaming.md).
+**Access Policies:** ACLs defining which teams can read topics. For access control patterns, see [Access Control for Streaming](https://conduktor.io/glossary/access-control-for-streaming).
 
-**Documentation:** Business context, sample queries, limitations, quality metrics. For data contracts and documentation patterns, see [Data Contracts for Reliable Pipelines](data-contracts-for-reliable-pipelines.md).
+**Documentation:** Business context, sample queries, limitations, quality metrics. For data contracts and documentation patterns, see [Data Contracts for Reliable Pipelines](https://conduktor.io/glossary/data-contracts-for-reliable-pipelines).
 
-**SLAs:** Committed availability, latency, and freshness levels. For freshness monitoring, see [Data Freshness Monitoring: SLA Management](data-freshness-monitoring-sla-management.md).
+**SLAs:** Committed availability, latency, and freshness levels. For freshness monitoring, see [Data Freshness Monitoring: SLA Management](https://conduktor.io/glossary/data-freshness-monitoring-sla-management).
 
 ### Domain Ownership
 
@@ -106,13 +106,13 @@ The product owner team (e.g., Payments, Inventory, Customer team) owns the entir
 
 ## Building Streaming Data Products on Kafka
 
-Kafka's architecture naturally supports data product patterns. Modern Kafka deployments (Kafka 4.0+) benefit from KRaft mode, eliminating ZooKeeper dependencies for simpler operations and faster metadata propagation. For details on this modernization, see [Understanding KRaft Mode in Kafka](understanding-kraft-mode-in-kafka.md).
+Kafka's architecture naturally supports data product patterns. Modern Kafka deployments (Kafka 4.0+) benefit from KRaft mode, eliminating ZooKeeper dependencies for simpler operations and faster metadata propagation. For details on this modernization, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka).
 
-**Durable Event Logs:** Unlike message queues, Kafka retains events based on retention policies, enabling multiple independent consumers, new consumer onboarding through replay, and reprocessing after bug fixes. For foundational concepts, see [Apache Kafka](apache-kafka.md).
+**Durable Event Logs:** Unlike message queues, Kafka retains events based on retention policies, enabling multiple independent consumers, new consumer onboarding through replay, and reprocessing after bug fixes. For foundational concepts, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
 
 **Topic-Based Organization:** Topics provide natural boundaries. Naming conventions communicate ownership—domain teams own their namespaces.
 
-**Schema Registries:** Enforce contracts by validating schemas before publication. When producers attempt incompatible changes (removing required fields), the registry rejects requests. Producer code receives errors, preventing invalid data from entering topics. Failed events route to dead letter queues—separate topics storing invalid events for investigation. For error handling patterns, see [Dead Letter Queues for Error Handling](dead-letter-queues-for-error-handling.md).
+**Schema Registries:** Enforce contracts by validating schemas before publication. When producers attempt incompatible changes (removing required fields), the registry rejects requests. Producer code receives errors, preventing invalid data from entering topics. Failed events route to dead letter queues—separate topics storing invalid events for investigation. For error handling patterns, see [Dead Letter Queues for Error Handling](https://conduktor.io/glossary/dead-letter-queues-for-error-handling).
 
 **Consumer Groups:** Allow multiple teams to read the same product at their own pace—analytics processing every event, ML sampling 10%, operational systems consuming real-time.
 
@@ -120,11 +120,11 @@ Kafka's architecture naturally supports data product patterns. Modern Kafka depl
 
 ## Data Product Governance
 
-Effective governance ensures streaming data products remain trustworthy and discoverable at scale. For governance frameworks and roles, see [Data Governance Framework: Roles and Responsibilities](data-governance-framework-roles-and-responsibilities.md) and [Data Product Governance](data-product-governance.md).
+Effective governance ensures streaming data products remain trustworthy and discoverable at scale. For governance frameworks and roles, see [Data Governance Framework: Roles and Responsibilities](https://conduktor.io/glossary/data-governance-framework-roles-and-responsibilities) and [Data Product Governance](https://conduktor.io/glossary/data-product-governance).
 
 ### Catalogs and Discovery
 
-Centralized catalogs document available products, schemas, ownership, SLAs, consumers, and lineage showing upstream sources and downstream dependencies. For detailed coverage of data cataloging, see [What Is a Data Catalog: Modern Data Discovery](what-is-a-data-catalog-modern-data-discovery.md). For lineage tracking, see [Data Lineage: Tracking Data from Source to Consumption](data-lineage-tracking-data-from-source-to-consumption.md).
+Centralized catalogs document available products, schemas, ownership, SLAs, consumers, and lineage showing upstream sources and downstream dependencies. For detailed coverage of data cataloging, see [What Is a Data Catalog: Modern Data Discovery](https://conduktor.io/glossary/what-is-a-data-catalog-modern-data-discovery). For lineage tracking, see [Data Lineage: Tracking Data from Source to Consumption](https://conduktor.io/glossary/data-lineage-tracking-data-from-source-to-consumption).
 
 ### Schema Evolution
 
@@ -133,11 +133,11 @@ Governance enforces compatibility:
 - **Forward compatible:** Old schemas readable by new consumers
 - **Full compatible:** Both directions (recommended)
 
-Quality rules enforced in processing logic certify product quality before publication. Modern quality frameworks like Soda Core (2025 standard) enable automated quality checks in streaming pipelines. For quality testing patterns, see [Great Expectations Data Testing Framework](great-expectations-data-testing-framework.md), [Automated Data Quality Testing](automated-data-quality-testing.md), and [Building a Data Quality Framework](building-a-data-quality-framework.md).
+Quality rules enforced in processing logic certify product quality before publication. Modern quality frameworks like Soda Core (2025 standard) enable automated quality checks in streaming pipelines. For quality testing patterns, see [Great Expectations Data Testing Framework](https://conduktor.io/glossary/great-expectations-data-testing-framework), [Automated Data Quality Testing](https://conduktor.io/glossary/automated-data-quality-testing), and [Building a Data Quality Framework](https://conduktor.io/glossary/building-a-data-quality-framework).
 
 ### Access Control
 
-Domain teams enforce security through ACLs, audit logs tracking access, data classification labels, and encryption for sensitive products. For security patterns, see [Audit Logging for Streaming Platforms](audit-logging-for-streaming-platforms.md) and [Encryption at Rest and in Transit for Kafka](encryption-at-rest-and-in-transit-for-kafka.md).
+Domain teams enforce security through ACLs, audit logs tracking access, data classification labels, and encryption for sensitive products. For security patterns, see [Audit Logging for Streaming Platforms](https://conduktor.io/glossary/audit-logging-for-streaming-platforms) and [Encryption at Rest and in Transit for Kafka](https://conduktor.io/glossary/encryption-at-rest-and-in-transit-for-kafka).
 
 Platforms like Conduktor centralize governance by enabling teams to visualize and manage ACLs, maintain searchable catalogs across clusters, monitor quality metrics through unified dashboards, and automate consumer onboarding while validating standards.
 
@@ -149,7 +149,7 @@ Traditional platforms centralize processing in a single team, creating bottlenec
 - Inventory team owns `inventory.stock_levels`
 - Customer team owns `customers.profiles`
 
-This is the core of **Data Mesh**—an organizational pattern decentralizing data ownership to domain teams rather than central platforms. Each domain publishes products as their public interface, replacing centralized ETL with distributed ownership. For comprehensive coverage of Data Mesh principles, see [Data Mesh: Principles and Implementation](data-mesh-principles-and-implementation.md) and [Building and Managing Data Products](building-and-managing-data-products.md).
+This is the core of **Data Mesh**—an organizational pattern decentralizing data ownership to domain teams rather than central platforms. Each domain publishes products as their public interface, replacing centralized ETL with distributed ownership. For comprehensive coverage of Data Mesh principles, see [Data Mesh: Principles and Implementation](https://conduktor.io/glossary/data-mesh-principles-and-implementation) and [Building and Managing Data Products](https://conduktor.io/glossary/building-and-managing-data-products).
 
 **Federated computational governance** means domain teams make local decisions (what to publish, how to process) while organization-wide policies enforce standards (naming conventions, schema compatibility, security)—local autonomy with global guardrails.
 

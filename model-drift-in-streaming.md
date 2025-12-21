@@ -9,7 +9,7 @@ topics:
 
 # Model Drift in Streaming: When ML Models Degrade in Real-Time
 
-Machine learning models powering [real-time applications](real-time-ml-inference-with-streaming-data.md) face a unique challenge: the world they model never stops changing. A fraud detection model trained on last quarter's patterns may miss today's attack vectors. A recommendation engine optimized for pre-holiday shopping behavior struggles when consumer preferences shift. This phenomenon—model drift—is the silent degradation of ML performance over time.
+Machine learning models powering [real-time applications](https://conduktor.io/glossary/real-time-ml-inference-with-streaming-data) face a unique challenge: the world they model never stops changing. A fraud detection model trained on last quarter's patterns may miss today's attack vectors. A recommendation engine optimized for pre-holiday shopping behavior struggles when consumer preferences shift. This phenomenon—model drift—is the silent degradation of ML performance over time.
 
 In streaming architectures, where models consume continuously flowing data and make split-second predictions, drift isn't just a concern—it's inevitable. The question isn't whether your models will drift, but when, how fast, and whether you'll detect it before it impacts your business.
 
@@ -17,7 +17,7 @@ In streaming architectures, where models consume continuously flowing data and m
 
 Model drift manifests in three distinct but often overlapping forms, each with different root causes and detection strategies.
 
-**Data drift** occurs when the statistical properties of input features change. Your fraud model was trained on transactions averaging $50, but suddenly sees a stream dominated by high-value purchases. The distribution has shifted, even though the underlying relationship between features and fraud hasn't changed. In streaming systems, data drift can emerge from upstream schema changes, new data sources joining a stream, or gradual shifts in user behavior. For deeper coverage of data drift detection and monitoring strategies, see [Data Drift in Streaming](data-drift-in-streaming.md).
+**Data drift** occurs when the statistical properties of input features change. Your fraud model was trained on transactions averaging $50, but suddenly sees a stream dominated by high-value purchases. The distribution has shifted, even though the underlying relationship between features and fraud hasn't changed. In streaming systems, data drift can emerge from upstream schema changes, new data sources joining a stream, or gradual shifts in user behavior. For deeper coverage of data drift detection and monitoring strategies, see [Data Drift in Streaming](https://conduktor.io/glossary/data-drift-in-streaming).
 
 **Concept drift** represents a more fundamental problem: the relationship between features and outcomes has changed. A customer churn model learned that "30-day inactivity" strongly predicts cancellation, but after a product redesign, engaged users now check in less frequently. The features are the same, but their meaning has evolved. Streaming amplifies this challenge because business logic, user interfaces, and operational processes continuously evolve, often without triggering model retraining.
 
@@ -125,17 +125,17 @@ This pattern processes streaming ML inputs, maintains a sliding window of recent
 
 **Apache Flink for stateful drift detection**
 
-For production-scale drift monitoring, [Apache Flink](what-is-apache-flink-stateful-stream-processing.md) provides stateful stream processing with exactly-once semantics. Flink's state backends maintain running statistics (mean, variance, percentiles) for each feature across windows, enabling drift detection without recomputing from raw events. Flink ML (introduced in Flink 1.13+) includes built-in operators for online learning and drift adaptation, allowing models to incrementally update as data distributions shift—a more sophisticated alternative to full retraining.
+For production-scale drift monitoring, [Apache Flink](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing) provides stateful stream processing with exactly-once semantics. Flink's state backends maintain running statistics (mean, variance, percentiles) for each feature across windows, enabling drift detection without recomputing from raw events. Flink ML (introduced in Flink 1.13+) includes built-in operators for online learning and drift adaptation, allowing models to incrementally update as data distributions shift—a more sophisticated alternative to full retraining.
 
 ## Prevention Through Data Governance
 
 The most effective drift prevention happens upstream, before degraded data reaches your models. This is where data governance and event streaming intersect.
 
-**Schema contracts** define the structure, types, and valid ranges for events in your streams. Governance platforms like Conduktor enforce these [contracts](data-contracts-for-reliable-pipelines.md) at write time through its data quality module, rejecting events that violate expectations. When a producer attempts to send a "user_age" of 500 or omit a required field, the contract blocks it before it corrupts your model's input stream. See [Schema Registry and Schema Management](schema-registry-and-schema-management.md) for implementation details.
+**Schema contracts** define the structure, types, and valid ranges for events in your streams. Governance platforms like Conduktor enforce these [contracts](https://conduktor.io/glossary/data-contracts-for-reliable-pipelines) at write time through its data quality module, rejecting events that violate expectations. When a producer attempts to send a "user_age" of 500 or omit a required field, the contract blocks it before it corrupts your model's input stream. See [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) for implementation details.
 
 **Schema evolution policies** control how event structures can change over time. Requiring backward compatibility ensures new fields are optional and existing fields maintain their semantics. This governance layer prevents the silent schema drift that destabilizes models.
 
-**Data quality rules** validate not just schema but business logic. A rule might enforce that "transaction_amount > 0" or "timestamp is within the last 5 minutes." These quality gates filter anomalous events before they become model inputs, reducing noise and preventing drift from data quality issues. For comprehensive data quality strategies, see [Building a Data Quality Framework](building-a-data-quality-framework.md).
+**Data quality rules** validate not just schema but business logic. A rule might enforce that "transaction_amount > 0" or "timestamp is within the last 5 minutes." These quality gates filter anomalous events before they become model inputs, reducing noise and preventing drift from data quality issues. For comprehensive data quality strategies, see [Building a Data Quality Framework](https://conduktor.io/glossary/building-a-data-quality-framework).
 
 **Topic-level governance** segregates different data quality tiers. Production models consume from gold-tier topics with strict quality enforcement, while experimental models can read bronze-tier streams with raw, unvalidated data. This separation prevents degraded data from reaching critical production models.
 
@@ -163,7 +163,7 @@ Managing drift at scale requires treating models as continuously evolving artifa
 
 **Continuous monitoring** closes the loop, feeding drift signals back into the retraining pipeline. This creates a self-correcting system: drift detection triggers retraining, deployment automation updates production, and monitoring validates the fix.
 
-Streaming platforms like [Apache Kafka](apache-kafka.md) (especially Kafka 4.0+ with KRaft mode for lower-latency metadata operations) and [Apache Flink](what-is-apache-flink-stateful-stream-processing.md), when paired with governance tools like Conduktor, provide the data infrastructure for this loop. Governed topics ensure clean training data, [streaming feature stores](feature-stores-for-machine-learning.md) provide consistent feature engineering, and event-driven architectures enable real-time monitoring and response.
+Streaming platforms like [Apache Kafka](https://conduktor.io/glossary/apache-kafka) (especially Kafka 4.0+ with KRaft mode for lower-latency metadata operations) and [Apache Flink](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing), when paired with governance tools like Conduktor, provide the data infrastructure for this loop. Governed topics ensure clean training data, [streaming feature stores](https://conduktor.io/glossary/feature-stores-for-machine-learning) provide consistent feature engineering, and event-driven architectures enable real-time monitoring and response.
 
 Kafka 4.0's KRaft architecture eliminates ZooKeeper dependency, reducing operational complexity and improving metadata consistency for ML pipelines. This translates to faster schema updates, more reliable consumer group coordination, and reduced latency in feature serving—all critical for minimizing the window between drift detection and remediation.
 

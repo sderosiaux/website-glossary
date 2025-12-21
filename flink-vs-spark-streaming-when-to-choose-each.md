@@ -89,7 +89,7 @@ Spark Streaming's micro-batch approach introduces inherent latency equal to the 
 
 ### State Management Excellence
 
-Flink's RocksDB-backed state management (an embedded key-value database that stores state on disk rather than memory) allows applications to maintain gigabytes or terabytes of state per operator. State lives off-heap, avoiding JVM garbage collection pressure. Incremental checkpointing means only changed state gets persisted, reducing checkpoint overhead dramatically. For detailed coverage of Flink's state capabilities, see [Flink State Management and Checkpointing](flink-state-management-and-checkpointing.md).
+Flink's RocksDB-backed state management (an embedded key-value database that stores state on disk rather than memory) allows applications to maintain gigabytes or terabytes of state per operator. State lives off-heap, avoiding JVM garbage collection pressure. Incremental checkpointing means only changed state gets persisted, reducing checkpoint overhead dramatically. For detailed coverage of Flink's state capabilities, see [Flink State Management and Checkpointing](https://conduktor.io/glossary/flink-state-management-and-checkpointing).
 
 Spark's state management has evolved significantly with Structured Streaming's state store API. Spark 3.5+ introduced RocksDB as a state backend option, bringing off-heap state storage capabilities similar to Flink's approach. This major improvement enables larger stateful operations without JVM memory pressure, though the micro-batch processing model still differs fundamentally from Flink's continuous approach. Earlier versions relied on heap-based storage, which could trigger memory pressure and required careful tuning for large state.
 
@@ -98,16 +98,16 @@ Spark's state management has evolved significantly with Structured Streaming's s
 ### Choose Apache Flink When:
 
 **Low-latency requirements dominate**
-- Real-time fraud detection requiring <100ms response (see [Real-time Fraud Detection with Streaming](real-time-fraud-detection-with-streaming.md))
+- Real-time fraud detection requiring <100ms response (see [Real-time Fraud Detection with Streaming](https://conduktor.io/glossary/real-time-fraud-detection-with-streaming))
 - Live recommendation engines serving immediate results
-- IoT applications with control loop requirements (see [IoT Data Streaming Architectures](iot-data-streaming-architectures.md))
-- Financial trading systems with millisecond SLAs (see [Streaming Data in Financial Services](streaming-data-in-financial-services.md))
+- IoT applications with control loop requirements (see [IoT Data Streaming Architectures](https://conduktor.io/glossary/iot-data-streaming-architectures))
+- Financial trading systems with millisecond SLAs (see [Streaming Data in Financial Services](https://conduktor.io/glossary/streaming-data-in-financial-services))
 
 **Complex event processing is needed**
 - Pattern detection across event sequences (Complex Event Processing/CEP library)
-- Session windows with flexible timeout logic (see [Session Windows in Stream Processing](session-windows-in-stream-processing.md))
+- Session windows with flexible timeout logic (see [Session Windows in Stream Processing](https://conduktor.io/glossary/session-windows-in-stream-processing))
 - Stateful computations with large per-key state
-- Event-time processing with late data handling (see [Handling Late-Arriving Data in Streaming](handling-late-arriving-data-in-streaming.md) and [Watermarks and Triggers in Stream Processing](watermarks-and-triggers-in-stream-processing.md))
+- Event-time processing with late data handling (see [Handling Late-Arriving Data in Streaming](https://conduktor.io/glossary/handling-late-arriving-data-in-streaming) and [Watermarks and Triggers in Stream Processing](https://conduktor.io/glossary/watermarks-and-triggers-in-stream-processing))
 
 **True streaming semantics matter**
 - Applications benefiting from immediate event processing
@@ -132,13 +132,13 @@ Spark's state management has evolved significantly with Structured Streaming's s
 - Deep integration with Databricks or cloud-native Spark offerings
 - Leveraging Spark SQL for complex transformations
 - Using Delta Lake, Apache Iceberg, or Apache Hudi for streaming upserts and time travel
-- Combining streaming with machine learning workflows (see [Real-time ML Inference with Streaming Data](real-time-ml-inference-with-streaming-data.md))
+- Combining streaming with machine learning workflows (see [Real-time ML Inference with Streaming Data](https://conduktor.io/glossary/real-time-ml-inference-with-streaming-data))
 
 ## Operational Considerations
 
 ### Development and Debugging
 
-Flink's DataStream API provides explicit control over streaming semantics, windows, and state. The learning curve is steeper but rewards developers with fine-grained control. Flink's Web UI excels at visualizing backpressure and checkpoint statistics. For a broader comparison of streaming frameworks, see [Kafka Streams vs Apache Flink](kafka-streams-vs-apache-flink.md).
+Flink's DataStream API provides explicit control over streaming semantics, windows, and state. The learning curve is steeper but rewards developers with fine-grained control. Flink's Web UI excels at visualizing backpressure and checkpoint statistics. For a broader comparison of streaming frameworks, see [Kafka Streams vs Apache Flink](https://conduktor.io/glossary/kafka-streams-vs-apache-flink).
 
 Spark's DataFrame API abstracts complexity, making it easier for SQL-oriented teams to adopt streaming. The unified API means batch developers transition smoothly to streaming. However, debugging micro-batch timing issues can be challenging.
 
@@ -150,15 +150,15 @@ Flink excels at rescaling stateful applications—you can change parallelism (th
 
 ### Monitoring and Observability
 
-Effective stream processing requires deep visibility into pipeline health, lag, throughput, and state size. Both Flink and Spark expose metrics through JMX and integrate with monitoring systems like Prometheus. For information on handling backpressure issues, see [Backpressure Handling in Streaming Systems](backpressure-handling-in-streaming-systems.md).
+Effective stream processing requires deep visibility into pipeline health, lag, throughput, and state size. Both Flink and Spark expose metrics through JMX and integrate with monitoring systems like Prometheus. For information on handling backpressure issues, see [Backpressure Handling in Streaming Systems](https://conduktor.io/glossary/backpressure-handling-in-streaming-systems).
 
 Conduktor provides unified monitoring and management capabilities across stream processing frameworks, enabling teams to track data lineage, monitor consumer lag, and enforce governance policies regardless of whether pipelines use Flink, Spark, or Kafka Streams. This becomes critical when running multiple frameworks in production, providing a single pane of glass for observability and control.
 
 ## Integration with Data Governance
 
 Stream processing doesn't exist in isolation—it's part of a broader data platform requiring governance, quality controls, and operational oversight. Both Flink and Spark benefit from centralized data governance tools like Conduktor that:
-- Monitor stream processing applications alongside Kafka infrastructure (see [Kafka Cluster Monitoring and Metrics](kafka-cluster-monitoring-and-metrics.md))
-- Enforce schema governance and data quality rules (see [Schema Registry and Schema Management](schema-registry-and-schema-management.md))
+- Monitor stream processing applications alongside Kafka infrastructure (see [Kafka Cluster Monitoring and Metrics](https://conduktor.io/glossary/kafka-cluster-monitoring-and-metrics))
+- Enforce schema governance and data quality rules (see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management))
 - Track data lineage (the path data takes from source through transformations to destination) from source through stream processing to sinks
 - Manage access controls and compliance requirements centrally
 
@@ -178,7 +178,7 @@ Apache Flink has matured substantially with improvements focused on operational 
 - **Expanded Table API and SQL capabilities**: Broader SQL standard support and better integration with streaming semantics
 - **Better Python support**: PyFlink improvements make Flink more accessible to data scientists
 
-For hands-on implementation, see [Flink DataStream API: Building Streaming Applications](flink-datastream-api-building-streaming-applications.md) and [Flink SQL and Table API for Stream Processing](flink-sql-and-table-api-for-stream-processing.md).
+For hands-on implementation, see [Flink DataStream API: Building Streaming Applications](https://conduktor.io/glossary/flink-datastream-api-building-streaming-applications) and [Flink SQL and Table API for Stream Processing](https://conduktor.io/glossary/flink-sql-and-table-api-for-stream-processing).
 
 ### Spark 3.5+ Enhancements (2024-2025)
 

@@ -10,7 +10,7 @@ topics:
 
 # Kafka Connect Single Message Transforms
 
-When building data pipelines with Kafka Connect, you often need to modify data as it flows between systems. Single Message Transforms (SMTs) provide a lightweight mechanism to transform records within the connector itself, without requiring separate stream processing applications. For comprehensive coverage of Kafka Connect fundamentals and architecture, see [Kafka Connect: Building Data Integration Pipelines](kafka-connect-building-data-integration-pipelines.md).
+When building data pipelines with Kafka Connect, you often need to modify data as it flows between systems. Single Message Transforms (SMTs) provide a lightweight mechanism to transform records within the connector itself, without requiring separate stream processing applications. For comprehensive coverage of Kafka Connect fundamentals and architecture, see [Kafka Connect: Building Data Integration Pipelines](https://conduktor.io/glossary/kafka-connect-building-data-integration-pipelines).
 
 ## What Are Single Message Transforms?
 
@@ -97,15 +97,15 @@ Predicates support negation via the `negate=true` parameter, allowing you to app
 
 Kafka Connect provides several useful built-in transformations:
 
-**Field Manipulation**: The `InsertField` SMT adds metadata fields like timestamps or static values. The `ReplaceField` SMT renames or excludes specific fields. The `MaskField` SMT masks sensitive data with null values, useful for PII protection. For comprehensive strategies on handling personally identifiable information in streaming pipelines, see [PII Detection and Handling in Event Streams](pii-detection-and-handling-in-event-streams.md).
+**Field Manipulation**: The `InsertField` SMT adds metadata fields like timestamps or static values. The `ReplaceField` SMT renames or excludes specific fields. The `MaskField` SMT masks sensitive data with null values, useful for PII protection. For comprehensive strategies on handling personally identifiable information in streaming pipelines, see [PII Detection and Handling in Event Streams](https://conduktor.io/glossary/pii-detection-and-handling-in-event-streams).
 
-**Casting and Type Conversion**: The `Cast` SMT converts field types, such as changing strings to integers or timestamps to different formats. The `TimestampConverter` SMT transforms timestamp fields between different formats (string, Unix, Timestamp) and timezones. This helps align data types between source and destination systems. For deeper understanding of data serialization formats in Kafka, see [Message Serialization in Kafka](message-serialization-in-kafka.md).
+**Casting and Type Conversion**: The `Cast` SMT converts field types, such as changing strings to integers or timestamps to different formats. The `TimestampConverter` SMT transforms timestamp fields between different formats (string, Unix, Timestamp) and timezones. This helps align data types between source and destination systems. For deeper understanding of data serialization formats in Kafka, see [Message Serialization in Kafka](https://conduktor.io/glossary/message-serialization-in-kafka).
 
 **Key and Value Transformations**: The `ValueToKey` SMT copies fields from the record value to the record key, useful for rekeying streams. The `KeyToValue` SMT does the opposite, copying key fields into the value. The `ExtractField` SMT extracts a single field from a complex record structure.
 
 **Filtering and Routing**: The `Filter` SMT drops records based on predicates, while `RegexRouter` and `TimestampRouter` modify topic names dynamically based on record content or timestamps. These are particularly useful for partitioning data across multiple topics or implementing routing logic.
 
-**Schema Modifications**: The `Flatten` SMT converts nested structures into flat records, making complex JSON or Avro data compatible with relational databases. The `HoistField` SMT wraps the entire record value in a struct field. The `SetSchemaMetadata` SMT modifies schema names and versions, useful for schema evolution scenarios. For understanding schema management and evolution strategies, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md) and [Schema Evolution Best Practices](schema-evolution-best-practices.md).
+**Schema Modifications**: The `Flatten` SMT converts nested structures into flat records, making complex JSON or Avro data compatible with relational databases. The `HoistField` SMT wraps the entire record value in a struct field. The `SetSchemaMetadata` SMT modifies schema names and versions, useful for schema evolution scenarios. For understanding schema management and evolution strategies, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) and [Schema Evolution Best Practices](https://conduktor.io/glossary/schema-evolution-best-practices).
 
 ## Real-World Use Cases
 
@@ -138,7 +138,7 @@ transforms.route.regex=(.*)
 transforms.route.replacement=db_$1_events
 ```
 
-This pattern is particularly common in Change Data Capture (CDC) scenarios where database changes from multiple tables need to be routed to separate Kafka topics. For detailed CDC implementation patterns, see [Implementing CDC with Debezium](implementing-cdc-with-debezium.md).
+This pattern is particularly common in Change Data Capture (CDC) scenarios where database changes from multiple tables need to be routed to separate Kafka topics. For detailed CDC implementation patterns, see [Implementing CDC with Debezium](https://conduktor.io/glossary/implementing-cdc-with-debezium).
 
 ## SMTs vs Full Stream Processing
 
@@ -160,7 +160,7 @@ Be aware of performance implications. SMTs execute synchronously in the connecto
 
 Consider schema compatibility carefully. If you're using a schema registry, ensure your transformations maintain schema compatibility or explicitly version your schemas. The `Cast` and `Flatten` SMTs can inadvertently break schema evolution if not configured properly.
 
-Test your SMT configurations thoroughly before production deployment. Since SMTs modify data in flight, errors can corrupt your data pipeline. Use tools that validate configurations and provide test environments for SMT chains. For comprehensive testing strategies for streaming data pipelines, see [Testing Strategies for Streaming Applications](testing-strategies-for-streaming-applications.md) and [Automated Data Quality Testing](automated-data-quality-testing.md).
+Test your SMT configurations thoroughly before production deployment. Since SMTs modify data in flight, errors can corrupt your data pipeline. Use tools that validate configurations and provide test environments for SMT chains. For comprehensive testing strategies for streaming data pipelines, see [Testing Strategies for Streaming Applications](https://conduktor.io/glossary/testing-strategies-for-streaming-applications) and [Automated Data Quality Testing](https://conduktor.io/glossary/automated-data-quality-testing).
 
 Remember that SMTs cannot access external data sources or services. They work only with the data in the current record and connector configuration. If you need to enrich data from external systems, consider using a stream processing framework instead.
 
@@ -290,7 +290,7 @@ SMTs shine when you need straightforward transformations without the operational
 
 However, SMTs are not suitable for stateful processing, aggregations, or complex event patterns. Understanding when to use SMTs versus full stream processing frameworks is crucial for building efficient, maintainable data pipelines.
 
-For simple transformations at the connector level, SMTs offer the right balance of capability and simplicity. For complex processing requirements, consider Apache Kafka Streams, Apache Flink, or similar frameworks that provide comprehensive stream processing capabilities. To understand when to choose stream processing frameworks over SMTs, see [Kafka Streams vs Apache Flink](kafka-streams-vs-apache-flink.md) and [Introduction to Kafka Streams](introduction-to-kafka-streams.md).
+For simple transformations at the connector level, SMTs offer the right balance of capability and simplicity. For complex processing requirements, consider Apache Kafka Streams, Apache Flink, or similar frameworks that provide comprehensive stream processing capabilities. To understand when to choose stream processing frameworks over SMTs, see [Kafka Streams vs Apache Flink](https://conduktor.io/glossary/kafka-streams-vs-apache-flink) and [Introduction to Kafka Streams](https://conduktor.io/glossary/introduction-to-kafka-streams).
 
 ## Sources and References
 

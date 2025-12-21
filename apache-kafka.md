@@ -52,7 +52,7 @@ Kafka’s architecture is designed for horizontal scalability, strong ordering, 
 A **topic** is a named stream of events, like a table in a database. Topics are split into **partitions**, which are ordered, immutable logs of records. Each record in a partition has an **offset**, a unique sequential ID.
 Partitioning allows Kafka to scale by distributing data across servers.
 
-For deep dives into partition assignment strategies, rebalancing, and performance implications, see [Kafka Topics, Partitions, and Brokers: Core Architecture](kafka-topics-partitions-brokers-core-architecture.md).
+For deep dives into partition assignment strategies, rebalancing, and performance implications, see [Kafka Topics, Partitions, and Brokers: Core Architecture](https://conduktor.io/glossary/kafka-topics-partitions-brokers-core-architecture).
 
 ### Brokers and Clusters
 
@@ -136,7 +136,7 @@ Kafka 3.6+ supports live migration from ZooKeeper to KRaft without downtime:
 **Producers** send records to topics. They can control where records go — for example, hashing by customer ID to preserve order for that key.
 **Consumers** read records and track their progress via offsets. They can operate independently or as part of **consumer groups**, which distribute partitions among members for parallelism.
 
-For detailed consumer group mechanics, offset management, and rebalancing strategies, see [Kafka Consumer Groups Explained](kafka-consumer-groups-explained.md).
+For detailed consumer group mechanics, offset management, and rebalancing strategies, see [Kafka Consumer Groups Explained](https://conduktor.io/glossary/kafka-consumer-groups-explained).
 
 A simple producer configuration might look like this:
 

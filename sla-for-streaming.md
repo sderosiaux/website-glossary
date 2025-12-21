@@ -25,7 +25,7 @@ Streaming SLAs encompass multiple dimensions, each addressing a different aspect
 
 **End-to-end latency** measures the time from when a producer publishes a message until a consumer successfully processes it. This includes network transmission, broker processing, consumer polling, and application logic. Organizations typically commit to latency targets like "95% of messages processed within 500ms" or "99th percentile latency under 2 seconds."
 
-Latency SLAs must account for the entire pipeline, not just individual components. A message might spend 10ms in the broker, 50ms in network transit, and 200ms in consumer processing—each contributing to the total latency that matters to end users. For detailed guidance on tracking data freshness and latency as part of SLA management, see [Data Freshness Monitoring and SLA Management](data-freshness-monitoring-sla-management.md).
+Latency SLAs must account for the entire pipeline, not just individual components. A message might spend 10ms in the broker, 50ms in network transit, and 200ms in consumer processing—each contributing to the total latency that matters to end users. For detailed guidance on tracking data freshness and latency as part of SLA management, see [Data Freshness Monitoring and SLA Management](https://conduktor.io/glossary/data-freshness-monitoring-sla-management).
 
 ### Throughput Commitments
 
@@ -39,7 +39,7 @@ Throughput SLAs protect against system overload and ensure adequate capacity for
 
 For streaming systems, availability means more than just "the broker is running." It includes the ability to publish messages, consume them, and maintain topic metadata. Partial outages—where some topics work but others don't—must be factored into availability calculations.
 
-With **Kafka 4.0's KRaft architecture** (removing ZooKeeper dependency), availability SLAs become simpler to guarantee and monitor. KRaft eliminates an entire failure domain—the separate ZooKeeper ensemble—reducing the "infrastructure is running but metadata is inaccessible" failure mode that complicated traditional Kafka availability calculations. This architectural improvement makes it easier to achieve and verify high-availability targets. For details on KRaft's benefits, see [Understanding KRaft Mode in Kafka](understanding-kraft-mode-in-kafka.md).
+With **Kafka 4.0's KRaft architecture** (removing ZooKeeper dependency), availability SLAs become simpler to guarantee and monitor. KRaft eliminates an entire failure domain—the separate ZooKeeper ensemble—reducing the "infrastructure is running but metadata is inaccessible" failure mode that complicated traditional Kafka availability calculations. This architectural improvement makes it easier to achieve and verify high-availability targets. For details on KRaft's benefits, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka).
 
 ### Durability and Retention
 
@@ -122,9 +122,9 @@ Defining SLAs is only the beginning. Organizations must continuously monitor com
 Modern streaming platforms implement **real-time SLA monitoring** through:
 
 - **Embedded metrics**: Brokers, producers, and consumers expose latency, throughput, and error metrics
-- **Distributed tracing**: Following individual messages through the entire pipeline to identify bottlenecks (see [Distributed Tracing for Kafka Applications](distributed-tracing-for-kafka-applications.md))
+- **Distributed tracing**: Following individual messages through the entire pipeline to identify bottlenecks (see [Distributed Tracing for Kafka Applications](https://conduktor.io/glossary/distributed-tracing-for-kafka-applications))
 - **Synthetic monitoring**: Test messages sent through the system to verify end-to-end functionality
-- **Consumer lag tracking**: Monitors how far behind consumers are in processing messages (see [Consumer Lag Monitoring](consumer-lag-monitoring.md))
+- **Consumer lag tracking**: Monitors how far behind consumers are in processing messages (see [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring))
 
 **Modern SLA Monitoring Tools (2025):**
 
@@ -155,7 +155,7 @@ When SLA breaches occur, teams need predefined response plans:
 - **Rollback**: Revert recent changes causing performance degradation
 - **Communication**: Notify affected consumers about degraded service
 
-Organizations should regularly test these remediation strategies through chaos engineering practices to validate SLA resilience. For comprehensive testing approaches, see [Chaos Engineering for Streaming Systems](chaos-engineering-for-streaming-systems.md).
+Organizations should regularly test these remediation strategies through chaos engineering practices to validate SLA resilience. For comprehensive testing approaches, see [Chaos Engineering for Streaming Systems](https://conduktor.io/glossary/chaos-engineering-for-streaming-systems).
 
 ## Reporting and Governance
 
@@ -169,11 +169,11 @@ Effective SLA reporting provides multiple audiences with relevant views:
 - **Operational dashboards**: Real-time latency percentiles, current throughput vs capacity, active alerts
 - **Consumer portals**: Per-topic SLA metrics, allowing teams to verify their data feeds meet commitments
 
-For broader context on monitoring streaming data quality and performance, see [What is Data Observability: The Five Pillars](what-is-data-observability-the-five-pillars.md).
+For broader context on monitoring streaming data quality and performance, see [What is Data Observability: The Five Pillars](https://conduktor.io/glossary/what-is-data-observability-the-five-pillars).
 
 ### Integration with Data Contracts
 
-Governance platforms integrate SLAs into **data contracts**—formal agreements about data structure, quality, and delivery guarantees. Modern platforms like Conduktor and data catalog tools allow teams to codify SLA commitments as machine-readable contracts. For comprehensive coverage of data contracts, see [Data Contracts for Reliable Pipelines](data-contracts-for-reliable-pipelines.md).
+Governance platforms integrate SLAs into **data contracts**—formal agreements about data structure, quality, and delivery guarantees. Modern platforms like Conduktor and data catalog tools allow teams to codify SLA commitments as machine-readable contracts. For comprehensive coverage of data contracts, see [Data Contracts for Reliable Pipelines](https://conduktor.io/glossary/data-contracts-for-reliable-pipelines).
 
 Here's an example of how SLAs are specified in a data contract:
 
@@ -191,7 +191,7 @@ This codifies expectations and enables automated compliance checking, with monit
 
 ### Data Products and SLAs
 
-When streaming data is packaged as **data products**—self-contained datasets with clear ownership and SLAs—streaming guarantees become product features. The payment-events product promises specific latency and availability, just like an API promises response times. For comprehensive guidance on building data products with built-in SLA guarantees, see [Building and Managing Data Products](building-and-managing-data-products.md).
+When streaming data is packaged as **data products**—self-contained datasets with clear ownership and SLAs—streaming guarantees become product features. The payment-events product promises specific latency and availability, just like an API promises response times. For comprehensive guidance on building data products with built-in SLA guarantees, see [Building and Managing Data Products](https://conduktor.io/glossary/building-and-managing-data-products).
 
 This shift elevates streaming infrastructure from invisible plumbing to managed services with clear value propositions.
 
@@ -204,7 +204,7 @@ Compliance and regulatory requirements often demand proof of SLA adherence. Orga
 - **Configuration history**: Changes to SLA targets and infrastructure
 - **Exception records**: Approved maintenance windows excluded from SLA calculations
 
-For comprehensive audit logging practices that support SLA compliance verification, see [Audit Logging for Streaming Platforms](audit-logging-for-streaming-platforms.md).
+For comprehensive audit logging practices that support SLA compliance verification, see [Audit Logging for Streaming Platforms](https://conduktor.io/glossary/audit-logging-for-streaming-platforms).
 
 ## Conclusion
 

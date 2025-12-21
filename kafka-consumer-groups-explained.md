@@ -14,17 +14,17 @@ Consumer groups are one of Apache Kafka's most powerful features for building sc
 
 This article explains what consumer groups are, how they work, and how to use them effectively in production environments.
 
-For foundational understanding of Kafka's architecture including topics, partitions, and brokers, see [Kafka Topics, Partitions, and Brokers: Core Architecture](kafka-topics-partitions-brokers-core-architecture.md).
+For foundational understanding of Kafka's architecture including topics, partitions, and brokers, see [Kafka Topics, Partitions, and Brokers: Core Architecture](https://conduktor.io/glossary/kafka-topics-partitions-brokers-core-architecture).
 
 ## What Are Consumer Groups?
 
 A consumer group is a collection of consumers that work together to consume messages from one or more Kafka topics. Each consumer in the group is assigned a subset of the topic's partitions, ensuring that no two consumers in the same group read from the same partition simultaneously.
 
-The key benefit is parallel processing. Instead of a single consumer reading all messages sequentially, multiple consumers can process different partitions concurrently. This approach scales horizontally—add more consumers to handle increased throughput. For a broader overview of how consumers and producers work together, see [Kafka Producers and Consumers](kafka-producers-and-consumers.md).
+The key benefit is parallel processing. Instead of a single consumer reading all messages sequentially, multiple consumers can process different partitions concurrently. This approach scales horizontally—add more consumers to handle increased throughput. For a broader overview of how consumers and producers work together, see [Kafka Producers and Consumers](https://conduktor.io/glossary/kafka-producers-and-consumers).
 
 Kafka tracks which messages each consumer group has processed by storing offsets in a special internal topic called `__consumer_offsets`. Think of this as a ledger that records "Consumer Group A has processed messages up to offset 1000 on partition 0." This allows consumers to resume from where they left off after a restart or failure.
 
-In Kafka 4.0+ with KRaft mode (the successor to ZooKeeper), the group coordinator functionality is handled by dedicated controller nodes. This improves scalability and reduces operational complexity compared to the legacy ZooKeeper-based coordination. For more details, see [Understanding KRaft Mode in Kafka](understanding-kraft-mode-in-kafka.md).
+In Kafka 4.0+ with KRaft mode (the successor to ZooKeeper), the group coordinator functionality is handled by dedicated controller nodes. This improves scalability and reduces operational complexity compared to the legacy ZooKeeper-based coordination. For more details, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka).
 
 ## How Consumer Groups Enable Scalability
 
@@ -128,7 +128,7 @@ Typical production settings:
 
 In containerized and cloud environments where consumers may restart frequently, Kafka 4.0+ supports static membership to avoid unnecessary rebalances. By setting a unique `group.instance.id` for each consumer, Kafka preserves partition assignments across restarts within the `session.timeout.ms` window.
 
-This is particularly valuable in Kubernetes deployments where pods restart for rolling updates or scaling operations. Static membership reduces rebalancing overhead and improves processing stability. For comprehensive guidance on running Kafka consumers in Kubernetes, see [Running Kafka on Kubernetes](running-kafka-on-kubernetes.md).
+This is particularly valuable in Kubernetes deployments where pods restart for rolling updates or scaling operations. Static membership reduces rebalancing overhead and improves processing stability. For comprehensive guidance on running Kafka consumers in Kubernetes, see [Running Kafka on Kubernetes](https://conduktor.io/glossary/running-kafka-on-kubernetes).
 
 ```java
 Properties props = new Properties();
@@ -172,7 +172,7 @@ Tracking rebalancing frequency and duration helps identify stability issues. Fre
 
 Tools like Conduktor provide real-time visibility into consumer group health, displaying lag per partition, rebalancing events, and consumer assignment status. For open-source monitoring, Kafka Lag Exporter (the 2025 standard for Prometheus-based monitoring) and Burrow provide robust lag tracking and alerting capabilities. These insights help teams quickly identify and resolve performance bottlenecks before they impact downstream systems.
 
-For detailed coverage of consumer lag monitoring strategies and metrics collection, see [Kafka Cluster Monitoring and Metrics](kafka-cluster-monitoring-and-metrics.md).
+For detailed coverage of consumer lag monitoring strategies and metrics collection, see [Kafka Cluster Monitoring and Metrics](https://conduktor.io/glossary/kafka-cluster-monitoring-and-metrics).
 
 ## Common Pitfalls and Best Practices
 
@@ -184,17 +184,17 @@ Set `session.timeout.ms` higher than your maximum expected processing time, or p
 
 ### Partition Skew
 
-Uneven data distribution across partitions can leave some consumers idle while others are overloaded. Use partition keys that distribute load evenly. For detailed strategies on partition key design and distribution, see [Kafka Partitioning Strategies and Best Practices](kafka-partitioning-strategies-and-best-practices.md). Monitor per-partition metrics to identify skew.
+Uneven data distribution across partitions can leave some consumers idle while others are overloaded. Use partition keys that distribute load evenly. For detailed strategies on partition key design and distribution, see [Kafka Partitioning Strategies and Best Practices](https://conduktor.io/glossary/kafka-partitioning-strategies-and-best-practices). Monitor per-partition metrics to identify skew.
 
 ### Offset Management
 
-Kafka provides automatic offset commits, but these can lead to message loss or duplication in failure scenarios. For exactly-once semantics (EOS), configure consumers with `isolation.level=read_committed` to only read transactionally committed messages. Combine this with idempotent producers (`enable.idempotence=true`) and transactional producers to achieve end-to-end exactly-once processing. For more details, see [Kafka Transactions Deep Dive](kafka-transactions-deep-dive.md).
+Kafka provides automatic offset commits, but these can lead to message loss or duplication in failure scenarios. For exactly-once semantics (EOS), configure consumers with `isolation.level=read_committed` to only read transactionally committed messages. Combine this with idempotent producers (`enable.idempotence=true`) and transactional producers to achieve end-to-end exactly-once processing. For more details, see [Kafka Transactions Deep Dive](https://conduktor.io/glossary/kafka-transactions-deep-dive).
 
 Always commit offsets after successfully processing messages, not before. Processing then committing ensures at-least-once delivery.
 
 ### Scaling Limits
 
-You cannot have more active consumers than partitions in a consumer group. Plan partition counts based on expected parallelism requirements. Creating topics with too few partitions limits future scaling. For guidance on planning partition counts and topic design, see [Kafka Topic Design Guidelines](kafka-topic-design-guidelines.md).
+You cannot have more active consumers than partitions in a consumer group. Plan partition counts based on expected parallelism requirements. Creating topics with too few partitions limits future scaling. For guidance on planning partition counts and topic design, see [Kafka Topic Design Guidelines](https://conduktor.io/glossary/kafka-topic-design-guidelines).
 
 ## Summary
 

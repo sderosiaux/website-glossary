@@ -21,7 +21,7 @@ When building real-time data pipelines, two names dominate the conversation: Kaf
 
 The fundamental difference: Kafka Streams is a library you embed in your application, while Flink is a framework that runs your application.
 
-For in-depth coverage of each framework individually, see [What is Apache Flink? Stateful Stream Processing](what-is-apache-flink-stateful-stream-processing.md) and [Introduction to Kafka Streams](introduction-to-kafka-streams.md).
+For in-depth coverage of each framework individually, see [What is Apache Flink? Stateful Stream Processing](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing) and [Introduction to Kafka Streams](https://conduktor.io/glossary/introduction-to-kafka-streams).
 
 ## Architecture and Design Philosophy
 
@@ -108,11 +108,11 @@ This architecture enables sophisticated features like dynamic resource allocatio
 
 ### Operational Complexity
 
-Kafka Streams wins on operational simplicity. Deploy it as a standard application using Docker, Kubernetes (with operators like Strimzi), or traditional application servers. Scaling means starting more instances. Rolling updates are straightforward—just redeploy your application. With Kafka 4.0's KRaft mode (ZooKeeper-free architecture), the entire stack is simpler to operate. For detailed guidance on Kubernetes deployments, see [Running Kafka on Kubernetes](running-kafka-on-kubernetes.md) and [Strimzi Kafka Operator for Kubernetes](strimzi-kafka-operator-for-kubernetes.md). To understand KRaft mode, see [Understanding KRaft Mode in Kafka](understanding-kraft-mode-in-kafka.md).
+Kafka Streams wins on operational simplicity. Deploy it as a standard application using Docker, Kubernetes (with operators like Strimzi), or traditional application servers. Scaling means starting more instances. Rolling updates are straightforward—just redeploy your application. With Kafka 4.0's KRaft mode (ZooKeeper-free architecture), the entire stack is simpler to operate. For detailed guidance on Kubernetes deployments, see [Running Kafka on Kubernetes](https://conduktor.io/glossary/running-kafka-on-kubernetes) and [Strimzi Kafka Operator for Kubernetes](https://conduktor.io/glossary/strimzi-kafka-operator-for-kubernetes). To understand KRaft mode, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka).
 
 Flink requires cluster management. You need to provision JobManagers with high availability (using Kubernetes native HA since Flink 1.15+), manage TaskManager resources, and understand Flink-specific operational concepts like checkpoints and savepoints. The Flink Kubernetes Operator (officially supported as of 2025) significantly simplifies deployment and management on Kubernetes, providing automated lifecycle management, autoscaling, and upgrade capabilities. Cloud platforms like Amazon Managed Service for Apache Flink and Conduktor Gateway for development and testing help reduce operational burden, but there's inherently more infrastructure to manage than Kafka Streams.
 
-For teams already running Kafka and familiar with microservices deployment, Kafka Streams fits naturally into existing workflows. Streaming management tools can enhance this by providing visibility into Kafka topic health, consumer lag, and data quality—critical for monitoring Kafka Streams applications. For comprehensive monitoring strategies, see [Consumer Lag Monitoring](consumer-lag-monitoring.md).
+For teams already running Kafka and familiar with microservices deployment, Kafka Streams fits naturally into existing workflows. Streaming management tools can enhance this by providing visibility into Kafka topic health, consumer lag, and data quality—critical for monitoring Kafka Streams applications. For comprehensive monitoring strategies, see [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring).
 
 ### State Management
 
@@ -124,7 +124,7 @@ Both frameworks support stateful processing with fault tolerance, but with diffe
 
 **Practical guidance**: If your state fits comfortably in 10s of GBs per partition and you value operational simplicity, Kafka Streams' local storage is efficient. For 100s of GBs to TBs of state, or when you need savepoint capabilities for zero-downtime upgrades, Flink's distributed state backend is the better choice.
 
-For detailed implementation guidance on Kafka Streams state management, see [State Stores in Kafka Streams](state-stores-in-kafka-streams.md).
+For detailed implementation guidance on Kafka Streams state management, see [State Stores in Kafka Streams](https://conduktor.io/glossary/state-stores-in-kafka-streams).
 
 ## Feature Comparison
 
@@ -132,13 +132,13 @@ For detailed implementation guidance on Kafka Streams state management, see [Sta
 
 Both frameworks support core stream processing operations: filtering, mapping, aggregations, joins, and windowing. However, differences emerge in advanced scenarios.
 
-**Windowing**: Both support tumbling (fixed, non-overlapping time windows), sliding (overlapping windows), and session windows (dynamic windows based on activity gaps). Flink additionally offers custom window logic with flexible trigger mechanisms and custom eviction policies, enabling sophisticated time-based analytics. For more on windowing patterns, see [Session Windows in Stream Processing](session-windows-in-stream-processing.md) and [Windowing in Apache Flink: Tumbling, Sliding, and Session Windows](windowing-in-apache-flink-tumbling-sliding-and-session-windows.md).
+**Windowing**: Both support tumbling (fixed, non-overlapping time windows), sliding (overlapping windows), and session windows (dynamic windows based on activity gaps). Flink additionally offers custom window logic with flexible trigger mechanisms and custom eviction policies, enabling sophisticated time-based analytics. For more on windowing patterns, see [Session Windows in Stream Processing](https://conduktor.io/glossary/session-windows-in-stream-processing) and [Windowing in Apache Flink: Tumbling, Sliding, and Session Windows](https://conduktor.io/glossary/windowing-in-apache-flink-tumbling-sliding-and-session-windows).
 
-**Joins**: Kafka Streams excels at stream-table and stream-stream joins over Kafka topics, with strong consistency guarantees within Kafka's partitioning model. Flink supports similar joins plus more complex patterns like interval joins (joining events within a time range) and temporal table joins (joining with versioned lookup tables), useful for enrichment scenarios. For comprehensive coverage of join patterns, see [Stream Joins and Enrichment Patterns](stream-joins-and-enrichment-patterns.md).
+**Joins**: Kafka Streams excels at stream-table and stream-stream joins over Kafka topics, with strong consistency guarantees within Kafka's partitioning model. Flink supports similar joins plus more complex patterns like interval joins (joining events within a time range) and temporal table joins (joining with versioned lookup tables), useful for enrichment scenarios. For comprehensive coverage of join patterns, see [Stream Joins and Enrichment Patterns](https://conduktor.io/glossary/stream-joins-and-enrichment-patterns).
 
-**Exactly-Once Semantics**: Both provide exactly-once processing guarantees, meaning each record is processed exactly one time even in the presence of failures—critical for financial transactions, billing, and audit scenarios. Kafka Streams achieves this through Kafka's native transaction support, ensuring atomic writes across multiple topics and state stores. Flink uses distributed checkpoints with two-phase commit protocol for external systems, coordinating state consistency across the entire job graph. For implementation details of Kafka transactions, see [Kafka Transactions Deep Dive](kafka-transactions-deep-dive.md).
+**Exactly-Once Semantics**: Both provide exactly-once processing guarantees, meaning each record is processed exactly one time even in the presence of failures—critical for financial transactions, billing, and audit scenarios. Kafka Streams achieves this through Kafka's native transaction support, ensuring atomic writes across multiple topics and state stores. Flink uses distributed checkpoints with two-phase commit protocol for external systems, coordinating state consistency across the entire job graph. For implementation details of Kafka transactions, see [Kafka Transactions Deep Dive](https://conduktor.io/glossary/kafka-transactions-deep-dive).
 
-**Complex Event Processing (CEP)**: Flink's CEP library enables sophisticated pattern matching over event streams—detecting event sequences, timeouts, and complex conditions like "detect three failed login attempts within 5 minutes followed by a successful login from a different location." This is powerful for fraud detection, security monitoring, and business process tracking. Kafka Streams handles simpler patterns through custom processors but requires significantly more code for advanced CEP scenarios. For practical CEP applications, see [Real-Time Fraud Detection with Streaming](real-time-fraud-detection-with-streaming.md).
+**Complex Event Processing (CEP)**: Flink's CEP library enables sophisticated pattern matching over event streams—detecting event sequences, timeouts, and complex conditions like "detect three failed login attempts within 5 minutes followed by a successful login from a different location." This is powerful for fraud detection, security monitoring, and business process tracking. Kafka Streams handles simpler patterns through custom processors but requires significantly more code for advanced CEP scenarios. For practical CEP applications, see [Real-Time Fraud Detection with Streaming](https://conduktor.io/glossary/real-time-fraud-detection-with-streaming).
 
 ### Language Support
 
@@ -150,7 +150,7 @@ Flink provides native APIs for Java, Scala, and Python. As of Flink 1.15+, the P
 
 Choose Kafka Streams when:
 
-**Your data lives in Kafka**: If you're already using Kafka for event streaming, Kafka Streams is the natural choice. No data movement required, and you leverage Kafka's partitioning and consumer groups for scaling. For foundational Kafka concepts, see [Apache Kafka](apache-kafka.md) and [Kafka Topics, Partitions, Brokers: Core Architecture](kafka-topics-partitions-brokers-core-architecture.md).
+**Your data lives in Kafka**: If you're already using Kafka for event streaming, Kafka Streams is the natural choice. No data movement required, and you leverage Kafka's partitioning and consumer groups for scaling. For foundational Kafka concepts, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka) and [Kafka Topics, Partitions, Brokers: Core Architecture](https://conduktor.io/glossary/kafka-topics-partitions-brokers-core-architecture).
 
 **You prefer microservices architecture**: Kafka Streams applications deploy like any other microservice. They fit cleanly into containerized environments and don't require separate cluster infrastructure.
 
@@ -164,7 +164,7 @@ Choose Kafka Streams when:
 
 Choose Apache Flink when:
 
-**You need advanced processing capabilities**: Complex event processing, ML model serving, iterative algorithms, or sophisticated windowing logic favor Flink's richer API surface. For ML use cases, see [Real-Time ML Inference with Streaming Data](real-time-ml-inference-with-streaming-data.md).
+**You need advanced processing capabilities**: Complex event processing, ML model serving, iterative algorithms, or sophisticated windowing logic favor Flink's richer API surface. For ML use cases, see [Real-Time ML Inference with Streaming Data](https://conduktor.io/glossary/real-time-ml-inference-with-streaming-data).
 
 **State size is large or unbounded**: Applications with terabytes of state, or state that grows without bound, benefit from Flink's distributed state backend and checkpoint mechanism.
 
@@ -184,7 +184,7 @@ For Kafka Streams, monitoring happens through application metrics (JMX), Kafka c
 
 For Flink, the built-in web UI provides comprehensive job graphs, checkpoint statistics, backpressure indicators, and task manager metrics. Third-party monitoring integrates with systems like Prometheus and Grafana for time-series metrics and alerting. The operational challenge is correlating Flink job metrics with source systems—particularly Kafka topics. **Conduktor** provides this unified visibility, letting teams see both Flink consumer lag on Kafka topics and governance policies, critical for debugging data pipeline issues. For development and testing, **Conduktor Gateway** enables chaos engineering scenarios, letting teams test how their Flink jobs handle Kafka failures, latency injection, and schema evolution issues before production deployment.
 
-Understanding backpressure behavior is critical for both frameworks—see [Backpressure Handling in Streaming Systems](backpressure-handling-in-streaming-systems.md) for strategies. For comprehensive testing approaches, refer to [Testing Strategies for Streaming Applications](testing-strategies-for-streaming-applications.md).
+Understanding backpressure behavior is critical for both frameworks—see [Backpressure Handling in Streaming Systems](https://conduktor.io/glossary/backpressure-handling-in-streaming-systems) for strategies. For comprehensive testing approaches, refer to [Testing Strategies for Streaming Applications](https://conduktor.io/glossary/testing-strategies-for-streaming-applications).
 
 ## Summary
 
@@ -196,7 +196,7 @@ Kafka Streams and Apache Flink both deliver production-grade stream processing, 
 
 Many organizations use both: Kafka Streams for microservices and simple transformations, Flink for complex analytics and ML pipelines. The key is matching the tool to the problem, not choosing one as the universal solution.
 
-For teams seeking SQL-based stream processing on Kafka, consider [ksqlDB for Real-Time Data Processing](ksqldb-for-real-time-data-processing.md) as an alternative that provides declarative stream processing without writing application code.
+For teams seeking SQL-based stream processing on Kafka, consider [ksqlDB for Real-Time Data Processing](https://conduktor.io/glossary/ksqldb-for-real-time-data-processing) as an alternative that provides declarative stream processing without writing application code.
 
 Start with your requirements: data sources, state size, processing complexity, and team capabilities. The right choice becomes clear when you prioritize what matters most for your use case.
 

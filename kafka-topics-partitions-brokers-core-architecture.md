@@ -98,7 +98,7 @@ kafka-topics.sh --bootstrap-server localhost:9092 \
   --topic user-events
 ```
 
-For comprehensive topic planning strategies, see [Kafka Topic Design Guidelines](kafka-topic-design-guidelines.md).
+For comprehensive topic planning strategies, see [Kafka Topic Design Guidelines](https://conduktor.io/glossary/kafka-topic-design-guidelines).
 
 ## Brokers: The Storage and Coordination Layer
 
@@ -138,7 +138,7 @@ If a broker fails, partitions where it was the leader automatically elect a new 
 
 For critical data, configure `min.insync.replicas` (typically 2) to ensure writes are acknowledged only after being replicated to multiple brokers. Combined with producer setting `acks=all`, this guarantees no data loss even during broker failures.
 
-For comprehensive replication strategies, see [Kafka Replication and High Availability](kafka-replication-and-high-availability.md).
+For comprehensive replication strategies, see [Kafka Replication and High Availability](https://conduktor.io/glossary/kafka-replication-and-high-availability).
 
 ### Metadata Management with KRaft (Kafka 4.0+)
 
@@ -177,7 +177,7 @@ Traditional (ZooKeeper):                 KRaft Mode (Kafka 4.0+):
 ```
 -->
 
-For in-depth coverage of KRaft architecture and migration strategies, see [Understanding KRaft Mode in Kafka](understanding-kraft-mode-in-kafka.md).
+For in-depth coverage of KRaft architecture and migration strategies, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka).
 
 ### Tiered Storage Architecture (Kafka 3.6+)
 
@@ -217,7 +217,7 @@ Without Tiered Storage:              With Tiered Storage:
 - **Faster recovery**: New brokers don't need to replicate cold data
 - **Better elasticity**: Scale compute (brokers) independently from storage
 
-For detailed configuration and best practices, see [Tiered Storage in Kafka](tiered-storage-in-kafka.md).
+For detailed configuration and best practices, see [Tiered Storage in Kafka](https://conduktor.io/glossary/tiered-storage-in-kafka).
 
 ## How Components Work Together
 
@@ -280,16 +280,16 @@ Kafka's architecture makes it the central nervous system of modern data platform
 - **Event-driven microservices**: Services publish domain events to topics and subscribe to events from other services
 - **Analytics pipelines**: Data flows from operational topics into data lakes and warehouses
 
-For foundational understanding of Kafka's role in data platforms, see [Apache Kafka](apache-kafka.md).
+For foundational understanding of Kafka's role in data platforms, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
 
-For complex deployments, tools like **Conduktor** provide visibility into topic configurations, partition distribution, and broker health. This governance layer helps teams understand data lineage, monitor consumer lag across partitions (see [Consumer Lag Monitoring](consumer-lag-monitoring.md)), and ensure replication factors meet compliance requirements.
+For complex deployments, tools like **Conduktor** provide visibility into topic configurations, partition distribution, and broker health. This governance layer helps teams understand data lineage, monitor consumer lag across partitions (see [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring)), and ensure replication factors meet compliance requirements.
 
 **Related Concepts:**
 
-- Producer and consumer client interactions: [Kafka Producers and Consumers](kafka-producers-and-consumers.md)
-- Message format and serialization: [Message Serialization in Kafka](message-serialization-in-kafka.md)
-- Schema management: [Schema Registry and Schema Management](schema-registry-and-schema-management.md)
-- Security configurations: [Kafka Security Best Practices](kafka-security-best-practices.md)
+- Producer and consumer client interactions: [Kafka Producers and Consumers](https://conduktor.io/glossary/kafka-producers-and-consumers)
+- Message format and serialization: [Message Serialization in Kafka](https://conduktor.io/glossary/message-serialization-in-kafka)
+- Schema management: [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management)
+- Security configurations: [Kafka Security Best Practices](https://conduktor.io/glossary/kafka-security-best-practices)
 
 ## Summary
 

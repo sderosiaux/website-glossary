@@ -13,7 +13,7 @@ topics:
 
 In distributed systems and event-driven architectures, ensuring that database changes and event publications happen atomically is one of the most challenging problems developers face. The outbox pattern provides an elegant solution to this problem, enabling reliable event publishing without compromising data consistency.
 
-This pattern is foundational for building robust microservices architectures. For broader context on distributed transaction patterns, see [Saga Pattern for Distributed Transactions](saga-pattern-for-distributed-transactions.md) and [CQRS and Event Sourcing with Kafka](cqrs-and-event-sourcing-with-kafka.md).
+This pattern is foundational for building robust microservices architectures. For broader context on distributed transaction patterns, see [Saga Pattern for Distributed Transactions](https://conduktor.io/glossary/saga-pattern-for-distributed-transactions) and [CQRS and Event Sourcing with Kafka](https://conduktor.io/glossary/cqrs-and-event-sourcing-with-kafka).
 
 ## The Dual-Write Problem
 
@@ -114,7 +114,7 @@ After successfully publishing each event to the message broker, the relay marks 
 
 ### Change Data Capture (CDC)
 
-A more sophisticated approach uses Change Data Capture to stream database changes directly to a message broker. CDC tools monitor the database transaction log—the write-ahead log (WAL) in PostgreSQL or binary log (binlog) in MySQL—which records every committed transaction for durability and replication purposes. For comprehensive coverage of CDC fundamentals, see [What is Change Data Capture (CDC) Fundamentals](what-is-change-data-capture-cdc-fundamentals.md).
+A more sophisticated approach uses Change Data Capture to stream database changes directly to a message broker. CDC tools monitor the database transaction log—the write-ahead log (WAL) in PostgreSQL or binary log (binlog) in MySQL—which records every committed transaction for durability and replication purposes. For comprehensive coverage of CDC fundamentals, see [What is Change Data Capture (CDC) Fundamentals](https://conduktor.io/glossary/what-is-change-data-capture-cdc-fundamentals).
 
 Tools like Debezium (version 2.5+ as of 2025) have become the industry standard for CDC-based outbox implementations. Debezium reads these transaction logs and publishes changes to Kafka in near real-time, typically within single-digit milliseconds of the database commit.
 
@@ -309,7 +309,7 @@ Conduktor Gateway adds powerful testing capabilities specifically valuable for o
 
 For example, you can use Conduktor Gateway to inject artificial delays into the CDC pipeline, validating that your application gracefully handles the eventual consistency window between database commit and event availability in Kafka. This type of testing is critical for production readiness of outbox-based systems.
 
-For more on testing distributed systems, see [Chaos Engineering for Streaming Systems](chaos-engineering-for-streaming-systems.md) and [Testing Strategies for Streaming Applications](testing-strategies-for-streaming-applications.md).
+For more on testing distributed systems, see [Chaos Engineering for Streaming Systems](https://conduktor.io/glossary/chaos-engineering-for-streaming-systems) and [Testing Strategies for Streaming Applications](https://conduktor.io/glossary/testing-strategies-for-streaming-applications).
 
 ## Benefits and Trade-offs
 
@@ -337,7 +337,7 @@ However, the pattern introduces trade-offs:
 
 When implementing the outbox pattern in production systems, several practical concerns emerge.
 
-**Message Ordering**: If event ordering matters, design your outbox table and publishing logic to preserve order. CDC tools like Debezium maintain ordering within a single database table but not across tables. Consider using a single outbox table per aggregate root (a domain-driven design concept representing the main entity that owns a transaction boundary, like "Order" or "Customer") or including sequence numbers. Kafka's partitioning strategy ensures that events with the same key (aggregate_id) are delivered to consumers in order. For more on Kafka message ordering, see [Apache Kafka](apache-kafka.md).
+**Message Ordering**: If event ordering matters, design your outbox table and publishing logic to preserve order. CDC tools like Debezium maintain ordering within a single database table but not across tables. Consider using a single outbox table per aggregate root (a domain-driven design concept representing the main entity that owns a transaction boundary, like "Order" or "Customer") or including sequence numbers. Kafka's partitioning strategy ensures that events with the same key (aggregate_id) are delivered to consumers in order. For more on Kafka message ordering, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
 
 **Schema Evolution**: Event payloads stored in the outbox table require careful schema management as your system evolves. Unlike direct Kafka publishing where Schema Registry enforces compatibility at write time, the outbox pattern stores JSON payloads that may need to support multiple schema versions simultaneously.
 
@@ -369,7 +369,7 @@ For example, evolving an `OrderCreated` event:
 }
 ```
 
-For detailed schema evolution strategies, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md) and [Schema Evolution Best Practices](schema-evolution-best-practices.md).
+For detailed schema evolution strategies, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) and [Schema Evolution Best Practices](https://conduktor.io/glossary/schema-evolution-best-practices).
 
 **Cleanup Strategy**: Decide how long to retain published events in the outbox table. Options include immediate deletion after publishing, time-based retention for debugging, or archival to separate storage for compliance.
 
@@ -383,7 +383,7 @@ The outbox pattern is one of several strategies for managing distributed transac
 
 **Outbox Pattern vs. Saga Pattern**:
 
-The outbox pattern solves the dual-write problem within a single service, ensuring atomic database updates and event publishing. The [Saga Pattern](saga-pattern-for-distributed-transactions.md) solves the broader problem of coordinating transactions across multiple services.
+The outbox pattern solves the dual-write problem within a single service, ensuring atomic database updates and event publishing. The [Saga Pattern](https://conduktor.io/glossary/saga-pattern-for-distributed-transactions) solves the broader problem of coordinating transactions across multiple services.
 
 These patterns are complementary:
 - **Outbox**: Guarantees that a single service reliably publishes events when its local state changes
@@ -407,7 +407,7 @@ The outbox pattern trades immediate consistency for better availability and scal
 
 **Outbox Pattern vs. Event Sourcing**:
 
-[Event Sourcing](cqrs-and-event-sourcing-with-kafka.md) stores all state changes as a sequence of events, making the event log the source of truth. The outbox pattern stores business data in traditional tables and uses events for inter-service communication.
+[Event Sourcing](https://conduktor.io/glossary/cqrs-and-event-sourcing-with-kafka) stores all state changes as a sequence of events, making the event log the source of truth. The outbox pattern stores business data in traditional tables and uses events for inter-service communication.
 
 - **Outbox**: Traditional database model with event notifications
 - **Event Sourcing**: Event log as the primary storage, state derived from events

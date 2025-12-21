@@ -25,7 +25,7 @@ CDC operates through several mechanisms:
 - **Trigger-based CDC**: Uses database triggers to capture changes into shadow tables
 - **Query-based CDC**: Polls tables for changes using timestamp or version columns
 
-Log-based CDC is generally preferred for data warehousing because it has minimal performance impact on source systems and captures all changes reliably without requiring schema modifications. For comprehensive coverage of CDC fundamentals and mechanisms, see [What is Change Data Capture (CDC): Fundamentals](what-is-change-data-capture-cdc-fundamentals.md).
+Log-based CDC is generally preferred for data warehousing because it has minimal performance impact on source systems and captures all changes reliably without requiring schema modifications. For comprehensive coverage of CDC fundamentals and mechanisms, see [What is Change Data Capture (CDC): Fundamentals](https://conduktor.io/glossary/what-is-change-data-capture-cdc-fundamentals).
 
 ## Incremental Loading Patterns
 
@@ -77,9 +77,9 @@ A typical CDC streaming architecture includes:
 
 **Debezium** captures changes from source databases by reading transaction logs and converting them to change events. It supports multiple databases (MySQL, PostgreSQL, MongoDB, Oracle, SQL Server) and produces standardized event formats.
 
-**Apache Kafka** serves as the distributed event streaming platform, receiving CDC events from Debezium and buffering them for consumption. Kafka topics organize events by source table, and partitioning ensures ordering guarantees per key. For Kafka topic design considerations, see [Kafka Topic Design Guidelines](kafka-topic-design-guidelines.md).
+**Apache Kafka** serves as the distributed event streaming platform, receiving CDC events from Debezium and buffering them for consumption. Kafka topics organize events by source table, and partitioning ensures ordering guarantees per key. For Kafka topic design considerations, see [Kafka Topic Design Guidelines](https://conduktor.io/glossary/kafka-topic-design-guidelines).
 
-**Apache Flink** or other stream processors consume CDC events from Kafka, transform them as needed, and write to the data warehouse. Flink provides exactly-once processing semantics (guaranteeing each change event is processed once and only once, even during failures), stateful operations, and windowing capabilities essential for complex transformations. For details on guaranteeing data consistency, see [Exactly-Once Semantics in Kafka](exactly-once-semantics-in-kafka.md).
+**Apache Flink** or other stream processors consume CDC events from Kafka, transform them as needed, and write to the data warehouse. Flink provides exactly-once processing semantics (guaranteeing each change event is processed once and only once, even during failures), stateful operations, and windowing capabilities essential for complex transformations. For details on guaranteeing data consistency, see [Exactly-Once Semantics in Kafka](https://conduktor.io/glossary/exactly-once-semantics-in-kafka).
 
 ### Reference Architecture
 
@@ -153,7 +153,7 @@ A typical CDC streaming architecture includes:
 
 This configuration captures changes from specific PostgreSQL tables using the native `pgoutput` logical decoding plugin (available in PostgreSQL 10+, recommended for Debezium 2.x+) and publishes them to Kafka topics with the prefix `prod` (e.g., `prod.public.customers`). The `ExtractNewRecordState` transformation simplifies the event structure by extracting the after-state of changes, making downstream processing easier.
 
-For detailed Debezium implementation guidance, see [Implementing CDC with Debezium](implementing-cdc-with-debezium.md).
+For detailed Debezium implementation guidance, see [Implementing CDC with Debezium](https://conduktor.io/glossary/implementing-cdc-with-debezium).
 
 ### Modern CDC Platforms and 2025 Tooling
 
@@ -174,7 +174,7 @@ While Debezium remains the leading open-source CDC solution (version 3.0+ as of 
 - **Kafka Connect improvements**: Enhanced connector management, better error handling, and improved exactly-once support
 - **Tiered storage**: Cost-effective long-term retention of CDC events in object storage (S3, GCS, Azure Blob)
 
-These modern platforms reduce operational overhead and provide managed CDC infrastructure, though open-source solutions like Debezium offer greater flexibility and cost control for sophisticated use cases. For Kafka fundamentals and architecture, see [Apache Kafka](apache-kafka.md).
+These modern platforms reduce operational overhead and provide managed CDC infrastructure, though open-source solutions like Debezium offer greater flexibility and cost control for sophisticated use cases. For Kafka fundamentals and architecture, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
 
 ### Governance and Visibility
 
@@ -199,7 +199,7 @@ Before streaming incremental changes, CDC pipelines must capture the current sta
 2. **Streaming Transition**: After snapshot completion, the CDC process switches to reading transaction logs from the point captured during the snapshot
 3. **Backfill Strategies**: For large tables, consider splitting snapshots into chunks or using parallel snapshot threads to reduce initial load time
 
-Modern CDC tools handle this transition automatically, preventing data loss during the snapshot-to-streaming switch. For large-scale migrations, see [CDC for Microservices Event-Driven Architectures](cdc-for-microservices-event-driven-architectures.md).
+Modern CDC tools handle this transition automatically, preventing data loss during the snapshot-to-streaming switch. For large-scale migrations, see [CDC for Microservices Event-Driven Architectures](https://conduktor.io/glossary/cdc-for-microservices-event-driven-architectures).
 
 ### Lake House Architecture
 
@@ -217,7 +217,7 @@ Technologies like **Delta Lake**, **Apache Iceberg**, and **Apache Hudi** provid
 - **Apache XTable (formerly OneTable)**: Universal table format translator enabling cross-format interoperability (read Iceberg as Delta, etc.)
 - **Delta Lake 3.0+**: Deletion vectors for efficient row-level deletes, liquid clustering (automatic data organization), and improved merge performance
 
-For details on lakehouse patterns, see [Introduction to Lakehouse Architecture](introduction-to-lakehouse-architecture.md) and [Apache Iceberg](apache-iceberg.md).
+For details on lakehouse patterns, see [Introduction to Lakehouse Architecture](https://conduktor.io/glossary/introduction-to-lakehouse-architecture) and [Apache Iceberg](https://conduktor.io/glossary/apache-iceberg).
 
 ### Incremental Processing Strategy
 
@@ -287,7 +287,7 @@ Implementing CDC for real-time data warehousing requires careful attention to op
 
 CDC pipelines must handle schema changes in source databases without breaking downstream consumers. Use schema registries (Confluent Schema Registry, Apicurio) to version and validate schemas. Configure warehouses to support schema evolution through automatic column additions or versioned tables.
 
-For detailed guidance on managing schema changes, see [Schema Evolution Best Practices](schema-evolution-best-practices.md) and [Schema Registry and Schema Management](schema-registry-and-schema-management.md).
+For detailed guidance on managing schema changes, see [Schema Evolution Best Practices](https://conduktor.io/glossary/schema-evolution-best-practices) and [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management).
 
 ### Backpressure and Lag Management
 
@@ -299,13 +299,13 @@ Monitor consumer lag between CDC event production and warehouse ingestion. High 
 - **Filtering irrelevant changes**: Drop unnecessary columns or tables at the CDC source to reduce data volume
 - **Monitoring tools**: Use Kafka Lag Exporter, Burrow, or Confluent Control Center to track consumer lag metrics
 
-For comprehensive coverage of backpressure patterns, see [Backpressure Handling in Streaming Systems](backpressure-handling-in-streaming-systems.md). For monitoring consumer lag, see [Consumer Lag Monitoring](consumer-lag-monitoring.md).
+For comprehensive coverage of backpressure patterns, see [Backpressure Handling in Streaming Systems](https://conduktor.io/glossary/backpressure-handling-in-streaming-systems). For monitoring consumer lag, see [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring).
 
 ### Disaster Recovery
 
 CDC pipelines must support failure recovery without data loss. Kafka's retention policies should accommodate reasonable downtime, and checkpoint mechanisms in stream processors ensure exactly-once processing. Maintain runbooks for rebuilding state after catastrophic failures, including procedures for historical backfills from database snapshots.
 
-For disaster recovery strategies and high availability patterns, see [Disaster Recovery Strategies for Kafka Clusters](disaster-recovery-strategies-for-kafka-clusters.md) and [Kafka Replication and High Availability](kafka-replication-and-high-availability.md).
+For disaster recovery strategies and high availability patterns, see [Disaster Recovery Strategies for Kafka Clusters](https://conduktor.io/glossary/disaster-recovery-strategies-for-kafka-clusters) and [Kafka Replication and High Availability](https://conduktor.io/glossary/kafka-replication-and-high-availability).
 
 ### Performance Metrics and SLAs
 
@@ -326,7 +326,7 @@ Establish clear performance targets for CDC pipelines to ensure real-time data w
 - **Duplicate rate**: Percentage of duplicate events reaching the warehouse (target: 0% with idempotent writes)
 - **Pipeline availability**: Uptime percentage (typical target: 99.9%+)
 
-Monitor these metrics using tools like Prometheus, Grafana, Datadog, or cloud-native monitoring services. Set up alerts for SLA violations and establish escalation procedures. For streaming SLA management, see [SLA for Streaming](sla-for-streaming.md).
+Monitor these metrics using tools like Prometheus, Grafana, Datadog, or cloud-native monitoring services. Set up alerts for SLA violations and establish escalation procedures. For streaming SLA management, see [SLA for Streaming](https://conduktor.io/glossary/sla-for-streaming).
 
 ### Data Quality and Validation
 
@@ -344,7 +344,7 @@ CDC pipelines must maintain data quality as changes flow from operational system
 - **Monte Carlo**: Data observability platform with automated anomaly detection for CDC pipelines
 - **Elementary**: dbt-native data quality monitoring
 
-Implement data quality checks at multiple stages: at CDC capture (Debezium level), during stream processing (Flink/Kafka Streams), and post-warehouse ingestion (batch validation jobs). For comprehensive data quality strategies, see [Building a Data Quality Framework](building-a-data-quality-framework.md) and [Data Quality Dimensions: Accuracy, Completeness, and Consistency](data-quality-dimensions-accuracy-completeness-and-consistency.md).
+Implement data quality checks at multiple stages: at CDC capture (Debezium level), during stream processing (Flink/Kafka Streams), and post-warehouse ingestion (batch validation jobs). For comprehensive data quality strategies, see [Building a Data Quality Framework](https://conduktor.io/glossary/building-a-data-quality-framework) and [Data Quality Dimensions: Accuracy, Completeness, and Consistency](https://conduktor.io/glossary/data-quality-dimensions-accuracy-completeness-and-consistency).
 
 ## Summary
 

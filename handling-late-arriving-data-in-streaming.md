@@ -62,7 +62,7 @@ In an ideal world, events would arrive in perfect event time order, and processi
 
 Consider an IoT deployment where thousands of sensors monitor industrial equipment. Sensors in areas with poor connectivity might buffer readings locally and transmit them in batches when connectivity improves. A temperature reading from 10 minutes ago might arrive after readings from 5 minutes ago, creating challenges for time-based aggregations and alerts.
 
-Late-arriving data is particularly challenging for session windows, which dynamically adjust their boundaries based on event timing. For detailed coverage of session-based processing, see [Session Windows in Stream Processing](session-windows-in-stream-processing.md).
+Late-arriving data is particularly challenging for session windows, which dynamically adjust their boundaries based on event timing. For detailed coverage of session-based processing, see [Session Windows in Stream Processing](https://conduktor.io/glossary/session-windows-in-stream-processing).
 
 ## Common Causes of Late-Arriving Data
 
@@ -152,7 +152,7 @@ This pattern enables multiple strategies for handling extremely late data:
 
 Different streaming platforms provide various approaches to handling late data.
 
-**Apache Flink** offers comprehensive event time support with customizable watermark generators, allowed lateness configuration, and side outputs for late data. Flink's DataStream API makes event time processing explicit, requiring developers to specify timestamp extraction and watermark generation strategies. For foundational understanding of Flink's architecture and state management, see [What is Apache Flink: Stateful Stream Processing](what-is-apache-flink-stateful-stream-processing.md). For detailed coverage of windowing strategies in Flink, see [Windowing in Apache Flink: Tumbling, Sliding, and Session Windows](windowing-in-apache-flink-tumbling-sliding-and-session-windows.md).
+**Apache Flink** offers comprehensive event time support with customizable watermark generators, allowed lateness configuration, and side outputs for late data. Flink's DataStream API makes event time processing explicit, requiring developers to specify timestamp extraction and watermark generation strategies. For foundational understanding of Flink's architecture and state management, see [What is Apache Flink: Stateful Stream Processing](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing). For detailed coverage of windowing strategies in Flink, see [Windowing in Apache Flink: Tumbling, Sliding, and Session Windows](https://conduktor.io/glossary/windowing-in-apache-flink-tumbling-sliding-and-session-windows).
 
 Here's a practical example of handling late data in Flink 1.18+:
 
@@ -174,7 +174,7 @@ SingleOutputStreamOperator<Result> results = events
 DataStream<Event> lateEvents = results.getSideOutput(lateDataTag);
 ```
 
-**Kafka Streams** provides built-in support for windowed operations with configurable grace periods. The framework automatically manages watermarks based on stream time and allows specifying how long windows remain open for late data. Kafka Streams 3.7+ improved grace period behavior to be more consistent and predictable. The framework also supports suppression operators that can wait for late data before emitting final results. For an introduction to Kafka Streams fundamentals, see [Introduction to Kafka Streams](introduction-to-kafka-streams.md).
+**Kafka Streams** provides built-in support for windowed operations with configurable grace periods. The framework automatically manages watermarks based on stream time and allows specifying how long windows remain open for late data. Kafka Streams 3.7+ improved grace period behavior to be more consistent and predictable. The framework also supports suppression operators that can wait for late data before emitting final results. For an introduction to Kafka Streams fundamentals, see [Introduction to Kafka Streams](https://conduktor.io/glossary/introduction-to-kafka-streams).
 
 Example with Kafka Streams 3.7+:
 
@@ -197,7 +197,7 @@ events
 
 **Apache Beam** (and cloud services like Google Dataflow) pioneered many late data handling concepts, including the separation of event time and processing time, watermarks, and triggers. Beam's model allows precise control over when results are materialized and how late data updates are handled.
 
-For deeper understanding of watermark mechanics and triggering strategies, refer to [Watermarks and Triggers in Stream Processing](watermarks-and-triggers-in-stream-processing.md).
+For deeper understanding of watermark mechanics and triggering strategies, refer to [Watermarks and Triggers in Stream Processing](https://conduktor.io/glossary/watermarks-and-triggers-in-stream-processing).
 
 ## Monitoring and Observability
 
@@ -237,7 +237,7 @@ When designing systems to handle late-arriving data, consider these guidelines:
 
 **Monitor and alert on late data patterns**. Sudden changes in late data frequency or severity often indicate infrastructure problems, upstream failures, or data quality issues that require investigation.
 
-**Test with realistic late data scenarios**. Many streaming application bugs only appear when processing out-of-order or late-arriving data. Include late data scenarios in your testing strategy. Tools like Conduktor Gateway can simulate network delays and out-of-order message delivery to test late data handling in controlled environments. For comprehensive testing approaches, see [Testing Strategies for Streaming Applications](testing-strategies-for-streaming-applications.md).
+**Test with realistic late data scenarios**. Many streaming application bugs only appear when processing out-of-order or late-arriving data. Include late data scenarios in your testing strategy. Tools like Conduktor Gateway can simulate network delays and out-of-order message delivery to test late data handling in controlled environments. For comprehensive testing approaches, see [Testing Strategies for Streaming Applications](https://conduktor.io/glossary/testing-strategies-for-streaming-applications).
 
 ## Summary
 

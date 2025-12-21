@@ -367,7 +367,7 @@ Liquid Clustering eliminates the need to manually choose clustering columns and 
 - Efficient row-level deletes (deletion vectors)
 - Reduced maintenance overhead (fewer OPTIMIZE operations needed)
 
-For more details on Liquid Clustering, see the [Delta Lake Liquid Clustering](/delta-lake-liquid-clustering-adaptive-data-layout.md) article.
+For more details on Liquid Clustering, see the [Delta Lake Liquid Clustering](https://conduktor.io/glossary/delta-lake-liquid-clustering-adaptive-data-layout) article.
 
 ## Summary
 

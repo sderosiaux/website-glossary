@@ -38,7 +38,7 @@ For example, using OpenTelemetry or similar frameworks, you might include:
 - `span-id`: Identifier for a specific operation segment
 - `parent-span-id`: Links this operation to its caller
 
-This enables end-to-end observability without polluting the business payload. For detailed coverage of distributed tracing patterns in Kafka applications, see [Distributed Tracing for Kafka Applications](distributed-tracing-for-kafka-applications.md).
+This enables end-to-end observability without polluting the business payload. For detailed coverage of distributed tracing patterns in Kafka applications, see [Distributed Tracing for Kafka Applications](https://conduktor.io/glossary/distributed-tracing-for-kafka-applications).
 
 ### Content Routing and Filtering
 
@@ -48,7 +48,7 @@ Headers can carry routing metadata that downstream consumers use to filter or ro
 - `region`: Geographic origin of the message
 - `priority`: Message urgency level
 
-Consumers can use header-based filtering to process only relevant messages, reducing unnecessary deserialization and processing overhead. For more on schema management strategies, see [Schema Registry and Schema Management](schema-registry-and-schema-management.md).
+Consumers can use header-based filtering to process only relevant messages, reducing unnecessary deserialization and processing overhead. For more on schema management strategies, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management).
 
 ### Source and Lineage Tracking
 
@@ -57,7 +57,7 @@ Headers provide a lightweight way to track message provenance:
 - `producer-version`: Version of the producing application
 - `timestamp-utc`: Custom timestamp beyond Kafka's built-in timestamp
 
-This metadata helps with debugging, auditing, and understanding data lineage in complex pipelines. For comprehensive lineage tracking approaches, see [Data Lineage Tracking: Data from Source to Consumption](data-lineage-tracking-data-from-source-to-consumption.md).
+This metadata helps with debugging, auditing, and understanding data lineage in complex pipelines. For comprehensive lineage tracking approaches, see [Data Lineage Tracking: Data from Source to Consumption](https://conduktor.io/glossary/data-lineage-tracking-data-from-source-to-consumption).
 
 ## Working with Headers Programmatically
 
@@ -143,7 +143,7 @@ stream
     });
 ```
 
-However, operations like `map()` that create new records require explicit header handling if you want to preserve them. For more on Kafka Streams capabilities, see [Introduction to Kafka Streams](introduction-to-kafka-streams.md).
+However, operations like `map()` that create new records require explicit header handling if you want to preserve them. For more on Kafka Streams capabilities, see [Introduction to Kafka Streams](https://conduktor.io/glossary/introduction-to-kafka-streams).
 
 ### Apache Flink
 
@@ -177,7 +177,7 @@ KafkaSource<Event> source = KafkaSource.<Event>builder()
     .build();
 ```
 
-This enables header-aware processing in Flink applications. For more on Flink's capabilities, see [What is Apache Flink: Stateful Stream Processing](what-is-apache-flink-stateful-stream-processing.md).
+This enables header-aware processing in Flink applications. For more on Flink's capabilities, see [What is Apache Flink: Stateful Stream Processing](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing).
 
 ## Best Practices
 
@@ -212,7 +212,7 @@ Headers are stored and transmitted alongside message data, so they're subject to
 - **Authorization**: Headers don't have separate ACLs - if a client can read a message, they can read its headers
 - **Validation**: Always validate header content in consumer applications, as headers can be set by any producer
 
-For comprehensive security approaches, see [Encryption at Rest and in Transit for Kafka](encryption-at-rest-and-in-transit-for-kafka.md).
+For comprehensive security approaches, see [Encryption at Rest and in Transit for Kafka](https://conduktor.io/glossary/encryption-at-rest-and-in-transit-for-kafka).
 
 ### When NOT to Use Headers
 
@@ -258,7 +258,7 @@ For production monitoring, consider including headers in your metrics and loggin
 - Alert on missing critical headers (like trace IDs)
 - Include header values in structured logs for correlation
 
-For broader observability practices, see [What is Data Observability: The Five Pillars](what-is-data-observability-the-five-pillars.md).
+For broader observability practices, see [What is Data Observability: The Five Pillars](https://conduktor.io/glossary/what-is-data-observability-the-five-pillars).
 
 ## Summary
 
