@@ -32,6 +32,9 @@ When a reader queries a Delta table, it reconstructs the current state by readin
 ![delta-lake-transaction-log-how-it-works diagram 1](images/diagrams/delta-lake-transaction-log-how-it-works-0.webp)
 
 <!-- ORIGINAL_DIAGRAM
+![Example of compatible blind appends](images/diagrams/delta-lake-transaction-log-how-it-works-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
                     Delta Table Structure
 ┌────────────────────────────────────────────────────────────┐
@@ -49,6 +52,7 @@ When a reader queries a Delta table, it reconstructs the current state by readin
 │  └─ part-00002-....parquet                                │
 └────────────────────────────────────────────────────────────┘
 ```
+-->
 -->
 
 ## The Optimistic Concurrency Commit Protocol
@@ -76,6 +80,9 @@ When a writer wants to commit changes:
 ![delta-lake-transaction-log-how-it-works diagram 2](images/diagrams/delta-lake-transaction-log-how-it-works-1.webp)
 
 <!-- ORIGINAL_DIAGRAM
+![When you run a time travel query, Delta Lake performs these steps](images/diagrams/delta-lake-transaction-log-how-it-works-1.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
               Optimistic Concurrency Protocol
 
@@ -99,6 +106,7 @@ When a writer wants to commit changes:
       │                                           ✓ SUCCESS
       ▼                                           ▼
 ```
+-->
 -->
 
 The atomicity guarantee comes from cloud storage's conditional PUT operations (e.g., S3's PUT-if-absent, ADLS's create-if-not-exists). These operations either fully succeed or fully fail—there's no in-between state where a file is "partially written." When S3 receives two simultaneous PUT-if-absent requests for the same file, exactly one succeeds and the other fails immediately. The failed writer detects the conflict, re-validates against the new state, and retries if the operation is still valid.

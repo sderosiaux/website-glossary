@@ -159,6 +159,9 @@ Unlike Bronze and Silver, which are technical layers, Gold is organized around b
 ![Unlike Bronze and Silver, which are technical layers, Gold is organized around business domains](images/diagrams/data-lake-zones-bronze-silver-gold-architecture-0.webp)
 
 <!-- ORIGINAL_DIAGRAM
+![The Medallion Architecture divides your data lake into three distinct zones, each serving a specific purpose in the data pipeline](images/diagrams/data-lake-zones-bronze-silver-gold-architecture-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 gold/
 ├── finance/
@@ -171,6 +174,7 @@ gold/
     ├── feature_usage_metrics
     └── user_engagement_scores
 ```
+-->
 -->
 
 ### Example Gold Table

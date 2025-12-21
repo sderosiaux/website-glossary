@@ -35,6 +35,9 @@ A complete real-time ML pipeline consists of several interconnected layers:
 ![A complete real-time ML pipeline consists of several interconnected layers](images/diagrams/real-time-ml-pipelines-0.webp)
 
 <!-- ORIGINAL_DIAGRAM
+![Real-time ML systems must capture prediction outcomes to detect [model drift](/model-drift-in-streaming) and retrain](images/diagrams/real-time-ml-pipelines-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
            Real-Time ML Pipeline Architecture
 
@@ -85,6 +88,7 @@ A complete real-time ML pipeline consists of several interconnected layers:
          │ & Feedback   │
          └──────────────┘
 ```
+-->
 -->
 
 ### Feature Engineering Layer

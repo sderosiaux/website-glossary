@@ -45,6 +45,9 @@ Windows are fundamental constructs in stream processing that segment continuous 
 ![windowing-in-apache-flink-tumbling-sliding-and-session-windows diagram 1](images/diagrams/windowing-in-apache-flink-tumbling-sliding-and-session-windows-0.webp)
 
 <!-- ORIGINAL_DIAGRAM
+![windowing-in-apache-flink-tumbling-sliding-and-session-windows diagram 1](images/diagrams/windowing-in-apache-flink-tumbling-sliding-and-session-windows-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 ┌──────────────────────────────────────────────────────────────────┐
 │                   Window Types Overview                          │
@@ -76,6 +79,7 @@ Windows are fundamental constructs in stream processing that segment continuous 
 │                                                                  │
 └──────────────────────────────────────────────────────────────────┘
 ```
+-->
 -->
 
 Flink supports two main categories of windows:

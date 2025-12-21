@@ -34,6 +34,9 @@ For data platforms specifically, API gateways solve several problems. They provi
 ![api-gateway-patterns-for-data-platforms diagram 1](images/diagrams/api-gateway-patterns-for-data-platforms-0.webp)
 
 <!-- ORIGINAL_DIAGRAM
+![### BFF Architecture](images/diagrams/api-gateway-patterns-for-data-platforms-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
                API Gateway Architecture
 
@@ -60,6 +63,7 @@ For data platforms specifically, API gateways solve several problems. They provi
 │ Service │      │ Cluster │      │  API    │
 └─────────┘      └─────────┘      └─────────┘
 ```
+-->
 -->
 -->
 -->

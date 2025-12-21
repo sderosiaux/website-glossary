@@ -161,6 +161,9 @@ Instead of external ZooKeeper nodes, dedicated **controller nodes** (or combined
 ![**Architecture Impact:**](images/diagrams/kafka-topics-partitions-brokers-core-architecture-0.webp)
 
 <!-- ORIGINAL_DIAGRAM
+![kafka-topics-partitions-brokers-core-architecture diagram 1](images/diagrams/kafka-topics-partitions-brokers-core-architecture-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 Traditional (ZooKeeper):                 KRaft Mode (Kafka 4.0+):
 ┌────────────┐                          ┌────────────┐
@@ -175,6 +178,7 @@ Traditional (ZooKeeper):                 KRaft Mode (Kafka 4.0+):
 │  Consumer) │         │Consumer) │    │  in topic) │         │in topic) │
 └────────────┘         └──────────┘    └────────────┘         └──────────┘
 ```
+-->
 -->
 
 For in-depth coverage of KRaft architecture and migration strategies, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka).

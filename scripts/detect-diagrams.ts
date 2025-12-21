@@ -5,6 +5,9 @@ import type { DiagramInfo, ArticleMeta } from "./types.js";
 // Box-drawing characters that indicate a diagram
 const BOX_CHARS = /[┌┐└┘│─├┤┬┴┼▼▲◄►╔╗╚╝║═╠╣╦╩╬]/;
 
+// Arrow-based diagrams (vertical flow with arrows and bracketed labels)
+const ARROW_DIAGRAM = /(?:↓|↑|→|←|⟶|⟵|⇒|⇐|⇓|⇑)[\s\S]*(?:\[.+\]|↓|↑|→|←)/;
+
 // Regex to match code blocks (with or without language specifier)
 const CODE_BLOCK_REGEX = /```[a-z]*\n([\s\S]*?)```/g;
 
@@ -109,8 +112,9 @@ export function detectDiagrams(directory: string): DiagramInfo[] {
     while ((match = CODE_BLOCK_REGEX.exec(content)) !== null) {
       const codeContent = match[1];
 
-      // Check if this code block contains box-drawing characters and is not inside a comment
-      if (BOX_CHARS.test(codeContent) && !isInsideComment(content, match.index)) {
+      // Check if this code block contains diagram patterns and is not inside a comment
+      const isDiagram = BOX_CHARS.test(codeContent) || ARROW_DIAGRAM.test(codeContent);
+      if (isDiagram && !isInsideComment(content, match.index)) {
         const lineStart = getLineNumber(content, match.index);
         const lineEnd = getLineNumber(content, match.index + match[0].length);
         const { label, surroundingText } = extractContext(content, match.index);

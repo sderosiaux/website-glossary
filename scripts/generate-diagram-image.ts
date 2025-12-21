@@ -37,7 +37,7 @@ First, analyze the diagram type (tree/hierarchy, flow, architecture, sequence, c
 
 Visual style:
 - Modern, minimalist design (like Stripe or Linear documentation)
-- White background with generous padding and whitespace
+- White background with padding (at least 20px on all sides) - content should not touch edges
 - Dark gray (#374151) boxes with subtle rounded corners (6px)
 - Blue accent (#3B82F6) for arrows and connections
 - Clean sans-serif typography
@@ -45,6 +45,7 @@ Visual style:
 - Generous spacing between elements - avoid cramped layouts
 - Labels should have breathing room, not overlap with arrows or boxes
 - Image should be wider rather than taller when needed for readability
+- Leave significant whitespace margins around the entire diagram
 
 Critical rules:
 - Preserve the EXACT structure, labels, and relationships from the ASCII
