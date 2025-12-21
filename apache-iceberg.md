@@ -49,6 +49,9 @@ For comprehensive coverage of Iceberg's internal architecture, metadata layers, 
 
 A simplified example:
 
+![A simplified example](images/diagrams/apache-iceberg-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
 ```
 metadata.json (v5)
   └── snapshot-5 (2025-11-09T10:30Z)
@@ -57,6 +60,7 @@ metadata.json (v5)
        │    ├── manifest-2.avro → data-file-002.parquet
        └── previous: snapshot-4
 ```
+-->
 
 ### Hidden Partitioning and Partition Evolution
 
