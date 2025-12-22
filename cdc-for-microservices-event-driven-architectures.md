@@ -42,9 +42,6 @@ CDC transforms database changes into a stream of events automatically, without r
 ![cdc-for-microservices-event-driven-architectures diagram 1](images/diagrams/cdc-for-microservices-event-driven-architectures-0.webp)
 
 <!-- ORIGINAL_DIAGRAM
-![cdc-for-microservices-event-driven-architectures diagram 1](images/diagrams/cdc-for-microservices-event-driven-architectures-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                    Event-Driven Architecture                 │
@@ -72,7 +69,6 @@ CDC transforms database changes into a stream of events automatically, without r
 │                                                               │
 └─────────────────────────────────────────────────────────────┘
 ```
--->
 -->
 
 ## Event Sourcing and CDC

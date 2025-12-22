@@ -50,7 +50,7 @@ ProducerRecord<String, String> record =
 // Forces message to partition 2
 ```
 
-![kafka-topics-partitions-brokers-core-architecture diagram 4](images/diagrams/kafka-topics-partitions-brokers-core-architecture-3.webp)
+![kafka-topics-partitions-brokers-core-architecture diagram 1](images/diagrams/kafka-topics-partitions-brokers-core-architecture-0.webp)
 
 <!-- ORIGINAL_DIAGRAM
 ```
@@ -162,10 +162,7 @@ Instead of external ZooKeeper nodes, dedicated **controller nodes** (or combined
 
 **Architecture Impact:**
 
-![**Architecture Impact:**](images/diagrams/kafka-topics-partitions-brokers-core-architecture-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-![kafka-topics-partitions-brokers-core-architecture diagram 1](images/diagrams/kafka-topics-partitions-brokers-core-architecture-0.webp)
+![**Architecture Impact:**](images/diagrams/kafka-topics-partitions-brokers-core-architecture-1.webp)
 
 <!-- ORIGINAL_DIAGRAM
 ```
@@ -183,7 +180,6 @@ Traditional (ZooKeeper):                 KRaft Mode (Kafka 4.0+):
 └────────────┘         └──────────┘    └────────────┘         └──────────┘
 ```
 -->
--->
 
 For in-depth coverage of KRaft architecture and migration strategies, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka).
 
@@ -200,7 +196,7 @@ Kafka 3.6+ introduced **tiered storage**, fundamentally changing how brokers man
 
 **Architectural Benefits:**
 
-![**Architectural Benefits:**](images/diagrams/kafka-topics-partitions-brokers-core-architecture-1.webp)
+![**Architectural Benefits:**](images/diagrams/kafka-topics-partitions-brokers-core-architecture-2.webp)
 
 <!-- ORIGINAL_DIAGRAM
 ```
@@ -231,7 +227,7 @@ For detailed configuration and best practices, see [Tiered Storage in Kafka](htt
 
 The interaction between topics, partitions, and brokers creates Kafka's distributed log architecture:
 
-![The interaction between topics, partitions, and brokers creates Kafka's distributed log architecture](images/diagrams/kafka-topics-partitions-brokers-core-architecture-2.webp)
+![The interaction between topics, partitions, and brokers creates Kafka's distributed log architecture](images/diagrams/kafka-topics-partitions-brokers-core-architecture-3.webp)
 
 <!-- ORIGINAL_DIAGRAM
 ```

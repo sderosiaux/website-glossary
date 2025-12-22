@@ -32,9 +32,6 @@ When a reader queries a Delta table, it reconstructs the current state by readin
 ![delta-lake-transaction-log-how-it-works diagram 1](images/diagrams/delta-lake-transaction-log-how-it-works-0.webp)
 
 <!-- ORIGINAL_DIAGRAM
-![Example of compatible blind appends](images/diagrams/delta-lake-transaction-log-how-it-works-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
 ```
                     Delta Table Structure
 ┌────────────────────────────────────────────────────────────┐
@@ -52,7 +49,6 @@ When a reader queries a Delta table, it reconstructs the current state by readin
 │  └─ part-00002-....parquet                                │
 └────────────────────────────────────────────────────────────┘
 ```
--->
 -->
 
 ## The Optimistic Concurrency Commit Protocol
@@ -80,9 +76,6 @@ When a writer wants to commit changes:
 ![delta-lake-transaction-log-how-it-works diagram 2](images/diagrams/delta-lake-transaction-log-how-it-works-1.webp)
 
 <!-- ORIGINAL_DIAGRAM
-![When you run a time travel query, Delta Lake performs these steps](images/diagrams/delta-lake-transaction-log-how-it-works-1.webp)
-
-<!-- ORIGINAL_DIAGRAM
 ```
               Optimistic Concurrency Protocol
 
@@ -106,7 +99,6 @@ When a writer wants to commit changes:
       │                                           ✓ SUCCESS
       ▼                                           ▼
 ```
--->
 -->
 
 The atomicity guarantee comes from cloud storage's conditional PUT operations (e.g., S3's PUT-if-absent, ADLS's create-if-not-exists). These operations either fully succeed or fully fail—there's no in-between state where a file is "partially written." When S3 receives two simultaneous PUT-if-absent requests for the same file, exactly one succeeds and the other fails immediately. The failed writer detects the conflict, re-validates against the new state, and retries if the operation is still valid.
@@ -157,7 +149,7 @@ Delta Lake categorizes conflicts into two types:
 **1. Blind Append Conflicts** - Two writers adding new data with no dependency on existing rows. These typically proceed without conflict because writers are adding different data.
 
 Example of compatible blind appends:
-![Example of compatible blind appends](images/diagrams/delta-lake-transaction-log-how-it-works-4.webp)
+![Example of compatible blind appends](images/diagrams/delta-lake-transaction-log-how-it-works-2.webp)
 
 <!-- ORIGINAL_DIAGRAM
 ```
@@ -226,7 +218,7 @@ As tables evolve through hundreds or thousands of commits, reading the entire tr
 
 Every 10 commits (by default), Delta Lake generates a checkpoint file that represents the complete table state at that version. This checkpoint is a Parquet file containing the same information as the aggregated JSON log entries up to that point.
 
-![delta-lake-transaction-log-how-it-works diagram 3](images/diagrams/delta-lake-transaction-log-how-it-works-2.webp)
+![delta-lake-transaction-log-how-it-works diagram 4](images/diagrams/delta-lake-transaction-log-how-it-works-3.webp)
 
 <!-- ORIGINAL_DIAGRAM
 ```
@@ -278,7 +270,7 @@ This compression dramatically reduces the amount of data readers must process to
 
 For very large tables, Delta Lake can create multi-part checkpoints split across multiple Parquet files, with a JSON manifest coordinating the parts:
 
-![For very large tables, Delta Lake can create multi-part checkpoints split across multiple Parquet files, with a JSON manifest coordinating the parts](images/diagrams/delta-lake-transaction-log-how-it-works-3.webp)
+![For very large tables, Delta Lake can create multi-part checkpoints split across multiple Parquet files, with a JSON manifest coordinating the parts](images/diagrams/delta-lake-transaction-log-how-it-works-4.webp)
 
 <!-- ORIGINAL_DIAGRAM
 ```

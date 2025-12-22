@@ -45,9 +45,6 @@ Windows are fundamental constructs in stream processing that segment continuous 
 ![windowing-in-apache-flink-tumbling-sliding-and-session-windows diagram 1](images/diagrams/windowing-in-apache-flink-tumbling-sliding-and-session-windows-0.webp)
 
 <!-- ORIGINAL_DIAGRAM
-![windowing-in-apache-flink-tumbling-sliding-and-session-windows diagram 1](images/diagrams/windowing-in-apache-flink-tumbling-sliding-and-session-windows-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
 ```
 ┌──────────────────────────────────────────────────────────────────┐
 │                   Window Types Overview                          │
@@ -80,7 +77,6 @@ Windows are fundamental constructs in stream processing that segment continuous 
 └──────────────────────────────────────────────────────────────────┘
 ```
 -->
--->
 
 Flink supports two main categories of windows:
 
@@ -102,7 +98,7 @@ Event time provides deterministic results and handles out-of-order events correc
 
 **Watermarks** are Flink's mechanism for tracking event time progress in the stream. A watermark with timestamp T is an assertion that "all events with timestamps less than T have arrived."
 
-![windowing-in-apache-flink-tumbling-sliding-and-session-windows diagram 3](images/diagrams/windowing-in-apache-flink-tumbling-sliding-and-session-windows-2.webp)
+![windowing-in-apache-flink-tumbling-sliding-and-session-windows diagram 2](images/diagrams/windowing-in-apache-flink-tumbling-sliding-and-session-windows-1.webp)
 
 <!-- ORIGINAL_DIAGRAM
 ```
@@ -511,7 +507,7 @@ This governance layer becomes essential when managing multiple Flink jobs consum
 
 Selecting the appropriate window type is critical for both correctness and performance. Use this decision tree:
 
-![Selecting the appropriate window type is critical for both correctness and performance. Use this decision tree](images/diagrams/windowing-in-apache-flink-tumbling-sliding-and-session-windows-1.webp)
+![Selecting the appropriate window type is critical for both correctness and performance. Use this decision tree](images/diagrams/windowing-in-apache-flink-tumbling-sliding-and-session-windows-2.webp)
 
 <!-- ORIGINAL_DIAGRAM
 ```

@@ -35,9 +35,6 @@ A complete real-time ML pipeline consists of several interconnected layers:
 ![A complete real-time ML pipeline consists of several interconnected layers](images/diagrams/real-time-ml-pipelines-0.webp)
 
 <!-- ORIGINAL_DIAGRAM
-![Real-time ML systems must capture prediction outcomes to detect [model drift](/model-drift-in-streaming) and retrain](images/diagrams/real-time-ml-pipelines-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
 ```
            Real-Time ML Pipeline Architecture
 
@@ -89,7 +86,6 @@ A complete real-time ML pipeline consists of several interconnected layers:
          └──────────────┘
 ```
 -->
--->
 
 ### Feature Engineering Layer
 
@@ -128,7 +124,7 @@ Once features are ready, models must generate predictions within strict latency 
 
 Real-time ML systems must capture prediction outcomes to detect [model drift](/model-drift-in-streaming) and retrain:
 
-![Real-time ML systems must capture prediction outcomes to detect [model drift](/model-drift-in-streaming) and retrain](images/diagrams/real-time-ml-pipelines-3.webp)
+![Real-time ML systems must capture prediction outcomes to detect [model drift](/model-drift-in-streaming) and retrain](images/diagrams/real-time-ml-pipelines-1.webp)
 
 <!-- ORIGINAL_DIAGRAM
 ```
@@ -280,7 +276,7 @@ Example targets:
 - Search ranking: p99 < 100ms
 
 **Latency budget breakdown**:
-![**Latency budget breakdown**](images/diagrams/real-time-ml-pipelines-1.webp)
+![**Latency budget breakdown**](images/diagrams/real-time-ml-pipelines-2.webp)
 
 <!-- ORIGINAL_DIAGRAM
 ```
@@ -344,7 +340,7 @@ For example, Conduktor can enforce that all events in the `transactions` topic i
 
 For comprehensive coverage, see [real-time fraud detection with streaming](/real-time-fraud-detection-with-streaming).
 
-![real-time-ml-pipelines diagram 3](images/diagrams/real-time-ml-pipelines-2.webp)
+![real-time-ml-pipelines diagram 4](images/diagrams/real-time-ml-pipelines-3.webp)
 
 <!-- ORIGINAL_DIAGRAM
 ```

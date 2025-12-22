@@ -28,15 +28,6 @@ For data platforms specifically, API gateways solve several problems. They provi
 ![## Core API Gateway Patterns](images/diagrams/api-gateway-patterns-for-data-platforms-0.webp)
 
 <!-- ORIGINAL_DIAGRAM
-![### BFF Architecture](images/diagrams/api-gateway-patterns-for-data-platforms-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-![api-gateway-patterns-for-data-platforms diagram 1](images/diagrams/api-gateway-patterns-for-data-platforms-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-![### BFF Architecture](images/diagrams/api-gateway-patterns-for-data-platforms-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
 ```
                API Gateway Architecture
 
@@ -63,9 +54,6 @@ For data platforms specifically, API gateways solve several problems. They provi
 │ Service │      │ Cluster │      │  API    │
 └─────────┘      └─────────┘      └─────────┘
 ```
--->
--->
--->
 -->
 
 ### Routing and Service Discovery
@@ -102,7 +90,7 @@ Kafka gateways must handle long-lived connections for consuming message streams.
 
 For comprehensive understanding of Kafka's core architecture and how topics, partitions, and consumer groups work, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
 
-![### BFF Architecture](images/diagrams/api-gateway-patterns-for-data-platforms-1.webp)
+![api-gateway-patterns-for-data-platforms diagram 2](images/diagrams/api-gateway-patterns-for-data-platforms-1.webp)
 
 <!-- ORIGINAL_DIAGRAM
 ```
