@@ -115,6 +115,12 @@ Data products require ongoing governance to maintain trust and usability.
 
 **Lineage and observability** help users understand data flow. Document where data comes from, how it's transformed, and who consumes it. This transparency builds trust and simplifies debugging. For detailed coverage of lineage tracking, see [Data Lineage: Tracking Data from Source to Consumption](https://conduktor.io/glossary/data-lineage-tracking-data-from-source-to-consumption).
 
+### Self-Service for Data Product Management
+
+Managing data products at scale requires enabling domain teams to operate independently without creating governance gaps. Self-Service frameworks address this by providing teams autonomy within guardrails—domain teams manage their data products through declarative configuration files in version control (GitOps), and the platform validates changes against centralized governance policies before automatically provisioning resources.
+
+This approach eliminates ticket-based bottlenecks while maintaining consistency. Version control creates audit trails, automated compatibility checks prevent breaking changes, and access control policies are enforced centrally. Platform teams shift from gatekeepers to enablers. For implementation guidance, see [Self-Service](https://docs.conduktor.io/guide/conduktor-concepts/self-service).
+
 ## Operationalizing Data Products
 
 Production data products require operational rigor similar to software services.

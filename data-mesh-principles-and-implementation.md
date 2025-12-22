@@ -149,6 +149,12 @@ Implementing Data Mesh is not purely technical—it requires organizational chan
 
 Organizations should start small, typically with one or two domains, prove the value, and then expand incrementally.
 
+## Partner Zones for Federated Data Sharing
+
+A practical challenge in Data Mesh implementations is enabling secure data sharing between domains or with external partners while maintaining single source of truth. Conduktor Partner Zones address this by providing dedicated zones with customized access to Kafka topics without data duplication—domain teams share data products with specific partners while maintaining the original topic as the authoritative source.
+
+Partner Zones also provide traffic analytics showing consumption patterns within each zone, enabling domain teams to understand usage and make informed decisions about their data products' evolution. Learn more in the [Partner Zones documentation](https://docs.conduktor.io/guide/conduktor-concepts/partner-zones).
+
 ## Data Mesh and Data Streaming
 
 Data Mesh and streaming technologies like Apache Kafka are natural complements. Kafka's architecture aligns closely with Data Mesh principles.

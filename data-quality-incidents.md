@@ -174,6 +174,12 @@ Beyond rule-based validation, statistical anomaly detection identifies unusual p
 
 For related drift patterns, see [Data Drift in Streaming](https://conduktor.io/glossary/data-drift-in-streaming) and [Model Drift in Streaming](https://conduktor.io/glossary/model-drift-in-streaming).
 
+### Preventing Incidents with Data Quality Policies
+
+Conduktor Data Quality Policies provide systematic prevention of data quality incidents by creating Rules that define expected message formats and content. These attach to specific topics, enabling centralized quality enforcement. In observe-only mode, Policies record violations without impacting flow; when integrated with Gateway, they validate records before production—blocking non-compliant messages or marking them with violation metadata.
+
+This centralized approach catches schema violations, null explosions, and format errors at the infrastructure level rather than requiring each producer to implement validation independently, ensuring consistent quality standards. For implementation guidance, see [Data Quality Policies](https://docs.conduktor.io/guide/conduktor-concepts/data-quality-policies).
+
 ### User Reports and Feedback Loops
 
 Despite automated monitoring, downstream consumers often detect quality issues first:

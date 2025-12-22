@@ -159,6 +159,12 @@ Understanding what drives streaming costs enables targeted optimization strategi
 
 **Managed vs self-managed comparison** reveals striking TCO differences. Managed services like AWS MSK, Azure Event Hubs, or platforms like Conduktor charge premium rates for infrastructure but eliminate operational overhead. For small to medium deployments, managed services often provide lower TCO once operational costs are factored in. Self-managed deployments become cost-effective at larger scales where infrastructure savings outweigh operational costs—typically beyond several terabytes of throughput daily. However, this calculation depends heavily on team expertise and the opportunity cost of engineering time.
 
+### Logical Topics: Reducing Infrastructure Costs Through Consolidation
+
+Conduktor's [Logical Topics](https://docs.conduktor.io/guide/conduktor-concepts/logical-topics) feature reduces partition counts and infrastructure overhead without sacrificing logical organization. **Concentrated Topics** enable dramatic cost reductions by co-locating multiple logical topics on a single physical topic—for example, 4 regional topics (400 partitions total) consolidate to 100 partitions, reducing infrastructure overhead by 75% while maintaining complete logical separation.
+
+Fewer partitions mean fewer broker resources for replication, reduced metadata overhead, and lower network transfer costs. For organizations paying per-partition pricing in managed Kafka services, this directly translates to proportional cost reduction. Beyond infrastructure savings, fewer partitions also simplify cluster management, enabling faster controller elections and rebalancing operations.
+
 ## Cost Attribution and Governance
 
 Effective cost management requires visibility into who uses streaming resources and accountability for consumption patterns.

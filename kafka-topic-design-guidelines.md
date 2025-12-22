@@ -344,6 +344,12 @@ Establish processes for:
 
 Document these processes and enforce them through automation where possible.
 
+### Logical Topics: Abstraction Layer for Topic Design Flexibility
+
+Conduktor's [Logical Topics](https://docs.conduktor.io/guide/conduktor-concepts/logical-topics) provide an abstraction layer that addresses common topic design challenges. **Alias Topics** solve Kafka's inability to rename topics—teams share topics using business-friendly names while maintaining internal conventions. **Concentrated Topics** dramatically reduce partition counts by co-locating multiple logical topics on a single physical topic (e.g., 4 regional topics with 400 partitions consolidate to 100 partitions, 75% reduction). **SQL Topics** enable filtering at the topic level using SQL WHERE clauses.
+
+These abstractions reduce topic proliferation and partition overhead while maintaining logical separation for producers and consumers—particularly valuable for multi-tenant architectures or regional deployments.
+
 ## Connecting to Data Streaming Architecture
 
 Kafka topics are the connective tissue of modern data streaming architectures. They integrate with:

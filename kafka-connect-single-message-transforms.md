@@ -194,6 +194,12 @@ However, SMTs offer significant advantages for simple transformations. They elim
 
 Tools like Conduktor Platform help manage this complexity by providing visual configuration and validation of SMT chains through [Kafka Connect management](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/kafka-connect), making it easier to build and debug transformation pipelines without manual JSON editing.
 
+## Conduktor Interceptors: An Alternative to SMTs
+
+While SMTs operate within Kafka Connect, Conduktor Interceptors provide transformation at the Gateway proxy layer, intercepting all Kafka traffic regardless of origin (Connect, producers, or consumers). Unlike SMTs configured per-connector, Interceptors apply globally to all matching traffic, creating consistent transformation behavior across your entire ecosystem. This makes them ideal for universal transformations like PII masking or timestamp standardization.
+
+Interceptors also excel at policy enforcement that SMTs cannot address—blocking messages violating data quality rules, enforcing producer settings, or validating schema compliance in real-time. The trade-off is operational complexity: SMTs are simpler for connector-specific transformations, while Interceptors require Gateway deployment. For organizations already using Gateway, Interceptors provide centralized transformation without per-connector configuration. Learn more at the [Interceptors documentation](https://docs.conduktor.io/guide/conduktor-concepts/interceptors).
+
 ## Best Practices and Limitations
 
 When working with SMTs, keep transformations simple and focused. Each SMT should perform one clear function. Complex multi-step transformations become difficult to debug and maintain.

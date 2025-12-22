@@ -165,6 +165,12 @@ For cloud-native deployments, **Kubernetes namespaces** provide lightweight trus
 
 While not as isolated as dedicated clusters, namespace-based zones offer flexibility for organizations running multiple workloads on shared infrastructure.
 
+### Virtual Clusters as Logical Trust Zones
+
+Running dedicated Kafka clusters for each trust zone provides strong isolation but introduces significant operational overhead. Conduktor Virtual Clusters enable trust zone architecture within a single physical cluster by creating complete logical isolation between zones—each trust zone becomes a virtual cluster with its own topics, authentication policies, and access controls, providing zone isolation comparable to dedicated clusters while running on shared infrastructure.
+
+Administrators configure zone-specific security controls at the virtual cluster level: the restricted zone enforces mTLS and comprehensive audit logging, while the public zone allows simpler authentication. Cross-zone data movement flows through transformation pipelines that read from one virtual cluster and write to another, making data flow explicit and auditable. For implementation patterns, see the [Virtual Clusters documentation](https://docs.conduktor.io/guide/conduktor-concepts/virtual-clusters).
+
 #### Service Mesh for Fine-Grained Zone Control (2025)
 
 Modern service mesh solutions provide advanced trust zone isolation at Layer 7:

@@ -289,6 +289,12 @@ Document roles clearly, but start with a lightweight framework that grows with y
 
 Modern governance platforms provide role-based access control, automated lineage tracking, and policy enforcement without becoming bottlenecks. The key is choosing tools that fit your architecture—cloud-native for cloud workloads, streaming-native for real-time platforms, and federated for Data Mesh implementations.
 
+## Balancing Autonomy and Governance with Self-Service
+
+Traditional governance frameworks create tension between control and agility—centralized approval processes slow development teams, leading to shadow IT or governance circumvention. Self-Service frameworks resolve this by enabling teams to manage resources independently through version-controlled configuration files (GitOps), with the platform automatically validating requests against governance policies before provisioning.
+
+This approach eliminates bottlenecks while ensuring adherence to organizational standards. Version control creates audit trails for Compliance Officers, Data Owners retain approval authority through pull request workflows, and consistent policy enforcement eliminates manual configuration errors. For implementation guidance, see [Self-Service](https://docs.conduktor.io/guide/conduktor-concepts/self-service).
+
 ## Conclusion
 
 A successful data governance framework depends on clearly defined roles working in concert. From strategic leadership in the Governance Council to operational execution by Data Stewards and Custodians, each role contributes to transforming data from a liability into a strategic asset.

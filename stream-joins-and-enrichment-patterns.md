@@ -153,6 +153,12 @@ Complex scenarios may require multiple enrichment steps, creating a pipeline of 
 
 Chain these operations carefully to avoid excessive state and latency. Each join step adds processing time and state storage requirements.
 
+### Lightweight Enrichment with Conduktor Interceptors
+
+While Kafka Streams and Flink provide powerful capabilities for complex stateful enrichment, many scenarios require only simple transformation without the operational complexity of full stream processing frameworks. Conduktor Interceptors offer a lightweight alternative, performing enrichment at the Gateway proxy layer—adding metadata fields, performing external lookups to reference data systems, or filtering messages—without deploying dedicated stream processing applications.
+
+The key limitation is that Interceptors operate on individual messages in isolation; they cannot perform stream-to-stream joins, windowed aggregations, or complex event processing. Interceptors complement stream processing frameworks by handling simple transformations and enrichment, reserving Kafka Streams or Flink for genuinely complex operations. Learn more at the [Interceptors documentation](https://docs.conduktor.io/guide/conduktor-concepts/interceptors).
+
 ## Windowing and Time Semantics
 
 Time windows are fundamental to stream joins, defining how long the system retains events waiting for matches. Understanding windowing is critical for designing correct join logic.

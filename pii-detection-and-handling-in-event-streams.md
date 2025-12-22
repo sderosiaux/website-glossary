@@ -56,6 +56,14 @@ Once PII is detected, it must be protected. Different strategies offer different
 
 In streaming architectures, these techniques are typically applied at ingestion time using stream processors or Single Message Transforms (SMTs - reusable transformation components in Kafka Connect that modify messages in flight) in Kafka Connect. For detailed masking and anonymization techniques, see [Data Masking and Anonymization for Streaming](https://conduktor.io/glossary/data-masking-and-anonymization-for-streaming).
 
+### Field-Level Encryption for PII Protection
+
+Field-level encryption provides targeted protection for PII while maintaining data utility for non-sensitive fields. Conduktor Gateway implements field-level encryption through [interceptors](https://docs.conduktor.io/guide/conduktor-concepts/interceptors), enabling schema-based encryption (where PII fields tagged in schemas are automatically encrypted) or list-based encryption (where specific fields are defined in configuration). This approach protects sensitive data like SSN, credit cards, and email addresses while leaving non-sensitive fields available for analytics.
+
+Gateway integrates with enterprise Key Management Systems (Vault, Azure Key Vault, AWS KMS, GCP KMS) using envelope encryption for secure key management. Encryption can occur on-produce (PII encrypted before entering Kafka) or on-consume (PII encrypted before delivery to specific consumers), enabling role-based access where different consumer groups receive different levels of PII visibility. Combined with data masking policies, this provides defense-in-depth protection that addresses GDPR, HIPAA, PCI-DSS, and CCPA requirements.
+
+For complete implementation guidance, see [Encrypting Kafka with Conduktor](https://docs.conduktor.io/guide/use-cases/encrypt-kafka).
+
 ## PII in Data Streaming Architectures
 
 Modern streaming platforms provide various mechanisms for PII handling:

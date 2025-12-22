@@ -294,6 +294,12 @@ Streaming management platforms provide visual monitoring and testing capabilitie
 
 Set up quality gates to automatically route messages through validation topics, making it easy to visualize quality metrics and troubleshoot issues. For observing data quality metrics, see [Observing Data Quality with Conduktor](https://docs.conduktor.io/guide/use-cases/observe-data-quality).
 
+### Continuous Validation with Data Quality Policies
+
+Conduktor Data Quality Policies complement automated testing by providing infrastructure-level continuous validation. Data Quality Policies create Rules defining expected message formats and content that attach to specific topics, creating a centralized quality enforcement layer. In observe-only mode, Policies record violations without impacting message flow; when integrated with Gateway, they validate records before production, blocking or marking non-compliant messages.
+
+This layered approach combines development-time testing with production-time enforcement, catching edge cases that testing environments might miss. For implementation patterns, see [Data Quality Policies](https://docs.conduktor.io/guide/conduktor-concepts/data-quality-policies).
+
 ## Implementing a Testing Framework
 
 Build a comprehensive testing framework that runs continuously:

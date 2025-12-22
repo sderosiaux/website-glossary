@@ -213,6 +213,12 @@ Kafka's architecture naturally supports data product patterns. Modern Kafka depl
 
 **Multi-Tenancy:** Quotas limit throughput per client, network isolation separates sensitive products, priority classes provide different SLAs.
 
+## Sharing Data Products with Partner Zones
+
+When streaming data products need to be shared with external organizations, traditional approaches involve replicating topics—creating synchronization challenges and duplicate storage costs. Conduktor Partner Zones enable secure data product sharing without replication by providing dedicated logical boundaries with customized access to Kafka topics. Data product owners grant partners access while maintaining single source of truth—partners consume directly from original topics through their assigned zones.
+
+Partner Zones also provide traffic analytics tracking consumption within each zone, enabling data product owners to monitor adoption and measure value delivered to partners. For implementation details, see the [Partner Zones documentation](https://docs.conduktor.io/guide/conduktor-concepts/partner-zones).
+
 ## Data Product Governance
 
 Effective governance ensures streaming data products remain trustworthy and discoverable at scale. For governance frameworks and roles, see [Data Governance Framework: Roles and Responsibilities](https://conduktor.io/glossary/data-governance-framework-roles-and-responsibilities) and [Data Product Governance](https://conduktor.io/glossary/data-product-governance).

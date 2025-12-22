@@ -281,6 +281,12 @@ Securing Kafka extends beyond the cluster itself to the broader streaming ecosys
 
 **Policy enforcement**: Implement automated policy enforcement for security standards, data classification, and compliance requirements. For comprehensive policy enforcement strategies, see [Policy Enforcement in Streaming](https://conduktor.io/glossary/policy-enforcement-in-streaming).
 
+## Virtual Clusters for Multi-Tenant Security
+
+Managing security across multiple teams sharing a Kafka cluster traditionally requires complex network segmentation or intricate ACL hierarchies. Conduktor Virtual Clusters provide logical isolation within a single physical cluster, where each tenant operates in their own namespace completely isolated from other tenants' topics and configurations. This scopes all security controls—authentication, authorization, and encryption policies—to individual virtual clusters rather than managing them globally.
+
+Virtual Clusters enable differentiated security postures across workloads. A virtual cluster handling payment data can enforce strict mTLS and restrictive ACLs, while a development virtual cluster maintains lighter controls. Compromised credentials affect only one virtual cluster, reducing blast radius. For organizations implementing Zero Trust, Virtual Clusters provide microsegmentation at the Kafka layer. For implementation details, see the [Virtual Clusters documentation](https://docs.conduktor.io/guide/conduktor-concepts/virtual-clusters).
+
 ## Summary
 
 Securing Apache Kafka requires a comprehensive approach combining authentication, authorization, encryption, network isolation, and continuous monitoring. Start with these foundational practices:

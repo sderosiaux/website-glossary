@@ -108,6 +108,12 @@ More sophisticated multi-tenancy requires:
 
 Multi-tenancy also impacts operational tools. Monitoring dashboards, schema registries, and stream processing frameworks all need tenant-aware access control to prevent information leakage.
 
+### Virtual Clusters for Simplified Multi-Tenant Access Control
+
+Managing access control across multiple teams sharing a Kafka cluster requires careful ACL coordination that becomes unwieldy at scale. Conduktor Virtual Clusters simplify this by creating complete logical isolation within a single physical cluster—each tenant operates in what appears to be a dedicated Kafka environment with their own topics, consumer groups, and access policies, eliminating cross-tenant visibility entirely.
+
+Virtual Clusters enable per-tenant security postures where each virtual cluster enforces its own authentication requirements and ACL policies. Platform teams can delegate access control management to business unit administrators who manage permissions within their virtual cluster without requiring central team intervention for every change. For implementation guidance, see the [Virtual Clusters documentation](https://docs.conduktor.io/guide/conduktor-concepts/virtual-clusters).
+
 ## Enterprise Integration and Modern Approaches
 
 Enterprise environments demand integration with existing identity systems. Rather than managing Kafka-specific credentials, organizations want to leverage LDAP, Active Directory, or cloud identity providers.

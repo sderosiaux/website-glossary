@@ -241,6 +241,12 @@ Quotas also enable tiered service models. A platform might offer:
 
 This approach aligns resource consumption with pricing while maintaining cluster stability.
 
+### Virtual Clusters for Quota Isolation
+
+Managing quotas in multi-tenant environments requires careful coordination of client IDs and quota hierarchies. Conduktor Virtual Clusters simplify this by scoping quota enforcement to individual virtual clusters—each operates as an independent quota domain with its own rate limits, completely isolated from other virtual clusters. A team's quota violations in one virtual cluster cannot impact applications in other virtual clusters, providing strong isolation against noisy neighbor scenarios.
+
+This architecture enables differentiated resource allocation where platform teams assign throughput ceilings to each virtual cluster (e.g., 100 MB/sec for data engineering, 50 MB/sec for analytics). Teams manage their own internal quotas without cross-tenant coordination. Virtual Clusters also simplify tiered service models—customers upgrade by migrating to higher-capacity virtual clusters rather than modifying quota rules. For implementation details, see the [Virtual Clusters documentation](https://docs.conduktor.io/guide/conduktor-concepts/virtual-clusters).
+
 ## Monitoring and Managing Quotas
 
 Effective quota management requires visibility into quota usage and violations. Modern Kafka deployments use a combination of broker-side metrics, client-side telemetry, and dedicated monitoring tools.

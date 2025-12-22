@@ -98,6 +98,12 @@ Zero trust architectures assume the network is hostile. Segmentation and encrypt
 
 **Micro-segmentation** divides the network into small zones with explicit access controls between them. Rather than one flat network where any service can reach any other, each segment requires authenticated and authorized traversal. A compromised service in the analytics segment can't pivot to the payment processing segment.
 
+### Virtual Clusters for Zero Trust Microsegmentation
+
+Traditional microsegmentation relies on network controls (VLANs, security groups, firewall rules) that become complex at scale. Conduktor Virtual Clusters enable microsegmentation at the Kafka application layer, creating trust boundaries where every access crosses an explicit security checkpoint. Applications cannot access resources in other virtual clusters regardless of network connectivity, enforcing the "never trust, always verify" principle at the data platform level.
+
+Virtual Clusters align with zero trust's least privilege requirement—services receive credentials scoped exclusively to their virtual cluster, making it impossible to access data outside their intended scope even if credentials are compromised. If an attacker compromises credentials for a development virtual cluster, those credentials provide no access to production virtual clusters, limiting lateral movement. For implementation guidance, see the [Virtual Clusters documentation](https://docs.conduktor.io/guide/conduktor-concepts/virtual-clusters).
+
 **TLS encryption in-transit** prevents eavesdropping on the wire. Every connection between clients and brokers, and between brokers themselves, should use TLS 1.3 (or TLS 1.2 minimum for legacy compatibility). TLS 1.3 provides improved security and performance with a faster handshake and removal of vulnerable cipher suites. Encryption overhead is negligible compared to the risk of plaintext streaming data. For detailed encryption configuration, see [Encryption at Rest and in Transit for Kafka](https://conduktor.io/glossary/encryption-at-rest-and-in-transit-for-kafka).
 
 **At-rest encryption** protects data on disk. Even if an attacker gains access to storage volumes, encrypted data remains unreadable without keys. Kafka supports transparent encryption through encrypted volumes or filesystem-level encryption.

@@ -280,6 +280,12 @@ test_payment_topic_access {
 
 **Compliance reporting** generates documentation showing policy enforcement status. Automated reports demonstrate that data handling meets regulatory requirements like GDPR (General Data Protection Regulation), HIPAA (Health Insurance Portability and Accountability Act), or SOX (Sarbanes-Oxley). Violation tracking identifies patterns requiring attention.
 
+## Conduktor Traffic Control Policies
+
+Modern streaming platforms require policy enforcement mechanisms that operate at scale without requiring changes to applications. Conduktor Traffic Control Policies provide a centralized framework for enforcing rate limits (producer/consumer throughput, connection limits), configuration policies (replication factors, retention periods, schema requirements), and access control policies (read-only access, client ID requirements) through automated rules that intercept traffic at the gateway layer.
+
+The key advantage is centralized enforcement without application modification—policies apply across all producers and consumers automatically. Configuration policies shift enforcement from documentation to automated validation, eliminating configuration drift. Traffic Control Policies integrate with policy-as-code workflows through version-controlled configuration deployed via CI/CD. For implementation guidance, see [Traffic Control Policies](https://docs.conduktor.io/guide/conduktor-concepts/traffic-control-policies).
+
 ## Balancing Enforcement and Performance
 
 Policy enforcement introduces processing overhead. Each validation, transformation, or check consumes CPU cycles and adds latency. Effective policy implementation balances governance needs against performance requirements.

@@ -207,6 +207,14 @@ Drawbacks include:
 
 Governance platforms like Conduktor can implement encryption and decryption at an intermediate layer, providing a middle ground between application-level and infrastructure-level encryption. This approach centralizes key management and encryption policies while maintaining data utility within Kafka for operations like monitoring and debugging.
 
+## Field-Level Encryption with Conduktor Gateway
+
+While infrastructure-level encryption (TLS and disk encryption) protects data in transit and at rest, field-level encryption provides granular protection for specific sensitive fields within messages. Conduktor Gateway implements field-level encryption through [interceptors](https://docs.conduktor.io/guide/conduktor-concepts/interceptors), enabling organizations to selectively encrypt sensitive data in structured messages (Avro, Protobuf, JSON) without the overhead of encrypting entire payloads.
+
+Gateway supports schema-based encryption (where fields tagged in the schema registry are automatically encrypted) and list-based encryption (where fields are specified in interceptor configuration). It integrates with enterprise Key Management Systems including HashiCorp Vault, Azure Key Vault, AWS KMS, and Google Cloud KMS using envelope encryption (DEK/KEK pattern) for secure key management and rotation. Encryption can occur on-produce (data encrypted before entering Kafka) or on-consume (data encrypted before delivery to specific consumers), enabling role-based access where different consumer groups receive different levels of data visibility.
+
+For complete encryption implementation guidance, see [Encrypting Kafka with Conduktor](https://docs.conduktor.io/guide/use-cases/encrypt-kafka).
+
 ## Performance and Operational Considerations
 
 Encryption introduces computational overhead that impacts throughput and latency, though 2025 hardware and software optimizations have significantly reduced these impacts.

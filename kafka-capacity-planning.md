@@ -278,6 +278,18 @@ Capacity planning differs significantly between cloud and on-premises deployment
 
 For Kubernetes-based deployments (whether cloud or on-premises), see [Running Kafka on Kubernetes](https://conduktor.io/glossary/running-kafka-on-kubernetes) for container-specific capacity considerations.
 
+## Traffic Control Policies for Capacity Management
+
+Capacity planning becomes predictable when you can enforce limits programmatically. Conduktor Traffic Control Policies provide automated enforcement of rate limits, configuration policies, and access controls. Rate limiting prevents individual services from consuming disproportionate resources, configuration policies ensure capacity planning assumptions hold (mandatory retention periods, partition count limits), and access control policies implement capacity-aware governance rules.
+
+The key advantage is programmatic enforcement rather than relying on documentation and team discipline. When you plan for specific throughput limits, policies guarantee they aren't exceeded. This reduces required safety margins and enables tighter resource utilization. For implementation details, see [Traffic Control Policies](https://docs.conduktor.io/guide/conduktor-concepts/traffic-control-policies).
+
+## Chargeback and Cost Accountability
+
+Understanding where Kafka infrastructure costs originate is essential for capacity planning. Conduktor Chargeback tracks resource consumption by service account (bytes produced/consumed with Gateway) or by topic (storage and partition count without Gateway), providing visibility into which applications drive your capacity requirements.
+
+Chargeback transforms estimates into precise measurements—instead of guessing needs, you measure actual consumption during peak hours. This enables cost-based governance where teams monitor consumption against budgets, optimization through visibility (identifying high-cost topics for retention adjustment), and objective metrics for cross-team capacity negotiations. For implementation details, see [Chargeback](https://docs.conduktor.io/guide/conduktor-concepts/chargeback).
+
 ## Monitoring and Scaling in Data Streaming
 
 Effective capacity planning doesn't end at deployment. Continuous monitoring is essential to validate your estimates and detect when you're approaching limits.

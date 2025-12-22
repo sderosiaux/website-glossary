@@ -310,6 +310,12 @@ Platforms like Conduktor provide visual interfaces for exploring schemas, testin
 
 Many organizations use schema linters that enforce naming conventions and flag risky changes during code review, integrating schema validation into CI/CD pipelines.
 
+### Enforcing Schema Requirements with Conduktor Interceptors
+
+Beyond Schema Registry's compatibility validation, Conduktor Interceptors provide runtime enforcement of schema requirements at the infrastructure level. Interceptors are Gateway plugins that validate messages against schema requirements before they reach brokers, catching violations from legacy clients or misconfigured producers that bypass application-level validation. Any message without a valid schema ID or with an incompatible schema gets rejected immediately.
+
+Interceptors can enforce schema policies beyond basic compatibility—requiring specific metadata fields in schemas, enforcing format standards (e.g., Avro only for customer data topics), or validating semantic correctness during schema evolution. For organizations implementing phased migrations, Interceptors validate that producers correctly write to both old and new topics with appropriate schema versions. Learn more at the [Interceptors documentation](https://docs.conduktor.io/guide/conduktor-concepts/interceptors).
+
 ### Governance Practices
 
 Establish clear ownership for schemas. Each schema should have a designated team responsible for changes. Create approval processes for breaking changes that require coordination across teams. This ownership model aligns with [data governance frameworks](https://conduktor.io/glossary/data-governance-framework-roles-and-responsibilities) that define roles and responsibilities.
