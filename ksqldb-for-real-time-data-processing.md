@@ -243,6 +243,12 @@ The technology excels in use cases requiring filtering, aggregation, enrichment,
 
 As streaming data becomes ubiquitous, tools that simplify development while maintaining power and performance grow increasingly important. ksqlDB represents a maturing approach to stream processing, balancing accessibility with production-grade capabilities. Whether building real-time dashboards, event-driven microservices, or serving APIs with real-time aggregations, ksqlDB provides a compelling option for teams seeking SQL-based stream processing.
 
+## Related Concepts
+
+- [Kafka Streams vs Apache Flink](https://conduktor.io/glossary/kafka-streams-vs-apache-flink) - Compare ksqlDB's underlying Kafka Streams engine with Apache Flink for architectural decisions
+- [Stream Joins and Enrichment Patterns](https://conduktor.io/glossary/stream-joins-and-enrichment-patterns) - Implementing join patterns and data enrichment in ksqlDB
+- [Real-Time Analytics with Streaming Data](https://conduktor.io/glossary/real-time-analytics-with-streaming-data) - Building analytics dashboards and metrics using ksqlDB materialized views
+
 ## Sources and References
 
 1. Confluent Documentation. "ksqlDB Documentation." Confluent, https://docs.ksqldb.io/. Official documentation covering ksqlDB architecture, syntax, and operations (updated for 0.29+ features).

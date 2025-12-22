@@ -206,6 +206,12 @@ Without centralized governance, tracking producer and consumer activity becomes 
 
 Platforms like **Conduktor** address these challenges by providing unified visibility and controls for Kafka environments. Teams can monitor consumer lag in real-time across all consumer groups, track which applications interact with each topic, enforce schema validation at the producer level, manage ACLs through a visual interface, and audit client access patterns for compliance. Learn how to [manage topics and monitor consumer groups](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/topics) and [configure service accounts with proper ACLs](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/service-accounts-acls) for secure access control. When troubleshooting lag spikes, Conduktor immediately identifies which partitions are falling behind, correlates this with producer throughput changes or rebalancing events, and alerts the responsible team—enabling faster root cause analysis while maintaining a complete audit trail. For advanced testing scenarios like chaos engineering and protocol manipulation, Conduktor Gateway provides proxy-based capabilities to validate producer and consumer resilience.
 
+## Related Concepts
+
+- [Kafka Consumer Groups Explained](https://conduktor.io/glossary/kafka-consumer-groups-explained) - Details how consumer groups coordinate partition assignment for parallel processing.
+- [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) - Essential for managing serialization formats used by producers and consumers.
+- [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring) - Critical for detecting when consumers fall behind producers and ensuring pipeline health.
+
 ## Summary
 
 Kafka producers and consumers are the vital client-side components that implement the asynchronous and decoupled communication central to data streaming. Producers handle serialization, partition selection, batching, compression, and delivery guarantees through configurable acknowledgment mechanisms. Consumers coordinate through consumer groups to process partitions in parallel, manage offsets to track progress, and support multiple delivery semantics from at-most-once to exactly-once processing.

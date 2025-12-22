@@ -150,6 +150,12 @@ In streaming environments, Iceberg enables **real-time ingestion** from Kafka or
 
 ---
 
+## Related Concepts
+
+- [Real-Time Analytics with Streaming Data](/real-time-analytics-with-streaming-data)
+- [What is Change Data Capture: CDC Fundamentals](/what-is-change-data-capture-cdc-fundamentals)
+- [Data Lineage: Tracking Data from Source to Consumption](/data-lineage-tracking-data-from-source-to-consumption)
+
 ## Sources and References
 
 * [Apache Iceberg Official Documentation](https://iceberg.apache.org/)

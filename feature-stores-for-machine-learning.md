@@ -139,6 +139,12 @@ The integration with streaming platforms like Kafka and Flink extends feature st
 
 As organizations scale their ML efforts, feature stores become increasingly valuable—reducing duplication, improving consistency, accelerating the path from feature development to production models, and providing the observability needed to maintain reliable ML systems in production.
 
+## Related Concepts
+
+- [Real-Time Analytics with Streaming Data](/real-time-analytics-with-streaming-data) - Analytics patterns using features from feature stores
+- [Kafka Connect: Building Data Integration Pipelines](/kafka-connect-building-data-integration-pipelines) - Integrate feature stores with data sources
+- [Data Governance Framework: Roles and Responsibilities](/data-governance-framework-roles-and-responsibilities) - Govern feature definitions and access
+
 ## Sources and References
 
 1. **Feast Documentation** - Open-source feature store project with 2025 updates: https://docs.feast.dev/

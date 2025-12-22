@@ -148,6 +148,12 @@ The decision between self-managed and managed streaming platforms depends critic
 
 Ultimately, streaming TCO isn't just about minimizing costs—it's about optimizing the ratio of business value to total investment. A more expensive platform that enables faster development, fewer incidents, and better business outcomes may provide superior ROI compared to a cheaper solution that consumes engineering time and delays strategic initiatives. Building comprehensive TCO models and tracking metrics over time enables data-driven decisions about streaming infrastructure investments.
 
+## Related Concepts
+
+- [Streaming Maturity Model](https://conduktor.io/glossary/streaming-maturity-model) - Understanding TCO at different maturity levels
+- [Infrastructure as Code for Kafka Deployments](https://conduktor.io/glossary/infrastructure-as-code-for-kafka-deployments) - Reducing operational costs through automation
+- [Disaster Recovery Strategies for Kafka Clusters](https://conduktor.io/glossary/disaster-recovery-strategies-for-kafka-clusters) - Balancing DR costs with business requirements
+
 ## Sources and References
 
 1. **AWS Pricing - Amazon MSK (Managed Streaming for Apache Kafka)**. Amazon Web Services. https://aws.amazon.com/msk/pricing/ - Detailed breakdown of managed Kafka infrastructure costs including compute, storage, and data transfer pricing.

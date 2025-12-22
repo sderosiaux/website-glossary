@@ -17,7 +17,7 @@ Despite the cloud's dominance, on-premises streaming remains relevant for specif
 
 Cost considerations also drive on-prem decisions. Organizations with existing datacenter investments and stable workloads may find that owning and operating infrastructure is more economical than paying ongoing cloud fees, particularly when data volumes are massive and predictable. Additionally, some enterprises prefer the operational control that comes with managing their own hardware, networking, and security stack, especially when integrating with legacy systems that cannot easily move to the cloud.
 
-However, on-premises streaming comes with responsibilities: capacity planning, hardware procurement, upgrades, patching, and 24/7 operations fall entirely on internal teams. The operational burden is significant, requiring specialized expertise in distributed systems, storage, and networking. Modern on-premises deployments in 2025 increasingly leverage Kubernetes operators like [Strimzi](https://conduktor.io/glossary/strimzi-kafka-operator-for-kubernetes) for automated cluster management and [KRaft mode](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka) (Kafka's ZooKeeper-free architecture, now the default) for simpler operations and better scalability.
+However, on-premises streaming comes with responsibilities: capacity planning, hardware procurement, upgrades, patching, and 24/7 operations fall entirely on internal teams. The operational burden is significant, requiring specialized expertise in distributed systems, storage, and networking. Modern on-premises deployments in 2025 increasingly leverage Kubernetes operators like [Strimzi](https://conduktor.io/glossary/strimzi-kafka-operator-for-kubernetes) for automated cluster management and [KRaft mode](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka) (Kafka's native consensus protocol that replaced ZooKeeper, now the default in Kafka 4.0+) for simpler operations and better scalability.
 
 ## Cloud Streaming: Managed Services and Operational Simplicity
 
@@ -132,7 +132,10 @@ resource "kubernetes_manifest" "onprem_kafka_cluster" {
           class = "fast-ssd"
         }
       }
-      zookeeper = null  # KRaft mode, no ZooKeeper needed
+      # KRaft mode configuration (no ZooKeeper needed in Kafka 4.0+)
+      kafka = {
+        metadataVersion = "3.8"
+      }
     }
   }
 }
@@ -222,7 +225,7 @@ resource "kubernetes_manifest" "mirror_maker" {
 ```
 
 This Terraform configuration demonstrates:
-- **On-prem deployment** using Strimzi operator with KRaft mode (no ZooKeeper)
+- **On-prem deployment** using Strimzi operator with KRaft mode (Kafka's native consensus replacing ZooKeeper)
 - **Cloud deployment** using AWS MSK with encryption
 - **Replication** via MirrorMaker 2 with topic and consumer group synchronization
 - **Consistent configuration** managed through code, preventing drift between environments
@@ -234,6 +237,12 @@ Choosing between on-premises, cloud, and hybrid streaming architectures is not a
 Regardless of architecture, consistent governance across environments is non-negotiable. Unified [policy management](https://conduktor.io/glossary/policy-enforcement-in-streaming), centralized [observability](https://conduktor.io/glossary/what-is-data-observability-the-five-pillars), and standardized security controls ensure that data quality, compliance, and [access controls](https://conduktor.io/glossary/data-access-control-rbac-and-abac) apply everywhere data flows. As streaming platforms increasingly span multiple clouds, edge locations, and on-premises datacenters, the ability to govern them holistically becomes a competitive differentiator—enabling organizations to move fast without sacrificing control, compliance, or security.
 
 Organizations should assess their architectural needs using a [streaming maturity model](https://conduktor.io/glossary/streaming-maturity-model) to determine when hybrid complexity is justified versus simpler single-environment deployments. For regulated industries, understanding [data governance frameworks](https://conduktor.io/glossary/data-governance-framework-roles-and-responsibilities) and compliance requirements upfront prevents costly architectural rework later.
+
+## Related Concepts
+
+- [Apache Kafka](https://conduktor.io/glossary/apache-kafka) - Platform architecture supporting on-prem, cloud, and hybrid deployments
+- [Disaster Recovery Strategies for Kafka Clusters](https://conduktor.io/glossary/disaster-recovery-strategies-for-kafka-clusters) - Planning for business continuity in hybrid environments
+- [Streaming Total Cost of Ownership](https://conduktor.io/glossary/streaming-total-cost-of-ownership) - Comparing costs across deployment models
 
 ## Sources and References
 

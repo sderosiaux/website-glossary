@@ -337,6 +337,12 @@ session.timeout.ms=60000
 max.poll.interval.ms=300000
 ```
 
+## Related Concepts
+
+- [Kafka Topic Design Guidelines](https://conduktor.io/glossary/kafka-topic-design-guidelines) - Comprehensive guidance on designing topics with appropriate partition counts and replication factors.
+- [Kafka Consumer Groups Explained](https://conduktor.io/glossary/kafka-consumer-groups-explained) - Understanding how partition assignment affects consumer group parallelism and rebalancing.
+- [Kafka Cluster Monitoring and Metrics](https://conduktor.io/glossary/kafka-cluster-monitoring-and-metrics) - Essential metrics for detecting partition skew and monitoring distribution health.
+
 ## Summary
 
 Kafka partitioning is a powerful mechanism for achieving scalability and parallelism in distributed streaming systems. The key to success lies in understanding your data characteristics, access patterns, and ordering requirements before choosing a partitioning strategy.

@@ -261,6 +261,12 @@ Effective architectures balance edge and cloud processing, implement robust data
 
 The combination of proven streaming technologies with proper operational tooling creates platforms that transform raw sensor data into actionable intelligence, powering applications from smart cities to industrial automation and predictive maintenance.
 
+## Related Concepts
+
+- [Apache Kafka](/apache-kafka) - Distributed streaming platform for IoT data ingestion
+- [What is Apache Flink: Stateful Stream Processing](/what-is-apache-flink-stateful-stream-processing) - Real-time IoT analytics and pattern detection
+- [Consumer Lag Monitoring](/consumer-lag-monitoring) - Monitor IoT data pipeline health and performance
+
 ## Sources and References
 
 1. Apache Kafka Documentation - "Use Cases: Internet of Things" (https://kafka.apache.org/uses)

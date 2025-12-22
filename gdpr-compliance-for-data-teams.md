@@ -432,6 +432,12 @@ The technical challenges are significant, particularly around implementing the r
 
 As data regulations continue to evolve globally, the investments you make in privacy-centric architecture today will position your organization for success in an increasingly regulated future.
 
+## Related Concepts
+
+- [PII Detection and Handling in Event Streams](https://conduktor.io/glossary/pii-detection-and-handling-in-event-streams) - Automated detection and protection of personal data in streaming systems to support GDPR compliance.
+- [Data Masking and Anonymization for Streaming](https://conduktor.io/glossary/data-masking-and-anonymization-for-streaming) - Pseudonymization and anonymization techniques required for GDPR Article 32 compliance.
+- [Audit Logging for Streaming Platforms](https://conduktor.io/glossary/audit-logging-for-streaming-platforms) - Comprehensive audit trails for demonstrating GDPR accountability and tracking data subject requests.
+
 ## Sources and References
 
 1. **European Union GDPR Official Text** - [EUR-Lex - General Data Protection Regulation](https://eur-lex.europa.eu/eli/reg/2016/679/oj) - The official legal text of the GDPR, providing authoritative guidance on all articles and requirements.

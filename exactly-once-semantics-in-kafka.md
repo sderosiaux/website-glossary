@@ -156,6 +156,12 @@ While exactly-once semantics introduces some performance overhead, it is essenti
 
 Understanding when to use exactly-once semantics—and how to configure it properly—is crucial for building reliable data streaming systems. For handling distributed transactions across microservices using event-driven patterns, see [Saga Pattern for Distributed Transactions](https://conduktor.io/glossary/saga-pattern-for-distributed-transactions).
 
+## Related Concepts
+
+- [Kafka Transactions Deep Dive](https://conduktor.io/glossary/kafka-transactions-deep-dive) - Technical deep dive into Kafka's transactional mechanisms
+- [Exactly-Once Semantics](https://conduktor.io/glossary/exactly-once-semantics) - General exactly-once concepts across streaming platforms
+- [Saga Pattern for Distributed Transactions](https://conduktor.io/glossary/saga-pattern-for-distributed-transactions) - Managing distributed transactions with exactly-once guarantees
+
 ## Sources and References
 
 1. Apache Kafka Documentation: [Exactly Once Semantics](https://kafka.apache.org/documentation/#semantics) - Official documentation on Kafka's delivery semantics and transactional API

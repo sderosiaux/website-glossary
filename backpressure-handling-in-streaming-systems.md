@@ -206,6 +206,12 @@ Modern streaming platforms like Kafka and Flink provide built-in mechanisms for 
 
 Whether you're building IoT data pipelines, event-driven microservices, or real-time analytics platforms, proper backpressure handling is essential for reliability. Start by understanding your throughput requirements, identify potential bottlenecks, implement monitoring, and test your system under load. With these practices, you'll build streaming systems that handle variable data rates gracefully.
 
+## Related Concepts
+
+- [Apache Kafka](https://conduktor.io/glossary/apache-kafka) - Platform with built-in backpressure mechanisms through consumer groups
+- [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring) - Tracking processing delays to detect backpressure
+- [Kafka Capacity Planning](https://conduktor.io/glossary/kafka-capacity-planning) - Sizing infrastructure to handle throughput requirements
+
 ## Sources and References
 
 1. **Apache Kafka Documentation - Producer and Consumer Configurations**

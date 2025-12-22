@@ -188,6 +188,12 @@ For foundational Kafka concepts, see [Apache Kafka](https://conduktor.io/glossar
 
 As LLMs become faster and more capable, and as streaming platforms evolve to better support AI workloads, this integration pattern will become increasingly important for building intelligent, real-time applications.
 
+## Related Concepts
+
+- [Kafka Connect: Building Data Integration Pipelines](/kafka-connect-building-data-integration-pipelines) - Integrate LLM APIs with streaming data
+- [Real-Time Analytics with Streaming Data](/real-time-analytics-with-streaming-data) - Analytics on LLM outputs and performance
+- [Data Governance Framework: Roles and Responsibilities](/data-governance-framework-roles-and-responsibilities) - Govern LLM usage and data access
+
 ## Sources and References
 
 1. Apache Kafka Documentation: "Kafka Streams" - https://kafka.apache.org/documentation/streams/

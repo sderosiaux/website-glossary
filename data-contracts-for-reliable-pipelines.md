@@ -262,6 +262,12 @@ For streaming pipelines built on Kafka, Flink, and similar technologies, contrac
 
 Implementing data contracts requires organizational commitment and tooling investment, but the payoff is substantial: fewer production incidents, faster development cycles, and greater trust in data across the organization.
 
+## Related Concepts
+
+- [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) - Core infrastructure for enforcing data contracts
+- [Data Quality Dimensions: Accuracy, Completeness, and Consistency](https://conduktor.io/glossary/data-quality-dimensions-accuracy-completeness-and-consistency) - Quality expectations defined in contracts
+- [Building a Data Quality Framework](https://conduktor.io/glossary/building-a-data-quality-framework) - Systematic approach to contract validation
+
 ## Sources and References
 
 1. Chad Sanderson - "Data Contracts: The Foundation of Data Mesh" - https://dataproducts.substack.com/

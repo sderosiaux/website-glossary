@@ -150,6 +150,12 @@ The choice depends on latency requirements, operational complexity tolerance, co
 
 Understanding both approaches allows data engineers to design architectures that balance business requirements with technical and operational realities.
 
+## Related Concepts
+
+- [Streaming Data Pipeline](/streaming-data-pipeline) - Building blocks and architecture of streaming pipelines
+- [Data Pipeline Orchestration with Streaming](/data-pipeline-orchestration-with-streaming) - Orchestration patterns for streaming workflows
+- [Streaming to Lakehouse Tables](/streaming-to-lakehouse-tables) - Modern streaming ETL target architectures
+
 ## Sources and References
 
 1. Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly Media, 2017. (Chapter 11: Stream Processing)

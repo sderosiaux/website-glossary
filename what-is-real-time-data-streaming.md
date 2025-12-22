@@ -151,6 +151,12 @@ Streaming fits naturally into modern data architectures like lakehouses and data
 
 Organizations that master real-time data streaming gain a competitive advantage through faster insights, better customer experiences, and more responsive operations.
 
+## Related Concepts
+
+- [Apache Kafka](https://conduktor.io/glossary/apache-kafka) - The most widely adopted distributed streaming platform
+- [What is Apache Flink: Stateful Stream Processing](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing) - Stream processing framework for complex event processing
+- [Exactly-Once Semantics in Kafka](https://conduktor.io/glossary/exactly-once-semantics-in-kafka) - Achieving reliable message processing guarantees
+
 ## Sources and References
 
 1. Apache Kafka Documentation - https://kafka.apache.org/documentation/

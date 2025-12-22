@@ -206,6 +206,12 @@ Modern platforms like Apache Kafka 4.0+ with KRaft mode, combined with governanc
 
 As healthcare continues its digital transformation, streaming platforms will become foundational infrastructure—as essential as electronic health records are today.
 
+## Related Concepts
+
+- [Apache Kafka](/apache-kafka) - Distributed streaming platform for healthcare data pipelines
+- [Data Governance Framework: Roles and Responsibilities](/data-governance-framework-roles-and-responsibilities) - Govern sensitive healthcare data
+- [GDPR Compliance for Data Teams](/gdpr-compliance-for-data-teams) - Ensure regulatory compliance for patient data
+
 ## Sources and References
 
 1. HL7 International. "FHIR R4 Specification - Subscriptions Framework." HL7.org, https://www.hl7.org/fhir/subscription.html

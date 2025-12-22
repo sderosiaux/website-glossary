@@ -221,6 +221,12 @@ While transactions add complexity and latency, they're indispensable for applica
 - Modern monitoring tools like Kafka Lag Exporter and Conduktor provide enhanced visibility into transaction health and performance
 - The `exactly_once_v2` protocol in Kafka Streams (2.5+) combined with KRaft optimizations makes exactly-once semantics more performant than ever
 
+## Related Concepts
+
+- [Exactly-Once Semantics in Kafka](https://conduktor.io/glossary/exactly-once-semantics-in-kafka) - Overview of exactly-once guarantees in Kafka
+- [Kafka Topics, Partitions, and Brokers: Core Architecture](https://conduktor.io/glossary/kafka-topics-partitions-brokers-core-architecture) - Foundational architecture enabling transactions
+- [Saga Pattern for Distributed Transactions](https://conduktor.io/glossary/saga-pattern-for-distributed-transactions) - Using transactions in distributed workflows
+
 ## Sources and References
 
 1. [Apache Kafka Documentation - Transactions](https://kafka.apache.org/documentation/#semantics) - Official documentation covering transaction semantics and configuration

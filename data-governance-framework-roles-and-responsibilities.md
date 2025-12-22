@@ -254,6 +254,12 @@ For related guidance on specific governance domains, see:
 - [What is a Data Catalog: Modern Data Discovery](https://conduktor.io/glossary/what-is-a-data-catalog-modern-data-discovery) for discovery and cataloging
 - [Building a Business Glossary for Data Governance](https://conduktor.io/glossary/building-a-business-glossary-for-data-governance) for semantic governance
 
+## Related Concepts
+
+- [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) - Centralized schema governance for streaming data
+- [Audit Logging for Streaming Platforms](https://conduktor.io/glossary/audit-logging-for-streaming-platforms) - Tracking data access and changes for compliance
+- [Data Contracts for Reliable Pipelines](https://conduktor.io/glossary/data-contracts-for-reliable-pipelines) - Formal agreements between data producers and consumers
+
 ## Sources and References
 
 - [DAMA-DMBOK Data Governance Framework](https://www.dama.org/cpages/body-of-knowledge) - Industry-standard framework for data management and governance roles

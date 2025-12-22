@@ -202,16 +202,11 @@ The transition requires effort—technical implementation, operational changes, 
 
 Trust must be earned, continuously, at every request.
 
-## Related Topics
+## Related Concepts
 
-- [Access Control for Streaming](https://conduktor.io/glossary/access-control-for-streaming) - Traditional and modern access control approaches
-- [Kafka Authentication: SASL, SSL, OAuth](https://conduktor.io/glossary/kafka-authentication-sasl-ssl-oauth) - Authentication implementation details
-- [Kafka ACLs and Authorization Patterns](https://conduktor.io/glossary/kafka-acls-and-authorization-patterns) - Authorization strategies and examples
-- [Encryption at Rest and in Transit for Kafka](https://conduktor.io/glossary/encryption-at-rest-and-in-transit-for-kafka) - Encryption configuration guide
-- [Audit Logging for Streaming Platforms](https://conduktor.io/glossary/audit-logging-for-streaming-platforms) - Comprehensive access tracking
-- [Data Masking and Anonymization for Streaming](https://conduktor.io/glossary/data-masking-and-anonymization-for-streaming) - Field-level data protection
-- [Chaos Engineering for Streaming Systems](https://conduktor.io/glossary/chaos-engineering-for-streaming-systems) - Testing security resilience
-- [Data Classification and Tagging Strategies](https://conduktor.io/glossary/data-classification-and-tagging-strategies) - Classifying data for security policies
+- [Kafka Security Best Practices](https://conduktor.io/glossary/kafka-security-best-practices) - Comprehensive security framework that implements zero-trust principles for Kafka.
+- [Trust Zones: Isolating Sensitive Data in Streaming Architectures](https://conduktor.io/glossary/trust-zones-streaming) - Network segmentation and zone-based isolation patterns that complement zero-trust architecture.
+- [Data Classification and Tagging Strategies](https://conduktor.io/glossary/data-classification-and-tagging-strategies) - How to classify data to enforce appropriate zero-trust policies based on sensitivity.
 
 ## Sources and References
 

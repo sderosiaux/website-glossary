@@ -265,6 +265,12 @@ In 2025, the access control landscape continues to evolve. Relationship-Based Ac
 
 For broader data governance frameworks that incorporate access control, see [Data Governance Framework: Roles and Responsibilities](https://conduktor.io/glossary/data-governance-framework-roles-and-responsibilities).
 
+## Related Concepts
+
+- [Access Control for Streaming](https://conduktor.io/glossary/access-control-for-streaming) - Practical implementation of RBAC and ABAC in Kafka and streaming platforms.
+- [Kafka ACLs and Authorization Patterns](https://conduktor.io/glossary/kafka-acls-and-authorization-patterns) - How Kafka's native ACLs map to RBAC and ABAC models.
+- [Policy Enforcement in Streaming](https://conduktor.io/glossary/policy-enforcement-in-streaming) - Automated enforcement of RBAC and ABAC policies using tools like OPA.
+
 ## Sources and References
 
 **Standards and Research:**

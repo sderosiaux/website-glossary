@@ -175,6 +175,12 @@ The evolution continues toward hybrid approaches. Modern frameworks increasingly
 
 Understanding micro-batching's strengths and limitations helps you build the right streaming architecture for your needs—one that balances performance, simplicity, and maintainability in production.
 
+## Related Concepts
+
+- [Flink vs Spark Streaming: When to Choose Each](https://conduktor.io/glossary/flink-vs-spark-streaming-when-to-choose-each) - Comparing micro-batching to true streaming architectures
+- [What is Apache Flink: Stateful Stream Processing](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing) - True streaming alternative to micro-batching
+- [Apache Kafka](https://conduktor.io/glossary/apache-kafka) - Platform commonly used as input source for micro-batch processing
+
 ## Sources and References
 
 1. **Apache Spark Structured Streaming Programming Guide** - Official documentation covering micro-batching architecture, trigger modes, and performance tuning in Spark 3.5+. [https://spark.apache.org/docs/latest/structured-streaming-programming-guide.html](https://spark.apache.org/docs/latest/structured-streaming-programming-guide.html)

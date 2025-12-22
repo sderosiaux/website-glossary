@@ -178,6 +178,12 @@ The modern approach combines traditional incident response with observability-dr
 
 The goal isn't eliminating all incidents—that's unrealistic in complex distributed systems. Instead, focus on rapid detection through comprehensive monitoring, efficient response using modern incident management platforms, thorough analysis with the Five Whys technique, and continuous improvement through automated testing and chaos engineering. Over time, this approach builds both technical reliability and organizational capability, transforming how your team handles the inevitable challenges of production data systems.
 
+## Related Concepts
+
+- [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring) - Detecting streaming pipeline incidents through lag metrics
+- [Apache Kafka](https://conduktor.io/glossary/apache-kafka) - Platform requiring specialized incident response strategies
+- [Exactly-Once Semantics in Kafka](https://conduktor.io/glossary/exactly-once-semantics-in-kafka) - Processing guarantees that prevent duplicate-related incidents
+
 ## Related Topics
 
 - [Data Quality Dimensions: Accuracy, Completeness, and Consistency](https://conduktor.io/glossary/data-quality-dimensions-accuracy-completeness-and-consistency) - Understanding data quality metrics for incident detection

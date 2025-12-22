@@ -245,6 +245,12 @@ In multi-datacenter deployments, Apache Kafka's MirrorMaker 2 (MM2) extends repl
 
 The combination of local replication for fault tolerance, cross-datacenter replication for disaster recovery, and tiered storage for cost-effective retention creates a comprehensive availability strategy. Organizations can achieve five-nines (99.999%) availability by carefully designing their replication topology and failover procedures.
 
+## Related Concepts
+
+- [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka) - KRaft's modern consensus protocol improves failover speed and simplifies high availability operations.
+- [Kafka Cluster Monitoring and Metrics](https://conduktor.io/glossary/kafka-cluster-monitoring-and-metrics) - Essential monitoring strategies for tracking replication health and detecting availability issues.
+- [Tiered Storage in Kafka](https://conduktor.io/glossary/tiered-storage-in-kafka) - Complements replication by providing cost-effective long-term retention while maintaining availability.
+
 ## Summary
 
 Kafka's replication and high availability features provide the foundation for building reliable data streaming platforms. By maintaining multiple synchronized copies of data across brokers and automatically handling failover, Kafka ensures that systems can survive hardware failures and network issues without data loss.

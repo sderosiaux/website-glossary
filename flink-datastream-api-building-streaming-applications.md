@@ -258,6 +258,12 @@ By mastering these concepts, data engineers can build robust, production-grade s
 
 For alternative declarative approaches to stream processing in Flink, explore [Flink SQL and Table API for Stream Processing](https://conduktor.io/glossary/flink-sql-and-table-api-for-stream-processing).
 
+## Related Concepts
+
+- [Event Time and Watermarks in Flink](https://conduktor.io/glossary/event-time-and-watermarks-in-flink) - Essential concepts for accurate time-based processing in the DataStream API
+- [Stream Joins and Enrichment Patterns](https://conduktor.io/glossary/stream-joins-and-enrichment-patterns) - Advanced join strategies and data enrichment techniques
+- [Backpressure Handling in Streaming Systems](https://conduktor.io/glossary/backpressure-handling-in-streaming-systems) - Managing throughput and flow control in DataStream applications
+
 ## References and Further Reading
 
 - Apache Flink Documentation: DataStream API - https://nightlies.apache.org/flink/flink-docs-stable/docs/dev/datastream/overview/

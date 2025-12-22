@@ -364,6 +364,12 @@ Mutual TLS represents the gold standard for authenticating Kafka clients in ente
 
 Successful mTLS deployments require careful planning of certificate infrastructure, investment in automation tools, and operational discipline around certificate lifecycle management. Teams that master these aspects gain cryptographically verified identity for every Kafka client—the foundation for robust authorization policies and regulatory compliance.
 
+## Related Concepts
+
+- [Kafka Authentication: SASL, SSL, OAuth](https://conduktor.io/glossary/kafka-authentication-sasl-ssl-oauth) - Comprehensive comparison of mTLS with other authentication mechanisms like SASL/SCRAM and OAuth.
+- [Zero Trust for Streaming](https://conduktor.io/glossary/zero-trust-for-streaming) - How mTLS fits into a broader zero-trust security architecture for streaming platforms.
+- [Encryption at Rest and in Transit for Kafka](https://conduktor.io/glossary/encryption-at-rest-and-in-transit-for-kafka) - TLS encryption configuration that complements mTLS authentication.
+
 ## Sources and References
 
 - [Apache Kafka Security Documentation](https://kafka.apache.org/documentation/#security) - Official Kafka security configuration and SSL/TLS setup

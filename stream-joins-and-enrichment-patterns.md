@@ -326,6 +326,12 @@ Both Kafka Streams (3.x+) and Apache Flink (1.13+) provide robust join implement
 
 Mastering these patterns unlocks the full potential of stream processing, enabling real-time analytics, contextual decision-making, and responsive applications that react to events as they happen.
 
+## Related Concepts
+
+- [What is Apache Flink: Stateful Stream Processing](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing) - Stream processing framework with advanced join capabilities
+- [Handling Late-Arriving Data in Streaming](https://conduktor.io/glossary/handling-late-arriving-data-in-streaming) - Managing out-of-order events in joins
+- [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring) - Tracking processing delays in streaming pipelines
+
 ## Sources and References
 
 1. Confluent Documentation, "Kafka Streams - Join Semantics" - https://docs.confluent.io/platform/current/streams/developer-guide/dsl-api.html#joining

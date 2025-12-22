@@ -781,12 +781,11 @@ Choosing the appropriate window type depends on your use case: tumbling for disc
 
 Understanding window functions—from incremental aggregations to full window processing—enables you to balance performance and functionality. Combined with proper governance tools for monitoring Kafka infrastructure, these techniques form the foundation of robust, production-ready stream processing pipelines.
 
-For deeper dives into related topics:
-- [Event Time and Watermarks in Flink](https://conduktor.io/glossary/event-time-and-watermarks-in-flink) - Comprehensive guide to Flink's time semantics
-- [Flink DataStream API: Building Streaming Applications](https://conduktor.io/glossary/flink-datastream-api-building-streaming-applications) - Complete DataStream API reference
-- [Flink State Management and Checkpointing](https://conduktor.io/glossary/flink-state-management-and-checkpointing) - Managing window state at scale
-- [Handling Late-Arriving Data in Streaming](https://conduktor.io/glossary/handling-late-arriving-data-in-streaming) - Advanced late data strategies
-- [Backpressure Handling in Streaming Systems](https://conduktor.io/glossary/backpressure-handling-in-streaming-systems) - Managing throughput and window performance
+## Related Concepts
+
+- [Session Windows in Stream Processing](https://conduktor.io/glossary/session-windows-in-stream-processing) - Dynamic windowing based on activity patterns, complementing fixed-interval windows
+- [Watermarks and Triggers in Stream Processing](https://conduktor.io/glossary/watermarks-and-triggers-in-stream-processing) - Essential mechanisms for determining when windows should fire
+- [Handling Late-Arriving Data in Streaming](https://conduktor.io/glossary/handling-late-arriving-data-in-streaming) - Strategies for managing late events beyond allowed lateness configuration
 
 ## Sources and References
 

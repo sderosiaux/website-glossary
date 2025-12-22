@@ -384,6 +384,12 @@ The architecture combines change data capture, streaming platforms like Apache K
 
 While traditional batch RAG remains suitable for static or slowly changing content, real-time RAG is essential for domains where information freshness directly impacts user value and business outcomes. As streaming infrastructure matures and becomes more accessible, real-time RAG will become the standard approach for production AI applications.
 
+## Related Concepts
+
+- [Streaming Data Pipeline](/streaming-data-pipeline) - Build end-to-end RAG data pipelines
+- [Data Quality Dimensions: Accuracy, Completeness, and Consistency](/data-quality-dimensions-accuracy-completeness-and-consistency) - Ensure high-quality RAG inputs
+- [Schema Registry and Schema Management](/schema-registry-and-schema-management) - Manage document and embedding schemas
+
 ## Sources and References
 
 1. **"Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks"** - Lewis et al., Facebook AI Research (2020) - The foundational RAG research paper

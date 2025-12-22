@@ -274,6 +274,12 @@ For data streaming systems like Kafka, gateways enable new use cases by bridging
 
 Successful gateway implementations balance flexibility with governance. They simplify client access without creating a monolithic bottleneck. As data platforms grow in complexity, well-designed API gateways become increasingly critical to maintaining security, performance, and developer productivity.
 
+## Related Concepts
+
+- [Access Control for Streaming](https://conduktor.io/glossary/access-control-for-streaming) - Access control mechanisms that API gateways enforce to protect streaming data platforms
+- [Kafka ACLs and Authorization Patterns](https://conduktor.io/glossary/kafka-acls-and-authorization-patterns) - Fine-grained authorization patterns that gateways can implement for Kafka-based data platforms
+- [Multi-Tenancy in Kafka Environments](https://conduktor.io/glossary/multi-tenancy-in-kafka-environments) - Multi-tenant patterns that API gateways enable by providing isolation and resource controls
+
 ## Sources and References
 
 1. Richardson, C. (2018). *Microservices Patterns: With Examples in Java*. Manning Publications. Chapter 8: External API Patterns.

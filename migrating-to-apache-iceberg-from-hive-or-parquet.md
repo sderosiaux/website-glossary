@@ -447,6 +447,12 @@ Don't migrate everything at once:
 4. **Gather feedback**: Involve data consumers in validation
 5. **Scale gradually**: Expand to critical tables after proven success
 
+## Related Concepts
+
+- [Streaming ETL vs Traditional ETL](/streaming-etl-vs-traditional-etl)
+- [Kafka Connect: Building Data Integration Pipelines](/kafka-connect-building-data-integration-pipelines)
+- [Data Pipeline Orchestration with Streaming](/data-pipeline-orchestration-with-streaming)
+
 ## Conclusion
 
 Migrating to Apache Iceberg from Hive or Parquet represents a strategic investment in modern data infrastructure. As of 2025, Iceberg 1.7+ provides production-grade features—REST catalogs, branches and tags, puffin statistics, and improved streaming integrations—that make migration safer and more flexible than ever.

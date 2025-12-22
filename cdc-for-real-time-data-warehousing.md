@@ -354,6 +354,12 @@ Successful CDC implementation combines appropriate loading patterns (append-only
 
 Operational maturity requires governance tools for visibility and control, careful schema evolution strategies, and proactive monitoring of pipeline health. When implemented thoughtfully, CDC-based real-time data warehousing delivers the immediacy modern businesses demand while maintaining the reliability and accuracy that analytical systems require.
 
+## Related Concepts
+
+- [Streaming ETL vs Traditional ETL](https://conduktor.io/glossary/streaming-etl-vs-traditional-etl) - Compare traditional batch ETL approaches with CDC-based streaming ETL for real-time data warehouse loading.
+- [What is Change Data Capture: CDC Fundamentals](https://conduktor.io/glossary/what-is-change-data-capture-cdc-fundamentals) - Foundational CDC concepts that enable real-time data warehousing architectures.
+- [Data Quality Dimensions: Accuracy, Completeness, and Consistency](https://conduktor.io/glossary/data-quality-dimensions-accuracy-completeness-and-consistency) - Learn how to maintain data quality in CDC pipelines feeding data warehouses.
+
 ## Sources and References
 
 - **Apache Kafka Documentation**: [https://kafka.apache.org/documentation/](https://kafka.apache.org/documentation/)

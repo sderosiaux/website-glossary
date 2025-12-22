@@ -294,6 +294,12 @@ Streaming platforms like Kafka and Flink provide the building blocks for PII pro
 
 Organizations that treat PII protection as a first-class concern in their streaming architectures not only meet compliance requirements but also build trust with customers and reduce the risk of costly data breaches.
 
+## Related Concepts
+
+- [PII Leakage Prevention](https://conduktor.io/glossary/pii-leakage-prevention) - Strategies for preventing unintended PII exposure in logs, monitoring systems, and misconfigured streams.
+- [Data Masking and Anonymization for Streaming](https://conduktor.io/glossary/data-masking-and-anonymization-for-streaming) - Detailed techniques for masking, tokenization, and anonymization in real-time streams.
+- [GDPR Compliance for Data Teams](https://conduktor.io/glossary/gdpr-compliance-for-data-teams) - How PII handling supports GDPR requirements including right to erasure and data minimization.
+
 ## Sources and References
 
 1. **GDPR Official Text** - European Commission comprehensive resource on GDPR requirements including PII definitions and processing obligations: https://gdpr.eu/

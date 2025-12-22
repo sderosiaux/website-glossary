@@ -284,6 +284,12 @@ Measure the business impact of quality improvements to demonstrate value and sec
 
 Create feedback loops between quality measurement and data platform improvements. When quality issues reveal systemic problems—inadequate data validation, missing reference data, or architectural gaps—use these insights to drive platform enhancements that prevent entire classes of quality issues.
 
+## Related Concepts
+
+- [Automated Data Quality Testing](https://conduktor.io/glossary/automated-data-quality-testing) - Implementing continuous testing practices
+- [Data Quality Dimensions: Accuracy, Completeness, and Consistency](https://conduktor.io/glossary/data-quality-dimensions-accuracy-completeness-and-consistency) - Core quality metrics to track
+- [Data Contracts for Reliable Pipelines](https://conduktor.io/glossary/data-contracts-for-reliable-pipelines) - Formalizing quality expectations
+
 ## Conclusion
 
 Building a data quality framework requires balancing technical rigor with practical business needs. By establishing clear metrics, implementing both batch and streaming validation, creating actionable scorecards, and leveraging governance platforms for streaming oversight, you create a foundation for trustworthy data that enables confident decision-making. The framework you build today becomes the trust infrastructure that supports your organization's data-driven future.

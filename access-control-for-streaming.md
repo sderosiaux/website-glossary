@@ -39,10 +39,10 @@ Most enterprises combine authentication methods: mTLS for internal services, OAu
 Before using ACLs, you must enable authorization in your Kafka cluster by setting the `authorizer.class.name` property in `server.properties`:
 
 ```properties
-# For KRaft mode (Kafka 3.0+)
+# For KRaft mode (Kafka 3.0+, default in Kafka 4.0+)
 authorizer.class.name=org.apache.kafka.metadata.authorizer.StandardAuthorizer
 
-# For ZooKeeper mode (legacy)
+# For ZooKeeper mode (legacy, replaced by KRaft in Kafka 4.0+)
 authorizer.class.name=kafka.security.authorizer.AclAuthorizer
 
 # Configure super users who bypass ACL checks (use carefully)
@@ -134,6 +134,12 @@ Remember that access control is just one layer of defense. Combine it with encry
 The streaming paradigm's continuous data flow and multiple consumers make access control more complex than traditional databases, but Kafka's ACL model provides the flexibility to implement enterprise-grade security. With proper planning and tooling, you can build a streaming platform that serves multiple teams securely while maintaining the agility that makes streaming valuable.
 
 For production deployments, consider platforms that provide unified governance across your streaming infrastructure, making it easier to manage access control, monitor compliance, and maintain security as your streaming architecture evolves.
+
+## Related Concepts
+
+- [Kafka ACLs and Authorization Patterns](https://conduktor.io/glossary/kafka-acls-and-authorization-patterns) - Detailed implementation patterns for Kafka's native ACL system and modern authorization approaches.
+- [Data Access Control: RBAC and ABAC](https://conduktor.io/glossary/data-access-control-rbac-and-abac) - Role-based and attribute-based access control models for streaming platforms.
+- [Multi-Tenancy in Kafka Environments](https://conduktor.io/glossary/multi-tenancy-in-kafka-environments) - Access control strategies for shared Kafka infrastructure serving multiple teams.
 
 ## Sources and References
 

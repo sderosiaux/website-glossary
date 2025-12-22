@@ -144,6 +144,12 @@ The core technologies—primarily Apache Kafka for event streaming and Apache Fl
 
 Financial institutions that invest in building robust streaming data platforms gain competitive advantages through faster fraud detection, instant payment processing, better risk management, and improved customer experiences. As real-time expectations continue to grow and regulatory requirements evolve, streaming data will only become more central to financial services operations.
 
+## Related Concepts
+
+- [Apache Kafka](/apache-kafka) - Distributed streaming platform for financial data pipelines
+- [Exactly-Once Semantics](/exactly-once-semantics) - Critical for financial transactions and payment processing
+- [GDPR Compliance for Data Teams](/gdpr-compliance-for-data-teams) - Regulatory compliance for financial data privacy
+
 ## Sources and References
 
 1. **Apache Kafka Documentation** - "Use Cases: Financial Services" - https://kafka.apache.org/powered-by - Detailed case studies from Capital One, Goldman Sachs, and other major financial institutions

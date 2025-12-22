@@ -160,6 +160,12 @@ Real-world implementations at Netflix, Spotify, and Uber demonstrate the power o
 
 Success requires not just the right architecture, but also robust monitoring (Kafka Lag Exporter, Prometheus, Grafana), debugging, and governance capabilities (ACLs, data masking, compliance). As recommendation systems become more real-time and incorporate advanced techniques like vector embeddings and LLM-powered personalization, the operational complexity grows, making modern platform tooling increasingly important for maintaining data quality and system reliability.
 
+## Related Concepts
+
+- [Streaming Data Pipeline](/streaming-data-pipeline) - Build end-to-end recommendation pipelines
+- [Real-Time Analytics with Streaming Data](/real-time-analytics-with-streaming-data) - Analytics for recommendation performance
+- [Data Quality Dimensions: Accuracy, Completeness, and Consistency](/data-quality-dimensions-accuracy-completeness-and-consistency) - Ensure high-quality recommendation inputs
+
 ## Sources and References
 
 1. **Netflix Technology Blog** - "Distributed Time-Travel for Feature Generation" ([https://netflixtechblog.com/distributed-time-travel-for-feature-generation-389cccdd3907](https://netflixtechblog.com/distributed-time-travel-for-feature-generation-389cccdd3907))

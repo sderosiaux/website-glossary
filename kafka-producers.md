@@ -211,6 +211,12 @@ What to enforce:
 
 This centralized approach keeps producer changes safe, traceable, and compliant at scale without requiring custom tooling.
 
+## Related Concepts
+
+- [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) - Ensures producers write messages with validated, compatible schemas that consumers can reliably deserialize.
+- [Exactly-Once Semantics in Kafka](https://conduktor.io/glossary/exactly-once-semantics-in-kafka) - Combines idempotent and transactional producers to achieve end-to-end exactly-once delivery guarantees.
+- [Kafka Security Best Practices](https://conduktor.io/glossary/kafka-security-best-practices) - Critical for securing producer authentication, authorization, and data encryption in production environments.
+
 ## Summary
 
 Producers turn domain events and CDC streams into durable topic data. Their settings for serialization, acks, retries, batching, and keys decide reliability, latency, and cost for the whole stack.

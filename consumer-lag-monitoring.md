@@ -160,6 +160,12 @@ Remember that lag monitoring is not a one-time configuration but an ongoing prac
 
 Whether you're using basic Kafka CLI tools or sophisticated streaming management platforms for governance and monitoring, the key is establishing a culture of lag awareness across your team. When everyone understands lag metrics and their implications, your organization can build and maintain robust, reliable streaming systems that truly operate in real time.
 
+## Related Concepts
+
+- [Kafka Cluster Monitoring and Metrics](https://conduktor.io/glossary/kafka-cluster-monitoring-and-metrics) - Comprehensive monitoring strategies covering broker health, partition replication, and performance metrics beyond consumer lag.
+- [Kafka Performance Tuning Guide](https://conduktor.io/glossary/kafka-performance-tuning-guide) - Optimization techniques to reduce consumer lag through improved throughput and processing efficiency.
+- [Backpressure Handling in Streaming Systems](https://conduktor.io/glossary/backpressure-handling-in-streaming-systems) - Patterns for managing flow control when consumer lag indicates backpressure from downstream systems.
+
 ## Sources and References
 
 - [Apache Kafka Monitoring Documentation](https://kafka.apache.org/documentation/#monitoring) - Official guide to Kafka metrics and monitoring approaches

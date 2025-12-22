@@ -293,6 +293,12 @@ Kafka's durable, partitioned, scalable log architecture provides the ideal found
 
 Success requires understanding the trade-offs, investing in proper tooling and monitoring, and applying these patterns where they provide clear value over simpler alternatives. For additional Event Sourcing implementation patterns and best practices, see [Event Sourcing Patterns with Kafka](https://conduktor.io/glossary/event-sourcing-patterns-with-kafka).
 
+## Related Concepts
+
+- [Event Sourcing Patterns with Kafka](https://conduktor.io/glossary/event-sourcing-patterns-with-kafka) - Detailed implementation patterns for event sourcing
+- [Saga Pattern for Distributed Transactions](https://conduktor.io/glossary/saga-pattern-for-distributed-transactions) - Managing distributed transactions in event-driven systems
+- [Exactly-Once Semantics in Kafka](https://conduktor.io/glossary/exactly-once-semantics-in-kafka) - Ensuring data consistency with transactional guarantees
+
 ## Sources and References
 
 1. Fowler, Martin. "CQRS." martinfowler.com, 2011. https://martinfowler.com/bliki/CQRS.html

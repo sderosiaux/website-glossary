@@ -156,6 +156,12 @@ Proper configuration and monitoring of state stores is essential for production 
 
 With the right setup, state stores enable sophisticated stream processing logic—including interactive queries, temporal analytics, and complex joins—while maintaining the scalability and fault tolerance that make Kafka Streams a powerful platform for real-time data processing.
 
+## Related Concepts
+
+- [Exactly-Once Semantics in Kafka](https://conduktor.io/glossary/exactly-once-semantics-in-kafka) - How state stores integrate with exactly-once processing guarantees
+- [Kafka Log Compaction Explained](https://conduktor.io/glossary/kafka-log-compaction-explained) - Understanding changelog topic compaction for state store recovery
+- [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring) - Monitoring state restoration and recovery performance in production
+
 ## Sources and References
 
 1. [Apache Kafka Streams Documentation - State Stores](https://kafka.apache.org/documentation/streams/developer-guide/processor-api.html#state-stores) - Official documentation on state store types and usage

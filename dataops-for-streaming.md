@@ -285,6 +285,12 @@ The investment in DataOps pays dividends: faster time to market for new features
 
 With modern tooling like KRaft-based Kafka, OpenTelemetry observability, GitOps deployment patterns, and comprehensive management platforms like Conduktor, teams have everything needed to implement DataOps effectively. The key is starting small—automate one pain point, add one test suite, improve one deployment process—and building momentum toward a fully mature DataOps practice.
 
+## Related Concepts
+
+- [CI/CD Best Practices for Streaming Applications](https://conduktor.io/glossary/cicd-best-practices-for-streaming-applications) - Deployment automation for streaming systems
+- [Infrastructure as Code for Kafka Deployments](https://conduktor.io/glossary/infrastructure-as-code-for-kafka-deployments) - Managing streaming infrastructure as code
+- [Data Quality Dimensions: Accuracy, Completeness, and Consistency](https://conduktor.io/glossary/data-quality-dimensions-accuracy-completeness-and-consistency) - Quality frameworks for DataOps
+
 ## Sources and References
 
 - [The DataOps Manifesto](https://dataopsmanifesto.org/)

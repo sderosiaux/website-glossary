@@ -360,6 +360,12 @@ The investment in freshness monitoring pays dividends beyond meeting SLAs. It pr
 
 As you implement these practices, remember that perfection is iterative. Start with your most critical pipelines, establish baseline SLAs, and gradually expand coverage. Leverage modern tools like Kafka Lag Exporter for streaming lag visibility, dbt for warehouse freshness checks, Great Expectations or Soda Core for automated validation, and enterprise platforms like Monte Carlo for ML-powered anomaly detection. With proper monitoring tools providing visibility into streaming infrastructure and a culture of freshness-awareness, you'll build data systems that consistently deliver timely, reliable insights.
 
+## Related Concepts
+
+- [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring) - Detailed streaming lag tracking strategies
+- [Data Quality Dimensions: Accuracy, Completeness, and Consistency](https://conduktor.io/glossary/data-quality-dimensions-accuracy-completeness-and-consistency) - Understanding timeliness in context
+- [What is Data Observability: The Five Pillars](https://conduktor.io/glossary/what-is-data-observability-the-five-pillars) - Freshness as part of observability
+
 ## Sources and References
 
 - [Google SRE Book - Service Level Objectives](https://sre.google/sre-book/service-level-objectives/) - Foundational guidance on defining and managing SLAs and SLOs

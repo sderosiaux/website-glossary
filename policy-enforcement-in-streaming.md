@@ -258,6 +258,12 @@ Effective policy enforcement combines technical implementation with organization
 
 As streaming systems grow in scale and importance, robust policy enforcement becomes essential. It's the foundation for trustworthy real-time data, enabling organizations to move fast while maintaining control, to democratize data access while protecting privacy, and to meet compliance obligations without sacrificing agility.
 
+## Related Concepts
+
+- [Data Governance Framework: Roles and Responsibilities](https://conduktor.io/glossary/data-governance-framework-roles-and-responsibilities) - Organizational structure for policy management
+- [Audit Logging for Streaming Platforms](https://conduktor.io/glossary/audit-logging-for-streaming-platforms) - Recording policy enforcement decisions
+- [Data Quality Dimensions: Accuracy, Completeness, and Consistency](https://conduktor.io/glossary/data-quality-dimensions-accuracy-completeness-and-consistency) - Quality policies for streaming data
+
 ## Sources and References
 
 1. **Apache Kafka Documentation - Security**. Apache Software Foundation. https://kafka.apache.org/documentation/#security - Official documentation covering authentication, authorization, encryption, and security policies in Kafka.

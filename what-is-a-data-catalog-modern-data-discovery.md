@@ -115,6 +115,12 @@ Whether you're a data analyst searching for customer segments, a governance offi
 
 The question isn't whether you need a data catalog, but rather how quickly you can implement one to unlock the full potential of your data.
 
+## Related Concepts
+
+- [Data Lineage: Tracking Data from Source to Consumption](https://conduktor.io/glossary/data-lineage-tracking-data-from-source-to-consumption) - Essential lineage capabilities that modern data catalogs provide for understanding data flow
+- [Metadata Management: Technical vs Business Metadata](https://conduktor.io/glossary/metadata-management-technical-vs-business-metadata) - Different types of metadata that catalogs collect and organize for effective data discovery
+- [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) - Schema registries complement data catalogs by providing technical schema metadata for streaming data assets
+
 ## Sources and References
 
 1. **DataHub Project Documentation**. LinkedIn/DataHub Community. https://datahubproject.io/docs/ - Open-source data catalog platform documentation covering metadata management, discovery, and lineage tracking.

@@ -365,6 +365,12 @@ Incremental models represent a fundamental shift from batch-oriented to continuo
 
 Start with simple strategies for immutable events, graduate to merge strategies for changing dimensions, and leverage streaming offsets for real-time pipelines. With proper testing, monitoring via Elementary Data or dbt Cloud, and the right incremental strategy, you can achieve 90%+ cost reductions while maintaining data freshness.
 
+## Related Concepts
+
+- [dbt Tests and Data Quality Checks](/dbt-tests-and-data-quality-checks) - Validating incremental models to ensure data quality
+- [Streaming ETL vs Traditional ETL](/streaming-etl-vs-traditional-etl) - How incremental models bridge batch and streaming paradigms
+- [Data Contracts for Reliable Pipelines](/data-contracts-for-reliable-pipelines) - Defining expectations for incremental model inputs
+
 ## Sources and References
 
 - [dbt Documentation: Incremental Models](https://docs.getdbt.com/docs/build/incremental-models)

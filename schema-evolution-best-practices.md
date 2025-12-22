@@ -331,6 +331,12 @@ Schema evolution is essential in distributed systems where components evolve ind
 
 By following these practices, teams can evolve schemas safely without breaking existing systems, reducing downtime and data quality issues in production environments.
 
+## Related Concepts
+
+- [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) - Essential infrastructure for centralized schema storage and compatibility validation during evolution.
+- [Avro vs Protobuf vs JSON Schema](https://conduktor.io/glossary/avro-vs-protobuf-vs-json-schema) - Compare how different serialization formats handle schema evolution with their specific compatibility rules.
+- [Data Contracts for Reliable Pipelines](https://conduktor.io/glossary/data-contracts-for-reliable-pipelines) - Understand how schema evolution relates to maintaining data contracts between producers and consumers.
+
 ## Sources and References
 
 1. [Apicurio Registry Documentation](https://www.apicur.io/registry/) - Open-source schema registry with multi-format support

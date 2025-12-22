@@ -247,7 +247,7 @@ Trust zones enforce **role-based access control (RBAC)** with different requirem
 - **GCP Workload Identity**: Kubernetes pods inherit GCP service account permissions
 - **Azure Managed Identity**: Eliminate stored credentials with Azure AD integration
 
-**KRaft Mode Security** (Kafka 4.0+): With the removal of ZooKeeper, KRaft introduces new security considerations:
+**KRaft Mode Security** (Kafka 4.0+): With the removal of ZooKeeper (legacy, replaced by KRaft in Kafka 4.0+), KRaft introduces new security considerations:
 
 - Metadata ACLs control access to cluster controller operations
 - Simplified security configuration without ZooKeeper ACLs
@@ -737,3 +737,9 @@ Trust zones provide a structured approach to protecting sensitive data in stream
 - Simplify audits with well-defined security perimeters
 
 Start by classifying your streaming data, define zones matching those classifications, and implement progressively stronger controls for higher-sensitivity zones. The upfront investment in zone design pays dividends in reduced breach risk and streamlined compliance.
+
+## Related Concepts
+
+- [Zero Trust for Streaming](https://conduktor.io/glossary/zero-trust-for-streaming) - Zero-trust security principles that complement trust zone isolation with continuous verification.
+- [Data Classification and Tagging Strategies](https://conduktor.io/glossary/data-classification-and-tagging-strategies) - How to classify data to determine appropriate trust zone placement and controls.
+- [Data Masking and Anonymization for Streaming](https://conduktor.io/glossary/data-masking-and-anonymization-for-streaming) - Techniques for sanitizing data as it moves between trust zones.

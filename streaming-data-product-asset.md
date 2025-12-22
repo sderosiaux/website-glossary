@@ -184,6 +184,12 @@ Streaming data products treat real-time data as managed assets with API-like int
 
 **Where Platforms Fit:** Governance platforms provide discovery and access control layers, enabling catalog maintenance, schema policy enforcement, quality monitoring, ACL management, and consumer onboarding automation—ensuring decentralized ownership doesn't devolve into chaos while preserving streaming's agility.
 
+## Related Concepts
+
+- [Kafka ACLs and Authorization Patterns](https://conduktor.io/glossary/kafka-acls-and-authorization-patterns) - Fine-grained access control mechanisms essential for securing streaming data products across multiple consumers
+- [Data Freshness Monitoring: SLA Management](https://conduktor.io/glossary/data-freshness-monitoring-sla-management) - Techniques for ensuring streaming data products meet their committed service level agreements
+- [Access Control for Streaming](https://conduktor.io/glossary/access-control-for-streaming) - Comprehensive patterns for managing who can access streaming data products and under what conditions
+
 ## Sources and References
 
 - Dehghani, Zhamak. [*Data Mesh: Delivering Data-Driven Value at Scale*](https://www.oreilly.com/library/view/data-mesh/9781492092384/). O'Reilly Media, 2022.

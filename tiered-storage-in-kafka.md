@@ -182,6 +182,12 @@ Implementation requires configuring storage backend plugins and setting appropri
 
 For organizations building event-driven architectures, tiered storage enables Kafka to serve as a unified platform for both real-time streaming and historical data access. This simplifies architecture, reduces costs, and enables new use cases spanning real-time and batch processing within a single streaming platform.
 
+## Related Concepts
+
+- [Kafka Capacity Planning](https://conduktor.io/glossary/kafka-capacity-planning) - Optimize storage costs and cluster sizing by factoring tiered storage into capacity calculations.
+- [Disaster Recovery Strategies for Kafka Clusters](https://conduktor.io/glossary/disaster-recovery-strategies-for-kafka-clusters) - Leverage tiered storage for cost-effective long-term backups and compliance retention.
+- [Streaming Total Cost of Ownership](https://conduktor.io/glossary/streaming-total-cost-of-ownership) - Quantify tiered storage's impact on total streaming infrastructure costs.
+
 ## Sources and References
 
 - [KIP-405: Kafka Tiered Storage - Apache Kafka](https://cwiki.apache.org/confluence/display/KAFKA/KIP-405:+Kafka+Tiered+Storage)

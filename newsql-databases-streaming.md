@@ -575,6 +575,12 @@ NewSQL databases represent a significant evolution in database technology, elimi
 
 The key is understanding when the trade-offs of NewSQL—typically slightly higher latency than pure NoSQL and higher cost than traditional single-server databases—are worth the benefits of distributed ACID transactions and horizontal scalability. For applications where correctness and consistency are paramount, but scale is essential, NewSQL databases are often the optimal choice.
 
+## Related Concepts
+
+- [Apache Kafka](/glossary/apache-kafka) - The streaming platform that NewSQL databases integrate with for CDC and event-driven architectures
+- [NoSQL Databases for Real-Time Streaming: Patterns and Integration](/glossary/nosql-databases-real-time) - Alternative database architectures favoring eventual consistency and higher throughput
+- [Data Governance Framework: Roles and Responsibilities](/glossary/data-governance-framework-roles-and-responsibilities) - Critical for managing transactional data across distributed systems
+
 ## Sources and References
 
 - [CockroachDB Architecture Documentation](https://www.cockroachlabs.com/docs/stable/architecture/overview.html) - Detailed architecture of a leading NewSQL database

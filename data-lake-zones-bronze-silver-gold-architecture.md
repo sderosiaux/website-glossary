@@ -281,6 +281,12 @@ In 2025, this pattern is enhanced by modern lakehouse formats (Delta Lake, Apach
 
 This architectural pattern has proven its value across organizations of all sizes, from startups building their first data lake to enterprises managing petabytes of data. Whether you're implementing batch processing or real-time streaming ingestion, the medallion pattern provides the organizational structure needed for data engineering success.
 
+## Related Concepts
+
+- [Real-Time Analytics with Streaming Data](/real-time-analytics-with-streaming-data)
+- [Data Pipeline Orchestration with Streaming](/data-pipeline-orchestration-with-streaming)
+- [Streaming ETL vs Traditional ETL](/streaming-etl-vs-traditional-etl)
+
 ## Related Topics
 
 ### Table Formats & Architecture

@@ -139,6 +139,12 @@ Chaos engineering is essential for building resilient streaming systems. By proa
 
 Start with well-defined experiments in controlled environments, establish clear success metrics, and gradually expand the scope as confidence grows. Combine chaos engineering with strong observability and monitoring to understand system behavior under failure conditions. As streaming architectures become more critical to business operations, chaos engineering transforms from an optional practice to a fundamental requirement for reliability.
 
+## Related Concepts
+
+- [Testing Strategies for Streaming Applications](https://conduktor.io/glossary/testing-strategies-for-streaming-applications) - Comprehensive testing approaches including chaos testing
+- [Disaster Recovery Strategies for Kafka Clusters](https://conduktor.io/glossary/disaster-recovery-strategies-for-kafka-clusters) - Planning for and recovering from failures
+- [Kafka Cluster Monitoring and Metrics](https://conduktor.io/glossary/kafka-cluster-monitoring-and-metrics) - Observability during chaos experiments
+
 ## Sources and References
 
 1. Rosenthal, C., & Hochstein, L. (2017). *Chaos Engineering: Building Confidence in System Behavior through Experiments*. O'Reilly Media.

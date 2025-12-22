@@ -117,6 +117,12 @@ Together, these mechanisms allow frameworks like Apache Flink and Kafka Streams 
 
 The key is choosing appropriate watermark delays based on observed lateness patterns and configuring triggers that match business requirements for timeliness versus completeness. With proper configuration and monitoring, watermarks and triggers enable streaming systems to process event-time data as accurately as batch systems while maintaining real-time performance.
 
+## Related Concepts
+
+- [Event Time and Watermarks in Flink](https://conduktor.io/glossary/event-time-and-watermarks-in-flink) - Deep dive into Flink-specific watermark strategies and implementation details
+- [Handling Late-Arriving Data in Streaming](https://conduktor.io/glossary/handling-late-arriving-data-in-streaming) - Comprehensive strategies for managing events that arrive after watermarks
+- [Session Windows in Stream Processing](https://conduktor.io/glossary/session-windows-in-stream-processing) - How watermarks interact with dynamic session window boundaries
+
 ## Sources and References
 
 - [Generating Watermarks | Apache Flink](https://nightlies.apache.org/flink/flink-docs-master/docs/dev/datastream/event-time/generating_watermarks/)

@@ -347,6 +347,12 @@ Regardless of format choice, success requires attention to operational details: 
 
 The streaming lakehouse is no longer emerging technology—it's production-ready architecture powering real-time analytics at scale. For broader context on streaming architectures, see [What is Real-Time Data Streaming](https://conduktor.io/glossary/what-is-real-time-data-streaming) and [Streaming Data Pipeline](https://conduktor.io/glossary/streaming-data-pipeline).
 
+## Related Concepts
+
+- [Kafka Connect: Building Data Integration Pipelines](/kafka-connect-building-data-integration-pipelines)
+- [Data Pipeline Orchestration with Streaming](/data-pipeline-orchestration-with-streaming)
+- [Real-Time Analytics with Streaming Data](/real-time-analytics-with-streaming-data)
+
 ## Sources and References
 
 - [Delta Lake Official Documentation](https://docs.delta.io/latest/index.html) - Transaction log protocol and streaming patterns (v3.x, 2025)

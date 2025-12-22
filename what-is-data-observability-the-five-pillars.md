@@ -260,6 +260,12 @@ As organizations increasingly adopt streaming architectures to power real-time a
 
 The question isn't whether you need data observability—it's how quickly you can implement it before the next data incident impacts your organization.
 
+## Related Concepts
+
+- [Data Quality vs Data Observability: Key Differences](https://conduktor.io/glossary/data-quality-vs-data-observability-key-differences) - Understanding complementary approaches
+- [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring) - Deep dive into streaming freshness tracking
+- [Data Lineage: Tracking Data from Source to Consumption](https://conduktor.io/glossary/data-lineage-tracking-data-from-source-to-consumption) - Understanding the lineage pillar
+
 ## Sources and References
 
 - [The Five Pillars of Data Observability (Monte Carlo)](https://www.montecarlodata.com/blog-what-is-data-observability/) - Original framework defining data observability principles

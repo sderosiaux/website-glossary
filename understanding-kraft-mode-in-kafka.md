@@ -152,6 +152,12 @@ KRaft's impact extends beyond Kafka itself, affecting the broader data streaming
 
 The shift to KRaft represents Kafka's maturation as a platform, making it more aligned with modern cloud-native and streaming-first architectures.
 
+## Related Concepts
+
+- [ZooKeeper to KRaft Migration](https://conduktor.io/glossary/zookeeper-to-kraft-migration) - Step-by-step guide for migrating existing ZooKeeper-based clusters to KRaft mode.
+- [Kafka Replication and High Availability](https://conduktor.io/glossary/kafka-replication-and-high-availability) - KRaft improves failover times and metadata replication for enhanced cluster resilience.
+- [Kafka Capacity Planning](https://conduktor.io/glossary/kafka-capacity-planning) - KRaft's efficiency gains impact infrastructure sizing and resource requirements.
+
 ## Summary
 
 KRaft mode represents a foundational architectural shift in Apache Kafka, replacing ZooKeeper with a native Raft-based consensus protocol. This change simplifies operations by eliminating an external dependency, improves scalability to support millions of partitions, and accelerates metadata operations through event-driven architecture.

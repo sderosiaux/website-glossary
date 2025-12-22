@@ -275,6 +275,12 @@ Key takeaways:
 
 When used thoughtfully, headers enhance observability, enable sophisticated routing patterns, and maintain clean separation between business data and operational metadata in your streaming architectures.
 
+## Related Concepts
+
+- [Message Serialization in Kafka](https://conduktor.io/glossary/message-serialization-in-kafka) - Understand how headers complement message serialization by carrying metadata like schema versions and content types.
+- [Kafka Topics, Partitions, and Brokers: Core Architecture](https://conduktor.io/glossary/kafka-topics-partitions-brokers-core-architecture) - Learn how headers travel with messages through Kafka's partition and broker architecture.
+- [Data Lineage Tracking: Data from Source to Consumption](https://conduktor.io/glossary/data-lineage-tracking-data-from-source-to-consumption) - Discover how headers enable tracking data provenance and lineage across distributed systems.
+
 ## Sources and References
 
 1. **KIP-82: Add Record Headers** - Apache Kafka Improvement Proposal

@@ -282,6 +282,12 @@ Implementing streaming supply chain architectures requires addressing challenges
 
 As supply chains continue to grow in complexity and customer expectations for visibility increase, real-time streaming technologies have become essential infrastructure for modern supply chain operations.
 
+## Related Concepts
+
+- [Apache Kafka](/apache-kafka) - Distributed streaming platform for supply chain event processing
+- [What is Apache Flink: Stateful Stream Processing](/what-is-apache-flink-stateful-stream-processing) - Stream processing for real-time supply chain analytics
+- [Consumer Lag Monitoring](/consumer-lag-monitoring) - Track supply chain data pipeline health
+
 ## Sources and References
 
 1. Apache Kafka Documentation - "Use Cases: Activity Tracking and Operational Metrics" (https://kafka.apache.org/documentation/)

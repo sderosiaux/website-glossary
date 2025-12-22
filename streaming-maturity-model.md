@@ -456,6 +456,12 @@ Remember that maturity is not about reaching Level 5 quickly, but about building
 
 As you advance through maturity levels, invest in observability and monitoring from the start. Data observability—tracking data quality, freshness, volume, schema, and lineage—becomes increasingly critical at higher maturity levels. For comprehensive coverage of observability practices, see [What is Data Observability: The Five Pillars](https://conduktor.io/glossary/what-is-data-observability-the-five-pillars) and [Data Quality vs Data Observability: Key Differences](https://conduktor.io/glossary/data-quality-vs-data-observability-key-differences).
 
+## Related Concepts
+
+- [DataOps for Streaming](https://conduktor.io/glossary/dataops-for-streaming) - Operational practices that accelerate maturity progression
+- [Infrastructure as Code for Kafka Deployments](https://conduktor.io/glossary/infrastructure-as-code-for-kafka-deployments) - Foundation for enterprise-level streaming
+- [Streaming Total Cost of Ownership](https://conduktor.io/glossary/streaming-total-cost-of-ownership) - Understanding costs at each maturity level
+
 ## Sources and References
 
 1. **Kreps, Jay. "The Log: What every software engineer should know about real-time data's unifying abstraction."** LinkedIn Engineering Blog, 2013. Foundational article on streaming data architectures and their maturity evolution.

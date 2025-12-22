@@ -284,6 +284,12 @@ Organizations handling regulated or sensitive data should treat encryption as a 
 
 Platforms like Conduktor simplify encryption implementation by providing visual certificate management, expiration monitoring, and policy enforcement—reducing complexity for teams implementing security controls across distributed Kafka environments.
 
+## Related Concepts
+
+- [Kafka Authentication: SASL, SSL, OAuth](https://conduktor.io/glossary/kafka-authentication-sasl-ssl-oauth) - Authentication mechanisms that work with TLS encryption to secure Kafka connections.
+- [mTLS for Kafka](https://conduktor.io/glossary/mtls-for-kafka) - Mutual TLS authentication using certificates for both encryption and identity verification.
+- [Kafka Security Best Practices](https://conduktor.io/glossary/kafka-security-best-practices) - Comprehensive security strategy that includes encryption as one pillar of defense-in-depth.
+
 ## Sources and References
 
 1. **Apache Kafka Documentation - Security**: Official guide covering TLS configuration, encryption, and authentication mechanisms for Kafka: https://kafka.apache.org/documentation/#security

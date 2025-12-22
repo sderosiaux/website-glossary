@@ -326,6 +326,12 @@ Effective quota management requires ongoing monitoring of quota metrics and viol
 
 Whether operating a shared Kafka cluster or managing dedicated infrastructure, understanding and implementing quotas should be a standard part of any Kafka deployment strategy. For additional performance optimization techniques, see [Kafka Performance Tuning Guide](https://conduktor.io/glossary/kafka-performance-tuning-guide).
 
+## Related Concepts
+
+- [Multi-Tenancy in Kafka Environments](https://conduktor.io/glossary/multi-tenancy-in-kafka-environments) - Quota strategies for isolating workloads and ensuring fair resource allocation across teams and applications.
+- [Kafka Security Best Practices](https://conduktor.io/glossary/kafka-security-best-practices) - Combine quotas with authentication and authorization for comprehensive resource protection.
+- [Kafka Capacity Planning](https://conduktor.io/glossary/kafka-capacity-planning) - Use quota configurations to inform capacity planning and prevent cluster saturation.
+
 ## Sources and References
 
 1. Apache Kafka Documentation - Quotas: [https://kafka.apache.org/documentation/#design_quotas](https://kafka.apache.org/documentation/#design_quotas)

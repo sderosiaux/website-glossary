@@ -366,6 +366,12 @@ The combination of CDC with streaming platforms like Kafka, governance tools, an
 
 Successful CDC implementation requires attention to schema evolution, performance optimization, monitoring, and security. By following best practices and leveraging the right tooling, teams can harness the full power of CDC to build next-generation microservices architectures that are both flexible and maintainable.
 
+## Related Concepts
+
+- [What is Change Data Capture: CDC Fundamentals](https://conduktor.io/glossary/what-is-change-data-capture-cdc-fundamentals) - Core CDC concepts and patterns that enable event-driven microservices architectures.
+- [Implementing CDC with Debezium](https://conduktor.io/glossary/implementing-cdc-with-debezium) - Practical implementation guide for setting up CDC connectors to power microservices communication.
+- [Dead Letter Queues for Error Handling](https://conduktor.io/glossary/dead-letter-queues-for-error-handling) - Essential error handling patterns for CDC-based event streams in microservices systems.
+
 ## Sources and References
 
 **Core Technologies:**

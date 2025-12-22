@@ -195,6 +195,12 @@ Key takeaways:
 
 Event sourcing is not a fit for every system, but when audit trails, temporal queries, or flexible event-driven processing are requirements, Kafka provides the infrastructure to implement it effectively.
 
+## Related Concepts
+
+- [CQRS and Event Sourcing with Kafka](https://conduktor.io/glossary/cqrs-and-event-sourcing-with-kafka) - Combining CQRS with event sourcing for scalable architectures
+- [Exactly-Once Semantics](https://conduktor.io/glossary/exactly-once-semantics) - Ensuring data consistency in event-sourced systems
+- [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) - Managing event schema evolution for long-lived event stores
+
 ## Sources and References
 
 1. Fowler, Martin. "Event Sourcing." martinfowler.com, 2005. https://martinfowler.com/eaaDev/EventSourcing.html

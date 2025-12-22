@@ -176,6 +176,12 @@ In data streaming environments like Apache Kafka, all three formats integrate we
 
 Understanding these tradeoffs enables you to make informed decisions about which format best serves each component of your system. Many production systems successfully use multiple formats, applying each where its strengths align with requirements.
 
+## Related Concepts
+
+- [Message Serialization in Kafka](https://conduktor.io/glossary/message-serialization-in-kafka) - Comprehensive guide to how Kafka uses Avro, Protobuf, and JSON Schema for message serialization and deserialization.
+- [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) - Learn how Schema Registry provides centralized management for all three schema formats with compatibility enforcement.
+- [Schema Evolution Best Practices](https://conduktor.io/glossary/schema-evolution-best-practices) - Best practices for evolving schemas safely across different serialization formats while maintaining compatibility.
+
 ## Sources and References
 
 1. [Apache Avro Documentation](https://avro.apache.org/docs/) - Official specification and schema evolution rules

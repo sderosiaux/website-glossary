@@ -295,6 +295,12 @@ For complex deployments, tools like **Conduktor** provide visibility into topic 
 - Schema management: [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management)
 - Security configurations: [Kafka Security Best Practices](https://conduktor.io/glossary/kafka-security-best-practices)
 
+## Related Concepts
+
+- [Kafka Replication and High Availability](https://conduktor.io/glossary/kafka-replication-and-high-availability) - Explores how replication across brokers ensures data durability and cluster resilience.
+- [Kafka Partitioning Strategies and Best Practices](https://conduktor.io/glossary/kafka-partitioning-strategies-and-best-practices) - Deep dive into choosing partition keys and sizing partition counts for optimal performance.
+- [Tiered Storage in Kafka](https://conduktor.io/glossary/tiered-storage-in-kafka) - Modern approach to separating hot and cold data storage for cost-effective long-term retention.
+
 ## Summary
 
 Kafka's architecture is elegantly simple yet powerful. Topics provide logical organization, partitions enable horizontal scaling and parallelism, and brokers offer distributed storage with fault tolerance. With Kafka 4.0+, the shift to KRaft and tiered storage has modernized this architecture for cloud-native deployments.

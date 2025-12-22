@@ -699,6 +699,12 @@ Start with a single table connector in a non-production environment to understan
 
 For broader streaming architecture context, see [Streaming Data Pipeline](https://conduktor.io/glossary/streaming-data-pipeline), [Real-Time Data Streaming](https://conduktor.io/glossary/what-is-real-time-data-streaming), and [Streaming ETL vs Traditional ETL](https://conduktor.io/glossary/streaming-etl-vs-traditional-etl).
 
+## Related Concepts
+
+- [What is Change Data Capture: CDC Fundamentals](https://conduktor.io/glossary/what-is-change-data-capture-cdc-fundamentals) - Foundational CDC concepts and patterns that underpin Debezium's log-based approach to capturing database changes.
+- [Kafka Connect: Building Data Integration Pipelines](https://conduktor.io/glossary/kafka-connect-building-data-integration-pipelines) - Understand the Kafka Connect framework that Debezium runs on for distributed, fault-tolerant CDC processing.
+- [Exactly-Once Semantics in Kafka](https://conduktor.io/glossary/exactly-once-semantics-in-kafka) - Learn how Debezium leverages Kafka's exactly-once guarantees to ensure reliable CDC event delivery without duplicates.
+
 ## Sources and References
 
 - [Debezium Documentation](https://debezium.io/documentation/)

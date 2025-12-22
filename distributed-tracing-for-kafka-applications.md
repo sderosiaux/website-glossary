@@ -488,6 +488,12 @@ Key takeaways:
 
 As event-driven architectures become increasingly complex, distributed tracing is no longer optional—it's essential for maintaining reliable, performant Kafka applications. By implementing tracing thoughtfully, you gain the visibility needed to troubleshoot issues quickly, optimize performance, and understand how your distributed systems actually behave in production.
 
+## Related Concepts
+
+- [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring) - Tracking consumer performance with distributed traces
+- [Kafka Cluster Monitoring and Metrics](https://conduktor.io/glossary/kafka-cluster-monitoring-and-metrics) - Infrastructure observability alongside application tracing
+- [Data Freshness Monitoring and SLA Management](https://conduktor.io/glossary/data-freshness-monitoring-sla-management) - Using traces to validate latency SLAs
+
 ## Related Articles
 
 - [Consumer Lag](https://conduktor.io/glossary/consumer-lag) - Understanding and monitoring consumer lag, which traces help diagnose

@@ -306,6 +306,12 @@ This architecture excels when you need independent service scaling, complex work
 
 Start small with a few services and core events, then expand as you gain experience with the patterns and operational practices. The investment in learning event-driven architecture pays dividends in system flexibility and resilience.
 
+## Related Concepts
+
+- [Saga Pattern for Distributed Transactions](https://conduktor.io/glossary/saga-pattern-for-distributed-transactions) - Managing distributed transactions across microservices with compensating actions
+- [Outbox Pattern for Reliable Event Publishing](https://conduktor.io/glossary/outbox-pattern-for-reliable-event-publishing) - Ensuring atomic database updates and event publishing
+- [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) - Managing event schema evolution across microservices
+
 ## Sources and References
 
 1. Fowler, Martin. "What do you mean by 'Event-Driven'?" martinfowler.com, 2017. https://martinfowler.com/articles/201701-event-driven.html

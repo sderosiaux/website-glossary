@@ -417,6 +417,12 @@ Choosing the right catalog implementation depends on several factors:
 - Audit trails and safe experimentation workflows are important
 - Time travel across multiple related tables is required
 
+## Related Concepts
+
+- [Kafka Connect: Building Data Integration Pipelines](/kafka-connect-building-data-integration-pipelines)
+- [Data Lineage: Tracking Data from Source to Consumption](/data-lineage-tracking-data-from-source-to-consumption)
+- [Data Pipeline Orchestration with Streaming](/data-pipeline-orchestration-with-streaming)
+
 ## Summary
 
 Iceberg catalogs are foundational to successful data lake implementations, and the choice between REST Catalog, Hive Metastore, AWS Glue, JDBC Catalog, and Project Nessie significantly impacts your platform's capabilities and operational characteristics.

@@ -317,6 +317,12 @@ Most importantly, maintain discipline around data quality and governance. A pipe
 
 With careful design, appropriate technology choices, and systematic optimization, modern streaming platforms like Apache Kafka and Apache Flink can deliver the millisecond-scale latencies that power today's most demanding real-time applications.
 
+## Related Concepts
+
+- [Apache Kafka](https://conduktor.io/glossary/apache-kafka) - High-performance streaming platform for low-latency pipelines
+- [What is Apache Flink: Stateful Stream Processing](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing) - Stream processor designed for millisecond-latency requirements
+- [Backpressure Handling in Streaming Systems](https://conduktor.io/glossary/backpressure-handling-in-streaming-systems) - Managing flow control to maintain low latency
+
 ## Sources and References
 
 1. **Apache Kafka Documentation - Performance Tuning** - Official Apache Kafka documentation covering producer and broker configuration for optimal performance and low latency. [https://kafka.apache.org/documentation/#performance](https://kafka.apache.org/documentation/#performance)

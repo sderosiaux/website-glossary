@@ -157,6 +157,12 @@ The specific tools matter less than the principles: version-controlled definitio
 
 As streaming platforms grow in importance and scale, IaC becomes not just a best practice but a necessity. The combination of infrastructure automation tools and complementary platforms for resource management creates a robust foundation for building reliable streaming data systems.
 
+## Related Concepts
+
+- [Strimzi Kafka Operator for Kubernetes](https://conduktor.io/glossary/strimzi-kafka-operator-for-kubernetes) - Kubernetes-native IaC approach for Kafka using operators and custom resources with GitOps workflows.
+- [CI/CD Best Practices for Streaming Applications](https://conduktor.io/glossary/cicd-best-practices-for-streaming-applications) - Integrate IaC-managed Kafka infrastructure into continuous deployment pipelines.
+- [Kafka Capacity Planning](https://conduktor.io/glossary/kafka-capacity-planning) - Use capacity planning insights to parameterize IaC templates for different environment sizes and workloads.
+
 ## Sources and References
 
 1. HashiCorp Terraform Kafka Provider Documentation - https://registry.terraform.io/providers/Mongey/kafka/latest/docs

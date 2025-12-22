@@ -240,6 +240,12 @@ The integration enables use cases from personalized recommendations to fraud det
 
 Organizations building these systems should focus on incremental implementation, starting with a single use case and expanding as they develop expertise in managing both the streaming pipeline and vector database operations.
 
+## Related Concepts
+
+- [Streaming Data Pipeline](/streaming-data-pipeline) - Build pipelines for vector embedding generation
+- [Schema Registry and Schema Management](/schema-registry-and-schema-management) - Manage embedding schemas and metadata
+- [Real-Time Analytics with Streaming Data](/real-time-analytics-with-streaming-data) - Analytics on vector similarity searches
+
 ## Related Topics
 
 For deeper understanding of the technologies and patterns discussed in this article:

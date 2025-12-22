@@ -422,6 +422,12 @@ Implementation approaches range from simple polling-based relays to sophisticate
 
 While the pattern introduces some complexity and operational overhead, the benefits of data consistency and reliability make it a fundamental pattern for modern distributed systems. When building systems that require both strong consistency and event-driven communication, the outbox pattern provides a proven, battle-tested approach.
 
+## Related Concepts
+
+- [Saga Pattern for Distributed Transactions](https://conduktor.io/glossary/saga-pattern-for-distributed-transactions) - Coordinating distributed transactions with reliable event publishing
+- [Event-Driven Architecture](https://conduktor.io/glossary/event-driven-architecture) - Architectural patterns that benefit from reliable event publishing
+- [Data Contracts for Reliable Pipelines](https://conduktor.io/glossary/data-contracts-for-reliable-pipelines) - Ensuring data quality in event-driven systems
+
 ## Sources and References
 
 1. Richardson, C. (2024). "Pattern: Transactional Outbox". *Microservices.io*. https://microservices.io/patterns/data/transactional-outbox.html

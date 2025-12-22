@@ -313,6 +313,12 @@ The combination of automated validation, statistical anomaly detection, and well
 
 For understanding the relationship between data quality and observability, see [Data Quality vs Data Observability: Key Differences](https://conduktor.io/glossary/data-quality-vs-data-observability-key-differences). For incident management patterns, refer to [Data Incident Management and Root Cause Analysis](https://conduktor.io/glossary/data-incident-management-and-root-cause-analysis).
 
+## Related Concepts
+
+- [Building a Data Quality Framework](https://conduktor.io/glossary/building-a-data-quality-framework) - Systematic prevention strategies
+- [Automated Data Quality Testing](https://conduktor.io/glossary/automated-data-quality-testing) - Early detection through testing
+- [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring) - Detecting freshness-related incidents
+
 ## Sources and References
 
 - [Site Reliability Engineering: How Google Runs Production Systems](https://sre.google/books/)

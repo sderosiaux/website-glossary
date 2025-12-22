@@ -277,6 +277,12 @@ For organizations building data streaming platforms, Strimzi provides a solid fo
 
 For schema management in your Strimzi deployment, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management). For disaster recovery strategies, see [Disaster Recovery Strategies for Kafka Clusters](https://conduktor.io/glossary/disaster-recovery-strategies-for-kafka-clusters).
 
+## Related Concepts
+
+- [Running Kafka on Kubernetes](https://conduktor.io/glossary/running-kafka-on-kubernetes) - Foundational concepts for deploying Kafka on Kubernetes, including storage, networking, and resource management considerations.
+- [Infrastructure as Code for Kafka Deployments](https://conduktor.io/glossary/infrastructure-as-code-for-kafka-deployments) - Apply IaC and GitOps practices to manage Strimzi-deployed Kafka clusters declaratively.
+- [CI/CD Best Practices for Streaming Applications](https://conduktor.io/glossary/cicd-best-practices-for-streaming-applications) - Integrate Strimzi deployments into CI/CD pipelines for automated testing and deployment.
+
 ## Sources and References
 
 - [Strimzi Official Documentation](https://strimzi.io/)

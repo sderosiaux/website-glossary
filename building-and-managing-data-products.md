@@ -114,6 +114,12 @@ Key principles include:
 
 Whether you're building batch analytics datasets or real-time event streams, the data product approach ensures your data infrastructure scales with your organization's needs while maintaining trust and usability.
 
+## Related Concepts
+
+- [Data Lineage: Tracking Data from Source to Consumption](https://conduktor.io/glossary/data-lineage-tracking-data-from-source-to-consumption) - Understanding data flow and dependencies is essential for managing data product lifecycles and impact analysis
+- [Data Quality Dimensions: Accuracy, Completeness, and Consistency](https://conduktor.io/glossary/data-quality-dimensions-accuracy-completeness-and-consistency) - Core quality metrics that every data product must define and maintain
+- [Schema Evolution Best Practices](https://conduktor.io/glossary/schema-evolution-best-practices) - Critical patterns for evolving data product interfaces while maintaining consumer compatibility
+
 ## Sources and References
 
 1. Dehghani, Zhamak. *Data Mesh: Delivering Data-Driven Value at Scale*. O'Reilly Media, 2022. [O'Reilly](https://www.oreilly.com/library/view/data-mesh/9781492092384/)

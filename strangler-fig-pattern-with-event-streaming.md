@@ -284,6 +284,12 @@ Key takeaways:
 
 Successful migrations require patience, careful planning, and a commitment to incremental progress. By combining the Strangler Fig Pattern with modern event streaming platforms, organizations can modernize their systems while continuing to deliver value to customers.
 
+## Related Concepts
+
+- [Event-Driven Architecture](https://conduktor.io/glossary/event-driven-architecture) - Architectural foundation for streaming-based migrations
+- [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) - Managing schema evolution during system migrations
+- [Backpressure Handling in Streaming Systems](https://conduktor.io/glossary/backpressure-handling-in-streaming-systems) - Managing load during parallel system operation
+
 ## Sources and References
 
 1. Fowler, Martin. "StranglerFigApplication." martinfowler.com, 2004. https://martinfowler.com/bliki/StranglerFigApplication.html - The original description of the Strangler Fig Pattern.

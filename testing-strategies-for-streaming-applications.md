@@ -66,15 +66,15 @@ This approach provides high confidence that your application will work in produc
 
 ### Testing with Kafka 4.0 and KRaft Mode
 
-Kafka 4.0 (released in 2024) eliminated ZooKeeper in favor of KRaft mode, where Kafka itself manages cluster metadata using the Raft consensus protocol. This architectural change affects testing strategies in several ways. For background on KRaft, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka).
+Kafka 4.0 (released in 2024) eliminated the ZooKeeper dependency in favor of KRaft mode, where Kafka itself manages cluster metadata using the Raft consensus protocol. This architectural change affects testing strategies in several ways. For background on KRaft, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka).
 
-When using TestContainers with Kafka 4.0+, containers start faster and require less memory since ZooKeeper is no longer needed. The KRaft configuration is simpler, but tests should verify:
+When using TestContainers with Kafka 4.0+, containers start faster and require less memory since a separate consensus service is no longer needed. The KRaft configuration is simpler, but tests should verify:
 
 - **Metadata operations**: Controller elections, partition leadership, and rebalancing work correctly
-- **Cluster configuration**: Dynamic config updates that previously required ZooKeeper coordination
-- **Migration scenarios**: If testing upgrades from ZooKeeper-based Kafka, validate migration paths
+- **Cluster configuration**: Dynamic config updates that are now handled natively by Kafka controllers
+- **Migration scenarios**: If testing upgrades from earlier Kafka versions, validate migration paths
 
-Most integration tests work identically under KRaft, but if your application directly interacted with ZooKeeper (deprecated practice), those integrations will fail and need updating. Modern Kafka clients and admin APIs abstract away these differences.
+Most integration tests work identically under KRaft, but if your application directly relied on external metadata coordination (a deprecated practice), those integrations will fail and need updating. Modern Kafka clients and admin APIs abstract away these implementation details.
 
 ## Testing Stateful Operations and State Stores
 
@@ -199,6 +199,12 @@ Remember that testing streaming applications requires patience and rigor. Invest
 Testing streaming applications requires adapting traditional software testing practices to handle asynchronous processing, unbounded data, stateful operations, and complex time semantics. A layered approach combining unit tests, integration tests with embedded clusters, stateful and temporal testing, performance validation, and production monitoring provides confidence in application correctness and reliability.
 
 The key is controlling the non-deterministic aspects of streaming—time, ordering, failures—to create reproducible tests. Modern streaming frameworks provide excellent testing utilities, and tools like TestContainers make integration testing practical. Combined with observability and production testing techniques, teams can build reliable streaming applications that handle real-world complexity.
+
+## Related Concepts
+
+- [CI/CD Best Practices for Streaming Applications](https://conduktor.io/glossary/cicd-best-practices-for-streaming-applications) - Integrating testing into deployment pipelines
+- [Chaos Engineering for Streaming Systems](https://conduktor.io/glossary/chaos-engineering-for-streaming-systems) - Testing resilience through controlled failures
+- [Data Quality Dimensions: Accuracy, Completeness, and Consistency](https://conduktor.io/glossary/data-quality-dimensions-accuracy-completeness-and-consistency) - Understanding what to test for in streaming data
 
 ## Sources and References
 

@@ -618,6 +618,12 @@ Understanding the transaction log's architecture helps data engineers design mor
 
 For production deployments, combine Delta Lake's transactional guarantees with comprehensive monitoring and governance tools to ensure data quality and operational visibility across your lakehouse architecture.
 
+## Related Concepts
+
+- [Introduction to Lakehouse Architecture](/introduction-to-lakehouse-architecture) - Understanding the lakehouse paradigm that Delta Lake enables
+- [Apache Iceberg](/apache-iceberg) - Alternative table format with similar ACID transaction capabilities
+- [Streaming to Lakehouse Tables](/streaming-to-lakehouse-tables) - Patterns for writing streaming data to Delta tables with exactly-once semantics
+
 ## Sources and References
 
 - [Delta Lake Transaction Log Protocol Specification](https://github.com/delta-io/delta/blob/master/PROTOCOL.md) - Official protocol documentation

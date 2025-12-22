@@ -303,6 +303,12 @@ Production deployments require careful configuration of checkpoint intervals, st
 
 Understanding these mechanisms transforms Flink from a computational framework into a reliable platform for mission-critical streaming applications that maintain correctness guarantees even in the face of failures. For testing strategies to validate your state management implementation, see [Testing Strategies for Streaming Applications](https://conduktor.io/glossary/testing-strategies-for-streaming-applications).
 
+## Related Concepts
+
+- [Exactly-Once Semantics in Kafka](https://conduktor.io/glossary/exactly-once-semantics-in-kafka) - How Flink coordinates with Kafka for end-to-end exactly-once processing
+- [Kafka Transactions Deep Dive](https://conduktor.io/glossary/kafka-transactions-deep-dive) - Understanding the transactional guarantees that enable exactly-once Kafka sinks
+- [Handling Late-Arriving Data in Streaming](https://conduktor.io/glossary/handling-late-arriving-data-in-streaming) - Strategies for managing late data with checkpointing and state
+
 ## Sources and References
 
 - Apache Flink Documentation: [State Backends](https://nightlies.apache.org/flink/flink-docs-stable/docs/ops/state/state_backends/)

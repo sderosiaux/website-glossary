@@ -286,6 +286,12 @@ Healthy data infrastructure requires:
 
 The organizations that thrive in data-intensive environments aren't those that collect the most data—they're those that collect the right data and maintain the agility to evolve as needs change.
 
+## Related Concepts
+
+- [Apache Kafka](/glossary/apache-kafka) - Streaming platform where data obesity often manifests through bloated payloads and excessive retention
+- [Dark Data Tax](/glossary/dark-data-tax) - The hidden costs of unused data that often accompanies data obesity
+- [Kafka Capacity Planning](/glossary/kafka-capacity-planning) - Right-sizing infrastructure to prevent obesity while meeting performance requirements
+
 ---
 
 ## Sources and References

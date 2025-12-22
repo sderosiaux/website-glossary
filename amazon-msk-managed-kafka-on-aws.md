@@ -26,7 +26,7 @@ The service offers multiple deployment options: MSK Provisioned (traditional ins
 
 ## Architecture and Core Components
 
-An MSK cluster consists of Apache Kafka brokers distributed across multiple availability zones within an AWS region. AWS manages the underlying EC2 instances, EBS volumes for storage, and Apache ZooKeeper nodes (or KRaft controllers in newer versions) for cluster coordination.
+An MSK cluster consists of Apache Kafka brokers distributed across multiple availability zones within an AWS region. AWS manages the underlying EC2 instances, EBS volumes for storage, and KRaft controllers for cluster coordination. As of 2024, MSK supports KRaft mode (Kafka's native consensus protocol), which eliminates the need for ZooKeeper and provides improved scalability and faster metadata operations.
 
 When you create an MSK cluster, you specify:
 
@@ -174,6 +174,12 @@ Amazon MSK simplifies running Apache Kafka on AWS by handling infrastructure man
 MSK integrates well with AWS services and the broader streaming ecosystem, supporting Kafka Connect, Apache Flink, and various schema management solutions. Operational aspects like monitoring, scaling, and disaster recovery require planning, though AWS handles much of the infrastructure complexity.
 
 For AWS-centric organizations wanting Kafka's capabilities without operational overhead, MSK provides a solid foundation for real-time data streaming architectures. Success with MSK depends on proper cluster sizing, monitoring, security configuration, and complementary tooling for governance and developer experience.
+
+## Related Concepts
+
+- [Apache Kafka](/glossary/apache-kafka) - The open-source streaming platform that MSK is built on
+- [Kafka Capacity Planning](/glossary/kafka-capacity-planning) - Essential for right-sizing MSK clusters and controlling costs
+- [Streaming Total Cost of Ownership](/glossary/streaming-total-cost-of-ownership) - Understanding the full economic impact of managed Kafka services
 
 ## Sources and References
 

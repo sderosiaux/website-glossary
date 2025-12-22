@@ -407,6 +407,12 @@ For deeper understanding of Kafka Connect and its ecosystem, explore:
 - **Lakehouse Integration**: [Streaming to Lakehouse Tables](https://conduktor.io/glossary/streaming-to-lakehouse-tables) and [Streaming Ingestion to Lakehouse](https://conduktor.io/glossary/streaming-ingestion-to-lakehouse)
 - **Serialization**: [Message Serialization in Kafka](https://conduktor.io/glossary/message-serialization-in-kafka) and [Avro vs Protobuf vs JSON Schema](https://conduktor.io/glossary/avro-vs-protobuf-vs-json-schema)
 
+## Related Concepts
+
+- [Implementing CDC with Debezium](https://conduktor.io/glossary/implementing-cdc-with-debezium) - Learn how to implement Change Data Capture using Debezium connectors running on Kafka Connect for real-time database replication.
+- [Dead Letter Queues for Error Handling](https://conduktor.io/glossary/dead-letter-queues-for-error-handling) - Understand how to handle failed messages in Kafka Connect sink connectors using dead letter queue patterns.
+- [Data Contracts for Reliable Pipelines](https://conduktor.io/glossary/data-contracts-for-reliable-pipelines) - Explore how data contracts ensure reliability and compatibility in Kafka Connect integration pipelines.
+
 ## Sources and References
 
 - [Apache Kafka Documentation - Kafka Connect](https://kafka.apache.org/documentation/#connect) - Official documentation covering architecture, configuration, and operations for Kafka 4.0+

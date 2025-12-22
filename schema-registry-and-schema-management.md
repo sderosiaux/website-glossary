@@ -307,6 +307,12 @@ Successful schema management combines technical controls (compatibility modes, v
 
 Whether using Avro, Protobuf, or JSON Schema, the principles remain constant: centralized schema storage, versioning, compatibility validation, and efficient serialization. These capabilities transform schema management from a coordination burden into an enabler of agile, decoupled development.
 
+## Related Concepts
+
+- [Schema Evolution Best Practices](https://conduktor.io/glossary/schema-evolution-best-practices) - Learn how to safely evolve schemas managed by Schema Registry while maintaining producer-consumer compatibility.
+- [Message Serialization in Kafka](https://conduktor.io/glossary/message-serialization-in-kafka) - Understand how Schema Registry integrates with serialization formats like Avro, Protobuf, and JSON Schema.
+- [Data Contracts for Reliable Pipelines](https://conduktor.io/glossary/data-contracts-for-reliable-pipelines) - Discover how Schema Registry enforces data contracts between producers and consumers in streaming pipelines.
+
 ## Sources and References
 
 1. Confluent Schema Registry Documentation - Official documentation covering architecture, API, and compatibility modes: https://docs.confluent.io/platform/current/schema-registry/index.html

@@ -220,6 +220,12 @@ For real-time applications demanding minimal latency and complex stateful operat
 
 The most successful data platforms often employ both frameworks strategically—Flink for low-latency critical paths and Spark for high-throughput analytics pipelines. Unified governance and monitoring tools enable teams to operate hybrid environments effectively, maintaining visibility and control regardless of the underlying processing technology.
 
+## Related Concepts
+
+- [What is Apache Flink: Stateful Stream Processing](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing) - Deep dive into Flink's architecture and capabilities
+- [Apache Kafka](https://conduktor.io/glossary/apache-kafka) - Platform commonly used as input for both Flink and Spark Streaming
+- [Streaming Total Cost of Ownership](https://conduktor.io/glossary/streaming-total-cost-of-ownership) - Evaluating costs across different stream processing frameworks
+
 ## Sources and References
 
 - [Apache Flink Documentation](https://flink.apache.org/docs/stable/)

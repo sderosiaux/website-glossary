@@ -134,6 +134,12 @@ The key to successful tuning is understanding your workload requirements, measur
 
 By systematically applying these tuning strategies and continuously monitoring your Kafka deployment, you can build a high-performance streaming platform capable of handling demanding real-time data workloads.
 
+## Related Concepts
+
+- [Kafka Capacity Planning](https://conduktor.io/glossary/kafka-capacity-planning) - Translate performance requirements into cluster sizing decisions and resource allocation strategies.
+- [Kafka Cluster Monitoring and Metrics](https://conduktor.io/glossary/kafka-cluster-monitoring-and-metrics) - Establish monitoring to measure performance improvements and identify new bottlenecks.
+- [Streaming Total Cost of Ownership](https://conduktor.io/glossary/streaming-total-cost-of-ownership) - Balance performance optimization with cost considerations across infrastructure, operations, and maintenance.
+
 ## Sources and References
 
 1. Apache Kafka Documentation - "Performance Tuning": https://kafka.apache.org/documentation/#performance

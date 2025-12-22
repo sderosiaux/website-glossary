@@ -266,6 +266,12 @@ Message serialization in Kafka is more than a technical implementation detail—
 
 When choosing a serialization format, consider your specific requirements: throughput needs, schema evolution frequency, team expertise, and ecosystem constraints. The right choice balances technical performance with operational maintainability. Start with Avro for data pipelines or Protobuf for services, and use governance platforms to manage the complexity as your system scales.
 
+## Related Concepts
+
+- [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) - Essential for managing serialization schemas centrally and enforcing compatibility rules across producers and consumers.
+- [Avro vs Protobuf vs JSON Schema](https://conduktor.io/glossary/avro-vs-protobuf-vs-json-schema) - Detailed comparison of the three major serialization formats to help choose the right one for your use case.
+- [Schema Evolution Best Practices](https://conduktor.io/glossary/schema-evolution-best-practices) - Learn how to evolve serialization schemas safely over time while maintaining backward and forward compatibility.
+
 ## Sources and References
 
 1. **Apache Kafka Documentation - Serialization**: Official Kafka documentation covering serializers and deserializers ([kafka.apache.org](https://kafka.apache.org/documentation/#serialization))

@@ -226,6 +226,12 @@ Architectural choices matter: Lambda architecture offers separate batch and stre
 
 As more systems generate continuous data streams, the ability to analyze and act on that data in real-time becomes increasingly critical. Organizations that master real-time analytics gain competitive advantages through faster decision-making, improved customer experiences, and operational efficiency across domains from fraud detection to personalization to IoT monitoring.
 
+## Related Concepts
+
+- [Apache Kafka](/apache-kafka) - Distributed streaming platform for data distribution in real-time analytics
+- [What is Apache Flink: Stateful Stream Processing](/what-is-apache-flink-stateful-stream-processing) - Stateful stream processing engine for complex analytics
+- [Consumer Lag Monitoring](/consumer-lag-monitoring) - Track stream processing health and performance
+
 ## Sources and References
 
 1. Kleppmann, M. (2017). *Designing Data-Intensive Applications*. O'Reilly Media. Chapter 11: Stream Processing.

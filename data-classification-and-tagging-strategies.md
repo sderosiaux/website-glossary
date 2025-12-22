@@ -611,6 +611,12 @@ Effective data classification and tagging strategies form the foundation of data
 
 The key to success lies in automation, clear ownership, and integration with existing security infrastructure. Start small with critical data flows, prove the value, and expand systematically across your streaming landscape. With proper classification and tagging, your organization gains visibility, reduces risk, and builds trust in your data platform.
 
+## Related Concepts
+
+- [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) - Managing schemas with classification metadata
+- [Data Governance Framework: Roles and Responsibilities](https://conduktor.io/glossary/data-governance-framework-roles-and-responsibilities) - Organizational structures for classification governance
+- [Audit Logging for Streaming Platforms](https://conduktor.io/glossary/audit-logging-for-streaming-platforms) - Tracking access to classified data
+
 ## Sources and References
 
 1. **Apache Kafka Documentation - Message Headers**: [Kafka Record Headers](https://kafka.apache.org/documentation/) - Official documentation on implementing message headers in Apache Kafka for metadata propagation.

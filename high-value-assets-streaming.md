@@ -306,6 +306,12 @@ Remember that HVA programs are journeys, not destinations. Threats evolve, busin
 
 The organizations that treat data protection as a risk-based discipline—focusing resources on their highest-value assets—will be better positioned to innovate confidently while managing the inherent risks of real-time data streaming.
 
+## Related Concepts
+
+- [Kafka ACLs and Authorization Patterns](https://conduktor.io/glossary/kafka-acls-and-authorization-patterns) - Fine-grained access control patterns essential for protecting high-value assets in streaming environments
+- [Data Governance Framework: Roles and Responsibilities](https://conduktor.io/glossary/data-governance-framework-roles-and-responsibilities) - Governance structures that support HVA identification, classification, and protection workflows
+- [Encryption at Rest and in Transit for Kafka](https://conduktor.io/glossary/encryption-at-rest-and-in-transit-for-kafka) - Encryption strategies critical for protecting high-value data as it flows through streaming systems
+
 ---
 
 ## Sources and References

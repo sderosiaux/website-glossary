@@ -224,6 +224,12 @@ As streaming systems mature and become central to business operations, SLA requi
 
 The difference between a streaming platform and a **trusted streaming platform** often comes down to one thing: keeping your promises. SLAs are how you make—and measure—those promises.
 
+## Related Concepts
+
+- [Data Freshness Monitoring and SLA Management](https://conduktor.io/glossary/data-freshness-monitoring-sla-management) - Tracking data timeliness as part of SLA compliance
+- [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring) - Key metric for streaming SLA validation
+- [Kafka Cluster Monitoring and Metrics](https://conduktor.io/glossary/kafka-cluster-monitoring-and-metrics) - Infrastructure metrics supporting SLA tracking
+
 ## Sources and References
 
 - [Apache Kafka Monitoring and Metrics](https://kafka.apache.org/documentation/#monitoring) - Official Kafka metrics and monitoring guidelines

@@ -172,6 +172,12 @@ Building these systems requires careful architecture: choosing embedding models 
 
 The investment pays off in AI systems that respond to the world as it changes, not as it was when batch jobs last ran. Whether you're building customer support chatbots, recommendation engines, or autonomous agents, streaming embeddings provide the fresh context that separates reactive systems from truly intelligent ones.
 
+## Related Concepts
+
+- [Streaming Data Pipeline](/streaming-data-pipeline) - Build robust embedding generation pipelines
+- [Kafka Connect: Building Data Integration Pipelines](/kafka-connect-building-data-integration-pipelines) - Integrate embedding services with data sources
+- [Data Governance Framework: Roles and Responsibilities](/data-governance-framework-roles-and-responsibilities) - Govern embedding models and vector stores
+
 ## Sources and References
 
 1. **OpenAI Embeddings API Documentation**. OpenAI. https://platform.openai.com/docs/guides/embeddings - Official documentation for text-embedding-3-small and text-embedding-3-large models, including usage patterns and best practices.

@@ -284,6 +284,12 @@ Start small with high-impact terms, establish clear governance workflows, integr
 
 For data governance officers and business analysts, the glossary becomes both a reference tool and a collaboration platform—a shared space where business meaning and technical implementation meet, enabling data-driven decisions grounded in common understanding.
 
+## Related Concepts
+
+- [Metadata Management: Technical vs Business Metadata](https://conduktor.io/glossary/metadata-management-technical-vs-business-metadata) - Understanding different types of metadata in governance
+- [Data Classification and Tagging Strategies](https://conduktor.io/glossary/data-classification-and-tagging-strategies) - Organizing and labeling data for governance
+- [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) - Managing technical schemas alongside business definitions
+
 ## Sources
 
 1. DAMA International - "DAMA-DMBOK: Data Management Body of Knowledge" (2023 Edition) - https://www.dama.org/cpages/body-of-knowledge

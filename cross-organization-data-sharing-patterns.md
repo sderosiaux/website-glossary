@@ -387,6 +387,12 @@ For quality assurance in shared data, see [Building a Data Quality Framework](ht
 
 As organizations increasingly participate in data ecosystems, these patterns and practices become essential for building reliable, secure, and scalable data sharing architectures.
 
+## Related Concepts
+
+- [Kafka ACLs and Authorization Patterns](https://conduktor.io/glossary/kafka-acls-and-authorization-patterns) - Fine-grained access control essential for securing cross-organization data streams
+- [Kafka Authentication: SASL, SSL, OAuth](https://conduktor.io/glossary/kafka-authentication-sasl-ssl-oauth) - Authentication mechanisms for verifying identity across organizational boundaries
+- [Encryption at Rest and in Transit for Kafka](https://conduktor.io/glossary/encryption-at-rest-and-in-transit-for-kafka) - Protecting sensitive data as it moves between organizations
+
 ## Sources and References
 
 1. Apache Kafka Documentation: "Multi-Tenancy and Data Isolation" - https://kafka.apache.org/documentation/#multitenancy

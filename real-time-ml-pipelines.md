@@ -470,6 +470,12 @@ The future of ML is real-time—building the infrastructure to support it is one
 - [Real-Time Fraud Detection with Streaming](/real-time-fraud-detection-with-streaming) - Production use case
 - [Building Recommendation Systems with Streaming Data](/building-recommendation-systems-with-streaming-data) - Implementation patterns
 
+## Related Concepts
+
+- [Kafka Connect: Building Data Integration Pipelines](/kafka-connect-building-data-integration-pipelines) - Integrate ML feature stores with external data sources
+- [Streaming Data Pipeline](/streaming-data-pipeline) - Build end-to-end pipelines for ML feature engineering
+- [Real-Time Analytics with Streaming Data](/real-time-analytics-with-streaming-data) - Analytics patterns that complement ML inference
+
 ## Sources and References
 
 - [Apache Flink ML Documentation](https://nightlies.apache.org/flink/flink-ml-docs-stable/) - Stream processing for real-time machine learning

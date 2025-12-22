@@ -227,6 +227,12 @@ Exactly-once semantics is the highest data integrity guarantee in data streaming
 
 **Where Platforms Fit:** Governance and observability platforms provide enterprise control for managing exactly-once configurations at scale, tracking proper settings, monitoring transaction states, enforcing policies, and ensuring compliance with regulatory requirements for data integrity.
 
+## Related Concepts
+
+- [Exactly-Once Semantics in Kafka](https://conduktor.io/glossary/exactly-once-semantics-in-kafka) - Kafka-specific implementation of exactly-once guarantees
+- [Kafka Transactions Deep Dive](https://conduktor.io/glossary/kafka-transactions-deep-dive) - Technical details of Kafka's transactional mechanisms
+- [Kafka Topics, Partitions, and Brokers: Core Architecture](https://conduktor.io/glossary/kafka-topics-partitions-brokers-core-architecture) - Understanding the architecture enabling exactly-once semantics
+
 ## Sources and References
 
 - Apache Software Foundation. [Apache Kafka Documentation: Semantics](https://kafka.apache.org/documentation/#semantics)

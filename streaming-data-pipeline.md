@@ -258,6 +258,12 @@ Streaming data pipelines enable continuous data movement through decoupled, even
 
 **Where Platforms Fit**: Governance platforms provide observability and control layers essential for complex streaming architectures—centralizing schema management, tracking lineage, monitoring health metrics, enforcing policies, and enabling troubleshooting across distributed processing stages.
 
+## Related Concepts
+
+- [Streaming ETL vs Traditional ETL](/streaming-etl-vs-traditional-etl) - Comparing streaming and batch pipeline approaches
+- [Data Pipeline Orchestration with Streaming](/data-pipeline-orchestration-with-streaming) - Managing and coordinating streaming pipelines
+- [Streaming to Lakehouse Tables](/streaming-to-lakehouse-tables) - Delivering streaming data to lakehouse storage
+
 ## Sources and References
 
 - Apache Software Foundation. [Apache Kafka Documentation: Stream Processing](https://kafka.apache.org/documentation/#uses_streamprocessing)

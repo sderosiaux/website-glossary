@@ -129,6 +129,12 @@ Modern infrastructure improvements in 2025—particularly Kafka 4.0's KRaft mode
 
 As organizations scale their streaming architectures, the semantic layer becomes essential infrastructure—not just for making data understandable, but for maintaining consistency, enforcing governance, and enabling teams to work independently while ensuring they speak a common business language.
 
+## Related Concepts
+
+- [What is a Data Catalog: Modern Data Discovery](https://conduktor.io/glossary/what-is-a-data-catalog-modern-data-discovery) - Data catalogs complement semantic layers by providing metadata repositories and business glossaries for streaming data
+- [Data Lineage: Tracking Data from Source to Consumption](https://conduktor.io/glossary/data-lineage-tracking-data-from-source-to-consumption) - Essential for semantic layers to document which upstream topics feed into business definitions
+- [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) - Technical schema management that provides the foundation for semantic layer abstractions
+
 ## Sources and References
 
 1. **dbt Semantic Layer**: dbt Labs documentation on metrics framework and semantic layer architecture - [docs.getdbt.com/docs/build/about-metricflow](https://docs.getdbt.com/docs/build/about-metricflow)

@@ -368,6 +368,12 @@ Key takeaways include:
 
 As fraud techniques evolve, the ability to rapidly deploy new detection logic and process events at scale becomes increasingly important. Streaming platforms provide the foundation for building adaptive fraud detection systems that protect both businesses and customers.
 
+## Related Concepts
+
+- [Apache Kafka](/apache-kafka) - Distributed streaming platform that powers fraud detection pipelines
+- [What is Apache Flink: Stateful Stream Processing](/what-is-apache-flink-stateful-stream-processing) - Deep dive into stateful stream processing for fraud detection
+- [Exactly-Once Semantics](/exactly-once-semantics) - Critical processing guarantee for financial fraud detection systems
+
 ## Related Topics
 
 - [Real-Time ML Inference with Streaming Data](/real-time-ml-inference-with-streaming-data) - Learn how to deploy ML models for real-time predictions on streaming data

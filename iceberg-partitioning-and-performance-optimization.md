@@ -350,6 +350,12 @@ Avoid excessive partition dimensions. Each additional dimension multiplicatively
    - Analyze query execution plans
    - Verify partition and file pruning effectiveness
 
+## Related Concepts
+
+- [Real-Time Analytics with Streaming Data](/real-time-analytics-with-streaming-data)
+- [Data Pipeline Orchestration with Streaming](/data-pipeline-orchestration-with-streaming)
+- [Kafka Connect: Building Data Integration Pipelines](/kafka-connect-building-data-integration-pipelines)
+
 ## Summary
 
 Apache Iceberg's partitioning capabilities provide unmatched flexibility and performance for modern data lakehouses. Hidden partitioning abstracts partition management from users while maintaining optimal query performance. Partition evolution enables zero-copy migration as data patterns change. Advanced metadata tracking enables aggressive pruning at both partition and file levels.

@@ -356,6 +356,12 @@ Effective Kafka topic design requires balancing technical constraints with organ
 
 These principles help build Kafka deployments that scale efficiently and remain maintainable as your streaming architecture grows. For deeper dives into specific topics, explore the cross-referenced articles throughout this guide.
 
+## Related Concepts
+
+- [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) - Essential for enforcing schema compatibility rules that prevent breaking changes in topic evolution.
+- [Tiered Storage in Kafka](https://conduktor.io/glossary/tiered-storage-in-kafka) - Modern retention strategy that separates hot and cold data for cost-effective long-term storage.
+- [Kafka Security Best Practices](https://conduktor.io/glossary/kafka-security-best-practices) - Critical for implementing access control and encryption policies at the topic level.
+
 ## Related Articles
 
 - [Kafka Topics, Partitions, and Brokers: Core Architecture](https://conduktor.io/glossary/kafka-topics-partitions-brokers-core-architecture) - Foundational concepts

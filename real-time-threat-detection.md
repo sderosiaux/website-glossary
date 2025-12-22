@@ -394,6 +394,12 @@ Real-time threat detection is essential for securing modern streaming platforms.
 
 As streaming platforms scale and become more critical to business operations, investment in robust threat detection capabilities becomes not just advisable, but imperative. The integration of security monitoring into streaming architectures, supported by governance platforms and SIEM solutions, creates a defense-in-depth strategy that protects data, infrastructure, and ultimately, the business.
 
+## Related Concepts
+
+- [Apache Kafka](/apache-kafka) - Distributed streaming platform requiring security monitoring
+- [Data Governance Framework: Roles and Responsibilities](/data-governance-framework-roles-and-responsibilities) - Governance framework for secure streaming operations
+- [GDPR Compliance for Data Teams](/gdpr-compliance-for-data-teams) - Regulatory compliance and data protection
+
 ## Sources and References
 
 - [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework) - Comprehensive framework for managing cybersecurity risk

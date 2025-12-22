@@ -429,6 +429,12 @@ For modern data engineering scenarios involving real-time analytics (see [CDC fo
 
 The choice ultimately depends on your specific requirements: if you need simplicity and can accept delays, query-based CDC suffices. If real-time data, minimal source impact, and complete change capture are priorities, invest in log-based CDC infrastructure.
 
+## Related Concepts
+
+- [What is Change Data Capture: CDC Fundamentals](https://conduktor.io/glossary/what-is-change-data-capture-cdc-fundamentals) - Foundational CDC concepts that apply to both log-based and query-based approaches.
+- [Implementing CDC with Debezium](https://conduktor.io/glossary/implementing-cdc-with-debezium) - Hands-on guide to implementing production-grade log-based CDC using Debezium for real-time database replication.
+- [Streaming Data Pipeline](https://conduktor.io/glossary/streaming-data-pipeline) - Understand how CDC integrates into broader streaming data pipeline architectures for real-time data movement.
+
 ## Sources and References
 
 - **Debezium Documentation**: [https://debezium.io/documentation/](https://debezium.io/documentation/)

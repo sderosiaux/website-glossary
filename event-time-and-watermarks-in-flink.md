@@ -284,6 +284,12 @@ Event time processing with watermarks enables Flink applications to handle out-o
 
 Mastering event time and watermarks is essential for building production-grade streaming applications that handle real-world data characteristics while maintaining correctness and performance.
 
+## Related Concepts
+
+- [Watermarks and Triggers in Stream Processing](https://conduktor.io/glossary/watermarks-and-triggers-in-stream-processing) - Comprehensive guide to watermark strategies and trigger mechanisms across stream processing frameworks
+- [Handling Late-Arriving Data in Streaming](https://conduktor.io/glossary/handling-late-arriving-data-in-streaming) - Advanced techniques for managing late events beyond basic watermark configuration
+- [Windowing in Apache Flink](https://conduktor.io/glossary/windowing-in-apache-flink-tumbling-sliding-and-session-windows) - How watermarks interact with different window types in Flink
+
 ## Sources and References
 
 - [Apache Flink Documentation: Event Time and Watermarks](https://nightlies.apache.org/flink/flink-docs-stable/docs/concepts/time/)

@@ -249,6 +249,12 @@ Modern Iceberg deployments increasingly use REST catalogs (supported by AWS Glue
 
 For teams building lakehouse architectures with multiple Iceberg tables, REST catalogs ensure time travel queries maintain referential integrity across table relationships. For broader lakehouse context, see [Introduction to Lakehouse Architecture](https://conduktor.io/glossary/introduction-to-lakehouse-architecture).
 
+## Related Concepts
+
+- [What is Change Data Capture: CDC Fundamentals](/what-is-change-data-capture-cdc-fundamentals)
+- [Data Lineage: Tracking Data from Source to Consumption](/data-lineage-tracking-data-from-source-to-consumption)
+- [Real-Time Analytics with Streaming Data](/real-time-analytics-with-streaming-data)
+
 ## Summary
 
 Apache Iceberg's time travel feature provides a robust foundation for querying historical data without the complexity of manual versioning systems. By leveraging immutable snapshots, Iceberg enables:

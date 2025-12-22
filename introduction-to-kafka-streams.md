@@ -553,6 +553,12 @@ The stream processing landscape includes alternatives like Apache Flink and ksql
 
 For real-world implementation examples, see [Real-Time Fraud Detection with Streaming](https://conduktor.io/glossary/real-time-fraud-detection-with-streaming) which demonstrates advanced Kafka Streams patterns for production systems.
 
+## Related Concepts
+
+- [Exactly-Once Semantics in Kafka](https://conduktor.io/glossary/exactly-once-semantics-in-kafka) - Deep dive into Kafka's exactly-once processing guarantees and EXACTLY_ONCE_V2
+- [Kafka Transactions Deep Dive](https://conduktor.io/glossary/kafka-transactions-deep-dive) - Understand the transactional guarantees underlying exactly-once processing in Kafka Streams
+- [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring) - Essential metrics and strategies for monitoring Kafka Streams application lag
+
 ## Sources and References
 
 1. **Apache Kafka Documentation - Streams API**

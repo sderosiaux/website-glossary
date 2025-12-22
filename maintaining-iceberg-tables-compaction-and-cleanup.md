@@ -669,6 +669,12 @@ Understanding **operational considerations**—duration, compute costs, and quer
 
 By following the best practices and automation patterns outlined here, data platform teams can maintain Iceberg tables efficiently while optimizing for both performance and cost. Regular maintenance transforms Iceberg from a powerful but maintenance-heavy table format into a truly production-grade foundation for modern data lakehouses.
 
+## Related Concepts
+
+- [Data Pipeline Orchestration with Streaming](/data-pipeline-orchestration-with-streaming)
+- [Kafka Connect: Building Data Integration Pipelines](/kafka-connect-building-data-integration-pipelines)
+- [Real-Time Analytics with Streaming Data](/real-time-analytics-with-streaming-data)
+
 ## Related Articles
 
 - [Iceberg Table Architecture: Metadata and Snapshots](https://conduktor.io/glossary/iceberg-table-architecture-metadata-and-snapshots) - Understanding Iceberg's internal architecture

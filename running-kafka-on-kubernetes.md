@@ -235,6 +235,12 @@ The combination of Kubernetes orchestration and Kafka's distributed streaming ca
 
 Teams embarking on this journey should start with pilot projects, invest in automation through operators, and establish strong observability practices before scaling to production workloads.
 
+## Related Concepts
+
+- [Strimzi Kafka Operator for Kubernetes](https://conduktor.io/glossary/strimzi-kafka-operator-for-kubernetes) - Automate Kafka deployment and operations on Kubernetes using the CNCF operator pattern.
+- [Infrastructure as Code for Kafka Deployments](https://conduktor.io/glossary/infrastructure-as-code-for-kafka-deployments) - Apply IaC practices to manage Kubernetes-based Kafka infrastructure declaratively with GitOps workflows.
+- [Kafka Capacity Planning](https://conduktor.io/glossary/kafka-capacity-planning) - Size Kubernetes resource requests and limits based on workload characteristics and performance requirements.
+
 ## Key Terminology
 
 Understanding these Kubernetes and Kafka-specific terms helps when deploying streaming infrastructure:

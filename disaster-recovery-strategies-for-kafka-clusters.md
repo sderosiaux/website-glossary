@@ -382,6 +382,12 @@ Disaster recovery for Kafka clusters requires a layered approach combining nativ
 
 By aligning DR approaches with specific business requirements and recovery objectives, organizations can build resilient streaming platforms that maintain operations even during significant failures.
 
+## Related Concepts
+
+- [Kafka MirrorMaker 2 for Cross-Cluster Replication](https://conduktor.io/glossary/kafka-mirrormaker-2-for-cross-cluster-replication) - Deep dive into cross-cluster replication architecture and configuration for multi-region DR strategies.
+- [Kafka Capacity Planning](https://conduktor.io/glossary/kafka-capacity-planning) - Plan DR cluster sizing to handle failover traffic while balancing cost and performance requirements.
+- [Chaos Engineering for Streaming Systems](https://conduktor.io/glossary/chaos-engineering-for-streaming-systems) - Validate DR procedures through controlled failure injection and resilience testing.
+
 ## Sources and References
 
 1. Apache Kafka Documentation - "Replication" - https://kafka.apache.org/documentation/#replication

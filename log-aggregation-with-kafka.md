@@ -208,6 +208,12 @@ Kafka-based log aggregation is particularly valuable when operating microservice
 
 As systems grow and log data becomes increasingly central to operations, security, and business intelligence, Kafka's streaming model provides the flexibility and scalability needed to build log aggregation pipelines that grow with your organization.
 
+## Related Concepts
+
+- [Apache Kafka](/apache-kafka) - Distributed streaming platform for log aggregation
+- [Kafka Connect: Building Data Integration Pipelines](/kafka-connect-building-data-integration-pipelines) - Integrate log data with storage and analytics systems
+- [Consumer Lag Monitoring](/consumer-lag-monitoring) - Track log consumer health and processing performance
+
 ## Related Topics
 
 For deeper understanding of related concepts, explore these articles:

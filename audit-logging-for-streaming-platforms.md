@@ -170,6 +170,12 @@ Key takeaways:
 
 By implementing robust audit logging, organizations gain the visibility needed for compliance, security incident response, and operational troubleshooting while building trust with regulators and customers.
 
+## Related Concepts
+
+- [Streaming Audit Logs](https://conduktor.io/glossary/streaming-audit-logs) - Implementing audit trails for real-time systems
+- [Policy Enforcement in Streaming](https://conduktor.io/glossary/policy-enforcement-in-streaming) - Automated governance with audit trails
+- [Data Governance Framework: Roles and Responsibilities](https://conduktor.io/glossary/data-governance-framework-roles-and-responsibilities) - Organizational structure for audit compliance
+
 ## Sources and References
 
 1. **Apache Kafka Documentation - Security**: Official documentation on Kafka authorization and security features

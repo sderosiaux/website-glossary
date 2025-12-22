@@ -214,6 +214,12 @@ Regardless of mechanism, always combine authentication with encryption and autho
 
 Proper authentication configuration is foundational to Kafka security. It protects your data streams, satisfies compliance requirements, and enables audit trails showing exactly which services accessed which topics. For operational best practices covering authentication, authorization, encryption, and monitoring, consult [Kafka Security Best Practices](https://conduktor.io/glossary/kafka-security-best-practices).
 
+## Related Concepts
+
+- [Kafka ACLs and Authorization Patterns](https://conduktor.io/glossary/kafka-acls-and-authorization-patterns) - Fine-grained authorization controls that work with authentication to secure Kafka resources.
+- [mTLS for Kafka](https://conduktor.io/glossary/mtls-for-kafka) - Certificate-based mutual authentication for service-to-service communication in zero-trust architectures.
+- [Policy Enforcement in Streaming](https://conduktor.io/glossary/policy-enforcement-in-streaming) - Automated policy enforcement that builds on authentication to maintain security and compliance.
+
 ## Sources and References
 
 1. **Apache Kafka Documentation - Security (2025)**: Official Kafka 4.0+ security configuration covering authentication, authorization, and encryption - https://kafka.apache.org/documentation/#security

@@ -292,6 +292,12 @@ However, SMTs are not suitable for stateful processing, aggregations, or complex
 
 For simple transformations at the connector level, SMTs offer the right balance of capability and simplicity. For complex processing requirements, consider Apache Kafka Streams, Apache Flink, or similar frameworks that provide comprehensive stream processing capabilities. To understand when to choose stream processing frameworks over SMTs, see [Kafka Streams vs Apache Flink](https://conduktor.io/glossary/kafka-streams-vs-apache-flink) and [Introduction to Kafka Streams](https://conduktor.io/glossary/introduction-to-kafka-streams).
 
+## Related Concepts
+
+- [Kafka Connect: Building Data Integration Pipelines](https://conduktor.io/glossary/kafka-connect-building-data-integration-pipelines) - Comprehensive guide to Kafka Connect architecture and connector patterns where SMTs provide lightweight transformations.
+- [Schema Evolution Best Practices](https://conduktor.io/glossary/schema-evolution-best-practices) - Understand how SMTs interact with schema evolution when transforming message structures and handling schema compatibility.
+- [Data Quality Dimensions: Accuracy, Completeness, and Consistency](https://conduktor.io/glossary/data-quality-dimensions-accuracy-completeness-and-consistency) - Learn how SMTs can enforce data quality rules through validation and transformation at the connector level.
+
 ## Sources and References
 
 1. Apache Kafka Documentation - "Kafka Connect Transformations": https://kafka.apache.org/documentation/#connect_transforms

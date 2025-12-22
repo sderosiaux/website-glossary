@@ -358,6 +358,12 @@ As you design your pipelines, prioritize monitoring and observability. Streaming
 
 The result is a real-time data platform that supports both traditional batch analytics and emerging streaming use cases, all built on a unified Lakehouse foundation.
 
+## Related Concepts
+
+- [Streaming ETL vs Traditional ETL](/streaming-etl-vs-traditional-etl)
+- [Kafka Connect: Building Data Integration Pipelines](/kafka-connect-building-data-integration-pipelines)
+- [Data Lineage: Tracking Data from Source to Consumption](/data-lineage-tracking-data-from-source-to-consumption)
+
 ## Sources and References
 
 - [Apache Kafka Documentation](https://kafka.apache.org/documentation/) - Comprehensive guide to streaming platform architecture

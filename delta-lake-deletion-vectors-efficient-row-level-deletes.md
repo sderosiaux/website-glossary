@@ -393,6 +393,12 @@ Best practices for 2025 include:
 
 As data lakes increasingly support transactional workloads and real-time updates, deletion vectors represent a critical evolution in storage engine design—bringing database-like mutation capabilities to open lakehouse architectures without sacrificing the scalability of columnar formats. The 2024-2025 improvements in Liquid Clustering integration, UniForm support, and concurrent delete handling make deletion vectors an essential feature for modern data lakehouse deployments.
 
+## Related Concepts
+
+- [Delta Lake Transaction Log: How It Works](/delta-lake-transaction-log-how-it-works) - Understanding the transaction log that tracks deletion vectors
+- [Optimizing Delta Tables: OPTIMIZE and Z-ORDER](/optimizing-delta-tables-optimize-and-z-order) - Compaction strategies to consolidate deletion vectors
+- [Data Quality Dimensions: Accuracy, Completeness, and Consistency](/data-quality-dimensions-accuracy-completeness-and-consistency) - Ensuring data quality when performing row-level deletes
+
 ## Sources and References
 
 1. **Delta Lake Documentation - Deletion Vectors**: [https://docs.delta.io/latest/delta-deletion-vectors.html](https://docs.delta.io/latest/delta-deletion-vectors.html)

@@ -196,6 +196,12 @@ Always commit offsets after successfully processing messages, not before. Proces
 
 You cannot have more active consumers than partitions in a consumer group. Plan partition counts based on expected parallelism requirements. Creating topics with too few partitions limits future scaling. For guidance on planning partition counts and topic design, see [Kafka Topic Design Guidelines](https://conduktor.io/glossary/kafka-topic-design-guidelines).
 
+## Related Concepts
+
+- [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring) - Essential for tracking consumer group performance and detecting processing bottlenecks.
+- [Kafka Partitioning Strategies and Best Practices](https://conduktor.io/glossary/kafka-partitioning-strategies-and-best-practices) - Partition design directly impacts consumer group scalability and performance.
+- [Exactly-Once Semantics in Kafka](https://conduktor.io/glossary/exactly-once-semantics-in-kafka) - Combines consumer group offset management with transactional processing for guaranteed delivery semantics.
+
 ## Summary
 
 Consumer groups are fundamental to Kafka's scalability model. They enable parallel processing through partition assignment, provide fault tolerance through rebalancing, and allow multiple applications to consume the same data independently.

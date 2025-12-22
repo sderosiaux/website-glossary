@@ -178,6 +178,12 @@ Building a modern data lake on cloud storage requires thoughtful architecture th
 
 The 2024-2025 evolution toward lakehouse architectures—combining the flexibility of data lakes with the reliability of data warehouses—has made table formats and unified catalogs essential rather than optional. These technologies provide the ACID guarantees, time travel, and governance capabilities that production data lakes require. The key is starting with clear patterns while remaining adaptable as new technologies and requirements emerge.
 
+## Related Concepts
+
+- [Kafka Connect: Building Data Integration Pipelines](/kafka-connect-building-data-integration-pipelines)
+- [What is Change Data Capture: CDC Fundamentals](/what-is-change-data-capture-cdc-fundamentals)
+- [Data Lineage: Tracking Data from Source to Consumption](/data-lineage-tracking-data-from-source-to-consumption)
+
 ## Sources and References
 
 - [AWS S3 Data Lake Best Practices](https://docs.aws.amazon.com/prescriptive-guidance/latest/defining-bucket-names-data-lakes/welcome.html) - AWS guidance on building data lakes with S3

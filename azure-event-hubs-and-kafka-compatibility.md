@@ -106,6 +106,12 @@ For organizations committed to Azure, Event Hubs offers significant operational 
 
 The decision to adopt Event Hubs should balance protocol compatibility benefits against feature limitations, cost implications, and long-term architectural goals. For many teams, the combination of Kafka familiarity and Azure ecosystem integration makes Event Hubs a compelling choice for modern data streaming.
 
+## Related Concepts
+
+- [Apache Kafka](/glossary/apache-kafka) - The streaming platform that Event Hubs provides compatibility with
+- [Introduction to Confluent Cloud](/glossary/introduction-to-confluent-cloud) - Alternative managed Kafka service for multi-cloud deployments
+- [Streaming Total Cost of Ownership](/glossary/streaming-total-cost-of-ownership) - Comparing the economics of managed streaming platforms
+
 ## Sources and References
 
 1. [Azure Event Hubs for Apache Kafka](https://learn.microsoft.com/en-us/azure/event-hubs/event-hubs-for-kafka-ecosystem-overview) - Microsoft Learn

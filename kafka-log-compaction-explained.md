@@ -228,6 +228,12 @@ Frequent compaction problems and their solutions:
 - **Unexpected deletion**: Check for tombstone records (null values) if data disappears unexpectedly. Review producer code for accidental null value writes
 - **Slow state restoration**: With tiered storage enabled, verify that adequate local retention allows compaction before segments move to remote storage
 
+## Related Concepts
+
+- [Kafka Topic Design Guidelines](https://conduktor.io/glossary/kafka-topic-design-guidelines) - Guidance on choosing between compaction, time-based retention, and hybrid retention policies for different use cases.
+- [Introduction to Kafka Streams](https://conduktor.io/glossary/introduction-to-kafka-streams) - Kafka Streams relies heavily on compacted topics for maintaining state stores and changelog topics.
+- [Tiered Storage in Kafka](https://conduktor.io/glossary/tiered-storage-in-kafka) - Understanding how compaction interacts with tiered storage is critical for modern Kafka deployments.
+
 ## Summary
 
 Kafka log compaction is a powerful retention mechanism that maintains the latest state for each message key rather than preserving a complete time-ordered history. It transforms Kafka topics into durable, fault-tolerant state stores that support use cases like change data capture, configuration management, and stateful stream processing.

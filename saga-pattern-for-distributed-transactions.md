@@ -448,6 +448,12 @@ Successful saga implementation requires careful attention to compensation logic,
 
 The saga pattern isn't a universal solution—simple workflows within service boundaries should still use local ACID transactions. But for complex, cross-service business processes in distributed systems, sagas represent the current best practice for maintaining consistency without sacrificing availability.
 
+## Related Concepts
+
+- [Outbox Pattern for Reliable Event Publishing](https://conduktor.io/glossary/outbox-pattern-for-reliable-event-publishing) - Ensuring atomic database updates and event publishing within saga steps
+- [Event-Driven Microservices Architecture](https://conduktor.io/glossary/event-driven-microservices-architecture) - Architectural foundation for choreographed sagas
+- [Exactly-Once Semantics](https://conduktor.io/glossary/exactly-once-semantics) - Ensuring data consistency in saga workflows
+
 ## Related Patterns and Further Reading
 
 Sagas work best when combined with complementary distributed system patterns:

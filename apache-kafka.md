@@ -323,6 +323,14 @@ Understanding Kafka's fundamentals — topics, partitions, offsets, replication,
 
 ---
 
+## Related Concepts
+
+- [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) - Essential for managing message formats and ensuring compatibility across producers and consumers in Kafka.
+- [Kafka Connect: Building Data Integration Pipelines](https://conduktor.io/glossary/kafka-connect-building-data-integration-pipelines) - Complements Kafka's streaming capabilities by enabling seamless integration with external data systems.
+- [Exactly-Once Semantics in Kafka](https://conduktor.io/glossary/exactly-once-semantics-in-kafka) - Critical for building reliable streaming applications with strong delivery guarantees.
+
+---
+
 ## Sources and References
 
 * [Apache Kafka Documentation](https://kafka.apache.org/documentation/)

@@ -295,6 +295,12 @@ The stakes are high. As AI systems make increasingly consequential decisions and
 
 The question isn't whether to govern AI—regulatory and business pressures make that inevitable. The question is whether you'll govern it proactively, building systems that discover and manage AI before problems emerge, or reactively, after a compliance violation, security breach, or algorithmic bias incident forces the issue. The choice you make today will shape your organization's AI trajectory for years to come.
 
+## Related Concepts
+
+- [Data Governance Framework: Roles and Responsibilities](/data-governance-framework-roles-and-responsibilities) - Framework for governing AI and data assets
+- [Real-Time Analytics with Streaming Data](/real-time-analytics-with-streaming-data) - Monitor AI usage and performance
+- [Kafka Connect: Building Data Integration Pipelines](/kafka-connect-building-data-integration-pipelines) - Integrate AI governance with data pipelines
+
 ## Sources and References
 
 - [NIST AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework) - Federal framework for managing AI risks and governance

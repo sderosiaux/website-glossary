@@ -241,6 +241,12 @@ As data ecosystems grow more complex—with batch and streaming pipelines, cloud
 
 By implementing automated lineage capture, integrating with catalogs and governance tools, and making lineage accessible across your organization, you transform data from an opaque resource into a well-understood, trustworthy asset.
 
+## Related Concepts
+
+- [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) - Managing schema evolution and versioning in data pipelines
+- [Data Governance Framework: Roles and Responsibilities](https://conduktor.io/glossary/data-governance-framework-roles-and-responsibilities) - Organizational structures for data governance
+- [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring) - Tracking streaming data freshness and pipeline health
+
 ## Sources
 
 - [OpenLineage: Open Standard for Data Lineage](https://openlineage.io/)

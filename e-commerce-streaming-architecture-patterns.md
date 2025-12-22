@@ -252,6 +252,12 @@ The shift from batch to streaming represents a fundamental architectural change.
 
 As e-commerce continues to grow and customer expectations rise, streaming architectures will transition from competitive advantage to baseline requirement. Understanding these patterns positions engineering teams to build platforms that scale with business demands.
 
+## Related Concepts
+
+- [Apache Kafka](/apache-kafka) - Distributed streaming platform for event-driven e-commerce
+- [Exactly-Once Semantics](/exactly-once-semantics) - Critical for payment processing and inventory operations
+- [Data Governance Framework: Roles and Responsibilities](/data-governance-framework-roles-and-responsibilities) - Govern streaming data across e-commerce teams
+
 ## Sources and References
 
 1. **Confluent - E-Commerce Reference Architecture**

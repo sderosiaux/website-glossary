@@ -266,6 +266,12 @@ Several common mistakes can derail capacity planning:
 - Test capacity under load before production deployment
 - Document your capacity assumptions and review them quarterly
 
+## Related Concepts
+
+- [Tiered Storage in Kafka](https://conduktor.io/glossary/tiered-storage-in-kafka) - Fundamentally changes capacity planning by separating hot and cold storage tiers.
+- [Kafka Cluster Monitoring and Metrics](https://conduktor.io/glossary/kafka-cluster-monitoring-and-metrics) - Continuous monitoring validates capacity estimates and detects when scaling is needed.
+- [Kafka Topic Design Guidelines](https://conduktor.io/glossary/kafka-topic-design-guidelines) - Partition count and retention policies directly impact storage and throughput capacity requirements.
+
 ## Summary
 
 Kafka capacity planning requires balancing multiple resources—storage, network, CPU, and memory—based on your throughput, retention, and reliability requirements. Start by calculating your storage needs from message rate, size, retention period, and replication factor. Factor in network bandwidth for both client traffic and replication, and don't overlook CPU requirements for compression and encryption.

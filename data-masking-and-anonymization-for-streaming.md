@@ -246,6 +246,12 @@ Key considerations include choosing the right technique for your use case (maski
 
 As real-time data systems become central to business operations, implementing robust data protection in streaming architectures is not just a compliance requirement but a fundamental aspect of building trustworthy and secure data platforms.
 
+## Related Concepts
+
+- [PII Detection and Handling in Event Streams](https://conduktor.io/glossary/pii-detection-and-handling-in-event-streams) - Detecting PII in streams before applying masking and anonymization techniques.
+- [GDPR Compliance for Data Teams](https://conduktor.io/glossary/gdpr-compliance-for-data-teams) - How masking and anonymization support GDPR requirements like pseudonymization and data minimization.
+- [Data Classification and Tagging Strategies](https://conduktor.io/glossary/data-classification-and-tagging-strategies) - Classifying data sensitivity to determine appropriate masking and anonymization approaches.
+
 ## Sources and References
 
 1. **European Union General Data Protection Regulation (GDPR)** - Official regulation text covering requirements for personal data protection, pseudonymization, and the right to erasure. Available at: https://gdpr-info.eu/

@@ -133,6 +133,12 @@ While Confluent Cloud handles infrastructure operations, organizations must stil
 
 Both approaches can deliver production-grade streaming platforms - Confluent Cloud through managed services, and self-managed Kafka through modern platforms like Conduktor that provide governance, monitoring, and operational tooling without vendor lock-in.
 
+## Related Concepts
+
+- [Apache Kafka](/glossary/apache-kafka) - The foundational open-source platform that Confluent Cloud is built on
+- [Kafka Capacity Planning](/glossary/kafka-capacity-planning) - Critical for right-sizing both cloud and self-managed deployments
+- [Streaming Total Cost of Ownership](/glossary/streaming-total-cost-of-ownership) - Analyzing the full economic impact of managed vs. self-hosted Kafka
+
 ## Sources and References
 
 1. **Confluent Cloud Documentation (2025)** - Official documentation covering architecture, features, KRaft mode, and best practices

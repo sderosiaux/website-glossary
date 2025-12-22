@@ -416,6 +416,12 @@ For complementary storage solutions, explore [NewSQL databases](/glossary/newsql
 
 The landscape continues to evolve with managed services, serverless options, and tighter integrations, but the fundamental principles remain: optimize for your write patterns, query what you need efficiently, and scale horizontally as your streams grow.
 
+## Related Concepts
+
+- [Apache Kafka](/glossary/apache-kafka) - The streaming platform at the heart of most NoSQL integration patterns
+- [NewSQL Databases: Distributed SQL for Real-Time Applications](/glossary/newsql-databases-streaming) - Alternative database approach combining ACID guarantees with horizontal scalability
+- [Data Governance Framework: Roles and Responsibilities](/glossary/data-governance-framework-roles-and-responsibilities) - Essential for managing data quality across NoSQL-Kafka pipelines
+
 ## Sources and References
 
 - [Apache Cassandra Documentation](https://cassandra.apache.org/doc/latest/) - Official documentation for wide-column NoSQL database

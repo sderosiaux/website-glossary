@@ -324,6 +324,12 @@ changed_rows_df = spark.read \
 
 This capability is particularly useful when evolving schemas in streaming pipelines, as you can identify which records need reprocessing after adding computed columns or changing data types.
 
+## Related Concepts
+
+- [Real-Time Analytics with Streaming Data](/real-time-analytics-with-streaming-data)
+- [What is Change Data Capture: CDC Fundamentals](/what-is-change-data-capture-cdc-fundamentals)
+- [Kafka Connect: Building Data Integration Pipelines](/kafka-connect-building-data-integration-pipelines)
+
 ## Summary
 
 Apache Iceberg's schema evolution capabilities represent a significant advancement over traditional data lake formats. Through column-level identity tracking, versioned metadata, and zero-copy evolution, Iceberg enables data engineers to adapt table structures safely and efficiently as business requirements evolve.

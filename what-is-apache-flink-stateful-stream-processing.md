@@ -444,6 +444,12 @@ For data engineers, Flink provides the tools to build complex streaming pipeline
 
 Whether you're processing financial transactions, analyzing IoT sensor data, or building real-time recommendation systems, Apache Flink provides the foundation for scalable, stateful stream processing.
 
+## Related Concepts
+
+- [Exactly-Once Semantics](https://conduktor.io/glossary/exactly-once-semantics) - Flink's implementation of exactly-once processing and how it compares across frameworks
+- [Backpressure Handling in Streaming Systems](https://conduktor.io/glossary/backpressure-handling-in-streaming-systems) - Managing flow control and backpressure in Flink pipelines
+- [Real-Time Analytics with Streaming Data](https://conduktor.io/glossary/real-time-analytics-with-streaming-data) - Patterns for building analytics applications on top of Flink
+
 ## Sources and References
 
 - [Apache Flink Official Documentation](https://flink.apache.org/docs/stable/) - Comprehensive documentation covering concepts, APIs, and operations

@@ -186,6 +186,12 @@ Streaming audit logs do more than satisfy compliance checkboxes—they create or
 
 As streaming platforms grow in importance, audit logging capabilities must scale in parallel. The investment in comprehensive, performant, and compliant audit logging pays dividends in reduced security risk, simplified compliance, and the confidence that comes from complete visibility into your streaming data infrastructure.
 
+## Related Concepts
+
+- [Audit Logging for Streaming Platforms](https://conduktor.io/glossary/audit-logging-for-streaming-platforms) - Core audit logging concepts and implementation
+- [Data Governance Framework: Roles and Responsibilities](https://conduktor.io/glossary/data-governance-framework-roles-and-responsibilities) - Organizational structure supporting audit compliance
+- [Policy Enforcement in Streaming](https://conduktor.io/glossary/policy-enforcement-in-streaming) - Automated governance generating audit events
+
 ## Sources and References
 
 - [Apache Kafka Security and Audit Logging](https://kafka.apache.org/documentation/#security_authz) - Official documentation on authorization and audit capabilities

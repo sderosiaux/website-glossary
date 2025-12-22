@@ -364,6 +364,12 @@ Success with CDC requires attention to monitoring, governance, and operational c
 
 As CDC pipelines become critical infrastructure, comprehensive observability and governance tooling—like Conduktor for Kafka-based CDC monitoring—becomes essential for maintaining reliable data platforms. With proper implementation, CDC transforms databases from isolated data silos into real-time event sources that power modern data-driven applications.
 
+## Related Concepts
+
+- [Implementing CDC with Debezium](https://conduktor.io/glossary/implementing-cdc-with-debezium) - Practical guide to implementing log-based CDC using Debezium connectors with Apache Kafka for real-time database replication.
+- [Streaming Data Pipeline](https://conduktor.io/glossary/streaming-data-pipeline) - Understand how CDC serves as the foundation for real-time streaming data pipelines that move data from operational systems to analytics platforms.
+- [Exactly-Once Semantics in Kafka](https://conduktor.io/glossary/exactly-once-semantics-in-kafka) - Learn how CDC systems leverage exactly-once processing to guarantee reliable change event delivery without duplicates or data loss.
+
 ## Sources and References
 
 - [Debezium Documentation](https://debezium.io/documentation/)

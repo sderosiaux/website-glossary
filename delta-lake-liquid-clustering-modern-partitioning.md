@@ -417,6 +417,12 @@ For teams managing large-scale analytics workloads with evolving query patterns,
 
 As modern data architectures increasingly embrace streaming, multi-modal analytics, and self-service access patterns, adaptive clustering mechanisms like Liquid Clustering become essential infrastructure for maintaining performance without accumulating technical debt. With 2025's auto-optimization capabilities and unified governance, liquid clustering has evolved from a manual optimization technique into a production-ready, self-managing data organization strategy.
 
+## Related Concepts
+
+- [Introduction to Lakehouse Architecture](/introduction-to-lakehouse-architecture) - The foundational architecture that Liquid Clustering optimizes
+- [Optimizing Delta Tables: OPTIMIZE and Z-ORDER](/optimizing-delta-tables-optimize-and-z-order) - Traditional optimization approaches that Liquid Clustering supersedes
+- [Streaming to Lakehouse Tables](/streaming-to-lakehouse-tables) - How streaming writes interact with Liquid Clustering
+
 ## Sources and References
 
 - [Delta Lake Liquid Clustering Documentation](https://docs.delta.io/latest/delta-clustering.html) - Official Delta Lake documentation on Liquid Clustering features and implementation

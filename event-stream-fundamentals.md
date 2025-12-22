@@ -136,6 +136,12 @@ The key concepts to remember:
 
 Event streams are not just a technology choice—they're a way of thinking about data as a continuously flowing resource that can be processed, reprocessed, and reinterpreted as business needs evolve. Mastering event streams is mastering the foundation of real-time, data-driven systems.
 
+## Related Concepts
+
+- [Kafka Topics, Partitions, and Brokers: Core Architecture](https://conduktor.io/glossary/kafka-topics-partitions-brokers-core-architecture) - Deep dive into Kafka's foundational components for event streaming
+- [Event-Driven Architecture](https://conduktor.io/glossary/event-driven-architecture) - Architectural patterns built on event streams
+- [Streaming Data Pipeline](https://conduktor.io/glossary/streaming-data-pipeline) - Building end-to-end pipelines with event streams
+
 ## Sources and References
 
 1. Kleppmann, Martin. *Designing Data-Intensive Applications: The Big Ideas Behind Reliable, Scalable, and Maintainable Systems*. O'Reilly Media, 2017. (Chapters on Replication, Partitioning, and Stream Processing)

@@ -337,6 +337,12 @@ For production-grade implementation using established frameworks, see [Great Exp
 
 The investment in automated testing pays dividends through reduced debugging time, increased confidence in data-driven decisions, and faster incident resolution when issues do occur.
 
+## Related Concepts
+
+- [Building a Data Quality Framework](https://conduktor.io/glossary/building-a-data-quality-framework) - Comprehensive approach to quality management
+- [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) - Schema validation infrastructure
+- [Data Contracts for Reliable Pipelines](https://conduktor.io/glossary/data-contracts-for-reliable-pipelines) - Contract-based validation strategies
+
 ## Sources and References
 
 - [Great Expectations Documentation](https://docs.greatexpectations.io/) - Leading open-source framework for data validation and quality testing

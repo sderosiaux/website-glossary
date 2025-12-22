@@ -447,6 +447,12 @@ Administrators must balance competing concerns: durability versus throughput, re
 
 By investing in proper tooling, automation, and monitoring, organizations can operate Kafka clusters that reliably handle massive event volumes while maintaining the low latency and high availability that streaming applications demand.
 
+## Related Concepts
+
+- [Kafka Capacity Planning](https://conduktor.io/kafka-capacity-planning) - Essential for sizing clusters based on monitoring insights and growth projections.
+- [Multi-Tenancy in Kafka Environments](https://conduktor.io/glossary/multi-tenancy-in-kafka-environments) - Operational considerations for managing multiple teams and applications on shared clusters.
+- [Chaos Engineering for Streaming Systems](https://conduktor.io/glossary/chaos-engineering-for-streaming-systems) - Proactive testing strategies to validate operational resilience and disaster recovery procedures.
+
 ## Related Articles
 
 - [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka) - Modern metadata management without ZooKeeper

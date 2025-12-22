@@ -249,6 +249,12 @@ As of 2025, frameworks like Flink 1.18+ and Kafka Streams 3.7+ have significantl
 
 Successful late data handling requires understanding your data patterns, choosing appropriate watermark strategies, configuring reasonable allowed lateness based on business requirements, and maintaining good observability. By designing systems that explicitly account for late-arriving data rather than ignoring it, you can build streaming applications that are both timely and accurate.
 
+## Related Concepts
+
+- [What is Apache Flink: Stateful Stream Processing](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing) - Framework with sophisticated watermark and late data handling
+- [Apache Kafka](https://conduktor.io/glossary/apache-kafka) - Streaming platform providing offset-based replay capabilities
+- [Exactly-Once Semantics in Kafka](https://conduktor.io/glossary/exactly-once-semantics-in-kafka) - Processing guarantees when handling late data
+
 ## Sources and References
 
 - Akidau, Tyler, et al. "The Dataflow Model: A Practical Approach to Balancing Correctness, Latency, and Cost in Massive-Scale, Unbounded, Out-of-Order Data Processing." VLDB Endowment, 2015. [https://research.google/pubs/pub43864/](https://research.google/pubs/pub43864/)

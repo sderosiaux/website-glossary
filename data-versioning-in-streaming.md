@@ -318,6 +318,12 @@ Data versioning transforms streaming systems from ephemeral pipelines into relia
 
 The investment in versioning infrastructure pays dividends in debugging speed, ML model reliability, and regulatory confidence. As streaming architectures become central to modern data platforms, versioning evolves from optional to essential. Whether you're building real-time ML pipelines, regulatory reporting systems, or event-driven architectures, proper versioning ensures your streaming data remains trustworthy over time.
 
+## Related Concepts
+
+- [Apache Kafka](https://conduktor.io/glossary/apache-kafka) - Platform providing offset-based versioning and replay capabilities
+- [Exactly-Once Semantics in Kafka](https://conduktor.io/glossary/exactly-once-semantics-in-kafka) - Processing guarantees essential for reproducible versioning
+- [Disaster Recovery Strategies for Kafka Clusters](https://conduktor.io/glossary/disaster-recovery-strategies-for-kafka-clusters) - Protecting versioned event history
+
 ## Sources
 
 - [Delta Lake Time Travel Documentation](https://docs.delta.io/latest/delta-batch.html#-deltatimetravel)

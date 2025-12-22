@@ -405,6 +405,12 @@ For comprehensive approaches to quality management, see [Building a Data Quality
 
 The organizations that succeed with streaming data don't prevent all drift—they build systems that detect, adapt to, and recover from drift automatically. In a world where change is constant, resilience comes from expecting the unexpected.
 
+## Related Concepts
+
+- [Streaming Data Pipeline](/streaming-data-pipeline) - Build drift-resilient data pipelines
+- [Schema Registry and Schema Management](/schema-registry-and-schema-management) - Manage schema evolution to prevent drift
+- [Data Quality Dimensions: Accuracy, Completeness, and Consistency](/data-quality-dimensions-accuracy-completeness-and-consistency) - Quality checks to detect drift
+
 ## Sources
 
 1. Confluent - "Detecting and Managing Schema Drift in Apache Kafka" - https://www.confluent.io/blog/schema-registry-kafka-stream-processing-yes-virginia-you-really-need-one/

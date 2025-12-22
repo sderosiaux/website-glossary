@@ -276,6 +276,12 @@ Data product governance transforms raw data streams into reliable, trustworthy a
 
 Effective governance isn't about control—it's about enablement. It provides the structure that allows domain teams to move quickly while ensuring data products remain reliable, compliant, and valuable. As streaming architectures become the backbone of modern data platforms, robust data product governance becomes not just best practice, but essential infrastructure for data-driven organizations.
 
+## Related Concepts
+
+- [Data Governance Framework: Roles and Responsibilities](https://conduktor.io/glossary/data-governance-framework-roles-and-responsibilities) - Organizational structures and roles that support effective data product governance
+- [Data Contracts for Reliable Pipelines](https://conduktor.io/glossary/data-contracts-for-reliable-pipelines) - Formalized agreements that define quality guarantees and SLAs for data products
+- [Metadata Management: Technical vs Business Metadata](https://conduktor.io/glossary/metadata-management-technical-vs-business-metadata) - Understanding the different types of metadata critical for data product discoverability and governance
+
 ## Sources and References
 
 - [Data Mesh Principles and Logical Architecture](https://martinfowler.com/articles/data-mesh-principles.html)

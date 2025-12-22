@@ -378,6 +378,12 @@ By combining generic tests for common patterns, singular tests for complex busin
 
 The key is treating tests as living documentation that evolves with your data models. As your understanding of data quality requirements deepens, continuously refine your testing strategy to catch issues before they impact stakeholders. With 2025's expanded testing capabilities, dbt provides enterprise-grade data quality assurance that scales with your organization.
 
+## Related Concepts
+
+- [Great Expectations: Data Testing Framework](/great-expectations-data-testing-framework) - Complementary testing framework for data validation beyond dbt
+- [Automated Data Quality Testing](/automated-data-quality-testing) - Broader patterns for automated testing across data pipelines
+- [Data Quality Dimensions: Accuracy, Completeness, and Consistency](/data-quality-dimensions-accuracy-completeness-and-consistency) - Understanding what to test for
+
 ## Sources and References
 
 - [dbt Documentation: Data Tests](https://docs.getdbt.com/docs/build/data-tests)

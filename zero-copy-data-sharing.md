@@ -264,6 +264,12 @@ The convergence of streaming platforms and lakehouse architectures amplifies the
 
 As data volumes continue to grow and real-time requirements intensify, zero-copy sharing will become increasingly essential for building scalable, cost-effective, and governable data platforms. Organizations that master these patterns will gain significant advantages in operational efficiency, analytical agility, and collaborative innovation.
 
+## Related Concepts
+
+- [Apache Kafka](https://conduktor.io/glossary/apache-kafka) - Streaming platform enabling zero-copy sharing through consumer groups
+- [What is Apache Flink: Stateful Stream Processing](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing) - Stream processor supporting zero-copy lakehouse integration
+- [Streaming Total Cost of Ownership](https://conduktor.io/glossary/streaming-total-cost-of-ownership) - Cost benefits of zero-copy architectures
+
 ## Sources and References
 
 - [Snowflake Data Sharing](https://docs.snowflake.com/en/user-guide/data-sharing-intro) - Zero-copy data sharing across cloud data warehouses

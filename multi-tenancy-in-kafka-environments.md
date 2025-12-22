@@ -256,6 +256,12 @@ Key best practices include:
 
 With thoughtful design and proper tooling, multi-tenant Kafka deployments can deliver the benefits of shared infrastructure without compromising on isolation, security, or performance.
 
+## Related Concepts
+
+- [Kafka ACLs and Authorization Patterns](https://conduktor.io/glossary/kafka-acls-and-authorization-patterns) - Essential ACL patterns for implementing tenant isolation and access control in multi-tenant environments
+- [Quotas and Rate Limiting in Kafka](https://conduktor.io/glossary/quotas-and-rate-limiting-in-kafka) - Quota mechanisms that prevent noisy neighbor problems and ensure fair resource allocation across tenants
+- [Access Control for Streaming](https://conduktor.io/glossary/access-control-for-streaming) - Comprehensive access control strategies for securing multi-tenant streaming platforms
+
 ## Sources and References
 
 1. [Confluent - Multi-Tenancy Deployment Options](https://docs.confluent.io/platform/current/kafka/deployment.html) - Official documentation on Kafka multi-tenancy patterns and best practices.

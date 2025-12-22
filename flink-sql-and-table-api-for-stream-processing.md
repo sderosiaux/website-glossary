@@ -347,6 +347,12 @@ For data engineers building real-time pipelines, Flink SQL offers a balance betw
 
 The latest Flink releases (2.1 and 2.2 in 2025) continue to enhance SQL capabilities with features like materialized tables, delta joins for reduced state, and AI model integration, making Flink an increasingly powerful platform for unified data and AI workloads.
 
+## Related Concepts
+
+- [Real-Time Analytics with Streaming Data](https://conduktor.io/glossary/real-time-analytics-with-streaming-data) - Building analytics dashboards and metrics with Flink SQL
+- [Stream Joins and Enrichment Patterns](https://conduktor.io/glossary/stream-joins-and-enrichment-patterns) - Implementing complex join patterns in Flink SQL and Table API
+- [Handling Late-Arriving Data in Streaming](https://conduktor.io/glossary/handling-late-arriving-data-in-streaming) - Configuring watermarks and late data handling in Flink SQL DDL
+
 ## Sources and References
 
 - [Apache Flink Table API & SQL Documentation](https://nightlies.apache.org/flink/flink-docs-master/docs/dev/table/overview/)

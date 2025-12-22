@@ -218,6 +218,12 @@ Modern 2025 best practices emphasize:
 
 While implementing streaming ML inference introduces complexity in state management, fault tolerance, and monitoring, the business value—preventing fraud in real-time, personalizing user experiences instantly, or predicting equipment failures before they occur—often justifies the investment. As streaming platforms mature and ML frameworks improve, real-time inference is becoming accessible to more organizations.
 
+## Related Concepts
+
+- [Streaming Data Pipeline](/streaming-data-pipeline) - Build robust pipelines for real-time ML inference
+- [Schema Registry and Schema Management](/schema-registry-and-schema-management) - Ensure data consistency for ML models
+- [Data Quality Dimensions: Accuracy, Completeness, and Consistency](/data-quality-dimensions-accuracy-completeness-and-consistency) - Quality requirements for ML inputs
+
 ## Sources and References
 
 1. **Apache Kafka Documentation - Machine Learning Use Cases**

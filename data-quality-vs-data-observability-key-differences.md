@@ -123,6 +123,12 @@ Understanding this distinction helps you build more resilient systems. Combining
 
 The goal isn't to choose one over the other but to leverage each approach's strengths: the precision of quality testing and the breadth of observability monitoring. Together, they form a comprehensive data reliability strategy that scales with your organization's needs.
 
+## Related Concepts
+
+- [What is Data Observability: The Five Pillars](https://conduktor.io/glossary/what-is-data-observability-the-five-pillars) - Deep dive into observability fundamentals
+- [Building a Data Quality Framework](https://conduktor.io/glossary/building-a-data-quality-framework) - Implementing systematic quality management
+- [Data Freshness Monitoring: SLA Management](https://conduktor.io/glossary/data-freshness-monitoring-sla-management) - Timeliness as a quality dimension
+
 ## Sources and References
 
 - [The Five Pillars of Data Observability](https://www.montecarlodata.com/blog-what-is-data-observability/)

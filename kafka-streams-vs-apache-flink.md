@@ -200,6 +200,12 @@ For teams seeking SQL-based stream processing on Kafka, consider [ksqlDB for Rea
 
 Start with your requirements: data sources, state size, processing complexity, and team capabilities. The right choice becomes clear when you prioritize what matters most for your use case.
 
+## Related Concepts
+
+- [Exactly-Once Semantics](https://conduktor.io/glossary/exactly-once-semantics) - Understanding exactly-once processing guarantees in distributed stream processing systems
+- [Backpressure Handling in Streaming Systems](https://conduktor.io/glossary/backpressure-handling-in-streaming-systems) - Critical patterns for managing flow control in stream processing pipelines
+- [Stream Joins and Enrichment Patterns](https://conduktor.io/glossary/stream-joins-and-enrichment-patterns) - Comprehensive guide to joining streams and enriching data in real-time
+
 ## Sources and References
 
 1. Apache Kafka Documentation - Kafka Streams Architecture: https://kafka.apache.org/documentation/streams/architecture

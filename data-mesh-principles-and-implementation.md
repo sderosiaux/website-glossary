@@ -291,6 +291,12 @@ While implementation requires significant organizational and technical investmen
 
 Organizations should start small, prove value with pilot domains, and expand incrementally. The journey to Data Mesh is gradual, but it offers a sustainable path for data architecture at scale.
 
+## Related Concepts
+
+- [Data Governance Framework: Roles and Responsibilities](https://conduktor.io/glossary/data-governance-framework-roles-and-responsibilities) - Essential governance structures for implementing federated computational governance in data mesh architectures
+- [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) - Critical infrastructure for maintaining data contracts and schema governance across domain-owned data products
+- [Data Contracts for Reliable Pipelines](https://conduktor.io/glossary/data-contracts-for-reliable-pipelines) - Formalized agreements between data producers and consumers that enable data-as-a-product principles
+
 ## Sources and References
 
 1. Dehghani, Zhamak. "Data Mesh: Delivering Data-Driven Value at Scale." O'Reilly Media, 2022.

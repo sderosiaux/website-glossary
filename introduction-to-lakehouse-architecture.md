@@ -284,6 +284,12 @@ For data architects, CTOs, and data analysts, understanding lakehouse architectu
 
 The future of data architecture is unified, open, and flexible. The lakehouse makes that future accessible today.
 
+## Related Concepts
+
+- [Streaming ETL vs Traditional ETL](/streaming-etl-vs-traditional-etl)
+- [Real-Time Analytics with Streaming Data](/real-time-analytics-with-streaming-data)
+- [Data Pipeline Orchestration with Streaming](/data-pipeline-orchestration-with-streaming)
+
 ## Related Articles
 
 - [Apache Iceberg: Open Table Format for Huge Analytic Tables](/apache-iceberg)

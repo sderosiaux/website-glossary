@@ -315,6 +315,12 @@ Modern Kafka monitoring in 2025 embraces KRaft mode metrics, OpenTelemetry integ
 
 As Kafka clusters grow in size and criticality, monitoring becomes non-negotiable infrastructure. The investment in proper observability pays dividends through reduced downtime, faster incident resolution, and confidence in system reliability.
 
+## Related Concepts
+
+- [Kafka Capacity Planning](https://conduktor.io/glossary/kafka-capacity-planning) - Leverage monitoring data to make informed capacity planning decisions and predict resource requirements.
+- [Distributed Tracing for Kafka Applications](https://conduktor.io/glossary/distributed-tracing-for-kafka-applications) - Correlate metrics with traces for end-to-end observability in streaming pipelines.
+- [DataOps for Streaming](https://conduktor.io/glossary/dataops-for-streaming) - Apply DataOps practices to integrate monitoring with streaming data quality and governance.
+
 ## Related Topics
 
 For comprehensive Kafka operations and management, explore these related topics:

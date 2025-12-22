@@ -313,6 +313,12 @@ Key takeaways:
 
 As Delta tables grow from gigabytes to petabytes, these optimization techniques transition from optional enhancements to operational necessities. The investment in regular optimization pays dividends through faster queries, reduced costs, and improved data platform reliability.
 
+## Related Concepts
+
+- [Delta Lake Liquid Clustering: Modern Partitioning](/delta-lake-liquid-clustering-modern-partitioning) - The modern alternative to Z-ORDER for adaptive clustering
+- [Delta Lake Transaction Log: How It Works](/delta-lake-transaction-log-how-it-works) - How OPTIMIZE operations are tracked in the transaction log
+- [Streaming to Lakehouse Tables](/streaming-to-lakehouse-tables) - Auto-optimization strategies for streaming workloads
+
 ## Sources and References
 
 - [Delta Lake Official Documentation - OPTIMIZE](https://docs.delta.io/latest/optimizations-oss.html)

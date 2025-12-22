@@ -398,6 +398,12 @@ The key requirements include handling diverse event types, maintaining stateful 
 
 As games continue to grow in complexity and player bases expand, streaming analytics will remain essential for delivering competitive, engaging, and profitable gaming experiences.
 
+## Related Concepts
+
+- [Apache Kafka](/apache-kafka) - Distributed streaming platform for gaming event processing
+- [What is Apache Flink: Stateful Stream Processing](/what-is-apache-flink-stateful-stream-processing) - Stateful analytics for player behavior and anti-cheat detection
+- [Exactly-Once Semantics](/exactly-once-semantics) - Guarantee accurate player statistics and analytics
+
 ## Sources and References
 
 1. Apache Kafka Documentation: "Use Cases: Gaming" - Technical overview of Kafka architectures in gaming platforms (https://kafka.apache.org/uses)

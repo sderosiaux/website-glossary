@@ -379,6 +379,12 @@ Whether you're validating nightly batch loads in Snowflake or real-time events s
 
 Start small, iterate quickly, and build confidence in your data—one Expectation at a time.
 
+## Related Concepts
+
+- [dbt Tests and Data Quality Checks](/dbt-tests-and-data-quality-checks) - Complementary testing approach within transformation pipelines
+- [Automated Data Quality Testing](/automated-data-quality-testing) - Broader automation strategies for data quality
+- [Data Contracts for Reliable Pipelines](/data-contracts-for-reliable-pipelines) - Defining and enforcing data quality expectations
+
 ## Sources
 
 - [Great Expectations Official Documentation](https://docs.greatexpectations.io/)

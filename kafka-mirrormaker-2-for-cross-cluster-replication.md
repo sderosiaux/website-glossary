@@ -444,6 +444,12 @@ Whether implementing disaster recovery with active-passive replication, enabling
 
 As organizations continue to adopt multi-region, multi-cloud, and hybrid cloud architectures, tools like MirrorMaker 2 become increasingly important for maintaining data availability, consistency, and performance across distributed streaming platforms.
 
+## Related Concepts
+
+- [Disaster Recovery Strategies for Kafka Clusters](https://conduktor.io/glossary/disaster-recovery-strategies-for-kafka-clusters) - Comprehensive DR planning including RTO/RPO considerations, backup strategies, and failover procedures.
+- [Running Kafka on Kubernetes](https://conduktor.io/glossary/running-kafka-on-kubernetes) - Deploy MirrorMaker 2 alongside Kafka clusters in containerized environments for cloud-native replication.
+- [Multi-Tenancy in Kafka Environments](https://conduktor.io/glossary/multi-tenancy-in-kafka-environments) - Replicate multi-tenant clusters while maintaining isolation and security policies across regions.
+
 ## Sources and References
 
 1. [Apache Kafka Documentation - MirrorMaker 2.0](https://kafka.apache.org/documentation/#georeplication) - Official Apache Kafka documentation covering MM2 architecture and configuration

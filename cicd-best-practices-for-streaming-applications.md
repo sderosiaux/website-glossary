@@ -217,6 +217,12 @@ Key best practices include:
 
 By following these practices, teams can achieve the same deployment velocity and reliability for streaming applications that they expect from traditional services, while respecting the unique requirements of event-driven architectures.
 
+## Related Concepts
+
+- [Testing Strategies for Streaming Applications](https://conduktor.io/glossary/testing-strategies-for-streaming-applications) - Comprehensive testing approaches for streaming pipelines
+- [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring) - Essential metrics for CI/CD validation
+- [Infrastructure as Code for Kafka Deployments](https://conduktor.io/glossary/infrastructure-as-code-for-kafka-deployments) - Terraform and automation for streaming platforms
+
 ## Sources and References
 
 1. Fowler, Martin. "Continuous Integration." martinfowler.com, May 2006. https://martinfowler.com/articles/continuousIntegration.html

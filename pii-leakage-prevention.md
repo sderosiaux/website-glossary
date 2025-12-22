@@ -457,12 +457,11 @@ Modern tools in 2025—from AI-powered detection services to comprehensive gover
 7. **Test regularly**: Use synthetic PII to validate detection and prevention mechanisms
 8. **Expand coverage**: Gradually add ML-based detection for contextual PII and advanced anonymization techniques
 
-For deeper exploration of related topics, see:
-- [PII Detection and Handling in Event Streams](https://conduktor.io/glossary/pii-detection-and-handling-in-event-streams) - Comprehensive guide to PII handling strategies
-- [Data Masking and Anonymization for Streaming](https://conduktor.io/glossary/data-masking-and-anonymization-for-streaming) - Detailed masking implementation patterns
-- [Data Classification and Tagging Strategies](https://conduktor.io/glossary/data-classification-and-tagging-strategies) - How to classify and tag sensitive data systematically
-- [Policy Enforcement in Streaming](https://conduktor.io/glossary/policy-enforcement-in-streaming) - Automated governance for real-time data
-- [Access Control for Streaming](https://conduktor.io/glossary/access-control-for-streaming) - Implementing fine-grained access controls
+## Related Concepts
+
+- [PII Detection and Handling in Event Streams](https://conduktor.io/glossary/pii-detection-and-handling-in-event-streams) - Core techniques for detecting PII using pattern matching, ML classification, and schema-based approaches.
+- [Data Masking and Anonymization for Streaming](https://conduktor.io/glossary/data-masking-and-anonymization-for-streaming) - Implementation patterns for masking, tokenization, and anonymization to prevent PII leakage.
+- [Policy Enforcement in Streaming](https://conduktor.io/glossary/policy-enforcement-in-streaming) - Automated policy enforcement to detect and block PII leakage at zone boundaries.
 
 ## Sources and References
 

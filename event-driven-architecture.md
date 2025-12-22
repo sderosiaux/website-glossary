@@ -228,6 +228,12 @@ Success with event-driven architecture requires:
 
 As systems grow, governance becomes as critical as technical implementation. Platforms like Conduktor provide the centralized visibility, testing capabilities, and operational controls needed to operate event-driven architectures at scale. For related architectural patterns, see [Event-Driven Microservices Architecture](https://conduktor.io/glossary/event-driven-microservices-architecture) and [Event Stream Fundamentals](https://conduktor.io/glossary/event-stream-fundamentals).
 
+## Related Concepts
+
+- [Kafka Topics, Partitions, and Brokers: Core Architecture](https://conduktor.io/glossary/kafka-topics-partitions-brokers-core-architecture) - Understanding Kafka's foundational components for event-driven systems
+- [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) - Managing event schema evolution and validation
+- [Event-Driven Microservices Architecture](https://conduktor.io/glossary/event-driven-microservices-architecture) - Applying event-driven patterns to microservices architectures
+
 ## Sources and References
 
 - Fowler, Martin. [What do you mean by 'Event-Driven'?](https://martinfowler.com/articles/201701-event-driven.html) martinfowler.com, 2017.

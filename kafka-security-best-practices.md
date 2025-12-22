@@ -224,6 +224,12 @@ Securing Apache Kafka requires a comprehensive approach combining authentication
 
 Security is not optional for production Kafka deployments. The complexity of implementing these practices is outweighed by the risks of data breaches, compliance failures, and service disruptions. By following these 2025 best practices, you build a foundation for reliable and trustworthy data streaming infrastructure.
 
+## Related Concepts
+
+- [Multi-Tenancy in Kafka Environments](https://conduktor.io/glossary/multi-tenancy-in-kafka-environments) - Strategies for securing shared Kafka infrastructure across multiple teams with isolation and access control patterns.
+- [Data Classification and Tagging Strategies](https://conduktor.io/glossary/data-classification-and-tagging-strategies) - How to classify and tag sensitive data to enforce appropriate security controls.
+- [Audit Logging for Streaming Platforms](https://conduktor.io/glossary/audit-logging-for-streaming-platforms) - Comprehensive strategies for tracking security events and maintaining compliance audit trails.
+
 ## Sources and References
 
 1. **Apache Kafka Security Documentation** - Official security configuration guide covering authentication, authorization, and encryption: https://kafka.apache.org/documentation/#security

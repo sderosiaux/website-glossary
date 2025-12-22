@@ -254,6 +254,12 @@ In streaming platforms like Kafka, DLQs prevent individual message failures from
 
 Effective DLQ implementation requires careful attention to monitoring, metadata capture, retention policies, and reprocessing strategies. With proper tooling and operational procedures, Dead Letter Queues transform error handling from a reactive burden into a proactive component of system reliability.
 
+## Related Concepts
+
+- [Backpressure Handling in Streaming Systems](https://conduktor.io/glossary/backpressure-handling-in-streaming-systems) - Managing system load and preventing message failures
+- [Exactly-Once Semantics](https://conduktor.io/glossary/exactly-once-semantics) - Ensuring reliable message processing and DLQ routing
+- [Event-Driven Architecture](https://conduktor.io/glossary/event-driven-architecture) - Architectural patterns requiring robust error handling
+
 ## Sources and References
 
 1. Confluent Documentation: [Kafka Connect Error Handling and Dead Letter Queues](https://docs.confluent.io/platform/current/connect/concepts.html#error-handling)

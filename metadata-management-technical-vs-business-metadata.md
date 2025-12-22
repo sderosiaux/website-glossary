@@ -280,6 +280,12 @@ For Data Architects and Data Governance Officers, success requires treating meta
 
 The organizations that invest in integrated metadata management gain competitive advantages: faster time-to-insight, reduced operational risk, stronger regulatory compliance, and data ecosystems that truly serve business needs. The question isn't whether to prioritize technical or business metadata—it's how to unite them into a coherent whole that empowers every stakeholder in your data journey.
 
+## Related Concepts
+
+- [Data Lineage: Tracking Data from Source to Consumption](https://conduktor.io/glossary/data-lineage-tracking-data-from-source-to-consumption) - Understanding how metadata flows through pipelines
+- [Building a Business Glossary for Data Governance](https://conduktor.io/glossary/building-a-business-glossary-for-data-governance) - Creating business context for technical assets
+- [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) - Managing technical metadata for streaming platforms
+
 ## Getting Started: Practical Steps
 
 If you're beginning your metadata management journey, follow this phased approach:

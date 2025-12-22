@@ -380,6 +380,12 @@ The organizations that invest in these capabilities now—building comprehensive
 
 The path from AI chaos to AI excellence runs through discovery and monitoring. The question is not whether to build these capabilities, but how quickly you can establish them before the cost of AI sprawl exceeds the value AI delivers.
 
+## Related Concepts
+
+- [Data Governance Framework: Roles and Responsibilities](/data-governance-framework-roles-and-responsibilities) - Establish governance for AI assets
+- [Streaming Data Pipeline](/streaming-data-pipeline) - Monitor pipelines feeding AI models
+- [Schema Registry and Schema Management](/schema-registry-and-schema-management) - Track schemas for AI data flows
+
 ## Sources and References
 
 1. **MLflow Documentation** - MLflow Model Registry and Tracking: [https://mlflow.org/docs/latest/model-registry.html](https://mlflow.org/docs/latest/model-registry.html) - Comprehensive guide to model versioning, lifecycle management, and metadata tracking.

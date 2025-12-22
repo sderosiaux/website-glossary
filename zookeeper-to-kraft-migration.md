@@ -219,6 +219,12 @@ These JMX metrics (Java Management Extensions monitoring metrics) can be accesse
 
 Platforms like Conduktor can streamline this validation process by providing visual confirmation of cluster state, metadata consistency across brokers, and historical tracking of configuration changes before and after migration. Conduktor's monitoring capabilities help teams quickly identify any discrepancies in topic configurations, ACLs, or quotas that may have occurred during the transition.
 
+## Related Concepts
+
+- [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka) - Foundational understanding of KRaft architecture and benefits before planning migration.
+- [Kafka Cluster Monitoring and Metrics](https://conduktor.io/glossary/kafka-cluster-monitoring-and-metrics) - Essential monitoring strategies for tracking migration progress and validating KRaft cluster health.
+- [Kafka Capacity Planning](https://conduktor.io/glossary/kafka-capacity-planning) - KRaft's reduced infrastructure requirements impact capacity planning for post-migration clusters.
+
 ## Summary
 
 Migrating from ZooKeeper to KRaft represents a significant architectural evolution for Apache Kafka, delivering operational simplification, improved performance, and better scalability. While the migration requires careful planning and execution, the long-term benefits of reduced infrastructure complexity, faster metadata operations, and improved reliability make it essential for teams managing Kafka at scale.

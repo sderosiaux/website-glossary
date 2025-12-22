@@ -436,6 +436,12 @@ As AI agents take on increasingly autonomous roles in business operations, the s
 
 The future belongs to organizations that can reliably stream high-quality data to intelligent agents, enabling them to make better decisions faster than any human—or traditional system—could achieve alone.
 
+## Related Concepts
+
+- [Streaming Data Pipeline](/streaming-data-pipeline) - Build data pipelines for autonomous agents
+- [Real-Time Analytics with Streaming Data](/real-time-analytics-with-streaming-data) - Analytics on agent performance and decisions
+- [Data Governance Framework: Roles and Responsibilities](/data-governance-framework-roles-and-responsibilities) - Govern agentic AI systems and data access
+
 ## Sources and References
 
 - [LangChain Documentation - Agents](https://python.langchain.com/docs/modules/agents/) - Comprehensive guide to building AI agents with LangChain framework

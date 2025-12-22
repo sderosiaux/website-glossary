@@ -215,6 +215,12 @@ Building production-grade clickstream pipelines requires attention to data quali
 
 As digital experiences become more interactive and users expect immediate personalization, real-time clickstream processing will continue growing in importance. Kafka's modern architecture with KRaft, tiered storage, and enhanced monitoring provides the infrastructure to make this real-time vision practical and scalable for organizations of any size.
 
+## Related Concepts
+
+- [Apache Kafka](/apache-kafka) - Distributed streaming platform for clickstream data ingestion
+- [Kafka Connect: Building Data Integration Pipelines](/kafka-connect-building-data-integration-pipelines) - Integrate clickstream data with downstream systems
+- [Exactly-Once Semantics](/exactly-once-semantics) - Guarantee accurate event counting in clickstream pipelines
+
 ## Sources and References
 
 1. [Confluent - Clickstream Analysis](https://www.confluent.io/blog/) - Architecture patterns and best practices for Kafka-based clickstream analytics

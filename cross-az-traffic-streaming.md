@@ -245,6 +245,12 @@ Governance platforms provide capabilities for managing Kafka deployments, includ
 
 By understanding cross-AZ traffic patterns, implementing strategic optimizations, and maintaining visibility through monitoring, you can build cost-effective, performant streaming architectures that deliver high availability without excessive cloud data transfer costs.
 
+## Related Concepts
+
+- [Apache Kafka](https://conduktor.io/glossary/apache-kafka) - Platform architecture impacting cross-AZ traffic patterns
+- [Kafka Capacity Planning](https://conduktor.io/glossary/kafka-capacity-planning) - Planning infrastructure to optimize cross-AZ costs
+- [Disaster Recovery Strategies for Kafka Clusters](https://conduktor.io/glossary/disaster-recovery-strategies-for-kafka-clusters) - Multi-AZ strategies for high availability
+
 ## Sources and References
 
 - [Apache Kafka 4.0 Documentation](https://kafka.apache.org/documentation/) - Official documentation including Tiered Storage and KRaft consensus
