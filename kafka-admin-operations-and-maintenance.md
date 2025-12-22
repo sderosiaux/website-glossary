@@ -15,6 +15,61 @@ Apache Kafka has become the backbone of modern data streaming architectures, han
 
 This article explores the essential practices for administering Kafka clusters in production environments, from daily monitoring tasks to strategic planning for disaster recovery.
 
+![Kafka admin operations workflow and monitoring layers](images/diagrams/kafka-admin-operations-and-maintenance-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌──────────────────────────────────────────────────────────────────┐
+│         Kafka Admin Operations & Maintenance Layers              │
+└──────────────────────────────────────────────────────────────────┘
+
+Monitoring & Alerting          Admin Operations         Infrastructure
+       │                              │                        │
+       ▼                              ▼                        ▼
+┌──────────────┐              ┌──────────────┐        ┌──────────────┐
+│ JMX Metrics  │              │Topic Mgmt    │        │KRaft Mode    │
+│ - Prometheus │─────────────▶│- Create/Alter│◀───────│Controllers   │
+│ - Grafana    │              │- Partitions  │        │(No ZooKeeper)│
+└──────────────┘              │- Retention   │        └──────────────┘
+       │                      └──────────────┘               │
+       │                              │                      │
+       ▼                              ▼                      ▼
+┌──────────────┐              ┌──────────────┐        ┌──────────────┐
+│Broker Health │              │Security/ACLs │        │  Brokers     │
+│- CPU/Disk    │──────┐       │- OAuth 2.0   │        │  - Storage   │
+│- Network     │      │       │- mTLS        │        │  - Compute   │
+│- Under-Repl. │      │       │- SASL/SCRAM  │        │  - Network   │
+└──────────────┘      │       └──────────────┘        └──────────────┘
+       │              │               │                      │
+       │              │               │                      │
+       ▼              │               ▼                      ▼
+┌──────────────┐     │       ┌──────────────┐        ┌──────────────┐
+│Consumer Lag  │     │       │Performance   │        │Disaster      │
+│- Lag Monitor │     ├──────▶│Tuning        │        │Recovery      │
+│- Group Mgmt  │     │       │- Config Opts │        │- Replication │
+└──────────────┘     │       │- Leader Elect│        │- Tiered Store│
+       │             │       │- Compaction  │        │- MirrorMaker │
+       │             │       └──────────────┘        └──────────────┘
+       │             │               │                      │
+       ▼             │               ▼                      ▼
+┌──────────────┐     │       ┌──────────────┐        ┌──────────────┐
+│ Alerting     │     │       │Troubleshoot  │        │Kubernetes    │
+│- Under-Repl. │     │       │- Logs        │        │- Strimzi Op. │
+│- High Lag    │────▶│       │- Partition   │        │- GitOps      │
+│- Disk Full   │     │       │  Reassign    │        │- Helm Charts │
+└──────────────┘     │       └──────────────┘        └──────────────┘
+                     │
+                     ▼
+              ┌──────────────┐
+              │  Platform    │
+              │  Conduktor   │
+              │  - Unified   │
+              │    Dashboard │
+              │  - Governance│
+              └──────────────┘
+```
+-->
+
 ## Understanding Kafka Administration Responsibilities
 
 Kafka administrators manage the health and performance of broker clusters, coordinate topic configurations, enforce security policies, and respond to operational incidents. Unlike traditional databases with single-instance management, Kafka's distributed nature requires administrators to think about replication, partition leadership, and cluster-wide consistency.

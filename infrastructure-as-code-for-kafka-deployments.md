@@ -18,6 +18,58 @@ Infrastructure as Code is the practice of managing and provisioning infrastructu
 
 The benefits extend beyond automation. IaC provides documentation as code—your infrastructure definitions become the source of truth for how systems are configured. Changes go through the same review processes as application code, creating an audit trail and enabling rollbacks when issues arise. For distributed systems like Kafka, where configuration drift can lead to subtle but serious problems, this consistency is invaluable.
 
+![Infrastructure as Code workflow for Kafka deployments](images/diagrams/infrastructure-as-code-for-kafka-deployments-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌──────────────────────────────────────────────────────────────────┐
+│        Infrastructure as Code for Kafka Deployments              │
+└──────────────────────────────────────────────────────────────────┘
+
+    Git Repository                  IaC Tools            Target Env
+         │                              │                    │
+         ▼                              ▼                    ▼
+  ┌────────────┐                ┌────────────┐       ┌──────────┐
+  │ Terraform  │───────────────▶│ terraform  │──────▶│  Dev     │
+  │ .tf files  │                │   plan     │       │ Cluster  │
+  │ - Cluster  │                │   apply    │       └──────────┘
+  │ - Topics   │                └────────────┘             │
+  │ - ACLs     │                       │                   ▼
+  └────────────┘                       │            ┌──────────┐
+         │                             │            │ Staging  │
+         │                             │            │ Cluster  │
+  ┌────────────┐                       │            └──────────┘
+  │Kubernetes  │───────────────┐       │                  │
+  │ YAML       │               │       │                  ▼
+  │ - Strimzi  │               ├──────▶│           ┌──────────┐
+  │ - Kafka CR │               │       │           │  Prod    │
+  └────────────┘               │       │           │ Cluster  │
+         │                     │       │           └──────────┘
+         │                     │       │
+  ┌────────────┐               │       │
+  │  Ansible   │───────────────┘       │
+  │ Playbooks  │                       │
+  │ - Brokers  │                       ▼
+  │ - Config   │              ┌─────────────────┐
+  └────────────┘              │  GitOps Tools   │
+         │                    │ - ArgoCD        │
+         ▼                    │ - FluxCD        │
+  ┌────────────┐              │ Auto-sync       │
+  │Code Review │              │ Drift Detection │
+  │Pull Request│              └─────────────────┘
+  │CI Pipeline │
+  └────────────┘
+         │
+         ▼
+  ┌────────────┐
+  │ Validation │
+  │ - Syntax   │
+  │ - Tests    │
+  │ - Security │
+  └────────────┘
+```
+-->
+
 ## The Kafka Infrastructure Challenge
 
 Kafka deployments involve multiple layers of infrastructure that must work in harmony. At the foundation, you need compute resources (virtual machines or containers) with appropriate CPU, memory, and network configurations. Storage requires careful planning—Kafka brokers need persistent volumes that can handle high throughput and provide the necessary durability guarantees.

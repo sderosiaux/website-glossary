@@ -15,6 +15,55 @@ topics:
 
 Data quality is the foundation of reliable analytics and machine learning. Yet, many data teams discover data issues only after they've impacted downstream systems or business decisions. Great Expectations (GX) addresses this challenge by providing a Python-based framework for testing, documenting, and profiling your data pipelines.
 
+![Great Expectations validation workflow architecture](images/diagrams/great-expectations-data-testing-framework-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌──────────────────────────────────────────────────────────────────┐
+│            Great Expectations Validation Workflow                │
+└──────────────────────────────────────────────────────────────────┘
+
+    Data Source                Batch Definition          Expectation Suite
+        │                            │                          │
+        ▼                            ▼                          ▼
+  ┌──────────┐               ┌──────────────┐         ┌─────────────────┐
+  │ CSV/DB/  │──────────────▶│ Define how   │         │ ExpectColumnTo  │
+  │DataFrame │               │ to access    │         │  NotBeNull      │
+  │ Kafka    │               │ your data    │         │ ExpectColumnTo  │
+  └──────────┘               └──────────────┘         │  BeUnique       │
+        │                            │                 │ ExpectTableRow  │
+        │                            │                 │  Count...       │
+        │                            │                 └─────────────────┘
+        └────────────────┬───────────┘                          │
+                         ▼                                      │
+                 ┌────────────────┐                             │
+                 │  Get Batch     │◀────────────────────────────┘
+                 │  (Data Sample) │
+                 └────────────────┘
+                         │
+                         ▼
+              ┌─────────────────────┐
+              │ Validation          │
+              │ Definition          │
+              │ (Batch + Suite)     │
+              └─────────────────────┘
+                         │
+                         ▼
+                ┌─────────────────┐
+                │   Checkpoint    │
+                │  Run Validation │
+                └─────────────────┘
+                         │
+             ┌───────────┴───────────┐
+             ▼                       ▼
+      ┌────────────┐          ┌────────────┐
+      │  ✓ PASS    │          │  ✗ FAIL    │
+      │ Data Docs  │          │  Alert &   │
+      │  Updated   │          │  Block     │
+      └────────────┘          └────────────┘
+```
+-->
+
 ## What is Great Expectations?
 
 Great Expectations is an open-source data validation framework that enables data teams to express what they "expect" from their data through assertions called Expectations. Think of it as unit testing for your data—instead of testing code behavior, you're testing data quality, schema compliance, and business logic.

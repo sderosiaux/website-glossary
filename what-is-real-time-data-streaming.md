@@ -15,6 +15,47 @@ For decades, organizations processed data in batches—collecting information th
 
 Real-time data streaming represents a fundamental shift in how we handle data. Instead of waiting for scheduled batch jobs, streaming systems process data continuously as it arrives, enabling organizations to detect fraud within milliseconds, personalize user experiences instantly, and monitor infrastructure in real-time.
 
+![Real-time streaming architecture and data flow](images/diagrams/what-is-real-time-data-streaming-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+REAL-TIME DATA STREAMING ARCHITECTURE
+
+PRODUCERS (Event Sources)
+┌──────────┬──────────┬──────────┬──────────┐
+│ Web Apps │ Mobile   │   IoT    │ Database │
+│ Click-   │ Events   │ Sensors  │   CDC    │
+│ streams  │          │          │          │
+└─────┬────┴─────┬────┴─────┬────┴─────┬────┘
+      │          │          │          │
+      ▼          ▼          ▼          ▼
+      ╔════════════════════════════════════╗
+      ║    STREAMING PLATFORM (Broker)    ║
+      ║         Apache Kafka 4.0+          ║
+      ║  ┌──────────────────────────────┐  ║
+      ║  │ Topics (Ordered Event Logs)  │  ║
+      ║  │ • Durable Storage            │  ║
+      ║  │ • Replication (Fault-Toler.)│  ║
+      ║  │ • Partitioning (Parallel)    │  ║
+      ║  └──────────────────────────────┘  ║
+      ╚════════════════════════════════════╝
+                     │
+      ┌──────────────┼──────────────┐
+      ▼              ▼              ▼
+┌──────────┐  ┌──────────┐  ┌──────────┐
+│CONSUMERS │  │  STREAM  │  │CONSUMERS │
+│Analytics │  │PROCESSING│  │Real-time │
+│Dashboard │  │Flink/K.S.│  │Alerts    │
+└──────────┘  └──────────┘  └──────────┘
+
+BATCH VS STREAMING:
+Batch:    [Collect] → [Wait Hours] → [Process All]
+Streaming: Event → [Process Immediately] → Event → [Process]...
+
+KEY CHARACTERISTICS: Continuous • Low-latency • Event-driven
+```
+-->
+
 This article explores what real-time data streaming is, how it works, and why it has become a cornerstone of modern data architectures.
 
 ## Understanding Real-Time Data Streaming

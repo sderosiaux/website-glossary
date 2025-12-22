@@ -17,6 +17,57 @@ The 2025 LLM landscape offers diverse options: proprietary models like GPT-4, Cl
 
 This article explores the technical patterns, implementation approaches, and practical considerations for integrating LLMs with streaming platforms.
 
+![LLM integration with streaming data architecture](images/diagrams/integrating-llms-with-streaming-platforms-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌──────────────────────────────────────────────────────────────────┐
+│         LLM Integration with Streaming Platforms                 │
+└──────────────────────────────────────────────────────────────────┘
+
+Event Sources                Kafka Topics              LLM Processing
+     │                            │                         │
+     ▼                            ▼                         ▼
+┌──────────┐              ┌──────────────┐        ┌─────────────────┐
+│Support   │─────────────▶│support-      │───────▶│ Stream Processor│
+│Tickets   │              │requests      │        │ - Filter events │
+└──────────┘              └──────────────┘        │ - Build prompts │
+     │                            │                └─────────────────┘
+┌──────────┐                      │                        │
+│User      │─────────────┐        │                        ▼
+│Content   │             ├───────▶│               ┌─────────────────┐
+└──────────┘             │        │               │ LLM API Call    │
+     │                   │        │               │ (GPT-4/Claude)  │
+┌──────────┐             │        │               │ + Structured    │
+│Fraud     │─────────────┘        │               │   Outputs       │
+│Signals   │                      │               └─────────────────┘
+└──────────┘                      │                        │
+                                  │                        ▼
+                                  │               ┌─────────────────┐
+                                  │               │  RAG Context    │
+                                  │               │  Vector DB      │
+                                  │               │  (Pinecone)     │
+                                  │               └─────────────────┘
+                                  │                        │
+                                  ▼                        ▼
+                          ┌──────────────┐       ┌─────────────────┐
+                          │enriched-     │◀──────│ LLM Response    │
+                          │tickets       │       │ - Classification│
+                          │classified-   │       │ - Extraction    │
+                          │content       │       │ - Decisions     │
+                          │fraud-scores  │       └─────────────────┘
+                          └──────────────┘                │
+                                  │                       │
+                                  ▼                       ▼
+                          ┌──────────────┐       ┌─────────────────┐
+                          │ Downstream   │       │ Error Handling  │
+                          │ Consumers    │       │ - Retry logic   │
+                          │ - Routing    │       │ - DLQ           │
+                          │ - Analytics  │       │ - Rate limits   │
+                          └──────────────┘       └─────────────────┘
+```
+-->
+
 ## Why Integrate LLMs with Streaming Platforms?
 
 The integration of LLMs with streaming platforms addresses several business and technical needs. Real-time AI applications require immediate responses to events, whether that's analyzing customer support tickets, detecting fraudulent transactions, or moderating user-generated content.

@@ -15,6 +15,47 @@ topics:
 
 Real-time analytics has become essential for organizations that need to make decisions based on data as it arrives, rather than waiting for batch processing cycles. From detecting fraudulent transactions within milliseconds to monitoring IoT sensor networks, the ability to analyze streaming data in real-time enables use cases that were previously impossible.
 
+![Real-time analytics streaming architecture](images/diagrams/real-time-analytics-with-streaming-data-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌──────────────── Real-Time Analytics Flow ─────────────────┐
+│                                                            │
+│  Event Sources          Ingestion         Processing      │
+│  ┌────────────┐         ┌───────┐        ┌──────────┐    │
+│  │ User       │────────▶│ Kafka │───────▶│ Flink/   │    │
+│  │ Clicks     │         │Topics │        │ Streams  │    │
+│  └────────────┘         └───────┘        │          │    │
+│  ┌────────────┐              │           │ ┌──────┐ │    │
+│  │ IoT        │──────────────┤           │ │Window│ │    │
+│  │ Sensors    │              │           │ │ Agg  │ │    │
+│  └────────────┘              │           │ └──────┘ │    │
+│  ┌────────────┐              │           │ ┌──────┐ │    │
+│  │ Financial  │──────────────┘           │ │Join &│ │    │
+│  │ Txns       │                          │ │Enrich│ │    │
+│  └────────────┘                          │ └──────┘ │    │
+│                                          │ ┌──────┐ │    │
+│  Unbounded Stream                        │ │State │ │    │
+│  (Continuous)                            │ │Store │ │    │
+│                                          │ └──────┘ │    │
+│                                          └──────────┘    │
+│                                               │          │
+│                                               ▼          │
+│  Output & Actions                    ┌──────────────┐   │
+│  ┌──────────────┐                    │ Analytics DB │   │
+│  │ Dashboards   │◀───────────────────│ (Pinot/      │   │
+│  │ (Real-Time)  │                    │  ClickHouse) │   │
+│  └──────────────┘                    └──────────────┘   │
+│  ┌──────────────┐                    ┌──────────────┐   │
+│  │ Alerts       │◀───────────────────│ Alert Topic  │   │
+│  │ (Immediate)  │                    └──────────────┘   │
+│  └──────────────┘                                        │
+│                                                          │
+│  Latency: Milliseconds to Seconds (vs Hours for Batch) │
+└──────────────────────────────────────────────────────────┘
+```
+-->
+
 Unlike traditional batch analytics that processes historical data at scheduled intervals, real-time analytics operates on continuous data streams, producing insights with latencies measured in seconds or even milliseconds. This shift requires fundamentally different technologies, architectures, and thinking patterns.
 
 ## Understanding Streaming Data

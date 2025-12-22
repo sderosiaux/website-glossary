@@ -20,6 +20,56 @@ In [Apache Kafka](https://conduktor.io/glossary/apache-kafka), every message is 
 
 The choice of serialization format affects multiple critical aspects of your streaming architecture: message size, processing speed, schema evolution capabilities, interoperability between systems, and developer productivity.
 
+![Message serialization flow in Kafka](images/diagrams/message-serialization-in-kafka-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌─────────────────────────────────────────────────────────────────┐
+│            KAFKA MESSAGE SERIALIZATION FLOW                     │
+└─────────────────────────────────────────────────────────────────┘
+
+  Producer                                           Consumer
+     │                                                   │
+     ▼                                                   │
+┌──────────┐                                            │
+│  Object  │  {id: 123,                                 │
+│  (Java)  │   name: "Alice"}                           │
+└────┬─────┘                                            │
+     │                                                   │
+     │ Serializer                                        │
+     │ (Avro/Protobuf/JSON)                             │
+     ▼                                                   │
+┌──────────┐    ┌────────────────┐                      │
+│  Bytes   │───▶│Schema Registry │                      │
+│ +SchemaID│    │  Schema v2.1   │                      │
+└────┬─────┘    └────────────────┘                      │
+     │                   │                              │
+     │                   │ Fetch schema                 │
+     ▼                   │                              │
+┌─────────────┐          │                         ┌────▼─────┐
+│ Kafka Topic │          └────────────────────────▶│  Bytes   │
+│ (Partitions)│                                    │+SchemaID │
+│  [bytes]    │                                    └────┬─────┘
+└─────────────┘                                         │
+                                                        │ Deserializer
+                                                        │
+                                                        ▼
+                                                   ┌──────────┐
+                                                   │  Object  │
+                                                   │ (Python) │
+                                                   └──────────┘
+
+    Format Characteristics:
+    ┌──────────┬──────────┬──────────┬──────────┐
+    │   JSON   │   Avro   │ Protobuf │  String  │
+    ├──────────┼──────────┼──────────┼──────────┤
+    │ Readable │  Compact │ Fastest  │ Simplest │
+    │ Large    │ Registry │ Registry │ No Schema│
+    │ Slow     │ Evolution│ Evolution│ Limited  │
+    └──────────┴──────────┴──────────┴──────────┘
+```
+-->
+
 ## How Kafka Uses Serialization
 
 Kafka itself is agnostic to the content of your messages. It treats both keys and values as byte arrays. The responsibility for serialization and deserialization falls on producers and consumers through serializers and deserializers (often called "serdes").

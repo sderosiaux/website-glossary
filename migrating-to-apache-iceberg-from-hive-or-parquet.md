@@ -15,6 +15,66 @@ Apache Iceberg has emerged as the leading table format for modern [data lakehous
 
 Migrating to Iceberg unlocks these capabilities while maintaining compatibility with your existing query engines and data infrastructure. This guide explores proven migration strategies, practical conversion techniques, and critical considerations for data engineers and architects planning an Iceberg migration.
 
+![Migration strategies: in-place vs snapshot vs dual-write](images/diagrams/migrating-to-apache-iceberg-from-hive-or-parquet-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌─────────────────────────────────────────────────────────────────┐
+│           ICEBERG MIGRATION STRATEGIES COMPARISON               │
+└─────────────────────────────────────────────────────────────────┘
+
+(1) IN-PLACE MIGRATION (Hive → Iceberg)
+    ┌──────────────┐
+    │  Hive Table  │
+    │   Metadata   │──┐
+    └──────────────┘  │ Convert metadata
+    ┌──────────────┐  │ (Data stays put)
+    │ Parquet Data │  │
+    │   (S3/HDFS)  │  │
+    └──────────────┘  ▼
+    ┌──────────────────────┐
+    │  Iceberg Metadata    │
+    │ • metadata.json      │◀── Quick, no data copy
+    │ • manifests          │    Rollback possible
+    │ • snapshots          │
+    └──────────────────────┘
+
+(2) SNAPSHOT & MIGRATE (Copy + Optimize)
+    ┌──────────────┐
+    │  Source Data │
+    │ (Hive/Parquet)│
+    └──────┬───────┘
+           │ Read & Transform
+           │ • Rewrite files
+           │ • Optimize sizing
+           │ • New partitions
+           ▼
+    ┌──────────────────────┐
+    │  New Iceberg Table   │
+    │ • Optimized files    │◀── Better layout
+    │ • Clean metadata     │    Slower migration
+    │ • Evolved partitions │
+    └──────────────────────┘
+
+(3) DUAL-WRITE TRANSITION (Zero Downtime)
+    ┌──────────┐
+    │ Producer │
+    └────┬─────┘
+         │
+         ├────────┬────────┐
+         ▼        ▼        │
+    ┌────────┐ ┌────────┐ │
+    │  Hive  │ │Iceberg │ │ ◀── Parallel writes
+    └───┬────┘ └───┬────┘ │     Validation period
+        │          │       │
+        │  Readers migrate │
+        │          │       │
+        └──────────┴───────┘
+                   │
+           Deprecate Hive after cutover
+```
+-->
+
 ## Table of Contents
 
 1. [Understanding the Migration Landscape](#understanding-the-migration-landscape)

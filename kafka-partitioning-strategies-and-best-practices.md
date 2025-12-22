@@ -22,6 +22,59 @@ Partitions serve three key purposes: they enable data distribution across multip
 
 For foundational understanding of how partitions fit into Kafka's architecture, see [Kafka Topics, Partitions, Brokers: Core Architecture](https://conduktor.io/glossary/kafka-topics-partitions-brokers-core-architecture).
 
+![Kafka partitioning strategies and consumer group mapping](images/diagrams/kafka-partitioning-strategies-and-best-practices-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+Partitioning Strategies and Consumer Groups
+
+KEY-BASED PARTITIONING:
+─────────────────────────────────────────────────────────
+Producer:                   Kafka Topic (6 partitions)
+┌────────────┐
+│ Messages   │   hash(key) % 6 determines partition
+│ key="A" ──────────────────►  Partition 0
+│ key="B" ──────────────────►  Partition 3
+│ key="A" ──────────────────►  Partition 0  (same key → same partition)
+│ key="C" ──────────────────►  Partition 1
+│ key="B" ──────────────────►  Partition 3  (same key → same partition)
+└────────────┘
+
+NULL KEY (Sticky Partitioning since Kafka 2.4):
+─────────────────────────────────────────────────────────
+Producer fills batch, switches partition when full
+┌────────────┐
+│ msg1 (null)────────────────►  Partition 0
+│ msg2 (null)────────────────►  Partition 0  (batching)
+│ msg3 (null)────────────────►  Partition 0  (batching)
+│ msg4 (null)────────────────►  Partition 4  (new batch)
+│ msg5 (null)────────────────►  Partition 4  (batching)
+└────────────┘
+
+CONSUMER GROUP PARTITION ASSIGNMENT:
+─────────────────────────────────────────────────────────
+Topic: orders (6 partitions)
+
+Consumer Group "order-processors" (3 consumers):
+┌───────────┐     ┌───────────┐     ┌───────────┐
+│Consumer 1 │     │Consumer 2 │     │Consumer 3 │
+│ Part 0    │     │ Part 2    │     │ Part 4    │
+│ Part 1    │     │ Part 3    │     │ Part 5    │
+└───────────┘     └───────────┘     └───────────┘
+Each partition → exactly one consumer
+Adding 4th consumer → no benefit (max parallelism = 6)
+
+HOT PARTITION PROBLEM:
+─────────────────────────────────────────────────────────
+       P0    P1    P2    P3    P4    P5
+Ideal: ███   ███   ███   ███   ███   ███
+Skewed:████████████ ██   ██   ██   ██   ██
+       ↑ Hot partition (poor key distribution)
+
+Solution: Key salting, composite keys, custom partitioner
+```
+-->
+
 ## Partitioning Strategies in Kafka
 
 Kafka provides several partitioning strategies that determine how records are assigned to partitions.

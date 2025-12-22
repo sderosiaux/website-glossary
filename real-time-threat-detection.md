@@ -13,6 +13,53 @@ topics:
 
 As streaming platforms become the backbone of modern data architectures, they also become prime targets for security threats. Real-time threat detection applies security monitoring and anomaly detection techniques to identify malicious activities as they occur in streaming infrastructure. Unlike traditional batch-based security analysis, real-time threat detection operates on live [data streams](https://conduktor.io/glossary/what-is-real-time-data-streaming), enabling immediate response to security incidents such as unauthorized access, data exfiltration, and denial-of-service attacks.
 
+![Multi-layered threat detection architecture for streaming platforms](images/diagrams/real-time-threat-detection-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌───────── Real-Time Threat Detection Architecture ──────────┐
+│                                                             │
+│  Data Sources              Detection Layers                │
+│  ┌──────────────┐         ┌─────────────────────┐          │
+│  │ Audit Logs   │────────▶│ Rule-Based          │          │
+│  │ • Auth       │         │ • Failed Auth > 10  │──Alert──▶│
+│  │ • Admin      │         │ • Off-hours Admin   │          │
+│  └──────────────┘         └─────────────────────┘          │
+│  ┌──────────────┐         ┌─────────────────────┐          │
+│  │ Metrics      │────────▶│ Statistical Anomaly │          │
+│  │ • Throughput │         │ • 3σ Deviation      │──Alert──▶│
+│  │ • Latency    │         │ • Volume Spikes     │          │
+│  │ • Errors     │         └─────────────────────┘          │
+│  └──────────────┘         ┌─────────────────────┐          │
+│  ┌──────────────┐         │ ML-Based Detection  │          │
+│  │ Network      │────────▶│ • Isolation Forest  │──Alert──▶│
+│  │ Traffic      │         │ • Behavioral Models │          │
+│  │ • Packets    │         │ • Clustering        │          │
+│  └──────────────┘         └─────────────────────┘          │
+│                                     │                       │
+│                                     ▼                       │
+│  SIEM Integration          ┌─────────────────┐             │
+│  ┌────────────────┐        │ Threat          │             │
+│  │ Splunk/Elastic │◀───────│ Correlation     │             │
+│  │ • Aggregate    │        │ Engine          │             │
+│  │ • Correlate    │        └─────────────────┘             │
+│  │ • Forensics    │                │                        │
+│  └────────────────┘                ▼                        │
+│         │              ┌─────────────────────┐              │
+│         └─────────────▶│ Automated Response  │              │
+│                        │ • Block IP          │              │
+│  Security Operations   │ • Revoke ACL        │              │
+│  Center (SOC)          │ • Isolate User      │              │
+│  ┌────────────────┐    │ • Alert SOC         │              │
+│  │ Analysts       │◀───│ • Create Ticket     │              │
+│  │ 24/7 Monitoring│    └─────────────────────┘              │
+│  └────────────────┘                                         │
+│                                                             │
+│  Detection → Correlation → Response (Seconds, not Hours)  │
+└─────────────────────────────────────────────────────────────┘
+```
+-->
+
 The challenge lies in balancing detection speed and accuracy while minimizing false positives that can overwhelm security teams. This article explores the approaches, architectures, and best practices for implementing effective threat detection in streaming environments.
 
 ## Understanding Threat Types in Streaming Platforms

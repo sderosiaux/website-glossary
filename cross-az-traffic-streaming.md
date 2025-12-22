@@ -9,6 +9,39 @@ topics:
 
 # Cross-AZ Traffic in Streaming: Managing Costs and Latency
 
+![Cross-AZ Traffic Architecture](images/diagrams/cross-az-traffic-streaming-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌──────────────────────────────────────────────────────────────────┐
+│          Multi-AZ Kafka Deployment with Traffic Flow             │
+└──────────────────────────────────────────────────────────────────┘
+
+    AZ-A                    AZ-B                    AZ-C
+┌─────────────┐        ┌─────────────┐        ┌─────────────┐
+│             │        │             │        │             │
+│  Broker 1   │◀──────▶│  Broker 2   │◀──────▶│  Broker 3   │
+│  Leader P1  │  Free  │  Leader P2  │  Free  │  Leader P3  │
+│  Replica P2 │        │  Replica P3 │        │  Replica P1 │
+│             │        │             │        │             │
+└─────┬───────┘        └─────┬───────┘        └─────┬───────┘
+      │                      │                      │
+      │ ████ Cross-AZ        │                      │
+      │ $$$$ Cost            │                      │
+      │                      │                      │
+┌─────▼───────┐        ┌─────▼───────┐        ┌─────▼───────┐
+│ Consumer A  │        │ Consumer B  │        │ Consumer C  │
+│ rack=AZ-A   │        │ rack=AZ-B   │        │ rack=AZ-C   │
+│             │        │             │        │             │
+│ With Follower Fetching:                     │
+│ ✓ Reads from local replicas (FREE)          │
+│                                              │
+│ Without Follower Fetching:                  │
+│ ✗ All reads from leaders ($$$ CROSS-AZ)     │
+└──────────────────────────────────────────────┘
+```
+-->
+
 ## Understanding Cross-AZ Traffic
 
 Cross-availability-zone (cross-AZ) traffic refers to data transfer between different availability zones within the same cloud region. Availability zones are isolated data centers with independent power, cooling, and networking, designed to provide fault tolerance and high availability.

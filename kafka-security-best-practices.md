@@ -19,6 +19,78 @@ Apache Kafka has become the backbone of real-time data streaming architectures f
 
 This guide explores essential security best practices for Apache Kafka, covering authentication, authorization, encryption, and operational security measures that protect your streaming data infrastructure.
 
+![Kafka security layers and defense-in-depth architecture](images/diagrams/kafka-security-best-practices-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+Kafka Security: Defense-in-Depth (2025)
+
+┌─────────────────────────────────────────────────────────────┐
+│                  Security Layers                            │
+└─────────────────────────────────────────────────────────────┘
+
+Layer 1: NETWORK SECURITY
+─────────────────────────────────────────────────────────────
+┌────────────────┐        Firewall        ┌────────────────┐
+│   Clients      │◄─────────────────────►│   Kafka        │
+│ (Private VLAN) │   Security Groups      │ (Private VLAN) │
+└────────────────┘   Network Policies     └────────────────┘
+
+Layer 2: AUTHENTICATION (Who are you?)
+─────────────────────────────────────────────────────────────
+Client Identity:
+┌────────────┬─────────────┬──────────────┬──────────────┐
+│ SASL/SCRAM │ mTLS (X.509)│ SASL/GSSAPI  │OAuth 2.0/OIDC│
+│ (Username/ │ (Certificate│ (Kerberos)   │ (Tokens)     │
+│  Password) │  based)     │              │  ★2025★      │
+└────────────┴─────────────┴──────────────┴──────────────┘
+                         │
+                         ▼
+             ┌──────────────────────┐
+             │   Kafka Broker       │
+             │ ┌──────────────────┐ │
+             │ │ Authentication   │ │
+             │ │ Layer (JAAS)     │ │
+             │ └──────────────────┘ │
+             └──────────────────────┘
+
+Layer 3: ENCRYPTION (Data protection)
+─────────────────────────────────────────────────────────────
+In-Transit:               At-Rest:
+┌──────────────┐         ┌──────────────┐
+│ TLS 1.3 ★    │         │ Disk/Volume  │
+│ AES-256-GCM  │         │ Encryption   │
+│ (All conns)  │         │ (LUKS/dm-crypt│
+└──────────────┘         │  AWS EBS)    │
+                         └──────────────┘
+
+Layer 4: AUTHORIZATION (What can you do?)
+─────────────────────────────────────────────────────────────
+         Principal "analytics-app" authenticated
+                         │
+                         ▼
+             ┌──────────────────────┐
+             │   ACL Engine         │
+             │ ┌──────────────────┐ │
+             │ │ Topic: orders    │ │
+             │ │ ✓ Read allowed   │ │
+             │ │ ✗ Write denied   │ │
+             │ └──────────────────┘ │
+             └──────────────────────┘
+
+Layer 5: AUDIT & MONITORING (Continuous verification)
+─────────────────────────────────────────────────────────────
+┌────────────────────────────────────────────────────────────┐
+│ • Failed auth attempts   • ACL violations                  │
+│ • TLS handshake errors   • Unusual access patterns         │
+│ • Authorization changes  • Data lineage tracking           │
+└────────────────────────────────────────────────────────────┘
+            │
+            ▼
+    Alerts → Incident Response
+```
+-->
+
 ## Why Kafka Security Matters in Data Streaming
 
 Data streaming platforms like Kafka process and store vast amounts of information in real time. Unlike traditional databases with well-established security patterns, streaming platforms present unique challenges. Data flows continuously between producers, brokers, and consumers, often across network boundaries and organizational teams.

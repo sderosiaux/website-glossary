@@ -13,6 +13,46 @@ topics:
 
 In modern data engineering, ensuring reliable and trustworthy data is paramount. As data pipelines grow more complex and real-time requirements become the norm, two distinct yet complementary approaches have emerged: data quality and data observability. While these terms are often used interchangeably, they represent fundamentally different philosophies and practices. Understanding their differences is crucial for building robust data systems.
 
+![Data Quality vs Data Observability](images/diagrams/data-quality-vs-data-observability-key-differences-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌──────────────────────────────────────────────────────────────────┐
+│      DATA QUALITY vs DATA OBSERVABILITY                          │
+└──────────────────────────────────────────────────────────────────┘
+
+   DATA QUALITY                        DATA OBSERVABILITY
+   (Reactive Testing)                  (Proactive Monitoring)
+
+┌──────────────────┐                 ┌──────────────────┐
+│  "Does this data │                 │ "What is happening│
+│   meet our       │                 │  in our data      │
+│   standards?"    │                 │  systems?"        │
+└────────┬─────────┘                 └────────┬─────────┘
+         │                                    │
+         ▼                                    ▼
+┌──────────────────┐                 ┌──────────────────┐
+│ PREDEFINED TESTS │                 │  ADAPTIVE        │
+│                  │                 │  MONITORING      │
+│ • Completeness   │                 │                  │
+│ • Accuracy       │                 │ • Freshness      │
+│ • Consistency    │                 │ • Volume         │
+│ • Uniqueness     │                 │ • Schema         │
+│ • Format rules   │                 │ • Distribution   │
+│                  │                 │ • Lineage        │
+└────────┬─────────┘                 └────────┬─────────┘
+         │                                    │
+         ▼                                    ▼
+┌──────────────────┐                 ┌──────────────────┐
+│ Catches known    │                 │ Detects unknown  │
+│ issues           │                 │ anomalies        │
+└──────────────────┘                 └──────────────────┘
+
+         BEST PRACTICE: Use both together
+              Quality for rules + Observability for discovery
+```
+-->
+
 ## What is Data Quality?
 
 Data quality is a reactive, testing-based approach that validates whether data meets predefined expectations and business rules. Think of it as a checkpoint system where data must pass specific tests before being considered valid.

@@ -13,6 +13,42 @@ topics:
 
 As Delta tables grow in production environments, maintaining optimal query performance becomes increasingly challenging. Small files accumulate from frequent writes, and data layout becomes suboptimal for common query patterns. Delta Lake provides two powerful commands—OPTIMIZE and Z-ORDER—that address these issues through file compaction and intelligent data clustering.
 
+![OPTIMIZE and Z-ORDER transformation workflow](images/diagrams/optimizing-delta-tables-optimize-and-z-order-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+Before OPTIMIZE              After OPTIMIZE + Z-ORDER
+┌──────────────────┐         ┌──────────────────────────┐
+│ Small Files      │         │ Optimized Files          │
+│ ┌──┐┌──┐┌──┐    │         │ ┌────────────────┐       │
+│ │8M││5M││12M    │         │ │ File 1: 800MB  │       │
+│ └──┘└──┘└──┘    │  ───▶   │ │ Z-Ordered by:  │       │
+│ ┌──┐┌──┐┌──┐    │         │ │ (user_id, date)│       │
+│ │7M││9M││6M│    │         │ └────────────────┘       │
+│ └──┘└──┘└──┘    │         │ ┌────────────────┐       │
+│ ┌──┐┌──┐┌──┐    │         │ │ File 2: 850MB  │       │
+│ │4M││11M│15M    │         │ │ Z-Ordered by:  │       │
+│ └──┘└──┘└──┘    │         │ │ (user_id, date)│       │
+│ (15,000 files)  │         │ └────────────────┘       │
+│                  │         │ (150 files)              │
+└──────────────────┘         └──────────────────────────┘
+
+Query: WHERE user_id = 12345 AND date = '2025-12-01'
+
+Without Optimization:        With OPTIMIZE + Z-ORDER:
+┌──────────────────┐         ┌──────────────────┐
+│ Files Scanned:   │         │ Files Scanned:   │
+│ 14,500 / 15,000  │         │ 5 / 150          │
+│ (97% scanned)    │         │ (3% scanned)     │
+│                  │  ───▶   │                  │
+│ Data Skipping:   │         │ Data Skipping:   │
+│ 3% effective     │         │ 97% effective    │
+│                  │         │                  │
+│ Query Time: 45s  │         │ Query Time: 2s   │
+└──────────────────┘         └──────────────────┘
+```
+-->
+
 > **Note**: This guide focuses on Delta Lake optimization. For similar techniques in Apache Iceberg, see [Maintaining Iceberg Tables: Compaction and Cleanup](/maintaining-iceberg-tables-compaction-and-cleanup). For a broader comparison of table formats, refer to [Apache Iceberg](/apache-iceberg).
 
 ## Understanding the Small File Problem

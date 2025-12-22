@@ -26,6 +26,34 @@ The service offers multiple deployment options: MSK Provisioned (traditional ins
 
 ## Architecture and Core Components
 
+![Amazon MSK Architecture](images/diagrams/amazon-msk-managed-kafka-on-aws-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌──────────────────────────────────────────────────────────────────┐
+│                        Amazon MSK Architecture                   │
+└──────────────────────────────────────────────────────────────────┘
+                                │
+        ┌───────────────────────┼───────────────────────┐
+        │                       │                       │
+   ┌────▼────┐             ┌────▼────┐             ┌────▼────┐
+   │  AZ-1   │             │  AZ-2   │             │  AZ-3   │
+   ├─────────┤             ├─────────┤             ├─────────┤
+   │ Broker1 │             │ Broker2 │             │ Broker3 │
+   │ (EC2)   │◀───────────▶│ (EC2)   │◀───────────▶│ (EC2)   │
+   ├─────────┤             ├─────────┤             ├─────────┤
+   │ EBS     │             │ EBS     │             │ EBS     │
+   └─────────┘             └─────────┘             └─────────┘
+        │                       │                       │
+        └───────────────────────┼───────────────────────┘
+                                │
+                    ┌───────────▼───────────┐
+                    │   KRaft Controllers   │
+                    │  (Metadata Management)│
+                    └───────────────────────┘
+```
+-->
+
 An MSK cluster consists of Apache Kafka brokers distributed across multiple availability zones within an AWS region. AWS manages the underlying EC2 instances, EBS volumes for storage, and KRaft controllers for cluster coordination. As of 2024, MSK supports KRaft mode (Kafka's native consensus protocol), which eliminates the need for ZooKeeper and provides improved scalability and faster metadata operations.
 
 When you create an MSK cluster, you specify:

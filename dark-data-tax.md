@@ -13,6 +13,51 @@ Data has been called the "new oil," but unlike oil, data doesn't automatically b
 
 The dark data tax represents the cumulative financial, technical, and organizational burden of maintaining data that provides no business value. While cloud storage may be inexpensive, the true costs manifest in data pipeline maintenance, computational overhead, engineering time, cognitive load on data teams, and increased security and compliance risk.
 
+![Dark Data Tax Cost Accumulation](images/diagrams/dark-data-tax-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌──────────────────────────────────────────────────────────────────┐
+│                 The Dark Data Tax Breakdown                      │
+└──────────────────────────────────────────────────────────────────┘
+
+                         DARK DATA
+                    (Unused/Unanalyzed)
+                            │
+            ┌───────────────┼───────────────┐
+            │               │               │
+            ▼               ▼               ▼
+    ┌──────────────┐ ┌──────────────┐ ┌──────────────┐
+    │  Financial   │ │  Technical   │ │Organizational│
+    │    Costs     │ │    Costs     │ │    Costs     │
+    └──────┬───────┘ └──────┬───────┘ └──────┬───────┘
+           │                │                │
+           │                │                │
+    ┌──────▼───────┐ ┌──────▼───────┐ ┌──────▼───────┐
+    │ • Storage    │ │ • Pipeline   │ │ • Cognitive  │
+    │ • Compute    │ │   Maintenance│ │   Overhead   │
+    │ • Network    │ │ • Monitoring │ │ • Discovery  │
+    │ • Egress     │ │ • Debugging  │ │   Time       │
+    │              │ │ • On-call    │ │ • Trust      │
+    └──────────────┘ └──────────────┘ │   Erosion    │
+                                      └──────────────┘
+           │                │                │
+           └────────────────┼────────────────┘
+                            ▼
+                    ┌──────────────┐
+                    │  Compliance  │
+                    │  & Security  │
+                    │     Risk     │
+                    │              │
+                    │ • GDPR/CCPA  │
+                    │ • Attack     │
+                    │   Surface    │
+                    └──────────────┘
+
+Total Monthly Impact: Storage × 10-50× multiplier
+```
+-->
+
 ## The Three Pillars of the Dark Data Tax
 
 The dark data tax can be understood through three interconnected dimensions:

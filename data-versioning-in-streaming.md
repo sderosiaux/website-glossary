@@ -13,6 +13,37 @@ In traditional databases, versioning is straightforward: you have snapshots, bac
 
 This capability is critical for machine learning reproducibility, regulatory compliance, debugging production issues, and maintaining trust in your data pipelines. Let's explore how to implement effective versioning strategies in streaming architectures.
 
+![Data Versioning Layers](images/diagrams/data-versioning-in-streaming-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌──────────────────────────────────────────────────────────────────┐
+│           DATA VERSIONING IN STREAMING SYSTEMS                   │
+└──────────────────────────────────────────────────────────────────┘
+
+LAYER                   MECHANISM                  USE CASE
+┌──────────────┐       ┌──────────────┐           ┌──────────────┐
+│   SCHEMA     │       │  Schema      │           │ Safe schema  │
+│  VERSIONING  │◀─────▶│  Registry    │──────────▶│  evolution   │
+│              │       │  (v1, v2)    │           │              │
+└──────────────┘       └──────────────┘           └──────────────┘
+
+┌──────────────┐       ┌──────────────┐           ┌──────────────┐
+│    EVENT     │       │  Offsets +   │           │ Exact replay │
+│  VERSIONING  │◀─────▶│  Timestamps  │──────────▶│ & debugging  │
+│              │       │              │           │              │
+└──────────────┘       └──────────────┘           └──────────────┘
+
+┌──────────────┐       ┌──────────────┐           ┌──────────────┐
+│   STORAGE    │       │ Delta Lake   │           │ Time-travel  │
+│  VERSIONING  │◀─────▶│ Iceberg      │──────────▶│ queries &    │
+│              │       │ Hudi         │           │ ML training  │
+└──────────────┘       └──────────────┘           └──────────────┘
+
+  Reproducibility + Compliance + Debugging + Safe Evolution
+```
+-->
+
 ## Streaming Fundamentals
 
 Before diving into versioning strategies, let's clarify key concepts:

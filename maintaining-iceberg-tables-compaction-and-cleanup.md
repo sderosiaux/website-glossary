@@ -15,6 +15,54 @@ Apache Iceberg's time-travel capabilities and transactional guarantees come with
 
 For foundational understanding of Iceberg's architecture and how maintenance relates to metadata layers, see [Iceberg Table Architecture: Metadata and Snapshots](https://conduktor.io/glossary/iceberg-table-architecture-metadata-and-snapshots). For broader lakehouse context, refer to [Introduction to Lakehouse Architecture](https://conduktor.io/glossary/introduction-to-lakehouse-architecture).
 
+![Iceberg table maintenance lifecycle](images/diagrams/maintaining-iceberg-tables-compaction-and-cleanup-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌─────────────────────────────────────────────────────────────────┐
+│           ICEBERG TABLE MAINTENANCE LIFECYCLE                   │
+└─────────────────────────────────────────────────────────────────┘
+
+  Continuous Writes          Maintenance Operations
+        ▼                           ▼
+┌─────────────────┐         ┌──────────────────┐
+│  Small Files    │──(1)───▶│   COMPACTION     │
+│ Accumulate      │         │  • Bin-packing   │
+│ • 100s-1000s    │         │  • Sort-based    │
+│ • 1-50 MB each  │         │  • Fault-tolerant│
+└─────────────────┘         └────────┬─────────┘
+                                     │
+┌─────────────────┐                  ▼
+│  Snapshot       │         ┌──────────────────┐
+│  Growth         │──(2)───▶│SNAPSHOT EXPIRE   │
+│ • Time-travel   │         │ • Retention: 7d  │
+│ • Metadata size │         │ • Keep last N    │
+└─────────────────┘         └────────┬─────────┘
+                                     │
+┌─────────────────┐                  ▼
+│  Manifest       │         ┌──────────────────┐
+│  Bloat          │──(3)───▶│MANIFEST COMPACT  │
+│ • 100s files    │         │ • Consolidate    │
+│ • Slow planning │         │ • Cache metadata │
+└─────────────────┘         └────────┬─────────┘
+                                     │
+┌─────────────────┐                  ▼
+│  Orphan Files   │         ┌──────────────────┐
+│ • Failed writes │──(4)───▶│ ORPHAN CLEANUP   │
+│ • Wasted storage│         │ • Safety margin  │
+│ • Unreferenced  │         │ • Dry-run first  │
+└─────────────────┘         └────────┬─────────┘
+                                     │
+                                     ▼
+                            ┌──────────────────┐
+                            │  Healthy Table   │
+                            │ • Optimal files  │
+                            │ • Fast queries   │
+                            │ • Low cost       │
+                            └──────────────────┘
+```
+-->
+
 ## Understanding Iceberg's Maintenance Challenges
 
 ### Small File Problem

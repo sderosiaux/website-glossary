@@ -15,6 +15,61 @@ Monitoring an Apache Kafka cluster is essential for maintaining reliable data st
 
 This article explores the key metrics, monitoring architecture, and best practices that enable engineering teams to maintain healthy Kafka deployments at scale.
 
+![Kafka monitoring architecture and key metrics](images/diagrams/kafka-cluster-monitoring-and-metrics-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+Kafka Monitoring Architecture
+
+┌────────────────────────────────────────────────────────────────┐
+│                      Kafka Cluster                             │
+│  ┌──────────┐   ┌──────────┐   ┌──────────┐                   │
+│  │ Broker 1 │   │ Broker 2 │   │ Broker 3 │                   │
+│  │  JMX     │   │  JMX     │   │  JMX     │                   │
+│  │  :7071   │   │  :7071   │   │  :7071   │                   │
+│  └────┬─────┘   └────┬─────┘   └────┬─────┘                   │
+│       │ Metrics      │              │                          │
+└───────┼──────────────┼──────────────┼──────────────────────────┘
+        │              │              │
+        │   ┌──────────▼──────────────▼───────────┐
+        │   │  JMX Exporter / OpenTelemetry       │
+        │   │  • Scrapes JMX metrics              │
+        └───►  • Converts to Prometheus format    │
+            │  • Exposes HTTP endpoints           │
+            └──────────────┬──────────────────────┘
+                           │
+        ┌──────────────────┼──────────────────────┐
+        │                  │                      │
+┌───────▼────────┐  ┌──────▼─────────┐  ┌────────▼────────┐
+│  Prometheus    │  │  InfluxDB      │  │  Datadog/       │
+│  (Time-series) │  │  (Time-series) │  │  Commercial APM │
+└───────┬────────┘  └──────┬─────────┘  └────────┬────────┘
+        │                  │                      │
+        └──────────────────┼──────────────────────┘
+                           │
+              ┌────────────▼─────────────┐
+              │   Grafana / Dashboards   │
+              │  ┌────────────────────┐  │
+              │  │ Broker Metrics     │  │
+              │  │ • Under-replicated │  │
+              │  │ • Offline parts    │  │
+              │  │ • Request latency  │  │
+              │  └────────────────────┘  │
+              │  ┌────────────────────┐  │
+              │  │ Consumer Metrics   │  │
+              │  │ • Lag per group    │  │
+              │  │ • Commit rate      │  │
+              │  └────────────────────┘  │
+              └──────────┬───────────────┘
+                         │
+              ┌──────────▼───────────┐
+              │  Alerting System     │
+              │  (AlertManager/      │
+              │   PagerDuty)         │
+              └──────────────────────┘
+```
+-->
+
 ## Why Kafka Monitoring Matters
 
 Kafka clusters handle mission-critical data pipelines in modern architectures. A single under-replicated partition can lead to data loss. Unnoticed consumer lag can cause hours of processing delays. Broker resource exhaustion can cascade into cluster-wide failures.

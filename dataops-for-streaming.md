@@ -11,6 +11,44 @@ topics:
 
 As organizations increasingly rely on real-time data streaming for critical business operations, the need for robust operational practices has never been greater. DataOps—the application of DevOps principles to data systems—provides the methodology and tooling to deliver streaming systems with speed, quality, and reliability.
 
+![DataOps Principles](images/diagrams/dataops-for-streaming-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌──────────────────────────────────────────────────────────────────┐
+│               DATAOPS FOR STREAMING SYSTEMS                      │
+└──────────────────────────────────────────────────────────────────┘
+
+         ┌─────────────────────────────────────────┐
+         │          DATAOPS CYCLE                  │
+         └──────────────┬──────────────────────────┘
+                        │
+    ┌───────────────────┼───────────────────┐
+    │                   │                   │
+    ▼                   ▼                   ▼
+┌─────────┐       ┌─────────┐        ┌─────────┐
+│  CODE   │──────▶│  BUILD  │───────▶│ DEPLOY  │
+│         │       │         │        │         │
+│ • IaC   │       │ • CI/CD │        │ • Blue- │
+│ • Git   │       │ • Tests │        │   Green │
+│ • Schema│       │ • Lint  │        │ • Canary│
+└─────────┘       └─────────┘        └────┬────┘
+                                          │
+    ┌─────────────────────────────────────┘
+    │
+    ▼
+┌─────────┐       ┌─────────┐        ┌─────────┐
+│ MONITOR │◀──────│ OPERATE │◀───────│  TEST   │
+│         │       │         │        │         │
+│ • Metrics│      │ • On-call│       │ • E2E   │
+│ • Alerts │      │ • Runbooks│      │ • Chaos │
+│ • Traces │      │ • Incident│      │ • Quality│
+└─────────┘       └─────────┘        └─────────┘
+
+  Key Metrics: Deployment Freq, Lead Time, MTTR, Change Fail Rate
+```
+-->
+
 ## What is DataOps?
 
 DataOps is a collaborative, process-oriented methodology that brings together data engineers, platform teams, and stakeholders to improve the quality, speed, and reliability of data analytics and pipelines. Drawing from DevOps, Agile, and lean manufacturing principles, DataOps emphasizes:

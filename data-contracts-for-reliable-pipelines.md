@@ -15,6 +15,45 @@ Data pipelines break when producers change data formats without warning consumer
 
 Data contracts formalize the agreement between data producers and consumers, defining not just the structure of data, but also its quality, semantics, and ownership. This article explores how data contracts work, why they matter for streaming pipelines, and how to implement them effectively.
 
+![Data Contract Components and Flow](images/diagrams/data-contracts-for-reliable-pipelines-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌──────────────────────────────────────────────────────────────────┐
+│                Data Contract Enforcement Flow                    │
+└──────────────────────────────────────────────────────────────────┘
+
+Producer Side:              Contract Registry:        Consumer Side:
+─────────────              ──────────────────        ──────────────
+
+┌───────────┐              ┌───────────────┐        ┌───────────┐
+│  Schema   │──────────────▶│   Schema      │◀───────│  Schema   │
+│Definition │   Register   │   Registry    │ Fetch  │Validation │
+└─────┬─────┘              │               │        └─────┬─────┘
+      │                    │ ┌───────────┐ │              │
+      │                    │ │ Schema v1 │ │              │
+      ▼                    │ │ Schema v2 │ │              ▼
+┌───────────┐              │ │ Schema v3 │ │        ┌───────────┐
+│ Quality   │──────────────▶│ └───────────┘ │        │ Quality   │
+│ Rules     │  Validate    │               │        │ Checks    │
+└─────┬─────┘              │ ┌───────────┐ │        └─────┬─────┘
+      │                    │ │ Quality   │ │              │
+      │                    │ │ Rules     │ │              │
+      ▼                    │ └───────────┘ │              ▼
+┌───────────┐              │               │        ┌───────────┐
+│  Events   │─────────────▶│ ┌───────────┐ │        │ Process   │
+│ Produce   │  Serialize   │ │Compatibility│────────▶│  Events   │
+└───────────┘              │ │ Check     │ │        └───────────┘
+      │                    │ └───────────┘ │              │
+      │                    └───────────────┘              │
+      │                           │                       │
+      └───────────────────────────┼───────────────────────┘
+                                  ▼
+                         Breaking Change
+                         Rejected! ✗
+```
+-->
+
 ## What Are Data Contracts?
 
 A data contract is a formal specification that defines:

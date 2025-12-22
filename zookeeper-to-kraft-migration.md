@@ -13,6 +13,54 @@ topics:
 
 Apache Kafka's shift from ZooKeeper to KRaft (Kafka Raft) represents one of the most significant architectural changes in the platform's history. This migration simplifies Kafka's operational model, reduces infrastructure complexity, and improves cluster performance. Understanding how to migrate from ZooKeeper to KRaft is essential for teams managing production Kafka environments.
 
+![ZooKeeper to KRaft architecture migration](images/diagrams/zookeeper-to-kraft-migration-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+KAFKA METADATA MANAGEMENT: ZOOKEEPER → KRAFT
+
+BEFORE (ZooKeeper-based, Kafka < 4.0):
+┌───────────────────────────────────────────────────────────┐
+│                    ZOOKEEPER CLUSTER                      │
+│  ┌──────────┬──────────┬──────────┐                      │
+│  │  ZK-1    │  ZK-2    │  ZK-3    │  (3-5 nodes)         │
+│  └────┬─────┴────┬─────┴────┬─────┘                      │
+│       │          │          │                             │
+│   Metadata Store (Topics, ACLs, Controller Election)     │
+└───────┼──────────┼──────────┼─────────────────────────────┘
+        ▼          ▼          ▼
+┌────────────────────────────────────────────────────────────┐
+│                  KAFKA BROKERS                             │
+│  ┌────────┬────────┬────────┐                             │
+│  │Broker-1│Broker-2│Broker-3│  (Poll ZK for metadata)     │
+│  └────────┴────────┴────────┘                             │
+│  Issues: Dual system • Complex ops • Scaling limits       │
+└────────────────────────────────────────────────────────────┘
+
+AFTER (KRaft-based, Kafka 4.0+):
+┌────────────────────────────────────────────────────────────┐
+│            KAFKA CONTROLLERS (KRaft Quorum)                │
+│  ┌─────────────┬──────────────┬─────────────┐             │
+│  │Controller-1 │Controller-2  │Controller-3 │             │
+│  │  (Leader)   │  (Follower)  │  (Follower) │             │
+│  └──────┬──────┴──────┬───────┴──────┬──────┘             │
+│         │             │              │                     │
+│    __cluster_metadata Topic (Raft Consensus)              │
+│         │             │              │                     │
+└─────────┼─────────────┼──────────────┼─────────────────────┘
+          ▼             ▼              ▼
+┌────────────────────────────────────────────────────────────┐
+│                  KAFKA BROKERS                             │
+│  ┌────────┬────────┬────────┐                             │
+│  │Broker-1│Broker-2│Broker-3│  (Push metadata from ctrl)  │
+│  └────────┴────────┴────────┘                             │
+│  Benefits: Unified • Faster • Scalable • Simpler ops      │
+└────────────────────────────────────────────────────────────┘
+
+MIGRATION: ZK + KRaft (dual-mode) → Full KRaft → Remove ZK
+```
+-->
+
 For foundational knowledge of Apache Kafka's architecture, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
 
 ## Understanding Apache Kafka's Metadata Management

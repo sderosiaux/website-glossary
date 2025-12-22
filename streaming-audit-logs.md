@@ -13,6 +13,80 @@ In the world of data streaming, where information flows continuously at high vel
 
 As streaming platforms become central to enterprise data architectures, organizations face increasing pressure to demonstrate compliance with regulations like GDPR, SOX, HIPAA, and PCI-DSS. Unlike batch systems where audit trails can be reconstructed from transaction logs, streaming systems require purpose-built audit capabilities that can capture events in real-time without impacting performance. For broader coverage of authentication and authorization mechanisms that generate audit events, see [Access Control for Streaming](https://conduktor.io/glossary/access-control-for-streaming).
 
+![Streaming audit log architecture showing event capture and analysis flow](images/diagrams/streaming-audit-logs-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌──────────────────────────────────────────────────────────────────┐
+│            STREAMING AUDIT LOG ARCHITECTURE                      │
+├──────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  Data Operations & Access Events                                │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐        │
+│  │ Producer │  │ Consumer │  │  Admin   │  │  Schema  │        │
+│  │ Publish  │  │   Read   │  │  Topic   │  │ Registry │        │
+│  │  Events  │  │  Events  │  │  Create  │  │  Change  │        │
+│  └────┬─────┘  └────┬─────┘  └────┬─────┘  └────┬─────┘        │
+│       │             │             │             │               │
+│       ▼             ▼             ▼             ▼               │
+│  ┌──────────────────────────────────────────────────────────┐   │
+│  │          AUDIT INTERCEPTOR LAYER                         │   │
+│  │  Captures: WHO + WHAT + WHEN + WHERE + OUTCOME           │   │
+│  │                                                          │   │
+│  │  Example Event:                                          │   │
+│  │  {                                                       │   │
+│  │    "principal": "User:analytics-service",                │   │
+│  │    "clientId": "analytics-001",                          │   │
+│  │    "sourceIp": "10.0.15.42",                             │   │
+│  │    "resource": "customer-events",                        │   │
+│  │    "operation": "READ",                                  │   │
+│  │    "outcome": "ALLOWED",                                 │   │
+│  │    "timestamp": "2025-03-15T14:32:18Z"                   │   │
+│  │  }                                                       │   │
+│  └────────────────────────┬─────────────────────────────────┘   │
+│                           │                                     │
+│                           ▼                                     │
+│  ┌──────────────────────────────────────────────────────────┐   │
+│  │         AUDIT LOG TOPIC (Kafka/Durable Storage)          │   │
+│  │  - Immutable append-only log                             │   │
+│  │  - Replicated for durability                             │   │
+│  │  - Long retention (7 years for SOX, GDPR)                │   │
+│  │  - Encrypted at rest and in transit                      │   │
+│  └────────────────────────┬─────────────────────────────────┘   │
+│                           │                                     │
+│              ┌────────────┴────────────┐                        │
+│              ▼                         ▼                        │
+│  ┌─────────────────────┐   ┌─────────────────────────┐         │
+│  │  SIEM Integration   │   │  Compliance Reporting   │         │
+│  │  (Real-Time)        │   │  (Batch Analysis)       │         │
+│  │                     │   │                         │         │
+│  │  • Splunk           │   │  • Who accessed PII?    │         │
+│  │  • Elastic Security │   │  • Admin changes log    │         │
+│  │  • Datadog          │   │  • Access violations    │         │
+│  │                     │   │  • Retention proofs     │         │
+│  │  Alerts:            │   │                         │         │
+│  │  ⚠ Failed auth      │   │  Regulatory Exports:    │         │
+│  │  ⚠ Admin after-hrs  │   │  • GDPR audit trail     │         │
+│  │  ⚠ Unusual access   │   │  • SOX compliance       │         │
+│  └─────────────────────┘   │  • HIPAA logs           │         │
+│                            └─────────────────────────┘         │
+│                                                                  │
+│  WHAT IS AUDITED:                                               │
+│  ✓ Access events (auth, authz, sessions)                       │
+│  ✓ Data operations (produce, consume, subscribe)               │
+│  ✓ Admin operations (topic create/delete, ACL changes)         │
+│  ✓ Schema operations (register, compatibility changes)         │
+│  ✓ Configuration changes (retention, partitions)               │
+│                                                                  │
+│  PROTECTION MECHANISMS:                                         │
+│  • Immutable storage (write-once)                              │
+│  • Cryptographic signatures                                     │
+│  • Restricted access (security/compliance teams only)          │
+│  • Audit-the-auditors (meta-logging)                           │
+└──────────────────────────────────────────────────────────────────┘
+```
+-->
+
 ## What to Audit in Streaming Systems
 
 Comprehensive audit logging in streaming platforms must capture multiple categories of events. **Access events** form the foundation, recording every authentication attempt, authorization decision, and session establishment. When a client connects to a Kafka cluster, audit logs should capture the principal identity, source IP address, authentication method, and whether access was granted or denied.

@@ -7,6 +7,55 @@ topics:
   - Event Streaming
   - Message Delivery
 ---
+
+![Kafka producer architecture and message flow](images/diagrams/kafka-producers-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+Kafka Producer: Record Journey
+
+Application                     Producer                Kafka Cluster
+────────────                    ────────                ─────────────
+
+┌──────────┐                                         ┌─────────────┐
+│ Business │                                         │   Broker 1  │
+│  Logic   │                                         │  (Leader)   │
+└────┬─────┘                                         └──────▲──────┘
+     │ ProducerRecord                                       │ acks
+     │ (key, value, headers)                                │
+┌────▼─────────────────┐                                    │
+│  KafkaProducer       │                                    │
+│  ┌────────────────┐  │                                    │
+│  │ 1. Serialize   │  │  key.serializer                    │
+│  │ 2. Partition   │  │  hash(key) % partitions            │
+│  └────────┬───────┘  │                                    │
+│  ┌────────▼───────┐  │                                    │
+│  │ 3. Accumulator │  │  Per-partition buffers             │
+│  │    Buffers     │  │                                    │
+│  │  ┌──────────┐  │  │  batch.size=16KB                   │
+│  │  │Partition0│  │  │  linger.ms=0-100                   │
+│  │  │[═══════] │  │  │                                    │
+│  │  │Partition1│  │  │  ┌─────────────┐                   │
+│  │  │[═══════] │  │  │  │4. Compress  │  zstd/lz4         │
+│  │  └──────────┘  │  │  └─────────────┘                   │
+│  └────────┬───────┘  │                                    │
+│  ┌────────▼───────┐  │                                    │
+│  │ 5. Network     │──┼────────────────────────────────────┘
+│  │    Send        │  │  max.in.flight=5 (with idempotence)
+│  │                │  │  delivery.timeout.ms=120s
+│  └────────────────┘  │  retries=MAX_INT
+└──────────────────────┘
+
+DELIVERY GUARANTEES (acks parameter):
+┌────────────────────────────────────────────────────────────┐
+│ acks=0: Fire-and-forget (no wait for ack)    [FAST|RISKY]│
+│ acks=1: Leader acknowledges (default)        [BALANCED]  │
+│ acks=all: All ISR replicas acknowledge       [SAFE]      │
+│           + enable.idempotence=true (default) [EXACTLY-ONCE]
+└────────────────────────────────────────────────────────────┘
+```
+-->
+
 ## What a Kafka Producer Does
 
 A Kafka producer sends records to a topic and routes each record to a partition. The client connects to brokers, fetches metadata, and batches writes for throughput. Producers control delivery policy, retries, compression, and partition choice, which sets latency, cost, and durability.

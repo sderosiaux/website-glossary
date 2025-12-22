@@ -57,6 +57,39 @@ The key distinction between an incident and normal variance lies in **impact and
 
 For detailed coverage of these quality dimensions, see [Data Quality Dimensions](https://conduktor.io/glossary/data-quality-dimensions-accuracy-completeness-and-consistency).
 
+![Data Quality Incident Response](images/diagrams/data-quality-incidents-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌──────────────────────────────────────────────────────────────────┐
+│        DATA QUALITY INCIDENT RESPONSE WORKFLOW                   │
+└──────────────────────────────────────────────────────────────────┘
+
+DETECTION               SEVERITY               RESPONSE
+┌──────────┐           ┌──────────┐          ┌──────────┐
+│Automated │           │  P0      │          │ Immediate│
+│ Quality  │──────────▶│ Critical │─────────▶│ Action   │
+│ Checks   │           └──────────┘          └──────────┘
+└──────────┘           ┌──────────┐          ┌──────────┐
+┌──────────┐           │  P1      │          │ 1-4 hour │
+│ Anomaly  │──────────▶│  High    │─────────▶│ Response │
+│Detection │           └──────────┘          └──────────┘
+└──────────┘           ┌──────────┐          ┌──────────┐
+┌──────────┐           │  P2      │          │ Business │
+│   User   │──────────▶│  Medium  │─────────▶│   Day    │
+│ Reports  │           └──────────┘          └──────────┘
+└──────────┘                                        │
+                                                    ▼
+                            COMMON INCIDENT TYPES
+     ┌────────────────┬────────────────┬─────────────────┐
+     │ Schema         │ Null           │ Data Delays     │
+     │ Violations     │ Explosions     │ & Lag Spikes    │
+     └────────────────┴────────────────┴─────────────────┘
+
+         MTTR = Detection Time + Resolution Time
+```
+-->
+
 ## Types of Data Quality Incidents
 
 ### Schema Violations and Format Errors

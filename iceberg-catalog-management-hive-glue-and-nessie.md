@@ -17,6 +17,56 @@ Apache Iceberg has emerged as a leading table format for data lakes, offering AC
 
 This article explores the major catalog solutions available in 2025: the vendor-neutral REST Catalog (recommended for new deployments), traditional Hive Metastore, AWS Glue for cloud-native architectures, and Project Nessie for Git-like versioning workflows. For foundational concepts about Iceberg's architecture, see [Apache Iceberg Table Architecture: Metadata and Snapshots](https://conduktor.io/glossary/iceberg-table-architecture-metadata-and-snapshots).
 
+![Comparison of Iceberg catalog implementations](images/diagrams/iceberg-catalog-management-hive-glue-and-nessie-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌──────────────────────────────────────────────────────────────────┐
+│           Iceberg Catalog Implementations Comparison             │
+└──────────────────────────────────────────────────────────────────┘
+
+Query Engines (Spark, Flink, Trino, Dremio)
+              │
+              ▼
+     ┌────────────────┐
+     │ Catalog Choice │
+     └────────────────┘
+              │
+    ┌─────────┼─────────┬──────────┬──────────┐
+    ▼         ▼         ▼          ▼          ▼
+┌────────┐ ┌────┐ ┌────────┐ ┌───────┐ ┌─────────┐
+│  REST  │ │Hive│ │  Glue  │ │ JDBC  │ │ Nessie  │
+│Catalog │ │HMS │ │Catalog │ │Catalog│ │         │
+└────────┘ └────┘ └────────┘ └───────┘ └─────────┘
+    │        │         │          │          │
+    ▼        ▼         ▼          ▼          ▼
+┌────────┐┌─────┐┌─────────┐┌────────┐┌──────────┐
+│Vendor  ││MySQL││AWS-only ││Simple  ││Git-like  │
+│Neutral ││Meta ││Managed  ││Relat.  ││Versioning│
+│HTTP API││store││Serverles││DB      ││Branches  │
+│Modern  ││Broad││IAM      ││Low Ops ││Multi-Tbl │
+│(2025+) ││Compat│         ││        ││Tx        │
+└────────┘└─────┘└─────────┘└────────┘└──────────┘
+    │        │         │          │          │
+    └────────┴─────────┴──────────┴──────────┘
+                       │
+                       ▼
+            ┌──────────────────┐
+            │Table Metadata    │
+            │Pointer Management│
+            └──────────────────┘
+                       │
+                       ▼
+            ┌──────────────────┐
+            │  Object Storage  │
+            │ (S3/Azure/GCS)   │
+            │ Metadata + Data  │
+            └──────────────────┘
+
+Recommendation 2025: REST Catalog (Apache Polaris) for new deployments
+```
+-->
+
 ## Understanding Iceberg Catalogs
 
 An Iceberg catalog serves as the authoritative source for table metadata, maintaining pointers to the current metadata file for each table. When a query engine or processing framework needs to read or write an Iceberg table, it first consults the catalog to locate the table's metadata.

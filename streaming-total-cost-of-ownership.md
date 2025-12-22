@@ -58,6 +58,53 @@ topics:
 
 When organizations evaluate their streaming infrastructure costs, they often focus solely on their cloud provider bills. However, the true Total Cost of Ownership (TCO) for streaming platforms like Apache Kafka extends far beyond monthly infrastructure charges. Understanding the complete picture is essential for making informed decisions about architecture, vendor selection, and resource allocation. For foundational knowledge of Apache Kafka architecture, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
 
+![Total cost breakdown of streaming infrastructure](images/diagrams/streaming-total-cost-of-ownership-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+STREAMING TCO: VISIBLE & HIDDEN COSTS
+
+                 TOTAL COST OF OWNERSHIP
+┌──────────────────────────────────────────────────────────────┐
+│                                                              │
+│  ┌────────────────────┐  ┌──────────────────────────────┐   │
+│  │ INFRASTRUCTURE     │  │ OPERATIONAL COSTS            │   │
+│  │ (Visible 40-50%)   │  │ (Often Hidden 30-40%)        │   │
+│  ├────────────────────┤  ├──────────────────────────────┤   │
+│  │ • Compute          │  │ • Personnel (Engineers/SREs) │   │
+│  │   - Brokers        │  │ • On-call Rotation           │   │
+│  │   - Consumers      │  │ • Training & Knowledge       │   │
+│  │   - Stream Proc.   │  │ • Tooling Licenses           │   │
+│  │ • Storage          │  │ • Support Contracts          │   │
+│  │   - Primary        │  │                              │   │
+│  │   - Tiered         │  │                              │   │
+│  │   - Replication    │  │                              │   │
+│  │ • Network          │  │                              │   │
+│  │   - Cross-AZ       │  │                              │   │
+│  │   - Inter-Region   │  │                              │   │
+│  │   - Egress         │  │                              │   │
+│  └────────────────────┘  └──────────────────────────────┘   │
+│                                                              │
+│  ┌──────────────────────────────────────────────────────┐   │
+│  │ HIDDEN COSTS (Silent Budget Killers 20-30%)         │   │
+│  ├──────────────────────────────────────────────────────┤   │
+│  │ • Debugging & Troubleshooting Time                   │   │
+│  │ • Incident Response & Downtime Impact                │   │
+│  │ • Technical Debt & Architecture Complexity           │   │
+│  │ • Opportunity Cost (Features Not Built)              │   │
+│  │ • Consumer Lag Investigations                        │   │
+│  │ • Schema Evolution Coordination                      │   │
+│  └──────────────────────────────────────────────────────┘   │
+│                                                              │
+└──────────────────────────────────────────────────────────────┘
+
+COST OPTIMIZATION LEVERS:
+Infrastructure → Right-size | Tiered Storage | Reserved Capacity
+Operations   → Automation | Managed Services | Governance Tools
+Hidden       → Observability | Testing | Governance | Training
+```
+-->
+
 Streaming infrastructure costs are frequently underestimated because many organizations fail to account for operational overhead, opportunity costs, and hidden expenses that accumulate over time. A streaming platform that appears cost-effective based on compute and storage charges alone may prove expensive when factoring in the engineering time required to maintain it, the impact of incidents on business operations, and the complexity debt that slows future development.
 
 The challenge with streaming TCO is that costs are distributed across multiple dimensions: infrastructure resources scale with data volume, operational costs grow with system complexity, and hidden costs emerge from technical decisions made months or years earlier. To optimize your streaming infrastructure effectively, you need visibility into all these cost categories and their relationships.

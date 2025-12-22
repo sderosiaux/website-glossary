@@ -19,6 +19,53 @@ The General Data Protection Regulation (GDPR) has fundamentally transformed how 
 
 This article explores practical strategies and technical implementations for achieving GDPR compliance in data-intensive streaming environments.
 
+![GDPR compliance workflow for streaming data systems](images/diagrams/gdpr-compliance-for-data-teams-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                  GDPR Compliance Framework                      │
+│                    for Streaming Systems                        │
+└─────────────────────────────────────────────────────────────────┘
+
+    Data Subject Rights          Technical Controls
+         (Articles)                 (Implementation)
+              │                            │
+              ▼                            ▼
+    ┌──────────────────┐        ┌──────────────────┐
+    │ Right to Access  │───────▶│ Identity & Index │
+    │   (30 days)      │        │  Unified UserID  │
+    └──────────────────┘        └──────────────────┘
+              │                            │
+              ▼                            ▼
+    ┌──────────────────┐        ┌──────────────────┐
+    │ Right to Erasure │───────▶│  Tombstone + CDC │
+    │  (Right to be    │        │  Delete Workflow │
+    │   Forgotten)     │        └──────────────────┘
+    └──────────────────┘                  │
+              │                            ▼
+              ▼                  ┌──────────────────┐
+    ┌──────────────────┐        │  Pseudonymization │
+    │ Right to         │───────▶│  Field Encryption │
+    │ Portability      │        │  Separate PII     │
+    └──────────────────┘        └──────────────────┘
+              │                            │
+              ▼                            ▼
+┌───────────────────────────────────────────────────────────┐
+│             Consent Management Stream                     │
+│  Consent Topic → Stream Join → Processing Decision        │
+└───────────────────────────────────────────────────────────┘
+              │                            │
+              ▼                            ▼
+    ┌──────────────────┐        ┌──────────────────┐
+    │  Audit Trail     │        │  Data Protection │
+    │  Access Logs     │        │  by Design       │
+    │  Processing      │        │  Encryption @    │
+    │  Records         │        │  Rest & Transit  │
+    └──────────────────┘        └──────────────────┘
+```
+-->
+
 **Key GDPR Timelines for Data Teams:**
 - **30 days**: Maximum time to fulfill data subject access requests (DSARs)
 - **72 hours**: Required notification window for data breaches to supervisory authorities

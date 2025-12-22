@@ -18,6 +18,35 @@ This article explores what data products are, how to design and build them, thei
 
 ## What Are Data Products?
 
+![Data Product Architecture and Lifecycle](images/diagrams/building-and-managing-data-products-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌────────────────────────────────────────────────────────────────┐
+│                  Data Product Components                       │
+└────────────────────────────────────────────────────────────────┘
+                              │
+         ┌────────────────────┼────────────────────┐
+         │                    │                    │
+    ┌────▼──────┐       ┌─────▼─────┐       ┌─────▼──────┐
+    │ Interface │       │Governance │       │ Operations │
+    │  & APIs   │       │ & Quality │       │& Monitoring│
+    └────┬──────┘       └─────┬─────┘       └─────┬──────┘
+         │                    │                    │
+    Schema/Contract      Data Quality         SLA Tracking
+    Versioning           Ownership            Consumer Metrics
+    Documentation        Lineage              Health Checks
+         │                    │                    │
+         └────────────────────┼────────────────────┘
+                              ▼
+                    ┌─────────────────┐
+                    │  Data Product   │
+                    │   (Reliable,    │
+                    │  Discoverable)  │
+                    └─────────────────┘
+```
+-->
+
 A data product is a self-contained, reusable data asset designed with clear ownership, well-defined interfaces, and quality guarantees. Unlike traditional datasets or reports, data products are built with product thinking: they have users, versioned APIs, documentation, and service-level objectives.
 
 Key characteristics include:

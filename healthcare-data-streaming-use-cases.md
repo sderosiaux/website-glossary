@@ -18,6 +18,47 @@ Modern streaming platforms have matured significantly for healthcare workloads. 
 
 This shift toward real-time processing addresses fundamental challenges in modern healthcare: managing data from thousands of connected medical devices, coordinating care across multiple systems, and detecting life-threatening conditions before they become emergencies.
 
+![Healthcare streaming architecture with device integration and analytics](images/diagrams/healthcare-data-streaming-use-cases-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌─────────────────────────────────────────────────────────────────┐
+│              Healthcare Streaming Data Flow                     │
+└─────────────────────────────────────────────────────────────────┘
+
+Medical Devices         Kafka Streaming           Processing & Action
+     │                       │                           │
+     ▼                       ▼                           ▼
+┌──────────┐         ┌──────────────┐         ┌──────────────────┐
+│Ventilator│────────▶│device.vitals │────────▶│ Stream Processor │
+│ Monitor  │         │   (topic)    │         │  Anomaly Detect  │
+└──────────┘         └──────────────┘         └──────────────────┘
+     │                       │                           │
+┌──────────┐                │                           ▼
+│  Heart   │───────────┐    │                 ┌──────────────────┐
+│ Monitor  │           │    │                 │  Clinical Alerts │
+└──────────┘           ├───▶│                 │  (Sepsis Risk >  │
+     │                 │    │                 │   threshold)     │
+┌──────────┐           │    │                 └──────────────────┘
+│ Infusion │───────────┘    │                           │
+│  Pump    │                │                           ▼
+└──────────┘                │                 ┌──────────────────┐
+     │                      │                 │  EHR Integration │
+┌──────────┐                ▼                 │  HL7 FHIR Events │
+│ Wearable │         ┌──────────────┐         └──────────────────┘
+│  Device  │────────▶│ iot.patient  │                  │
+└──────────┘         │   (topic)    │                  ▼
+                     └──────────────┘         ┌──────────────────┐
+                            │                 │   Data Lake /    │
+                            │                 │  Analytics DWH   │
+                            └────────────────▶│ (Long-term       │
+                                              │  Analytics)      │
+                                              └──────────────────┘
+
+Compliance Layer: TLS Encryption + ACLs + Audit Logs (HIPAA/GDPR)
+```
+-->
+
 ## Real-Time Patient Monitoring and Critical Care
 
 Intensive care units (ICUs) generate continuous streams of patient data from ventilators, cardiac monitors, infusion pumps, and other medical devices. Each device may produce hundreds of data points per second, including vital signs, medication dosages, and equipment status.

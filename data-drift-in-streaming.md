@@ -11,6 +11,42 @@ topics:
 
 In streaming data systems, the assumption that data maintains consistent patterns and structures over time is rarely true. Data drift—the phenomenon where data characteristics change unexpectedly—poses significant challenges for both real-time pipelines and machine learning models. Understanding and managing drift is essential for maintaining reliable, production-grade streaming applications.
 
+![Types of Data Drift](images/diagrams/data-drift-in-streaming-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌──────────────────────────────────────────────────────────────────┐
+│                    Types of Data Drift                           │
+└──────────────────────────────────────────────────────────────────┘
+
+1. SCHEMA DRIFT                2. DATA DRIFT              3. CONCEPT DRIFT
+──────────────────            ─────────────────          ────────────────
+
+Before:                       Before:                    Before:
+┌──────────────┐             Distribution:               Model Accuracy:
+│ user_id: int │               ▁▃▅▇█▇▅▃▁                  ████████ 95%
+│ email: str   │               Normal                    Features →
+│              │                                          Prediction
+└──────────────┘             After:                      Relationship
+                              ▁▁▁▁█▆▄▂▁▁
+After:                        Shifted Right              After:
+┌──────────────┐                                         Model Accuracy:
+│user_id: UUID │             Mean: $45 → $89             ████░░░░ 65%
+│email: str    │             StdDev: $22 → $45           Relationship
+│phone: str    │ ← NEW                                   Changed!
+└──────────────┘
+
+Impact:                       Impact:                    Impact:
+✗ Consumer crash              ⚠ Silent errors            ⚠ Wrong predictions
+✗ Parsing failure             ⚠ Bad aggregations         ⚠ Model degradation
+
+Detection:                    Detection:                 Detection:
+✓ Schema Registry             ✓ Statistical tests        ✓ Performance
+✓ Validation                  ✓ K-S Test, PSI              monitoring
+                              ✓ Distribution checks      ✓ Accuracy tracking
+```
+-->
+
 ## Understanding Types of Drift
 
 Data drift is an umbrella term that encompasses several distinct types of changes, each with different implications for streaming systems.

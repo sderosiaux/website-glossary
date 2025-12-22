@@ -19,6 +19,36 @@ This AI sprawl creates significant risks. Models trained on outdated data contin
 
 ## What is AI Discovery?
 
+![AI Discovery and Monitoring Lifecycle](images/diagrams/ai-discovery-and-monitoring-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌────────────────────────────────────────────────────────────────────┐
+│                   AI Asset Discovery & Monitoring                  │
+└────────────────────────────────────────────────────────────────────┘
+                                  │
+         ┌────────────────────────┼────────────────────────┐
+         │                        │                        │
+         ▼                        ▼                        ▼
+  ┌─────────────┐        ┌─────────────┐        ┌─────────────┐
+  │  DISCOVERY  │        │ MONITORING  │        │ GOVERNANCE  │
+  └──────┬──────┘        └──────┬──────┘        └──────┬──────┘
+         │                      │                       │
+    ┌────┴────┐            ┌────┴────┐            ┌────┴────┐
+    │ Models  │            │ Drift   │            │ Policies│
+    │ Pipelines│    ──────▶│ Quality │    ──────▶ │ Lineage │
+    │ Endpoints│            │ Metrics │            │ Catalog │
+    └─────────┘            └─────────┘            └─────────┘
+         │                      │                       │
+         └──────────────────────┴───────────────────────┘
+                                │
+                         ┌──────▼──────┐
+                         │  AI Ops     │
+                         │  Excellence │
+                         └─────────────┘
+```
+-->
+
 AI discovery is the process of identifying, cataloging, and maintaining an inventory of all AI-related assets within an organization. These assets span a diverse landscape:
 
 - **Models**: Machine learning models in development, staging, and production environments (including traditional ML, deep learning, and foundation models)

@@ -13,6 +13,50 @@ topics:
 
 Stream processing systems face a fundamental challenge that batch processing never encounters: how to measure the passage of time when events arrive continuously, potentially out of order, and from multiple distributed sources. Watermarks and triggers are two critical mechanisms that solve this problem, enabling accurate time-based operations like windowing and aggregations in frameworks such as [Apache Flink](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing) and [Kafka Streams](https://conduktor.io/glossary/introduction-to-kafka-streams).
 
+![Watermark progression and window triggering](images/diagrams/watermarks-and-triggers-in-stream-processing-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+WATERMARKS & TRIGGERS: EVENT TIME PROGRESSION
+
+EVENT STREAM (Out-of-order arrival):
+time ─────────────────────────────────────────────────────────▶
+     10:00  10:01  10:02  10:03  10:04  10:05  10:06  (event time)
+       │      │      │      │      │      │      │
+       ▼      ▼      ▼      ▼      ▼      ▼      ▼
+     ┌───┐  ┌───┐  ┌───┐  ┌───┐  ┌───┐  ┌───┐  ┌───┐
+     │ E1│  │ E3│  │ E2│  │ E5│  │ E4│  │ E6│  │ E7│ (arrival order)
+     └───┘  └───┘  └───┘  └───┘  └───┘  └───┘  └───┘
+       │      │      │      │      │      │      │
+       └──────┴──────┴──────┴──────┴──────┴──────┴─▶ processing time
+
+WATERMARK PROGRESSION (Bounded 5s out-of-orderness):
+─────────────────────────────────────────────────────────────▶
+    W(9:55)  W(9:56)  W(9:57)  W(9:58)  W(9:59)  W(10:01)
+      ▲        ▲        ▲        ▲        ▲         ▲
+      │        │        │        │        │         │
+    "All events <= 9:55 have arrived"     │ Window closes!
+                                           │
+5-MINUTE TUMBLING WINDOW [10:00 - 10:05]:
+┌──────────────────────────────────────────────────────────┐
+│  Collecting: E1, E2, E3, E4, E5, E6                     │
+│  Watermark at 10:01 → Window [10:00-10:05] TRIGGERS     │
+│  ──▶ Emit aggregation result                            │
+└──────────────────────────────────────────────────────────┘
+
+LATE EVENT HANDLING:
+     ┌───┐
+     │ E8│  (timestamp 10:02, arrives after watermark 10:01)
+     └─┬─┘
+       │
+       ├─▶ Drop (default)
+       ├─▶ Side output (Flink allowed lateness)
+       └─▶ Update previous result (late firing)
+
+KEY: Watermark = Progress marker | Trigger = Window emission decision
+```
+-->
+
 ## The Challenge of Time in Stream Processing
 
 Unlike batch processing where all data is available upfront, [stream processing](https://conduktor.io/glossary/what-is-real-time-data-streaming) deals with unbounded data that arrives continuously. This creates several timing challenges:

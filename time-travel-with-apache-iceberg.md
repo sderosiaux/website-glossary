@@ -13,6 +13,47 @@ topics:
 
 Apache Iceberg's time travel feature allows you to query your data as it appeared at any point in the past. This capability transforms how data teams approach debugging, auditing, and compliance by providing a complete historical view of table evolution without maintaining separate backup copies. For a comprehensive overview of Iceberg's architecture and capabilities, see [Apache Iceberg](https://conduktor.io/glossary/apache-iceberg).
 
+![Iceberg snapshot timeline and time travel queries](images/diagrams/time-travel-with-apache-iceberg-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+ICEBERG TIME TRAVEL: SNAPSHOT-BASED VERSIONING
+
+TIMELINE (Each write creates new immutable snapshot):
+─────────────────────────────────────────────────────────────▶
+   t0         t1         t2         t3         t4      time
+   │          │          │          │          │
+   ▼          ▼          ▼          ▼          ▼
+Snapshot  Snapshot  Snapshot  Snapshot  Snapshot
+  #100      #101      #102      #103      #104  (current)
+   │          │          │          │          │
+Insert    Update    Delete    Merge     Insert
+1000 rows 500 rows 200 rows  300 rows  800 rows
+
+DATA FILES (Parquet/ORC in Object Storage):
+┌──────────────────────────────────────────────────────────┐
+│  file-001.parquet  file-002.parquet  file-003.parquet   │
+│  file-004.parquet  file-005.parquet  file-006.parquet   │
+│  file-007.parquet  file-008.parquet  ... (referenced)   │
+└──────────────────────────────────────────────────────────┘
+       ▲                    ▲                    ▲
+       │ Snapshot metadata points to files      │
+       └────────────────────┴────────────────────┘
+
+TIME TRAVEL QUERIES:
+┌──────────────────────────────────────────────────────────┐
+│ SELECT * FROM sales                                      │
+│ FOR SYSTEM_TIME AS OF TIMESTAMP '2024-12-01 10:00:00'   │
+│ ──▶ Returns data from Snapshot #101                     │
+│                                                          │
+│ SELECT * FROM sales VERSION AS OF 103                   │
+│ ──▶ Returns exact snapshot #103                         │
+└──────────────────────────────────────────────────────────┘
+
+USE CASES: Audit Trails • Debugging • Rollback • Compliance
+```
+-->
+
 ## Understanding Iceberg Snapshots
 
 At the core of Iceberg's time travel functionality is its snapshot-based architecture. Every write operation—whether insert, update, delete, or merge—creates a new immutable snapshot of the table. Each snapshot represents a complete, consistent view of the table at that moment in time. This is conceptually similar to version control systems like Git, where each commit creates an immutable reference to the repository state.

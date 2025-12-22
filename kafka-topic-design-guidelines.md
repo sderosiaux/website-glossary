@@ -13,6 +13,44 @@ topics:
 
 Designing Kafka topics is a foundational decision that impacts performance, scalability, and maintainability of your entire streaming architecture. Poor topic design can lead to operational complexity, data inconsistency, and difficulty in evolving your system over time. This article explores key guidelines for creating well-structured Kafka topics.
 
+![Kafka topic design decision framework](images/diagrams/kafka-topic-design-guidelines-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                    KAFKA TOPIC DESIGN FRAMEWORK                     │
+└─────────────────────────────────────────────────────────────────────┘
+
+    ┌─────────────────┐        ┌─────────────────┐
+    │ NAMING          │        │ PARTITIONING    │
+    │ • Domain.Entity │        │ • Count (12-30) │
+    │ • Environment   │        │ • Key Selection │
+    │ • Versioning    │        │ • Distribution  │
+    └────────┬────────┘        └────────┬────────┘
+             │                          │
+             └──────────┬───────────────┘
+                        ▼
+              ┌──────────────────┐
+              │   KAFKA TOPIC    │◀──── Producers
+              │  (Partitioned,   │
+              │   Replicated)    │
+              └────────┬─────────┘
+                       │
+          ─────────────┼─────────────
+          │            │            │
+          ▼            ▼            ▼
+    Consumer 1   Consumer 2   Consumer 3
+
+    ┌─────────────────┐        ┌─────────────────┐
+    │ REPLICATION     │        │ RETENTION       │
+    │ • Factor: 3     │        │ • Time-based    │
+    │ • min.isr: 2    │        │ • Size-based    │
+    │ • acks: all     │        │ • Tiered storage│
+    └─────────────────┘        │ • Compaction    │
+                               └─────────────────┘
+```
+-->
+
 ## Why Topic Design Matters
 
 Topics are the fundamental unit of organization in Apache Kafka. They define how data flows through your system, how it's partitioned across brokers, and how consumers access it. Unlike traditional databases where schema changes are common, topic design decisions in Kafka are harder to reverse once producers and consumers are deployed.

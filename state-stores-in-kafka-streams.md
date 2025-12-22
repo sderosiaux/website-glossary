@@ -12,6 +12,71 @@ topics:
 
 Stream processing applications often need to remember information across multiple events. Counting page views, calculating running totals, joining streams of data, or tracking user sessions all require maintaining state. Kafka Streams uses state stores to enable these stateful operations while preserving the distributed, fault-tolerant nature of stream processing. For foundational knowledge about Apache Kafka and its ecosystem, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
 
+![State store architecture showing local storage backed by changelog topics](images/diagrams/state-stores-in-kafka-streams-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌──────────────────────────────────────────────────────────────────┐
+│            KAFKA STREAMS STATE STORE ARCHITECTURE                │
+├──────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  Kafka Streams Application (Instance 1)                         │
+│  ┌────────────────────────────────────────────────────────────┐ │
+│  │  Stream Processing Task                                    │ │
+│  │  ┌──────────────┐         ┌─────────────────────────────┐ │ │
+│  │  │ Input Topic  │  Read   │  Local State Store          │ │ │
+│  │  │ Partition 0  │────────▶│  (RocksDB / In-Memory)      │ │ │
+│  │  │              │         │                             │ │ │
+│  │  │ event_1      │  Update │  Key: user_123 → Count: 5   │ │ │
+│  │  │ event_2      │◀────────│  Key: user_456 → Count: 12  │ │ │
+│  │  │ event_3      │         │  Key: user_789 → Count: 3   │ │ │
+│  │  └──────────────┘         └─────────────────────────────┘ │ │
+│  │                                       │                    │ │
+│  │                                       │ Write changes      │ │
+│  │                                       ▼                    │ │
+│  │                           ┌─────────────────────────────┐ │ │
+│  │                           │  Changelog Topic            │ │ │
+│  │                           │  (Compacted, Replicated)    │ │ │
+│  │                           │                             │ │ │
+│  │                           │  user_123: 5                │ │ │
+│  │                           │  user_456: 12               │ │ │
+│  │                           │  user_789: 3                │ │ │
+│  │                           └─────────────────────────────┘ │ │
+│  └────────────────────────────────────────────────────────────┘ │
+│                                       │                          │
+│                                       │ Replication              │
+│                                       ▼                          │
+│  ┌────────────────────────────────────────────────────────────┐ │
+│  │  Kafka Cluster (Fault-Tolerant Storage)                   │ │
+│  │  ┌──────────┐  ┌──────────┐  ┌──────────┐                │ │
+│  │  │ Broker 1 │  │ Broker 2 │  │ Broker 3 │                │ │
+│  │  │ Changelog│  │ Changelog│  │ Changelog│                │ │
+│  │  └──────────┘  └──────────┘  └──────────┘                │ │
+│  └────────────────────────────────────────────────────────────┘ │
+│                                       │                          │
+│                                       │ State Restoration        │
+│                                       ▼                          │
+│  Kafka Streams Application (Instance 2 - Standby/Recovery)     │
+│  ┌────────────────────────────────────────────────────────────┐ │
+│  │  On Failure/Rebalance:                                     │ │
+│  │  1. Read entire changelog topic from beginning            │ │
+│  │  2. Rebuild local state store (restoration)               │ │
+│  │  3. Resume processing from last committed offset          │ │
+│  │                                                            │ │
+│  │  Optimization: Standby replicas (num.standby.replicas=1)  │ │
+│  │  → Keep state nearly current for fast failover            │ │
+│  └────────────────────────────────────────────────────────────┘ │
+│                                                                  │
+│  KEY CONCEPTS:                                                  │
+│  ✓ Local state: Fast read/write (no network calls)             │
+│  ✓ Changelog: Durable backup for fault tolerance               │
+│  ✓ Compaction: Only latest value per key retained              │
+│  ✓ Co-location: State partitioned with input topic             │
+│  ✓ Restoration: Replay changelog on failure                    │
+└──────────────────────────────────────────────────────────────────┘
+```
+-->
+
 ## What Are State Stores?
 
 A state store is a local database embedded within a Kafka Streams application that maintains mutable state. When your application processes events, it can read from and write to these stores to keep track of intermediate results, accumulated values, or lookup tables.

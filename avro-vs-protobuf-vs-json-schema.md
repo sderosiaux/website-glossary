@@ -16,6 +16,36 @@ This article compares these three popular schema formats, examining their design
 
 ## Introduction to Schema Formats
 
+![Schema Format Comparison Overview](images/diagrams/avro-vs-protobuf-vs-json-schema-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌────────────────────────────────────────────────────────────────┐
+│               Schema Format Comparison Matrix                  │
+└────────────────────────────────────────────────────────────────┘
+                              │
+         ┌────────────────────┼────────────────────┐
+         │                    │                    │
+    ┌────▼─────┐         ┌────▼────┐         ┌────▼──────┐
+    │   Avro   │         │Protobuf │         │   JSON    │
+    │          │         │         │         │  Schema   │
+    ├──────────┤         ├─────────┤         ├───────────┤
+    │ Binary   │         │ Binary  │         │   Text    │
+    │ Compact  │         │ Fastest │         │ Readable  │
+    │ Dynamic  │         │ Typed   │         │ Flexible  │
+    ├──────────┤         ├─────────┤         ├───────────┤
+    │ Schema   │         │  Code   │         │   No      │
+    │Evolution │         │  Gen    │         │  Build    │
+    │ Runtime  │         │Compile  │         │  Step     │
+    └────┬─────┘         └────┬────┘         └────┬──────┘
+         │                    │                    │
+         └────────────────────┼────────────────────┘
+                              ▼
+                      Choose based on:
+                   Performance vs Readability
+```
+-->
+
 Schema formats serve two primary purposes: defining the structure of data and enabling validation. In distributed systems, schemas provide a contract between producers and consumers, ensuring data compatibility across services and over time.
 
 Without schemas, systems rely on implicit assumptions about data structure. When a service changes its data format, downstream consumers may break unexpectedly. Schemas make these contracts explicit and machine-readable.
