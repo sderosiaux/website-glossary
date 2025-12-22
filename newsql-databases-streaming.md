@@ -577,9 +577,9 @@ The key is understanding when the trade-offs of NewSQL—typically slightly high
 
 ## Related Concepts
 
-- [Apache Kafka](/glossary/apache-kafka) - The streaming platform that NewSQL databases integrate with for CDC and event-driven architectures
-- [NoSQL Databases for Real-Time Streaming: Patterns and Integration](/glossary/nosql-databases-real-time) - Alternative database architectures favoring eventual consistency and higher throughput
-- [Data Governance Framework: Roles and Responsibilities](/glossary/data-governance-framework-roles-and-responsibilities) - Critical for managing transactional data across distributed systems
+- [Apache Kafka](https://conduktor.io/glossary/apache-kafka) - The streaming platform that NewSQL databases integrate with for CDC and event-driven architectures
+- [NoSQL Databases for Real-Time Streaming: Patterns and Integration](https://conduktor.io/glossary/nosql-databases-real-time) - Alternative database architectures favoring eventual consistency and higher throughput
+- [Data Governance Framework: Roles and Responsibilities](https://conduktor.io/glossary/data-governance-framework-roles-and-responsibilities) - Critical for managing transactional data across distributed systems
 
 ## Sources and References
 

@@ -11,7 +11,7 @@ topics:
 
 ## Introduction
 
-As streaming platforms become the backbone of modern data architectures, they also become prime targets for security threats. Real-time threat detection applies security monitoring and anomaly detection techniques to identify malicious activities as they occur in streaming infrastructure. Unlike traditional batch-based security analysis, real-time threat detection operates on live [data streams](/glossary/what-is-real-time-data-streaming), enabling immediate response to security incidents such as unauthorized access, data exfiltration, and denial-of-service attacks.
+As streaming platforms become the backbone of modern data architectures, they also become prime targets for security threats. Real-time threat detection applies security monitoring and anomaly detection techniques to identify malicious activities as they occur in streaming infrastructure. Unlike traditional batch-based security analysis, real-time threat detection operates on live [data streams](https://conduktor.io/glossary/what-is-real-time-data-streaming), enabling immediate response to security incidents such as unauthorized access, data exfiltration, and denial-of-service attacks.
 
 The challenge lies in balancing detection speed and accuracy while minimizing false positives that can overwhelm security teams. This article explores the approaches, architectures, and best practices for implementing effective threat detection in streaming environments.
 
@@ -20,7 +20,7 @@ The challenge lies in balancing detection speed and accuracy while minimizing fa
 Streaming platforms face both traditional and streaming-specific security threats:
 
 **Traditional Security Threats:**
-- **Unauthorized Access**: Attempts to access topics, consumer groups, or administrative interfaces without proper credentials (see [Access Control](/glossary/access-control-for-streaming))
+- **Unauthorized Access**: Attempts to access topics, consumer groups, or administrative interfaces without proper credentials (see [Access Control](https://conduktor.io/glossary/access-control-for-streaming))
 - **Data Exfiltration**: Unauthorized reading or copying of sensitive data from streams
 - **DDoS Attacks**: Overwhelming brokers or consumers with excessive requests
 - **Injection Attacks**: Malicious payloads injected into streams to exploit downstream consumers
@@ -29,14 +29,14 @@ Streaming platforms face both traditional and streaming-specific security threat
 - **Topic Hijacking**: Unauthorized creation, deletion, or modification of topics
 - **Consumer Impersonation**: Malicious actors joining consumer groups to intercept data (e.g., an attacker joins the "payment-processor" consumer group to intercept financial transactions)
 - **Offset Manipulation**: Resetting consumer offsets to replay messages (to cause duplicate processing) or skip messages (to hide evidence of an attack)
-- **Schema Poisoning**: Injecting incompatible schemas to break downstream processing (e.g., changing a schema to make all consumers fail deserialization—see [Schema Evolution Best Practices](/glossary/schema-evolution-best-practices))
-- **Resource Exhaustion**: Creating excessive partitions or connections to degrade performance (related to [Quotas and Rate Limiting](/glossary/quotas-and-rate-limiting-in-kafka))
+- **Schema Poisoning**: Injecting incompatible schemas to break downstream processing (e.g., changing a schema to make all consumers fail deserialization—see [Schema Evolution Best Practices](https://conduktor.io/glossary/schema-evolution-best-practices))
+- **Resource Exhaustion**: Creating excessive partitions or connections to degrade performance (related to [Quotas and Rate Limiting](https://conduktor.io/glossary/quotas-and-rate-limiting-in-kafka))
 
 **2025-Era Cloud and AI Threats:**
-- **AI Model Poisoning**: Injecting malicious training data into streaming ML pipelines to compromise model integrity (see [Real-Time ML Pipelines](/glossary/real-time-ml-pipelines))
+- **AI Model Poisoning**: Injecting malicious training data into streaming ML pipelines to compromise model integrity (see [Real-Time ML Pipelines](https://conduktor.io/glossary/real-time-ml-pipelines))
 - **API Key Sprawl**: Compromised credentials in client applications that access streaming platforms
 - **Supply Chain Attacks**: Malicious or vulnerable Kafka connectors, Stream Processing plugins, or dependencies
-- **Cloud IAM Exploitation**: Hijacking service accounts or IAM roles to gain unauthorized access to streaming resources (related to [Zero Trust for Streaming](/glossary/zero-trust-for-streaming))
+- **Cloud IAM Exploitation**: Hijacking service accounts or IAM roles to gain unauthorized access to streaming resources (related to [Zero Trust for Streaming](https://conduktor.io/glossary/zero-trust-for-streaming))
 - **SSRF Attacks**: Exploiting connectors or integrations to access internal cloud services
 
 Understanding these threat vectors is essential for designing detection mechanisms that cover the full attack surface.
@@ -151,18 +151,18 @@ ML-based detection excels at identifying sophisticated attacks and zero-day thre
 
 Comprehensive threat detection aggregates multiple data sources:
 
-**Audit Logs** (see [Audit Logging for Streaming Platforms](/glossary/audit-logging-for-streaming-platforms)):
+**Audit Logs** (see [Audit Logging for Streaming Platforms](https://conduktor.io/glossary/audit-logging-for-streaming-platforms)):
 - Authentication and authorization events
 - Administrative actions (topic creation, ACL changes)
 - Configuration modifications
 - User activity trails
 
-**Metrics and Monitoring Data** (see [Data Observability](/glossary/what-is-data-observability-the-five-pillars)):
+**Metrics and Monitoring Data** (see [Data Observability](https://conduktor.io/glossary/what-is-data-observability-the-five-pillars)):
 - Broker performance metrics (CPU, memory, disk I/O)
 - Network traffic patterns (bytes in/out, connection counts)
 - Producer and consumer metrics (throughput, latency, errors)
 - JMX metrics for internal broker state
-- [Consumer lag](/glossary/consumer-lag-monitoring) for detecting unusual consumption patterns
+- [Consumer lag](https://conduktor.io/glossary/consumer-lag-monitoring) for detecting unusual consumption patterns
 
 **Network Traffic**:
 - Packet capture and inspection
@@ -173,9 +173,9 @@ Comprehensive threat detection aggregates multiple data sources:
 
 **Application Logs**:
 - Client application errors
-- [Schema registry](/glossary/schema-registry-and-schema-management) access
+- [Schema registry](https://conduktor.io/glossary/schema-registry-and-schema-management) access
 - Connect worker activities
-- [Stream processing](/glossary/what-is-apache-flink-stateful-stream-processing) job logs
+- [Stream processing](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing) job logs
 - **OpenTelemetry traces** (2025): Distributed tracing across producers, brokers, and consumers for end-to-end visibility
 
 Centralizing these diverse sources enables correlation analysis to detect multi-stage attacks.
@@ -296,14 +296,14 @@ Behavioral analysis provides context-aware detection that adapts to legitimate c
 
 ## Use Cases
 
-**Fraud Detection** (see [Real-Time Fraud Detection with Streaming](/glossary/real-time-fraud-detection-with-streaming)):
+**Fraud Detection** (see [Real-Time Fraud Detection with Streaming](https://conduktor.io/glossary/real-time-fraud-detection-with-streaming)):
 Real-time analysis of financial transactions to identify fraudulent patterns before completion. Correlate multiple data streams (transaction history, device fingerprints, geolocation) to detect account takeover, payment fraud, and identity theft.
 
 **Intrusion Detection**:
 Monitor network traffic and system logs for signs of unauthorized access. Detect lateral movement, privilege escalation, and data exfiltration attempts within the streaming infrastructure.
 
-**Compliance Monitoring** (see [Policy Enforcement in Streaming](/glossary/policy-enforcement-in-streaming)):
-Ensure streaming operations comply with regulations (GDPR, HIPAA, PCI-DSS). Detect and alert on policy violations such as unauthorized access to sensitive topics, data retention violations, or encryption failures. Monitor for [PII leakage](/glossary/pii-leakage-prevention) in real time.
+**Compliance Monitoring** (see [Policy Enforcement in Streaming](https://conduktor.io/glossary/policy-enforcement-in-streaming)):
+Ensure streaming operations comply with regulations (GDPR, HIPAA, PCI-DSS). Detect and alert on policy violations such as unauthorized access to sensitive topics, data retention violations, or encryption failures. Monitor for [PII leakage](https://conduktor.io/glossary/pii-leakage-prevention) in real time.
 
 **Insider Threat Detection**:
 Identify malicious or negligent actions by authorized users. Detect unusual data access patterns, bulk downloads, or attempts to circumvent security controls.
@@ -313,8 +313,8 @@ Identify malicious or negligent actions by authorized users. Detect unusual data
 A streaming-focused SOC requires specialized capabilities:
 
 **Architecture Components**:
-1. **Data Ingestion Layer**: Collect logs, metrics, and events from all streaming components (see [Streaming Audit Logs](/glossary/streaming-audit-logs))
-2. **Processing Pipeline**: Real-time correlation and enrichment of security events using [stream processing](/glossary/what-is-apache-flink-stateful-stream-processing)
+1. **Data Ingestion Layer**: Collect logs, metrics, and events from all streaming components (see [Streaming Audit Logs](https://conduktor.io/glossary/streaming-audit-logs))
+2. **Processing Pipeline**: Real-time correlation and enrichment of security events using [stream processing](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing)
 3. **Detection Engine**: Apply rules, statistical models, and ML algorithms
 4. **Alerting System**: Route alerts based on severity and type
 5. **Response Orchestration**: Automate containment and remediation actions

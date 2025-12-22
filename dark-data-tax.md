@@ -97,9 +97,9 @@ The goal is not to minimize all data collection, but to ensure that every datase
 
 ## Related Concepts
 
-- [Apache Kafka](/glossary/apache-kafka) - Streaming platforms where dark data tax often manifests through unused topics and consumer groups
-- [Data Obesity](/glossary/data-obesity) - The related problem of excessive data volume impacting system performance
-- [Streaming Total Cost of Ownership](/glossary/streaming-total-cost-of-ownership) - Understanding the full economic burden of streaming infrastructure including dark data
+- [Apache Kafka](https://conduktor.io/glossary/apache-kafka) - Streaming platforms where dark data tax often manifests through unused topics and consumer groups
+- [Data Obesity](https://conduktor.io/glossary/data-obesity) - The related problem of excessive data volume impacting system performance
+- [Streaming Total Cost of Ownership](https://conduktor.io/glossary/streaming-total-cost-of-ownership) - Understanding the full economic burden of streaming infrastructure including dark data
 
 ## Sources and References
 

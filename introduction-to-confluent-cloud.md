@@ -135,9 +135,9 @@ Both approaches can deliver production-grade streaming platforms - Confluent Clo
 
 ## Related Concepts
 
-- [Apache Kafka](/glossary/apache-kafka) - The foundational open-source platform that Confluent Cloud is built on
-- [Kafka Capacity Planning](/glossary/kafka-capacity-planning) - Critical for right-sizing both cloud and self-managed deployments
-- [Streaming Total Cost of Ownership](/glossary/streaming-total-cost-of-ownership) - Analyzing the full economic impact of managed vs. self-hosted Kafka
+- [Apache Kafka](https://conduktor.io/glossary/apache-kafka) - The foundational open-source platform that Confluent Cloud is built on
+- [Kafka Capacity Planning](https://conduktor.io/glossary/kafka-capacity-planning) - Critical for right-sizing both cloud and self-managed deployments
+- [Streaming Total Cost of Ownership](https://conduktor.io/glossary/streaming-total-cost-of-ownership) - Analyzing the full economic impact of managed vs. self-hosted Kafka
 
 ## Sources and References
 

@@ -21,13 +21,13 @@ A streaming policy is an automated rule that evaluates, transforms, or routes ev
 
 **Core policy categories include:**
 
-**Validation policies** verify that events meet structural and semantic requirements. [Schema validation](/glossary/schema-registry-and-schema-management) ensures messages conform to expected formats. [Data quality rules](/glossary/building-a-data-quality-framework) check for null values, invalid ranges, or malformed data. Format enforcement verifies dates, emails, phone numbers, and other typed fields follow conventions.
+**Validation policies** verify that events meet structural and semantic requirements. [Schema validation](https://conduktor.io/glossary/schema-registry-and-schema-management) ensures messages conform to expected formats. [Data quality rules](https://conduktor.io/glossary/building-a-data-quality-framework) check for null values, invalid ranges, or malformed data. Format enforcement verifies dates, emails, phone numbers, and other typed fields follow conventions.
 
-**Transformation policies** modify events to meet standards or protect sensitive data. [Field masking](/glossary/data-masking-and-anonymization-for-streaming) obscures [personally identifiable information](/glossary/pii-detection-and-handling-in-event-streams). Standardization rules convert values to canonical formats. Enrichment policies add context or metadata to events as they flow through the system.
+**Transformation policies** modify events to meet standards or protect sensitive data. [Field masking](https://conduktor.io/glossary/data-masking-and-anonymization-for-streaming) obscures [personally identifiable information](https://conduktor.io/glossary/pii-detection-and-handling-in-event-streams). Standardization rules convert values to canonical formats. Enrichment policies add context or metadata to events as they flow through the system.
 
-**Routing policies** determine where events should go based on their content or metadata. Topic routing directs messages to different destinations based on classification. Filtering policies prevent certain events from reaching specific consumers. [Rate limiting](/glossary/quotas-and-rate-limiting-in-kafka) controls how many events flow to particular endpoints.
+**Routing policies** determine where events should go based on their content or metadata. Topic routing directs messages to different destinations based on classification. Filtering policies prevent certain events from reaching specific consumers. [Rate limiting](https://conduktor.io/glossary/quotas-and-rate-limiting-in-kafka) controls how many events flow to particular endpoints.
 
-**Security policies** protect data and enforce [access controls](/glossary/access-control-for-streaming). Encryption policies ensure sensitive data is encrypted in transit or at rest. Authentication rules verify producer and consumer identities. Authorization policies control which services can access specific data streams.
+**Security policies** protect data and enforce [access controls](https://conduktor.io/glossary/access-control-for-streaming). Encryption policies ensure sensitive data is encrypted in transit or at rest. Authentication rules verify producer and consumer identities. Authorization policies control which services can access specific data streams.
 
 ## Policy Enforcement Points
 
@@ -162,19 +162,19 @@ Gateways enable:
 - **Audit logging** of all data access patterns
 - **Multi-tenancy isolation** with quota enforcement per team
 
-This proxy-based architecture is particularly valuable in 2025 as organizations implement [data mesh patterns](/glossary/data-mesh-principles-and-implementation) where multiple teams produce and consume data independently but must comply with organization-wide governance policies.
+This proxy-based architecture is particularly valuable in 2025 as organizations implement [data mesh patterns](https://conduktor.io/glossary/data-mesh-principles-and-implementation) where multiple teams produce and consume data independently but must comply with organization-wide governance policies.
 
 ## Schema Governance Policies
 
 Schema policies maintain structural integrity across the streaming platform.
 
-**Compatibility rules** prevent breaking changes. Backward compatibility ensures new schemas can read old data—critical when consumers haven't upgraded yet. Forward compatibility ensures old schemas can read new data—important when producers deploy first. Full compatibility requires both, while transitive variants extend compatibility across all historical versions. See [schema evolution best practices](/glossary/schema-evolution-best-practices) for detailed guidance.
+**Compatibility rules** prevent breaking changes. Backward compatibility ensures new schemas can read old data—critical when consumers haven't upgraded yet. Forward compatibility ensures old schemas can read new data—important when producers deploy first. Full compatibility requires both, while transitive variants extend compatibility across all historical versions. See [schema evolution best practices](https://conduktor.io/glossary/schema-evolution-best-practices) for detailed guidance.
 
-**Required fields** ensure critical data is always present. Marking fields as required in [Avro, Protobuf, or JSON Schema](/glossary/avro-vs-protobuf-vs-json-schema) prevents producers from omitting essential information.
+**Required fields** ensure critical data is always present. Marking fields as required in [Avro, Protobuf, or JSON Schema](https://conduktor.io/glossary/avro-vs-protobuf-vs-json-schema) prevents producers from omitting essential information.
 
 **Naming conventions** standardize field names, avoiding confusion. Policies can enforce camelCase or snake_case, prevent abbreviations, or require specific prefixes for certain field types.
 
-**Documentation requirements** can mandate descriptions for schemas and fields, improving discoverability and understanding across teams. These documentation policies are essential components of [data contracts](/glossary/data-contracts-for-reliable-pipelines) between producers and consumers.
+**Documentation requirements** can mandate descriptions for schemas and fields, improving discoverability and understanding across teams. These documentation policies are essential components of [data contracts](https://conduktor.io/glossary/data-contracts-for-reliable-pipelines) between producers and consumers.
 
 ## Security and Privacy Policies
 
@@ -188,7 +188,7 @@ Security policies protect sensitive data as it flows through streaming systems.
 
 **Access control policies** define who can produce to or consume from topics. Combined with authentication and authorization mechanisms like SASL (Simple Authentication and Security Layer) and ACLs (Access Control Lists), these policies enforce principle of least privilege, ensuring services access only the data they need.
 
-**Audit logging** records all policy decisions, creating compliance trails. Logs capture what policies were evaluated, whether events passed or failed, and what actions were taken. See [audit logging for streaming platforms](/glossary/audit-logging-for-streaming-platforms) for implementation patterns.
+**Audit logging** records all policy decisions, creating compliance trails. Logs capture what policies were evaluated, whether events passed or failed, and what actions were taken. See [audit logging for streaming platforms](https://conduktor.io/glossary/audit-logging-for-streaming-platforms) for implementation patterns.
 
 ## Operational Policies
 
@@ -236,7 +236,7 @@ test_payment_topic_access {
 - **Compliance dashboards** visualize policy coverage across topics and consumer groups
 - **Audit trails** provide forensic analysis of who accessed what data and which policies were applied
 
-**Governance platforms** like **Conduktor** provide centralized policy management across Kafka environments, allowing teams to define data quality rules, security policies, and operational controls through unified interfaces that automatically enforce them across the streaming infrastructure. These platforms combine policy definition, deployment, testing, and monitoring in a single workflow, ensuring consistency and simplifying auditing for regulatory requirements. Integration with [data governance frameworks](/glossary/data-governance-framework-roles-and-responsibilities) ensures alignment with organizational policies and responsibilities.
+**Governance platforms** like **Conduktor** provide centralized policy management across Kafka environments, allowing teams to define data quality rules, security policies, and operational controls through unified interfaces that automatically enforce them across the streaming infrastructure. These platforms combine policy definition, deployment, testing, and monitoring in a single workflow, ensuring consistency and simplifying auditing for regulatory requirements. Integration with [data governance frameworks](https://conduktor.io/glossary/data-governance-framework-roles-and-responsibilities) ensures alignment with organizational policies and responsibilities.
 
 **Compliance reporting** generates documentation showing policy enforcement status. Automated reports demonstrate that data handling meets regulatory requirements like GDPR (General Data Protection Regulation), HIPAA (Health Insurance Portability and Accountability Act), or SOX (Sarbanes-Oxley). Violation tracking identifies patterns requiring attention.
 

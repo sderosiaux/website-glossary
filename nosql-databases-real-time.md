@@ -11,9 +11,9 @@ topics:
 
 ## Introduction: NoSQL in the Streaming Era
 
-Modern streaming applications generate continuous, high-velocity data that traditional relational databases struggle to handle efficiently. NoSQL databases emerged to address these challenges, offering flexible schemas, horizontal scalability, and optimized write performance that align perfectly with [streaming workloads](/glossary/what-is-real-time-data-streaming).
+Modern streaming applications generate continuous, high-velocity data that traditional relational databases struggle to handle efficiently. NoSQL databases emerged to address these challenges, offering flexible schemas, horizontal scalability, and optimized write performance that align perfectly with [streaming workloads](https://conduktor.io/glossary/what-is-real-time-data-streaming).
 
-When [Apache Kafka](/glossary/apache-kafka) or other streaming platforms deliver thousands of events per second, the downstream database must absorb this volume without bottlenecks while maintaining low-latency access for real-time applications. NoSQL databases excel in this role, providing the throughput and flexibility that [streaming architectures](/glossary/streaming-data-pipeline) demand.
+When [Apache Kafka](https://conduktor.io/glossary/apache-kafka) or other streaming platforms deliver thousands of events per second, the downstream database must absorb this volume without bottlenecks while maintaining low-latency access for real-time applications. NoSQL databases excel in this role, providing the throughput and flexibility that [streaming architectures](https://conduktor.io/glossary/streaming-data-pipeline) demand.
 
 ## NoSQL Database Categories
 
@@ -57,13 +57,13 @@ NoSQL databases designed for streaming workloads share several critical characte
 
 ### MongoDB + Kafka: Change Streams and Connectors
 
-MongoDB's change streams feature transforms the database into an event source. Applications can subscribe to real-time notifications of inserts, updates, and deletes. Combined with [Kafka Connect](/glossary/kafka-connect-building-data-integration-pipelines)'s MongoDB source connector, you can:
+MongoDB's change streams feature transforms the database into an event source. Applications can subscribe to real-time notifications of inserts, updates, and deletes. Combined with [Kafka Connect](https://conduktor.io/glossary/kafka-connect-building-data-integration-pipelines)'s MongoDB source connector, you can:
 
 - Stream database changes into Kafka topics for downstream processing
-- Build [event-driven architectures](/glossary/event-driven-architecture) where database modifications trigger workflows
-- Implement [CDC (Change Data Capture)](/glossary/what-is-change-data-capture-cdc-fundamentals) patterns—capturing every modification to database records as events—for data synchronization across systems
+- Build [event-driven architectures](https://conduktor.io/glossary/event-driven-architecture) where database modifications trigger workflows
+- Implement [CDC (Change Data Capture)](https://conduktor.io/glossary/what-is-change-data-capture-cdc-fundamentals) patterns—capturing every modification to database records as events—for data synchronization across systems
 
-The MongoDB sink connector allows Kafka to write directly to MongoDB collections, handling [schema evolution](/glossary/schema-evolution-best-practices) and automatic retries. This bidirectional integration creates powerful data pipelines where MongoDB serves both as a streaming destination and source.
+The MongoDB sink connector allows Kafka to write directly to MongoDB collections, handling [schema evolution](https://conduktor.io/glossary/schema-evolution-best-practices) and automatic retries. This bidirectional integration creates powerful data pipelines where MongoDB serves both as a streaming destination and source.
 
 ```javascript
 // MongoDB Kafka Sink Connector Configuration
@@ -150,7 +150,7 @@ LIMIT 100;
 
 **Event Logging**: Application logs flow through Kafka into Cassandra's wide-column structure, where they're organized by service, timestamp, and severity. The write-optimized storage handles massive volumes while supporting operational queries.
 
-**Materialized Views**: Stream processors like [Kafka Streams](/glossary/introduction-to-kafka-streams), [Apache Flink](/glossary/what-is-apache-flink-stateful-stream-processing), or [ksqlDB](/glossary/ksqldb-for-real-time-data-processing) consume events, compute aggregations, and write results to Cassandra. The database serves these precomputed views with low latency.
+**Materialized Views**: Stream processors like [Kafka Streams](https://conduktor.io/glossary/introduction-to-kafka-streams), [Apache Flink](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing), or [ksqlDB](https://conduktor.io/glossary/ksqldb-for-real-time-data-processing) consume events, compute aggregations, and write results to Cassandra. The database serves these precomputed views with low latency.
 
 ```sql
 -- ksqlDB Materialized View to Cassandra (2025 Pattern)
@@ -265,13 +265,13 @@ DynamoDB's pay-per-request pricing and automatic scaling make it attractive for 
 
 ## Real-Time Use Cases
 
-**IoT Telemetry Ingestion**: [Connected devices](/glossary/iot-data-streaming-architectures) generate continuous sensor readings. A typical architecture uses Kafka to buffer and partition data by device type, then writes to Cassandra for long-term storage and Redis for real-time thresholds and alerts.
+**IoT Telemetry Ingestion**: [Connected devices](https://conduktor.io/glossary/iot-data-streaming-architectures) generate continuous sensor readings. A typical architecture uses Kafka to buffer and partition data by device type, then writes to Cassandra for long-term storage and Redis for real-time thresholds and alerts.
 
-**User Activity Tracking**: Web and mobile applications emit [clickstream events](/glossary/clickstream-analytics-with-kafka) through Kafka. Stream processors compute [session boundaries](/glossary/session-windows-in-stream-processing), user journeys, and conversion funnels, storing results in MongoDB for flexible querying by product teams.
+**User Activity Tracking**: Web and mobile applications emit [clickstream events](https://conduktor.io/glossary/clickstream-analytics-with-kafka) through Kafka. Stream processors compute [session boundaries](https://conduktor.io/glossary/session-windows-in-stream-processing), user journeys, and conversion funnels, storing results in MongoDB for flexible querying by product teams.
 
 **Session Management**: Authentication services write session tokens to Kafka topics. A consumer updates Redis with session metadata, enabling sub-millisecond session validation across distributed services.
 
-**Event Sourcing**: Applications store all state changes as immutable events in Kafka. Consumers rebuild current state in NoSQL databases (often MongoDB or Cassandra), enabling temporal queries and audit trails. Learn more about [event sourcing patterns](/glossary/event-sourcing-patterns-with-kafka) and the [CQRS pattern](/glossary/cqrs-and-event-sourcing-with-kafka).
+**Event Sourcing**: Applications store all state changes as immutable events in Kafka. Consumers rebuild current state in NoSQL databases (often MongoDB or Cassandra), enabling temporal queries and audit trails. Learn more about [event sourcing patterns](https://conduktor.io/glossary/event-sourcing-patterns-with-kafka) and the [CQRS pattern](https://conduktor.io/glossary/cqrs-and-event-sourcing-with-kafka).
 
 ## Consistency and Query Patterns
 
@@ -315,7 +315,7 @@ AND timestamp > '2025-12-01'
 USING CONSISTENCY LOCAL_QUORUM;
 ```
 
-**Query Optimization**: Design your data model around query patterns. For time-series data in Cassandra, use time-based clustering keys. In MongoDB, create indexes on frequently filtered fields like timestamp, user_id, or device_id. Avoid full table scans by leveraging partition keys that align with your [Kafka topic partitioning strategy](/glossary/kafka-partitioning-strategies-and-best-practices).
+**Query Optimization**: Design your data model around query patterns. For time-series data in Cassandra, use time-based clustering keys. In MongoDB, create indexes on frequently filtered fields like timestamp, user_id, or device_id. Avoid full table scans by leveraging partition keys that align with your [Kafka topic partitioning strategy](https://conduktor.io/glossary/kafka-partitioning-strategies-and-best-practices).
 
 **Time-Series Considerations**: Many streaming use cases involve time-series data. Use TTL (time-to-live) features to automatically expire old data. Partition tables by time windows (hourly, daily) to isolate queries and simplify data retention policies.
 
@@ -336,7 +336,7 @@ Monitoring NoSQL databases in streaming architectures requires visibility across
 **Write Performance Metrics**:
 - **Write latency percentiles** (p50, p95, p99): Track end-to-end time from Kafka consumption to database write acknowledgment
 - **Write throughput**: Measure events/second ingested, watching for degradation that indicates capacity issues
-- **Connector lag**: For Kafka Connect deployments, [monitor consumer group lag](/glossary/consumer-lag-monitoring) to detect ingestion delays
+- **Connector lag**: For Kafka Connect deployments, [monitor consumer group lag](https://conduktor.io/glossary/consumer-lag-monitoring) to detect ingestion delays
 - **Batch sizes**: Track the average number of events per batch write—too small hurts throughput, too large increases latency
 
 **Read Performance Metrics**:
@@ -400,11 +400,11 @@ for message in consumer:
 
 **❌ Undersized Connection Pools**: Kafka Connect workers or stream processors with insufficient database connections create queueing and timeouts. Size pools based on concurrency (worker count × max tasks per worker).
 
-**❌ Ignoring Schema Evolution**: Writing evolving JSON events to document stores without schema validation leads to data quality issues. Use [Schema Registry](/glossary/schema-registry-and-schema-management) with JSON Schema or Avro to enforce contracts, even with schemaless databases. Implementing [data contracts](/glossary/data-contracts-for-reliable-pipelines) prevents downstream breakage.
+**❌ Ignoring Schema Evolution**: Writing evolving JSON events to document stores without schema validation leads to data quality issues. Use [Schema Registry](https://conduktor.io/glossary/schema-registry-and-schema-management) with JSON Schema or Avro to enforce contracts, even with schemaless databases. Implementing [data contracts](https://conduktor.io/glossary/data-contracts-for-reliable-pipelines) prevents downstream breakage.
 
-**❌ Lack of Monitoring and Observability**: Operating NoSQL-Kafka pipelines without comprehensive [observability](/glossary/what-is-data-observability-the-five-pillars) leads to blind spots during incidents. Implement [distributed tracing](/glossary/distributed-tracing-for-kafka-applications) and metrics collection from the start.
+**❌ Lack of Monitoring and Observability**: Operating NoSQL-Kafka pipelines without comprehensive [observability](https://conduktor.io/glossary/what-is-data-observability-the-five-pillars) leads to blind spots during incidents. Implement [distributed tracing](https://conduktor.io/glossary/distributed-tracing-for-kafka-applications) and metrics collection from the start.
 
-**❌ Ignoring Backpressure**: When databases can't keep up with stream velocity, unconsumed events accumulate in Kafka, eventually exhausting disk space or causing OOM errors. Implement [backpressure handling](/glossary/backpressure-handling-in-streaming-systems) and autoscaling policies.
+**❌ Ignoring Backpressure**: When databases can't keep up with stream velocity, unconsumed events accumulate in Kafka, eventually exhausting disk space or causing OOM errors. Implement [backpressure handling](https://conduktor.io/glossary/backpressure-handling-in-streaming-systems) and autoscaling policies.
 
 ## Conclusion
 
@@ -412,15 +412,15 @@ NoSQL databases and streaming platforms form a powerful combination for modern d
 
 Choose document stores for flexible event schemas, key-value stores for caching and session management, wide-column stores for time-series data, and graph databases for relationship-heavy workloads. Design your partitioning strategies to align with your stream topology, tune consistency levels based on your requirements, and leverage specialized tools to govern your data pipelines.
 
-For complementary storage solutions, explore [NewSQL databases](/glossary/newsql-databases-streaming) for distributed SQL with strong consistency, or consider [lakehouse architectures](/glossary/streaming-to-lakehouse-tables) with Delta Lake, Iceberg, or Hudi for analytical workloads requiring historical queryability alongside real-time ingestion.
+For complementary storage solutions, explore [NewSQL databases](https://conduktor.io/glossary/newsql-databases-streaming) for distributed SQL with strong consistency, or consider [lakehouse architectures](https://conduktor.io/glossary/streaming-to-lakehouse-tables) with Delta Lake, Iceberg, or Hudi for analytical workloads requiring historical queryability alongside real-time ingestion.
 
 The landscape continues to evolve with managed services, serverless options, and tighter integrations, but the fundamental principles remain: optimize for your write patterns, query what you need efficiently, and scale horizontally as your streams grow.
 
 ## Related Concepts
 
-- [Apache Kafka](/glossary/apache-kafka) - The streaming platform at the heart of most NoSQL integration patterns
-- [NewSQL Databases: Distributed SQL for Real-Time Applications](/glossary/newsql-databases-streaming) - Alternative database approach combining ACID guarantees with horizontal scalability
-- [Data Governance Framework: Roles and Responsibilities](/glossary/data-governance-framework-roles-and-responsibilities) - Essential for managing data quality across NoSQL-Kafka pipelines
+- [Apache Kafka](https://conduktor.io/glossary/apache-kafka) - The streaming platform at the heart of most NoSQL integration patterns
+- [NewSQL Databases: Distributed SQL for Real-Time Applications](https://conduktor.io/glossary/newsql-databases-streaming) - Alternative database approach combining ACID guarantees with horizontal scalability
+- [Data Governance Framework: Roles and Responsibilities](https://conduktor.io/glossary/data-governance-framework-roles-and-responsibilities) - Essential for managing data quality across NoSQL-Kafka pipelines
 
 ## Sources and References
 

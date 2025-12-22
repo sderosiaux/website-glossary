@@ -6,19 +6,29 @@ import { join, basename } from "path";
 const BASE_URL = "https://conduktor.io/glossary";
 
 // Match markdown links to local .md files: [text](./slug.md) or [text](slug.md)
-const LOCAL_LINK_REGEX = /\[([^\]]+)\]\(\.?\/?([a-z0-9-]+)\.md\)/g;
+const LOCAL_MD_REGEX = /\[([^\]]+)\]\(\.?\/?([a-z0-9-]+)\.md\)/g;
+
+// Match markdown links with relative /glossary/ paths: [text](/glossary/slug)
+const RELATIVE_GLOSSARY_REGEX = /\[([^\]]+)\]\(\/glossary\/([a-z0-9-]+)\)/g;
 
 function convertLinks(filePath: string): number {
-  const content = readFileSync(filePath, "utf-8");
+  let content = readFileSync(filePath, "utf-8");
   let convertedCount = 0;
 
-  const newContent = content.replace(LOCAL_LINK_REGEX, (match, text, slug) => {
+  // Convert local .md links
+  content = content.replace(LOCAL_MD_REGEX, (match, text, slug) => {
+    convertedCount++;
+    return `[${text}](${BASE_URL}/${slug})`;
+  });
+
+  // Convert relative /glossary/ links
+  content = content.replace(RELATIVE_GLOSSARY_REGEX, (match, text, slug) => {
     convertedCount++;
     return `[${text}](${BASE_URL}/${slug})`;
   });
 
   if (convertedCount > 0) {
-    writeFileSync(filePath, newContent);
+    writeFileSync(filePath, content);
     console.log(`  Converted ${convertedCount} link(s) in ${filePath}`);
   }
 
@@ -61,13 +71,16 @@ function main() {
   for (const file of files) {
     if (dryRun) {
       const content = readFileSync(file, "utf-8");
-      const matches = [...content.matchAll(LOCAL_LINK_REGEX)];
-      if (matches.length > 0) {
-        console.log(`Would convert ${matches.length} link(s) in ${file}:`);
-        for (const match of matches) {
+      const mdMatches = [...content.matchAll(LOCAL_MD_REGEX)];
+      const glossaryMatches = [...content.matchAll(RELATIVE_GLOSSARY_REGEX)];
+      const allMatches = [...mdMatches, ...glossaryMatches];
+
+      if (allMatches.length > 0) {
+        console.log(`Would convert ${allMatches.length} link(s) in ${file}:`);
+        for (const match of allMatches) {
           console.log(`  ${match[0]} -> [${match[1]}](${BASE_URL}/${match[2]})`);
         }
-        totalConverted += matches.length;
+        totalConverted += allMatches.length;
       }
     } else {
       totalConverted += convertLinks(file);

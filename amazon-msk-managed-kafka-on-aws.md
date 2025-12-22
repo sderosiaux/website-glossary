@@ -177,9 +177,9 @@ For AWS-centric organizations wanting Kafka's capabilities without operational o
 
 ## Related Concepts
 
-- [Apache Kafka](/glossary/apache-kafka) - The open-source streaming platform that MSK is built on
-- [Kafka Capacity Planning](/glossary/kafka-capacity-planning) - Essential for right-sizing MSK clusters and controlling costs
-- [Streaming Total Cost of Ownership](/glossary/streaming-total-cost-of-ownership) - Understanding the full economic impact of managed Kafka services
+- [Apache Kafka](https://conduktor.io/glossary/apache-kafka) - The open-source streaming platform that MSK is built on
+- [Kafka Capacity Planning](https://conduktor.io/glossary/kafka-capacity-planning) - Essential for right-sizing MSK clusters and controlling costs
+- [Streaming Total Cost of Ownership](https://conduktor.io/glossary/streaming-total-cost-of-ownership) - Understanding the full economic impact of managed Kafka services
 
 ## Sources and References
 

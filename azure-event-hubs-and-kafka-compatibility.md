@@ -108,9 +108,9 @@ The decision to adopt Event Hubs should balance protocol compatibility benefits 
 
 ## Related Concepts
 
-- [Apache Kafka](/glossary/apache-kafka) - The streaming platform that Event Hubs provides compatibility with
-- [Introduction to Confluent Cloud](/glossary/introduction-to-confluent-cloud) - Alternative managed Kafka service for multi-cloud deployments
-- [Streaming Total Cost of Ownership](/glossary/streaming-total-cost-of-ownership) - Comparing the economics of managed streaming platforms
+- [Apache Kafka](https://conduktor.io/glossary/apache-kafka) - The streaming platform that Event Hubs provides compatibility with
+- [Introduction to Confluent Cloud](https://conduktor.io/glossary/introduction-to-confluent-cloud) - Alternative managed Kafka service for multi-cloud deployments
+- [Streaming Total Cost of Ownership](https://conduktor.io/glossary/streaming-total-cost-of-ownership) - Comparing the economics of managed streaming platforms
 
 ## Sources and References
 
