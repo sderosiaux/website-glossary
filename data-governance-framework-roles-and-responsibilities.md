@@ -116,7 +116,7 @@ Data Custodians are technical professionals responsible for the physical managem
 - Apply security patches and updates
 - Execute data retention and deletion procedures
 
-For streaming platforms, Data Custodians configure authentication and authorization for Kafka clusters (running on Kafka 4.0+ with KRaft mode for simplified operations), implement encryption in transit and at rest, and manage disaster recovery procedures. Modern governance platforms enable Data Custodians to implement fine-grained access controls and comprehensive audit logging (see [Audit Logging for Streaming Platforms](https://conduktor.io/glossary/audit-logging-for-streaming-platforms)) without extensive custom development. For security implementation details, see [Kafka ACLs and Authorization Patterns](https://conduktor.io/glossary/kafka-acls-and-authorization-patterns).
+For streaming platforms, Data Custodians configure authentication and authorization for Kafka clusters (running on Kafka 4.0+ with KRaft mode for simplified operations), implement encryption in transit and at rest, and manage disaster recovery procedures. Modern governance platforms like Conduktor enable Data Custodians to implement fine-grained access controls through intuitive interfaces (see [Conduktor RBAC setup](https://docs.conduktor.io/guide/conduktor-in-production/admin/set-up-rbac)) and comprehensive audit logging (see [Audit Logging for Streaming Platforms](https://conduktor.io/glossary/audit-logging-for-streaming-platforms)) without extensive custom development. For security implementation details, see [Kafka ACLs and Authorization Patterns](https://conduktor.io/glossary/kafka-acls-and-authorization-patterns).
 
 ### Compliance Officers
 

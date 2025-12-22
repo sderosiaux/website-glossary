@@ -245,7 +245,7 @@ This hybrid model gives engineers broad access to development and staging enviro
 
 **Related Access Control Concerns:**
 
-- For audit trails of who accessed what, see [Audit Logging for Streaming Platforms](https://conduktor.io/glossary/audit-logging-for-streaming-platforms)
+- For audit trails of who accessed what, see [Audit Logging for Streaming Platforms](https://conduktor.io/glossary/audit-logging-for-streaming-platforms) and [Conduktor's audit logs](https://docs.conduktor.io/guide/conduktor-in-production/admin/audit-logs)
 - For protecting sensitive data within allowed topics, see [Data Masking and Anonymization for Streaming](https://conduktor.io/glossary/data-masking-and-anonymization-for-streaming)
 - For detecting and preventing PII exposure, see [PII Detection and Handling in Event Streams](https://conduktor.io/glossary/pii-detection-and-handling-in-event-streams)
 - For encryption alongside access control, see [Encryption at Rest and in Transit for Kafka](https://conduktor.io/glossary/encryption-at-rest-and-in-transit-for-kafka)

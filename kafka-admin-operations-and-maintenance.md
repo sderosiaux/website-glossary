@@ -81,7 +81,7 @@ rules:
 
 For example, an alert for under-replicated partitions exceeding zero for more than five minutes should trigger immediate investigation, as this indicates potential data loss risk if the leader broker fails.
 
-**Commercial platforms:** [Conduktor](https://www.conduktor.io) provides unified dashboards that aggregate cluster health metrics, topic statistics, and consumer lag in a single interface, reducing the complexity of monitoring distributed systems. Conduktor includes built-in alerting, governance, and operational features beyond basic monitoring.
+**Commercial platforms:** [Conduktor](https://www.conduktor.io) provides unified dashboards that aggregate cluster health metrics, topic statistics, and consumer lag in a single interface, reducing the complexity of monitoring distributed systems. Conduktor includes built-in [alerting](https://docs.conduktor.io/guide/monitor-brokers-apps/alerts), governance, and operational features beyond basic monitoring. [Explore Conduktor's monitoring capabilities](https://docs.conduktor.io/guide/monitor-brokers-apps/index) for comprehensive cluster observability.
 
 For comprehensive coverage of Kafka monitoring architecture and best practices, see [Kafka Cluster Monitoring and Metrics](https://conduktor.io/glossary/kafka-cluster-monitoring-and-metrics).
 

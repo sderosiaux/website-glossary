@@ -273,7 +273,7 @@ As Flink applications scale across multiple Kafka topics and processing stages, 
 **Kafka Ecosystem Governance:**
 - **Data lineage tracking**: Understanding how data flows through Flink jobs and Kafka topics (see [Data Lineage Tracking](https://conduktor.io/glossary/data-lineage-tracking-data-from-source-to-consumption))
 - **Schema management**: Ensuring compatibility across producers and consumers
-- **Topic monitoring**: Observing throughput, lag, and consumer group health using tools like Conduktor for comprehensive Kafka governance, monitoring, and data quality validation
+- **Topic monitoring**: Observing throughput, lag, and consumer group health using tools like Conduktor for comprehensive Kafka governance, monitoring, and data quality validation. [Manage Kafka topics](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/topics) and [monitor cluster health](https://docs.conduktor.io/guide/monitor-brokers-apps/index) in production environments
 - **Data quality gates**: Validating stream data quality before and after Flink processing (see [Building a Data Quality Framework](https://conduktor.io/glossary/building-a-data-quality-framework))
 
 This governance layer is essential for production environments where data teams need to understand dependencies, debug issues, and ensure compliance. For audit requirements, see [Audit Logging for Streaming Platforms](https://conduktor.io/glossary/audit-logging-for-streaming-platforms).

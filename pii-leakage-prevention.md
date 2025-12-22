@@ -309,7 +309,7 @@ Stream processing applications must detect PII in real-time as data flows throug
 
 **Conduktor Gateway and Platform**: Conduktor provides multiple layers of PII protection:
 
-- **Conduktor Gateway**: Acts as a proxy between applications and Kafka brokers, enforcing PII masking policies in real-time without modifying application code. Gateway can apply different masking rules based on consumer identity, enabling a single topic to serve multiple teams with different data access levels.
+- **Conduktor Gateway**: Acts as a proxy between applications and Kafka brokers, enforcing [PII masking policies](https://docs.conduktor.io/guide/conduktor-in-production/admin/data-mask) in real-time without modifying application code. Gateway can apply different masking rules based on consumer identity, enabling a single topic to serve multiple teams with different data access levels.
 
 - **Real-time Data Masking**: Define masking policies centrally that automatically apply to data streams:
 

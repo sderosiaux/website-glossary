@@ -252,7 +252,7 @@ This setup automatically handles inserts, updates, and deletes, maintaining only
 
 ### Governance and Visibility
 
-As streaming pipelines grow in complexity, governance becomes critical. **Conduktor** provides comprehensive visibility into Kafka topics, schemas, and data flows for production environments. When building Flink SQL applications that consume from or produce to Kafka, Conduktor allows teams to monitor topic throughput and consumer lag, validate schema compatibility with Schema Registry integration, enforce data quality policies, and track data lineage across streaming pipelines to complement Flink's processing capabilities.
+As streaming pipelines grow in complexity, governance becomes critical. **Conduktor** provides comprehensive visibility into Kafka topics, schemas, and data flows for production environments. When building Flink SQL applications that consume from or produce to Kafka, Conduktor allows teams to [monitor Kafka topics](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/topics) for throughput and consumer lag, [validate schema compatibility with Schema Registry](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/schema-registry), enforce data quality policies, and track data lineage across streaming pipelines to complement Flink's processing capabilities.
 
 ## 2025 Features: Unified Execution and Modern SQL
 

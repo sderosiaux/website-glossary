@@ -183,7 +183,7 @@ Set up alerts when lag exceeds acceptable thresholds. For time-sensitive applica
 
 Measure throughput in records per second and megabytes per second. Compare actual throughput against expected rates to detect bottlenecks or capacity issues.
 
-Use dedicated monitoring tools like **Conduktor** for comprehensive Kafka cluster visibility and consumer lag tracking, or open-source solutions like kafka-lag-exporter or Burrow combined with Prometheus and Grafana for custom monitoring dashboards.
+Use dedicated monitoring tools like **Conduktor** for comprehensive Kafka cluster visibility and consumer lag tracking with [Kafka Connect Management](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/kafka-connect), or open-source solutions like kafka-lag-exporter or Burrow combined with Prometheus and Grafana for custom monitoring dashboards.
 
 ### Data Quality Monitoring
 
@@ -346,7 +346,7 @@ Implement fine-grained access control on streaming ingestion pipelines and Lakeh
 
 Modern Lakehouse platforms support column-level security, row-level filtering, and dynamic data masking. For example, Unity Catalog and Apache Ranger provide attribute-based access control (ABAC) that adapts permissions based on user roles and data classification. For detailed access control strategies, see [Access Control for Streaming](https://conduktor.io/glossary/access-control-for-streaming).
 
-Platforms like **Conduktor** extend governance to the streaming layer, providing visibility, policy enforcement, and access control across Kafka clusters. By governing data at the source, you establish a foundation of quality and compliance that flows through to the Lakehouse. For audit considerations, refer to [Audit Logging for Streaming Platforms](https://conduktor.io/glossary/audit-logging-for-streaming-platforms).
+Platforms like **Conduktor** extend governance to the streaming layer, providing visibility, policy enforcement, and access control across Kafka clusters. Validate data quality before it reaches the lakehouse with [Data Quality Monitoring](https://docs.conduktor.io/guide/use-cases/observe-data-quality) and manage connectors with [Kafka Connect tools](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/kafka-connect). By governing data at the source, you establish a foundation of quality and compliance that flows through to the Lakehouse. For audit considerations, refer to [Audit Logging for Streaming Platforms](https://conduktor.io/glossary/audit-logging-for-streaming-platforms).
 
 ## Conclusion
 

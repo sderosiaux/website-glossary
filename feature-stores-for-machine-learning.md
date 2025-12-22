@@ -67,7 +67,7 @@ Streaming features are computed from live event streams rather than batch data. 
 
 **Kafka as the Backbone**: Kafka topics often serve as both the source of raw events and the transport layer for computed features. [Change Data Capture](/what-is-change-data-capture-cdc-fundamentals) (CDC) from databases flows through Kafka into feature stores, keeping features synchronized with operational systems.
 
-When implementing streaming feature pipelines, [data quality](/building-a-data-quality-framework) and [observability](/what-is-data-observability-the-five-pillars) become critical. Tools like Conduktor help teams monitor Kafka topics carrying feature data, validate schemas to prevent feature corruption, and track data quality metrics across streaming pipelines. This governance layer ensures the features flowing into production models meet quality standards and alerts teams to anomalies that could degrade model performance.
+When implementing streaming feature pipelines, [data quality](/building-a-data-quality-framework) and [observability](/what-is-data-observability-the-five-pillars) become critical. Tools like Conduktor help teams monitor [Kafka topics](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/topics) carrying feature data, validate [schemas](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/schema-registry) to prevent feature corruption, and track [data quality metrics](https://docs.conduktor.io/guide/use-cases/observe-data-quality) across streaming pipelines. This governance layer ensures the features flowing into production models meet quality standards and alerts teams to anomalies that could degrade model performance.
 
 ## Common Use Cases and Examples
 

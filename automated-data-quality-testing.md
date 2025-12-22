@@ -259,11 +259,11 @@ class StreamingQualityTester:
 Streaming management platforms provide visual monitoring and testing capabilities for Kafka streams:
 
 - **Monitor schema registry**: Track schema evolution and catch breaking changes. For details on schema management patterns, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management).
-- **Validate message format**: Configure validation rules for incoming data
+- **Validate message format**: Configure validation rules for incoming data. For implementing validation with Conduktor, see [Enforcing Data Quality](https://docs.conduktor.io/guide/use-cases/enforce-data-quality).
 - **Dead letter queue management**: Easily inspect and replay failed messages. For error handling patterns, see [Dead Letter Queues for Error Handling](https://conduktor.io/glossary/dead-letter-queues-for-error-handling).
 - **Data lineage tracking**: Understand how data flows through quality gates
 
-Set up quality gates to automatically route messages through validation topics, making it easy to visualize quality metrics and troubleshoot issues.
+Set up quality gates to automatically route messages through validation topics, making it easy to visualize quality metrics and troubleshoot issues. For observing data quality metrics, see [Observing Data Quality with Conduktor](https://docs.conduktor.io/guide/use-cases/observe-data-quality).
 
 ## Implementing a Testing Framework
 

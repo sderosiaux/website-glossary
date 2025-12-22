@@ -125,11 +125,11 @@ The data observability ecosystem has matured significantly, offering both open-s
 **Streaming Platform Management:**
 
 For organizations running Apache Kafka, **Conduktor** provides enterprise-grade observability specifically designed for streaming architectures. Conduktor automatically discovers and visualizes the complete Kafka topology—topics, connectors, stream processors, consumer groups—while providing:
-- Real-time monitoring of topic health, consumer lag, and throughput
+- Real-time monitoring of topic health, consumer lag, and throughput via the [monitoring dashboard](https://docs.conduktor.io/guide/monitor-brokers-apps/index)
 - Schema registry integration (Apicurio, Confluent SR) with compatibility testing
 - Visual lineage mapping across clusters and applications
-- Anomaly detection for volume and freshness issues
-- Centralized governance and alerting with role-based access control
+- Anomaly detection for volume and freshness issues through [risk analysis](https://docs.conduktor.io/guide/insights/risk-analysis)
+- Centralized governance and [alerting](https://docs.conduktor.io/guide/monitor-brokers-apps/alerts) with role-based access control
 - Testing capabilities through Conduktor Gateway for chaos engineering and validation
 
 By consolidating these observability pillars into a unified platform, data teams can shift from reactive firefighting to proactive data quality management.

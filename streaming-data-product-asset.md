@@ -124,7 +124,7 @@ Effective governance ensures streaming data products remain trustworthy and disc
 
 ### Catalogs and Discovery
 
-Centralized catalogs document available products, schemas, ownership, SLAs, consumers, and lineage showing upstream sources and downstream dependencies. For detailed coverage of data cataloging, see [What Is a Data Catalog: Modern Data Discovery](https://conduktor.io/glossary/what-is-a-data-catalog-modern-data-discovery). For lineage tracking, see [Data Lineage: Tracking Data from Source to Consumption](https://conduktor.io/glossary/data-lineage-tracking-data-from-source-to-consumption).
+Centralized catalogs document available products, schemas, ownership, SLAs, consumers, and lineage showing upstream sources and downstream dependencies. Conduktor provides a comprehensive data catalog for Kafka environments—learn more in the [Conduktor Data Products guide](https://docs.conduktor.io/guide/conduktor-concepts/data-products). For broader data cataloging concepts, see [What Is a Data Catalog: Modern Data Discovery](https://conduktor.io/glossary/what-is-a-data-catalog-modern-data-discovery). For lineage tracking, see [Data Lineage: Tracking Data from Source to Consumption](https://conduktor.io/glossary/data-lineage-tracking-data-from-source-to-consumption).
 
 ### Schema Evolution
 

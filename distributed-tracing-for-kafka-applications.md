@@ -435,9 +435,9 @@ Distributed tracing is most powerful when combined with other observability sign
 - **Logs:** Correlate log entries with trace IDs for detailed debugging
 - **Infrastructure Monitoring:** Connect application traces with Kafka broker metrics
 
-Platforms like Conduktor provide complementary observability features for Kafka infrastructure, including real-time monitoring of topics, consumer groups, and cluster health. While distributed tracing shows you the application-level flow of messages, tools like Conduktor give you visibility into the Kafka layer itself—partition assignments, replication status, and configuration.
+Platforms like Conduktor provide complementary observability features for Kafka infrastructure, including [real-time monitoring of topics, consumer groups, and cluster health](https://docs.conduktor.io/guide/monitor-brokers-apps/index). While distributed tracing shows you the application-level flow of messages, tools like Conduktor give you visibility into the Kafka layer itself—partition assignments, replication status, and configuration.
 
-Conduktor Gateway is particularly valuable for testing your distributed tracing implementation. It acts as a proxy layer where you can inject chaos scenarios (network latency, message loss, broker failures) to verify that your traces accurately capture failures and help you diagnose issues. This allows you to validate that:
+Conduktor Gateway is particularly valuable for testing your distributed tracing implementation. It acts as a proxy layer where you can [inject chaos scenarios](https://docs.conduktor.io/guide/use-cases/chaos-testing) (network latency, message loss, broker failures) to verify that your traces accurately capture failures and help you diagnose issues. This allows you to validate that:
 
 - Traces correctly identify message loss and where it occurred
 - Error spans are created when messages fail to produce or consume

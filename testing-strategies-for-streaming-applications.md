@@ -149,7 +149,7 @@ Dedicated testing platforms like Conduktor provide tools to generate realistic t
 
 Chaos engineering—deliberately injecting failures to validate system resilience—is crucial for streaming applications that must handle network partitions, broker failures, and unexpected load spikes. Traditional testing often misses how applications behave under real-world failure conditions.
 
-Modern tools like Conduktor Gateway enable proxy-based chaos testing for Kafka applications. As a transparent proxy sitting between applications and Kafka clusters, Gateway can inject faults without modifying application code:
+Modern tools like Conduktor Gateway enable proxy-based [chaos testing for Kafka applications](https://docs.conduktor.io/guide/use-cases/chaos-testing). As a transparent proxy sitting between applications and Kafka clusters, Gateway can inject faults without modifying application code:
 
 - **Network failures**: Simulate broker unreachability, network partitions, or high latency
 - **Message corruption**: Test schema validation and error handling

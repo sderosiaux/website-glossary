@@ -128,7 +128,7 @@ All three formats are commonly used with Apache Kafka and other streaming platfo
 
 **Real-world example**: A financial services company might use Protobuf for high-frequency trading data (millions of messages per second), Avro for analytical data lakes (frequent schema changes), and JSON Schema for configuration events (human readability for operations teams).
 
-Tools like Conduktor provide unified interfaces for working with all three formats. Developers can inspect messages, validate schemas, and test compatibility rules without writing custom deserialization code. This is particularly valuable in environments where different teams choose different formats for different use cases.
+Tools like Conduktor provide unified interfaces for working with all three formats. Developers can inspect messages, validate schemas, and test compatibility rules without writing custom deserialization code. This is particularly valuable in environments where different teams choose different formats for different use cases. For managing schemas across these formats, see [Conduktor's Schema Registry Management](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/schema-registry).
 
 ## Schema Evolution and Compatibility
 

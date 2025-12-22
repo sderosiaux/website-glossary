@@ -155,7 +155,7 @@ ssl.enabled.protocols=TLSv1.3
 
 ### Simplified Management with Conduktor
 
-Platforms like Conduktor simplify the process of connecting to SSL-enabled clusters by handling certificate configuration and validation through their interfaces, reducing the complexity of managing connection credentials across team members. Conduktor provides:
+Platforms like Conduktor simplify the process of connecting to SSL-enabled clusters by handling certificate configuration and validation through their interfaces. Learn how to [encrypt Kafka with Conduktor](https://docs.conduktor.io/guide/use-cases/encrypt-kafka). Conduktor provides:
 
 - Visual certificate upload and validation
 - Automatic hostname verification

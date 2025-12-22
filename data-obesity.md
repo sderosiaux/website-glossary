@@ -257,7 +257,7 @@ Governance platforms can:
 - Generate reports showing each team's infrastructure footprint
 - Trigger alerts when teams exceed allocated budgets
 
-This economic feedback loop encourages teams to question whether they truly need to stream every field, keep every event, or maintain indefinite retention.
+This economic feedback loop encourages teams to question whether they truly need to stream every field, keep every event, or maintain indefinite retention. For implementing chargeback mechanisms that make data obesity costs visible to producing teams, see [Conduktor's chargeback documentation](https://docs.conduktor.io/guide/conduktor-concepts/chargeback).
 
 **FinOps for Streaming (2025 Best Practices):**
 Modern organizations apply FinOps principles to streaming infrastructure:
@@ -266,7 +266,7 @@ Modern organizations apply FinOps principles to streaming infrastructure:
 - **Right-sizing recommendations**: ML-driven analysis suggesting optimal partition counts, retention periods, and compression settings
 - **Cross-AZ transfer optimization**: Identifying and minimizing expensive cross-availability-zone traffic
 
-Data obesity directly correlates with "dark data tax"—the hidden costs of maintaining unused or low-value data. For more on this economic challenge, see [Dark Data Tax](https://conduktor.io/glossary/dark-data-tax) and [Streaming Total Cost of Ownership](https://conduktor.io/glossary/streaming-total-cost-of-ownership).
+Data obesity directly correlates with "dark data tax"—the hidden costs of maintaining unused or low-value data. To identify topics consuming disproportionate resources, use [VIP Topics insights](https://docs.conduktor.io/guide/insights/vip-topics) which highlight high-cost, high-volume topics requiring optimization attention. For more on this economic challenge, see [Dark Data Tax](https://conduktor.io/glossary/dark-data-tax) and [Streaming Total Cost of Ownership](https://conduktor.io/glossary/streaming-total-cost-of-ownership).
 
 ## Summary: Building Sustainable Data Infrastructure
 

@@ -123,7 +123,7 @@ As streaming systems grow in complexity, observability becomes essential for und
 
 As streaming infrastructure grows, governance becomes critical. Organizations need visibility into what data flows through their systems, who has access, and whether sensitive information is handled correctly.
 
-This is where platforms like Conduktor help. Managing hundreds of topics, thousands of schemas, and complex access control policies across streaming infrastructure requires specialized tooling. Governance platforms provide centralized visibility into streaming data, enforce access controls, monitor data quality, and ensure compliance with regulations. They help teams collaborate on streaming resources without sacrificing security or creating data silos. For security best practices, see [Access Control for Streaming](https://conduktor.io/glossary/access-control-for-streaming).
+This is where platforms like Conduktor help. Managing hundreds of topics, thousands of schemas, and complex access control policies across streaming infrastructure requires specialized tooling. Governance platforms provide centralized visibility into streaming data, enforce access controls, monitor data quality, and ensure compliance with regulations. Teams can use [self-service workflows](https://docs.conduktor.io/guide/conduktor-concepts/self-service) to request and manage [Kafka topics](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/topics) without sacrificing security or creating data silos. For security best practices, see [Access Control for Streaming](https://conduktor.io/glossary/access-control-for-streaming).
 
 ## Getting Started with Data Streaming
 

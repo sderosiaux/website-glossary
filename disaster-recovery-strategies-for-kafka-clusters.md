@@ -226,11 +226,11 @@ Key metrics to monitor for DR readiness include:
 | Network throughput to DR site | <50% capacity | <20% capacity | Replication lag increases |
 
 **Conduktor Platform** provides centralized monitoring across multiple Kafka clusters with:
-- Real-time replication lag tracking between primary and DR clusters
-- Alerting on under-replicated partitions and unhealthy brokers
+- Real-time replication lag tracking between primary and DR clusters via [monitoring dashboards](https://docs.conduktor.io/guide/monitor-brokers-apps/index)
+- [Alerting](https://docs.conduktor.io/guide/monitor-brokers-apps/alerts) on under-replicated partitions and unhealthy brokers
 - Consumer lag monitoring across all consumer groups
-- Cluster health dashboards for primary and DR environments
-- Configuration drift detection between environments
+- Cluster health dashboards for primary and DR environments through [Insights](https://docs.conduktor.io/guide/insights/index)
+- Configuration drift detection between environments with [risk analysis](https://docs.conduktor.io/guide/insights/risk-analysis)
 
 Modern observability platforms integrate with Kafka's JMX metrics and support OpenTelemetry for distributed tracing across the entire streaming pipeline.
 
@@ -252,7 +252,7 @@ Organizations should regularly conduct failover drills, simulating various failu
 - Practice runbook procedures without full failover
 
 **Chaos Engineering with Conduktor Gateway**
-- **Conduktor Gateway** acts as a proxy layer for Kafka, enabling controlled fault injection
+- **Conduktor Gateway** acts as a proxy layer for Kafka, enabling [controlled fault injection for chaos testing](https://docs.conduktor.io/guide/use-cases/chaos-testing)
 - Inject network latency between datacenters to test replication lag handling
 - Simulate broker failures without actual production impact
 - Test partition leader election scenarios

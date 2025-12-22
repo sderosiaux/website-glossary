@@ -455,7 +455,7 @@ For comprehensive monitoring strategies and alerting best practices, see [Kafka 
 
 Stream processing applications are inherently complex. Data flows through multiple stages, state is distributed, and timing matters. Debugging requires specialized tools.
 
-Platforms like Conduktor provide visual topology inspection, allowing you to see your processing graph and understand data flow. They also offer state store browsers, letting you inspect the current state without complex queries. When issues arise, these tools significantly reduce debugging time.
+Platforms like Conduktor provide visual topology inspection through [topic management](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/topics), allowing you to see your processing graph and understand data flow. They also offer state store browsers, letting you inspect the current state without complex queries. When issues arise, these tools significantly reduce debugging time.
 
 ### Testing Strategies
 

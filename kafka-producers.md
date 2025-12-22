@@ -162,7 +162,7 @@ Watch `record-send-rate`, `record-error-rate`, `request-latency-avg`, p95 or p99
 
 **Kafka 4.0+ improvements**: Kafka 4.0 runs on KRaft (no ZooKeeper), which improves producer metadata fetch times and reduces tail latencies. Enhanced producer metrics expose per-partition batch stats and compression ratios. For KRaft migration details, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka) and [ZooKeeper to KRaft Migration](https://conduktor.io/glossary/zookeeper-to-kraft-migration).
 
-**Observability stack**: Use **Kafka Lag Exporter** with Prometheus to track producer throughput and errors. Export JMX metrics (`kafka.producer:*`) to Grafana dashboards. Monitor consumer lag to understand producer impact on downstream systems: [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring). For commercial environments, **Conduktor** provides unified producer monitoring, real-time error tracking, schema validation, and governance across clusters.
+**Observability stack**: Use **Kafka Lag Exporter** with Prometheus to track producer throughput and errors. Export JMX metrics (`kafka.producer:*`) to Grafana dashboards. Monitor consumer lag to understand producer impact on downstream systems: [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring). For commercial environments, **Conduktor** provides unified producer monitoring, real-time error tracking, schema validation, and governance across clusters. See [Conduktor's topic management](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/topics) to view producer metrics, track message throughput, and inspect message content.
 
 ## Where It Fits in Streaming Architectures
 
@@ -201,11 +201,11 @@ What to enforce:
 
 **Conduktor** provides comprehensive producer governance and monitoring for Kafka clusters:
 
-* **RBAC and access control**: Manage which service accounts can write to specific topics with fine-grained policies
+* **RBAC and access control**: Manage which service accounts can write to specific topics with fine-grained policies. Learn about [service accounts and ACL management](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/service-accounts-acls) in Conduktor.
 * **Schema validation**: Enforce schema compatibility rules before messages reach brokers, preventing breaking changes
-* **Data masking**: Apply dynamic field-level masking on sensitive data (PII, credentials) at produce time
+* **Data masking**: Apply dynamic field-level masking on sensitive data (PII, credentials) at produce time using [Conduktor interceptors](https://docs.conduktor.io/guide/conduktor-concepts/interceptors)
 * **Audit trail**: Track all produce operations with full lineage - who wrote what, when, and with which schema version
-* **Monitoring**: Real-time dashboards showing producer throughput, error rates, latency, and authorization failures across clusters
+* **Monitoring**: Real-time dashboards showing producer throughput, error rates, latency, and authorization failures across clusters via [topic management](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/topics)
 * **Testing with Conduktor Gateway**: Inject chaos scenarios (latency, failures, broker outages) to test producer retry logic and resilience. For broader testing strategies, see [Testing Strategies for Streaming Applications](https://conduktor.io/glossary/testing-strategies-for-streaming-applications).
 * **Impact analysis**: Visualize dependencies between producers, topics, schemas, and downstream consumers
 

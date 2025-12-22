@@ -158,7 +158,7 @@ Managing optimization across multiple streaming pipelines requires visibility in
 - **Policy enforcement**: Set organization-wide standards for optimization schedules and Z-ORDER configurations
 - **Cross-platform visibility**: Unified view of Delta tables across different compute engines (Spark, Flink, Trino)
 
-**For Kafka and streaming-centric architectures**, platforms like **Conduktor** provide governance capabilities that extend from Kafka topics through to lakehouse tables, ensuring end-to-end [data quality](/building-a-data-quality-framework) and observability.
+**For Kafka and streaming-centric architectures**, platforms like **Conduktor** provide governance capabilities that extend from Kafka topics through to lakehouse tables, ensuring end-to-end [data quality](/building-a-data-quality-framework) and observability. Manage your streaming data sources with [Conduktor's topic management](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/topics) and [Kafka Connect](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/kafka-connect) for lakehouse ingestion pipelines.
 
 This governance layer becomes essential in enterprises with dozens of data engineering teams managing hundreds of Delta tables. It bridges the gap between streaming ingestion and analytical consumption, ensuring that optimization strategies align with organizational SLAs and cost targets.
 

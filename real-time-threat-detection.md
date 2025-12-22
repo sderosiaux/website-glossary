@@ -335,8 +335,8 @@ Modern streaming governance platforms like **Conduktor Gateway** enhance securit
 - **Data Lineage Tracking**: Map data flows to identify exposure paths during security incidents and understand blast radius
 - **Comprehensive Audit Logging**: Capture all administrative actions, data access events, and policy violations with detailed attribution for forensic analysis
 - **Automated Security Guardrails**: Prevent misconfigurations (e.g., world-readable topics, missing encryption) through policy-as-code validation
-- **Multi-Cluster Security Monitoring**: Monitor compliance with security policies across development, staging, and production clusters from a unified interface
-- **Traffic Inspection and Filtering**: Inspect message payloads for malicious content, PII leakage, or schema violations before data reaches consumers
+- **Multi-Cluster Security Monitoring**: Monitor compliance with security policies across development, staging, and production clusters from a unified interface ([Monitoring](https://docs.conduktor.io/guide/monitor-brokers-apps/index))
+- **Traffic Inspection and Filtering**: Inspect message payloads for malicious content, PII leakage ([Data Masking](https://docs.conduktor.io/guide/conduktor-in-production/admin/data-mask)), or schema violations before data reaches consumers
 
 By integrating governance platforms into the security architecture, organizations create an additional layer of defense that operates at the application protocol level, complementing traditional network and host-based security controls.
 

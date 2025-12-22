@@ -111,7 +111,7 @@ Benefits of RBAC:
 - **Auditability**: "Who has access to orders?" becomes "Who has the data-analyst role?"
 - **Onboarding/offboarding**: Add/remove role assignment, not individual ACLs
 
-**Conduktor** provides enterprise RBAC for Kafka that extends beyond Confluent's implementation. It enables organizations to:
+**Conduktor** provides [enterprise RBAC for Kafka](https://docs.conduktor.io/guide/conduktor-in-production/admin/set-up-rbac) that extends beyond Confluent's implementation. It enables organizations to:
 - Define custom roles aligned with organizational structure (data-engineer, ML-researcher, compliance-auditor)
 - Integrate with SSO providers (Okta, Azure AD) for centralized identity management
 - Apply RBAC across multiple Kafka clusters from a single interface

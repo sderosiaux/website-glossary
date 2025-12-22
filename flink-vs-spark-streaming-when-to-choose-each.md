@@ -152,7 +152,7 @@ Flink excels at rescaling stateful applications—you can change parallelism (th
 
 Effective stream processing requires deep visibility into pipeline health, lag, throughput, and state size. Both Flink and Spark expose metrics through JMX and integrate with monitoring systems like Prometheus. For information on handling backpressure issues, see [Backpressure Handling in Streaming Systems](https://conduktor.io/glossary/backpressure-handling-in-streaming-systems).
 
-Conduktor provides unified monitoring and management capabilities across stream processing frameworks, enabling teams to track data lineage, monitor consumer lag, and enforce governance policies regardless of whether pipelines use Flink, Spark, or Kafka Streams. This becomes critical when running multiple frameworks in production, providing a single pane of glass for observability and control.
+Conduktor provides unified monitoring and management capabilities across stream processing frameworks, enabling teams to track data lineage, [monitor consumer lag](https://docs.conduktor.io/guide/monitor-brokers-apps/index), and enforce governance policies regardless of whether pipelines use Flink, Spark, or Kafka Streams. This becomes critical when running multiple frameworks in production, providing a single pane of glass for observability and control.
 
 ## Integration with Data Governance
 

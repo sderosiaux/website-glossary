@@ -306,7 +306,7 @@ Effective schema evolution requires both technical tooling and organizational go
 
 Schema Registries provide validation and version control for your data structures. Open-source options include Apicurio Registry (Red Hat), Karapace (Aiven), and the Apache Kafka implementation. Each offers REST APIs for schema management and compatibility enforcement.
 
-Platforms like Conduktor provide visual interfaces for exploring schemas, testing compatibility changes before deployment, and understanding the impact of proposed changes across topics and consumer groups. Conduktor Gateway can also enforce schema policies at the infrastructure level, blocking non-compliant producers before data enters your topics. This visibility and control is valuable when managing dozens or hundreds of schemas across multiple teams.
+Platforms like Conduktor provide visual interfaces for exploring schemas, testing compatibility changes before deployment, and understanding the impact of proposed changes across topics and consumer groups. Conduktor Gateway can also enforce schema policies at the infrastructure level, blocking non-compliant producers before data enters your topics. This visibility and control is valuable when managing dozens or hundreds of schemas across multiple teams. For practical schema management workflows, see [Conduktor's Schema Registry guide](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/schema-registry).
 
 Many organizations use schema linters that enforce naming conventions and flag risky changes during code review, integrating schema validation into CI/CD pipelines.
 

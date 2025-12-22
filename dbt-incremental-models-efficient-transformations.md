@@ -177,7 +177,7 @@ Microbatch automatically divides your data into time-based batches and processes
 
 Modern analytics pipelines increasingly integrate streaming data. When connecting dbt to Kafka topics, incremental models become essential for managing continuous data flows.
 
-[Conduktor](https://www.conduktor.io/) provides enterprise-grade Kafka management, allowing you to monitor, transform, and route streaming data with features like schema registry integration, data quality rules, and real-time governance. When paired with dbt incremental models, you can efficiently transform streaming data into analytics-ready tables:
+[Conduktor](https://www.conduktor.io/) provides enterprise-grade Kafka management, allowing you to monitor, transform, and route streaming data with features like [schema registry integration](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/schema-registry), data quality rules, and real-time governance. Learn more about managing [Kafka topics](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/topics) and [Kafka Connect](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/kafka-connect) for streaming-to-warehouse pipelines. When paired with dbt incremental models, you can efficiently transform streaming data into analytics-ready tables:
 
 ```sql
 {{

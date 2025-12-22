@@ -228,7 +228,7 @@ Real-time systems fail in real-time. Monitoring must detect issues like:
 
 E-commerce platforms require monitoring at multiple levels: infrastructure metrics (broker health, disk usage), application metrics (processing latency, error rates), and business metrics (order completion rates, inventory accuracy).
 
-**Conduktor** provides unified monitoring across Kafka clusters, showing consumer lag, throughput metrics, and schema registry health in a single interface. For chaos engineering and testing data quality policies, **Conduktor Gateway** acts as a proxy that can inject faults, enforce data contracts, and simulate production issues in test environments.
+**Conduktor** provides unified monitoring across Kafka clusters, showing consumer lag, throughput metrics, and schema registry health in a single interface. Get started with [Conduktor Monitoring](https://docs.conduktor.io/guide/monitor-brokers-apps/index) to track your e-commerce streaming infrastructure. For chaos engineering and testing data quality policies, **Conduktor Gateway** acts as a proxy that can inject faults, enforce data contracts, and simulate production issues in test environments.
 
 Distributed tracing (using OpenTelemetry) helps diagnose issues across microservices. When an order fails, teams need to trace the flow from checkout through payment, inventory, and fulfillment services to identify the failure point.
 

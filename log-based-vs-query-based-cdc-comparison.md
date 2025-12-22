@@ -264,9 +264,9 @@ As CDC implementations scale, governance and visibility become critical. Modern 
 
 - **Schema Registry Management**: Track schema evolution across CDC topics with version history
 - **Data Flow Visualization**: Map data lineage from source databases through Kafka to consumers (see [Data Lineage Tracking: Data from Source to Consumption](https://conduktor.io/glossary/data-lineage-tracking-data-from-source-to-consumption) for detailed coverage)
-- **Connector Health Monitoring**: Real-time visibility into Debezium connector status, throughput, and errors
+- **Connector Health Monitoring**: Real-time visibility into Debezium connector status, throughput, and errors with [Kafka Connect Management](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/kafka-connect)
 - **Consumer Lag Tracking**: Identify downstream bottlenecks consuming CDC events
-- **Quality Monitoring**: Detect data quality issues, lag, and throughput anomalies
+- **Quality Monitoring**: Detect data quality issues, lag, and throughput anomalies with [Data Quality tools](https://docs.conduktor.io/guide/use-cases/observe-data-quality)
 - **Access Control**: Govern who can consume CDC streams and enforce data policies
 - **Alerting**: Proactive notifications for connector failures, lag spikes, or schema conflicts
 - **Testing and Chaos Engineering**: Use Conduktor Gateway to inject failures and test CDC pipeline resilience

@@ -300,7 +300,7 @@ The checkpoint location and table format's transaction log together guarantee ex
 
 **Quality Gates Before the Lakehouse**: Streaming pipelines should enforce data quality *before* writing to lakehouse tables. Modern approaches combine multiple validation layers:
 
-- **Stream-Time Validation**: Tools like Conduktor provide data governance capabilities that validate schemas, check data quality rules, and enforce compliance policies in real-time as data flows through Kafka.
+- **Stream-Time Validation**: Tools like Conduktor provide data governance capabilities that validate schemas, check data quality rules, and enforce compliance policies in real-time as data flows through Kafka. Implement validations with [Data Quality Monitoring](https://docs.conduktor.io/guide/use-cases/observe-data-quality) and [Interceptors](https://docs.conduktor.io/guide/conduktor-concepts/interceptors).
 - **Pre-Write Quality Checks**: Integrate tools like [Soda Core](https://www.soda.io/) or [Great Expectations](https://conduktor.io/glossary/great-expectations-data-testing-framework) into streaming jobs to validate data quality before committing to lakehouse tables.
 - **Contract-Based Validation**: Define and enforce [Data Contracts](https://conduktor.io/glossary/data-contracts-for-reliable-pipelines) that specify expected schemas, data types, and business rules.
 

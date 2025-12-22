@@ -96,7 +96,7 @@ The Schema Registry manages event schemas with compatibility modes (backward, fo
 
 For detailed guidance on managing schemas, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) and [Schema Evolution Best Practices](https://conduktor.io/glossary/schema-evolution-best-practices). For comparing serialization formats, see [Avro vs Protobuf vs JSON Schema](https://conduktor.io/glossary/avro-vs-protobuf-vs-json-schema).
 
-Tools like Conduktor provide visual monitoring of event flows, schema validation, and data governance capabilities across your streaming infrastructure, making it easier to track schema evolution and enforce compatibility rules.
+Tools like Conduktor provide visual monitoring of event flows, schema validation, and data governance capabilities across your streaming infrastructure. Teams can use [self-service capabilities](https://docs.conduktor.io/guide/conduktor-concepts/self-service) to request and manage [Kafka topics](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/topics) with proper governance guardrails, making it easier to track schema evolution and enforce compatibility rules.
 
 ## Implementation Challenges
 
@@ -212,7 +212,7 @@ Testing event-driven systems is complex. Unit tests work for individual services
 
 Modern testing strategies for 2025 include:
 
-**Chaos Engineering**: Test system resilience by simulating failures. **Conduktor Gateway** enables chaos testing scenarios like network latency, broker failures, message corruption, and throttling without affecting production infrastructure.
+**Chaos Engineering**: Test system resilience by simulating failures. [Conduktor Gateway](https://docs.conduktor.io/guide/conduktor-in-production/deploy-artifacts/deploy-gateway/index) enables chaos testing scenarios like network latency, broker failures, message corruption, and throttling without affecting production infrastructure.
 
 **Contract Testing**: Use tools like Pact to verify producer-consumer agreements. This ensures schema compatibility before deployment.
 

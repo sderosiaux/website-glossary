@@ -223,9 +223,9 @@ When managing streaming data pipelines that write to Delta Lake, governance tool
 
 For liquid clustered tables receiving streaming data, Conduktor enables:
 
-- **Schema evolution tracking**: Monitor schema changes in upstream Kafka topics that affect Delta table structure and clustering columns
+- **Schema evolution tracking**: Monitor schema changes in upstream Kafka topics that affect Delta table structure and clustering columns. Use [Schema Registry management](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/schema-registry) to track schema versions
 - **Data quality validation**: Ensure clustering column values meet expected distributions before writes, catching data quality issues that would degrade clustering performance
-- **Pipeline lineage**: Track data flow from source topics through transformations to clustered tables, understanding which Kafka topics feed which Delta tables
+- **Pipeline lineage**: Track data flow from source [Kafka topics](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/topics) through transformations to clustered tables, understanding which topics feed which Delta tables
 - **Performance monitoring**: Identify streaming jobs that write poorly distributed data affecting clustering quality, with alerts for anomalous data distributions
 
 Conduktor Gateway can also test resilience scenarios—simulating Kafka broker failures or network partitions—to verify that your streaming-to-Delta pipeline maintains data integrity and clustering quality under adverse conditions.

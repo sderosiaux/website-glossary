@@ -286,7 +286,7 @@ Kafka's architecture makes it the central nervous system of modern data platform
 
 For foundational understanding of Kafka's role in data platforms, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
 
-For complex deployments, tools like **Conduktor** provide visibility into topic configurations, partition distribution, and broker health. This governance layer helps teams understand data lineage, monitor consumer lag across partitions (see [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring)), and ensure replication factors meet compliance requirements.
+For complex deployments, tools like **Conduktor** provide visibility into topic configurations, partition distribution, and broker health. This governance layer helps teams understand data lineage, monitor consumer lag across partitions (see [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring)), and ensure replication factors meet compliance requirements. Conduktor enables centralized management of topics and brokers across multiple Kafka clusters—see the [Topics Management](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/topics) and [Brokers Management](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/brokers) documentation for hands-on guidance.
 
 **Related Concepts:**
 

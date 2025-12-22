@@ -150,7 +150,7 @@ SMTs also lack sophisticated error handling. If a transformation fails, the enti
 
 However, SMTs offer significant advantages for simple transformations. They eliminate the need to deploy and manage separate stream processing applications, reducing operational complexity. They're easier to configure and test, and they keep your data pipeline architecture simpler when complex processing isn't required.
 
-Tools like Conduktor Platform help manage this complexity by providing visual configuration and validation of SMT chains, making it easier to build and debug transformation pipelines without manual JSON editing.
+Tools like Conduktor Platform help manage this complexity by providing visual configuration and validation of SMT chains through [Kafka Connect management](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/kafka-connect), making it easier to build and debug transformation pipelines without manual JSON editing.
 
 ## Best Practices and Limitations
 

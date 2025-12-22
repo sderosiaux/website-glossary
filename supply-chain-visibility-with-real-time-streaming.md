@@ -260,8 +260,8 @@ For comprehensive lag monitoring strategies, see [Consumer Lag Monitoring](https
 
 - **Schema registry management**: Enforce data contracts between supply chain systems, manage schema evolution, and prevent breaking changes
 - **Access control and governance**: Implement role-based access control (RBAC) for sensitive supply chain data, ensuring warehouse teams can't access financial data and vice versa
-- **Consumer lag monitoring**: Real-time dashboards showing which supply chain systems are falling behind in event processing
-- **Data quality monitoring**: Validate event schemas, detect anomalies in supply chain data, and alert on data quality issues
+- **Consumer lag monitoring**: Real-time dashboards showing which supply chain systems are falling behind in event processing ([Monitoring Guide](https://docs.conduktor.io/guide/monitor-brokers-apps/index))
+- **Data quality monitoring**: Validate event schemas, detect anomalies in supply chain data, and alert on data quality issues ([Alerts](https://docs.conduktor.io/guide/monitor-brokers-apps/alerts))
 - **Testing and chaos engineering**: Conduktor Gateway enables testing stream processing applications with synthetic supply chain events and simulating failure scenarios
 
 **Security and Compliance**: Supply chain data includes sensitive information—customer addresses, pricing agreements, proprietary supplier relationships. Implement:

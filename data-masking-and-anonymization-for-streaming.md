@@ -97,7 +97,7 @@ Implementing data protection in streaming architectures requires deciding where 
 
 **At the producer level**: Applications can mask or anonymize data before publishing to Kafka topics. This ensures sensitive data never enters the streaming platform. However, it requires modifying every producer application and doesn't provide flexibility for different consumer needs.
 
-**At the broker or platform level**: Kafka brokers can be configured with stream processors that apply transformations. This centralizes the logic and doesn't require changing applications. Platforms like Confluent Schema Registry can enforce data contracts, and tools like Conduktor provide data masking capabilities at the platform level, allowing teams to define and enforce masking policies centrally without modifying individual applications.
+**At the broker or platform level**: Kafka brokers can be configured with stream processors that apply transformations. This centralizes the logic and doesn't require changing applications. Platforms like Confluent Schema Registry can enforce data contracts, and tools like Conduktor provide [data masking capabilities](https://docs.conduktor.io/guide/conduktor-in-production/admin/data-mask) at the platform level, allowing teams to define and enforce masking policies centrally without modifying individual applications.
 
 **Within stream processors**: Apache Flink, Kafka Streams, or ksqlDB can apply transformations as data flows through processing topologies. This approach offers flexibility to create multiple views of the same data for different purposes.
 

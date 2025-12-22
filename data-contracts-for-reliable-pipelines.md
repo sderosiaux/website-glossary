@@ -226,7 +226,7 @@ Modern schema management platforms provide visibility into schema usage across K
 - **AWS Glue Schema Registry**: Native AWS integration with automatic schema discovery and evolution tracking
 - **Apicurio Registry**: Open-source registry supporting multiple formats (Avro, Protobuf, JSON Schema) with role-based access control
 
-These platforms show which consumers use which schema versions, enabling coordinated migrations before breaking changes. They support data quality rules that validate message contents against business logic, catching issues like negative order totals or invalid email formats.
+These platforms show which consumers use which schema versions, enabling coordinated migrations before breaking changes. They support data quality rules that validate message contents against business logic, catching issues like negative order totals or invalid email formats. For implementing data quality enforcement with Conduktor, see [Data Quality Policies](https://docs.conduktor.io/guide/conduktor-concepts/data-quality-policies) and [Enforcing Data Quality](https://docs.conduktor.io/guide/use-cases/enforce-data-quality).
 
 ## Benefits and Challenges
 

@@ -197,11 +197,11 @@ Data Mesh and streaming technologies like Apache Kafka are natural complements. 
 
 **Schema governance**: Kafka's Schema Registry provides the foundation for data contracts, version management, and compatibility checks—key requirements for the "data as a product" principle. For details on schema management strategies, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) and [Schema Evolution Best Practices](https://conduktor.io/glossary/schema-evolution-best-practices).
 
-**Self-serve infrastructure**: Platforms like Conduktor provide a self-serve layer on top of Kafka, allowing domain teams to create topics, manage schemas, and configure access controls through intuitive interfaces without requiring deep Kafka expertise. This addresses the "self-serve infrastructure" principle by democratizing access to streaming infrastructure.
+**Self-serve infrastructure**: Platforms like Conduktor provide a self-serve layer on top of Kafka, allowing domain teams to create topics, manage schemas, and configure access controls through intuitive interfaces without requiring deep Kafka expertise. This addresses the "self-serve infrastructure" principle by democratizing access to streaming infrastructure. See the [Conduktor Self-Service documentation](https://docs.conduktor.io/guide/conduktor-concepts/self-service) for details on enabling teams to manage their own data products.
 
 Consumers can discover this data product through a catalog, understand its schema and SLAs, and request access—all without contacting the order team directly.
 
-Tools like Conduktor Gateway help with federated governance by acting as a proxy layer that enforces naming conventions, schema compatibility rules, data quality checks, and access policies automatically across all domains. This ensures organizational standards are maintained while allowing teams to operate independently—critical for scaling Data Mesh implementations.
+Tools like Conduktor Gateway help with federated governance by acting as a proxy layer that enforces naming conventions, schema compatibility rules, data quality checks, and access policies automatically across all domains. This ensures organizational standards are maintained while allowing teams to operate independently—critical for scaling Data Mesh implementations. For comprehensive guidance on building data products with proper governance, see [Conduktor's Data Products guide](https://docs.conduktor.io/guide/conduktor-concepts/data-products).
 
 ## Modern Data Mesh Patterns (2024-2025)
 
@@ -263,7 +263,7 @@ As Data Mesh scales, organizations need mechanisms to allocate infrastructure co
 - Network transfer costs
 - Schema Registry and catalog usage
 
-This enables internal chargeback models where domain teams have "skin in the game" for their data products' efficiency.
+This enables internal chargeback models where domain teams have "skin in the game" for their data products' efficiency. Conduktor provides built-in [Chargeback capabilities](https://docs.conduktor.io/guide/conduktor-concepts/chargeback) to track and allocate streaming costs to teams and data products.
 
 ## Practical Implementation Steps
 

@@ -191,7 +191,7 @@ Security is not a one-time configuration but an ongoing process requiring contin
 - **TLS handshake failures**: Detect certificate issues or version mismatches
 - **Unusual access patterns**: Identify anomalous consumer or producer behavior
 
-Modern platforms like **Conduktor** provide centralized security management interfaces with visual ACL editors, permission auditing, and real-time security monitoring. These tools make it easier to understand your security posture across hundreds of topics, thousands of ACLs, and multiple Kafka clusters.
+Modern platforms like **Conduktor** provide centralized security management interfaces with [visual RBAC editors](https://docs.conduktor.io/guide/conduktor-in-production/admin/set-up-rbac), permission auditing, and [audit logging](https://docs.conduktor.io/guide/conduktor-in-production/admin/audit-logs). These tools make it easier to understand your security posture across hundreds of topics, thousands of ACLs, and multiple Kafka clusters.
 
 **Alerting**: Configure alerts for security events like repeated authentication failures, connections from unexpected IP addresses, or attempts to access unauthorized topics. Integration with incident response platforms (PagerDuty, Opsgenie) ensures rapid response to security incidents.
 

@@ -140,9 +140,10 @@ While IaC tools handle infrastructure provisioning, additional platforms enhance
 **Conduktor** provides comprehensive Kafka management capabilities that complement IaC workflows. Conduktor's platform includes:
 
 - **Configuration management**: Define topic standards, naming conventions, and governance policies that validate IaC-created resources against organizational requirements
-- **Testing integration**: Conduktor Gateway enables chaos engineering and integration testing for Kafka deployments. Teams can test how applications handle broker failures, network partitions, or replication lag—validating that IaC-defined resilience settings actually work
-- **Observability**: Real-time monitoring of topics, consumer groups, and cluster health, helping validate that deployed infrastructure performs as expected (see [Kafka Cluster Monitoring and Metrics](https://conduktor.io/glossary/kafka-cluster-monitoring-and-metrics) for comprehensive monitoring strategies)
+- **Testing integration**: [Conduktor Gateway enables chaos engineering and integration testing](https://docs.conduktor.io/guide/use-cases/chaos-testing) for Kafka deployments. Teams can test how applications handle broker failures, network partitions, or replication lag—validating that IaC-defined resilience settings actually work
+- **Observability**: Real-time [monitoring of topics, consumer groups, and cluster health](https://docs.conduktor.io/guide/monitor-brokers-apps/index), helping validate that deployed infrastructure performs as expected (see [Kafka Cluster Monitoring and Metrics](https://conduktor.io/glossary/kafka-cluster-monitoring-and-metrics) for comprehensive monitoring strategies)
 - **Security governance**: Enforces data masking, encryption, and access policies across environments, ensuring IaC-defined security configurations align with compliance requirements
+- **Terraform automation**: [Automate Conduktor configuration with Terraform](https://docs.conduktor.io/guide/conduktor-in-production/automate/terraform-automation) for complete infrastructure-as-code workflows
 
 For example, after Terraform provisions a new topic, Conduktor can automatically verify it meets naming standards, has appropriate retention policies, and complies with data classification rules. Conduktor Gateway can then inject failures to test that the replication factor and min.insync.replicas settings actually provide the expected durability.
 

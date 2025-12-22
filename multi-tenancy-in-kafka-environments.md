@@ -81,6 +81,8 @@ Organizations often choose this model when regulatory requirements mandate compl
 
 Many enterprises adopt a hybrid model, using logical separation for most use cases while reserving dedicated clusters for high-criticality or regulated workloads. This balances cost efficiency with isolation requirements.
 
+**Virtual Clusters for Enhanced Multi-Tenancy**: Conduktor's Virtual Clusters feature provides an abstraction layer that creates isolated logical clusters within a single physical Kafka cluster, combining the cost benefits of soft multi-tenancy with stronger isolation guarantees. For detailed implementation guidance, see the [Virtual Clusters documentation](https://docs.conduktor.io/guide/conduktor-concepts/virtual-clusters).
+
 ### KRaft Mode Benefits for Multi-Tenancy (Kafka 4.0+)
 
 Kafka's KRaft mode (production-ready in Kafka 4.0+) brings significant advantages for multi-tenant deployments:
@@ -203,7 +205,7 @@ Running multi-tenant Kafka environments introduces operational complexity:
 
 Teams want autonomy to create topics and manage their data streams, but without governance, clusters can become chaotic. Implementing self-service portals with built-in policy enforcement helps balance autonomy with control.
 
-Governance platforms like Conduktor enable teams to request topic creation through a UI while automatically enforcing policies like naming conventions, replication factors, and retention limits. This reduces the burden on platform teams while maintaining standards.
+Governance platforms like Conduktor enable teams to request topic creation through a UI while automatically enforcing policies like naming conventions, replication factors, and retention limits. This reduces the burden on platform teams while maintaining standards. For implementing self-service with policy-based governance, see Conduktor's [Self-Service documentation](https://docs.conduktor.io/guide/conduktor-concepts/self-service).
 
 **Testing Multi-Tenant Isolation**: Conduktor Gateway provides proxy-based capabilities to test multi-tenant behavior, including:
 - Simulating quota enforcement and throttling

@@ -383,7 +383,7 @@ Autonomous systems that take real actions demand rigorous governance:
 
 **Data Quality Monitoring**: Agent performance correlates with data quality. Tracking metrics like embedding freshness, context retrieval latency, and data completeness helps identify when degraded data quality impacts agent decisions.
 
-Tools like **Conduktor** provide centralized governance for streaming data platforms, enabling teams to monitor data quality, enforce policies, track lineage, and audit data access across the agentic AI pipeline—ensuring that agents operate on trusted, well-governed data streams.
+Tools like **Conduktor** provide centralized governance for streaming data platforms, enabling teams to monitor data quality, enforce policies, track lineage, and audit data access across the agentic AI pipeline—ensuring that agents operate on trusted, well-governed data streams. For data quality validation and testing, see [Conduktor's Data Quality capabilities](https://docs.conduktor.io/guide/use-cases/observe-data-quality).
 
 ## Integration Patterns: RAG and Vector Stores
 

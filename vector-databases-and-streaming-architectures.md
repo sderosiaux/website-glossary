@@ -88,7 +88,7 @@ Real-Time Vector Pipeline:
 
 For instance, an e-commerce platform might stream new product descriptions through this pipeline. As soon as a merchant adds a product, its embedding is generated and indexed, making it immediately searchable and enabling real-time "similar products" recommendations.
 
-Tools like Conduktor, a comprehensive Kafka management and governance platform, can be valuable in this architecture for managing Kafka topics, monitoring data quality of the events feeding the pipeline, and ensuring governance around potentially sensitive data being embedded. Conduktor Gateway can also be used for testing chaos scenarios such as network latency or partition failures that are common in ML pipelines. Data quality issues upstream can lead to poor embeddings, so visibility into the streaming pipeline is essential.
+Tools like Conduktor, a comprehensive Kafka management and governance platform, can be valuable in this architecture for [managing Kafka topics](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/topics), monitoring [data quality](https://docs.conduktor.io/guide/use-cases/observe-data-quality) of the events feeding the pipeline, and ensuring governance around potentially sensitive data being embedded. Conduktor Gateway can also be used for testing chaos scenarios such as network latency or partition failures that are common in ML pipelines. Data quality issues upstream can lead to poor embeddings, so visibility into the streaming pipeline is essential.
 
 ## Implementation Example
 

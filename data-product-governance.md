@@ -105,7 +105,7 @@ The most critical governance element is the explicit quality contract each data 
 
 **Availability Commitments**: "99.9% uptime during 6 AM - 11 PM EST" sets expectations for when the product can be reliably consumed.
 
-These contracts should be codified, monitored automatically, and violations should trigger alerts to both owners and consumers. Modern governance platforms like Conduktor provide comprehensive policy enforcement, including data quality validation, schema governance, access controls, and SLA monitoring across Kafka topics. Conduktor Gateway (2025+) enables advanced governance patterns like chaos testing, data masking, and topic-level policy enforcement without modifying application code.
+These contracts should be codified, monitored automatically, and violations should trigger alerts to both owners and consumers. Modern governance platforms like Conduktor provide comprehensive policy enforcement, including data quality validation, schema governance, access controls, and SLA monitoring across Kafka topics (see [Conduktor Governance Insights](https://docs.conduktor.io/guide/insights/governance) for real-time visibility into policy compliance). Conduktor Gateway (2025+) enables advanced governance patterns like chaos testing, data masking, and topic-level policy enforcement without modifying application code.
 
 ## Discoverability and Self-Service Access
 

@@ -254,7 +254,7 @@ Mitigation strategies include key salting (adding randomness to keys), increasin
 
 ### Schema Evolution
 
-As systems evolve, data schemas change. Joins between streams with different schema versions can fail. Use schema registries to manage compatibility and version schemas explicitly. Tools like Conduktor provide visualization of schema dependencies across joined streams, making it easier to identify compatibility issues before they cause runtime failures. For detailed schema management strategies, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management).
+As systems evolve, data schemas change. Joins between streams with different schema versions can fail. Use schema registries to manage compatibility and version schemas explicitly. Tools like Conduktor provide visualization of schema dependencies across joined streams through [topic management](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/topics), making it easier to identify compatibility issues before they cause runtime failures. For detailed schema management strategies, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management).
 
 ### Join Ordering
 
@@ -268,7 +268,7 @@ For integration testing and chaos engineering, Conduktor Gateway can simulate ne
 
 ### Monitoring
 
-Track metrics like join rate, watermark lag, late events dropped, and state store size. Conduktor provides real-time visualization of stream topologies and data lineage, helping teams understand how data flows through complex join operations and identify bottlenecks. For production deployments, monitor consumer lag to ensure join operations keep pace with input streams - see [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring).
+Track metrics like join rate, watermark lag, late events dropped, and state store size. Conduktor provides real-time visualization of stream topologies and data lineage through [topic management](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/topics), helping teams understand how data flows through complex join operations and identify bottlenecks. For production deployments, monitor consumer lag to ensure join operations keep pace with input streams - see [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring).
 
 ## Troubleshooting Common Issues
 

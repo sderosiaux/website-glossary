@@ -148,7 +148,7 @@ For comprehensive coverage of Kafka monitoring strategies, see [Kafka Cluster Mo
 
 ### Cost Attribution
 
-Implement tagging strategies to attribute cross-AZ costs to specific teams, applications, or topics. This enables data-driven optimization decisions and cost awareness across your organization.
+Implement tagging strategies to attribute cross-AZ costs to specific teams, applications, or topics. This enables data-driven optimization decisions and cost awareness across your organization. For detailed guidance on implementing cost attribution and chargeback models that include network transfer costs, see [Conduktor's Cost Control Insights](https://docs.conduktor.io/guide/insights/cost-control).
 
 ## Trade-offs and Best Practices
 

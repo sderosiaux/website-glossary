@@ -88,7 +88,7 @@ In streaming data platforms like Apache Kafka, maintaining accuracy presents uni
 
 **Tools for streaming data quality (2025):**
 
-- **Conduktor**: Provides real-time data quality monitoring, governance, and testing for Kafka streams, including schema validation and custom quality rules
+- **Conduktor**: Provides real-time data quality monitoring, governance, and testing for Kafka streams, including schema validation and custom quality rules. For implementation details, see [Enforcing Data Quality](https://docs.conduktor.io/guide/use-cases/enforce-data-quality) and [Data Quality Policies](https://docs.conduktor.io/guide/conduktor-concepts/data-quality-policies).
 - **Schema registries**: Enforce structural accuracy by validating message formats against registered schemas (Confluent Schema Registry, Apicurio)
 - **dbt integration**: Run data quality tests on streaming data landed in warehouses or lakehouses
 

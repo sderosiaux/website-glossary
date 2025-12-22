@@ -117,7 +117,7 @@ Confluent Cloud uses consumption-based pricing with several components (as of 20
 
 When comparing with self-managed Kafka, organizations should consider the total cost of ownership. Self-managed deployments require infrastructure costs (compute, storage, networking), operational staff time for maintenance and on-call support, expertise for upgrades and troubleshooting, and potential costs of downtime. However, organizations gain full control over infrastructure, security configurations, and can leverage platforms like Conduktor for governance and monitoring without vendor lock-in.
 
-Confluent Cloud typically provides better economics for small to medium deployments, teams without deep Kafka expertise, or when engineering time is expensive. Very large deployments with predictable workloads and experienced Kafka teams may find self-managed Apache Kafka with Conduktor more cost-effective while maintaining operational efficiency. For detailed cost analysis, see [Streaming Total Cost of Ownership](https://conduktor.io/glossary/streaming-total-cost-of-ownership).
+Confluent Cloud typically provides better economics for small to medium deployments, teams without deep Kafka expertise, or when engineering time is expensive. Very large deployments with predictable workloads and experienced Kafka teams may find self-managed Apache Kafka with Conduktor more cost-effective while maintaining operational efficiency. For implementing cost visibility and chargeback across any Kafka deployment (cloud or self-managed), see [Conduktor's Cost Control Insights](https://docs.conduktor.io/guide/insights/cost-control). For detailed cost analysis, see [Streaming Total Cost of Ownership](https://conduktor.io/glossary/streaming-total-cost-of-ownership).
 
 ## Summary
 

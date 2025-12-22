@@ -145,7 +145,7 @@ helm install kafka-lag-exporter kafka-lag-exporter/kafka-lag-exporter \
 
 **Burrow** (LinkedIn's open-source tool) provides HTTP endpoints for lag monitoring and automatically evaluates consumer health status, distinguishing between "stuck" consumers and those simply processing a backlog.
 
-**Conduktor** offers built-in lag monitoring dashboards with automatic alerting, ideal for teams managing Kafka clusters. The Consumer Lag metric tracks both record count and time lag (how old the oldest unconsumed message is).
+**Conduktor** offers built-in lag monitoring dashboards with automatic alerting, ideal for teams managing Kafka clusters. The Consumer Lag metric tracks both record count and time lag (how old the oldest unconsumed message is). [Learn more about monitoring brokers and apps in Conduktor](https://docs.conduktor.io/guide/monitor-brokers-apps/index).
 
 **Enterprise Observability Platforms** like Datadog Data Streams Monitoring and New Relic provide comprehensive pipeline visibility, combining Kafka lag with infrastructure metrics to correlate performance issues.
 

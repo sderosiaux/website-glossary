@@ -116,7 +116,7 @@ Consumers can participate in exactly-once processing by setting `isolation.level
 
 When processing messages transactionally, the consumer reads messages, processes them, produces results to output topics, and commits its offsets—all within a single transaction. This atomic operation ensures exactly-once processing: if the transaction fails, none of the effects are visible. For more information on consumer offset management and group coordination, see [Kafka Consumer Groups Explained](https://conduktor.io/glossary/kafka-consumer-groups-explained).
 
-Tools like Conduktor provide visual monitoring of transaction markers in Kafka topics and real-time tracking of transactional producer states, making it easier to debug exactly-once configurations, verify transaction completion, and troubleshoot issues like stalled transactions or coordinator problems.
+Tools like Conduktor provide visual monitoring of transaction markers in Kafka topics through [topic management](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/topics) and real-time tracking of transactional producer states, making it easier to debug exactly-once configurations, verify transaction completion, and troubleshoot issues like stalled transactions or coordinator problems.
 
 ## Exactly-Once in Stream Processing
 
@@ -140,7 +140,7 @@ Exactly-once semantics comes with trade-offs. The additional coordination and bo
 
 When deciding whether to use exactly-once semantics, consider your application's requirements. Financial transactions, order processing, and compliance-sensitive workloads often require exactly-once guarantees. For use cases like logging, metrics collection, or approximate analytics where occasional duplicates are tolerable, at-least-once semantics may be sufficient and more performant.
 
-Platforms like Conduktor help you understand the performance impact of exactly-once semantics by providing comprehensive visibility into producer and consumer metrics, transaction success rates, coordinator performance, and end-to-end latency. This observability enables informed configuration decisions and helps identify bottlenecks in transactional workflows.
+Platforms like Conduktor help you understand the performance impact of exactly-once semantics by providing comprehensive visibility into producer and consumer metrics through [topic monitoring](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/topics), transaction success rates, coordinator performance, and end-to-end latency. This observability enables informed configuration decisions and helps identify bottlenecks in transactional workflows.
 
 ## Real-World Use Cases
 

@@ -125,7 +125,7 @@ checks for orders_stream:
   - duplicate_count(order_id) < 0.1%
 ```
 
-**Governance platforms** like Conduktor enable policy enforcement at the Kafka protocol level, validating data quality before it enters topics and preventing bad data from polluting streams. Conduktor Gateway can intercept messages, apply validation rules, and route violations to dead letter queues automatically.
+**Governance platforms** like Conduktor enable policy enforcement at the Kafka protocol level, validating data quality before it enters topics and preventing bad data from polluting streams. Conduktor Gateway can intercept messages, apply validation rules, and route violations to dead letter queues automatically. For practical implementation, see [Enforcing Data Quality with Conduktor](https://docs.conduktor.io/guide/use-cases/enforce-data-quality) and [Observing Data Quality](https://docs.conduktor.io/guide/use-cases/observe-data-quality).
 
 For comprehensive testing strategies, see [Automated Data Quality Testing](https://conduktor.io/glossary/automated-data-quality-testing) and [Building a Data Quality Framework](https://conduktor.io/glossary/building-a-data-quality-framework).
 

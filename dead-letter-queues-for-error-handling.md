@@ -226,7 +226,7 @@ Platforms like Conduktor provide dedicated features for DLQ management in Kafka 
 
 ### Testing DLQ Behavior with Conduktor Gateway
 
-Before deploying DLQ patterns to production, teams need confidence that error routing logic works correctly under various failure scenarios. Conduktor Gateway enables systematic testing of DLQ behavior through policy-based failure injection:
+Before deploying DLQ patterns to production, teams need confidence that error routing logic works correctly under various failure scenarios. [Conduktor Gateway enables systematic testing](https://docs.conduktor.io/guide/use-cases/chaos-testing) of DLQ behavior through policy-based failure injection:
 
 - **Deserialization error simulation**: Inject malformed data to verify DLQ routing for schema violations
 - **Downstream service failure testing**: Simulate timeout and connection errors to validate retry logic

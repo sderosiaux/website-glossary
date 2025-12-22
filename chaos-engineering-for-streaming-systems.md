@@ -99,7 +99,7 @@ Key observability requirements include:
 - **Distributed tracing**: Trace individual messages through the pipeline to identify bottlenecks during failures
 - **Log aggregation**: Centralize logs from all components to correlate failure injection with system responses
 
-Platforms like Conduktor provide centralized visibility into Kafka clusters, making it easier to monitor chaos experiments. Features like real-time consumer lag tracking, cluster health dashboards, and topic inspection help teams quickly identify issues during failure injection. This observability is essential for understanding the impact of chaos experiments and validating that recovery mechanisms work as expected.
+Platforms like Conduktor provide centralized visibility into Kafka clusters, making it easier to monitor chaos experiments. Features like real-time consumer lag tracking, cluster health dashboards, and topic inspection help teams quickly identify issues during failure injection. [Monitor your chaos experiments](https://docs.conduktor.io/guide/monitor-brokers-apps/index) and use [Conduktor's Insights](https://docs.conduktor.io/guide/insights/index) to track the impact. This observability is essential for understanding the impact of chaos experiments and validating that recovery mechanisms work as expected.
 
 ## Best Practices and Considerations
 
@@ -119,7 +119,7 @@ When implementing chaos engineering for streaming systems, keep these principles
 
 The chaos engineering tooling landscape has matured significantly:
 
-**Conduktor Gateway**: Kafka proxy that enables controlled chaos testing without modifying applications. Inject failures, simulate latency, and test resilience by intercepting and manipulating Kafka traffic at the protocol level. Combines chaos engineering with observability, providing real-time visibility into experiment impact on cluster health and consumer behavior.
+**Conduktor Gateway**: Kafka proxy that enables [controlled chaos testing](https://docs.conduktor.io/guide/use-cases/chaos-testing) without modifying applications. Inject failures, simulate latency, and test resilience by intercepting and manipulating Kafka traffic at the protocol level. Combines chaos engineering with observability, providing real-time visibility into experiment impact on cluster health and consumer behavior.
 
 **Chaos Mesh**: Cloud-native chaos engineering platform for Kubernetes. Supports network chaos, pod failures, I/O chaos, and time chaos. Excellent for testing containerized Kafka and Flink deployments.
 

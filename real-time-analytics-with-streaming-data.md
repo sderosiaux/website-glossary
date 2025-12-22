@@ -175,7 +175,7 @@ Unlike batch jobs that complete and report final status, streaming jobs run inde
 - **Checkpoint duration**: Time required to snapshot application state. Long checkpoint times can impact overall system performance.
 - **State size**: Memory consumed by stateful operations. Unbounded state growth leads to out-of-memory errors.
 
-Platforms like Conduktor provide comprehensive visibility into streaming pipelines, helping teams monitor these metrics, inspect message contents, validate data quality, and debug issues before they impact downstream analytics. For broader data quality concerns, see [What is Data Observability](https://conduktor.io/glossary/what-is-data-observability-the-five-pillars).
+Platforms like Conduktor provide comprehensive visibility into streaming pipelines, helping teams monitor these metrics, inspect message contents, validate data quality, and debug issues before they impact downstream analytics. Teams can centrally manage and monitor [Kafka topics](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/topics) to ensure healthy streaming operations. For broader data quality concerns, see [What is Data Observability](https://conduktor.io/glossary/what-is-data-observability-the-five-pillars).
 
 ## Architectural Patterns for Real-Time Analytics
 

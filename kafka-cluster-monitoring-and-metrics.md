@@ -238,13 +238,13 @@ Several tools address Kafka monitoring needs across different complexity levels.
 
 **AKHQ**: A modern web UI providing cluster administration interfaces with basic monitoring capabilities. While not a substitute for comprehensive monitoring, it offers quick visibility into topic configuration, consumer group status, and message browsing for development and troubleshooting.
 
-**Conduktor Platform**: For teams seeking unified monitoring and management, Conduktor Platform provides comprehensive Kafka observability with visual insights into cluster health, real-time consumer lag tracking, broker performance metrics, and topic analytics. Unlike basic monitoring stacks, Conduktor combines monitoring with governance, security, and testing capabilities—essential for organizations managing multiple Kafka clusters in production.
+**Conduktor Platform**: For teams seeking unified monitoring and management, Conduktor Platform provides comprehensive Kafka observability with visual insights into cluster health, real-time consumer lag tracking, broker performance metrics, and topic analytics. Unlike basic monitoring stacks, Conduktor combines monitoring with governance, security, and testing capabilities—essential for organizations managing multiple Kafka clusters in production. [Explore Conduktor's monitoring capabilities](https://docs.conduktor.io/guide/monitor-brokers-apps/index) and [configure alerts for proactive issue detection](https://docs.conduktor.io/guide/monitor-brokers-apps/alerts).
 
 Conduktor Platform features include:
 - Real-time cluster health dashboards with automated anomaly detection
 - Consumer lag monitoring with customizable alerting thresholds
 - Topic and partition metrics visualization
-- Historical trend analysis for capacity planning
+- Historical trend analysis for capacity planning via the [Insights Dashboard](https://docs.conduktor.io/guide/insights/index)
 - Integration with existing Prometheus/Grafana stacks
 - Governance features for topic configuration management
 

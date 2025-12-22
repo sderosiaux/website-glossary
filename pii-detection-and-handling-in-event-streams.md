@@ -163,7 +163,7 @@ public class PiiMaskingJob {
 
 **Schema Registry Integration**: Schema registries enable schema-level PII marking. Fields can be tagged with sensitivity classifications, and consumers can automatically apply appropriate handling based on these tags. This creates a centralized governance model where PII policies are defined once in schemas rather than in every consuming application.
 
-**Conduktor Gateway**: A modern approach uses Conduktor Gateway, which acts as a transparent proxy between applications and Kafka brokers. Gateway can apply PII masking policies dynamically based on consumer identity, enabling different data views for different teams without modifying application code:
+**Conduktor Gateway**: A modern approach uses Conduktor Gateway, which acts as a transparent proxy between applications and Kafka brokers. Gateway can apply [PII masking policies](https://docs.conduktor.io/guide/conduktor-in-production/admin/data-mask) dynamically based on consumer identity, enabling different data views for different teams without modifying application code. For authentication and authorization, see [Gateway authentication and authorization](https://docs.conduktor.io/guide/conduktor-concepts/gw-authen-author):
 
 ```yaml
 # Conduktor Gateway interceptor configuration

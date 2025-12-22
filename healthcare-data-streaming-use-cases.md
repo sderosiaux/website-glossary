@@ -178,7 +178,7 @@ def update_consent_registry(patient_id, scope):
     pass
 ```
 
-Governance platforms like Conduktor provide capabilities to enforce data policies, monitor compliance, and manage the lifecycle of sensitive healthcare data flowing through streaming systems. Conduktor offers data masking, audit trails, and policy enforcement features specifically designed for regulated industries like healthcare, helping organizations maintain HIPAA and GDPR compliance while managing Kafka clusters at scale.
+Governance platforms like Conduktor provide capabilities to enforce data policies, monitor compliance, and manage the lifecycle of sensitive healthcare data flowing through streaming systems. Conduktor offers data masking ([documentation](https://docs.conduktor.io/guide/conduktor-in-production/admin/data-mask)), audit trails, and policy enforcement features specifically designed for regulated industries like healthcare, helping organizations maintain HIPAA and GDPR compliance while managing Kafka clusters at scale. For proactive alerts on compliance violations or system issues, configure [Conduktor Alerts](https://docs.conduktor.io/guide/monitor-brokers-apps/alerts).
 
 ## Streaming Architecture Considerations
 

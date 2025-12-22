@@ -133,7 +133,7 @@ These materialized views are called **projections**—read-optimized representat
 
 Using Kafka Streams or ksqlDB, you can build sophisticated projections with joins, aggregations, and windowing. These tools operate directly on Kafka topics, treating them as tables and streams.
 
-When debugging or developing these systems, tools like Conduktor help visualize event flows through topics, inspect message contents, and test consumer behavior. This visibility is valuable when troubleshooting why a read model isn't updating correctly or when understanding the impact of schema changes.
+When debugging or developing these systems, tools like Conduktor help visualize event flows through [topic management](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/topics), inspect message contents, and test consumer behavior. This visibility is valuable when troubleshooting why a read model isn't updating correctly or when understanding the impact of schema changes.
 
 ### Practical Example: Order Management
 

@@ -205,10 +205,10 @@ Governance platforms like **Conduktor** address these challenges by providing ce
 
 - **Event Lineage Visualization**: Track which services produce and consume each event type, understanding data flow dependencies across the architecture
 - **Consumer Lag Monitoring**: Identify bottlenecks and processing delays by tracking how far behind consumers are from the latest events
-- **Event Catalog Management**: Maintain searchable catalogs with schema documentation, ownership information, and business context
+- **Event Catalog Management**: Maintain searchable catalogs with schema documentation, ownership information, and business context. Teams can explore and manage [Kafka topics](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/topics) through a unified interface
 - **Security Policy Enforcement**: Apply access controls, data masking, and audit logging centrally across all event streams
 - **Distributed Tracing**: Trace event flows through multiple services using correlation IDs to debug complex business processes
-- **Testing and Chaos Engineering**: Conduktor Gateway enables intercepting, modifying, or failing event flows to test resilience without disrupting production systems
+- **Testing and Chaos Engineering**: [Conduktor Gateway](https://docs.conduktor.io/guide/conduktor-in-production/deploy-artifacts/deploy-gateway/index) enables intercepting, modifying, or failing event flows to test resilience without disrupting production systems
 
 These capabilities transform event-driven architectures from difficult-to-observe distributed systems into manageable platforms with full operational visibility.
 

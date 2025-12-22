@@ -258,10 +258,10 @@ As CDC pipelines become critical infrastructure, proper governance and observabi
 
 Governance platforms like Conduktor provide unified visibility across CDC pipelines built on Kafka, enabling teams to:
 
-- **Monitor CDC Health**: Track connector health, lag metrics, throughput, and error rates in real-time dashboards
+- **Monitor CDC Health**: Track connector health, lag metrics, throughput, and error rates in real-time dashboards. Learn more at [Kafka Connect Management](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/kafka-connect).
 - **Data Lineage**: Trace data flows from source databases through Kafka topics to downstream consumers, understanding the complete CDC pipeline
 - **Governance Policies**: Enforce data governance rules on change event streams, including schema validation and data classification
-- **Quality Troubleshooting**: Inspect change events in real-time to debug data quality issues, compare before/after states, and validate transformations
+- **Quality Troubleshooting**: Inspect change events in real-time to debug data quality issues, compare before/after states, and validate transformations. See [Data Quality Monitoring](https://docs.conduktor.io/guide/use-cases/observe-data-quality) for implementation details.
 - **Access Control**: Implement topic-level permissions and field-level encryption to protect sensitive change data
 - **Chaos Testing**: Use Conduktor Gateway to test CDC pipeline resilience by simulating network failures, latency spikes, and broker outages
 

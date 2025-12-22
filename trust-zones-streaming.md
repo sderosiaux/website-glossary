@@ -395,11 +395,11 @@ OPA integrates with service meshes (Istio, Linkerd), API gateways, and Kafka pro
 
 **Conduktor Platform**: Enterprise-grade Kafka governance for trust zones:
 
-- **Data Masking**: Automatically redact sensitive fields based on policies at the platform level
+- **[Data Masking](https://docs.conduktor.io/guide/conduktor-in-production/admin/data-mask)**: Automatically redact sensitive fields based on policies at the platform level
 - **Zone Monitoring**: Real-time visibility into cross-zone data flows and access patterns
 - **Schema Governance**: Field-level security tags and validation rules
-- **Audit Trails**: Comprehensive compliance reporting for regulatory requirements
-- **Access Control**: Centralized RBAC management across multiple Kafka clusters
+- **[Audit Trails](https://docs.conduktor.io/guide/conduktor-in-production/admin/audit-logs)**: Comprehensive compliance reporting for regulatory requirements
+- **[Access Control](https://docs.conduktor.io/guide/conduktor-in-production/admin/set-up-rbac)**: Centralized RBAC management across multiple Kafka clusters
 
 **Conduktor Gateway**: Acts as an intelligent proxy at zone boundaries:
 

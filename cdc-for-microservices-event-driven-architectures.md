@@ -256,9 +256,9 @@ As CDC-based event-driven architectures scale, managing the proliferation of eve
 - For comprehensive data lineage tracking, see [Data Lineage: Tracking Data from Source to Consumption](https://conduktor.io/glossary/data-lineage-tracking-data-from-source-to-consumption)
 
 **Quality and Monitoring**:
-- Monitor CDC lag and throughput metrics
+- Monitor CDC lag and throughput metrics with [Kafka Connect Management](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/kafka-connect)
 - Set alerts for anomalous event patterns or consumption delays
-- Validate data quality rules on CDC event streams
+- Validate data quality rules on CDC event streams using [Data Quality tools](https://docs.conduktor.io/guide/use-cases/observe-data-quality)
 
 **Example Governance Use Case**:
 

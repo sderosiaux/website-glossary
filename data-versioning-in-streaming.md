@@ -291,9 +291,9 @@ Versioning is inseparable from data governance. Governance platforms enable team
 When a producer wants to introduce a breaking change, governance systems can block the deployment and suggest backward-compatible alternatives.
 
 **Conduktor Platform** provides enterprise-grade data governance for streaming systems, including:
-- **Schema Governance**: Enforce compatibility rules, validate schemas against contracts, and track schema evolution across environments
+- **Schema Governance**: Enforce compatibility rules, validate schemas against contracts with [Schema Registry management](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/schema-registry), and track schema evolution across environments
 - **Data Quality Rules**: Validate event content beyond schema structure (value ranges, business logic, data freshness)
-- **Self-Service Discovery**: Enable data consumers to find datasets, understand versions, and track lineage
+- **Self-Service Discovery**: Enable data consumers to find datasets, understand versions, and track lineage using [topic discovery](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/topics)
 - **Policy Enforcement**: Prevent breaking changes from reaching production, require approvals for schema evolution
 
 This prevents the chaos that emerges when teams evolve events independently without considering downstream impacts. Versioning combined with governance creates a controlled evolution path for streaming architectures, ensuring changes are deliberate, tested, and communicated to affected teams.

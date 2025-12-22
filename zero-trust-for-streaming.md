@@ -132,7 +132,7 @@ For **Kafka specifically**, zero trust implementation leverages:
 - Integration with external authorization services
 - KRaft mode (Kafka 4.0+) for simplified security architecture
 
-Governance platforms like **Conduktor** simplify zero trust by centralizing policy management, providing visibility into access patterns, and enforcing consistent security controls across Kafka clusters. Rather than managing ACLs manually across environments, teams define policies once and apply them uniformly. Conduktor Gateway adds an additional security layer by acting as a proxy that can enforce custom policies, intercept and validate requests, and provide fine-grained access control beyond native Kafka ACLs.
+Governance platforms like **Conduktor** simplify zero trust by centralizing policy management, providing visibility into access patterns, and enforcing consistent security controls across Kafka clusters. Rather than managing ACLs manually across environments, teams define policies once and apply them uniformly. [Conduktor Gateway](https://docs.conduktor.io/guide/conduktor-concepts/gw-authen-author) adds an additional security layer by acting as a proxy that can enforce custom policies, intercept and validate requests, and provide fine-grained access control beyond native Kafka ACLs.
 
 **Migration strategies** matter. You can't flip a switch from perimeter security to zero trust overnight. Start with high-value data: authenticate and authorize access to topics containing PII or financial data. Expand incrementally. Use monitoring to understand existing access patterns before enforcing restrictions. Run in shadow mode initially to catch unintended blocks.
 

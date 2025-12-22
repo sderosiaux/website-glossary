@@ -102,7 +102,7 @@ query = windowed_counts.writeStream \
     .start()
 ```
 
-For organizations managing complex Spark streaming deployments at scale, monitoring and governance become critical. Conduktor provides comprehensive capabilities for monitoring streaming pipeline health, tracking data lineage across micro-batch jobs, enforcing data quality policies, and ensuring compliance as your streaming infrastructure grows. For Kafka-specific details, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
+For organizations managing complex Spark streaming deployments at scale, monitoring and governance become critical. Conduktor provides comprehensive capabilities for [monitoring streaming pipeline health](https://docs.conduktor.io/guide/monitor-brokers-apps/index), tracking data lineage across micro-batch jobs, enforcing data quality policies, and ensuring compliance as your streaming infrastructure grows. For Kafka-specific details, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
 
 ## Latency and Performance Trade-offs
 

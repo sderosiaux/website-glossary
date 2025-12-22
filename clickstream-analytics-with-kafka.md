@@ -175,7 +175,7 @@ Production clickstream systems must handle schema evolution, data quality issues
 **Operational visibility** requires monitoring throughout the pipeline. Are events flowing at expected rates? Are consumers keeping up with producers? Are there spikes in error rates or latency?
 
 Modern tooling for clickstream pipeline observability (2025) includes:
-- **Conduktor Platform**: Comprehensive Kafka management, schema registry UI, data quality monitoring, and access control
+- **Conduktor Platform**: Comprehensive Kafka management ([Topics](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/topics), [Monitoring](https://docs.conduktor.io/guide/monitor-brokers-apps/index)), schema registry UI, data quality monitoring, and access control
 - **Kafka Lag Exporter**: Prometheus-based consumer lag monitoring with alerting capabilities
 - **Kafka UI**: Open-source web interface for cluster management and topic inspection
 - **Distributed tracing**: OpenTelemetry integration for end-to-end event flow visibility

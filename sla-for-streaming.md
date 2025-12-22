@@ -130,7 +130,7 @@ Modern streaming platforms implement **real-time SLA monitoring** through:
 
 Leading platforms for comprehensive Kafka SLA monitoring include:
 
-- **Conduktor**: Enterprise platform providing real-time SLA tracking dashboards, consumer lag visualization, latency percentile monitoring, and alerting for SLA breaches. Includes SLA compliance reporting and historical trend analysis.
+- **Conduktor**: Enterprise platform providing real-time SLA tracking dashboards, consumer lag visualization, latency percentile monitoring, and alerting for SLA breaches. [Monitor brokers and applications](https://docs.conduktor.io/guide/monitor-brokers-apps/index) with comprehensive SLA compliance reporting and historical trend analysis through the [Insights Dashboard](https://docs.conduktor.io/guide/insights/index).
 - **Kafka Lag Exporter**: Open-source tool that exports consumer group lag metrics to Prometheus, enabling percentile-based SLA tracking and alerting through Grafana dashboards.
 - **Prometheus + Grafana**: Industry-standard metrics collection and visualization stack with pre-built Kafka dashboards for tracking broker performance, consumer lag, and end-to-end latency.
 - **JMX Exporters**: Extract detailed JVM and Kafka-specific metrics from brokers and clients for comprehensive SLA monitoring across all system components.

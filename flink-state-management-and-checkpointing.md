@@ -238,7 +238,7 @@ DataStream<Event> events = env.fromSource(
 
 Similarly, the Kafka sink provides exactly-once guarantees through two-phase commit protocol, coordinating with Flink's checkpointing. Transactions are committed only when checkpoints complete successfully.
 
-For organizations managing complex streaming infrastructures, governance platforms like Conduktor provide visibility into Kafka-Flink integration patterns. Monitoring topic consumption lag (see [Consumer Lag Monitoring and Alerting](https://conduktor.io/glossary/consumer-lag-monitoring-and-alerting)), offset commits aligned with Flink checkpoints, and data flow observability helps identify state management issues before they impact production systems. For comprehensive cluster monitoring, see [Kafka Cluster Monitoring and Metrics](https://conduktor.io/glossary/kafka-cluster-monitoring-and-metrics).
+For organizations managing complex streaming infrastructures, governance platforms like Conduktor provide visibility into Kafka-Flink integration patterns. [Monitor Kafka topics](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/topics) to track consumption lag, offset commits aligned with Flink checkpoints, and data flow observability to identify state management issues before they impact production systems. [Schema Registry integration](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/schema-registry) ensures event format compatibility across your Flink pipelines. For comprehensive lag monitoring strategies, see [Consumer Lag Monitoring and Alerting](https://conduktor.io/glossary/consumer-lag-monitoring-and-alerting) and [Kafka Cluster Monitoring and Metrics](https://conduktor.io/glossary/kafka-cluster-monitoring-and-metrics).
 
 ## Production Considerations and Best Practices
 

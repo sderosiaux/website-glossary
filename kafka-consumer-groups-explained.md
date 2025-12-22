@@ -170,7 +170,7 @@ High lag indicates consumers cannot keep up with incoming messages. This might s
 
 Tracking rebalancing frequency and duration helps identify stability issues. Frequent rebalances suggest configuration problems or unstable consumers.
 
-Tools like Conduktor provide real-time visibility into consumer group health, displaying lag per partition, rebalancing events, and consumer assignment status. For open-source monitoring, Kafka Lag Exporter (the 2025 standard for Prometheus-based monitoring) and Burrow provide robust lag tracking and alerting capabilities. These insights help teams quickly identify and resolve performance bottlenecks before they impact downstream systems.
+Tools like Conduktor provide real-time visibility into consumer group health, displaying lag per partition, rebalancing events, and consumer assignment status. Learn more about [managing consumer groups in Conduktor](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/topics) to monitor lag, track offsets, and troubleshoot rebalancing issues. For open-source monitoring, Kafka Lag Exporter (the 2025 standard for Prometheus-based monitoring) and Burrow provide robust lag tracking and alerting capabilities. These insights help teams quickly identify and resolve performance bottlenecks before they impact downstream systems.
 
 For detailed coverage of consumer lag monitoring strategies and metrics collection, see [Kafka Cluster Monitoring and Metrics](https://conduktor.io/glossary/kafka-cluster-monitoring-and-metrics).
 

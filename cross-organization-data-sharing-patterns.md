@@ -244,7 +244,7 @@ Stream governance platforms help manage this complexity by providing topic-level
 
 Several specialized platforms have emerged to simplify cross-organization data sharing:
 
-**Conduktor**: Enables organizations to share Kafka topics across cloud accounts and regions with fine-grained access control. Producers maintain ownership while granting read access to external consumers through governance policies. This approach eliminates data duplication and reduces operational complexity.
+**Conduktor Partner Zones**: Enables organizations to share Kafka topics across cloud accounts and regions with fine-grained access control (see [Conduktor Partner Zones](https://docs.conduktor.io/guide/conduktor-concepts/partner-zones) for secure cross-organization data sharing). Producers maintain ownership while granting read access to external consumers through governance policies. This approach eliminates data duplication and reduces operational complexity.
 
 **Delta Sharing**: An open protocol for secure data sharing that works with data lake tables (Delta Lake, Apache Iceberg, Apache Hudi). Organizations share live data without copying it, using a simple REST API for access control. Recipients can query shared data using their preferred tools (Spark, pandas, Power BI) without requiring direct cloud storage access.
 

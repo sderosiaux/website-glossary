@@ -155,7 +155,7 @@ DataStream<Event> stream = env.fromSource(
 );
 ```
 
-For visibility into watermark propagation and late data patterns, platforms like Conduktor provide comprehensive monitoring capabilities that surface metrics about event time lag, watermark advancement, and late event rates across your streaming topology. These tools offer real-time dashboards for tracking watermark progression, identifying lagging partitions, and alerting on excessive late data—essential capabilities for tuning watermark strategies in production environments.
+For visibility into watermark propagation and late data patterns, platforms like Conduktor provide comprehensive [monitoring capabilities](https://docs.conduktor.io/guide/monitor-brokers-apps/index) that surface metrics about event time lag, watermark advancement, and late event rates across your streaming topology. These tools offer real-time dashboards for tracking watermark progression, identifying lagging partitions, and alerting on excessive late data—essential capabilities for tuning watermark strategies in production environments.
 
 ## Watermark Alignment and Parallel Streams
 

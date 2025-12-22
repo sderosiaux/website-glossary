@@ -322,10 +322,10 @@ This enables reproducing predictions and diagnosing errors months later.
 
 As real-time ML systems scale, data governance becomes critical. **Conduktor** provides comprehensive governance capabilities specifically designed for streaming ML pipelines:
 
-- **Schema validation**: Ensure streaming events match feature expectations before they enter ML pipelines. Conduktor's schema enforcement prevents malformed events from corrupting feature computations.
-- **Data quality gates**: Block corrupt data before it reaches feature pipelines through Conduktor's data quality module, which validates ranges, patterns, and business rules on streaming data.
+- **Schema validation**: Ensure streaming events match feature expectations before they enter ML pipelines. Conduktor's [Schema Registry integration](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/schema-registry) prevents malformed events from corrupting feature computations.
+- **Data quality gates**: Block corrupt data before it reaches feature pipelines through Conduktor's [data quality module](https://docs.conduktor.io/guide/use-cases/observe-data-quality), which validates ranges, patterns, and business rules on streaming data.
 - **Lineage tracking**: Trace features from source events through transformations with Conduktor's data lineage visualization, critical for debugging ML pipeline issues.
-- **Access controls**: Restrict who can modify feature definitions or deploy models through topic-level ACLs and governance policies.
+- **Access controls**: Restrict who can modify feature definitions or deploy models through [topic-level ACLs](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/topics) and governance policies.
 - **Audit logs**: Track all changes to feature pipelines and model deployments, essential for regulated industries.
 
 For example, Conduktor can enforce that all events in the `transactions` topic include required fields (`user_id`, `amount`, `timestamp`) with valid data types and ranges before feature engineering begins, preventing silent failures in downstream ML pipelines. This governance layer acts as quality gates between data producers and ML consumers.
@@ -440,7 +440,7 @@ Typical real-time ML infrastructure:
 - **ML Monitoring**: Evidently AI, WhyLabs, NannyML
 
 **Governance & Quality**:
-- **Platform Governance**: Conduktor (streaming data governance, quality gates, lineage)
+- **Platform Governance**: Conduktor (streaming data governance, quality gates, lineage) - [manage Kafka resources](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/topics) and [enforce data quality](https://docs.conduktor.io/guide/use-cases/observe-data-quality)
 - **Data Quality**: [Great Expectations](/great-expectations-data-testing-framework), Soda Core, dbt tests
 - **Feature Monitoring**: Built into modern feature stores (drift detection, staleness tracking)
 

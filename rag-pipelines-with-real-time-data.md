@@ -331,10 +331,10 @@ Data streaming platforms are essential to real-time RAG for several reasons:
 
 Platforms like Conduktor provide comprehensive governance and monitoring for these streaming pipelines, offering visibility into data quality issues before they affect the RAG system:
 
-- **Schema validation**: Automatically validate incoming events against registered schemas to prevent malformed data from entering the RAG pipeline
+- **Schema validation**: Automatically validate incoming events against [registered schemas](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/schema-registry) to prevent malformed data from entering the RAG pipeline
 - **Data masking**: Redact sensitive fields (PII, credentials) in real-time to ensure embeddings don't leak confidential information
 - **Pipeline health dashboards**: Monitor consumer lag, throughput, and error rates across the entire RAG ingestion pipeline
-- **Data quality rules**: Set up automated checks for data completeness, freshness, and accuracy before embedding generation
+- **Data quality rules**: Set up automated checks for [data completeness, freshness, and accuracy](https://docs.conduktor.io/guide/use-cases/observe-data-quality) before embedding generation
 - **Testing with Conduktor Gateway**: Simulate failure scenarios and chaos engineering tests to validate pipeline resilience without impacting production
 
 These governance capabilities help teams maintain reliable, compliant real-time data flows from source systems to vector databases.

@@ -564,7 +564,7 @@ Benefits of infrastructure-as-code for ACLs:
 
 ### Conduktor Platform for ACL Management
 
-**Conduktor** provides enterprise-grade ACL management with visual interfaces, validation, and governance features that dramatically simplify operations at scale.
+**Conduktor** provides enterprise-grade ACL management with [visual RBAC capabilities](https://docs.conduktor.io/guide/conduktor-in-production/admin/set-up-rbac) and governance features that dramatically simplify operations at scale.
 
 Key Conduktor capabilities for ACLs:
 

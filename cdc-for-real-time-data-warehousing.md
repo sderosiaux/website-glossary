@@ -181,9 +181,9 @@ These modern platforms reduce operational overhead and provide managed CDC infra
 In production CDC pipelines, governance and operational visibility become critical. Streaming governance platforms provide centralized monitoring and management for Kafka-based CDC infrastructures:
 
 - **Schema validation**: Ensures CDC events conform to expected schemas before reaching the warehouse
-- **Data quality monitoring**: Tracks event volumes, delays, and anomalies in CDC streams
+- **Data quality monitoring**: Tracks event volumes, delays, and anomalies in CDC streams with [Data Quality Monitoring](https://docs.conduktor.io/guide/use-cases/observe-data-quality)
 - **Access control**: Manages which teams can consume specific CDC topics
-- **Pipeline observability**: Visualizes data flows from source databases through Kafka to warehouses
+- **Pipeline observability**: Visualizes data flows from source databases through Kafka to warehouses using [Kafka Connect Management](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/kafka-connect)
 
 This governance layer prevents data quality issues from propagating to analytical systems and provides the operational transparency needed to maintain SLAs for real-time reporting.
 

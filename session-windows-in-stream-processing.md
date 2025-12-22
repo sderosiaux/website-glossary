@@ -163,7 +163,7 @@ Understanding session window behavior in production requires proper monitoring. 
 
 Modern observability practices for session windows (as of 2025) include:
 
-- **Platform monitoring**: Tools like Conduktor provide observability into Kafka Streams applications, allowing you to monitor session window state stores, track lag, and debug window behavior in production environments
+- **Platform monitoring**: Tools like Conduktor provide [observability into Kafka Streams applications](https://docs.conduktor.io/guide/monitor-brokers-apps/index), allowing you to monitor session window state stores, track lag, and debug window behavior in production environments
 - **OpenTelemetry integration**: Instrument session window operations with distributed tracing to track event flow through windowing logic, measure latency, and correlate window closures with downstream processing
 - **Kafka 4.0 metrics**: Leverage improved metrics APIs in Kafka 4.0 for granular monitoring of window state store sizes, compaction rates, and restoration times
 - **Consumer lag monitoring**: Track windowed consumer group lag to detect processing bottlenecks. For comprehensive lag monitoring strategies, see [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring)

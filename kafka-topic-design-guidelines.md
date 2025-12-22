@@ -290,7 +290,7 @@ kafka-acls --bootstrap-server localhost:9092 \
 ```
 
 **2025 Governance Tools**:
-- **Conduktor**: Centralized ACL management with visual interface, approval workflows, and audit trails across multiple clusters
+- **Conduktor**: Centralized ACL management with visual interface, approval workflows, and audit trails across multiple clusters. For implementing self-service topic creation with governance policies, see the [Self-Service documentation](https://docs.conduktor.io/guide/conduktor-concepts/self-service) and [Topics Management guide](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/topics)
 - **OPA (Open Policy Agent)**: Policy-as-code for automated authorization decisions
 - **Kafka KRaft ACLs**: Simplified ACL storage and management without ZooKeeper dependency
 

@@ -134,7 +134,7 @@ Changelog topics use log compaction to retain only the latest value for each key
 
 ### Monitoring
 
-Monitoring state store metrics is crucial for production applications. Key metrics include state store size, restoration time, and changelog lag. Tools like Conduktor provide comprehensive visibility into state store health, allowing you to inspect state contents in real-time, monitor restoration progress, debug slow restores, and identify excessive state growth. Configure JMX metrics (such as `state-store-size`, `restore-time`, and `record-cache-hit-ratio`) and integrate with monitoring systems like Prometheus and Grafana for production observability. For broader monitoring strategies, see [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring).
+Monitoring state store metrics is crucial for production applications. Key metrics include state store size, restoration time, and changelog lag. Tools like Conduktor provide comprehensive visibility into state store health through [topic management](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/topics), allowing you to inspect state contents in real-time, monitor restoration progress, debug slow restores, and identify excessive state growth. Configure JMX metrics (such as `state-store-size`, `restore-time`, and `record-cache-hit-ratio`) and integrate with monitoring systems like Prometheus and Grafana for production observability. For broader monitoring strategies, see [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring).
 
 ## State Stores in Data Streaming Platforms
 
@@ -144,7 +144,7 @@ The changelog-based approach to fault tolerance has become a standard pattern in
 
 State stores also enable interactive queries, where external applications can query the current state of a streaming application. For example, a REST API could query your Kafka Streams application to retrieve the current login count for a specific user or get real-time analytics without reading from Kafka topics. This bridges the gap between stream processing and traditional databases, allowing you to build applications that serve real-time aggregations or lookups directly from the stream processor.
 
-In production environments, managing state stores requires coordination between your streaming application and the Kafka cluster. Tools like Conduktor help teams monitor state store performance, debug stateful operations, and ensure that changelog topics are properly configured and compacted.
+In production environments, managing state stores requires coordination between your streaming application and the Kafka cluster. Tools like Conduktor help teams monitor state store performance through [topic management](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/topics), debug stateful operations, and ensure that changelog topics are properly configured and compacted.
 
 ## Summary
 

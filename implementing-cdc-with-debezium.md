@@ -492,7 +492,7 @@ Debezium connectors produce events to Kafka topics, making them immediately avai
 
 Schema Registry ensures backward and forward compatibility as database schemas evolve, preventing breaking changes from impacting downstream consumers. For comprehensive schema management strategies, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) and [Schema Evolution Best Practices](https://conduktor.io/glossary/schema-evolution-best-practices).
 
-**Monitoring and Governance**: Governance platforms provide visibility into Debezium topics, helping teams monitor data quality, track schema evolution, and govern access to sensitive CDC streams. Conduktor offers comprehensive data governance capabilities including data masking for CDC pipelines containing PII, lineage tracking, and quality monitoring - all without modifying connector configurations. This allows teams to enforce privacy policies and compliance requirements centrally.
+**Monitoring and Governance**: Governance platforms provide visibility into Debezium topics, helping teams monitor data quality, track schema evolution, and govern access to sensitive CDC streams. Conduktor offers comprehensive data governance capabilities including [data masking](https://docs.conduktor.io/guide/conduktor-concepts/interceptors) for CDC pipelines containing PII, [lineage tracking](https://docs.conduktor.io/guide/features/data-lineage), and quality monitoring through [topic management](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/topics) - all without modifying connector configurations. This allows teams to enforce privacy policies and compliance requirements centrally.
 
 ## Common Patterns and Use Cases
 

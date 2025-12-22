@@ -152,7 +152,7 @@ Apache Kafka ecosystems demonstrate the interplay between different orchestratio
 
 **State Management**: Applications using Kafka Streams or Flink maintain local state stores. Orchestration must handle state migration during scaling events or version upgrades.
 
-Platforms like Conduktor help orchestrate these aspects by providing centralized management of topics, schemas, and connectors, visualizing data lineage across the pipeline, and monitoring the health of consumer groups and connectors in real time.
+Platforms like Conduktor help orchestrate these aspects by providing centralized management of topics, schemas, and connectors with [Kafka Connect](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/kafka-connect), visualizing data lineage across the pipeline, and monitoring the health of consumer groups and connectors in real time.
 
 ## Best Practices for Streaming Orchestration
 
@@ -168,7 +168,7 @@ Enforce schema validation at ingestion. Use the schema registry as a source of t
 
 Traditional batch orchestration focuses on task success or failure. Streaming orchestration must monitor consumer lag—the gap between produced and consumed messages. Growing lag indicates problems even when no errors appear in logs.
 
-Modern tools like Kafka Lag Exporter (Prometheus-based) provide real-time lag metrics that integrate with orchestration workflows. Platforms like Conduktor offer comprehensive monitoring dashboards that track consumer lag, throughput, and pipeline health across your entire streaming infrastructure. Orchestration systems should trigger alerts when lag exceeds thresholds and potentially scale resources automatically. For comprehensive monitoring strategies, see [Kafka Cluster Monitoring and Metrics](https://conduktor.io/glossary/kafka-cluster-monitoring-and-metrics).
+Modern tools like Kafka Lag Exporter (Prometheus-based) provide real-time lag metrics that integrate with orchestration workflows. Platforms like Conduktor offer comprehensive monitoring dashboards that track consumer lag, throughput, and pipeline health across your entire streaming infrastructure. Monitor connector health and status with [Kafka Connect Management](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/kafka-connect) and validate data quality using [built-in monitoring tools](https://docs.conduktor.io/guide/use-cases/observe-data-quality). Orchestration systems should trigger alerts when lag exceeds thresholds and potentially scale resources automatically. For comprehensive monitoring strategies, see [Kafka Cluster Monitoring and Metrics](https://conduktor.io/glossary/kafka-cluster-monitoring-and-metrics).
 
 ### Design for Reprocessing
 

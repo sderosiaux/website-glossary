@@ -238,11 +238,11 @@ Data lineage tracks complete data paths for:
 - **Compliance**: Demonstrate handling for GDPR, CCPA, SOX
 
 Commercial governance platforms like Conduktor centralize operational visibility and control for Kafka ecosystems, enabling teams to:
-- Inspect Source/Sink Connector status across clusters
+- Inspect Source/Sink Connector status across clusters with [Kafka Connect Management](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/kafka-connect)
 - Track consumer group offsets and lag via unified dashboards
 - Visualize pipeline topology (topics → processors → sinks)
 - Monitor schema versions and evolution history
-- Enforce governance policies on sensitive streams
+- Enforce governance policies on sensitive streams with [Interceptors](https://docs.conduktor.io/guide/conduktor-concepts/interceptors)
 - Troubleshoot bottlenecks without accessing multiple CLI tools
 - Test resilience with Conduktor Gateway (proxy-based chaos engineering for network failures, latency injection, and message manipulation)
 

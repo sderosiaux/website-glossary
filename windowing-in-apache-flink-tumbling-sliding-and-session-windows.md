@@ -494,8 +494,8 @@ When consuming from Kafka, configure watermarks to handle out-of-order events. T
 Managing Kafka topics and ensuring data quality in streaming pipelines requires robust governance tools. Streaming management platforms like Conduktor provide comprehensive visibility into Kafka clusters, helping teams monitor topic health, schema evolution, and consumer lag—critical factors for successful Flink deployments.
 
 When operating windowed Flink applications at scale, governance platforms enable:
-- **Topic monitoring**: Track message rates and partition distribution for input/output topics
-- **Schema governance**: Ensure event schemas remain compatible across pipeline stages (see [Avro vs Protobuf vs JSON Schema](https://conduktor.io/glossary/avro-vs-protobuf-vs-json-schema))
+- **Topic monitoring**: [Track Kafka topics](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/topics) for message rates and partition distribution across input/output topics
+- **Schema governance**: Ensure event schemas remain compatible across pipeline stages with [Schema Registry integration](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/schema-registry) (see [Avro vs Protobuf vs JSON Schema](https://conduktor.io/glossary/avro-vs-protobuf-vs-json-schema))
 - **Consumer lag tracking**: Monitor Flink consumer groups and detect processing delays that could affect window accuracy (see [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring))
 - **Data quality rules**: Validate event timestamps and structure before they enter windowing logic (see [Building a Data Quality Framework](https://conduktor.io/glossary/building-a-data-quality-framework))
 

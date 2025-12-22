@@ -343,10 +343,10 @@ Note that write-time configuration minimizes small files during ingestion but do
 In organizations managing multiple Iceberg tables across streaming pipelines, visibility into table health becomes critical. When Kafka streams feed Iceberg tables through Flink or Spark, **Conduktor** provides comprehensive governance capabilities that ensure data quality and operational health:
 
 **Kafka-to-Iceberg Pipeline Monitoring:**
-- **End-to-end latency tracking**: Monitor time from Kafka ingestion through Iceberg commit, identifying bottlenecks in streaming writes
+- **End-to-end latency tracking**: Monitor time from Kafka ingestion through Iceberg commit using [Conduktor's topic monitoring](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/topics), identifying bottlenecks in streaming writes
 - **Consumer lag monitoring**: Track Flink/Spark consumer lag to detect when compaction jobs slow down streaming ingestion
-- **Data quality validation**: Enforce schema contracts and validation rules on Kafka messages before they reach Iceberg tables
-- **Throughput analysis**: Measure messages per second and file creation rates to optimize micro-batch sizes
+- **Data quality validation**: Enforce schema contracts and validation rules with [Schema Registry integration](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/schema-registry) on Kafka messages before they reach Iceberg tables
+- **Throughput analysis**: Measure messages per second and file creation rates to optimize micro-batch sizes using [Kafka Connect monitoring](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/kafka-connect)
 
 **Table Health Management:**
 - **Small file detection**: Alert when Iceberg partitions exceed thresholds (e.g., more than 100 files under 10MB)

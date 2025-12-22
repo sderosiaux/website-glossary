@@ -123,7 +123,7 @@ Amazon MSK serves as the backbone for real-time data streaming architectures on 
 
 ## Operational Considerations
 
-**Cost Structure**: MSK pricing includes broker instance hours, storage costs, and data transfer. A three-broker cluster using kafka.m5.large instances (2 vCPUs, 8 GB memory each) with 500 GB storage per broker costs approximately $500-600/month before data transfer. MSK Serverless can be more economical for variable or unpredictable workloads.
+**Cost Structure**: MSK pricing includes broker instance hours, storage costs, and data transfer. A three-broker cluster using kafka.m5.large instances (2 vCPUs, 8 GB memory each) with 500 GB storage per broker costs approximately $500-600/month before data transfer. MSK Serverless can be more economical for variable or unpredictable workloads. For implementing chargeback and cost attribution across MSK clusters to understand per-team and per-topic costs, see [Conduktor's Cost Control Insights](https://docs.conduktor.io/guide/insights/cost-control).
 
 **Scaling**: You can scale MSK clusters vertically by changing broker instance types or horizontally by adding brokers. Storage expansion happens online without downtime. However, rebalancing partitions across new brokers requires manual partition reassignment or tools that automate the process.
 

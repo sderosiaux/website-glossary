@@ -83,7 +83,7 @@ stream
 
 In this example, the 5-minute window closes when stream-time advances past the window boundary. Kafka Streams 3.0+ introduced the `ofSizeWithNoGrace()` method which creates windows that close immediately when stream-time advances, while `ofSizeAndGrace()` allows configuring a grace period for late events—equivalent to Flink's out-of-orderness duration.
 
-Streaming management tools like Conduktor can visualize watermark progression across pipeline stages, helping developers debug timing issues and understand why windows are or are not firing as expected.
+Streaming management tools like Conduktor can [visualize watermark progression across pipeline stages](https://docs.conduktor.io/guide/monitor-brokers-apps/index), helping developers debug timing issues and understand why windows are or are not firing as expected.
 
 ## Handling Out-of-Order Data and Late Events
 

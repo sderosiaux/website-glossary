@@ -382,9 +382,9 @@ consumer_groups:
 
 For gaming analytics teams managing dozens or hundreds of Kafka topics across multiple environments (development, staging, production), Conduktor's unified interface provides:
 
-- Real-time consumer lag monitoring with customizable alerts
+- Real-time consumer lag monitoring with customizable alerts ([Monitoring Guide](https://docs.conduktor.io/guide/monitor-brokers-apps/index))
 - Schema Registry integration for safe schema evolution
-- Topic configuration management and drift detection
+- Topic configuration management and drift detection ([Topics Guide](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/topics))
 - Data quality monitoring and validation rules
 - ACL and security policy management for multi-team access
 

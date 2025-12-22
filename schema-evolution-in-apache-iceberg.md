@@ -209,7 +209,7 @@ The integration pattern typically involves:
 3. Streaming pipeline applies schema changes to Iceberg tables
 4. Data governance platforms like Conduktor provide visibility and audit trails
 
-This multi-layered approach ensures that schema evolution remains controlled and traceable, even in complex streaming architectures with dozens of data producers and consumers. Conduktor Gateway can enforce schema policies at the streaming layer before data reaches your Iceberg tables, preventing invalid schema changes from propagating downstream.
+This multi-layered approach ensures that schema evolution remains controlled and traceable, even in complex streaming architectures with dozens of data producers and consumers. Conduktor Gateway can enforce schema policies at the streaming layer before data reaches your Iceberg tables, preventing invalid schema changes from propagating downstream. For implementing schema governance with Conduktor, see [Schema Registry Management](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/schema-registry) and [Data Quality Policies](https://docs.conduktor.io/guide/conduktor-concepts/data-quality-policies).
 
 ## Backward Compatibility and Versioning
 

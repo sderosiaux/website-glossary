@@ -229,7 +229,7 @@ Headers are invaluable for debugging and monitoring Kafka applications. When tro
 
 ### GUI and Management Tools
 
-Tools like Conduktor make header inspection straightforward. You can:
+Tools like Conduktor make header inspection straightforward. You can [view and manage topics](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/topics) to:
 - View all headers on messages in the UI
 - Filter messages based on header values
 - Search for specific trace IDs or correlation IDs

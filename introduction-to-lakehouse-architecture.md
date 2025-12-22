@@ -180,10 +180,10 @@ tableEnv.executeSql(
 
 Managing streaming infrastructure requires specialized expertise and governance. **Conduktor** provides comprehensive capabilities for data teams building lakehouse ingestion pipelines:
 
-- **Kafka Cluster Management**: Monitor and manage Kafka clusters with intuitive dashboards, tracking lag, throughput, and consumer health
-- **Data Governance**: Enforce schema validation, data contracts, and quality policies on streaming data before it reaches the lakehouse
+- **Kafka Cluster Management**: Monitor and manage Kafka clusters with intuitive dashboards, tracking lag, throughput, and consumer health. See [Conduktor's topic management guide](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/topics) for monitoring streaming ingestion
+- **Data Governance**: Enforce schema validation, data contracts, and quality policies on streaming data before it reaches the lakehouse. Learn more about [Schema Registry integration](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/schema-registry)
 - **Testing & Validation**: Use Conduktor Gateway to inject chaos scenarios, test failure handling, and validate exactly-once semantics
-- **Pipeline Debugging**: Visualize data flows, inspect message payloads, and troubleshoot connector configurations
+- **Pipeline Debugging**: Visualize data flows, inspect message payloads, and troubleshoot connector configurations using [Kafka Connect management](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/kafka-connect)
 
 By integrating Conduktor with lakehouse architecture, organizations can build robust end-to-end data pipelines that maintain high data quality from ingestion through analytics.
 

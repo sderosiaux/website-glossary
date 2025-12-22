@@ -156,7 +156,7 @@ deletion_mgr.process_deletion_request('user-123')
 
 **Log Compaction with Key-Based Deletion**: Configure Kafka topics with log compaction enabled. When a deletion request arrives, publish a tombstone record with the user's identifier as the key, allowing Kafka to eventually remove all records for that key. For detailed coverage of log compaction mechanics, see [Kafka Log Compaction Explained](https://conduktor.io/glossary/kafka-log-compaction-explained).
 
-**Policy Enforcement Layer**: Data governance platforms like Conduktor provide capabilities that enable teams to implement deletion policies, data masking, and field-level encryption across Kafka clusters. Conduktor's policy enforcement features can intercept, filter, and transform messages based on compliance rules without requiring changes to producer or consumer applications, making GDPR compliance enforcement more manageable at scale.
+**Policy Enforcement Layer**: Data governance platforms like Conduktor provide capabilities that enable teams to implement deletion policies, [data masking](https://docs.conduktor.io/guide/conduktor-in-production/admin/data-mask), and field-level encryption across Kafka clusters. Conduktor's policy enforcement features can intercept, filter, and transform messages based on compliance rules without requiring changes to producer or consumer applications, making GDPR compliance enforcement more manageable at scale.
 
 ## Consent Management in Streaming Systems
 

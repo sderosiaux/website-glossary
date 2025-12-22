@@ -233,6 +233,8 @@ Tools like Conduktor provide visual interfaces for quota management, making it e
 - **Historical analysis**: Track quota patterns over time to inform capacity planning
 - **Multi-cluster views**: Manage quotas consistently across development, staging, and production environments
 
+For hands-on guidance on implementing quotas and rate limiting with Conduktor, see the [Traffic Control Policies documentation](https://docs.conduktor.io/guide/conduktor-concepts/traffic-control-policies).
+
 Establishing quota violation alerts ensures operators can respond to issues proactively. If a critical application consistently hits quota limits, this might indicate the need for infrastructure scaling or quota increases rather than simply throttling the client. For strategies on tracking consumer performance and identifying quota-related lag issues, see [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring).
 
 ## Quotas and Data Streaming Pipelines

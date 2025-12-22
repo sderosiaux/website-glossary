@@ -56,7 +56,7 @@ The Bronze layer serves as your raw data landing zone. Here, data arrives in its
 
 For real-time data pipelines, the Bronze layer excels at consuming streaming data. Apache Kafka topics feed directly into Bronze tables, often using formats like JSON or Avro that preserve the source structure.
 
-Modern Kafka platforms like **Conduktor** provide essential visibility into streaming data flows, helping teams manage topics, monitor consumer lag, validate schemas, and track data quality metrics as events flow into the Bronze layer. This operational insight ensures that your Bronze ingestion pipeline remains healthy and performant.
+Modern Kafka platforms like **Conduktor** provide essential visibility into streaming data flows, helping teams manage topics, monitor consumer lag, validate schemas, and track data quality metrics as events flow into the Bronze layer. See [Conduktor's topic management](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/topics) and [Schema Registry integration](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/schema-registry) for comprehensive streaming governance. This operational insight ensures that your Bronze ingestion pipeline remains healthy and performant.
 
 ![data-lake-zones-bronze-silver-gold-architecture diagram 2](images/diagrams/data-lake-zones-bronze-silver-gold-architecture-1.webp)
 

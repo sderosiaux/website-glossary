@@ -71,7 +71,7 @@ Think of data quality as unit tests for your data, while data observability is l
 
 The distinction between data quality and observability becomes even more important in streaming environments. Traditional batch processing allows for comprehensive testing before data moves downstream, but streaming systems demand different approaches.
 
-In streaming architectures built on platforms like Apache Kafka, data flows continuously with minimal latency. Modern governance platforms like Conduktor provide comprehensive visibility into Kafka clusters, schema registries, and data flows, bridging the gap between quality testing and observability monitoring.
+In streaming architectures built on platforms like Apache Kafka, data flows continuously with minimal latency. Modern governance platforms like Conduktor provide comprehensive visibility into Kafka clusters, schema registries, and data flows, bridging the gap between quality testing and observability monitoring. To implement data quality policies in your streaming pipelines, see [Conduktor's Data Quality Policies guide](https://docs.conduktor.io/guide/conduktor-concepts/data-quality-policies) and [Enforcing Data Quality](https://docs.conduktor.io/guide/use-cases/enforce-data-quality).
 
 For streaming use cases:
 

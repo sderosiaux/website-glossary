@@ -211,7 +211,7 @@ Effective late data handling requires good observability. Key metrics to track i
 
 Monitoring event timestamp distributions across topics can reveal producers with clock skew or connectivity problems.
 
-**Modern monitoring tools** like Conduktor provide comprehensive visibility into streaming pipelines, including late data metrics, watermark progression tracking, and consumer lag monitoring. These platforms help identify late data patterns and optimize watermark strategies based on actual production behavior. For production deployments, tools like Prometheus and Grafana integrate well with Flink and Kafka Streams to expose late data metrics through standard metric endpoints.
+**Modern monitoring tools** like Conduktor provide comprehensive [visibility into streaming pipelines](https://docs.conduktor.io/guide/monitor-brokers-apps/index), including late data metrics, watermark progression tracking, and consumer lag monitoring. These platforms help identify late data patterns and optimize watermark strategies based on actual production behavior. For production deployments, tools like Prometheus and Grafana integrate well with Flink and Kafka Streams to expose late data metrics through standard metric endpoints.
 
 ## 2025 Advances in Late Data Handling
 

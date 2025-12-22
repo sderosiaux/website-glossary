@@ -146,7 +146,7 @@ LLM APIs can fail due to rate limits, timeouts, or service issues. Robust implem
 
 For patterns on handling failed messages, see [Dead Letter Queues for Error Handling](https://conduktor.io/glossary/dead-letter-queues-for-error-handling).
 
-Monitoring API rate limits and costs is essential. Stream processors should track metrics like API call volume, latency percentiles, token usage, and error rates. Platforms like Conduktor provide comprehensive monitoring for Kafka-based LLM pipelines, offering visibility into message flow, processing metrics, consumer lag, and cost tracking across the entire system. For Kafka-specific monitoring approaches, see [Kafka Cluster Monitoring and Metrics](https://conduktor.io/glossary/kafka-cluster-monitoring-and-metrics) and [Consumer Lag: Monitoring and Managing Streaming Health](https://conduktor.io/glossary/consumer-lag-monitoring).
+Monitoring API rate limits and costs is essential. Stream processors should track metrics like API call volume, latency percentiles, token usage, and error rates. Platforms like Conduktor provide comprehensive monitoring for Kafka-based LLM pipelines, offering visibility into message flow, [topic management](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/topics), processing metrics, consumer lag, and cost tracking across the entire system. For Kafka-specific monitoring approaches, see [Kafka Cluster Monitoring and Metrics](https://conduktor.io/glossary/kafka-cluster-monitoring-and-metrics) and [Consumer Lag: Monitoring and Managing Streaming Health](https://conduktor.io/glossary/consumer-lag-monitoring).
 
 ## Challenges and Best Practices
 

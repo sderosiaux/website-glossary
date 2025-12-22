@@ -294,11 +294,11 @@ parsedStream.writeStream
 Managing Kafka-to-Iceberg streaming pipelines during migration requires comprehensive observability and governance. **Conduktor** provides essential capabilities for production-grade migrations:
 
 - **Data Quality Monitoring**: Validate message schemas and enforce data contracts before writes reach Iceberg tables, preventing corrupted migrations
-- **Consumer Lag Tracking**: Monitor streaming job performance in real-time to ensure migration keeps pace with incoming data, preventing backlog accumulation
+- **Consumer Lag Tracking**: Monitor streaming job performance in real-time using [topic monitoring](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/topics) to ensure migration keeps pace with incoming data, preventing backlog accumulation
 - **Topic Management**: Visualize and coordinate multiple Kafka topics feeding into Iceberg tables during phased migrations
-- **Schema Registry Integration**: Manage schema evolution across both legacy and Iceberg tables, ensuring compatibility during the transition
+- **Schema Registry Integration**: Manage schema evolution across both legacy and Iceberg tables with [Schema Registry](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/schema-registry), ensuring compatibility during the transition
 - **Pipeline Testing with Conduktor Gateway**: Inject chaos scenarios (network delays, broker failures, partition rebalances) to validate exactly-once semantics and checkpoint recovery before production deployment
-- **Data Lineage Tracking**: Trace data flow from Kafka topics through transformations to Iceberg snapshots, enabling end-to-end visibility
+- **Data Lineage Tracking**: Trace data flow from Kafka topics through transformations to Iceberg snapshots, enabling end-to-end visibility. Manage connectors with [Kafka Connect](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/kafka-connect)
 
 Conduktor's governance features help data engineers identify bottlenecks, validate data consistency, and ensure zero data loss during the transition to Iceberg-based architectures. For mission-critical migrations, testing pipeline resilience with Conduktor Gateway before cutover reduces risk and ensures production stability.
 

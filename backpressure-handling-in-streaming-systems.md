@@ -185,7 +185,7 @@ Essential metrics for detecting backpressure:
 
 ### Tools for Visibility
 
-Kafka's built-in metrics expose lag and throughput, but interpreting raw metrics requires effort. Streaming management platforms provide dashboards that visualize consumer lag, identify slow consumers, and show partition-level throughput. This visibility helps teams quickly identify whether backpressure stems from under-provisioned consumers, slow downstream systems, or data skew across partitions.
+Kafka's built-in metrics expose lag and throughput, but interpreting raw metrics requires effort. Streaming management platforms provide [dashboards that visualize consumer lag](https://docs.conduktor.io/guide/monitor-brokers-apps/index), identify slow consumers, and show partition-level throughput. This visibility helps teams quickly identify whether backpressure stems from under-provisioned consumers, slow downstream systems, or data skew across partitions.
 
 During incident response, seeing which specific consumer groups are lagging and which partitions are affected saves valuable troubleshooting time.
 

@@ -151,7 +151,7 @@ Hot partitions occur when data distribution is severely unbalanced. This happens
 
 4. **Time-Based Partitioning**: For time-series data, include time windows in keys to spread load
 
-5. **Testing with Conduktor Gateway**: Use Conduktor Gateway to simulate partition traffic patterns and test hot partition scenarios before production deployment
+5. **Testing with Conduktor Gateway**: Use Conduktor Gateway to simulate partition traffic patterns and test hot partition scenarios before production deployment. For comprehensive information on Gateway capabilities and deployment, see the [Gateway Overview documentation](https://docs.conduktor.io/guide/conduktor-in-production/deploy-artifacts/deploy-gateway/index)
 
 ### Choosing Too Few Partitions
 

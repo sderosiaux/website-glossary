@@ -170,7 +170,7 @@ Implementing effective audit logging requires adherence to established best prac
 
 **Cloud-native audit solutions** integrate seamlessly with managed Kafka services. AWS CloudTrail automatically captures API calls to Amazon MSK (Managed Streaming for Apache Kafka), while Azure Monitor logs provide comprehensive audit trails for Azure Event Hubs. Google Cloud's Cloud Audit Logs track operations on Pub/Sub and Kafka on Google Kubernetes Engine. These cloud provider audit services complement application-level Kafka audit logging, providing defense-in-depth visibility.
 
-Governance platforms like **Conduktor** provide enterprise-grade audit capabilities purpose-built for Kafka environments, offering centralized audit log collection, compliance reporting, and integration with security tools. **Conduktor Gateway** extends these capabilities by intercepting all Kafka traffic at the proxy layer, enabling:
+Governance platforms like **Conduktor** provide enterprise-grade audit capabilities purpose-built for Kafka environments. [Conduktor's audit logs](https://docs.conduktor.io/guide/conduktor-in-production/admin/audit-logs) offer centralized audit log collection, compliance reporting, and integration with security tools. **Conduktor Gateway** extends these capabilities by intercepting all Kafka traffic at the proxy layer, enabling:
 
 - **Field-level audit logging**: Track access to specific message fields, not just topics
 - **Real-time data masking**: Redact sensitive fields while maintaining audit trails of unmasked access

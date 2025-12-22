@@ -118,7 +118,7 @@ Different serialization formats have distinct performance characteristics:
 
 **CPU Usage**: JSON parsing is CPU-intensive compared to binary formats, which can impact consumer lag during peak loads. For high-throughput applications (>100k messages/sec per consumer), binary formats significantly reduce CPU overhead.
 
-**Developer Experience**: JSON is easier to debug because you can read messages directly. Binary formats require tools to decode messages. Governance platforms like **Conduktor** provide message viewers that automatically deserialize and display messages in human-readable formats regardless of the underlying serialization, bridging the gap between binary efficiency and developer productivity.
+**Developer Experience**: JSON is easier to debug because you can read messages directly. Binary formats require tools to decode messages. Governance platforms like **Conduktor** provide message viewers that automatically deserialize and display messages in human-readable formats regardless of the underlying serialization, bridging the gap between binary efficiency and developer productivity. For managing schemas in Conduktor, see [Schema Registry Management](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/schema-registry).
 
 ## Serialization in Data Streaming Ecosystems
 

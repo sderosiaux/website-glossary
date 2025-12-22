@@ -204,7 +204,7 @@ For comprehensive approaches to validating exactly-once behavior in production, 
 
 ## Governance and Compliance
 
-In enterprise environments, governance is essential to ensure EOS is correctly configured. Platforms like Conduktor provide real-time visibility into transaction status across all Kafka clusters, enabling operators to identify and abort zombie transactions, enforce policies requiring EOS for sensitive data streams, track which applications have exactly-once enabled, and monitor transaction health metrics in centralized dashboards.
+In enterprise environments, governance is essential to ensure EOS is correctly configured. Platforms like Conduktor provide real-time visibility into transaction status across all Kafka clusters through [topic management](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/topics), enabling operators to identify and abort zombie transactions, enforce policies requiring EOS for sensitive data streams, track which applications have exactly-once enabled, and monitor transaction health metrics in centralized dashboards.
 
 **Testing Exactly-Once with Conduktor Gateway:**
 

@@ -187,7 +187,7 @@ As Kafka deployments grow, managing authentication across multiple clusters, hun
 
 **Self-Service Credential Management**: Enable development teams to request and obtain Kafka credentials through a governed workflow. Platform teams approve requests based on policy, and Conduktor automatically provisions SCRAM credentials or distributes certificates, eliminating manual credential distribution bottlenecks.
 
-**Authentication Testing and Validation**: Before deploying changes to production, test authentication configurations in Conduktor's testing environment. **Conduktor Gateway** can simulate various authentication scenarios, including token expiration, certificate rotation, and authentication failures, helping teams validate their error handling.
+**Authentication Testing and Validation**: Before deploying changes to production, test authentication configurations in Conduktor's testing environment. **Conduktor Gateway** can simulate various [authentication scenarios](https://docs.conduktor.io/guide/conduktor-concepts/gw-authen-author), including token expiration, certificate rotation, and authentication failures, helping teams validate their error handling.
 
 **Certificate Lifecycle Management**: For mTLS deployments, Conduktor tracks certificate expiration dates across all clients and brokers, alerts teams before certificates expire, and provides workflows for certificate rotation without service disruption.
 
