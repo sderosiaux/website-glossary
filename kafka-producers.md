@@ -7,6 +7,9 @@ topics:
   - Event Streaming
   - Message Delivery
 ---
+
+A Kafka producer sends records to a topic and routes each record to a partition. The client connects to brokers, fetches metadata, and batches writes for throughput. Producers control delivery policy, retries, compression, and partition choice, which sets latency, cost, and durability.
+
 ![Kafka producer architecture and message flow](images/diagrams/kafka-producers-0.webp)
 <!-- ORIGINAL_DIAGRAM
 ```
@@ -55,8 +58,6 @@ DELIVERY GUARANTEES (acks parameter):
 -->
 
 ## What a Kafka Producer Does
-
-A Kafka producer sends records to a topic and routes each record to a partition. The client connects to brokers, fetches metadata, and batches writes for throughput. Producers control delivery policy, retries, compression, and partition choice, which sets latency, cost, and durability.
 
 ### API notes
 

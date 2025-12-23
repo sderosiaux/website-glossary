@@ -6,6 +6,13 @@ topics:
   - Cost Optimization
   - Apache Kafka
 ---
+
+Cross-availability-zone (cross-AZ) traffic refers to data transfer between different availability zones within the same cloud region. Availability zones are isolated data centers with independent power, cooling, and networking, designed to provide fault tolerance and high availability.
+
+In streaming architectures, cross-AZ traffic occurs whenever data moves between components deployed in different zones. This includes broker-to-broker replication, consumer fetches from brokers in other zones, and producer writes to leaders in different zones. For foundational Kafka concepts including brokers, topics, and partitions, see [Kafka Topics, Partitions, and Brokers: Core Architecture](https://conduktor.io/glossary/kafka-topics-partitions-brokers-core-architecture).
+
+Unlike traffic within a single availability zone (typically free) or between regions (significantly more expensive), cross-AZ traffic occupies a middle ground that can become a substantial cost factor at scale. Understanding and optimizing this traffic is essential for cost-effective streaming deployments.
+
 ![Cross-AZ Traffic Architecture](images/diagrams/cross-az-traffic-streaming-0.webp)
 <!-- ORIGINAL_DIAGRAM
 ```
@@ -37,14 +44,6 @@ topics:
 └──────────────────────────────────────────────┘
 ```
 -->
-
-## Understanding Cross-AZ Traffic
-
-Cross-availability-zone (cross-AZ) traffic refers to data transfer between different availability zones within the same cloud region. Availability zones are isolated data centers with independent power, cooling, and networking, designed to provide fault tolerance and high availability.
-
-In streaming architectures, cross-AZ traffic occurs whenever data moves between components deployed in different zones. This includes broker-to-broker replication, consumer fetches from brokers in other zones, and producer writes to leaders in different zones. For foundational Kafka concepts including brokers, topics, and partitions, see [Kafka Topics, Partitions, and Brokers: Core Architecture](https://conduktor.io/glossary/kafka-topics-partitions-brokers-core-architecture).
-
-Unlike traffic within a single availability zone (typically free) or between regions (significantly more expensive), cross-AZ traffic occupies a middle ground that can become a substantial cost factor at scale. Understanding and optimizing this traffic is essential for cost-effective streaming deployments.
 
 ## Cost and Performance Implications
 

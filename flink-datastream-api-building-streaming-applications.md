@@ -8,6 +8,13 @@ topics:
   - Transformations
   - Windowing
 ---
+
+The DataStream API is Apache Flink's foundational interface for building streaming applications. It provides a declarative programming model that abstracts the complexities of distributed stream processing while offering precise control over state management, time semantics, and fault tolerance.
+
+Unlike batch processing frameworks that operate on bounded datasets, the DataStream API is designed for continuous, unbounded streams of data. This makes it suitable for use cases such as real-time analytics, fraud detection, event-driven applications, and IoT data processing. The API supports Java, Scala, and Python (PyFlink), allowing developers to write type-safe transformations that Flink optimizes and executes across distributed clusters.
+
+As of Flink 2.0+ (released in 2025), the DataStream API has matured with significant improvements to state backends, async state operations, and unified source/sink APIs that simplify integration with systems like Apache Kafka. For a broader introduction to Flink's capabilities, see [What is Apache Flink? Stateful Stream Processing](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing).
+
 ![Flink DataStream API transformations](images/diagrams/flink-datastream-api-building-streaming-applications-0.webp)
 <!-- ORIGINAL_DIAGRAM
 ```
@@ -66,14 +73,6 @@ topics:
         └────────────────┘
 ```
 -->
-
-## Introduction to Flink DataStream API
-
-The DataStream API is Apache Flink's foundational interface for building streaming applications. It provides a declarative programming model that abstracts the complexities of distributed stream processing while offering precise control over state management, time semantics, and fault tolerance.
-
-Unlike batch processing frameworks that operate on bounded datasets, the DataStream API is designed for continuous, unbounded streams of data. This makes it suitable for use cases such as real-time analytics, fraud detection, event-driven applications, and IoT data processing. The API supports Java, Scala, and Python (PyFlink), allowing developers to write type-safe transformations that Flink optimizes and executes across distributed clusters.
-
-As of Flink 2.0+ (released in 2025), the DataStream API has matured with significant improvements to state backends, async state operations, and unified source/sink APIs that simplify integration with systems like Apache Kafka. For a broader introduction to Flink's capabilities, see [What is Apache Flink? Stateful Stream Processing](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing).
 
 ## Core Concepts and Architecture
 
