@@ -10,7 +10,63 @@ topics:
 Machine learning models powering [real-time applications](https://conduktor.io/glossary/real-time-ml-inference-with-streaming-data) face a unique challenge: the world they model never stops changing. A fraud detection model trained on last quarter's patterns may miss today's attack vectors. A recommendation engine optimized for pre-holiday shopping behavior struggles when consumer preferences shift. This phenomenon—model drift—is the silent degradation of ML performance over time.
 
 In streaming architectures, where models consume continuously flowing data and make split-second predictions, drift isn't just a concern—it's inevitable. The question isn't whether your models will drift, but when, how fast, and whether you'll detect it before it impacts your business.
+
 ![Model drift types: data, concept, and prediction drift](images/diagrams/model-drift-in-streaming-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌─────────────────────────────────────────────────────────────────┐
+│            MODEL DRIFT TYPES IN STREAMING ML                    │
+└─────────────────────────────────────────────────────────────────┘
+
+(1) DATA DRIFT (Feature Distribution Changes)
+    Training Data:          Production Stream:
+    Age: 25-45 ───────────▶ Age: 18-65  ◀── Distribution shifted
+    Income: $30-80k         Income: $20-150k
+
+(2) CONCEPT DRIFT (Relationship Changes)
+    Training:               Production:
+    "30 days inactive"      "30 days inactive"
+         │                       │
+         ▼                       ▼
+    High churn risk        Low churn risk  ◀── Meaning changed
+
+(3) PREDICTION DRIFT (Output Distribution Changes)
+    Last Week:              This Week:
+    95% legitimate ────────▶ 87% legitimate
+     5% fraud                13% fraud       ◀── Output shifted
+
+┌─────────────────────────────────────────────────────────────────┐
+│                 DRIFT DETECTION & RESPONSE LOOP                 │
+└─────────────────────────────────────────────────────────────────┘
+
+    Streaming Data          Model              Monitoring
+         │                   │                     │
+         ▼                   ▼                     │
+    ┌─────────┐         ┌─────────┐              │
+    │ Feature │────────▶│  Model  │──────────────┤
+    │ Stream  │         │Inference│  Predictions │
+    └─────────┘         └─────────┘              │
+         │                                        ▼
+         │                              ┌──────────────────┐
+         └─────────────────────────────▶│ Drift Detection  │
+                                        │ • KS Test        │
+                                        │ • Distribution   │
+                                        │ • Performance    │
+                                        └────────┬─────────┘
+                                                 │
+                                         Alert threshold
+                                                 │
+                                                 ▼
+                                        ┌──────────────────┐
+                                        │ Automated Actions│
+                                        │ • Retrain trigger│
+                                        │ • Model rollback │
+                                        │ • Alert ops team │
+                                        └──────────────────┘
+```
+-->
+
 ## Understanding the Types of Model Drift
 
 Model drift manifests in three distinct but often overlapping forms, each with different root causes and detection strategies.

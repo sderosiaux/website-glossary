@@ -15,7 +15,36 @@ Azure Event Hubs is Microsoft's fully managed, cloud-native event streaming plat
 Understanding how Event Hubs implements Kafka compatibility is essential for architects and engineers evaluating cloud streaming options or planning migration strategies.
 
 ## Understanding Kafka Protocol Compatibility
+
 ![Azure Event Hubs Kafka Protocol Compatibility](images/diagrams/azure-event-hubs-and-kafka-compatibility-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌────────────────────────────────────────────────────────────────┐
+│         Azure Event Hubs ←→ Kafka Compatibility Layer          │
+└────────────────────────────────────────────────────────────────┘
+                              │
+         ┌────────────────────┼────────────────────┐
+         │                    │                    │
+    ┌────▼─────┐         ┌────▼────┐         ┌────▼─────┐
+    │  Kafka   │         │  Event  │         │  Azure   │
+    │ Producer │────────▶│  Hubs   │────────▶│ Services │
+    │  Client  │         │Protocol │         │          │
+    └──────────┘         │  Layer  │         └──────────┘
+                         └────┬────┘
+    ┌──────────┐              │              ┌──────────┐
+    │  Kafka   │              │              │Stream    │
+    │ Consumer │◀─────────────┼─────────────▶│Analytics │
+    │  Client  │              │              │          │
+    └──────────┘         ┌────▼────┐         └──────────┘
+                         │ Event   │
+                         │  Hubs   │
+                         │Namespace│
+                         └─────────┘
+     Kafka APIs          Translation         Azure Native
+```
+-->
+
 Azure Event Hubs implements the Apache Kafka producer and consumer APIs, supporting Kafka clients version 1.0 and later. This means applications written using standard Kafka client libraries can connect to Event Hubs by simply changing the connection configuration.
 
 The compatibility layer works by translating Kafka protocol requests into Event Hubs operations. When a Kafka producer sends messages, Event Hubs receives them as events. Similarly, Kafka consumers can read from Event Hubs partitions using familiar consumer group semantics.

@@ -10,7 +10,43 @@ topics:
 ---
 
 In modern data warehouses, transforming billions of rows daily becomes expensive and time-consuming when using traditional full-refresh approaches. dbt incremental models solve this challenge by processing only new or changed records, dramatically reducing compute costs and transformation times.
+
 ![dbt Incremental Processing](images/diagrams/dbt-incremental-models-efficient-transformations-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌──────────────────────────────────────────────────────────────────┐
+│         dbt INCREMENTAL MODEL PROCESSING FLOW                    │
+└──────────────────────────────────────────────────────────────────┘
+
+FULL REFRESH (Initial)          INCREMENTAL RUNS (Subsequent)
+┌─────────────────────┐         ┌─────────────────────┐
+│  ALL SOURCE DATA    │         │  NEW DATA ONLY      │
+│  ═════════════════  │         │  ▓▓▓                │
+│  10 billion rows    │         │  1 million rows     │
+└──────────┬──────────┘         └──────────┬──────────┘
+           │                               │
+           ▼                               ▼
+    ┌──────────────┐              ┌──────────────┐
+    │  Transform   │              │  Transform   │
+    │  All Rows    │              │  Delta Only  │
+    └──────┬───────┘              └──────┬───────┘
+           │                             │
+           ▼                             ▼
+    ┌──────────────┐              ┌──────────────┐
+    │   CREATE     │              │    MERGE     │
+    │   TABLE      │              │  or APPEND   │
+    └──────────────┘              └──────┬───────┘
+                                         │
+           2 hours, $50                  ▼
+                                  5 minutes, $2
+
+STRATEGIES:  append  |  merge  |  delete+insert  |  microbatch
+             ──────────────────────────────────────────────────
+             96% cost reduction on large tables
+```
+-->
+
 ## Understanding Incremental Models
 
 Incremental models operate on a simple but powerful principle: instead of rebuilding entire tables from scratch, they identify and process only the delta—the new or modified records since the last run. This approach transforms what might be hour-long jobs into minute-long operations.

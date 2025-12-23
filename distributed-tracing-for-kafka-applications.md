@@ -36,7 +36,65 @@ Despite these challenges, distributed tracing for Kafka is not only possible but
 ## How Distributed Tracing Works with Kafka
 
 The key to tracing Kafka applications is context propagation—passing trace metadata along with each message so that spans can be properly linked across service boundaries.
+
 ![distributed-tracing-for-kafka-applications diagram 1](images/diagrams/distributed-tracing-for-kafka-applications-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌──────────────────────────────────────────────────────────────────┐
+│          Distributed Tracing with Kafka                          │
+├──────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  ┌──────────────┐         ┌──────────────┐        ┌────────────┐│
+│  │   Producer   │         │    Kafka     │        │  Consumer  ││
+│  │   Service    │         │    Topic     │        │  Service   ││
+│  └──────┬───────┘         └──────┬───────┘        └─────┬──────┘│
+│         │                        │                      │       │
+│         │ 1. Create span         │                      │       │
+│         │    trace_id: abc123    │                      │       │
+│         │    span_id: span001    │                      │       │
+│         │                        │                      │       │
+│         │ 2. Inject context      │                      │       │
+│         │    into headers        │                      │       │
+│         ▼                        │                      │       │
+│  ┌─────────────────────┐         │                      │       │
+│  │  Kafka Message      │         │                      │       │
+│  │  ┌───────────────┐  │         │                      │       │
+│  │  │ Headers:      │  │         │                      │       │
+│  │  │ trace_id:abc  │  │─────3. Publish ────▶          │       │
+│  │  │ span_id:001   │  │         │                      │       │
+│  │  │ parent_id:000 │  │         │                      │       │
+│  │  └───────────────┘  │         │                      │       │
+│  │  ┌───────────────┐  │         │                      │       │
+│  │  │ Payload: {...}│  │         │                      │       │
+│  │  └───────────────┘  │         │                      │       │
+│  └─────────────────────┘         │                      │       │
+│                                   │                      │       │
+│                                   │ 4. Consume ◀─────────┘       │
+│                                   │                      │       │
+│                                   │    5. Extract context│       │
+│                                   │       from headers   │       │
+│                                   │                      ▼       │
+│                                   │           ┌─────────────────┐│
+│                                   │           │  New span       ││
+│                                   │           │  trace_id:abc   ││
+│                                   │           │  span_id:span002││
+│                                   │           │  parent:span001 ││
+│                                   │           └─────────────────┘│
+│                                   │                      │       │
+│                                   │ 6. Report spans ─────┼──────▶│
+│                                   │                      │       │
+│                                   ▼                      ▼       │
+│                        ┌─────────────────────────────────────┐   │
+│                        │  Tracing Backend (Jaeger/Zipkin)    │   │
+│                        │  Linked trace: abc123               │   │
+│                        │  Producer span → Consumer span      │   │
+│                        └─────────────────────────────────────┘   │
+│                                                                  │
+└──────────────────────────────────────────────────────────────────┘
+```
+-->
+
 ### Context Propagation via Message Headers
 
 Kafka messages support headers—key-value pairs similar to HTTP headers—which have been a core feature since Kafka 0.11 (and are standard in modern Kafka 3.x/4.x deployments). OpenTelemetry and other tracing frameworks use these headers to propagate trace context following the W3C Trace Context specification.

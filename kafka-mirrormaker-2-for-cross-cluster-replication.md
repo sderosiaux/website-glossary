@@ -24,7 +24,36 @@ MM2 was introduced in Apache Kafka 2.4 through KIP-382 and has become the recomm
 ## Architecture and Components
 
 MirrorMaker 2 consists of three main connector types that work together to provide comprehensive replication:
+
 ![MirrorMaker 2 consists of three main connector types that work together to provide comprehensive replication](images/diagrams/kafka-mirrormaker-2-for-cross-cluster-replication-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                        Source Cluster (us-west)                     │
+│  ┌───────────┐  ┌───────────┐  ┌───────────┐                       │
+│  │  orders   │  │ inventory │  │ shipments │                       │
+│  └─────┬─────┘  └─────┬─────┘  └─────┬─────┘                       │
+└────────┼──────────────┼──────────────┼─────────────────────────────┘
+         │              │              │
+         │              │              │  MirrorMaker 2 Connectors
+         ▼              ▼              ▼  ┌────────────────────────┐
+    ┌────────────────────────────────────┤ MirrorSourceConnector  │
+    │                                    │ (Data Replication)     │
+    │  ┌─────────────────────────────────┤ MirrorCheckpointConn.  │
+    │  │                                 │ (Offset Sync)          │
+    │  │  ┌──────────────────────────────┤ MirrorHeartbeatConn.   │
+    │  │  │                              │ (Health Monitoring)    │
+    ▼  ▼  ▼                              └────────────────────────┘
+┌─────────────────────────────────────────────────────────────────────┐
+│                       Target Cluster (us-east)                      │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐             │
+│  │us-west.orders│  │us-west.invent│  │us-west.shipm │             │
+│  └──────────────┘  └──────────────┘  └──────────────┘             │
+└─────────────────────────────────────────────────────────────────────┘
+```
+-->
+
 **MirrorSourceConnector** handles the core data replication task. It consumes records from topics in the source cluster and produces them to corresponding topics in the target cluster. The connector preserves message keys, values, headers, and timestamps, ensuring data fidelity across clusters.
 
 **MirrorCheckpointConnector** synchronizes consumer group offsets between clusters. This is crucial for disaster recovery scenarios where applications need to fail over from one cluster to another. By tracking which offsets have been replicated, the checkpoint connector enables applications to resume consumption from the correct position after a failover.
@@ -42,7 +71,33 @@ One notable aspect of MM2's design is its topic naming convention. By default, r
 MirrorMaker 2 supports several replication patterns, each suited to different business and technical requirements:
 
 **Active-Passive Replication** is the most common pattern for disaster recovery. A primary cluster handles all production traffic while MM2 continuously replicates data to a secondary cluster in a different region or availability zone. If the primary cluster fails, applications can fail over to the secondary cluster. The checkpoint connector ensures that consumers can resume from the correct offset, minimizing data loss and duplication. For broader disaster recovery strategies including RTO/RPO planning and backup mechanisms, see [Disaster Recovery Strategies for Kafka Clusters](https://conduktor.io/glossary/disaster-recovery-strategies-for-kafka-clusters).
+
 ![kafka-mirrormaker-2-for-cross-cluster-replication diagram 2](images/diagrams/kafka-mirrormaker-2-for-cross-cluster-replication-1.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+Active-Passive Pattern:
+
+  ┌──────────────┐
+  │ Producers    │
+  └──────┬───────┘
+         │ (writes)
+         ▼
+  ┌─────────────────┐                  ┌─────────────────┐
+  │  Primary (US-E) │────MM2──────────▶│  Standby (US-W) │
+  │  (Active)       │  Replication     │  (Passive)      │
+  └────────┬────────┘                  └─────────────────┘
+           │
+           │ (reads)
+           ▼
+  ┌──────────────┐
+  │  Consumers   │
+  └──────────────┘
+
+  On Failover →  Applications switch to Standby cluster
+```
+-->
+
 For example, a financial services company might run its primary Kafka cluster in US-East with active replication to a standby cluster in US-West. If the US-East data center experiences an outage, trading applications can quickly switch to the US-West cluster using the synchronized consumer offsets.
 
 **Active-Active Replication** involves bidirectional replication where multiple clusters both produce and consume data. This pattern supports multi-region deployments where applications in different geographies need low-latency access to data. However, active-active replication requires careful handling of potential data conflicts and cycles in the replication topology.

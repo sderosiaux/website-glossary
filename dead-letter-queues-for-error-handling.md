@@ -10,7 +10,56 @@ topics:
 ---
 
 When building event-driven systems, not every message can be processed successfully. Network failures, schema mismatches, invalid data, and application bugs all contribute to processing failures. Dead Letter Queues (DLQs) provide a systematic approach to handle these failures without losing data or blocking the processing pipeline.
+
 ![Dead Letter Queue flow diagram](images/diagrams/dead-letter-queues-for-error-handling-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌────────────────────────────────────────────────────────────────┐
+│              Dead Letter Queue (DLQ) Flow                      │
+└────────────────────────────────────────────────────────────────┘
+
+    ┌──────────────┐
+    │  Main Topic  │
+    │   (Events)   │
+    └──────┬───────┘
+           │
+           ▼
+    ┌─────────────────┐
+    │   Consumer      │
+    │  (Processing)   │
+    └────┬───────┬────┘
+         │       │
+    ┌────┘       └────┐
+    ▼                 ▼
+┌─────────┐      ┌──────────────────┐
+│ Success │      │ Processing Error │
+│         │      │ (Retry 1, 2, 3)  │
+└────┬────┘      └────┬─────────────┘
+     │                │
+     │                ▼
+     │           ┌────────────┐
+     │           │ Max Retries│
+     │           │  Exceeded? │
+     │           └────┬───────┘
+     │                │ YES
+     │                ▼
+     │      ┌──────────────────────┐
+     │      │   Dead Letter Queue  │
+     │      │  + Error Metadata    │
+     │      │  + Stack Trace       │
+     │      │  + Retry Count       │
+     │      │  + Original Headers  │
+     │      └──────────┬───────────┘
+     │                 │
+     ▼                 ▼
+┌─────────────────────────────────┐
+│   Continue Processing           │
+│   (Pipeline Not Blocked)        │
+└─────────────────────────────────┘
+```
+-->
+
 ## What is a Dead Letter Queue?
 
 A Dead Letter Queue is a designated location where messages that cannot be processed successfully are sent for later inspection and handling. Rather than discarding failed messages or retrying them indefinitely, the system routes them to a separate queue where they can be examined, debugged, and potentially reprocessed.

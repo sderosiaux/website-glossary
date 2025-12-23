@@ -47,7 +47,19 @@ ProducerRecord<String, String> record =
     new ProducerRecord<>("user-events", 2, "user-123", eventData);
 // Forces message to partition 2
 ```
+
 ![kafka-topics-partitions-brokers-core-architecture diagram 1](images/diagrams/kafka-topics-partitions-brokers-core-architecture-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+Topic: user-events (3 partitions)
+
+Partition 0: [msg0, msg3, msg6, msg9]  → offset: 0, 1, 2, 3
+Partition 1: [msg1, msg4, msg7]        → offset: 0, 1, 2
+Partition 2: [msg2, msg5, msg8]        → offset: 0, 1, 2
+```
+-->
+
 ### Partition Count Trade-offs
 
 Choosing the right number of partitions involves several considerations:
@@ -147,7 +159,26 @@ Instead of external ZooKeeper nodes, dedicated **controller nodes** (or combined
 - **Improved security**: Unified authentication and authorization model
 
 **Architecture Impact:**
+
 ![**Architecture Impact:**](images/diagrams/kafka-topics-partitions-brokers-core-architecture-1.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+Traditional (ZooKeeper):                 KRaft Mode (Kafka 4.0+):
+┌────────────┐                          ┌────────────┐
+│ ZooKeeper  │                          │ Controller │
+│  Ensemble  │◄─────────────┐           │   Quorum   │◄─────────────┐
+└────────────┘              │           └────────────┘              │
+      ▲                     │                 ▲                     │
+      │                     │                 │                     │
+┌─────┴──────┐         ┌────┴─────┐    ┌─────┴──────┐         ┌────┴─────┐
+│  Broker 1  │         │ Broker 2 │    │  Broker 1  │         │ Broker 2 │
+│ (Metadata  │         │(Metadata │    │ (Metadata  │         │(Metadata │
+│  Consumer) │         │Consumer) │    │  in topic) │         │in topic) │
+└────────────┘         └──────────┘    └────────────┘         └──────────┘
+```
+-->
+
 For in-depth coverage of KRaft architecture and migration strategies, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka).
 
 ### Tiered Storage Architecture (Kafka 3.6+)
@@ -162,7 +193,24 @@ Kafka 3.6+ introduced **tiered storage**, fundamentally changing how brokers man
 - **Retention policy**: Configure `local.retention.ms` (hot) and `retention.ms` (total)
 
 **Architectural Benefits:**
+
 ![**Architectural Benefits:**](images/diagrams/kafka-topics-partitions-brokers-core-architecture-2.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+Without Tiered Storage:              With Tiered Storage:
+┌──────────────┐                    ┌──────────────┐
+│   Broker     │                    │   Broker     │
+│              │                    │              │
+│ [All Data    │                    │ [Recent Data]│ ← Hot tier (fast)
+│  on Local    │                    │              │
+│  Disk]       │                    │ [Old Data    │
+│              │                    │  Pointer]────┼─→ S3/GCS/Azure
+│ 10 TB/broker │                    │ 1 TB/broker  │   (Cold tier)
+└──────────────┘                    └──────────────┘
+```
+-->
+
 **Why It Matters:**
 
 - **Decoupled storage**: Retention no longer tied to disk capacity
@@ -176,7 +224,48 @@ For detailed configuration and best practices, see [Tiered Storage in Kafka](htt
 ## How Components Work Together
 
 The interaction between topics, partitions, and brokers creates Kafka's distributed log architecture:
+
 ![The interaction between topics, partitions, and brokers creates Kafka's distributed log architecture](images/diagrams/kafka-topics-partitions-brokers-core-architecture-3.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                 Kafka Cluster Architecture                          │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                       │
+│   Topic: user-events (3 partitions, replication-factor: 3)         │
+│                                                                       │
+│   ┌─────────────┐      ┌─────────────┐      ┌─────────────┐       │
+│   │  Broker 1   │      │  Broker 2   │      │  Broker 3   │       │
+│   ├─────────────┤      ├─────────────┤      ├─────────────┤       │
+│   │             │      │             │      │             │       │
+│   │ Partition 0 │      │ Partition 0 │      │ Partition 1 │       │
+│   │  [LEADER]   │─────▶│ [FOLLOWER]  │      │  [LEADER]   │       │
+│   │  offset:9   │      │  offset:9   │      │  offset:12  │       │
+│   │             │      │             │      │             │       │
+│   │ Partition 2 │      │ Partition 1 │      │ Partition 0 │       │
+│   │ [FOLLOWER]  │      │ [FOLLOWER]  │      │ [FOLLOWER]  │       │
+│   │  offset:7   │      │  offset:12  │      │  offset:9   │       │
+│   │             │      │             │      │             │       │
+│   │ Partition 1 │      │ Partition 2 │      │ Partition 2 │       │
+│   │ [FOLLOWER]  │      │  [LEADER]   │◀─────│ [FOLLOWER]  │       │
+│   │  offset:12  │      │  offset:7   │      │  offset:7   │       │
+│   └─────────────┘      └─────────────┘      └─────────────┘       │
+│          ▲                    ▲                     ▲              │
+│          │                    │                     │              │
+│          └────────────────────┴─────────────────────┘              │
+│                               │                                    │
+│                    Replication & Failover                          │
+│                                                                       │
+│   ┌────────────────────────────────────────────────────────────┐  │
+│   │  Producer: Hash(key) → Partition Assignment               │  │
+│   │  Consumer Groups: Partition → Consumer Mapping            │  │
+│   └────────────────────────────────────────────────────────────┘  │
+│                                                                       │
+└─────────────────────────────────────────────────────────────────────┘
+```
+-->
+
 This architecture enables:
 
 - **Horizontal scalability**: Add brokers to increase storage and throughput

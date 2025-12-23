@@ -40,7 +40,41 @@ Unlike traditional databases that optimize for current state queries, Kafka is p
 ### Event Store Pattern
 
 The most fundamental pattern uses Kafka topics as event stores. Each aggregate or entity type has a dedicated topic (e.g., `account-events`, `order-events`). Events are keyed by entity ID to ensure all events for a specific entity land in the same partition, maintaining order.
+
 ![event-sourcing-patterns-with-kafka diagram 1](images/diagrams/event-sourcing-patterns-with-kafka-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+        Event Store Pattern with Kafka
+
+┌─────────────────────────────────────────────────┐
+│          account-events Topic                   │
+├─────────────────────────────────────────────────┤
+│                                                 │
+│  Partition 0 (account-123):                    │
+│  ┌──────────────────────────────────────────┐  │
+│  │ [0] AccountOpened (account-123)          │  │
+│  │ [1] MoneyDeposited (account-123, $100)   │  │
+│  │ [2] MoneyWithdrawn (account-123, $50)    │  │
+│  └──────────────────────────────────────────┘  │
+│                                                 │
+│  Partition 1 (account-456):                    │
+│  ┌──────────────────────────────────────────┐  │
+│  │ [0] AccountOpened (account-456)          │  │
+│  │ [1] MoneyDeposited (account-456, $200)   │  │
+│  └──────────────────────────────────────────┘  │
+│                                                 │
+│  Partition 2 (account-789):                    │
+│  ┌──────────────────────────────────────────┐  │
+│  │ [0] AccountOpened (account-789)          │  │
+│  └──────────────────────────────────────────┘  │
+└─────────────────────────────────────────────────┘
+
+         Replay events to reconstruct state:
+         account-123 balance = $0 + $100 - $50 = $50
+```
+-->
+
 ### Snapshot Pattern
 
 Replaying thousands or millions of events to reconstruct state can be slow. The snapshot pattern periodically saves the current state as a snapshot, then only replays events after the snapshot.
@@ -50,7 +84,45 @@ Kafka's compacted topics are useful here. By periodically publishing a snapshot 
 ### CQRS Integration
 
 Event sourcing often pairs with Command Query Responsibility Segregation (CQRS). Commands write events to Kafka, while read models are built by consuming those events into optimized query stores (databases, search indexes, caches).
+
 ![event-sourcing-patterns-with-kafka diagram 2](images/diagrams/event-sourcing-patterns-with-kafka-1.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+              CQRS with Event Sourcing
+
+    Write Side                           Read Side
+        │                                    │
+   ┌────┴────┐                               │
+   │ Command │                               │
+   │ Handler │                               │
+   └────┬────┘                               │
+        │ Validate                           │
+        │                                    │
+        ▼                                    │
+   ┌─────────┐                               │
+   │  Kafka  │                               │
+   │  Events │                               │
+   └────┬────┘                               │
+        │                                    │
+        └────────────────┬───────────────────┘
+                         │
+        ┌────────────────┼────────────────┐
+        ▼                ▼                ▼
+   ┌─────────┐    ┌──────────┐    ┌──────────┐
+   │ SQL DB  │    │  Search  │    │  Cache   │
+   │(Orders) │    │  Index   │    │ (Latest) │
+   └────┬────┘    └────┬─────┘    └────┬─────┘
+        │              │               │
+        └──────────────┼───────────────┘
+                       │
+                  Query API
+                       │
+                       ▼
+                   Clients
+```
+-->
+
 A typical flow: a command handler validates a command, writes events to Kafka, then separate consumers project those events into read models tailored for specific query patterns.
 
 ### Event Replay for Corrections

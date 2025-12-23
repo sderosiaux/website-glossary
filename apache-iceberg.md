@@ -46,7 +46,20 @@ Each write operation in Iceberg creates a **new snapshot** without altering exis
 For comprehensive coverage of Iceberg's internal architecture, metadata layers, and snapshot mechanics, see [Iceberg Table Architecture: Metadata and Snapshots](https://conduktor.io/glossary/iceberg-table-architecture-metadata-and-snapshots).
 
 A simplified example:
+
 ![A simplified example](images/diagrams/apache-iceberg-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+metadata.json (v5)
+  └── snapshot-5 (2025-11-09T10:30Z)
+       ├── manifest-list.avro
+       │    ├── manifest-1.avro → data-file-001.parquet
+       │    ├── manifest-2.avro → data-file-002.parquet
+       └── previous: snapshot-4
+```
+-->
+
 ### Hidden Partitioning and Partition Evolution
 
 Traditional data lakes expose partition columns directly, often leading to brittle query logic. Iceberg’s **hidden partitioning** abstracts this detail away — users can query logical fields without worrying about how data is stored.

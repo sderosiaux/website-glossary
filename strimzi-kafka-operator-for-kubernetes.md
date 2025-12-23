@@ -35,7 +35,46 @@ This pattern is particularly valuable for stateful applications like Kafka. The 
 ## Strimzi Architecture and Custom Resources
 
 Strimzi is a Cloud Native Computing Foundation (CNCF) incubating project that implements the operator pattern for Apache Kafka. It extends Kubernetes with Custom Resource Definitions (CRDs) that represent Kafka clusters, topics, users, and related components.
+
 ![strimzi-kafka-operator-for-kubernetes diagram 1](images/diagrams/strimzi-kafka-operator-for-kubernetes-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌───────────────────────────────────────────────────────────────┐
+│                  Kubernetes Cluster                            │
+│                                                                │
+│  ┌─────────────────────────────────────────────────────────┐  │
+│  │             Strimzi Cluster Operator                    │  │
+│  │          Watches Kafka Custom Resources                 │  │
+│  └──────────────────────┬──────────────────────────────────┘  │
+│                         │                                     │
+│                         ▼                                     │
+│  ┌─────────────────────────────────────────────────────────┐  │
+│  │          Kafka Custom Resource (CRD)                    │  │
+│  │  apiVersion: kafka.strimzi.io/v1beta2                   │  │
+│  │  kind: Kafka                                            │  │
+│  └──────────────────────┬──────────────────────────────────┘  │
+│                         │ Creates & Manages                   │
+│          ┌──────────────┼──────────────┐                      │
+│          ▼              ▼              ▼                      │
+│  ┌──────────────┐ ┌──────────────┐ ┌──────────────┐          │
+│  │   Broker 1   │ │   Broker 2   │ │   Broker 3   │          │
+│  │ StatefulSet  │ │ StatefulSet  │ │ StatefulSet  │          │
+│  └──────────────┘ └──────────────┘ └──────────────┘          │
+│                                                                │
+│  ┌─────────────────────────────────────────────────────────┐  │
+│  │              Entity Operator                            │  │
+│  │  ┌────────────────────┐  ┌──────────────────────────┐   │  │
+│  │  │  Topic Operator    │  │    User Operator         │   │  │
+│  │  │ Manages KafkaTopic │  │  Manages KafkaUser       │   │  │
+│  │  └────────────────────┘  └──────────────────────────┘   │  │
+│  └─────────────────────────────────────────────────────────┘  │
+│                                                                │
+│  Services, ConfigMaps, Secrets, PVCs automatically managed    │
+└────────────────────────────────────────────────────────────────┘
+```
+-->
+
 The core of Strimzi is the Cluster Operator, which must be deployed first. This operator watches for Kafka custom resources and manages the lifecycle of Kafka clusters, including brokers and supporting components like Kafka Connect, MirrorMaker 2, and Kafka Bridge.
 
 **Note:** Modern Kafka deployments use KRaft mode, which eliminates the ZooKeeper dependency. ZooKeeper mode is deprecated as of Kafka 3.3 and should only be used for legacy systems. For detailed information on KRaft, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka).

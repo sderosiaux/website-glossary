@@ -14,7 +14,29 @@ The Medallion Architecture, also known as the Bronze-Silver-Gold pattern, has be
 ## Understanding the Medallion Architecture
 
 The Medallion Architecture divides your data lake into three distinct zones, each serving a specific purpose in the data pipeline:
+
 ![The Medallion Architecture divides your data lake into three distinct zones, each serving a specific purpose in the data pipeline](images/diagrams/data-lake-zones-bronze-silver-gold-architecture-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+Raw Sources (Kafka, APIs, Databases)
+           ↓
+    [Bronze Layer]
+    Raw ingestion
+    Append-only
+           ↓
+    [Silver Layer]
+    Cleaned & validated
+    Deduplicated
+           ↓
+     [Gold Layer]
+    Business-level aggregates
+    Analytics-ready
+           ↓
+    Consumption (BI, ML, APIs)
+```
+-->
+
 This layered approach ensures data lineage traceability while providing different consumption patterns for various use cases.
 
 ## Bronze Layer: The Foundation of Truth
@@ -33,7 +55,22 @@ The Bronze layer serves as your raw data landing zone. Here, data arrives in its
 For real-time data pipelines, the Bronze layer excels at consuming streaming data. Apache Kafka topics feed directly into Bronze tables, often using formats like JSON or Avro that preserve the source structure.
 
 Modern Kafka platforms like **Conduktor** provide essential visibility into streaming data flows, helping teams manage topics, monitor consumer lag, validate schemas, and track data quality metrics as events flow into the Bronze layer. See [Conduktor's topic management](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/topics) and [Schema Registry integration](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/schema-registry) for comprehensive streaming governance. This operational insight ensures that your Bronze ingestion pipeline remains healthy and performant.
+
 ![data-lake-zones-bronze-silver-gold-architecture diagram 2](images/diagrams/data-lake-zones-bronze-silver-gold-architecture-1.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+Kafka Topic: user_events (Kafka 4.0+ with KRaft)
+    ↓ (Conduktor monitors throughput, schema, & lag)
+    ↓
+Bronze Table: bronze.raw_user_events (Delta Lake / Iceberg)
+- Partitioned by date
+- Includes _kafka_offset, _kafka_timestamp, _kafka_partition
+- Preserves original JSON/Avro payload
+- ACID transactions for reliable writes
+```
+-->
+
 ### Implementation Pattern
 
 ```sql
@@ -124,7 +161,24 @@ The Gold layer contains curated, business-level datasets optimized for specific 
 ### Business-Driven Design
 
 Unlike Bronze and Silver, which are technical layers, Gold is organized around business domains:
+
 ![Unlike Bronze and Silver, which are technical layers, Gold is organized around business domains](images/diagrams/data-lake-zones-bronze-silver-gold-architecture-2.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+gold/
+├── finance/
+│   ├── daily_revenue_by_region
+│   └── customer_lifetime_value
+├── marketing/
+│   ├── campaign_performance
+│   └── user_acquisition_funnel
+└── product/
+    ├── feature_usage_metrics
+    └── user_engagement_scores
+```
+-->
+
 ### Example Gold Table
 
 ```sql

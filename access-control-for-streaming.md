@@ -8,7 +8,35 @@ topics:
 ---
 
 ## Why Access Control Matters in Streaming
+
 ![Access Control Architecture for Streaming Platforms](images/diagrams/access-control-for-streaming-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+                    ┌─────────────────────────────────────────────┐
+                    │     Streaming Platform Access Control      │
+                    └─────────────────────────────────────────────┘
+                                       │
+        ┌──────────────────────────────┼──────────────────────────────┐
+        │                              │                              │
+        ▼                              ▼                              ▼
+┌───────────────┐            ┌───────────────┐            ┌───────────────┐
+│ Authentication│            │ Authorization │            │  Enforcement  │
+│   (Who?)      │            │   (What?)     │            │   (How?)      │
+└───────┬───────┘            └───────┬───────┘            └───────┬───────┘
+        │                            │                            │
+   ┌────┴────┐                  ┌────┴────┐                  ┌────┴────┐
+   │ SASL/   │                  │  Kafka  │                  │  Topic  │
+   │ SCRAM   │                  │  ACLs   │                  │  Level  │
+   ├─────────┤                  ├─────────┤                  ├─────────┤
+   │ mTLS    │                  │  RBAC   │                  │ Consumer│
+   ├─────────┤                  ├─────────┤                  │  Group  │
+   │ OAuth   │                  │ Policies│                  ├─────────┤
+   └─────────┘                  └─────────┘                  │ Cluster │
+                                                             └─────────┘
+```
+-->
+
 In traditional database systems, access control is straightforward: you grant users permissions to read, write, or modify specific tables. But streaming platforms introduce a fundamentally different paradigm. Data flows continuously through topics, multiple consumers may read the same stream simultaneously, and producers can inject events at any moment. This creates unique security challenges.
 
 Consider a financial services company streaming payment transactions. The fraud detection team needs read access, the analytics team needs different data, and the payment processing service needs write access. Without proper access control, a misconfigured consumer could read sensitive customer data, or a rogue producer could inject fraudulent transactions.

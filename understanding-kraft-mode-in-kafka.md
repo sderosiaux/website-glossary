@@ -36,7 +36,52 @@ A concrete example: creating a topic with 1,000 partitions in a ZooKeeper-based 
 ## How KRaft Works
 
 KRaft replaces ZooKeeper with a Raft-based quorum controller running within Kafka itself. Instead of storing metadata in an external system, KRaft maintains it in a special internal Kafka topic called `__cluster_metadata`.
+
 ![understanding-kraft-mode-in-kafka diagram 1](images/diagrams/understanding-kraft-mode-in-kafka-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+Traditional Kafka with ZooKeeper:
+┌─────────────────────────────────────────────────────────────┐
+│                      ZooKeeper Ensemble                      │
+│              (External coordination service)                 │
+│        Stores: Metadata, Config, ACLs, Partition Info       │
+└──────────────────────┬──────────────────────────────────────┘
+                       │ Metadata read/write
+          ┌────────────┼────────────┐
+          │            │            │
+          ▼            ▼            ▼
+    ┌─────────┐  ┌─────────┐  ┌─────────┐
+    │ Broker  │  │ Broker  │  │ Broker  │
+    │    1    │  │    2    │  │    3    │
+    └─────────┘  └─────────┘  └─────────┘
+
+KRaft Mode (No ZooKeeper):
+┌─────────────────────────────────────────────────────────────┐
+│                    Kafka Cluster                             │
+│  ┌──────────────────────────────────────────────────────┐   │
+│  │          Controller Quorum (KRaft)                   │   │
+│  │  ┌──────────┐  ┌──────────┐  ┌──────────┐           │   │
+│  │  │Controller│  │Controller│  │Controller│           │   │
+│  │  │    1     │  │    2     │  │    3     │           │   │
+│  │  │ (Leader) │  │(Follower)│  │(Follower)│           │   │
+│  │  └────┬─────┘  └────┬─────┘  └────┬─────┘           │   │
+│  │       │             │             │                  │   │
+│  │       └─────────────┼─────────────┘                  │   │
+│  │              __cluster_metadata topic                │   │
+│  └──────────────────────┬───────────────────────────────┘   │
+│                         │ Metadata consumption              │
+│          ┌──────────────┼──────────────┐                    │
+│          │              │              │                    │
+│          ▼              ▼              ▼                    │
+│    ┌─────────┐    ┌─────────┐    ┌─────────┐              │
+│    │ Broker  │    │ Broker  │    │ Broker  │              │
+│    │    1    │    │    2    │    │    3    │              │
+│    └─────────┘    └─────────┘    └─────────┘              │
+└─────────────────────────────────────────────────────────────┘
+```
+-->
+
 **The Quorum Controller**: In a KRaft cluster, a subset of brokers are designated as controllers. These controllers form a Raft quorum, electing one controller as the active leader. The leader handles all metadata changes, appending them to the metadata log. Follower controllers replicate this log to maintain redundancy.
 
 **Event-Driven Metadata**: Unlike ZooKeeper's tree-based data structure, KRaft treats metadata as an event log. Every metadata change—creating a topic, changing a configuration, reassigning partitions—becomes an event in the metadata log. Brokers consume this log to build their view of cluster state, similar to how they handle regular Kafka topics.

@@ -70,7 +70,59 @@ This allows domains to move fast while maintaining organizational standards. For
 ## Data Mesh vs Traditional Architectures
 
 Traditional data architectures centralize data in warehouses or lakes managed by specialized teams. While this provides a single source of truth, it creates several problems:
+
 ![Traditional data architectures centralize data in warehouses or lakes managed by specialized teams. While this provides a single source of truth, it creates several problems](images/diagrams/data-mesh-principles-and-implementation-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+        Traditional Centralized Architecture
+
+┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐
+│ Domain A │  │ Domain B │  │ Domain C │  │ Domain D │
+│ (Orders) │  │(Customer)│  │(Inventory)│ │(Payments)│
+└─────┬────┘  └─────┬────┘  └─────┬────┘  └─────┬────┘
+      │             │             │             │
+      └─────────────┼─────────────┼─────────────┘
+                    ▼             ▼
+              ┌─────────────────────────┐
+              │   Central Data Team     │
+              │  • ETL Pipelines        │
+              │  • Data Warehouse       │
+              │  • All transformations  │
+              └─────────┬───────────────┘
+                        │ Bottleneck!
+                        ▼
+              ┌──────────────────┐
+              │   Data Consumers │
+              └──────────────────┘
+
+
+             Data Mesh Architecture
+
+┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐
+│   Domain A      │  │   Domain B      │  │   Domain C      │
+│   (Orders)      │  │   (Customer)    │  │  (Inventory)    │
+├─────────────────┤  ├─────────────────┤  ├─────────────────┤
+│ Data Product:   │  │ Data Product:   │  │ Data Product:   │
+│ order-events-v1 │  │ customer-v1     │  │ inventory-v1    │
+└────────┬────────┘  └────────┬────────┘  └────────┬────────┘
+         │                    │                    │
+         └────────────────────┼────────────────────┘
+                              │
+         ┌────────────────────┴────────────────────┐
+         │     Self-Serve Data Platform            │
+         │  (Discovery, Governance, Monitoring)    │
+         └────────────┬────────────────────────────┘
+                      │
+                      ▼
+         ┌──────────────────────────┐
+         │    Data Consumers        │
+         │ (Direct access to        │
+         │  domain data products)   │
+         └──────────────────────────┘
+```
+-->
+
 **Scaling bottlenecks**: All data requests flow through the central team, creating dependencies and delays.
 
 **Context loss**: The central team lacks deep domain knowledge, leading to mismodeled data and misunderstood semantics.
@@ -104,7 +156,45 @@ Partner Zones also provide traffic analytics showing consumption patterns within
 ## Data Mesh and Data Streaming
 
 Data Mesh and streaming technologies like Apache Kafka are natural complements. Kafka's architecture aligns closely with Data Mesh principles.
+
 ![data-mesh-principles-and-implementation diagram 2](images/diagrams/data-mesh-principles-and-implementation-1.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+      Data Mesh with Streaming (Kafka Example)
+
+┌──────────────────────────────────────────────────────┐
+│            Domain: Orders                            │
+├──────────────────────────────────────────────────────┤
+│  Data Product: order-events-v1                       │
+│  ┌────────────────────────────────────────────────┐  │
+│  │ Kafka Topic: order.events.v1                   │  │
+│  │ Schema: Avro (in Schema Registry)              │  │
+│  │ SLA: 99.9% availability, <1min latency         │  │
+│  │ Retention: 30 days                             │  │
+│  └────────────────────────────────────────────────┘  │
+└───────────────────────┬──────────────────────────────┘
+                        │
+                        ▼
+         ┌──────────────────────────────────────────┐
+         │      Self-Serve Platform Layer           │
+         ├──────────────────────────────────────────┤
+         │ • Schema Registry (version management)   │
+         │ • Topic Discovery Catalog (find data)    │
+         │ • Access Control Portal (permissions)    │
+         │ • Data Quality Checks (validation)       │
+         │ • Monitoring & Alerting (health)         │
+         └──────────┬───────────────────────────────┘
+                    │
+       ┌────────────┼────────────┐
+       ▼            ▼            ▼
+  ┌─────────┐  ┌─────────┐  ┌─────────┐
+  │Consumer │  │Consumer │  │Consumer │
+  │  Team A │  │  Team B │  │  Team C │
+  └─────────┘  └─────────┘  └─────────┘
+```
+-->
+
 **Decentralized ownership**: Kafka topics can be owned and managed by individual domain teams, who publish events representing their domain's data products.
 
 **Real-time data products**: Instead of batch-only data products, streaming enables real-time data products. A "customer-events-v1" Kafka topic becomes a continuously updated data product.

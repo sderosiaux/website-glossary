@@ -10,7 +10,49 @@ topics:
 ## Introduction
 
 Traditional data sharing has long relied on physical duplication: creating copies, exporting datasets, and maintaining multiple versions of the same information across teams and systems. This approach creates storage overhead, synchronization challenges, and data governance nightmares. Zero-copy sharing fundamentally changes this paradigm by enabling logical access to data without physical duplication, creating a single source of truth that multiple consumers can access simultaneously.
+
 ![Zero-copy data sharing eliminating duplication](images/diagrams/zero-copy-data-sharing-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+ZERO-COPY SHARING: ELIMINATING DUPLICATION
+
+TRADITIONAL APPROACH (Physical Copies):
+┌────────────────────────────────────────────────────────────┐
+│ SOURCE                 COPIES (Expensive & Stale)          │
+│ ┌────────┐            ┌─────────┬─────────┬─────────┐     │
+│ │Customer│  COPY  →   │Marketing│Analytics│  Sales  │     │
+│ │  DB    │  COPY  →   │ 500 GB  │ 500 GB  │ 500 GB  │     │
+│ │500 GB  │  COPY  →   │(24h old)│(12h old)│(6h old) │     │
+│ └────────┘            └─────────┴─────────┴─────────┘     │
+│                        TOTAL: 2TB (1.5TB duplication!)     │
+└────────────────────────────────────────────────────────────┘
+
+ZERO-COPY APPROACH (Logical Access):
+┌────────────────────────────────────────────────────────────┐
+│               SINGLE SOURCE (500 GB)                       │
+│     ┌──────────────────────────────────────┐               │
+│     │   Customer Data (S3/Lake/Warehouse)  │               │
+│     │   • ACID Transactions                │               │
+│     │   • Schema Evolution                 │               │
+│     │   • Access Controls (RBAC)           │               │
+│     └────────┬───────────┬─────────┬───────┘               │
+│              │           │         │                        │
+│        Metadata Refs   Metadata Refs   Metadata Refs       │
+│              │           │         │                        │
+│              ▼           ▼         ▼                        │
+│        ┌─────────┬─────────┬─────────┐                     │
+│        │Marketing│Analytics│  Sales  │                     │
+│        │ (Views) │ (Query) │ (Read)  │                     │
+│        │Real-time│Real-time│Real-time│                     │
+│        └─────────┴─────────┴─────────┘                     │
+│        TOTAL: 500 GB (Zero duplication!)                   │
+└────────────────────────────────────────────────────────────┘
+
+BENEFITS: 75% Cost Reduction • Real-time Data • Single Source
+```
+-->
+
 **The Traditional Duplication Problem**: Consider a company with a 500GB customer database. Under traditional approaches, the Marketing team copies the entire database for campaign analysis (500GB), the Analytics team copies it for reporting (500GB), and the Sales team copies it for CRM integration (500GB). The company now stores 2TB total—1.5TB of pure duplication. When the source updates, all copies become stale until the next sync job runs. If Marketing's copy is updated daily at midnight, they work with data that's potentially 24 hours old.
 
 **The Zero-Copy Solution**: With zero-copy sharing, all three teams query the same 500GB database through logical views with appropriate access controls. Marketing sees customers with consent for marketing communications, Analytics sees anonymized demographic data, and Sales sees full records for their territories. Storage costs drop by 75%, all teams work with real-time data, and governance policies apply consistently at the source. When a customer updates their preferences, all teams see the change immediately.

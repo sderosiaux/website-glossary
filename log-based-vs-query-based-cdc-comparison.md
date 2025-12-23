@@ -20,7 +20,50 @@ CDC captures changes made to data sources and propagates them to downstream syst
 **Query-Based CDC** periodically polls the source database using SQL queries to identify changed records. Think of it like checking your mailbox every few minutes to see if new mail arrived—you actively look for changes at regular intervals. It typically relies on timestamp columns, version numbers, or hash comparisons to detect modifications.
 
 **Log-Based CDC** reads changes directly from the database's transaction log (also called write-ahead log or redo log), capturing every committed transaction without querying the source tables. This is like having a doorbell notification—the database tells you immediately when something changes. The transaction log is an internal file that databases maintain for crash recovery and replication, recording every write operation in order.
+
 ![log-based-vs-query-based-cdc-comparison diagram 1](images/diagrams/log-based-vs-query-based-cdc-comparison-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+Query-Based CDC:
+┌──────────────────┐
+│  Source Database │
+│  ┌────────────┐  │
+│  │   orders   │  │◄─── Periodic SELECT queries
+│  │ updated_at │  │     (every N minutes)
+│  └────────────┘  │
+└─────────┬────────┘
+          │ Results
+          ▼
+    ┌──────────┐
+    │ CDC Tool │
+    └──────────┘
+
+Log-Based CDC:
+┌──────────────────┐
+│  Source Database │
+│  ┌────────────┐  │
+│  │   orders   │  │
+│  └────────────┘  │
+│         │        │
+│         ▼        │
+│  ┌────────────┐  │
+│  │ WAL/Binlog │  │◄─── Continuous log reading
+│  └────────────┘  │     (real-time)
+└─────────┬────────┘
+          │ Change events
+          ▼
+    ┌──────────┐
+    │ Debezium │
+    └────┬─────┘
+         │
+         ▼
+    ┌────────┐
+    │ Kafka  │
+    └────────┘
+```
+-->
+
 ## Query-Based CDC: Architecture and Characteristics
 
 Query-based CDC operates by executing periodic SELECT queries against source tables to identify new, modified, or deleted records.

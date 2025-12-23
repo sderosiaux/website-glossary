@@ -115,7 +115,41 @@ The foundation of trust zones is **network segmentation**. Common patterns inclu
 ### Dedicated Cluster Architectures
 
 For streaming platforms like Apache Kafka, trust zones often translate to **dedicated clusters**:
+
 ![For streaming platforms like Apache Kafka, trust zones often translate to **dedicated clusters**](images/diagrams/trust-zones-streaming-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌─────────────────────────────────────────────────────┐
+│                 Public Zone                         │
+│  • Kafka Cluster: public-events                     │
+│  • Topics: marketing-clicks, product-views          │
+│  • Encryption: TLS in transit                       │
+│  • Access: Application service accounts             │
+└─────────────────────────────────────────────────────┘
+                         ↓
+              Data Sanitization Pipeline
+                         ↓
+┌─────────────────────────────────────────────────────┐
+│              Confidential Zone                      │
+│  • Kafka Cluster: confidential-data                 │
+│  • Topics: customer-profiles, order-history         │
+│  • Encryption: TLS + encryption at rest             │
+│  • Access: Restricted service accounts + MFA        │
+└─────────────────────────────────────────────────────┘
+                         ↓
+              Redaction & Tokenization
+                         ↓
+┌─────────────────────────────────────────────────────┐
+│               Restricted Zone                       │
+│  • Kafka Cluster: restricted-pii                    │
+│  • Topics: payment-cards, health-records            │
+│  • Encryption: TLS + at-rest + HSM                  │
+│  • Access: Named individuals only, audit logged     │
+└─────────────────────────────────────────────────────┘
+```
+-->
+
 Each cluster operates in a separate network zone with distinct security controls. Data flows from high-security to low-security zones only after sanitization.
 
 ### Kubernetes Namespace Isolation
@@ -291,7 +325,22 @@ Moving data between trust zones requires careful handling to prevent sensitive d
 ### Transformation Pipelines
 
 **Streaming ETL jobs** act as zone boundaries:
+
 ![**Streaming ETL jobs** act as zone boundaries](images/diagrams/trust-zones-streaming-1.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+Restricted Zone (PII)          Confidential Zone (Pseudonymized)
+──────────────────────         ──────────────────────────────────
+{                              {
+  "ssn": "123-45-6789",    →     "user_token": "abc123xyz",
+  "name": "Jane Doe",            "age_range": "30-40",
+  "dob": "1985-03-15",           "year_of_birth": "1985",
+  "zip": "12345"                 "zip_prefix": "123"
+}                              }
+```
+-->
+
 Transformation pipelines run in the **source zone** (higher security) and write sanitized data to the **destination zone** (lower security). This ensures sensitive data never leaves the protected environment.
 
 ### Data Redaction Techniques

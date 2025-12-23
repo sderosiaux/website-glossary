@@ -12,7 +12,47 @@ topics:
 Row-level modifications in large-scale data lakes have traditionally been expensive operations. When you need to delete or update a few rows in a multi-gigabyte Parquet file, the standard approach requires rewriting the entire file. This write amplification problem becomes particularly acute in scenarios with frequent small updates, such as GDPR compliance deletions, real-time corrections, or slowly changing dimensions.
 
 Delta Lake's deletion vectors feature, introduced in Delta Lake 2.3.0 (2023), addresses this challenge by enabling efficient row-level deletes without rewriting data files. As of 2025, this feature is mature and available in Delta Lake 3.x+ with enhanced performance characteristics and improved integration with modern lakehouse features like Liquid Clustering and UniForm. This article explores how deletion vectors work, their performance characteristics, and best practices for leveraging them in production environments.
+
 ![Deletion vectors vs traditional delete](images/diagrams/delta-lake-deletion-vectors-efficient-row-level-deletes-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+Traditional Delete (Rewrite)          Deletion Vectors
+─────────────────────────────          ────────────────
+
+┌───────────────────┐                  ┌───────────────────┐
+│ Data File (1 GB)  │                  │ Data File (1 GB)  │
+│ ┌───────────────┐ │                  │ ┌───────────────┐ │
+│ │ Row 0         │ │                  │ │ Row 0         │ │
+│ │ Row 1         │ │                  │ │ Row 1         │ │
+│ │ Row 2 (DEL)   │ │                  │ │ Row 2         │ │ (Unchanged)
+│ │ Row 3         │ │                  │ │ Row 3         │ │
+│ │ Row 4 (DEL)   │ │                  │ │ Row 4         │ │
+│ └───────────────┘ │                  │ └───────────────┘ │
+└─────────┬─────────┘                  └───────────────────┘
+          │                                      │
+          ▼                                      ▼
+┌─────────────────────┐                ┌─────────────────────┐
+│ Rewrite Entire File │                │ Deletion Vector     │
+│    (1 GB Write)     │                │  [0,0,1,0,1]        │
+│                     │                │  (10 KB Write)      │
+└─────────┬───────────┘                └──────────┬──────────┘
+          │                                       │
+          ▼                                       ▼
+┌───────────────────┐                  ┌───────────────────┐
+│ New Data File     │                  │  Query Filters    │
+│ ┌───────────────┐ │                  │  Deleted Rows at  │
+│ │ Row 0         │ │                  │   Read Time       │
+│ │ Row 1         │ │                  │ → [Row 0,1,3]     │
+│ │ Row 3         │ │                  └───────────────────┘
+│ └───────────────┘ │
+└───────────────────┘
+
+Write: ~1 GB                           Write: ~10 KB
+Time: 10-30s                           Time: 100-500ms
+```
+-->
+
 ## What Are Deletion Vectors?
 
 Deletion vectors are a metadata-based approach to marking rows as deleted without physically removing them from Parquet files. Instead of rewriting entire files when deleting rows, Delta Lake maintains a bitmap structure (a space-efficient data structure where each bit represents whether a row is deleted—essentially a list of true/false flags, one per row) that tracks which rows should be considered deleted during query execution.

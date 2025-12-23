@@ -9,7 +9,49 @@ topics:
 ---
 
 When building data pipelines with Kafka Connect, you often need to modify data as it flows between systems. Single Message Transforms (SMTs) provide a lightweight mechanism to transform records within the connector itself, without requiring separate stream processing applications. For comprehensive coverage of Kafka Connect fundamentals and architecture, see [Kafka Connect: Building Data Integration Pipelines](https://conduktor.io/glossary/kafka-connect-building-data-integration-pipelines).
+
 ![Single Message Transforms in Kafka Connect pipeline](images/diagrams/kafka-connect-single-message-transforms-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+Kafka Connect SMT Pipeline Flow
+
+Source Connector                        Sink Connector
+─────────────────                       ──────────────
+
+┌──────────┐                                    ┌──────────┐
+│ Database │                                    │ S3 Bucket│
+│  (MySQL) │                                    │ / ES /   │
+└────┬─────┘                                    │Database  │
+     │                                          └────▲─────┘
+     │ Read                                          │ Write
+┌────▼─────────────┐                    ┌────────────┴─────┐
+│  Source Connector│                    │  Sink Connector  │
+│    (Debezium)    │                    │  (S3/JDBC/ES)    │
+└────┬─────────────┘                    └────────────▲─────┘
+     │                                               │
+     │ SourceRecord                   SinkRecord     │
+     │                                               │
+┌────▼─────────────┐                    ┌───────────┴──────┐
+│  SMT Chain       │                    │  SMT Chain       │
+│  ┌────────────┐  │                    │  ┌────────────┐  │
+│  │ Transform1 │  │   ┌──────────┐     │  │ Transform1 │  │
+│  │ (MaskField)│──┼──►│  Kafka   │────►┼──│ (Flatten)  │  │
+│  └────┬───────┘  │   │  Topic   │     │  └────┬───────┘  │
+│  ┌────▼───────┐  │   └──────────┘     │  ┌────▼───────┐  │
+│  │ Transform2 │  │                    │  │ Transform2 │  │
+│  │(AddTimestamp)│                     │  │(ExtractField)│
+│  └────────────┘  │                    │  └────────────┘  │
+└──────────────────┘                    └──────────────────┘
+
+SMT operates on individual records:
+Record → Transform 1 → Transform 2 → ... → Modified Record
+
+Predicates control when transforms apply:
+IF predicate(record) THEN transform(record) ELSE pass-through
+```
+-->
+
 ## What Are Single Message Transforms?
 
 Single Message Transforms are pluggable components in Kafka Connect that modify individual records as they pass through a connector. SMTs operate on one message at a time, applying transformations like field manipulation, filtering, or routing during the data movement process.

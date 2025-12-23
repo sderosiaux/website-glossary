@@ -13,7 +13,47 @@ topics:
 Continuous Integration and Continuous Deployment (CI/CD) practices have become standard in modern software development, but streaming applications present unique challenges that traditional CI/CD approaches don't fully address. Unlike stateless request-response services, streaming applications process data continuously, maintain state, and must evolve schemas without breaking downstream consumers.
 
 This article explores best practices for implementing robust CI/CD pipelines specifically designed for streaming applications built on platforms like Apache Kafka, Apache Flink, Kafka Streams, and similar event-driven architectures. For foundational knowledge about these platforms, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka), [What is Apache Flink](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing), and [Introduction to Kafka Streams](https://conduktor.io/glossary/introduction-to-kafka-streams).
+
 ![CI/CD Pipeline for Streaming Applications](images/diagrams/cicd-best-practices-for-streaming-applications-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    CI/CD Pipeline Flow                          │
+└─────────────────────────────────────────────────────────────────┘
+
+    Developer    ┌─────────────┐
+    Commits  ──▶ │  Git Repo   │
+                 └──────┬──────┘
+                        │
+                        ▼
+                 ┌─────────────┐
+                 │  CI Build   │ ◀─── Unit Tests
+                 └──────┬──────┘      Integration Tests
+                        │             Schema Validation
+                        ▼
+                 ┌─────────────┐
+                 │   Deploy    │
+                 │  Strategy   │
+                 └──────┬──────┘
+                        │
+         ┌──────────────┼──────────────┐
+         ▼              ▼              ▼
+    ┌────────┐    ┌────────┐    ┌────────┐
+    │ Blue/  │    │Canary  │    │Rolling │
+    │ Green  │    │Deploy  │    │Update  │
+    └────┬───┘    └────┬───┘    └────┬───┘
+         │             │             │
+         └──────────┬──┴─────────────┘
+                    ▼
+         ┌──────────────────┐
+         │  Production      │ ──▶ Monitor Lag
+         │  Kafka/Flink     │     Track Metrics
+         │  Application     │     Validate SLA
+         └──────────────────┘
+```
+-->
+
 ## Understanding the Unique Challenges
 
 Streaming applications differ from traditional services in several critical ways that impact CI/CD strategy.

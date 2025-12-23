@@ -10,7 +10,43 @@ topics:
 ---
 
 Data incidents are inevitable in modern data platforms. Whether you're managing batch pipelines, real-time streaming systems, or hybrid architectures, understanding how to effectively respond to incidents and perform thorough root cause analysis is critical for maintaining data reliability and stakeholder trust.
+
 ![Incident Response Lifecycle](images/diagrams/data-incident-management-and-root-cause-analysis-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌─────────────────────────────────────────────────────────────────┐
+│              INCIDENT RESPONSE LIFECYCLE                        │
+└─────────────────────────────────────────────────────────────────┘
+
+    ┌─────────────┐
+    │  DETECTION  │  ← Automated monitoring, anomaly detection
+    └──────┬──────┘
+           │
+           ▼
+    ┌─────────────┐
+    │   TRIAGE    │  ← Severity classification, impact analysis
+    └──────┬──────┘
+           │
+           ▼
+    ┌─────────────┐
+    │ MITIGATION  │  ← Stop the bleeding, pause pipelines
+    └──────┬──────┘
+           │
+           ▼
+    ┌─────────────┐
+    │ RESOLUTION  │  ← Root cause fix, data reconciliation
+    └──────┬──────┘
+           │
+           ▼
+    ┌─────────────┐
+    │   REVIEW    │  ← Blameless post-mortem, preventive measures
+    └─────────────┘
+
+         Metrics: MTTD (Mean Time to Detect) & MTTR (Mean Time to Resolve)
+```
+-->
+
 ## Understanding Data Incidents
 
 A data incident occurs when data quality, availability, or timeliness deviates from expected standards, impacting downstream consumers. Unlike application incidents that might affect user experience immediately, data incidents can be insidious—cascading through pipelines, corrupting analytics, and undermining business decisions before anyone notices.

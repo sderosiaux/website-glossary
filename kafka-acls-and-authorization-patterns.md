@@ -75,7 +75,57 @@ super.users=User:admin;User:kafka-operator
 Authorization in Kafka operates through the Authorizer interface. The default implementation, StandardAuthorizer, evaluates permissions whenever a client performs an operation.
 
 Consider a producer attempting to write to a topic. The authorization flow includes:
+
 ![Consider a producer attempting to write to a topic. The authorization flow includes](images/diagrams/kafka-acls-and-authorization-patterns-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌─────────────────────────────────────────────────────────────────┐
+│              Kafka ACL Authorization Flow                       │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  ┌──────────────┐                                               │
+│  │   Producer   │                                               │
+│  │ (order-svc)  │                                               │
+│  └──────┬───────┘                                               │
+│         │                                                       │
+│         │ 1. Authenticate (mTLS/SASL)                           │
+│         ▼                                                       │
+│  ┌──────────────────────────────────────┐                      │
+│  │    Extract Principal Identity        │                      │
+│  │    User:CN=order-service             │                      │
+│  └──────────────┬───────────────────────┘                      │
+│                 │                                               │
+│                 │ 2. Write to Topic: "orders"                   │
+│                 ▼                                               │
+│  ┌──────────────────────────────────────┐                      │
+│  │      AclAuthorizer Evaluation        │                      │
+│  │  ┌────────────────────────────────┐  │                      │
+│  │  │ Query ACL Rules:               │  │                      │
+│  │  │ Principal: User:order-service  │  │                      │
+│  │  │ Resource: Topic:orders         │  │                      │
+│  │  │ Operation: Write               │  │                      │
+│  │  └───────────┬────────────────────┘  │                      │
+│  └──────────────┼───────────────────────┘                      │
+│                 │                                               │
+│        ┌────────┴────────┐                                      │
+│        ▼                 ▼                                      │
+│  ┌──────────┐      ┌──────────┐                                │
+│  │  Allow   │      │  Deny    │                                │
+│  │  Rule    │      │  (no ACL)│                                │
+│  │  Found   │      │          │                                │
+│  └────┬─────┘      └────┬─────┘                                │
+│       │                 │                                       │
+│       ▼                 ▼                                       │
+│  ┌──────────┐      ┌──────────┐                                │
+│  │ Permit   │      │ Reject   │                                │
+│  │Operation │      │Operation │                                │
+│  └──────────┘      └──────────┘                                │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+-->
+
 1. The client authenticates (via SASL, mTLS, or another mechanism)
 2. The principal identity is extracted (e.g., `User:order-service`)
 3. The producer attempts a Write operation on a Topic resource

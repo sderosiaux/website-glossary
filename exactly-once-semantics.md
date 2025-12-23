@@ -14,7 +14,54 @@ topics:
 In mission-critical applications—especially those involving finance, inventory, billing, or regulatory compliance—the integrity of data is paramount. In distributed, asynchronous data streaming environments, achieving this integrity requires exactly-once semantics (EOS), a guarantee that every record is processed fully, successfully, and only once, even in the face of system failures.
 
 Understanding exactly-once semantics—how it works, why it's technically challenging, and what it costs—is essential for anyone building data pipelines where duplicate processing or data loss would cause incorrect results or compliance violations.
+
 ![Exactly-once semantics flow](images/diagrams/exactly-once-semantics-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌────────────────────────────────────────────────────────────────┐
+│               Exactly-Once Processing in Kafka                 │
+└────────────────────────────────────────────────────────────────┘
+
+    ┌──────────────────┐
+    │  Producer        │
+    │  (Idempotent)    │
+    │  + PID           │
+    │  + Sequence #    │
+    └────────┬─────────┘
+             │
+             ▼
+    ┌──────────────────┐
+    │  Input Topic     │
+    │  (Offsets 1-100) │
+    └────────┬─────────┘
+             │
+             ▼
+    ┌──────────────────────────────────┐
+    │  Consumer/Processor              │
+    │  (Transactional)                 │
+    │  ┌────────────────────────────┐  │
+    │  │ BEGIN TRANSACTION          │  │
+    │  │  1. Read from input        │  │
+    │  │  2. Process data           │  │
+    │  │  3. Write to output        │  │
+    │  │  4. Commit offsets         │  │
+    │  │ COMMIT TRANSACTION         │  │
+    │  └────────────────────────────┘  │
+    │  (Atomic: All or Nothing)        │
+    └────────┬─────────────────────────┘
+             │
+             ├────────────────┬────────────────┐
+             ▼                ▼                ▼
+    ┌──────────────┐  ┌──────────────┐  ┌──────────────┐
+    │ Output Topic │  │ State Store  │  │ Offset Commit│
+    │ (Results)    │  │ (Checkpoint) │  │ (Consumer)   │
+    └──────────────┘  └──────────────┘  └──────────────┘
+
+    All 3 succeed together OR all 3 rollback together
+```
+-->
+
 ## Understanding Delivery Guarantees: At-Most-Once, At-Least-Once, and Exactly-Once
 
 Data processing guarantees define how a system handles records when failures occur. Distributed systems offer three fundamental delivery semantic models, each representing different trade-offs between reliability, performance, and implementation complexity.

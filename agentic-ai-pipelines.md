@@ -54,7 +54,58 @@ Without streaming data, agents operate on stale assumptions, miss critical event
 ## Agentic AI Pipeline Architecture
 
 A production agentic AI pipeline follows a consistent pattern:
+
 ![A production agentic AI pipeline follows a consistent pattern](images/diagrams/agentic-ai-pipelines-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│                      AGENTIC AI PIPELINE                                │
+└─────────────────────────────────────────────────────────────────────────┘
+
+  ┌──────────────┐      ┌──────────────┐      ┌──────────────┐
+  │   Sources    │      │    Kafka     │      │   Context    │
+  │              │      │   Topics     │      │   Stores     │
+  │ • App Events │─────▶│              │      │              │
+  │ • Metrics    │      │ • tickets    │      │ • Vector DB  │
+  │ • CDC        │      │ • orders     │      │ • Redis      │
+  │ • Webhooks   │      │ • actions    │      │ • Postgres   │
+  └──────────────┘      └──────┬───────┘      └──────┬───────┘
+                               │                     │
+                               ▼                     │
+                      ┌────────────────┐             │
+                      │  Event Router  │             │
+                      │                │             │
+                      │ Filter, route  │             │
+                      │ to agents      │             │
+                      └────────┬───────┘             │
+                               │                     │
+                               ▼                     ▼
+                      ┌─────────────────────────────────────┐
+                      │           AI AGENT                  │
+                      │                                     │
+                      │  ┌─────────┐  ┌─────────────────┐  │
+                      │  │ Reason  │  │  Retrieve       │  │
+                      │  │         │◀▶│  Context        │  │
+                      │  └────┬────┘  └─────────────────┘  │
+                      │       │                            │
+                      │       ▼                            │
+                      │  ┌─────────┐  ┌─────────────────┐  │
+                      │  │  Act    │─▶│  Tools/APIs     │  │
+                      │  └─────────┘  └─────────────────┘  │
+                      └──────────────────┬──────────────────┘
+                                         │
+                                         ▼
+                      ┌─────────────────────────────────────┐
+                      │         Output Streams              │
+                      │                                     │
+                      │  • agent-actions    (to services)   │
+                      │  • agent-audit-logs (to governance) │
+                      │  • agent-feedback   (to learning)   │
+                      └─────────────────────────────────────┘
+```
+-->
+
 **1. Event Ingestion**
 Streaming platforms like Apache Kafka capture operational events: user actions, system metrics, transactions, sensor readings. These events flow continuously into topics organized by domain (orders, inventory, interactions).
 

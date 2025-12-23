@@ -51,7 +51,42 @@ However, single-cluster replication only protects against individual broker fail
 ## Multi-Datacenter Replication Patterns
 
 To protect against datacenter failures, organizations implement multi-datacenter replication using several architectural patterns. The choice depends on recovery objectives, budget, and operational complexity tolerance.
+
 ![disaster-recovery-strategies-for-kafka-clusters diagram 1](images/diagrams/disaster-recovery-strategies-for-kafka-clusters-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌───────────────────────────────────────────────────────────────────┐
+│                   Multi-Datacenter Patterns                       │
+├───────────────────────────────────────────────────────────────────┤
+│                                                                   │
+│  Active-Passive:                                                  │
+│  ┌────────────┐        MirrorMaker 2         ┌────────────┐      │
+│  │   DC-1     │──────────────────────────────▶│   DC-2     │      │
+│  │  (Active)  │    One-way Replication       │ (Standby)  │      │
+│  └────────────┘                               └────────────┘      │
+│      │ writes/reads                                  │ reads only │
+│  Producers/Consumers                           (failover ready)   │
+│                                                                   │
+│  Active-Active:                                                   │
+│  ┌────────────┐                               ┌────────────┐      │
+│  │   DC-1     │◀─────────────────────────────▶│   DC-2     │      │
+│  │  (Active)  │  Bidirectional Replication   │  (Active)  │      │
+│  └────────────┘                               └────────────┘      │
+│      │ writes/reads                           writes/reads │      │
+│  Regional Clients                          Regional Clients       │
+│                                                                   │
+│  Stretch Cluster:                                                 │
+│  ┌────────────────────────────────────────────────────────┐       │
+│  │  Broker-1  │  Broker-2  │  Broker-3  │  Broker-4  │   │       │
+│  │   (AZ-1)   │   (AZ-2)   │   (AZ-1)   │   (AZ-2)   │   │       │
+│  └────────────────────────────────────────────────────────┘       │
+│         Single logical cluster across zones                       │
+│         (requires <10ms latency between zones)                    │
+└───────────────────────────────────────────────────────────────────┘
+```
+-->
+
 | Pattern | RTO | RPO | Complexity | Cost Efficiency | Best For |
 |---------|-----|-----|------------|-----------------|----------|
 | Active-Passive | Minutes-Hours | Seconds-Minutes | Low | Medium (50% idle) | Most enterprises |

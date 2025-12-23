@@ -12,7 +12,57 @@ topics:
 Access control is the cornerstone of data security, determining who can interact with your data and what actions they can perform. As organizations scale and data architectures become more complex—particularly with real-time streaming platforms—choosing the right access control model becomes critical. This article explores two fundamental approaches: Role-Based Access Control (RBAC) and Attribute-Based Access Control (ABAC), with practical examples for streaming data infrastructure.
 
 Modern implementations leverage tools like Open Policy Agent (OPA), Keycloak, AWS Cedar, and cloud-native IAM systems to enforce these models at scale. For comprehensive Kafka-specific authorization patterns, see [Kafka ACLs and Authorization Patterns](https://conduktor.io/glossary/kafka-acls-and-authorization-patterns).
+
 ![RBAC vs ABAC Access Control Models](images/diagrams/data-access-control-rbac-and-abac-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌──────────────────────────────────────────────────────────────────┐
+│              RBAC vs ABAC Comparison                             │
+└──────────────────────────────────────────────────────────────────┘
+
+RBAC (Role-Based Access Control):
+───────────────────────────────────────────────────────────────
+
+  Users        ──▶    Roles      ──▶   Permissions
+┌────────┐          ┌──────────┐      ┌────────────┐
+│Alice   │─────────▶│  Data    │─────▶│READ topics │
+│Bob     │          │ Engineer │      │WRITE topics│
+└────────┘          └──────────┘      └────────────┘
+┌────────┐          ┌──────────┐      ┌────────────┐
+│Charlie │─────────▶│Analytics │─────▶│READ topics │
+└────────┘          │ Reader   │      │only        │
+                    └──────────┘      └────────────┘
+
+ABAC (Attribute-Based Access Control):
+───────────────────────────────────────────────────────────────
+
+        ┌────────────────────────────────┐
+        │      Policy Evaluation         │
+        └────────────────────────────────┘
+                      │
+    ┌─────────────────┼─────────────────┐
+    ▼                 ▼                 ▼
+┌─────────┐      ┌─────────┐      ┌─────────┐
+│ Subject │      │Resource │      │Environ- │
+│ Attrs   │      │ Attrs   │      │ment     │
+├─────────┤      ├─────────┤      ├─────────┤
+│region:  │      │region:  │      │time:    │
+│  EU     │  +   │  EU     │  +   │ 09:00   │
+│clearance│      │classify:│      │mfa: yes │
+│  L3     │      │  L2     │      └─────────┘
+└─────────┘      └─────────┘
+                      │
+                      ▼
+            ┌──────────────────┐
+            │ Decision: ALLOW  │
+            │ IF region match  │
+            │ AND clearance OK │
+            │ AND time valid   │
+            └──────────────────┘
+```
+-->
+
 ## Understanding RBAC: The Foundation
 
 Role-Based Access Control assigns permissions based on organizational roles. Users inherit permissions through their assigned roles, creating a layer of abstraction between individuals and access rights.

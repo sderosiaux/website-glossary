@@ -10,7 +10,54 @@ topics:
 ---
 
 Machine learning models depend on features—the measurable properties used to make predictions. As ML systems scale, managing these features becomes increasingly complex. Feature stores emerged to solve this challenge by providing a centralized platform for storing, serving, and managing features across the entire ML lifecycle.
+
 ![Feature store architecture](images/diagrams/feature-stores-for-machine-learning-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                   Feature Store Architecture                    │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────┐          ┌─────────────┐          ┌─────────────┐
+│   Batch     │          │  Streaming  │          │   Database  │
+│   Data      │          │   Events    │          │     CDC     │
+│ (Warehouse) │          │   (Kafka)   │          │  (Changes)  │
+└──────┬──────┘          └──────┬──────┘          └──────┬──────┘
+       │                        │                        │
+       └────────────┬───────────┴───────────┬────────────┘
+                    │                       │
+                    ▼                       ▼
+         ┌──────────────────┐    ┌──────────────────┐
+         │ Batch Features   │    │ Streaming        │
+         │ (Scheduled ETL)  │    │ Features         │
+         │                  │    │ (Real-time)      │
+         └─────────┬────────┘    └────────┬─────────┘
+                   │                      │
+                   ▼                      ▼
+         ┌─────────────────────────────────────────┐
+         │       Feature Registry                  │
+         │  (Metadata, Versioning, Lineage)        │
+         └────────┬──────────────────────┬─────────┘
+                  │                      │
+      ┌───────────┴────────┐  ┌──────────┴──────────┐
+      ▼                    │  │                     ▼
+┌──────────────┐           │  │          ┌──────────────┐
+│ Offline Store│◀──────────┘  └─────────▶│ Online Store │
+│ (Training)   │                          │ (Inference)  │
+│              │                          │              │
+│ Data Lake /  │                          │ Redis /      │
+│ Warehouse    │                          │ DynamoDB     │
+└──────┬───────┘                          └──────┬───────┘
+       │                                         │
+       ▼                                         ▼
+┌──────────────┐                          ┌──────────────┐
+│ Model        │                          │ Real-time    │
+│ Training     │                          │ Predictions  │
+└──────────────┘                          └──────────────┘
+```
+-->
+
 ## What is a Feature Store?
 
 A feature store is a data management system specifically designed for machine learning features. It acts as a central repository where features are defined once and reused consistently across training and inference workflows.

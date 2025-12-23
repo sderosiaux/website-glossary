@@ -263,7 +263,16 @@ Sometimes breaking changes are unavoidable. Business requirements might mandate 
 ### Dual-Writing Pattern
 
 During migration, producers write to both old and new topics simultaneously. Consumers gradually migrate from the old topic to the new one. Once all consumers have migrated, retire the old topic.
+
 ![schema-evolution-best-practices diagram 1](images/diagrams/schema-evolution-best-practices-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+Producer → Old Topic (v1 schema) → Old Consumers
+         ↘ New Topic (v2 schema) → New Consumers
+```
+-->
+
 This approach provides a clean cutover point but doubles write load and requires maintaining two code paths.
 
 ### Versioned Topics

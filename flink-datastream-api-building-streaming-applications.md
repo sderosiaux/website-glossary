@@ -8,7 +8,67 @@ topics:
   - Transformations
   - Windowing
 ---
+
 ![Flink DataStream API transformations](images/diagrams/flink-datastream-api-building-streaming-applications-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌─────────────────────────────────────────────────────────────────┐
+│             Flink DataStream API Transformation Flow            │
+└─────────────────────────────────────────────────────────────────┘
+
+    ┌───────────────┐
+    │  Data Source  │
+    │  (Kafka, etc) │
+    └───────┬───────┘
+            │
+            ▼
+    ┌──────────────────┐
+    │   DataStream     │
+    │   <Event>        │
+    └───────┬──────────┘
+            │
+            ├──────────────┐
+            ▼              ▼
+    ┌──────────┐    ┌──────────────┐
+    │  map()   │    │  filter()    │
+    │flatMap() │    │              │
+    └────┬─────┘    └──────┬───────┘
+         │                 │
+         └────────┬────────┘
+                  ▼
+          ┌───────────────┐
+          │   keyBy()     │
+          │  (Partition)  │
+          └───────┬───────┘
+                  │
+                  ▼
+         ┌────────────────┐
+         │ KeyedStream    │
+         │ (Stateful Ops) │
+         └────────┬───────┘
+                  │
+         ┌────────┼────────┐
+         ▼        ▼        ▼
+    ┌────────┐ ┌────┐ ┌────────┐
+    │window()│ │sum()│ │reduce()│
+    │        │ │    │ │        │
+    └────┬───┘ └─┬──┘ └───┬────┘
+         │       │        │
+         └───────┼────────┘
+                 ▼
+        ┌────────────────┐
+        │  Result Stream │
+        └────────┬───────┘
+                 │
+                 ▼
+        ┌────────────────┐
+        │   Data Sink    │
+        │ (Kafka, DB)    │
+        └────────────────┘
+```
+-->
+
 ## Introduction to Flink DataStream API
 
 The DataStream API is Apache Flink's foundational interface for building streaming applications. It provides a declarative programming model that abstracts the complexities of distributed stream processing while offering precise control over state management, time semantics, and fault tolerance.

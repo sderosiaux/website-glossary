@@ -39,7 +39,43 @@ For Kafka integration, add these dependencies to your project:
 ## Understanding Windows in Stream Processing
 
 Windows are fundamental constructs in stream processing that segment continuous data streams into bounded collections. Unlike batch processing, where data has natural boundaries, streaming data is unbounded and requires explicit windowing logic to perform aggregations.
+
 ![windowing-in-apache-flink-tumbling-sliding-and-session-windows diagram 1](images/diagrams/windowing-in-apache-flink-tumbling-sliding-and-session-windows-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌──────────────────────────────────────────────────────────────────┐
+│                   Window Types Overview                          │
+├──────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  Tumbling Windows (non-overlapping, fixed size)                 │
+│  ┌──────┐┌──────┐┌──────┐┌──────┐                               │
+│  │ 5min ││ 5min ││ 5min ││ 5min │                               │
+│  └──────┘└──────┘└──────┘└──────┘                               │
+│  10:00   10:05   10:10   10:15   10:20                          │
+│                                                                  │
+│  Sliding Windows (overlapping, fixed size and slide)            │
+│  ┌──────────┐                                                    │
+│  │ 10 min   │                                                    │
+│  └──────────┘                                                    │
+│    ┌──────────┐                                                  │
+│    │ 10 min   │                                                  │
+│    └──────────┘                                                  │
+│      ┌──────────┐                                                │
+│      │ 10 min   │                                                │
+│      └──────────┘                                                │
+│  10:00 10:01 10:02 10:03 ...  (slides every 1 min)              │
+│                                                                  │
+│  Session Windows (dynamic, based on inactivity gap)             │
+│  ┌────────┐      ┌──┐  ┌─────────────┐                          │
+│  │Session1│ gap  │S2│  │  Session 3  │                          │
+│  └────────┘      └──┘  └─────────────┘                          │
+│  ●●●●      15min ●     ●●●●●  15min  (sessions end after gap)   │
+│                                                                  │
+└──────────────────────────────────────────────────────────────────┘
+```
+-->
+
 Flink supports two main categories of windows:
 
 - **Time-based windows**: Group events based on timestamps (processing time or event time)
@@ -59,7 +95,19 @@ Event time provides deterministic results and handles out-of-order events correc
 ### Understanding Watermarks
 
 **Watermarks** are Flink's mechanism for tracking event time progress in the stream. A watermark with timestamp T is an assertion that "all events with timestamps less than T have arrived."
+
 ![windowing-in-apache-flink-tumbling-sliding-and-session-windows diagram 2](images/diagrams/windowing-in-apache-flink-tumbling-sliding-and-session-windows-1.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+Event Stream:  [E1:10:05] [E2:10:03] [E3:10:08] [E4:10:06]
+                    ↓          ↓          ↓          ↓
+Watermarks:    W(10:05)   W(10:05)   W(10:08)   W(10:08)
+                    ↓
+              Window [10:00-10:05) can close after W(10:05)
+```
+-->
+
 Watermarks serve three critical functions:
 1. **Trigger window computation**: Windows close and produce results when the watermark passes their end time
 2. **Handle out-of-order events**: Events can arrive late (before the watermark) and still be included in windows
@@ -456,7 +504,35 @@ This governance layer becomes essential when managing multiple Flink jobs consum
 ### Choose the Right Window Type
 
 Selecting the appropriate window type is critical for both correctness and performance. Use this decision tree:
+
 ![Selecting the appropriate window type is critical for both correctness and performance. Use this decision tree](images/diagrams/windowing-in-apache-flink-tumbling-sliding-and-session-windows-2.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│              Which Window Type Should I Use?                        │
+└─────────────────────────────────────────────────────────────────────┘
+
+Question 1: Is window duration based on activity or fixed time?
+  ├─ Activity-based → Use SESSION WINDOWS
+  │   Examples: User sessions, clickstream analysis, fraud detection
+  │   Characteristics: Dynamic duration, ends after inactivity gap
+  │
+  └─ Fixed time → Continue to Question 2
+
+Question 2: Should events appear in multiple windows?
+  ├─ Yes (overlapping windows needed) → Use SLIDING WINDOWS
+  │   Examples: Moving averages, trend detection, continuous monitoring
+  │   Characteristics: Window size + slide interval, events duplicated
+  │   Cost: Higher (events processed multiple times)
+  │
+  └─ No (each event counted once) → Use TUMBLING WINDOWS
+      Examples: Hourly reports, daily summaries, periodic metrics
+      Characteristics: Non-overlapping, fixed intervals
+      Cost: Lower (each event processed once)
+```
+-->
+
 **Quick Reference:**
 - **Tumbling windows** → Discrete time-based reports (hourly, daily metrics)
 - **Sliding windows** → Continuous monitoring and trend detection (moving averages)

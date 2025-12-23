@@ -57,7 +57,42 @@ Lakehouse architecture emerged in the early 2020s to address the limitations of 
 ## Core Components of Lakehouse Architecture
 
 A typical lakehouse architecture consists of several key layers:
+
 ![A typical lakehouse architecture consists of several key layers](images/diagrams/introduction-to-lakehouse-architecture-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌─────────────────────────────────────────────────────────┐
+│           BI Tools, ML Platforms, Analytics             │
+│         (Tableau, Power BI, Python, Jupyter, etc.)      │
+└─────────────────────────────────────────────────────────┘
+                           ↕
+┌─────────────────────────────────────────────────────────┐
+│              Query Engine Layer                         │
+│      (Spark 3.5+, Trino, Presto, Flink 1.19+)         │
+└─────────────────────────────────────────────────────────┘
+                           ↕
+┌─────────────────────────────────────────────────────────┐
+│         Metadata & Transaction Layer                    │
+│   (Delta Lake 3.x, Iceberg 1.7+, Hudi 1.x)            │
+│   • ACID Transactions    • Schema Evolution            │
+│   • Time Travel          • Performance Stats           │
+│   • Catalog Integration  • Deletion Vectors            │
+└─────────────────────────────────────────────────────────┘
+                           ↕
+┌─────────────────────────────────────────────────────────┐
+│              Catalog Layer                              │
+│    (Unity Catalog, Polaris, Nessie, Hive Metastore)   │
+└─────────────────────────────────────────────────────────┘
+                           ↕
+┌─────────────────────────────────────────────────────────┐
+│              Storage Layer                              │
+│    (S3, ADLS Gen2, Google Cloud Storage)               │
+│         Parquet Files (primary format)                 │
+└─────────────────────────────────────────────────────────┘
+```
+-->
+
 ### Storage Layer
 
 The foundation uses cost-effective object storage (AWS S3, Azure Data Lake Storage Gen2, or Google Cloud Storage) to store data in open file formats. **Parquet has emerged as the de facto standard** for lakehouse implementations due to its columnar format, excellent compression, and widespread support across all query engines. While ORC and Avro are supported, Parquet's efficient columnar storage and predicate pushdown capabilities make it ideal for analytical workloads. This ensures vendor independence and cost efficiency.

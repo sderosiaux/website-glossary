@@ -16,7 +16,37 @@ A streaming ingestion pipeline continuously captures data from various sources�
 For foundational understanding of lakehouse concepts, see [Introduction to Lakehouse Architecture](https://conduktor.io/glossary/introduction-to-lakehouse-architecture). To understand CDC as a streaming source, refer to [What is Change Data Capture (CDC)](https://conduktor.io/glossary/what-is-change-data-capture-cdc-fundamentals).
 
 ## Streaming Ingestion Architecture Patterns
+
 ![## Streaming Ingestion Architecture Patterns](images/diagrams/streaming-ingestion-to-lakehouse-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+Direct Write Pattern:
+┌─────────────┐
+│   Stream    │──────▶ Write each event ──────▶┌──────────────┐
+│   Source    │        immediately              │  Lakehouse   │
+│ (Kafka/...)│                                  │   Table      │
+└─────────────┘                                 └──────────────┘
+                Low latency, many small files
+
+Micro-Batch Pattern:
+┌─────────────┐         ┌──────────────┐        ┌──────────────┐
+│   Stream    │────────▶│ Accumulate   │───────▶│  Lakehouse   │
+│   Source    │         │ for N seconds│        │   Table      │
+│ (Kafka/...)│         └──────────────┘        └──────────────┘
+└─────────────┘         Write in batches
+                Balanced latency/efficiency
+
+Continuous Processing Pattern:
+┌─────────────┐         ┌──────────────┐        ┌──────────────┐
+│   Stream    │────────▶│ Process +    │───────▶│  Lakehouse   │
+│   Source    │         │ Background   │        │   Table      │
+│ (Kafka/...)│         │ Compaction   │        │              │
+└─────────────┘         └──────────────┘        └──────────────┘
+                True streaming with optimization
+```
+-->
+
 ### Direct Write Pattern
 
 The direct write pattern streams data directly from the source to the Lakehouse table format without intermediate staging. Each incoming event triggers an immediate write operation, providing the lowest possible latency. This pattern works best for high-value, low-volume data streams where immediate availability is critical.

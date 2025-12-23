@@ -14,7 +14,73 @@ In the world of real-time data processing, **Service Level Agreements (SLAs)** d
 A streaming SLA is a formal agreement that specifies the expected quality of service for data streaming infrastructure. It answers critical questions: How fast will messages be delivered? What happens if the system fails? How long will data be retained? These commitments become especially critical in regulated industries like banking, healthcare, and telecommunications, where data latency can have financial, legal, or safety implications.
 
 The fundamental difference between streaming and batch SLAs lies in the **continuous nature** of the commitment. While a batch job SLA might guarantee completion within 4 hours once per day, a streaming SLA must maintain its promises 24/7, across millions of messages, with no scheduled downtime windows.
+
 ![Streaming SLA dimensions showing latency, throughput, availability, and durability](images/diagrams/sla-for-streaming-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌──────────────────────────────────────────────────────────────────┐
+│                 STREAMING SLA DIMENSIONS                         │
+├──────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  1. LATENCY (End-to-End Processing Time)                        │
+│  ┌────────────────────────────────────────────────────────────┐ │
+│  │ Producer → Broker → Consumer → Processing                  │ │
+│  │    10ms     20ms      50ms        200ms    = 280ms total   │ │
+│  │                                                            │ │
+│  │ SLA: p95 < 500ms, p99 < 2s                                │ │
+│  └────────────────────────────────────────────────────────────┘ │
+│                                                                  │
+│  2. THROUGHPUT (Volume Capacity)                                │
+│  ┌────────────────────────────────────────────────────────────┐ │
+│  │                  Messages/Second                           │ │
+│  │  ▲                                                         │ │
+│  │  │  ┌──────────────────┐                                  │ │
+│  │  │  │   Peak: 150k     │  SLA Limit: 100k msg/s           │ │
+│  │  │  │                  │  Burst: 150k msg/s (5 min max)   │ │
+│  │  │──┤                  ├─────────────────── SLA Threshold │ │
+│  │  │  │   Sustained      │                                  │ │
+│  │  │  └──────────────────┘                                  │ │
+│  │  │                                                         │ │
+│  │  └──────────────────────────────────────────────────────▶  │ │
+│  │                       Time                                 │ │
+│  └────────────────────────────────────────────────────────────┘ │
+│                                                                  │
+│  3. AVAILABILITY (Uptime Guarantee)                             │
+│  ┌────────────────────────────────────────────────────────────┐ │
+│  │  99.9%  → 8.7 hours downtime/year  (43.2 min/month)       │ │
+│  │  99.99% → 52 minutes downtime/year (4.3 min/month)        │ │
+│  │                                                            │ │
+│  │  Measurement: Successful operations / Total attempts      │ │
+│  │  Example: 999,000 success / 1,000,000 total = 99.9%       │ │
+│  └────────────────────────────────────────────────────────────┘ │
+│                                                                  │
+│  4. DURABILITY & RETENTION                                      │
+│  ┌────────────────────────────────────────────────────────────┐ │
+│  │  Durability: Messages replicated to 3 brokers             │ │
+│  │              Zero data loss for acknowledged writes        │ │
+│  │                                                            │ │
+│  │  Retention:  7 days (standard topics)                     │ │
+│  │              Indefinite (audit/compliance topics)          │ │
+│  │                                                            │ │
+│  │  ┌──────┐  ┌──────┐  ┌──────┐                            │ │
+│  │  │Broker│  │Broker│  │Broker│   Min in-sync replicas: 2  │ │
+│  │  │  1   │  │  2   │  │  3   │                            │ │
+│  │  └──────┘  └──────┘  └──────┘                            │ │
+│  └────────────────────────────────────────────────────────────┘ │
+│                                                                  │
+│  SLA TIERS:                                                     │
+│  ┌────────────┬─────────────┬──────────────┬─────────────────┐ │
+│  │ Tier       │ Latency     │ Availability │ Use Case        │ │
+│  ├────────────┼─────────────┼──────────────┼─────────────────┤ │
+│  │ Best-Effort│ No guarantee│ ~99%         │ Dev/Test        │ │
+│  │ Guaranteed │ p95 < 1s    │ 99.5%        │ Production      │ │
+│  │ Premium    │ p99 < 100ms │ 99.99%       │ Critical (Fraud)│ │
+│  └────────────┴─────────────┴──────────────┴─────────────────┘ │
+└──────────────────────────────────────────────────────────────────┘
+```
+-->
+
 ## Core SLA Dimensions for Streaming
 
 Streaming SLAs encompass multiple dimensions, each addressing a different aspect of system performance:

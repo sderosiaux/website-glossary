@@ -16,7 +16,42 @@ In distributed systems, ensuring that messages are processed exactly once is not
 Apache Kafka introduced transactions to solve this challenge, enabling exactly-once semantics (EOS) across producers, brokers, and consumers. This capability transforms Kafka from a reliable message broker into a platform capable of handling mission-critical operations where duplicate processing or data loss is unacceptable.
 
 This article provides a comprehensive technical deep dive into Kafka's transaction implementation. For a broader overview of exactly-once semantics including use cases and simpler explanations, see [Exactly-Once Semantics in Kafka](https://conduktor.io/glossary/exactly-once-semantics-in-kafka). For foundational Kafka concepts, refer to [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
+
 ![Kafka transaction flow with coordinator](images/diagrams/kafka-transactions-deep-dive-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌──────────────────────────────────────────────────────────────────┐
+│              KAFKA TRANSACTION FLOW (2-PHASE COMMIT)             │
+└──────────────────────────────────────────────────────────────────┘
+
+  Producer                Transaction Coordinator           Partition
+     │                              │                           │
+     │─────(1) initTransactions()──▶│                           │
+     │◀────────PID + Epoch──────────│                           │
+     │                              │                           │
+     │─────(2) beginTransaction()──▶│                           │
+     │                              │                           │
+     │─────(3) send(topic-A)────────┼──────────────────────────▶│
+     │─────(3) send(topic-B)────────┼──────────────────────────▶│
+     │                              │                           │
+     │                              │  (Track partitions in     │
+     │                              │   __transaction_state)    │
+     │                              │                           │
+     │─────(4) commitTransaction()─▶│                           │
+     │                              │                           │
+     │                      PHASE 1: Prepare                    │
+     │                              │──────COMMIT marker───────▶│
+     │                              │──────COMMIT marker───────▶│
+     │                              │                           │
+     │                      PHASE 2: Complete                   │
+     │◀─────────ACK─────────────────│                           │
+                                    │
+                   (Consumers with isolation.level=read_committed
+                    only see data after COMMIT markers)
+```
+-->
+
 ## Understanding Kafka Transactions
 
 Kafka transactions allow producers to send multiple messages to multiple partitions atomically. Either all messages in a transaction are committed and become visible to consumers, or none are. This atomic guarantee extends across multiple topic partitions and even spans multiple Kafka clusters in some configurations.

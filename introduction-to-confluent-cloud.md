@@ -14,7 +14,61 @@ As organizations adopt real-time data architectures, managing Apache Kafka infra
 This article explores what Confluent Cloud is, how it works, and when organizations should consider using it versus self-managed Apache Kafka with platforms like Conduktor for governance and monitoring.
 
 For foundational Kafka concepts, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
+
 ![Confluent Cloud architecture and ecosystem integration](images/diagrams/introduction-to-confluent-cloud-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌──────────────────────────────────────────────────────────────────┐
+│             Confluent Cloud Architecture (2025)                  │
+└──────────────────────────────────────────────────────────────────┘
+
+Multi-Cloud Providers              Confluent Cloud Services
+     │                                      │
+     ▼                                      ▼
+┌──────────┐                      ┌──────────────────┐
+│   AWS    │◀────────────────────▶│ Kafka 4.0+       │
+│   GCP    │   Fully Managed      │ (KRaft Mode)     │
+│  Azure   │   Infrastructure     │ - No ZooKeeper   │
+└──────────┘                      │ - Auto-scaling   │
+     │                            │ - Multi-zone HA  │
+     │                            └──────────────────┘
+     │                                      │
+     ▼                                      │
+┌──────────────────┐                       │
+│ Cluster Types    │                       │
+│ ┌──────────────┐ │                       ▼
+│ │ Serverless   │ │             ┌──────────────────┐
+│ │ Standard     │ │             │  Ecosystem       │
+│ │ Dedicated    │ │             │  - Schema Reg.   │
+│ │ Basic        │ │             │  - Flink         │
+│ └──────────────┘ │             │  - ksqlDB        │
+└──────────────────┘             │  - Connectors    │
+     │                           │  - Cluster Link  │
+     │                           └──────────────────┘
+     ▼                                     │
+┌──────────────────┐                      │
+│  2025 Features   │                      │
+│ - Kora Engine    │                      │
+│ - Freight Tier   │                      ▼
+│ - Stream Gov.    │            ┌──────────────────┐
+│ - Tiered Storage │            │ Data Integration │
+│ - PrivateLink    │            │ - 200+ Connectors│
+└──────────────────┘            │ - CDC (Debezium) │
+                                │ - Cloud Storage  │
+                                │ - Databases      │
+                                └──────────────────┘
+                                         │
+                                         ▼
+                                ┌──────────────────┐
+                                │ Client Apps      │
+                                │ - Producers      │
+                                │ - Consumers      │
+                                │ - Stream Proc.   │
+                                └──────────────────┘
+```
+-->
+
 ## What is Confluent Cloud?
 
 Confluent Cloud is a fully managed Apache Kafka service developed by Confluent, the company founded by the original creators of Apache Kafka. It provides a complete data streaming platform that runs across multiple cloud providers including AWS, Google Cloud, and Microsoft Azure.

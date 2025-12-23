@@ -10,7 +10,50 @@ topics:
 ---
 
 In modern data architectures, particularly those built on streaming platforms like Apache Kafka, data classification and tagging are critical components of a robust data governance framework. As organizations process millions of events per second, understanding what data flows through your systems and how sensitive it is becomes paramount for compliance, security, and operational efficiency.
+
 ![Data Classification Levels and Tagging](images/diagrams/data-classification-and-tagging-strategies-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌──────────────────────────────────────────────────────────────────┐
+│         Data Classification Framework with Tagging               │
+└──────────────────────────────────────────────────────────────────┘
+
+Classification Levels:                 Tagging Approaches:
+────────────────────                   ─────────────────────
+
+┌──────────────────┐                  ┌──────────────────┐
+│    RESTRICTED    │ ──────────────▶  │ Message Headers  │
+│ PII, PHI, PCI    │                  │ classification:  │
+│ Highest Security │                  │   RESTRICTED     │
+└──────────────────┘                  │ pii-fields:      │
+         │                            │   email,ssn      │
+         ▼                            └──────────────────┘
+┌──────────────────┐                           │
+│  CONFIDENTIAL    │                           ▼
+│ Business Secrets │                  ┌──────────────────┐
+│ Financial Data   │ ──────────────▶  │ Schema Registry  │
+└──────────────────┘                  │ Metadata:        │
+         │                            │ {                │
+         ▼                            │  "classification"│
+┌──────────────────┐                  │  "contains_pii"  │
+│    INTERNAL      │                  │ }                │
+│ Employee Data    │                  └──────────────────┘
+│ Internal Comms   │                           │
+└──────────────────┘                           ▼
+         │                            ┌──────────────────┐
+         ▼                            │  Topic Naming    │
+┌──────────────────┐                  │ Conventions:     │
+│      PUBLIC      │ ──────────────▶  │                  │
+│ Marketing Data   │                  │ restricted.      │
+│ Public Info      │                  │   payment.*      │
+└──────────────────┘                  │ confidential.    │
+                                      │   customer.*     │
+                                      │ public.web.*     │
+                                      └──────────────────┘
+```
+-->
+
 ## Understanding Data Classification
 
 Data classification is the systematic organization of data into categories based on sensitivity, regulatory requirements, and business criticality. This process enables organizations to apply appropriate security controls, access policies, and retention strategies to different data types.

@@ -61,7 +61,37 @@ This capability is essential for real-world streaming where network delays and d
 ### Architecture Overview
 
 Flink operates on a master-worker architecture:
+
 ![Flink operates on a master-worker architecture](images/diagrams/what-is-apache-flink-stateful-stream-processing-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+        ┌───────────────────────────┐
+        │     JobManager            │
+        │  ┌─────────────────────┐  │
+        │  │ Scheduler           │  │
+        │  │ Checkpoint Coord.   │  │
+        │  │ Resource Manager    │  │
+        │  └─────────────────────┘  │
+        └──────────┬────────────────┘
+                   │
+         ┌─────────┼─────────┐
+         │         │         │
+    ┌────▼────┐ ┌──▼─────┐ ┌─▼──────┐
+    │TaskMgr 1│ │TaskMgr │ │TaskMgr │
+    │┌───────┐│ │  2     │ │  3     │
+    ││Task 1 ││ │┌──────┐│ │┌──────┐│
+    ││State  ││ ││Task 2││ ││Task 3││
+    │└───────┘│ ││State ││ ││State ││
+    │         │ │└──────┘│ │└──────┘│
+    └─────────┘ └────────┘ └────────┘
+         │           │          │
+         └───────────┼──────────┘
+                     │
+              Data Exchange
+```
+-->
+
 **JobManager**: Coordinates distributed execution, manages checkpoints, and handles job scheduling.
 
 **TaskManagers**: Execute tasks, maintain local state, and communicate with each other for data exchange.
@@ -69,7 +99,27 @@ Flink operates on a master-worker architecture:
 ### Basic Flink Application
 
 A Flink stream processing pipeline flows like this:
+
 ![A Flink stream processing pipeline flows like this](images/diagrams/what-is-apache-flink-stateful-stream-processing-1.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+Kafka Source → Filter → KeyBy → Window → Aggregate → Kafka Sink
+    │            │        │        │         │           │
+    │            │        │        │         │           │
+    ▼            ▼        ▼        ▼         ▼           ▼
+┌─────────┐ ┌────────┐ ┌────┐ ┌──────┐ ┌────────┐ ┌─────────┐
+│ Stream  │→│ Filter │→│Key │→│Window│→│  Agg   │→│ Output  │
+│ Events  │ │Amount  │ │by  │ │5 min │ │ State  │ │ Topic   │
+│         │ │> 1000  │ │User│ │      │ │        │ │         │
+└─────────┘ └────────┘ └────┘ └──────┘ └────────┘ └─────────┘
+                         │                  │
+                         └──────────────────┘
+                         Stateful Operations
+                         (Checkpointed)
+```
+-->
+
 Key concepts demonstrated:
 - **Source integration** with Kafka
 - **Watermark strategy** for handling late events
@@ -167,7 +217,47 @@ Apache Flink and Apache Kafka form a powerful combination in modern data archite
 - Support for multiple serialization formats: Avro, JSON, Protobuf (see [Avro vs Protobuf vs JSON Schema](https://conduktor.io/glossary/avro-vs-protobuf-vs-json-schema))
 
 A typical architecture pattern:
+
 ![A typical architecture pattern](images/diagrams/what-is-apache-flink-stateful-stream-processing-2.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌──────────────┐        ┌─────────────────────┐        ┌──────────────┐
+│ Kafka Topics │        │   Flink Cluster     │        │ Kafka Topics │
+│  (raw data)  │        │                     │        │  (enriched)  │
+│              │        │  ┌───────────────┐  │        │              │
+│ ┌──────────┐ │        │  │ Source        │  │        │ ┌──────────┐ │
+│ │clickstream│─┼───────►│ │ (Kafka)       │  │        │ │enriched_ │ │
+│ └──────────┘ │        │  └───────┬───────┘  │        │ │clicks    │ │
+│              │        │          │           │        │ └──────────┘ │
+│ ┌──────────┐ │        │  ┌───────▼───────┐  │        │              │
+│ │user_     │─┼───────►│ │ Transform &   │  │        │ ┌──────────┐ │
+│ │profiles  │ │        │  │ Enrich (Join) │  │        │ │user_     │ │
+│ └──────────┘ │        │  └───────┬───────┘  │        │ │metrics   │ │
+│              │        │          │           │        │ └──────────┘ │
+└──────────────┘        │  ┌───────▼───────┐  │        └──────┬───────┘
+                        │  │ Sink          │  │               │
+                        │  │ (Kafka)       │──┼───────────────┘
+                        │  └───────────────┘  │
+                        │                     │
+                        │  State Backend:     │
+                        │  RocksDB/HDFS       │
+                        └─────────────────────┘
+                                  │
+                                  ▼
+                        ┌─────────────────┐
+                        │  Downstream     │
+                        │  ┌───────────┐  │
+                        │  │Analytics  │  │
+                        │  │Dashboard  │  │
+                        │  └───────────┘  │
+                        │  ┌───────────┐  │
+                        │  │Data Lake  │  │
+                        │  └───────────┘  │
+                        └─────────────────┘
+```
+-->
+
 ### Observability and Governance
 
 As Flink applications scale across multiple Kafka topics and processing stages, maintaining visibility becomes crucial. Modern observability and governance platforms provide essential capabilities:

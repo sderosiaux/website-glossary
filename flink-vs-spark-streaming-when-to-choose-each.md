@@ -16,7 +16,24 @@ Choosing the right stream processing framework is a critical architectural decis
 ### Apache Flink: True Stream Processing
 
 Apache Flink 1.18+ treats streaming as the primary processing model, with batch processing as a special case of streaming. Every event flows through the system individually, processed by stateful operators that maintain consistency through distributed snapshots (checkpoints—periodic state backups for recovery).
+
 ![flink-vs-spark-streaming-when-to-choose-each diagram 1](images/diagrams/flink-vs-spark-streaming-when-to-choose-each-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+Flink: Event-at-a-time Processing
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Event Stream: e1→e2→e3→e4→e5→e6
+              │  │  │  │  │  │
+              ▼  ▼  ▼  ▼  ▼  ▼
+          ┌────────────────────┐
+          │ Continuous Operator│
+          │ (Process each)     │
+          └────────────────────┘
+Latency: 10-100ms per event
+```
+-->
+
 Flink's architecture centers on:
 - **Event-driven processing**: Records flow continuously through operators
 - **Asynchronous checkpointing**: State snapshots (periodic backups for recovery) don't block processing
@@ -26,7 +43,25 @@ Flink's architecture centers on:
 ### Apache Spark Streaming: Micro-Batch Architecture
 
 Apache Spark 3.5+ Structured Streaming divides incoming data into small batches and processes them using Spark's batch processing engine. Even Structured Streaming, while providing a continuous API, operates on micro-batches internally. Recent versions (Spark 3.5+, released 2024) introduced significant improvements including RocksDB-backed state management, narrowing the gap with Flink's stateful processing capabilities.
+
 ![flink-vs-spark-streaming-when-to-choose-each diagram 2](images/diagrams/flink-vs-spark-streaming-when-to-choose-each-1.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+Spark: Micro-Batch Processing
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Event Stream: e1 e2 e3 e4│e5 e6 e7 e8│e9 e10
+              └─────────┘ └─────────┘ └──────
+              Batch 1     Batch 2     Batch 3
+                  │           │           │
+                  ▼           ▼           ▼
+              ┌─────────────────────────────┐
+              │  Batch Processing Engine    │
+              └─────────────────────────────┘
+Latency: 1-5 seconds (batch interval)
+```
+-->
+
 Spark's architecture features:
 - **Micro-batch processing**: Data collected in small time windows (typically seconds)
 - **Batch engine reuse**: Leverages Spark's mature batch processing capabilities

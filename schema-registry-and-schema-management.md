@@ -10,7 +10,62 @@ topics:
 ---
 
 In distributed data systems, ensuring that producers and consumers agree on data structure is fundamental. Schema Registry provides a centralized service for managing these data contracts, enabling safe schema evolution and maintaining data quality across your streaming infrastructure.
+
 ![Schema Registry architecture showing producer-consumer schema coordination](images/diagrams/schema-registry-and-schema-management-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌──────────────────────────────────────────────────────────────────┐
+│                   SCHEMA REGISTRY ARCHITECTURE                   │
+├──────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  Producer Side                    Schema Registry                │
+│  ┌────────────┐                  ┌─────────────────┐            │
+│  │  Producer  │                  │  REST API       │            │
+│  │            │  1. Register     │                 │            │
+│  │  Schema    │─────────────────▶│  ┌───────────┐  │            │
+│  │  (v1, v2)  │  2. Get ID       │  │ Schema v1 │  │            │
+│  │            │◀─────────────────│  │   ID: 1   │  │            │
+│  └────────────┘                  │  ├───────────┤  │            │
+│        │                         │  │ Schema v2 │  │            │
+│        │ 3. Embed ID in message  │  │   ID: 2   │  │            │
+│        ▼                         │  └───────────┘  │            │
+│  ┌────────────────────┐          │                 │            │
+│  │  Kafka Message     │          │  Compatibility  │            │
+│  │ ┌────────────────┐ │          │  Validation     │            │
+│  │ │ Schema ID: 2   │ │          │  - BACKWARD     │            │
+│  │ ├────────────────┤ │          │  - FORWARD      │            │
+│  │ │ Payload Data   │ │          │  - FULL         │            │
+│  │ └────────────────┘ │          └─────────────────┘            │
+│  └────────────────────┘                   │                     │
+│          │                                │                     │
+│          │         Kafka Topic            │                     │
+│          ▼                                │                     │
+│  ════════════════════════                 │                     │
+│          │                                │                     │
+│          │                                │                     │
+│  Consumer Side                            │                     │
+│  ┌────────────────────┐                   │                     │
+│  │  Kafka Message     │                   │                     │
+│  │ ┌────────────────┐ │                   │                     │
+│  │ │ Schema ID: 2   │ │  4. Retrieve     │                     │
+│  │ ├────────────────┤ │      Schema      │                     │
+│  │ │ Payload Data   │ │─────────────────▶│                     │
+│  │ └────────────────┘ │  5. Return v2    │                     │
+│  └────────────────────┘◀─────────────────│                     │
+│          │                                                      │
+│          ▼                                                      │
+│  ┌────────────┐                                                 │
+│  │  Consumer  │     Benefits:                                   │
+│  │            │     • Compact messages (ID vs full schema)      │
+│  │ Deserialize│     • Compatibility validation                  │
+│  │ using v2   │     • Centralized schema versioning             │
+│  └────────────┘     • Producer-consumer decoupling              │
+│                                                                  │
+└──────────────────────────────────────────────────────────────────┘
+```
+-->
+
 ## Why You Need Schema Registry
 
 Without Schema Registry, teams face several challenges in distributed data systems:

@@ -30,7 +30,55 @@ Streaming data processing fundamentally differs from batch in one critical way: 
 **Dynamic Scaling**: Streaming workloads vary throughout the day. Orchestration must handle scaling consumer groups, rebalancing partitions, and adjusting resources without data loss. To understand how consumer groups coordinate and rebalance, see [Kafka Consumer Groups Explained](https://conduktor.io/glossary/kafka-consumer-groups-explained).
 
 Consider an e-commerce fraud detection pipeline:
+
 ![Consider an e-commerce fraud detection pipeline](images/diagrams/data-pipeline-orchestration-with-streaming-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌──────────────┐
+│   Website    │
+│   Events     │
+└──────┬───────┘
+       │
+       ▼
+┌────────────────────────┐
+│   Kafka Topics         │
+│  ┌──────────────────┐  │
+│  │ clickstream      │  │
+│  │ transactions     │  │
+│  │ user-events      │  │
+│  └──────────────────┘  │
+└──────┬─────────────────┘
+       │
+       ▼
+┌─────────────────────────────┐
+│   Flink Job (Stateful)      │
+│  ┌────────────────────────┐ │
+│  │ Enrich with:           │ │
+│  │ - Customer history     │ │
+│  │ - Recent patterns      │ │
+│  │ - Account info         │ │
+│  └────────────────────────┘ │
+│  ┌────────────────────────┐ │
+│  │ State Backend          │ │
+│  │ (User profiles, stats) │ │
+│  └────────────────────────┘ │
+└──────┬──────────────────────┘
+       │
+       ▼
+┌────────────────────┐
+│  ML Model Scoring  │
+│  (Risk analysis)   │
+└────────┬───────────┘
+         │
+         ▼
+┌────────────────────┐
+│  Alerts Database   │
+│  + Notification    │
+└────────────────────┘
+```
+-->
+
 Traditional batch orchestration doesn't fit—this pipeline processes events continuously, scales dynamically based on traffic, and maintains complex state about user behavior patterns.
 
 ## Orchestration Approaches for Streaming Pipelines
@@ -40,7 +88,38 @@ Organizations typically adopt one of three orchestration strategies for streamin
 ### Infrastructure Orchestration
 
 Traditional orchestration tools manage the streaming infrastructure itself rather than the data flow. Airflow can deploy Kafka connectors, manage Flink job submissions, handle schema registry updates, and coordinate infrastructure changes.
+
 ![data-pipeline-orchestration-with-streaming diagram 2](images/diagrams/data-pipeline-orchestration-with-streaming-1.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+Airflow DAG for Streaming Infrastructure:
+
+┌─────────────────────┐
+│  Update Kafka       │
+│  Topic Config       │
+└──────────┬──────────┘
+           │
+           ▼
+┌─────────────────────┐
+│  Deploy New Schema  │
+│  to Registry        │
+└──────────┬──────────┘
+           │
+           ▼
+┌─────────────────────┐
+│  Submit Updated     │
+│  Flink Job          │
+└──────────┬──────────┘
+           │
+           ▼
+┌─────────────────────┐
+│  Monitor Consumer   │
+│  Lag & Health       │
+└─────────────────────┘
+```
+-->
+
 This approach treats streaming components as long-running infrastructure that needs periodic updates rather than repeatedly scheduled tasks.
 
 ### Stream-Native Orchestration

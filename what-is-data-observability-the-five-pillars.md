@@ -5,7 +5,49 @@ topics: ["Data Observability", "Data Freshness", "Data Volume", "Schema Changes"
 ---
 
 As data systems grow in complexity, organizations face an increasing challenge: how do you ensure your data pipelines are healthy, reliable, and delivering trustworthy data? This is where **data observability** comes in—a critical practice for modern data engineering that helps teams understand the health of their data systems in real-time.
+
 ![The five pillars of data observability](images/diagrams/what-is-data-observability-the-five-pillars-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+THE FIVE PILLARS OF DATA OBSERVABILITY
+
+                    DATA PIPELINE HEALTH
+┌────────────────────────────────────────────────────────────┐
+│                                                            │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐  │
+│  │ 1. DATA  │  │ 2. DATA  │  │ 3.SCHEMA │  │ 4. DATA  │  │
+│  │ FRESHNESS│  │ VOLUME   │  │ CHANGES  │  │DISTRIBUT'│  │
+│  ├──────────┤  ├──────────┤  ├──────────┤  ├──────────┤  │
+│  │ Is data  │  │ Is amount│  │ Has data │  │ Are value│  │
+│  │ arriving │  │ of data  │  │ structure│  │ ranges   │  │
+│  │ on time? │  │ expected?│  │ changed? │  │ expected?│  │
+│  │          │  │          │  │          │  │          │  │
+│  │ • Lag    │  │ • Row    │  │ • Schema │  │ • Nulls  │  │
+│  │ • Delays │  │   Counts │  │   Version│  │ • Stats  │  │
+│  │ • SLAs   │  │ • Spikes │  │ • Compat.│  │ • Outlier│  │
+│  │ • Gaps   │  │ • Drops  │  │ • Breaking│  │ • Pattern│  │
+│  └──────────┘  └──────────┘  └──────────┘  └──────────┘  │
+│                                                            │
+│                  ┌──────────────────────┐                  │
+│                  │   5. DATA LINEAGE    │                  │
+│                  ├──────────────────────┤                  │
+│                  │ Where did this data  │                  │
+│                  │ come from? What      │                  │
+│                  │ depends on it?       │                  │
+│                  │                      │                  │
+│                  │ • Data Flow Mapping  │                  │
+│                  │ • Dependency Graph   │                  │
+│                  │ • Impact Analysis    │                  │
+│                  │ • Root Cause Tracing │                  │
+│                  └──────────────────────┘                  │
+│                                                            │
+└────────────────────────────────────────────────────────────┘
+
+IMPLEMENTATION: Monitoring • Alerting • Incident Response • Automation
+```
+-->
+
 ## Understanding Data Observability
 
 Data observability is the ability to understand the health and state of data in your system by monitoring, tracking, and troubleshooting anomalies across your data pipelines. Think of it as DevOps observability applied to data—just as DevOps teams monitor application performance, memory usage, and error rates, data teams need visibility into their data flows.

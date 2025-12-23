@@ -8,7 +8,51 @@ topics:
 ---
 
 Event streams form the backbone of modern real-time data architectures. Every click on a website, every transaction in a payment system, every sensor reading from an IoT device—these are events flowing through distributed systems. Understanding event streams is essential for building scalable, real-time applications that react to changes as they happen.
+
 ![Event stream architecture](images/diagrams/event-stream-fundamentals-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                      Event Stream Platform                      │
+│                         (e.g., Kafka)                           │
+└─────────────────────────────────────────────────────────────────┘
+
+         ┌──────────────┐
+         │  Producers   │
+         │ (Write Once) │
+         └──────┬───────┘
+                │
+                ▼
+    ┌───────────────────────┐
+    │   Event Stream        │
+    │   (Immutable Log)     │
+    │ ┌───────────────────┐ │
+    │ │ Partition 0       │ │
+    │ │ [e1, e2, e3...]   │ │
+    │ ├───────────────────┤ │
+    │ │ Partition 1       │ │
+    │ │ [e4, e5, e6...]   │ │
+    │ ├───────────────────┤ │
+    │ │ Partition 2       │ │
+    │ │ [e7, e8, e9...]   │ │
+    │ └───────────────────┘ │
+    └───────┬───────────────┘
+            │
+            ├──────────────┬──────────────┬──────────────┐
+            ▼              ▼              ▼              ▼
+    ┌──────────────┐  ┌─────────┐  ┌─────────┐  ┌─────────┐
+    │  Consumer A  │  │Consumer │  │Consumer │  │Consumer │
+    │ (Analytics)  │  │    B    │  │    C    │  │    D    │
+    │              │  │(Billing)│  │ (Fraud) │  │(Archive)│
+    └──────────────┘  └─────────┘  └─────────┘  └─────────┘
+         │                 │             │            │
+         └─────────────────┴─────────────┴────────────┘
+                  Independent Offsets
+               (Read at own pace, replay anytime)
+```
+-->
+
 ## What is an Event Stream?
 
 An event stream is a continuous, ordered sequence of events produced by operational systems. Unlike traditional databases that store the current state, event streams capture *what happened* over time as an immutable log of facts.

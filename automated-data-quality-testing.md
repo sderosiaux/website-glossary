@@ -23,7 +23,36 @@ Automated testing provides:
 - **Documentation**: Tests serve as executable specifications of data expectations
 
 ## Core Testing Dimensions
+
 ![Data Quality Testing Dimensions](images/diagrams/automated-data-quality-testing-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌────────────────────────────────────────────────────────────────┐
+│            Automated Data Quality Testing Pipeline             │
+└────────────────────────────────────────────────────────────────┘
+                              │
+         ┌────────────────────┼────────────────────┐
+         │                    │                    │
+    ┌────▼────────┐     ┌─────▼──────┐     ┌──────▼──────┐
+    │   Schema    │     │Completeness│     │ Statistical │
+    │ Validation  │     │   Checks   │     │ Validation  │
+    └────┬────────┘     └─────┬──────┘     └──────┬──────┘
+         │                    │                    │
+         └────────────────────┼────────────────────┘
+                              │
+                     ┌────────▼────────┐
+                     │   Valid Data    │────▶ Validated Topic
+                     │   ✓ Passed      │
+                     └─────────────────┘
+                              │
+                     ┌────────▼────────┐
+                     │  Invalid Data   │────▶ Dead Letter Queue
+                     │   ✗ Failed      │      (DLQ)
+                     └─────────────────┘
+```
+-->
+
 Effective data quality testing covers multiple dimensions. For broader context on quality dimensions and how they relate to organizational data strategy, see [Data Quality Dimensions: Accuracy, Completeness, and Consistency](https://conduktor.io/glossary/data-quality-dimensions-accuracy-completeness-and-consistency).
 
 ### 1. Schema Validation

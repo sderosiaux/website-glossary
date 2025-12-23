@@ -12,7 +12,47 @@ topics:
 In modern data engineering, ensuring that data arrives on time is just as critical as ensuring it arrives correctly. Data freshness monitoring and Service Level Agreement (SLA) management have become essential practices for maintaining reliable data pipelines and meeting business expectations. This article explores how to implement robust freshness monitoring, define meaningful SLAs, and respond effectively when data doesn't meet timeliness requirements.
 
 Freshness is one of the five pillars of data observability, alongside data quality, volume, schema, and lineage. For a comprehensive overview, see [What is Data Observability: The Five Pillars](https://conduktor.io/glossary/what-is-data-observability-the-five-pillars). To understand how freshness relates to other quality dimensions, refer to [Data Quality vs Data Observability: Key Differences](https://conduktor.io/glossary/data-quality-vs-data-observability-key-differences).
+
 ![Data Freshness Pipeline with Timestamps](images/diagrams/data-freshness-monitoring-sla-management-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌──────────────────────────────────────────────────────────────────┐
+│           End-to-End Freshness Tracking Pipeline                 │
+└──────────────────────────────────────────────────────────────────┘
+
+Event        Ingestion        Processing      Availability
+Timeline:    ──────────       ──────────      ────────────
+
+T₀: Event    T₁: Kafka        T₂: Transform   T₃: Query
+  Created    Ingested         Processed       Available
+    │            │                │               │
+    ▼            ▼                ▼               ▼
+┌────────┐   ┌────────┐      ┌────────┐     ┌────────┐
+│Source  │──▶│ Kafka  │─────▶│ Flink/ │────▶│  Data  │
+│System  │   │ Topic  │      │Streams │     │  Lake  │
+└────────┘   └────────┘      └────────┘     └────────┘
+             Producer                        Sink
+             Timestamp                       Timestamp
+
+Latency Measurements:
+─────────────────────────────────────────────────────────
+
+Ingestion Lag:  T₁ - T₀  ◀──────▶  Target: < 5s (p95)
+Processing Lag: T₂ - T₁  ◀──────▶  Target: < 30s (p95)
+Sink Lag:       T₃ - T₂  ◀──────▶  Target: < 25s (p95)
+─────────────────────────────────────────────────────────
+End-to-End:     T₃ - T₀  ◀──────▶  SLA: < 60s (p95)
+
+SLA Status Dashboard:
+─────────────────────────────────────────────────────────
+
+Current Freshness: 45s    ████████░░ 90%  ✓ HEALTHY
+Yesterday p95:     58s    ██████████ 97%  ✓ OK
+Last Hour Peak:    125s   ████░░░░░░ 40%  ✗ VIOLATION
+```
+-->
+
 ## Understanding Data Freshness
 
 Data freshness refers to how current or up-to-date your data is relative to when it was generated or should be available for consumption. While data quality focuses on correctness, freshness focuses on timeliness. A dataset might be perfectly accurate but completely useless if it arrives hours late for a time-sensitive business decision.

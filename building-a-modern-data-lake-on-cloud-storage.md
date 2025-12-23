@@ -130,7 +130,22 @@ These catalogs solve the historic "metadata sprawl" problem where each engine ma
 Modern data lakes must handle both batch and streaming ingestion. Apache Kafka infrastructure often feeds real-time data into your lake. For comprehensive streaming ingestion patterns, see [Streaming Ingestion to Lakehouse](https://conduktor.io/glossary/streaming-ingestion-to-lakehouse).
 
 ### Kafka to Data Lake Pipeline
+
 ![### Kafka to Data Lake Pipeline](images/diagrams/building-a-modern-data-lake-on-cloud-storage-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```python
+# Conceptual streaming pipeline
+Kafka Topics
+  ↓
+Stream Processor (Kafka Streams/Flink)
+  ↓
+Object Storage Sink (S3/ADLS/GCS)
+  ↓
+Query Engine (Athena/Synapse/BigQuery)
+```
+-->
+
 When streaming events into your data lake, modern patterns combine Kafka with table formats for reliable, exactly-once ingestion. For detailed Kafka fundamentals, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
 
 **Modern Streaming Best Practices (2025)**:

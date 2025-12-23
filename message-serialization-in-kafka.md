@@ -17,7 +17,57 @@ Serialization is the process of converting data structures or objects into a byt
 In [Apache Kafka](https://conduktor.io/glossary/apache-kafka), every message is stored and transmitted as an array of bytes. This means that before a [producer](https://conduktor.io/glossary/kafka-producers) sends a message to Kafka, it must serialize the data. Similarly, when a consumer reads a message, it must deserialize those bytes back into a meaningful data structure.
 
 The choice of serialization format affects multiple critical aspects of your streaming architecture: message size, processing speed, schema evolution capabilities, interoperability between systems, and developer productivity.
+
 ![Message serialization flow in Kafka](images/diagrams/message-serialization-in-kafka-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌─────────────────────────────────────────────────────────────────┐
+│            KAFKA MESSAGE SERIALIZATION FLOW                     │
+└─────────────────────────────────────────────────────────────────┘
+
+  Producer                                           Consumer
+     │                                                   │
+     ▼                                                   │
+┌──────────┐                                            │
+│  Object  │  {id: 123,                                 │
+│  (Java)  │   name: "Alice"}                           │
+└────┬─────┘                                            │
+     │                                                   │
+     │ Serializer                                        │
+     │ (Avro/Protobuf/JSON)                             │
+     ▼                                                   │
+┌──────────┐    ┌────────────────┐                      │
+│  Bytes   │───▶│Schema Registry │                      │
+│ +SchemaID│    │  Schema v2.1   │                      │
+└────┬─────┘    └────────────────┘                      │
+     │                   │                              │
+     │                   │ Fetch schema                 │
+     ▼                   │                              │
+┌─────────────┐          │                         ┌────▼─────┐
+│ Kafka Topic │          └────────────────────────▶│  Bytes   │
+│ (Partitions)│                                    │+SchemaID │
+│  [bytes]    │                                    └────┬─────┘
+└─────────────┘                                         │
+                                                        │ Deserializer
+                                                        │
+                                                        ▼
+                                                   ┌──────────┐
+                                                   │  Object  │
+                                                   │ (Python) │
+                                                   └──────────┘
+
+    Format Characteristics:
+    ┌──────────┬──────────┬──────────┬──────────┐
+    │   JSON   │   Avro   │ Protobuf │  String  │
+    ├──────────┼──────────┼──────────┼──────────┤
+    │ Readable │  Compact │ Fastest  │ Simplest │
+    │ Large    │ Registry │ Registry │ No Schema│
+    │ Slow     │ Evolution│ Evolution│ Limited  │
+    └──────────┴──────────┴──────────┴──────────┘
+```
+-->
+
 ## How Kafka Uses Serialization
 
 Kafka itself is agnostic to the content of your messages. It treats both keys and values as byte arrays. The responsibility for serialization and deserialization falls on producers and consumers through serializers and deserializers (often called "serdes").

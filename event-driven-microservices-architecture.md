@@ -221,7 +221,71 @@ Modern testing strategies for 2025 include:
 ## Real-World Examples
 
 ### E-commerce Order Processing
+
 ![### E-commerce Order Processing](images/diagrams/event-driven-microservices-architecture-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌──────────────────────────────────────────────────────────────────┐
+│         Event-Driven Microservices: Order Processing             │
+├──────────────────────────────────────────────────────────────────┤
+│                                                                    │
+│  ┌─────────────┐                                                 │
+│  │   Order     │  OrderPlaced                                    │
+│  │  Service    │──────┐                                          │
+│  └─────────────┘      │                                          │
+│                       ▼                                           │
+│              ┌────────────────┐                                  │
+│              │  Event Stream  │                                  │
+│              │     (Kafka)    │                                  │
+│              └───┬────────────┘                                  │
+│                  │                                                │
+│                  ▼                                                │
+│         ┌────────────────┐     InventoryReserved                │
+│         │   Inventory    │──────┐                                │
+│         │    Service     │      │                                │
+│         └────────────────┘      │                                │
+│                                  ▼                                │
+│                         ┌────────────────┐                       │
+│                         │  Event Stream  │                       │
+│                         │     (Kafka)    │                       │
+│                         └───┬────────────┘                       │
+│                             │                                     │
+│                             ▼                                     │
+│                    ┌────────────────┐   PaymentProcessed        │
+│                    │    Payment     │──────┐                     │
+│                    │    Service     │      │                     │
+│                    └────────────────┘      │                     │
+│                                             ▼                     │
+│                                    ┌────────────────┐            │
+│                                    │  Event Stream  │            │
+│                                    │     (Kafka)    │            │
+│                                    └───┬────────────┘            │
+│                                        │                          │
+│                                        ▼                          │
+│                               ┌────────────────┐                 │
+│                               │    Shipping    │                 │
+│                               │    Service     │                 │
+│                               └────────────────┘                 │
+│                                        │                          │
+│                                        ▼                          │
+│                                 Schedule delivery                 │
+│                                                                    │
+│  ┌──────────────────────────────────────────────────────────┐   │
+│  │  Compensating Flow (if payment fails):                   │   │
+│  │  PaymentFailed → Unreserve inventory → Cancel order      │   │
+│  └──────────────────────────────────────────────────────────┘   │
+│                                                                    │
+│  Each service:                                                   │
+│  • Owns its database                                             │
+│  • Publishes domain events                                       │
+│  • Subscribes to relevant events                                 │
+│  • Acts independently                                            │
+│                                                                    │
+└──────────────────────────────────────────────────────────────────┘
+```
+-->
+
 When a customer places an order, the Order Service publishes an "OrderPlaced" event. The Inventory Service consumes this event and reserves stock, then publishes "InventoryReserved." The Payment Service listens for inventory confirmation and processes payment, publishing "PaymentProcessed." Finally, the Shipping Service reacts to successful payment and schedules delivery.
 
 If payment fails, a "PaymentFailed" event triggers compensating actions in other services to unreserve inventory and cancel the order. Each service maintains its own database and operates independently, but they coordinate through events to complete the business process.

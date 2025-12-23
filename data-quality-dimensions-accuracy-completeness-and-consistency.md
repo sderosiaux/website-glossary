@@ -12,7 +12,48 @@ topics:
 Data quality is the foundation of reliable analytics, informed decision-making, and successful data-driven organizations. Poor data quality costs businesses millions annually through bad decisions, operational inefficiencies, and missed opportunities. Understanding the core dimensions of data quality is essential for anyone working with data, whether you're analyzing datasets, building data pipelines, or establishing governance frameworks.
 
 This article explores three fundamental dimensions of data quality: accuracy, completeness, and consistency. We'll examine what each dimension means, why it matters, and how to measure and maintain these qualities in both batch and streaming data systems.
+
 ![Data Quality Dimensions](images/diagrams/data-quality-dimensions-accuracy-completeness-and-consistency-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌──────────────────────────────────────────────────────────────────┐
+│        THREE PILLARS OF DATA QUALITY                             │
+└──────────────────────────────────────────────────────────────────┘
+
+         ┌────────────────────────────────────────┐
+         │         DATA QUALITY                   │
+         └───────────────┬────────────────────────┘
+                         │
+         ┌───────────────┼───────────────┐
+         │               │               │
+         ▼               ▼               ▼
+  ┌────────────┐  ┌────────────┐  ┌────────────┐
+  │  ACCURACY  │  │COMPLETENESS│  │CONSISTENCY │
+  └────────────┘  └────────────┘  └────────────┘
+         │               │               │
+         ▼               ▼               ▼
+  ┌────────────┐  ┌────────────┐  ┌────────────┐
+  │ Does data  │  │ Are all    │  │ Is data    │
+  │ reflect    │  │ required   │  │ uniform    │
+  │ reality?   │  │ values     │  │ across     │
+  │            │  │ present?   │  │ systems?   │
+  └────────────┘  └────────────┘  └────────────┘
+         │               │               │
+         ▼               ▼               ▼
+  ┌────────────┐  ┌────────────┐  ┌────────────┐
+  │• Validation│  │• Null %    │  │• Format    │
+  │• Range     │  │• Record    │  │  rules     │
+  │  checks    │  │  count     │  │• Reference │
+  │• Outlier   │  │• Mandatory │  │  matching  │
+  │  detection │  │  fields    │  │• Temporal  │
+  │            │  │            │  │  stability │
+  └────────────┘  └────────────┘  └────────────┘
+
+         Measure → Monitor → Alert → Remediate
+```
+-->
+
 ## Understanding Data Quality Dimensions
 
 Data quality dimensions are the different ways we measure whether data is good enough to use. Think of them like criteria for grading an essay: just as writing is assessed on grammar, clarity, and structure, data is evaluated on multiple characteristics. While various frameworks identify different numbers of dimensions (ranging from 4 to 15), accuracy, completeness, and consistency form the core trio that impacts nearly every data use case.

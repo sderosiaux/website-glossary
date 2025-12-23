@@ -10,7 +10,49 @@ topics:
 ---
 
 Machine learning inference—the process of making predictions using trained models—traditionally happens in batch mode, processing historical data on fixed schedules. However, many modern applications require predictions within milliseconds of receiving new data. Real-time ML inference with streaming data enables organizations to act on insights immediately, powering use cases from fraud detection to personalized recommendations.
+
 ![Real-time ML inference pipeline with feature enrichment](images/diagrams/real-time-ml-inference-with-streaming-data-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌──────────── Real-Time ML Inference Pipeline ─────────────────┐
+│                                                               │
+│  Input Events        Feature Engineering      Model Serving  │
+│  ┌──────────┐        ┌────────────────┐      ┌───────────┐  │
+│  │ Kafka    │───────▶│ Flink/Streams  │      │ Model API │  │
+│  │ Raw      │        │                │      │ (Triton/  │  │
+│  │ Events   │        │ ┌────────────┐ │      │  Seldon)  │  │
+│  └──────────┘        │ │Join w/     │ │      └───────────┘  │
+│       │              │ │Feature     │ │           │          │
+│       │              │ │Store       │ │           │          │
+│       │              │ └────────────┘ │           │          │
+│       │              │ ┌────────────┐ │           │          │
+│  Raw Data            │ │Windowed    │ │      Prediction      │
+│  (Transaction)       │ │Aggregations│ │      (Fraud Score)   │
+│  • amount: 599       │ │• 30d avg   │ │      • risk: 0.87    │
+│  • merchant: XYZ     │ │• tx count  │ │      • model: v2.3   │
+│  • user: 12345       │ └────────────┘ │      • latency: 45ms │
+│                      │       │        │           │          │
+│                      │       ▼        │           ▼          │
+│                      │ ┌────────────┐ │   ┌──────────────┐   │
+│                      │ │Feature     │ │   │ Kafka        │   │
+│                      │ │Vector      │─┼──▶│ Predictions  │   │
+│                      │ │(Complete)  │ │   │ Topic        │   │
+│                      │ └────────────┘ │   └──────────────┘   │
+│                      └────────────────┘           │          │
+│                                                   ▼          │
+│  Offline Training                    ┌──────────────────┐   │
+│  ┌────────────┐                      │ Action Systems   │   │
+│  │ Historical │                      │ • Block txn      │   │
+│  │ Data       │─────Model────────────│ • Alert user     │   │
+│  │ (Batch)    │     Update           │ • Update UI      │   │
+│  └────────────┘                      └──────────────────┘   │
+│                                                              │
+│  Target Latency: 50-500ms | Feature Consistency Critical   │
+└──────────────────────────────────────────────────────────────┘
+```
+-->
+
 This article explores how streaming platforms enable low-latency ML inference, the architectural patterns that make it possible, and the practical considerations for implementation.
 
 ## Understanding Real-Time ML Inference

@@ -76,6 +76,42 @@ KRaft removes the ZooKeeper dependency entirely, implementing Kafka's own consen
 
 **KRaft Architecture**:
 ![**KRaft Architecture**](images/diagrams/apache-kafka-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+Traditional ZooKeeper Mode:
+┌──────────────────────────────────────┐
+│     ZooKeeper Ensemble (3-5 nodes)   │
+│  • Cluster metadata                  │
+│  • Controller election               │
+│  • Config storage                    │
+└───────────────┬──────────────────────┘
+                │ (metadata coordination)
+                ▼
+┌──────────────────────────────────────┐
+│      Kafka Brokers (N nodes)         │
+│  • Store & serve data                │
+│  • Replicate partitions              │
+└──────────────────────────────────────┘
+
+KRaft Mode (2025+):
+┌──────────────────────────────────────┐
+│  Kafka Controllers (3-5 nodes)       │
+│  • Raft consensus for metadata       │
+│  • Integrated into Kafka cluster     │
+│  • Fast failover & recovery          │
+└───────────────┬──────────────────────┘
+                │ (metadata log replication)
+                ▼
+┌──────────────────────────────────────┐
+│      Kafka Brokers (N nodes)         │
+│  • Store & serve data                │
+│  • Replicate partitions              │
+│  • Read metadata from controller log │
+└──────────────────────────────────────┘
+```
+-->
+
 **Deployment Modes**:
 - **Combined mode**: Controllers and brokers run on the same nodes (simpler for smaller clusters)
 - **Separated mode**: Dedicated controller nodes (recommended for large production clusters)
@@ -158,7 +194,59 @@ This integration allows data to flow seamlessly from operational systems into an
 ## End-to-End Streaming Architecture
 
 Below is how Kafka fits into a real-world streaming ecosystem:
+
 ![Below is how Kafka fits into a real-world streaming ecosystem](images/diagrams/apache-kafka-1.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                    Kafka Streaming Ecosystem                        │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                       │
+│  ┌─────────────┐      ┌──────────────┐      ┌──────────────────┐  │
+│  │ Operational │      │  Debezium    │      │  Kafka Cluster   │  │
+│  │  Database   │─────▶│     CDC      │─────▶│  ┌────────────┐  │  │
+│  │  (Postgres) │      │  Connector   │      │  │transactions│  │  │
+│  └─────────────┘      └──────────────┘      │  └────────────┘  │  │
+│                                               └────────┬─────────┘  │
+│                                                        │             │
+│                                                        ▼             │
+│                                          ┌──────────────────────┐  │
+│                                          │  Stream Processing   │  │
+│                                          │  (Flink / Kafka      │  │
+│                                          │   Streams)           │  │
+│                                          └──────────┬───────────┘  │
+│                                                     │               │
+│                                                     ▼               │
+│                                           ┌──────────────────┐     │
+│                                           │  Kafka Cluster   │     │
+│  ┌──────────────┐                        │ ┌──────────────┐ │     │
+│  │   Schema     │◀───────────────────────┼─│  enriched_   │ │     │
+│  │  Registry    │   Validation           │ │ transactions │ │     │
+│  │   + RBAC     │                        │ └──────────────┘ │     │
+│  └──────────────┘                        └────────┬─────────┘     │
+│         │                                         │                │
+│         │                                         ▼                │
+│         │                        ┌────────────────────────────┐   │
+│         │                        │  ┌──────────┐              │   │
+│         └───────────────────────▶│  │Lakehouse │              │   │
+│           Governance             │  │ (Delta/  │              │   │
+│                                   │  │ Iceberg) │              │   │
+│                                   │  └─────┬────┘              │   │
+│                                   └────────┼───────────────────┘   │
+│                                            │                       │
+│                                            ▼                       │
+│                              ┌────────────────────────┐           │
+│                              │  ┌──────┐   ┌───────┐ │           │
+│                              │  │  BI  │   │  ML   │ │           │
+│                              │  │Tools │   │Models │ │           │
+│                              │  └──────┘   └───────┘ │           │
+│                              └────────────────────────┘           │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
+```
+-->
+
 This structure shows how raw operational data flows through Kafka, gets processed and enriched in motion, and ends up in analytical and governance systems — all in near real time.
 
 ---

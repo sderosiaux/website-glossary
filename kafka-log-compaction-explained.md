@@ -10,7 +10,50 @@ topics:
 ---
 
 Apache Kafka is widely known for its ability to retain message streams for extended periods. While most users are familiar with time-based or size-based retention policies, Kafka offers a powerful alternative called log compaction. This retention mechanism serves a fundamentally different purpose: maintaining the latest state of each record rather than preserving a complete historical timeline.
+
 ![Kafka log compaction process and structure](images/diagrams/kafka-log-compaction-explained-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+Log Compaction: Before and After
+
+BEFORE COMPACTION (Dirty Log):
+─────────────────────────────────────────────────────────────
+Offset:  0    1    2    3    4    5    6    7    8    9
+Key:    [A]  [B]  [A]  [C]  [B]  [D]  [A]  [C]  [B]  [E]
+Value:  v1   v1   v2   v1   v2   v1   v3   v2   v3   v1
+        ─────────────────────┬──────────────────────────────
+        Clean Section        │     Dirty Section
+     (already compacted)     │  (needs compaction)
+
+AFTER COMPACTION (Clean Log):
+─────────────────────────────────────────────────────────────
+Offset:  0    1    6    7    8    9
+Key:    [A]  [D]  [A]  [C]  [B]  [E]
+Value:  v1   v1   v3   v2   v3   v1
+        └────┘    └────────────┘
+        Kept from  Latest values
+        clean      from dirty
+
+Result: Only latest value per key retained
+
+Tombstone Deletion:
+─────────────────────────────────────────────────────────────
+Key A: v1 → v2 → v3 → null (tombstone) → [eventually deleted]
+                      ↑
+                 Signals deletion
+
+Compaction Process:
+┌──────────────────────────────────────────────────────────┐
+│ 1. Cleaner scans dirty section                          │
+│ 2. Builds hashmap: key → latest offset                  │
+│ 3. Copies latest records to new clean segment           │
+│ 4. Removes old segments                                 │
+│ 5. Active segment never compacted (still receiving)     │
+└──────────────────────────────────────────────────────────┘
+```
+-->
+
 ## What is Kafka Log Compaction?
 
 Log compaction is a retention policy that ensures a Kafka topic retains at least the last known value for each message key within a partition. Unlike standard deletion-based retention (which removes old data after a specified time or when a size limit is reached), compaction keeps the most recent update for each key indefinitely.

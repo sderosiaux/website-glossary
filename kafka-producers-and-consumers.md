@@ -13,7 +13,67 @@ topics:
 Apache Kafka is designed as a distributed, fault-tolerant commit log. While Kafka brokers manage storage and replication, the actual transfer of data relies on two critical client components: producers and consumers. These client applications determine the data quality, latency, throughput, and reliability of modern data streaming architectures.
 
 Understanding how producers and consumers work—their configuration options, delivery guarantees, and operational characteristics—is essential for building scalable, reliable streaming systems. For foundational architecture concepts, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka) and [Kafka Topics, Partitions, Brokers: Core Architecture](https://conduktor.io/glossary/kafka-topics-partitions-brokers-core-architecture).
+
 ![Kafka producers and consumers architecture and flow](images/diagrams/kafka-producers-and-consumers-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+Kafka Producer-Consumer Architecture
+
+PRODUCERS (Write to Kafka)
+─────────────────────────────────────────────────────────
+┌──────────────┐   ┌──────────────┐   ┌──────────────┐
+│ Application  │   │ Application  │   │ Application  │
+│  Producer 1  │   │  Producer 2  │   │  Producer 3  │
+└──────┬───────┘   └──────┬───────┘   └──────┬───────┘
+       │ Serialize        │                  │
+       │ Partition        │                  │
+       │ Batch            │                  │
+       └─────────┬────────┴──────────────────┘
+                 │
+         ┌───────▼─────────────────────────────┐
+         │      Kafka Cluster (3 Brokers)      │
+         │  ┌─────────────────────────────┐    │
+         │  │ Topic: orders (6 partitions)│    │
+         │  │ P0  P1  P2  P3  P4  P5     │    │
+         │  │ [==][==][==][==][==][==]   │    │
+         │  │  ↑ Replication Factor=3    │    │
+         │  └─────────────────────────────┘    │
+         └─────────────┬───────────────────────┘
+                       │
+       ┌───────────────┼───────────────┐
+       │               │               │
+┌──────▼───────┐ ┌─────▼──────┐ ┌─────▼──────┐
+│ Consumer     │ │ Consumer   │ │ Consumer   │
+│ Group A      │ │ Group B    │ │ (Standalone)│
+│ ┌─────────┐  │ │ ┌────────┐ │ │            │
+│ │Consumer1│  │ │ │Consumer│ │ │ Reads all  │
+│ │ P0, P1  │  │ │ │  All   │ │ │ partitions │
+│ ├─────────┤  │ │ │partitions│ │            │
+│ │Consumer2│  │ │ └────────┘ │ └────────────┘
+│ │ P2, P3  │  │ └────────────┘
+│ ├─────────┤  │
+│ │Consumer3│  │   Each group gets
+│ │ P4, P5  │  │   full copy of data
+│ └─────────┘  │
+└──────────────┘
+
+DELIVERY SEMANTICS
+─────────────────────────────────────────────────────────
+Producer acks     Consumer commits    Semantic
+────────────────────────────────────────────────────────
+acks=0           commit before       At-most-once
+                 process             (may lose data)
+
+acks=all         commit after        At-least-once
++ retries        process             (may duplicate)
+
+acks=all +       commit after +      Exactly-once
+idempotence +    read_committed      (no loss, no dup)
+transactions
+```
+-->
+
 ## Producers and Consumers: The Communication Protocol
 
 Kafka producers and consumers are core client applications that mediate the flow of data between application layers and the Kafka cluster. They interact using the Kafka protocol, which enables a completely asynchronous and decoupled architecture.

@@ -22,7 +22,48 @@ Traditional TLS (often called one-way TLS) establishes an encrypted connection w
 Mutual TLS adds a critical second verification step. After the client verifies the server's certificate, the server requests the client's certificate and validates it against its own trusted CA. Both parties must successfully authenticate each other before any data exchange occurs.
 
 While mTLS provides authentication (proving identity), it works in conjunction with encryption in transit. For detailed coverage of how TLS encryption protects Kafka data as it moves through your infrastructure, see [Encryption at Rest and In Transit for Kafka](https://conduktor.io/glossary/encryption-at-rest-and-in-transit-for-kafka).
+
 ![mtls-for-kafka diagram 1](images/diagrams/mtls-for-kafka-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌──────────────────────────────────────────────────────────────────┐
+│                   mTLS Handshake Flow                            │
+├──────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  Producer/Consumer                          Kafka Broker         │
+│  ┌────────────┐                            ┌────────────┐        │
+│  │            │                            │            │        │
+│  │  Client    │──1. ClientHello ─────────▶│   Broker   │        │
+│  │            │                            │            │        │
+│  │            │◀─2. ServerHello + Cert────│            │        │
+│  │            │                            │            │        │
+│  │  Verifies  │──3. Client Cert ─────────▶│  Verifies  │        │
+│  │  Server    │                            │  Client    │        │
+│  │  Cert      │◀─4. Finished ─────────────│  Cert      │        │
+│  │            │                            │            │        │
+│  │            │──5. Encrypted Data ───────│            │        │
+│  │            │                            │            │        │
+│  └────────────┘                            └────────────┘        │
+│       │                                           │              │
+│       ▼                                           ▼              │
+│  ┌──────────┐                              ┌──────────┐          │
+│  │ Keystore │                              │ Keystore │          │
+│  │  (client │                              │ (server  │          │
+│  │   cert)  │                              │   cert)  │          │
+│  └──────────┘                              └──────────┘          │
+│       │                                           │              │
+│       ▼                                           ▼              │
+│  ┌──────────┐                              ┌──────────┐          │
+│  │Truststore│                              │Truststore│          │
+│  │  (CA     │                              │  (CA     │          │
+│  │   cert)  │                              │   cert)  │          │
+│  └──────────┘                              └──────────┘          │
+│                                                                  │
+└──────────────────────────────────────────────────────────────────┘
+```
+-->
+
 This bidirectional authentication model is crucial for Kafka because:
 
 - **Machine-to-machine authentication**: Producers and consumers are typically applications, not human users. Traditional username/password mechanisms are poorly suited for automated systems that need to authenticate thousands of times per second.

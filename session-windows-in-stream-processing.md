@@ -10,7 +10,59 @@ topics:
 ---
 
 In stream processing, choosing the right windowing strategy determines how you aggregate and analyze continuous data streams. While tumbling and hopping windows operate on fixed time intervals, session windows take a fundamentally different approach by grouping events based on activity patterns. This makes them particularly valuable for tracking user behavior, monitoring device activity, and detecting anomalous patterns in real-time data streams.
+
 ![Session window behavior showing dynamic grouping by activity gaps](images/diagrams/session-windows-in-stream-processing-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌──────────────────────────────────────────────────────────────────┐
+│              SESSION WINDOWS vs FIXED WINDOWS                    │
+├──────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  Time:    09:00   09:10   09:20   09:30   09:40   09:50   10:00 │
+│           ──────────────────────────────────────────────────────▶│
+│                                                                  │
+│  Events:    ●       ●  ●           ●               ●      ●  ●   │
+│  (clicks)                                                        │
+│                                                                  │
+│  TUMBLING WINDOWS (Fixed 30-min intervals)                      │
+│  ┌─────────────────────────────┐ ┌─────────────────────────────┐│
+│  │      Window 1 (3 events)    │ │      Window 2 (4 events)    ││
+│  │   09:00 - 09:30             │ │   09:30 - 10:00             ││
+│  └─────────────────────────────┘ └─────────────────────────────┘│
+│                                                                  │
+│  SESSION WINDOWS (30-min inactivity gap)                        │
+│  ┌─────────────────┐                ┌──────────────────────────┐│
+│  │   Session A     │                │      Session B           ││
+│  │   (3 events)    │                │      (4 events)          ││
+│  │  09:00 - 09:20  │   15min gap    │   09:35 - 09:55          ││
+│  │  Closes: 09:50  │◀──exceeds 30───│   Closes: 10:25          ││
+│  └─────────────────┘                └──────────────────────────┘│
+│                                                                  │
+│  KEY DIFFERENCES:                                                │
+│                                                                  │
+│  Fixed Windows:           Session Windows:                       │
+│  • Predetermined boundaries   • Dynamic, data-driven boundaries  │
+│  • All windows same size      • Variable length per session     │
+│  • Independent of activity    • Defined by activity patterns    │
+│  • Suitable for metrics       • Suitable for user behavior      │
+│                                                                  │
+│  SESSION WINDOW MERGING (Out-of-order events):                  │
+│                                                                  │
+│  Step 1: Event at 09:00 → Creates Session A [09:00-09:00]       │
+│  Step 2: Event at 09:35 → Creates Session B [09:35-09:35]       │
+│  Step 3: Late event at 09:20 arrives → Bridges the gap          │
+│          Sessions A + B merge → Single Session [09:00-09:35]    │
+│                                                                  │
+│  Use Cases:                                                      │
+│  ✓ Web analytics (user sessions)                                │
+│  ✓ IoT device activity monitoring                               │
+│  ✓ Fraud detection (transaction patterns)                       │
+│  ✓ Gaming (player sessions)                                     │
+└──────────────────────────────────────────────────────────────────┘
+```
+-->
+
 ## What Are Session Windows?
 
 Session windows are dynamic, data-driven windows that group events together based on periods of activity separated by a configurable gap of inactivity. Unlike tumbling windows (fixed, non-overlapping intervals) or hopping windows (fixed, overlapping intervals), session windows have no predetermined start or end time. Instead, they close only after a specified period of inactivity occurs. For comprehensive coverage of all window types in Flink, see [Windowing in Apache Flink: Tumbling, Sliding, and Session Windows](https://conduktor.io/glossary/windowing-in-apache-flink-tumbling-sliding-and-session-windows).

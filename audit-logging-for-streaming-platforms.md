@@ -40,7 +40,38 @@ Unlike traditional databases with centralized audit logs, streaming platforms pr
 **Immutability Concerns**: Audit logs themselves must be tamper-proof. If someone can modify or delete audit logs, they lose their value for compliance and security.
 
 ## What Should Be Audited
+
 ![Audit Logging Flow for Streaming Platforms](images/diagrams/audit-logging-for-streaming-platforms-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌────────────────────────────────────────────────────────────────┐
+│                 Streaming Platform Audit Flow                  │
+└────────────────────────────────────────────────────────────────┘
+                              │
+         ┌────────────────────┼────────────────────┐
+         │                    │                    │
+    ┌────▼────┐          ┌────▼────┐         ┌────▼────┐
+    │ Admin   │          │ Schema  │         │Consumer │
+    │ Actions │          │ Changes │         │ Events  │
+    └────┬────┘          └────┬────┘         └────┬────┘
+         │                    │                    │
+         └────────────────────┼────────────────────┘
+                              │
+                     ┌────────▼────────┐
+                     │  Audit Topic    │
+                     │  (Immutable)    │
+                     └────────┬────────┘
+                              │
+              ┌───────────────┼───────────────┐
+              │               │               │
+         ┌────▼────┐     ┌────▼────┐    ┌────▼────┐
+         │  SIEM   │     │Long-term│    │Real-time│
+         │ System  │     │ Archive │    │ Alerts  │
+         └─────────┘     └─────────┘    └─────────┘
+```
+-->
+
 A comprehensive audit logging strategy for streaming platforms should capture several categories of events:
 
 ### Administrative Operations

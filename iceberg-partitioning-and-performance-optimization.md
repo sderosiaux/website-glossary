@@ -12,7 +12,68 @@ topics:
 Apache Iceberg revolutionizes how modern data platforms handle partitioning by introducing hidden partitioning and partition evolution capabilities. Unlike traditional table formats that expose partitioning as part of the schema and require users to manually manage partition predicates, Iceberg abstracts partitioning away from queries while maintaining exceptional performance. This article explores advanced partitioning strategies, performance optimization techniques, and practical implementations for data engineers building high-performance data lakehouses.
 
 For foundational concepts about Iceberg's role in modern data architectures, see [Introduction to Lakehouse Architecture](https://conduktor.io/glossary/introduction-to-lakehouse-architecture).
+
 ![Iceberg hidden partitioning and query optimization flow](images/diagrams/iceberg-partitioning-and-performance-optimization-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+┌──────────────────────────────────────────────────────────────────┐
+│       Iceberg Hidden Partitioning & Query Optimization           │
+└──────────────────────────────────────────────────────────────────┘
+
+User Query (No Partition Awareness Required)
+       │
+       ▼
+SELECT * FROM events
+WHERE event_timestamp >= '2024-01-01'
+  AND user_id = 12345
+       │
+       ▼
+┌──────────────────────────┐
+│ Query Planner            │
+│ - Translates predicates  │
+│ - Maps to partition specs│
+└──────────────────────────┘
+       │
+   ┌───┴────┐
+   ▼        ▼
+days()   bucket(16)   ← Transform Functions (Hidden from User)
+   │        │
+   ▼        ▼
+┌─────────────────────────────┐
+│ Partition Pruning           │
+│ - Read metadata only        │
+│ - Skip irrelevant partitions│
+│ - Filter by date range      │
+│ - Filter by user hash       │
+└─────────────────────────────┘
+       │
+       ▼
+┌─────────────────────────────┐
+│ File-Level Pruning          │
+│ - Min/Max statistics        │
+│ - Column-level filtering    │
+│ - Skip 90%+ of files        │
+└─────────────────────────────┘
+       │
+       ▼
+┌─────────────────────────────┐
+│ Read Only Relevant Data     │
+│ - Day partition: 2024-01-01 │
+│ - Bucket: hash(12345) % 16  │
+│ - File count: 1-3 files     │
+└─────────────────────────────┘
+       │
+       ▼
+┌─────────────────────────────┐
+│ Partition Evolution (Zero-  │
+│ Copy) - Old: days()         │
+│      - New: hours()         │
+│ Both specs work seamlessly  │
+└─────────────────────────────┘
+```
+-->
+
 ## Understanding Hidden Partitioning
 
 Hidden partitioning is one of Iceberg's most powerful features, fundamentally changing how users interact with partitioned tables. In traditional systems like Hive, users must include partition columns in their WHERE clauses to benefit from partition pruning. For example, a Hive table partitioned by date requires queries like `WHERE date_partition = '2024-01-01'`, forcing users to know and manage the partitioning scheme. This creates brittle queries that break when partition strategies evolve.

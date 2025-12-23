@@ -10,7 +10,50 @@ topics:
 ---
 
 In stream processing, understanding when events occurred versus when they are processed is fundamental to building accurate real-time applications. Apache Flink provides sophisticated mechanisms for handling event time semantics through watermarks, enabling developers to build temporal processing pipelines that handle out-of-order data and late arrivals.
+
 ![Event time and watermarks flow](images/diagrams/event-time-and-watermarks-in-flink-0.webp)
+
+<!-- ORIGINAL_DIAGRAM
+```
+Event Time vs Processing Time with Watermarks
+
+Timeline:  10:00    10:01    10:02    10:03    10:04    10:05
+           ──┼────────┼────────┼────────┼────────┼────────┼──▶
+
+Events     e1       e2    e4      e3       e5       e6
+Arrive:    │        │     │       │        │        │
+           │        │     │       │        │        │
+Event      │        │     │       │        │        │
+Time:    10:00   10:01  10:03  10:02   10:04    10:05
+           │        │     │       │        │        │
+           ▼        ▼     ▼       ▼        ▼        ▼
+        ┌──────────────────────────────────────────────┐
+        │         Event Stream (Out of Order)          │
+        └──────────────────────────────────────────────┘
+                              │
+                              ▼
+        ┌──────────────────────────────────────────────┐
+        │  Watermark Generator (5 sec out-of-order)    │
+        │  Watermark = max(event_time) - 5 seconds     │
+        └──────────────────────────────────────────────┘
+                              │
+           ┌──────────────────┼──────────────────┐
+           ▼                  ▼                  ▼
+      Watermark          Watermark          Watermark
+      (9:55)             (9:58)             (10:00)
+           │                  │                  │
+           ▼                  ▼                  ▼
+    ┌─────────────────────────────────────────────────┐
+    │  Window [10:00-10:05]                           │
+    │  ┌────────────────────────────────────┐         │
+    │  │ Window triggers when:              │         │
+    │  │ Watermark >= 10:05                 │         │
+    │  │ (All events ≤ 10:05 have arrived)  │         │
+    │  └────────────────────────────────────┘         │
+    └─────────────────────────────────────────────────┘
+```
+-->
+
 ## Understanding Time Semantics in Stream Processing
 
 Flink supports three distinct notions of time:
