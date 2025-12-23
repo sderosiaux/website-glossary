@@ -9,8 +9,6 @@ topics:
   - Event-Driven Architecture
 ---
 
-# Streaming Data in Financial Services
-
 Financial services operate in an environment where milliseconds matter. Whether detecting fraudulent transactions, processing payments, executing trades, or monitoring risk exposure, the ability to act on data in real time has become a competitive necessity. Streaming data platforms have emerged as the backbone of modern financial infrastructure, enabling institutions to move from batch-oriented systems to event-driven architectures that process information as it happens.
 
 This shift represents more than a technical upgrade. It fundamentally changes how financial institutions operate, allowing them to prevent fraud before it completes, settle payments instantly, and manage risk with up-to-the-second accuracy. For foundational concepts, see [What is Real-Time Data Streaming](https://conduktor.io/glossary/what-is-real-time-data-streaming).

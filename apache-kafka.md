@@ -8,8 +8,6 @@ topics:
   - Real-time Processing
 ---
 
-# Apache Kafka
-
 Apache Kafka has become the backbone of real-time data systems. It powers everything from payment tracking to fraud detection to application logs. This article explains what Kafka is, how event streaming works, and why it matters for modern data architectures. It integrates both foundational concepts and practical operational details used in production systems today.
 
 ---

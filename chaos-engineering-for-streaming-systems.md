@@ -10,8 +10,6 @@ topics:
   - observability
 ---
 
-# Chaos Engineering for Streaming Systems
-
 Chaos engineering is the discipline of experimenting on a distributed system to build confidence in its ability to withstand turbulent conditions in production. When applied to streaming systems like Apache Kafka, Apache Flink, or Apache Pulsar, chaos engineering becomes essential for ensuring that real-time data pipelines remain resilient under failure conditions.
 
 This article explores how chaos engineering principles apply to streaming architectures, the unique challenges these systems present, and practical approaches for testing resilience in production-like environments.

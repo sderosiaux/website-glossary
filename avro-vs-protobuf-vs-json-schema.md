@@ -8,8 +8,6 @@ topics:
   - data-streaming
 ---
 
-# Avro vs Protobuf vs JSON Schema
-
 When building distributed systems and data pipelines, choosing the right schema format affects performance, developer experience, and long-term maintainability. Apache Avro, Protocol Buffers (Protobuf), and JSON Schema represent three different approaches to defining and validating data structures. Each has distinct strengths that make it suitable for different scenarios.
 
 This article compares these three popular schema formats, examining their design philosophies, serialization approaches, and practical tradeoffs in real-world applications.

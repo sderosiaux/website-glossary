@@ -7,8 +7,6 @@ topics:
   - Architecture
 ---
 
-# Zero Trust for Streaming: Security Without Implicit Trust
-
 ## Beyond Perimeter Security
 
 For decades, enterprise security operated on the castle-and-moat principle: build a strong perimeter, and trust everything inside. Firewalls protected the network boundary, and once a service or user was inside, they were largely trusted by default.

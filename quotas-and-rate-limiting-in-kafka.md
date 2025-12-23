@@ -10,8 +10,6 @@ topics:
   - multi-tenancy
 ---
 
-# Quotas and Rate Limiting in Kafka
-
 Apache Kafka clusters serve multiple applications simultaneously, each with varying workloads and resource demands. Without proper controls, a single misbehaving or resource-intensive client can degrade performance for all users. Quotas and rate limiting provide the mechanisms to prevent this scenario, ensuring fair resource allocation and stable cluster operation.
 
 ![Kafka quota enforcement and throttling mechanism](images/diagrams/quotas-and-rate-limiting-in-kafka-0.webp)

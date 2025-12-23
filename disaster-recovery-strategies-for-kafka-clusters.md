@@ -9,8 +9,6 @@ topics:
   - operations
 ---
 
-# Disaster Recovery Strategies for Kafka Clusters
-
 Disaster recovery (DR) planning is critical for any production Kafka deployment. As organizations increasingly rely on real-time data streaming for mission-critical applications, the ability to recover from failures—whether hardware malfunctions, datacenter outages, or catastrophic events—becomes essential for business continuity.
 
 A robust disaster recovery strategy for Kafka goes beyond basic replication. It requires understanding recovery time objectives (RTO), recovery point objectives (RPO), and the trade-offs between consistency, availability, and cost.

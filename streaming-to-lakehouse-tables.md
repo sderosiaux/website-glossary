@@ -9,8 +9,6 @@ topics:
   - Apache Spark
 ---
 
-# Streaming to Lakehouse Tables: Delta Lake, Iceberg, Hudi, and Paimon
-
 ## Outline
 
 1. **Introduction: The Streaming Lakehouse**

@@ -9,8 +9,6 @@ topics:
   - Data Governance
 ---
 
-# Building a Data Quality Framework
-
 Data quality is the foundation of trustworthy analytics, reliable machine learning models, and sound business decisions. For Data Governance Officers and Data Quality Analysts, establishing a comprehensive data quality framework is not just a technical exercise—it's a strategic imperative that impacts every data-driven initiative across the organization.
 
 ## Understanding the Data Quality Framework

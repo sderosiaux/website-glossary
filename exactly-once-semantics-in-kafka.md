@@ -10,8 +10,6 @@ topics:
   - message-delivery
 ---
 
-# Exactly-Once Semantics in Kafka
-
 In distributed systems, ensuring reliable message delivery is one of the most challenging problems to solve. Data streaming platforms like Apache Kafka must handle network failures, broker crashes, and application restarts while maintaining data consistency. This is where message delivery guarantees become critical.
 
 Traditionally, distributed systems offer two delivery semantics: at-most-once (messages may be lost but never duplicated) and at-least-once (messages are never lost but may be duplicated). Exactly-once semantics (EOS) provides a stronger guarantee: each message is delivered and processed exactly once, even when failures occur. This article explores how Kafka achieves exactly-once semantics and when to use it.

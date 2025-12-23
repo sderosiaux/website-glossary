@@ -10,8 +10,6 @@ topics:
   - oauth
 ---
 
-# Kafka Authentication: SASL, SSL, and OAuth
-
 Securing Apache Kafka clusters is critical for any production deployment. Authentication ensures that only authorized clients and services can access your data streams. Kafka supports multiple authentication mechanisms, each with distinct characteristics and use cases optimized for different deployment patterns.
 
 This article explores the primary authentication approaches in modern Kafka 4.0+ deployments: SASL mechanisms (PLAIN, SCRAM-SHA-512, GSSAPI, OAUTHBEARER), SSL/TLS certificate-based authentication (mTLS), and OAuth 2.0 integration with enterprise identity providers. Understanding how KRaft mode affects authentication and credential management is essential for securing contemporary Kafka clusters.

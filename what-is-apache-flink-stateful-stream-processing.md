@@ -9,8 +9,6 @@ topics:
   - Exactly-once Semantics
 ---
 
-# What is Apache Flink? Stateful Stream Processing
-
 Apache Flink (currently version 1.18 as of 2024, with 1.19 in development) is an open-source distributed stream processing framework designed to handle unbounded and bounded data streams with low latency and high throughput. Unlike traditional batch processing systems, Flink treats streams as the primary data model, making it ideal for real-time analytics, event-driven applications, and continuous data pipelines.
 
 At its core, Flink excels at stateful stream processing—the ability to maintain and update computation state across millions of events while guaranteeing exactly-once processing semantics. This capability makes Flink a powerful tool for data engineers building mission-critical real-time applications.

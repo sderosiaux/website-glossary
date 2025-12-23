@@ -10,8 +10,6 @@ topics:
   - statefulsets
 ---
 
-# Running Kafka on Kubernetes
-
 Apache Kafka has become the de facto standard for building real-time data streaming platforms. As organizations increasingly adopt Kubernetes for container orchestration, running Kafka on Kubernetes has emerged as a natural evolution. This article explores the benefits, challenges, and best practices for deploying Kafka in Kubernetes environments.
 
 ## Why Run Kafka on Kubernetes?

@@ -9,8 +9,6 @@ topics:
   - kafka-connect
 ---
 
-# Kafka MirrorMaker 2 for Cross-Cluster Replication
-
 Modern data streaming architectures often span multiple Kafka clusters across different data centers, cloud regions, or even cloud providers. Organizations need robust solutions to replicate data between these clusters for disaster recovery, regulatory compliance, low-latency regional access, and data aggregation. Kafka MirrorMaker 2 (MM2) is the Apache Kafka project's solution for reliable, scalable cross-cluster replication. For comprehensive disaster recovery planning beyond cross-cluster replication, see [Disaster Recovery Strategies for Kafka Clusters](https://conduktor.io/glossary/disaster-recovery-strategies-for-kafka-clusters).
 
 ## What is Kafka MirrorMaker 2

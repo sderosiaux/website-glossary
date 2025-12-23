@@ -9,8 +9,6 @@ topics:
   - Object Storage
 ---
 
-# Building a Modern Data Lake on Cloud Storage
-
 Data lakes have become the foundation of modern data architectures, enabling organizations to store vast amounts of structured and unstructured data at scale while maintaining flexibility for diverse analytics workloads. Unlike traditional data warehouses with rigid schemas, data lakes embrace a "store first, structure later" approach that's particularly well-suited to today's cloud-native storage solutions.
 
 ## Why Cloud Object Storage?

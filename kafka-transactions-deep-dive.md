@@ -9,8 +9,6 @@ topics:
   - distributed-systems
 ---
 
-# Kafka Transactions Deep Dive
-
 ## Introduction: The Challenge of Exactly-Once Semantics
 
 In distributed systems, ensuring that messages are processed exactly once is notoriously difficult. Traditional message delivery semantics offer two guarantees: at-most-once (messages may be lost) and at-least-once (messages may be duplicated). For critical applications like financial transactions, inventory management, or payment processing, neither is acceptable.

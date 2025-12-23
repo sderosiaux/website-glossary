@@ -9,8 +9,6 @@ topics:
   - Data Reliability
 ---
 
-# Data Incident Management and Root Cause Analysis
-
 Data incidents are inevitable in modern data platforms. Whether you're managing batch pipelines, real-time streaming systems, or hybrid architectures, understanding how to effectively respond to incidents and perform thorough root cause analysis is critical for maintaining data reliability and stakeholder trust.
 
 ![Incident Response Lifecycle](images/diagrams/data-incident-management-and-root-cause-analysis-0.webp)

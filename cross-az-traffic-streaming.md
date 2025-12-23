@@ -7,8 +7,6 @@ topics:
   - Apache Kafka
 ---
 
-# Cross-AZ Traffic in Streaming: Managing Costs and Latency
-
 ![Cross-AZ Traffic Architecture](images/diagrams/cross-az-traffic-streaming-0.webp)
 
 <!-- ORIGINAL_DIAGRAM

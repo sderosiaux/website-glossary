@@ -9,8 +9,6 @@ topics:
   - quality-assurance
 ---
 
-# Testing Strategies for Streaming Applications
-
 Testing streaming applications presents unique challenges that traditional software testing approaches often fail to address. Unlike batch processing or request-response systems, streaming applications operate continuously, process unbounded data, maintain state across time, and handle complex temporal semantics. This article explores effective testing strategies for building reliable streaming applications on platforms like Apache Kafka, Apache Flink, and Kafka Streams. For foundational understanding of Kafka, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
 
 ![Testing pyramid for streaming applications](images/diagrams/testing-strategies-for-streaming-applications-0.webp)

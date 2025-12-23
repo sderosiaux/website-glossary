@@ -7,8 +7,6 @@ topics:
   - Event-Driven Architecture
 ---
 
-# Event Streams: The Foundation of Real-Time Architectures
-
 Event streams form the backbone of modern real-time data architectures. Every click on a website, every transaction in a payment system, every sensor reading from an IoT device—these are events flowing through distributed systems. Understanding event streams is essential for building scalable, real-time applications that react to changes as they happen.
 
 ![Event stream architecture](images/diagrams/event-stream-fundamentals-0.webp)

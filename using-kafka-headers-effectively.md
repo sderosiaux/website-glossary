@@ -9,8 +9,6 @@ topics:
   - stream-processing
 ---
 
-# Using Kafka Headers Effectively
-
 Kafka headers are a powerful feature that allow you to attach metadata to messages without altering the message payload itself. Introduced in Kafka 0.11 via KIP-82, headers remain a core feature through Kafka 4.x and beyond, providing a clean separation between message content and contextual information and enabling sophisticated patterns in distributed systems.
 
 ![Kafka message structure with headers and payload](images/diagrams/using-kafka-headers-effectively-0.webp)

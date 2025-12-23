@@ -9,8 +9,6 @@ topics:
   - Data Engineering
 ---
 
-# Apache Iceberg
-
 Apache Iceberg is an open table format that brings **database-like reliability and transactional guarantees** to massive datasets stored in cloud object stores. Created at Netflix to address the limits of traditional data lakes, Iceberg provides the missing structure and control that teams need to manage analytical data at scale.
 
 It has become a foundational layer for **data lakehouse architectures**, bridging real-time streaming ingestion from systems like Kafka and analytical queries on Spark, Trino, or Flink.

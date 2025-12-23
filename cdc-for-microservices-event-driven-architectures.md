@@ -9,8 +9,6 @@ topics:
   - Event Sourcing
 ---
 
-# CDC for Microservices: Event-Driven Architectures
-
 Change Data Capture (CDC) has emerged as a critical enabler for modern event-driven microservices architectures. By capturing database changes as streams of events, CDC bridges the gap between traditional data storage and real-time event processing, enabling loosely coupled services that react to data changes with minimal latency.
 
 In this article, we'll explore how CDC powers event-driven architectures, supports advanced patterns like event sourcing and CQRS, and integrates with streaming platforms to create scalable, resilient microservices ecosystems.

@@ -8,8 +8,6 @@ topics:
   - scalability
 ---
 
-# Kafka Consumer Groups Explained
-
 Consumer groups are one of Apache Kafka's most powerful features for building scalable data streaming applications. They enable multiple consumers to work together to process messages from Kafka topics in parallel, while ensuring each message is processed exactly once per group. Understanding consumer groups is essential for designing efficient, fault-tolerant streaming architectures.
 
 This article explains what consumer groups are, how they work, and how to use them effectively in production environments.

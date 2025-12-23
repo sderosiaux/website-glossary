@@ -10,8 +10,6 @@ topics:
   - security
 ---
 
-# Real-Time Fraud Detection with Streaming
-
 Fraud detection has evolved from batch processing delayed by hours or days to real-time systems that analyze transactions in milliseconds. This shift is critical because fraudulent transactions can cause immediate financial damage, and prevention must happen before transactions complete. Streaming platforms provide the infrastructure to process millions of events per second, enabling organizations to detect and prevent fraud as it occurs.
 
 This article explores how streaming technologies enable real-time fraud detection, covering core architectures, detection patterns, implementation examples, and operational challenges.

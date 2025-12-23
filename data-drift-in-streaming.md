@@ -7,8 +7,6 @@ topics:
   - Machine Learning
 ---
 
-# Data Drift in Streaming: Detecting and Managing Unexpected Changes
-
 In streaming data systems, the assumption that data maintains consistent patterns and structures over time is rarely true. Data drift—the phenomenon where data characteristics change unexpectedly—poses significant challenges for both real-time pipelines and machine learning models. Understanding and managing drift is essential for maintaining reliable, production-grade streaming applications.
 
 ![Types of Data Drift](images/diagrams/data-drift-in-streaming-0.webp)

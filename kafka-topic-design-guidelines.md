@@ -9,8 +9,6 @@ topics:
   - architecture
 ---
 
-# Kafka Topic Design Guidelines
-
 Designing Kafka topics is a foundational decision that impacts performance, scalability, and maintainability of your entire streaming architecture. Poor topic design can lead to operational complexity, data inconsistency, and difficulty in evolving your system over time. This article explores key guidelines for creating well-structured Kafka topics.
 
 ![Kafka topic design decision framework](images/diagrams/kafka-topic-design-guidelines-0.webp)

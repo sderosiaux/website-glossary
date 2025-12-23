@@ -7,8 +7,6 @@ topics:
   - Architecture
 ---
 
-# Micro-Batching: Near-Real-Time Stream Processing
-
 Stream processing exists on a spectrum. On one end, traditional batch processing handles large volumes of data at scheduled intervals—hourly, daily, or weekly. On the other end, true streaming processes each event individually as it arrives, achieving latencies measured in single-digit milliseconds. Micro-batching sits squarely in the middle, offering a pragmatic compromise that has powered some of the world's largest streaming applications.
 
 Rather than processing events one-by-one or waiting hours for batch jobs, micro-batching collects small groups of events over short time windows—typically ranging from 100 milliseconds to several minutes—and processes them as tiny batches. This hybrid approach unlocks significant architectural advantages while maintaining near-real-time responsiveness for many use cases.

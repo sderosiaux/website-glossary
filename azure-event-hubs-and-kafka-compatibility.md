@@ -10,8 +10,6 @@ topics:
   - Azure
 ---
 
-# Azure Event Hubs and Kafka Compatibility
-
 Azure Event Hubs is Microsoft's fully managed, cloud-native event streaming platform designed to handle millions of events per second. One of its most significant features is built-in compatibility with the Apache Kafka protocol, allowing organizations to use existing Kafka client applications with minimal changes. This compatibility bridges the gap between on-premises Kafka deployments and Azure's managed services, offering a path for cloud migration and hybrid architectures.
 
 Understanding how Event Hubs implements Kafka compatibility is essential for architects and engineers evaluating cloud streaming options or planning migration strategies.

@@ -10,8 +10,6 @@ topics:
   - Data Streaming
 ---
 
-# CQRS and Event Sourcing with Kafka
-
 Modern applications face increasing demands for scalability, auditability, and real-time responsiveness. Two architectural patterns—Command Query Responsibility Segregation (CQRS) and Event Sourcing—address these challenges by rethinking how we model and store data. While each pattern offers distinct benefits, they complement each other exceptionally well, especially when built on Apache Kafka's event streaming platform.
 
 This article explores how CQRS and Event Sourcing work individually and together, why Kafka serves as an ideal foundation, and what you need to know to implement these patterns successfully. For broader context on event-driven systems, see [Event-Driven Architecture](https://conduktor.io/glossary/event-driven-architecture) and [Event-Driven Microservices Architecture](https://conduktor.io/glossary/event-driven-microservices-architecture).

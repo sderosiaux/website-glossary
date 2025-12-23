@@ -9,8 +9,6 @@ topics:
   - Data Lakehouse
 ---
 
-# Delta Lake Transaction Log: How It Works
-
 Delta Lake transforms cloud object storage into a reliable, **ACID-compliant** data platform through a single critical component: the transaction log. ACID stands for Atomicity (operations fully succeed or fail), Consistency (data remains valid), Isolation (concurrent operations don't interfere), and Durability (committed changes persist). Understanding how this transaction log works is essential for data engineers building modern data lakehouses, as it underpins every feature that differentiates Delta Lake from raw Parquet files on S3 or ADLS.
 
 This article explores the architecture, mechanics, and operational characteristics of Delta Lake's transaction log, providing the technical foundation needed to leverage Delta Lake effectively in production environments.

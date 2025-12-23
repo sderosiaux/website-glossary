@@ -4,8 +4,6 @@ description: "Learn the fundamental pillars of data observability and how they h
 topics: ["Data Observability", "Data Freshness", "Data Volume", "Schema Changes", "Data Reliability"]
 ---
 
-# What is Data Observability? The Five Pillars
-
 As data systems grow in complexity, organizations face an increasing challenge: how do you ensure your data pipelines are healthy, reliable, and delivering trustworthy data? This is where **data observability** comes in—a critical practice for modern data engineering that helps teams understand the health of their data systems in real-time.
 
 ![The five pillars of data observability](images/diagrams/what-is-data-observability-the-five-pillars-0.webp)

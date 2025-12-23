@@ -11,8 +11,6 @@ topics:
   - configuration
 ---
 
-# Kafka Performance Tuning Guide
-
 Apache Kafka has become the backbone of modern data streaming architectures, handling trillions of messages daily across organizations worldwide. However, achieving optimal performance requires careful tuning of producers, brokers, and consumers. A poorly configured Kafka cluster can suffer from high latency, low throughput, or resource exhaustion, while a well-tuned deployment can handle massive data volumes efficiently.
 
 Modern Kafka deployments benefit from significant architectural improvements. Kafka 4.0+ with KRaft mode (removing ZooKeeper dependency) delivers 30-40% faster metadata operations and lower latency. Tiered storage enables cost-effective data retention by offloading cold data to object storage. Understanding these modern capabilities is essential for optimal performance in 2025.

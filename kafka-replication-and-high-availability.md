@@ -10,8 +10,6 @@ topics:
   - reliability
 ---
 
-# Kafka Replication and High Availability
-
 Apache Kafka has become the backbone of modern data streaming architectures, processing trillions of messages daily across organizations worldwide. At the core of Kafka's reliability lies its replication system, which ensures data durability and high availability even when hardware fails or network partitions occur.
 
 Understanding how Kafka achieves fault tolerance is essential for anyone designing or operating production streaming platforms. This article explores the mechanics of Kafka replication, high availability features, and practical considerations for building resilient systems. For foundational Kafka concepts, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka). To understand Kafka's modern architecture, refer to [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka).

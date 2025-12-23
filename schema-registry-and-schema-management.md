@@ -9,8 +9,6 @@ topics:
   - serialization
 ---
 
-# Schema Registry and Schema Management
-
 In distributed data systems, ensuring that producers and consumers agree on data structure is fundamental. Schema Registry provides a centralized service for managing these data contracts, enabling safe schema evolution and maintaining data quality across your streaming infrastructure.
 
 ![Schema Registry architecture showing producer-consumer schema coordination](images/diagrams/schema-registry-and-schema-management-0.webp)

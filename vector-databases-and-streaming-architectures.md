@@ -9,8 +9,6 @@ topics:
   - Data Engineering
 ---
 
-# Vector Databases and Streaming Architectures
-
 Vector databases have emerged as a critical infrastructure component for modern AI applications, particularly those requiring semantic search, recommendations, and similarity matching. When combined with streaming architectures, they enable real-time intelligent processing at scale. This article explores how these technologies work together and the patterns that make this integration effective.
 
 ## Understanding Vector Databases

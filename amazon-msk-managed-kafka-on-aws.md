@@ -10,8 +10,6 @@ topics:
   - Cloud Infrastructure
 ---
 
-# Amazon MSK: Managed Kafka on AWS
-
 Amazon Managed Streaming for Apache Kafka (MSK) is AWS's fully managed service for running Apache Kafka clusters in the cloud. Launched in 2019, MSK removes much of the operational burden of running Kafka while maintaining compatibility with the Apache Kafka ecosystem.
 
 For organizations already invested in AWS infrastructure, MSK offers a natural path to implementing event-driven architectures and real-time data pipelines without managing Kafka infrastructure themselves.

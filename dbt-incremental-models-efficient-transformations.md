@@ -9,8 +9,6 @@ topics:
   - Analytics Engineering
 ---
 
-# dbt Incremental Models: Efficient Transformations
-
 In modern data warehouses, transforming billions of rows daily becomes expensive and time-consuming when using traditional full-refresh approaches. dbt incremental models solve this challenge by processing only new or changed records, dramatically reducing compute costs and transformation times.
 
 ![dbt Incremental Processing](images/diagrams/dbt-incremental-models-efficient-transformations-0.webp)

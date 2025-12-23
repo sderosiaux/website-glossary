@@ -9,8 +9,6 @@ topics:
   - Compliance
 ---
 
-# GDPR Compliance for Data Teams: Navigating Privacy in Modern Data Architectures
-
 The General Data Protection Regulation (GDPR) has fundamentally transformed how organizations handle personal data. For data teams working with modern streaming architectures and distributed systems, compliance presents unique technical challenges that go beyond traditional database management.
 
 **Who Does GDPR Apply To?** GDPR applies to any organization that processes personal data of EU residents, regardless of where the organization is located. This includes both "data controllers" (who determine purposes and means of processing) and "data processors" (who process data on behalf of controllers).

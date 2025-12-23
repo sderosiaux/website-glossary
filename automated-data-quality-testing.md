@@ -9,8 +9,6 @@ topics:
   - Data Engineering
 ---
 
-# Automated Data Quality Testing: A Practical Guide for Modern Data Pipelines
-
 Data quality issues cost organizations millions annually through incorrect analytics, failed ML models, and broken downstream systems. As data pipelines grow more complex—especially with real-time streaming architectures—manual testing becomes impractical. Automated data quality testing is essential for maintaining trust in your data infrastructure.
 
 ## Why Automate Data Quality Testing?

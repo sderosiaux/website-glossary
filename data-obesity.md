@@ -7,8 +7,6 @@ topics:
   - Performance
 ---
 
-# Data Obesity: When Data Infrastructure Becomes Bloated
-
 ## Introduction: The Hidden Cost of Data Hoarding
 
 In the age of "data is the new oil," organizations face a counterintuitive problem: too much data can be as harmful as too little. Data obesity occurs when an organization's data infrastructure becomes bloated and lethargic because the volume of ingested data significantly outpaces the organization's ability to extract value from it.

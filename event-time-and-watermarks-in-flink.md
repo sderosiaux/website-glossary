@@ -9,8 +9,6 @@ topics:
   - Stream Processing
 ---
 
-# Event Time and Watermarks in Flink
-
 In stream processing, understanding when events occurred versus when they are processed is fundamental to building accurate real-time applications. Apache Flink provides sophisticated mechanisms for handling event time semantics through watermarks, enabling developers to build temporal processing pipelines that handle out-of-order data and late arrivals.
 
 ![Event time and watermarks flow](images/diagrams/event-time-and-watermarks-in-flink-0.webp)

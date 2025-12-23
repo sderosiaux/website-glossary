@@ -7,8 +7,6 @@ topics:
   - AI/ML
 ---
 
-# Data Versioning in Streaming: Managing Event History
-
 In traditional databases, versioning is straightforward: you have snapshots, backups, and transaction logs. But in streaming systems where millions of events flow continuously, how do you preserve history, enable reproducibility, and maintain governance? Data versioning in streaming contexts is the practice of tracking and managing different versions of your event data, schemas, and derived datasets over time.
 
 This capability is critical for machine learning reproducibility, regulatory compliance, debugging production issues, and maintaining trust in your data pipelines. Let's explore how to implement effective versioning strategies in streaming architectures.

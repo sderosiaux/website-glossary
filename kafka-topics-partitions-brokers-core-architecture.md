@@ -9,8 +9,6 @@ topics:
   - Architecture
 ---
 
-# Kafka Topics, Partitions, and Brokers: Core Architecture
-
 Apache Kafka's architecture is built on three fundamental components: topics, partitions, and brokers. Understanding how these elements interact is essential for designing robust data streaming systems. This article explores each component and explains how they work together to deliver Kafka's core capabilities: scalability, fault tolerance, and high throughput.
 
 ## Topics: The Logical Organization Layer

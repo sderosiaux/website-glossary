@@ -9,8 +9,6 @@ topics:
   - Real-time Data
 ---
 
-# What is Change Data Capture? CDC Fundamentals
-
 Change Data Capture (CDC) is a design pattern that identifies and captures changes made to data in a database, then delivers those changes in real-time or near real-time to downstream systems. Rather than periodically querying entire tables to detect changes, CDC monitors database transaction logs or triggers to capture inserts, updates, and deletes as they occur. For foundational concepts on real-time data delivery, see [What is Real-Time Data Streaming?](https://conduktor.io/glossary/what-is-real-time-data-streaming).
 
 For data engineers and database administrators, CDC solves a fundamental challenge: how to keep multiple systems synchronized without impacting database performance or creating data inconsistencies.

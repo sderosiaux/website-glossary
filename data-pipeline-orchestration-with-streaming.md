@@ -11,8 +11,6 @@ topics:
   - Pipeline Management
 ---
 
-# Data Pipeline Orchestration with Streaming
-
 Modern data platforms increasingly rely on streaming architectures to deliver real-time insights and power event-driven applications. While traditional batch orchestration tools like Apache Airflow have matured over the past decade, streaming introduces fundamentally different orchestration challenges. Understanding how to orchestrate streaming pipelines is essential for building reliable, scalable real-time data systems.
 
 ## Understanding Pipeline Orchestration

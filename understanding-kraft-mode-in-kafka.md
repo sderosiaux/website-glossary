@@ -9,8 +9,6 @@ topics:
   - metadata-management
 ---
 
-# Understanding KRaft Mode in Kafka
-
 Apache Kafka has undergone one of its most significant architectural changes since its inception: the introduction of KRaft mode. This transformation removes Kafka's long-standing dependency on Apache ZooKeeper, replacing it with a native consensus protocol built directly into Kafka. Understanding KRaft is essential for anyone working with modern Kafka deployments.
 
 ## What is KRaft?

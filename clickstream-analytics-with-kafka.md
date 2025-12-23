@@ -8,8 +8,6 @@ topics:
   - Real-time Data
 ---
 
-# Clickstream Analytics with Kafka
-
 Every click, scroll, and interaction on a website or mobile app generates valuable data. Understanding this user behavior in real-time can drive personalization, detect fraud, and optimize customer experiences. Clickstream analytics with Apache Kafka enables organizations to capture, process, and act on this data at scale.
 
 ![Clickstream Analytics Architecture with Kafka](images/diagrams/clickstream-analytics-with-kafka-0.webp)

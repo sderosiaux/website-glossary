@@ -7,8 +7,6 @@ topics:
   - DevOps
 ---
 
-# DataOps for Streaming: Operational Excellence in Real-Time Systems
-
 As organizations increasingly rely on real-time data streaming for critical business operations, the need for robust operational practices has never been greater. DataOps—the application of DevOps principles to data systems—provides the methodology and tooling to deliver streaming systems with speed, quality, and reliability.
 
 ![DataOps Principles](images/diagrams/dataops-for-streaming-0.webp)

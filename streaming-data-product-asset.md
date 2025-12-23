@@ -10,8 +10,6 @@ topics:
   - Event Streaming
 ---
 
-# Streaming Data Products
-
 As organizations scale their data platforms beyond centralized teams and monolithic pipelines, a new paradigm has emerged: treating data itself as a product. Rather than viewing data as a byproduct of applications, data products are managed assets with clear ownership, defined quality standards, discoverable interfaces, and committed service levels.
 
 When applied to streaming architectures, this product thinking transforms how organizations build, govern, and consume real-time data. Understanding streaming data products—their principles, components, and governance requirements—is essential for building scalable, decentralized data platforms.

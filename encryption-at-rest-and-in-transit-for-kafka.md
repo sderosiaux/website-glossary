@@ -8,8 +8,6 @@ topics:
   - data-protection
 ---
 
-# Encryption at Rest and In Transit for Kafka
-
 Data security is a critical concern for organizations running Apache Kafka in production environments. As Kafka often handles sensitive information such as financial transactions, personal data, or proprietary business events, protecting this data from unauthorized access is essential. Two fundamental security measures are encryption in transit and encryption at rest, which together ensure that data remains protected throughout its lifecycle in the streaming platform.
 
 This article explores both encryption mechanisms, their implementation in modern Kafka deployments, and how they integrate with broader security architectures including authentication, authorization, and compliance frameworks. Whether you're securing a new Kafka cluster or hardening an existing deployment, understanding these encryption approaches is fundamental to building trustworthy streaming infrastructure.

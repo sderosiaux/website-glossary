@@ -9,8 +9,6 @@ topics:
   - Data Integration
 ---
 
-# CDC for Real-Time Data Warehousing
-
 Real-time data warehousing has become a critical requirement for modern data-driven organizations. Traditional batch ETL processes that run nightly or hourly can no longer meet the demand for immediate insights. Change Data Capture (CDC) provides the foundation for building real-time data warehouses by continuously capturing and streaming database changes as they occur, enabling near-instantaneous analytics and reporting.
 
 ## Understanding CDC in the Data Warehouse Context

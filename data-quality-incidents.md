@@ -7,8 +7,6 @@ topics:
   - Incident Management
 ---
 
-# Data Quality Incidents: Detection, Response, and Prevention
-
 ## Outline
 
 1. **What is a Data Quality Incident?**

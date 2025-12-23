@@ -9,8 +9,6 @@ topics:
   - Data Integration
 ---
 
-# Log-Based vs Query-Based CDC: Comparison
-
 Change Data Capture (CDC) is a fundamental pattern in modern data engineering that enables real-time data synchronization between systems. As organizations move toward event-driven architectures and real-time analytics, choosing the right CDC approach becomes critical. This article compares the two primary CDC strategies—log-based and query-based—to help data architects and engineers make informed decisions.
 
 For foundational CDC concepts, see [What is Change Data Capture (CDC): Fundamentals](https://conduktor.io/glossary/what-is-change-data-capture-cdc-fundamentals). For hands-on implementation guidance, refer to [Implementing CDC with Debezium](https://conduktor.io/glossary/implementing-cdc-with-debezium).

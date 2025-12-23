@@ -10,8 +10,6 @@ topics:
   - data streaming
 ---
 
-# Event-Driven Microservices Architecture
-
 Modern applications require flexibility, scalability, and resilience. As systems grow in complexity, traditional request-response architectures often struggle to meet these demands. Event-driven microservices architecture addresses these challenges by combining the modularity of microservices with the loose coupling and asynchronous communication of event-driven design.
 
 This article explores what event-driven microservices are, their core components, benefits and trade-offs, and how they connect to modern data streaming platforms.

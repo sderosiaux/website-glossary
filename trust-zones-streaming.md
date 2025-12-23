@@ -7,8 +7,6 @@ topics:
   - Compliance
 ---
 
-# Trust Zones: Isolating Sensitive Data in Streaming Architectures
-
 ## Outline
 
 1. **Introduction: The Security Perimeter Challenge**

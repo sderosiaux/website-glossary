@@ -8,8 +8,6 @@ topics:
   - kafka
 ---
 
-# Kafka Connect Single Message Transforms
-
 When building data pipelines with Kafka Connect, you often need to modify data as it flows between systems. Single Message Transforms (SMTs) provide a lightweight mechanism to transform records within the connector itself, without requiring separate stream processing applications. For comprehensive coverage of Kafka Connect fundamentals and architecture, see [Kafka Connect: Building Data Integration Pipelines](https://conduktor.io/glossary/kafka-connect-building-data-integration-pipelines).
 
 ![Single Message Transforms in Kafka Connect pipeline](images/diagrams/kafka-connect-single-message-transforms-0.webp)

@@ -8,8 +8,6 @@ topics:
   - stateful-operations
 ---
 
-# State Stores in Kafka Streams
-
 Stream processing applications often need to remember information across multiple events. Counting page views, calculating running totals, joining streams of data, or tracking user sessions all require maintaining state. Kafka Streams uses state stores to enable these stateful operations while preserving the distributed, fault-tolerant nature of stream processing. For foundational knowledge about Apache Kafka and its ecosystem, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
 
 ![State store architecture showing local storage backed by changelog topics](images/diagrams/state-stores-in-kafka-streams-0.webp)

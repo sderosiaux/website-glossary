@@ -9,8 +9,6 @@ topics:
   - real-time-analytics
 ---
 
-# Stream Joins and Enrichment Patterns
-
 Real-time data processing often requires combining information from multiple sources. A single event stream rarely contains all the context needed for meaningful analysis or decision-making. Stream joins and enrichment patterns solve this challenge by correlating data across streams and augmenting events with additional information in real-time.
 
 Understanding these patterns is essential for building robust streaming applications that deliver timely, contextualized insights. Whether you're enriching clickstream data with user profiles, correlating sensor readings, or joining transaction events with fraud detection signals, mastering stream joins is fundamental to effective stream processing. For foundational knowledge of the underlying platform, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).

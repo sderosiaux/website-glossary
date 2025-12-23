@@ -9,8 +9,6 @@ topics:
   - CDC
 ---
 
-# Outbox Pattern for Reliable Event Publishing
-
 In distributed systems and event-driven architectures, ensuring that database changes and event publications happen atomically is one of the most challenging problems developers face. The outbox pattern provides an elegant solution to this problem, enabling reliable event publishing without compromising data consistency.
 
 This pattern is foundational for building robust microservices architectures. For broader context on distributed transaction patterns, see [Saga Pattern for Distributed Transactions](https://conduktor.io/glossary/saga-pattern-for-distributed-transactions) and [CQRS and Event Sourcing with Kafka](https://conduktor.io/glossary/cqrs-and-event-sourcing-with-kafka).

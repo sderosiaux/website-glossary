@@ -9,8 +9,6 @@ topics:
   - governance
 ---
 
-# Kafka ACLs and Authorization Patterns
-
 Security in distributed systems is not optional. As Apache Kafka deployments grow from proof-of-concept experiments to mission-critical production platforms, controlling who can read, write, and manage streaming data becomes essential. Access Control Lists (ACLs) provide the foundation for authorization in Kafka, enabling organizations to enforce fine-grained permissions across topics, consumer groups, and cluster operations.
 
 This article explores how Kafka ACLs work in modern KRaft-based clusters (Kafka 4.0+), modern authorization patterns including OAuth 2.0 and Open Policy Agent integration, and practical approaches to managing access control at scale.

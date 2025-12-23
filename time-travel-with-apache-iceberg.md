@@ -9,8 +9,6 @@ topics:
   - Audit Compliance
 ---
 
-# Time Travel with Apache Iceberg
-
 Apache Iceberg's time travel feature allows you to query your data as it appeared at any point in the past. This capability transforms how data teams approach debugging, auditing, and compliance by providing a complete historical view of table evolution without maintaining separate backup copies. For a comprehensive overview of Iceberg's architecture and capabilities, see [Apache Iceberg](https://conduktor.io/glossary/apache-iceberg).
 
 ![Iceberg snapshot timeline and time travel queries](images/diagrams/time-travel-with-apache-iceberg-0.webp)

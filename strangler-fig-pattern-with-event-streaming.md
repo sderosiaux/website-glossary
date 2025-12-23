@@ -9,8 +9,6 @@ topics:
   - Apache Kafka
 ---
 
-# Strangler Fig Pattern with Event Streaming
-
 Migrating legacy systems to modern architectures is one of the most challenging tasks in software engineering. The Strangler Fig Pattern, combined with event streaming platforms, offers a proven approach to incrementally replace old systems while maintaining business continuity.
 
 ## What is the Strangler Fig Pattern?

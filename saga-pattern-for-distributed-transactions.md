@@ -9,8 +9,6 @@ topics:
   - Kafka
 ---
 
-# Saga Pattern for Distributed Transactions
-
 In distributed systems and microservices architectures, managing transactions that span multiple services presents a fundamental challenge. Traditional ACID transactions don't scale across service boundaries, leading architects to adopt the Saga pattern as a proven alternative for maintaining data consistency in distributed environments.
 
 ## What is the Saga Pattern?

@@ -10,8 +10,6 @@ topics:
   - System Design
 ---
 
-# Event-Driven Architecture
-
 Modern software systems increasingly rely on real-time responsiveness, loose coupling between components, and the ability to scale independently. Event-driven architecture (EDA) has emerged as a fundamental design pattern for achieving these goals, enabling organizations to build systems that react to changes as they happen rather than polling for updates or maintaining tight integration between services.
 
 Understanding event-driven architecture—its principles, patterns, and implementation challenges—is essential for anyone building distributed systems, microservices platforms, or real-time data pipelines.

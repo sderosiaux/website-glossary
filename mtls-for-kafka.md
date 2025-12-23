@@ -7,8 +7,6 @@ topics:
   - Authentication
 ---
 
-# mTLS for Kafka: Mutual Authentication in Streaming
-
 ## Introduction
 
 In modern data streaming architectures, securing machine-to-machine communications is paramount. While many systems rely on one-way TLS to encrypt data in transit, regulated industries and zero-trust environments demand stronger authentication guarantees.

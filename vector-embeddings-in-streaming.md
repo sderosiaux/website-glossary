@@ -7,8 +7,6 @@ topics:
   - Vector Databases
 ---
 
-# Vector Embeddings in Streaming: Real-Time AI with Fresh Context
-
 ## Introduction
 
 Vector embeddings have become the foundation of modern AI applications, transforming unstructured data like text, images, and audio into dense numerical representations that machines can understand and compare. While batch processing of embeddings has been the norm, streaming architectures are increasingly critical for applications that require real-time intelligence: conversational AI with up-to-date knowledge, live recommendation systems, and fraud detection that adapts to emerging patterns.

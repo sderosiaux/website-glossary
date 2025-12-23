@@ -7,8 +7,6 @@ topics:
   - Risk Management
 ---
 
-# High Value Assets: Protecting Critical Data in Streaming
-
 ## Outline
 
 1. **Introduction: Understanding High Value Assets**

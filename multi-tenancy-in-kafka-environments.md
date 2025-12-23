@@ -8,8 +8,6 @@ topics:
   - operations
 ---
 
-# Multi-Tenancy in Kafka Environments
-
 As organizations scale their use of Apache Kafka, they often face a critical decision: should each team or application have its own dedicated Kafka cluster, or can multiple tenants safely share the same infrastructure? Multi-tenancy in Kafka environments offers a way to consolidate resources, reduce operational overhead, and lower costs while maintaining the isolation and security that different teams require.
 
 ## What is Multi-Tenancy?

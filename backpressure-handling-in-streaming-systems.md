@@ -9,8 +9,6 @@ topics:
   - Flink
 ---
 
-# Backpressure Handling in Streaming Systems
-
 In distributed streaming systems, data flows continuously from producers through processing pipelines to consumers. When downstream components can't keep up with the rate of incoming data, backpressure occurs. Understanding and properly handling backpressure is essential for building reliable, scalable streaming applications.
 
 ## What is Backpressure?

@@ -9,8 +9,6 @@ topics:
   - Business Terms
 ---
 
-# Building a Business Glossary for Data Governance
-
 In the complex landscape of modern data management, one of the most persistent challenges organizations face is establishing a common language across business and technical teams. A well-constructed business glossary serves as the cornerstone of effective data governance, providing the semantic layer that connects business terminology with technical data assets. For a deeper exploration of semantic layers in streaming contexts, see [Semantic Layer for Streaming](https://conduktor.io/glossary/semantic-layer-for-streaming).
 
 ## Understanding the Business Glossary

@@ -9,8 +9,6 @@ topics:
   - Data Integration
 ---
 
-# Implementing CDC with Debezium
-
 Change Data Capture (CDC) has become a foundational pattern for modern data architectures, enabling real-time data streaming from operational databases to downstream systems. Debezium, an open-source distributed platform built on Apache Kafka Connect, provides a robust solution for implementing CDC across various database systems.
 
 This guide walks through the practical aspects of implementing CDC with Debezium, from understanding the underlying mechanisms to configuring connectors and integrating with the broader data streaming ecosystem. For foundational CDC concepts and architecture patterns, see [What is Change Data Capture (CDC) Fundamentals](https://conduktor.io/glossary/what-is-change-data-capture-cdc-fundamentals).

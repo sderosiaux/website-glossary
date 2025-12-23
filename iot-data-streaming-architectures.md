@@ -10,8 +10,6 @@ topics:
   - Data Ingestion
 ---
 
-# IoT Data Streaming Architectures
-
 The Internet of Things has transformed how we collect and process data. Billions of connected devices generate continuous streams of information, from industrial sensors monitoring equipment health to smart home devices tracking energy consumption. Traditional batch processing architectures cannot handle the volume, velocity, and variety of IoT data. This is where streaming architectures become essential.
 
 IoT data streaming architectures enable organizations to ingest, process, and act on sensor data in real-time. These systems must handle millions of events per second, support diverse data formats, and provide low-latency processing for time-sensitive applications.

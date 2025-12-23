@@ -10,8 +10,6 @@ topics:
   - flink
 ---
 
-# Data Masking and Anonymization for Streaming
-
 As organizations increasingly rely on real-time data pipelines to power applications, analytics, and machine learning, protecting sensitive information in streaming systems has become critical. Unlike batch processing where data can be transformed before storage, streaming data moves continuously through pipelines, requiring protection mechanisms that work at scale and in real-time.
 
 Data masking and anonymization are two complementary approaches to protecting sensitive information. While they share the goal of preventing unauthorized access to personal or confidential data, they differ in purpose and technique. Understanding how to apply these methods in streaming architectures is essential for maintaining compliance, security, and trust.

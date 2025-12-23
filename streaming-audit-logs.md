@@ -7,8 +7,6 @@ topics:
   - Data Governance
 ---
 
-# Streaming Audit Logs: Traceability and Compliance for Real-Time Systems
-
 In the world of data streaming, where information flows continuously at high velocity, maintaining a complete audit trail is essential for regulatory compliance, security investigations, and operational accountability. Streaming audit logs provide the critical traceability needed to answer fundamental questions: who accessed what data, when did they access it, and what operations did they perform?
 
 As streaming platforms become central to enterprise data architectures, organizations face increasing pressure to demonstrate compliance with regulations like GDPR, SOX, HIPAA, and PCI-DSS. Unlike batch systems where audit trails can be reconstructed from transaction logs, streaming systems require purpose-built audit capabilities that can capture events in real-time without impacting performance. For broader coverage of authentication and authorization mechanisms that generate audit events, see [Access Control for Streaming](https://conduktor.io/glossary/access-control-for-streaming).

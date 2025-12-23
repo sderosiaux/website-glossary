@@ -8,8 +8,6 @@ topics:
   - event-driven-architecture
 ---
 
-# Introduction to Kafka Streams
-
 Stream processing has become essential for modern data architectures. Organizations need to react to events in real-time, whether detecting fraud, personalizing user experiences, or monitoring system health. Kafka Streams provides a lightweight yet powerful solution for building these real-time applications.
 
 This article introduces Kafka Streams, explaining its core concepts, architecture, and practical applications. You'll learn how it fits into the broader stream processing landscape and how to get started building your own streaming applications.

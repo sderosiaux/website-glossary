@@ -9,8 +9,6 @@ topics:
   - Data Architecture
 ---
 
-# Flink vs Spark Streaming: When to Choose Each
-
 Choosing the right stream processing framework is a critical architectural decision that impacts latency, throughput, and operational complexity. Apache Flink and Apache Spark Streaming represent two different philosophies in stream processing: true event-at-a-time streaming versus micro-batching. Understanding their fundamental differences helps data architects and engineering leaders make informed technology choices.
 
 ## Understanding the Architectural Differences

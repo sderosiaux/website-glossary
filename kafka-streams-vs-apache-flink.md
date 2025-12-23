@@ -9,8 +9,6 @@ topics:
   - kafka
 ---
 
-# Kafka Streams vs Apache Flink: When to Use What
-
 When building real-time data pipelines, two names dominate the conversation: Kafka Streams and Apache Flink. Both are mature, production-ready stream processing frameworks, but they take fundamentally different approaches to solving similar problems. Understanding these differences is crucial for choosing the right tool for your use case.
 
 ## What Are Kafka Streams and Apache Flink?

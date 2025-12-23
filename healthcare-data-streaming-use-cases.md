@@ -10,8 +10,6 @@ topics:
   - clinical analytics
 ---
 
-# Healthcare Data Streaming Use Cases
-
 Healthcare organizations are increasingly adopting real-time data streaming architectures to improve patient outcomes, enhance operational efficiency, and enable data-driven decision making. Unlike traditional batch processing systems that analyze data hours or days after collection, streaming platforms like Apache Kafka 4.0+ and Apache Flink process healthcare data as it's generated, enabling immediate insights and faster responses to critical events.
 
 Modern streaming platforms have matured significantly for healthcare workloads. Apache Kafka 4.0+ operates in KRaft mode (removing ZooKeeper dependencies for simplified operations), offers tiered storage for long-term retention of patient data, and provides enhanced security features critical for HIPAA compliance. For detailed coverage of KRaft architecture, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka).

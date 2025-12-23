@@ -10,8 +10,6 @@ topics:
   - scalability
 ---
 
-# Kafka Capacity Planning
-
 Capacity planning is one of the most critical tasks when deploying Apache Kafka in production. Underestimate your needs, and you risk performance degradation or outages. Overestimate, and you waste resources and budget. Getting it right requires understanding your workload characteristics and how Kafka's architecture translates into infrastructure requirements.
 
 This guide walks through the essential aspects of Kafka capacity planning, from calculating throughput to sizing storage and network resources.

@@ -9,8 +9,6 @@ topics:
   - Windowing
 ---
 
-# Flink DataStream API: Building Streaming Applications
-
 ![Flink DataStream API transformations](images/diagrams/flink-datastream-api-building-streaming-applications-0.webp)
 
 <!-- ORIGINAL_DIAGRAM

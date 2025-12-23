@@ -10,8 +10,6 @@ topics:
   - CDC
 ---
 
-# Streaming Data Pipeline
-
 Modern organizations increasingly rely on real-time insights to power operational decisions, personalized user experiences, and automated systems. Unlike traditional batch processing that operates on periodic snapshots of data, streaming data pipelines process events continuously as they occur, enabling millisecond-to-second latency between data generation and action.
 
 Understanding the architecture of streaming pipelines—their components, data flows, and operational characteristics—is essential for anyone building systems that react to data in real time.

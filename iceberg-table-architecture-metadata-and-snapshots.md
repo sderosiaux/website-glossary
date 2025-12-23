@@ -9,8 +9,6 @@ topics:
   - Data Lakehouse
 ---
 
-# Iceberg Table Architecture: Metadata and Snapshots
-
 Apache Iceberg has emerged as a leading table format for data lakehouses, addressing fundamental limitations in traditional data lake architectures. At its core, Iceberg's power comes from its sophisticated metadata layer that enables ACID transactions, snapshot isolation, and schema evolution—capabilities previously available only in proprietary data warehouses.
 
 This article explores Iceberg's architectural components, focusing on how metadata layers and snapshots work together to provide reliable, scalable data management for modern data platforms.

@@ -9,8 +9,6 @@ topics:
   - State Management
 ---
 
-# Kafka Log Compaction Explained
-
 Apache Kafka is widely known for its ability to retain message streams for extended periods. While most users are familiar with time-based or size-based retention policies, Kafka offers a powerful alternative called log compaction. This retention mechanism serves a fundamentally different purpose: maintaining the latest state of each record rather than preserving a complete historical timeline.
 
 ![Kafka log compaction process and structure](images/diagrams/kafka-log-compaction-explained-0.webp)

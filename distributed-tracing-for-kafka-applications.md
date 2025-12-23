@@ -9,8 +9,6 @@ topics:
   - opentelemetry
 ---
 
-# Distributed Tracing for Kafka Applications
-
 Monitoring distributed systems is challenging. When a single request spans multiple services, understanding what happened and where things went wrong requires visibility into the entire journey. This is where distributed tracing becomes essential, especially for event-driven architectures built on Apache Kafka.
 
 ## Introduction to Distributed Tracing

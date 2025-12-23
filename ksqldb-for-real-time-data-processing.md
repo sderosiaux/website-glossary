@@ -10,8 +10,6 @@ topics:
   - Event Streaming
 ---
 
-# ksqlDB for Real-Time Data Processing
-
 Real-time data processing has become essential for modern applications, from fraud detection to personalized recommendations. While Apache Kafka excels at event streaming, building stream processing applications traditionally required writing complex code in Java or Scala. ksqlDB changes this paradigm by providing a SQL interface for stream processing, making real-time data transformation accessible to a broader audience.
 
 ![ksqlDB architecture with streams, tables, and queries](images/diagrams/ksqldb-for-real-time-data-processing-0.webp)

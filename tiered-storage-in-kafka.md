@@ -8,8 +8,6 @@ topics:
   - cost-optimization
 ---
 
-# Tiered Storage in Kafka
-
 Apache Kafka has traditionally stored all topic data on local broker disks, tightly coupling compute and storage resources. As organizations retain data for longer periods to support compliance requirements, data analytics, and [event-driven architectures](https://conduktor.io/glossary/event-driven-architecture), this model has become increasingly expensive and operationally challenging. Tiered storage, introduced in KIP-405 and reaching general availability in Kafka 3.9, fundamentally changes this by separating hot and cold data across two storage tiers. The feature is fully compatible with [KRaft mode](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka), which has become the standard deployment model in 2025, eliminating the need for ZooKeeper.
 
 ## Introduction to Tiered Storage

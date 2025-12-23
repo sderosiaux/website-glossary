@@ -9,8 +9,6 @@ topics:
   - Time Windows
 ---
 
-# Windowing in Apache Flink: Tumbling, Sliding, and Session Windows
-
 Stream processing requires mechanisms to divide infinite data streams into finite chunks for meaningful aggregations and analytics. Apache Flink provides powerful windowing abstractions that enable you to group events by time or other criteria, making it possible to compute metrics like counts, sums, and averages over specific intervals.
 
 This article explores Flink's three primary window types—tumbling, sliding, and session windows—and demonstrates how to implement them effectively in your stream processing pipelines using Apache Flink 1.19+ (2025). Examples use the DataStream API with Java, though Flink also supports windowing through the Table API and SQL for declarative stream processing.

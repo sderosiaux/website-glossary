@@ -7,8 +7,6 @@ topics:
   - Data Governance
 ---
 
-# Streaming Maturity Model: Assessing Your Real-Time Data Capabilities
-
 Organizations adopting streaming technologies often face a common challenge: how to evolve from initial proof-of-concepts to enterprise-grade real-time data platforms. A streaming maturity model provides a structured framework for assessing your current capabilities and charting a path toward more sophisticated streaming architectures.
 
 ![Streaming maturity progression from experimental to data products](images/diagrams/streaming-maturity-model-0.webp)

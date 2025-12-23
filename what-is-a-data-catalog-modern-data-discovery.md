@@ -4,8 +4,6 @@ description: "Learn how data catalogs enable modern data discovery, helping team
 topics: ["Data Catalog", "Data Discovery", "Metadata Management", "Data Governance", "Data Assets"]
 ---
 
-# What is a Data Catalog? Modern Data Discovery
-
 In today's data-driven organizations, data assets are scattered across databases, data lakes, cloud storage, and streaming platforms. Teams struggle to answer basic questions: What data do we have? Where is it? Can I trust it? Who owns it? This is where a **data catalog** becomes essential—acting as a searchable inventory of all your organization's data assets.
 
 ![Data catalog connecting multiple data sources](images/diagrams/what-is-a-data-catalog-modern-data-discovery-0.webp)

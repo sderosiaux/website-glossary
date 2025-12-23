@@ -10,8 +10,6 @@ topics:
   - Machine Learning
 ---
 
-# RAG Pipelines with Real-Time Data
-
 Retrieval-Augmented Generation (RAG) has become a cornerstone technique for building AI applications that combine the reasoning capabilities of large language models (LLMs) with external knowledge sources. However, many RAG implementations suffer from a critical limitation: stale data. When your knowledge base updates hourly, daily, or even weekly, your AI system risks providing outdated or incorrect information to users.
 
 Real-time RAG pipelines address this challenge by continuously ingesting, processing, and indexing fresh data as it becomes available. This article explores how to build RAG systems that stay current with streaming data, the architectural patterns involved, and the role of data streaming platforms in making this possible.

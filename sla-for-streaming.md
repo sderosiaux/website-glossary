@@ -7,8 +7,6 @@ topics:
   - Monitoring
 ---
 
-# SLAs for Streaming: Defining and Measuring Real-Time Guarantees
-
 ## Introduction to Streaming SLAs
 
 In the world of real-time data processing, **Service Level Agreements (SLAs)** define the commitments and expectations around streaming system performance. Unlike traditional batch processing where jobs run on schedules and delays are measured in hours, streaming SLAs focus on continuous operation with guarantees measured in milliseconds or seconds.

@@ -7,8 +7,6 @@ topics:
   - Streaming Architecture
 ---
 
-# Semantic Layer for Streaming: Business Meaning for Real-Time Data
-
 ## Introduction: The Challenge of Understanding Streaming Data
 
 A data analyst joins a team and needs to calculate daily active users from real-time event streams. She discovers three different Kafka topics that seem relevant: `user.events.v2`, `app_interactions`, and `user_activity_enriched`. Each has different field names for user identifiers (`user_id`, `userId`, `customer_key`), different timestamp formats, and unclear definitions of what constitutes an "active" user.

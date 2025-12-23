@@ -10,8 +10,6 @@ topics:
   - infrastructure
 ---
 
-# Strimzi: Kafka Operator for Kubernetes
-
 Running Apache Kafka on Kubernetes presents unique challenges. Kafka is a stateful, distributed system that requires careful configuration of brokers, storage, networking, and security. Traditional deployment methods involve manual setup and ongoing maintenance, which becomes increasingly complex as clusters scale. Strimzi addresses these challenges by providing a Kubernetes operator that automates deployment and management using cloud-native principles.
 
 For context on how Kafka fits into modern architectures, see [Event-Driven Architecture](https://conduktor.io/glossary/event-driven-architecture).

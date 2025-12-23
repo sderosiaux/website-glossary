@@ -9,8 +9,6 @@ topics:
   - Fault Tolerance
 ---
 
-# Flink State Management and Checkpointing
-
 Apache Flink's ability to maintain stateful computations with strong fault tolerance guarantees is one of its defining features. Understanding state management and checkpointing is essential for building reliable, production-grade streaming applications that can recover from failures without data loss or duplication. For a broader overview of Flink's architecture and capabilities, see [What is Apache Flink: Stateful Stream Processing](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing).
 
 ## Understanding State in Flink

@@ -10,8 +10,6 @@ topics:
   - data-streaming
 ---
 
-# Message Serialization in Kafka
-
 ## What is Serialization and Why Does It Matter?
 
 Serialization is the process of converting data structures or objects into a byte format that can be transmitted over a network or stored on disk. Deserialization is the reverse process—reconstructing the original data structure from bytes.

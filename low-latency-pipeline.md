@@ -7,8 +7,6 @@ topics:
   - Apache Kafka
 ---
 
-# Low-Latency Pipelines: Achieving Millisecond Response Times
-
 ## Introduction: The Need for Speed
 
 In the world of data streaming, latency is the interval between an event occurring and your system responding to it. While a batch processing system might measure success in hours or minutes, low-latency pipelines operate on an entirely different timescale: milliseconds to sub-second response times.

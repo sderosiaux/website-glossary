@@ -9,8 +9,6 @@ topics:
   - streaming
 ---
 
-# Audit Logging for Streaming Platforms
-
 Audit logging is the practice of recording who did what, when, and where in a system. For streaming platforms like Apache Kafka, Apache Flink, or Pulsar, audit logging becomes both critical and challenging due to the distributed nature of these systems and the high volume of operations they handle.
 
 As organizations adopt streaming platforms for mission-critical workloads, they face increasing pressure to demonstrate compliance with regulations like GDPR, HIPAA, SOC2, and PCI-DSS. Audit logs provide the paper trail needed to prove that data is handled correctly, access is controlled, and changes are tracked.

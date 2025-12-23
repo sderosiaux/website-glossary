@@ -9,8 +9,6 @@ topics:
   - Feature Engineering
 ---
 
-# Feature Stores for Machine Learning
-
 Machine learning models depend on features—the measurable properties used to make predictions. As ML systems scale, managing these features becomes increasingly complex. Feature stores emerged to solve this challenge by providing a centralized platform for storing, serving, and managing features across the entire ML lifecycle.
 
 ![Feature store architecture](images/diagrams/feature-stores-for-machine-learning-0.webp)

@@ -9,8 +9,6 @@ topics:
   - Kafka Streams
 ---
 
-# Handling Late-Arriving Data in Streaming
-
 One of the most challenging aspects of stream processing is dealing with data that arrives later than expected. Unlike batch processing where you have a complete dataset before computation begins, streaming systems must make decisions about when to produce results even as new data continues to arrive. Understanding how to handle late-arriving data is essential for building accurate and reliable streaming applications.
 
 ## Understanding Event Time vs Processing Time

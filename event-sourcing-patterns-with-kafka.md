@@ -9,8 +9,6 @@ topics:
   - Stream Processing
 ---
 
-# Event Sourcing Patterns with Kafka
-
 Event sourcing is a powerful architectural pattern that stores the state of a system as a sequence of events rather than as a current snapshot. When combined with Apache Kafka's distributed log capabilities, event sourcing enables scalable, auditable, and resilient systems. This article explores the core patterns, implementation strategies, and practical considerations for building event-sourced systems with Kafka.
 
 ## Understanding Event Sourcing

@@ -10,8 +10,6 @@ topics:
   - enterprise-architecture
 ---
 
-# Cross-Organization Data Sharing Patterns
-
 Organizations increasingly need to share data beyond their boundaries. Supply chain partners exchange inventory updates, financial institutions collaborate on fraud detection, and healthcare networks share patient records across hospital systems. Each scenario requires careful consideration of technical architecture, security, and governance.
 
 This article explores common patterns for cross-organization data sharing, the role of data streaming platforms, and practical considerations for implementation.

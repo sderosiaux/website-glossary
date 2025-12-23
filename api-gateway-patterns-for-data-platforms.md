@@ -11,8 +11,6 @@ topics:
   - governance
 ---
 
-# API Gateway Patterns for Data Platforms
-
 Modern data platforms handle diverse data sources, multiple protocols, and complex access patterns. API gateways provide a critical abstraction layer that simplifies client access while enforcing security, governance, and performance controls. Understanding gateway patterns helps teams build scalable, secure data architectures.
 
 ## What is an API Gateway in Data Platforms?

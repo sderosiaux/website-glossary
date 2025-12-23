@@ -7,8 +7,6 @@ topics:
   - Streaming Operations
 ---
 
-# Dark Data Tax: The Hidden Costs of Unused Data
-
 Data has been called the "new oil," but unlike oil, data doesn't automatically become valuable just by existing. Organizations today collect vast amounts of data that is never analyzed, queried, or used for decision-making. This unused information, known as "dark data," creates a hidden tax that extends far beyond storage costs. For a related but distinct challenge, see [Data Obesity](https://conduktor.io/glossary/data-obesity), which explores the broader problem of excessive data volume.
 
 The dark data tax represents the cumulative financial, technical, and organizational burden of maintaining data that provides no business value. While cloud storage may be inexpensive, the true costs manifest in data pipeline maintenance, computational overhead, engineering time, cognitive load on data teams, and increased security and compliance risk.

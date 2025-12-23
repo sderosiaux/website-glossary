@@ -9,8 +9,6 @@ topics:
   - cloud-platforms
 ---
 
-# Introduction to Confluent Cloud
-
 As organizations adopt real-time data architectures, managing Apache Kafka infrastructure becomes increasingly complex. Confluent Cloud addresses this challenge by providing a fully managed, cloud-native Kafka service that handles operational overhead while delivering enterprise-grade features.
 
 This article explores what Confluent Cloud is, how it works, and when organizations should consider using it versus self-managed Apache Kafka with platforms like Conduktor for governance and monitoring.

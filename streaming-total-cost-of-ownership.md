@@ -7,8 +7,6 @@ topics:
   - FinOps
 ---
 
-# Streaming Total Cost of Ownership: Understanding the Full Picture
-
 ## OUTLINE
 
 ### 1. Introduction: Beyond the Cloud Bill

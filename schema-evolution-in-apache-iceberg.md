@@ -9,8 +9,6 @@ topics:
   - Data Lakehouse
 ---
 
-# Schema Evolution in Apache Iceberg
-
 Schema evolution is a critical capability for modern data lakehouses, allowing data engineers to adapt table structures as business requirements change without disrupting existing workloads or rewriting massive datasets. [Apache Iceberg](https://conduktor.io/glossary/apache-iceberg) provides robust schema evolution capabilities that surpass traditional data lake formats, making it the preferred choice for enterprise data platforms.
 
 As of 2025, with Iceberg versions 1.8.0 through 1.10.0, schema evolution has expanded to support new data types including Variant for semi-structured data, nanosecond-precision timestamps, and geospatial types, alongside enhanced performance through deletion vectors and row lineage tracking.

@@ -8,8 +8,6 @@ topics:
   - automation
 ---
 
-# Infrastructure as Code for Kafka Deployments
-
 Managing Apache Kafka deployments at scale presents unique challenges. Unlike stateless applications, Kafka requires careful orchestration of brokers, persistent storage, network configurations, and numerous operational resources like topics, ACLs, and connectors. Infrastructure as Code (IaC) has emerged as a critical practice for teams seeking to deploy Kafka reliably across multiple environments while maintaining consistency and reducing human error.
 
 ## What is Infrastructure as Code?

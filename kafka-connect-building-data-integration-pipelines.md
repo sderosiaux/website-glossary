@@ -9,8 +9,6 @@ topics:
   - Streaming
 ---
 
-# Kafka Connect: Building Data Integration Pipelines
-
 Kafka Connect is a distributed framework for reliably streaming data between Apache Kafka and external systems. Instead of writing custom producers and consumers for every data source and destination, Kafka Connect provides a standardized, scalable approach to data integration. This framework has become essential for data engineers building modern streaming architectures.
 
 With Kafka 4.0+ running in KRaft mode (eliminating ZooKeeper), Kafka Connect operates as a fully modern, cloud-native integration platform. The framework handles complex integration patterns including exactly-once delivery, schema evolution, and automatic failover, making it the de facto standard for connecting Kafka to databases, cloud storage, data warehouses, and other systems.

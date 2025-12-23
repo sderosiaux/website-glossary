@@ -11,8 +11,6 @@ topics:
   - machine-learning
 ---
 
-# Building Recommendation Systems with Streaming Data
-
 Recommendation systems power some of the most engaging experiences on the internet, from Netflix's video suggestions to Amazon's product recommendations. While traditional recommendation systems operate on batch-processed data, modern applications increasingly demand real-time personalization that responds to user behavior as it happens. This shift requires fundamentally different architecture patterns built on streaming data platforms.
 
 ## Understanding Recommendation Systems

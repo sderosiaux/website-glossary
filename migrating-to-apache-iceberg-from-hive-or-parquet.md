@@ -9,8 +9,6 @@ topics:
   - Data Lakehouse
 ---
 
-# Migrating to Apache Iceberg from Hive or Parquet
-
 Apache Iceberg has emerged as the leading table format for modern [data lakehouses](https://conduktor.io/glossary/introduction-to-lakehouse-architecture), offering features like ACID transactions, time travel, schema evolution, and partition evolution that traditional Hive tables and raw Parquet files cannot provide. As of 2025, [Apache Iceberg](https://conduktor.io/glossary/apache-iceberg) 1.7+ provides production-grade migration tools, REST catalog support, and advanced features like branches and tags that make migration safer and more flexible than ever.
 
 Migrating to Iceberg unlocks these capabilities while maintaining compatibility with your existing query engines and data infrastructure. This guide explores proven migration strategies, practical conversion techniques, and critical considerations for data engineers and architects planning an Iceberg migration.

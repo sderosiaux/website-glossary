@@ -10,8 +10,6 @@ topics:
   - Serialization
 ---
 
-# Kafka Producers and Consumers
-
 Apache Kafka is designed as a distributed, fault-tolerant commit log. While Kafka brokers manage storage and replication, the actual transfer of data relies on two critical client components: producers and consumers. These client applications determine the data quality, latency, throughput, and reliability of modern data streaming architectures.
 
 Understanding how producers and consumers work—their configuration options, delivery guarantees, and operational characteristics—is essential for building scalable, reliable streaming systems. For foundational architecture concepts, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka) and [Kafka Topics, Partitions, Brokers: Core Architecture](https://conduktor.io/glossary/kafka-topics-partitions-brokers-core-architecture).
