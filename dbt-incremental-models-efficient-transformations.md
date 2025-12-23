@@ -47,7 +47,7 @@ STRATEGIES:  append  |  merge  |  delete+insert  |  microbatch
 
 ## Understanding Incremental Models
 
-Incremental models operate on a simple but powerful principle: instead of rebuilding entire tables from scratch, they identify and process only the delta—the new or modified records since the last run. This approach transforms what might be hour-long jobs into minute-long operations.
+Incremental models operate on a simple but powerful principle: instead of rebuilding entire tables from scratch, they identify and process only the delta, the new or modified records since the last run. This approach transforms what might be hour-long jobs into minute-long operations.
 
 Consider a typical scenario: you have an events table with billions of historical records. A full refresh would reprocess every single event, even though only today's data has changed. An incremental model processes just today's events, appending or merging them into the existing table.
 
@@ -76,7 +76,7 @@ from {{ source('raw', 'events') }}
 {% endif %}
 ```
 
-This example uses dbt's Jinja templating syntax (the double curly braces `{{ }}`), which allows dynamic SQL generation. The `is_incremental()` macro is crucial—it returns `false` on the first run, building the full table. On subsequent runs, it returns `true`, triggering the filter that selects only new records. The `{{ this }}` reference is a special variable pointing to the current model's table in your data warehouse.
+This example uses dbt's Jinja templating syntax (the double curly braces `{{ }}`), which allows dynamic SQL generation. The `is_incremental()` macro is crucial, it returns `false` on the first run, building the full table. On subsequent runs, it returns `true`, triggering the filter that selects only new records. The `{{ this }}` reference is a special variable pointing to the current model's table in your data warehouse.
 
 ## Merge Strategies Explained
 
@@ -84,7 +84,7 @@ dbt supports multiple strategies for handling incremental updates, each suited t
 
 ### Append Strategy
 
-The simplest approach—new rows are added without checking for duplicates:
+The simplest approach, new rows are added without checking for duplicates:
 
 ```sql
 {{
@@ -203,7 +203,7 @@ Microbatch automatically divides your data into time-based batches and processes
 - **Idempotent reruns**: Each batch produces identical results regardless of execution timing
 - **Built-in late data handling**: Overlapping windows catch late arrivals without custom logic
 
-**When to use microbatch**: This is the recommended approach for any time-series data with consistent timestamps—logs, events, IoT sensor data, or streaming analytics.
+**When to use microbatch**: This is the recommended approach for any time-series data with consistent timestamps, logs, events, IoT sensor data, or streaming analytics.
 
 ## Streaming Integration with Kafka
 
@@ -247,7 +247,7 @@ from kafka_stream
 ```
 
 **Key concepts explained**:
-- **Kafka offsets**: Sequential IDs for each message in a partition. Using offsets as your incremental filter guarantees exactly-once processing—each message is processed exactly one time, preventing duplicates or missing data.
+- **Kafka offsets**: Sequential IDs for each message in a partition. Using offsets as your incremental filter guarantees exactly-once processing, each message is processed exactly one time, preventing duplicates or missing data.
 - **Schema evolution handling**: The `on_schema_change='sync_all_columns'` option automatically adds new columns when your Kafka topic schema changes, preventing pipeline failures.
 - **Metadata columns**: Most Kafka connectors (like Snowflake's Kafka connector) expose `_partition` and `_offset` as columns, enabling offset-based incremental processing.
 
@@ -273,7 +273,7 @@ Combine incremental models with table partitioning for maximum efficiency. This 
 }}
 ```
 
-This limits scans to relevant partitions, dramatically reducing query costs. For example, querying last week's transactions scans only 7 partitions instead of the entire table—a typical cost reduction of 90%+ for large historical tables.
+This limits scans to relevant partitions, dramatically reducing query costs. For example, querying last week's transactions scans only 7 partitions instead of the entire table, a typical cost reduction of 90%+ for large historical tables.
 
 **Other warehouse syntax**:
 - **Snowflake**: Use `cluster_by=['date_column']` for automatic clustering
@@ -357,7 +357,7 @@ models:
 - **dbt Mesh**: For large organizations, implement cross-project dependencies and centralized monitoring across multiple dbt projects
 - **Custom macros**: Log metrics (row counts, runtime, error rates) to dedicated monitoring tables for trend analysis
 
-Real-world example: A properly configured incremental model on a 5 billion row events table reduces processing from 2 hours (full refresh, $50 in compute) to 5 minutes (incremental, $2 in compute)—a 96% cost reduction.
+Real-world example: A properly configured incremental model on a 5 billion row events table reduces processing from 2 hours (full refresh, $50 in compute) to 5 minutes (incremental, $2 in compute), a 96% cost reduction.
 
 ## When NOT to Use Incremental Models
 
@@ -374,7 +374,7 @@ Consider dbt **snapshots** (Type 2 Slowly Changing Dimensions) instead of increm
 
 **Forgetting the initial load**: Always test your model with a full refresh (`dbt run --full-refresh`) to ensure it works without the incremental filter.
 
-**Ignoring idempotency**: Incremental models should produce identical results whether run once or multiple times—critical for backfills and reruns. Test this by running your model twice and comparing results.
+**Ignoring idempotency**: Incremental models should produce identical results whether run once or multiple times, critical for backfills and reruns. Test this by running your model twice and comparing results.
 
 **Over-relying on timestamps**: Late-arriving data can cause missed records. Solutions:
 - Use sequence numbers or Kafka offsets instead of timestamps when available

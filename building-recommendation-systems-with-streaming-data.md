@@ -17,7 +17,7 @@ Recommendation systems power some of the most engaging experiences on the intern
 
 Recommendation systems analyze user behavior, preferences, and contextual signals to suggest relevant content, products, or services. Traditional approaches use collaborative filtering (finding similar users or items), content-based filtering (analyzing item attributes), or hybrid methods combining both.
 
-The classic batch approach processes historical data periodically—perhaps daily or hourly—to update recommendations. A user's morning browsing session might not influence their afternoon recommendations. This delay creates a disconnect between user intent and system response.
+The classic batch approach processes historical data periodically, perhaps daily or hourly, to update recommendations. A user's morning browsing session might not influence their afternoon recommendations. This delay creates a disconnect between user intent and system response.
 
 Streaming recommendation systems process events as they occur. When a user clicks a product, adds items to a cart, or watches a video, the system immediately updates features and potentially refreshes recommendations. This responsiveness creates more engaging experiences and captures fleeting user interests before they fade.
 
@@ -25,7 +25,7 @@ Streaming recommendation systems process events as they occur. When a user click
 
 Moving from batch to streaming recommendations introduces significant technical challenges. Batch systems benefit from complete datasets and predictable processing windows. Streaming systems must handle incomplete information, out-of-order events, and strict latency requirements.
 
-Latency becomes critical. Users expect recommendations to update within seconds, not minutes. This requires fast feature computation, efficient model serving, and optimized data pipelines. A streaming architecture must balance freshness with computational cost—not every event justifies recomputing all recommendations.
+Latency becomes critical. Users expect recommendations to update within seconds, not minutes. This requires fast feature computation, efficient model serving, and optimized data pipelines. A streaming architecture must balance freshness with computational cost, not every event justifies recomputing all recommendations.
 
 Data consistency poses another challenge. In distributed streaming systems, events may arrive out of order or be duplicated. A user might rate a movie before the system processes their viewing event. Handling these scenarios requires careful event timestamp management and idempotent processing logic.
 
@@ -35,7 +35,7 @@ Model complexity creates trade-offs. Complex deep learning models that work well
 
 A streaming recommendation architecture typically involves several key components working together. Apache Kafka serves as the central nervous system, capturing user events in real-time. Every click, view, purchase, or rating becomes an event flowing through Kafka topics. For foundational Kafka concepts, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka) and [Kafka Topics, Partitions, Brokers: Core Architecture](https://conduktor.io/glossary/kafka-topics-partitions-brokers-core-architecture).
 
-Feature engineering happens continuously using stream processing frameworks like Apache Flink or Kafka Streams. These systems maintain running aggregations—items viewed in the last hour, categories explored this session, time spent on different content types. Features stay fresh, updating with each new event.
+Feature engineering happens continuously using stream processing frameworks like Apache Flink or Kafka Streams. These systems maintain running aggregations, items viewed in the last hour, categories explored this session, time spent on different content types. Features stay fresh, updating with each new event.
 
 A feature store bridges streaming and serving. Modern platforms like Tecton, Feast, Hopsworks, or cloud-native solutions (AWS SageMaker Feature Store, Vertex AI Feature Store) maintain low-latency access to both batch-computed features (user demographics, long-term preferences) and streaming features (recent activity, session context). These systems typically provide sub-10ms read latency and handle feature freshness guarantees, ensuring models query consistent, up-to-date features during inference. For detailed coverage of feature store architectures, see [Feature Stores for Machine Learning](https://conduktor.io/glossary/feature-stores-for-machine-learning).
 

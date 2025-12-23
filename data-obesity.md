@@ -10,7 +10,7 @@ topics:
 
 In the age of "data is the new oil," organizations face a counterintuitive problem: too much data can be as harmful as too little. Data obesity occurs when an organization's data infrastructure becomes bloated and lethargic because the volume of ingested data significantly outpaces the organization's ability to extract value from it.
 
-Unlike healthy data growth—where increasing volumes correlate with improved insights, better decision-making, and measurable business outcomes—data obesity represents accumulation without purpose. The system becomes "heavy," burdened by petabytes of information that slow operations, inflate costs, and paradoxically reduce agility rather than enhance it.
+Unlike healthy data growth, where increasing volumes correlate with improved insights, better decision-making, and measurable business outcomes, data obesity represents accumulation without purpose. The system becomes "heavy," burdened by petabytes of information that slow operations, inflate costs, and paradoxically reduce agility rather than enhance it.
 
 This phenomenon is particularly acute in streaming architectures, where the velocity of data ingestion can mask underlying inefficiencies until performance degradation becomes severe.
 ![Data Obesity Symptoms](images/diagrams/data-obesity-0.webp)
@@ -50,13 +50,13 @@ This phenomenon is particularly acute in streaming architectures, where the velo
 
 The most immediate symptom of data obesity is degraded performance. Massive, uncurated datasets slow down every operation that touches them. Query latency increases. Batch jobs take hours instead of minutes. Real-time systems start to lag.
 
-In streaming environments, this manifests as "fat" payloads that cause backpressure (downstream processing slowdowns due to overwhelming data volume) throughout the pipeline. When event producers serialize entire database rows—including large BLOB fields, audit columns, and metadata that downstream consumers never touch—they force every component in the chain to process, transmit, and store unnecessary bytes. For detailed coverage of backpressure patterns, see [Backpressure Handling in Streaming Systems](https://conduktor.io/glossary/backpressure-handling-in-streaming-systems).
+In streaming environments, this manifests as "fat" payloads that cause backpressure (downstream processing slowdowns due to overwhelming data volume) throughout the pipeline. When event producers serialize entire database rows, including large BLOB fields, audit columns, and metadata that downstream consumers never touch, they force every component in the chain to process, transmit, and store unnecessary bytes. For detailed coverage of backpressure patterns, see [Backpressure Handling in Streaming Systems](https://conduktor.io/glossary/backpressure-handling-in-streaming-systems).
 
-A Kafka consumer that needs only a customer ID and purchase amount shouldn't receive a 50KB payload containing product images, full address history, and marketing preferences. Yet this pattern is common in Change Data Capture (CDC)—the process of capturing database changes as events—implementations where convenience takes precedence over efficiency. For more on CDC patterns, refer to [What is Change Data Capture (CDC)](https://conduktor.io/glossary/what-is-change-data-capture-cdc-fundamentals).
+A Kafka consumer that needs only a customer ID and purchase amount shouldn't receive a 50KB payload containing product images, full address history, and marketing preferences. Yet this pattern is common in Change Data Capture (CDC), the process of capturing database changes as events, implementations where convenience takes precedence over efficiency. For more on CDC patterns, refer to [What is Change Data Capture (CDC)](https://conduktor.io/glossary/what-is-change-data-capture-cdc-fundamentals).
 
 ### Operational Rigidity: Loss of Agility
 
-Obese data systems are difficult to maneuver. What should be routine operations—upgrading a database, migrating to a new cloud region, implementing a new storage tier—become high-risk, multi-month projects.
+Obese data systems are difficult to maneuver. What should be routine operations, upgrading a database, migrating to a new cloud region, implementing a new storage tier, become high-risk, multi-month projects.
 
 The cost isn't just time. When your streaming platform contains 500TB of data with 90-day retention, even small architectural changes require careful choreography. Reprocessing historical data becomes prohibitively expensive. Testing new features against realistic data volumes becomes impractical. Teams become locked into legacy architectures simply because the migration path is too daunting. For capacity planning strategies to avoid this rigidity, see [Kafka Capacity Planning](https://conduktor.io/glossary/kafka-capacity-planning).
 
@@ -64,7 +64,7 @@ This rigidity creates a dangerous cycle: the system becomes harder to change, so
 
 ### Network Congestion: The "Junk Food" Effect
 
-Not all data provides equal nutritional value. Ingesting low-value data acts like consuming empty calories—it fills up your infrastructure without providing business benefit.
+Not all data provides equal nutritional value. Ingesting low-value data acts like consuming empty calories, it fills up your infrastructure without providing business benefit.
 
 Consider a microservices architecture where services emit detailed debug logs to a central event stream "just in case." These logs consume network bandwidth, increase serialization overhead, and inflate storage costs. When a genuine performance issue arises, finding signal in this noise becomes harder, not easier.
 
@@ -80,7 +80,7 @@ Streaming platforms like Apache Kafka, Apache Flink, and Pulsar are particularly
 
 ### Fat Payloads in Change Data Capture
 
-CDC tools capture every change to a database and stream it to downstream consumers. The default configuration often includes the entire row—before and after states—regardless of what consumers actually need.
+CDC tools capture every change to a database and stream it to downstream consumers. The default configuration often includes the entire row, before and after states, regardless of what consumers actually need.
 
 A typical example: an e-commerce company streams order updates from PostgreSQL to Kafka. Each order record contains customer data (name, email, shipping address), product details (descriptions, images, specifications), payment information, and audit fields. Most consumers need only the order ID and status, yet they receive 100KB per event.
 
@@ -134,7 +134,7 @@ Within three months, they faced:
 - Regular consumer group failures from out-of-memory errors
 - Inability to add new consumers without cluster capacity expansion
 
-The solution involved schema redesign: transaction events referenced customer IDs rather than embedding full records. Document BLOBs were stored separately with URL references. This reduced average payload size from 2.1MB to 4KB—a 99.8% reduction.
+The solution involved schema redesign: transaction events referenced customer IDs rather than embedding full records. Document BLOBs were stored separately with URL references. This reduced average payload size from 2.1MB to 4KB, a 99.8% reduction.
 
 Results: latency dropped to 150ms, storage costs decreased by 85%, and the system could scale to 5x transaction volume without additional infrastructure.
 
@@ -147,7 +147,7 @@ The bloated events caused:
 - Flink jobs consuming 3x necessary CPU for deserialization
 - 7-day retention limit (vs. desired 30 days) due to storage constraints
 
-By implementing projection at the source—emitting only required fields—they reduced payload size by 94%, enabling 90-day retention at lower total cost than the original 7-day configuration.
+By implementing projection at the source, emitting only required fields, they reduced payload size by 94%, enabling 90-day retention at lower total cost than the original 7-day configuration.
 
 ## The Diet: Mitigation Strategies
 
@@ -187,7 +187,7 @@ Example connector configuration to reduce payload obesity:
 }
 ```
 
-This configuration drops audit fields, filters records with large BLOBs, and routes lean events to appropriate topics—reducing payload sizes by 70-90%.
+This configuration drops audit fields, filters records with large BLOBs, and routes lean events to appropriate topics, reducing payload sizes by 70-90%.
 
 **For application producers:**
 - Implement schema-driven serialization (Avro, Protobuf)
@@ -249,7 +249,7 @@ For serialization format comparisons that impact payload size, refer to [Avro vs
 
 ## Governance as Prevention
 
-Technology alone cannot prevent data obesity—organizational governance is essential.
+Technology alone cannot prevent data obesity, organizational governance is essential.
 
 ### Visibility and Monitoring
 
@@ -293,7 +293,7 @@ Modern organizations apply FinOps principles to streaming infrastructure:
 - **Right-sizing recommendations**: ML-driven analysis suggesting optimal partition counts, retention periods, and compression settings
 - **Cross-AZ transfer optimization**: Identifying and minimizing expensive cross-availability-zone traffic
 
-Data obesity directly correlates with "dark data tax"—the hidden costs of maintaining unused or low-value data. To identify topics consuming disproportionate resources, use [VIP Topics insights](https://docs.conduktor.io/guide/insights/vip-topics) which highlight high-cost, high-volume topics requiring optimization attention. For more on this economic challenge, see [Dark Data Tax](https://conduktor.io/glossary/dark-data-tax) and [Streaming Total Cost of Ownership](https://conduktor.io/glossary/streaming-total-cost-of-ownership).
+Data obesity directly correlates with "dark data tax", the hidden costs of maintaining unused or low-value data. To identify topics consuming disproportionate resources, use [VIP Topics insights](https://docs.conduktor.io/guide/insights/vip-topics) which highlight high-cost, high-volume topics requiring optimization attention. For more on this economic challenge, see [Dark Data Tax](https://conduktor.io/glossary/dark-data-tax) and [Streaming Total Cost of Ownership](https://conduktor.io/glossary/streaming-total-cost-of-ownership).
 
 ## Summary: Building Sustainable Data Infrastructure
 
@@ -311,7 +311,7 @@ Healthy data infrastructure requires:
 
 **Governance as Culture:** Technology platforms can enforce policies, but sustainable change requires organizational commitment to treating data infrastructure as a finite resource requiring stewardship, not an infinite dumping ground.
 
-The organizations that thrive in data-intensive environments aren't those that collect the most data—they're those that collect the right data and maintain the agility to evolve as needs change.
+The organizations that thrive in data-intensive environments aren't those that collect the most data, they're those that collect the right data and maintain the agility to evolve as needs change.
 
 ## Related Concepts
 

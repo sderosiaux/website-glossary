@@ -62,7 +62,7 @@ Data quality is the foundation of reliable analytics and machine learning. Yet, 
 
 ## What is Great Expectations?
 
-Great Expectations is an open-source data validation framework that enables data teams to express what they "expect" from their data through assertions called Expectations. Think of it as unit testing for your data—instead of testing code behavior, you're testing data quality, schema compliance, and business logic.
+Great Expectations is an open-source data validation framework that enables data teams to express what they "expect" from their data through assertions called Expectations. Think of it as unit testing for your data, instead of testing code behavior, you're testing data quality, schema compliance, and business logic.
 
 The framework goes beyond simple validation by generating data documentation, maintaining data quality metrics over time, and integrating seamlessly into modern data workflows.
 
@@ -422,7 +422,7 @@ Great Expectations transforms data quality from a reactive debugging exercise in
 
 Whether you're validating nightly batch loads in Snowflake or real-time events streaming through Kafka, Great Expectations provides the framework to ensure your data meets the standards your business depends on.
 
-Start small, iterate quickly, and build confidence in your data—one Expectation at a time.
+Start small, iterate quickly, and build confidence in your data, one Expectation at a time.
 
 ## Related Concepts
 

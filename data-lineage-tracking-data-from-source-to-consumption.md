@@ -9,7 +9,7 @@ topics:
   - Data Governance
 ---
 
-In modern data architectures, understanding where data comes from, how it transforms, and where it ends up is no longer optional—it's critical. Data lineage provides this visibility, creating a map of your data's journey through your entire ecosystem. For data engineers managing complex pipelines and governance officers ensuring compliance, mastering data lineage is essential.
+In modern data architectures, understanding where data comes from, how it transforms, and where it ends up is no longer optional, it's critical. Data lineage provides this visibility, creating a map of your data's journey through your entire ecosystem. For data engineers managing complex pipelines and governance officers ensuring compliance, mastering data lineage is essential.
 ![Data Lineage Flow](images/diagrams/data-lineage-tracking-data-from-source-to-consumption-0.webp)
 <!-- ORIGINAL_DIAGRAM
 ```
@@ -46,7 +46,7 @@ SOURCE SYSTEMS          TRANSFORMATIONS           CONSUMPTION
 
 ## What Is Data Lineage?
 
-Data lineage is the documentation and visualization of data's complete lifecycle. It captures the path data takes from its origin through every transformation, aggregation, and movement until it reaches its final destination—whether that's a dashboard, machine learning model, or downstream application.
+Data lineage is the documentation and visualization of data's complete lifecycle. It captures the path data takes from its origin through every transformation, aggregation, and movement until it reaches its final destination, whether that's a dashboard, machine learning model, or downstream application.
 
 Think of data lineage as a genealogy tree for your data. Just as a family tree shows relationships across generations, data lineage reveals the ancestry and descendants of every data element in your system. This includes not just the "what" and "where," but also the "how" and "when" of data transformations.
 
@@ -62,7 +62,7 @@ Before making changes to a data source or transformation logic, you need to unde
 
 ### Root Cause Analysis
 
-When data quality issues arise—incorrect metrics in a report, anomalous ML predictions—data lineage helps you trace the problem back to its source. You can navigate upstream through transformations to identify where corruption, logic errors, or unexpected data entered the pipeline. For strategies on managing quality issues, see [Data Quality Incidents](https://conduktor.io/glossary/data-quality-incidents) and [Data Quality vs Data Observability: Key Differences](https://conduktor.io/glossary/data-quality-vs-data-observability-key-differences).
+When data quality issues arise, incorrect metrics in a report, anomalous ML predictions, data lineage helps you trace the problem back to its source. You can navigate upstream through transformations to identify where corruption, logic errors, or unexpected data entered the pipeline. For strategies on managing quality issues, see [Data Quality Incidents](https://conduktor.io/glossary/data-quality-incidents) and [Data Quality vs Data Observability: Key Differences](https://conduktor.io/glossary/data-quality-vs-data-observability-key-differences).
 
 ### Data Discovery and Understanding
 
@@ -258,7 +258,7 @@ Technical lineage alone isn't sufficient. Enrich your lineage with business glos
 
 ### Keep It Fresh
 
-Stale lineage is worse than no lineage—it creates false confidence. Ensure your lineage system captures changes automatically and reflects the current state of your pipelines, not last quarter's architecture.
+Stale lineage is worse than no lineage, it creates false confidence. Ensure your lineage system captures changes automatically and reflects the current state of your pipelines, not last quarter's architecture.
 
 ### Enable Self-Service
 
@@ -268,7 +268,7 @@ Data lineage should be accessible to everyone who needs it: data engineers debug
 
 Data lineage transforms data infrastructure from a black box into a transparent, understandable system. For data engineers, it's a debugging tool and change management safeguard. For governance officers, it's the foundation of compliance and trust. In streaming architectures where data flows continuously through distributed systems, robust lineage tracking becomes even more critical.
 
-As data ecosystems grow more complex—with batch and streaming pipelines, cloud and on-premise systems, structured and unstructured data—investing in comprehensive data lineage isn't just good practice. It's a requirement for maintaining control, ensuring quality, and enabling the data-driven decisions that modern organizations depend on.
+As data ecosystems grow more complex, with batch and streaming pipelines, cloud and on-premise systems, structured and unstructured data, investing in comprehensive data lineage isn't just good practice. It's a requirement for maintaining control, ensuring quality, and enabling the data-driven decisions that modern organizations depend on.
 
 By implementing automated lineage capture, integrating with catalogs and governance tools, and making lineage accessible across your organization, you transform data from an opaque resource into a well-understood, trustworthy asset.
 

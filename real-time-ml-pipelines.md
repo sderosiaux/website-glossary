@@ -229,7 +229,7 @@ Models trained offline periodically, served in real-time:
 
 ### Online Learning (Advanced)
 
-Models update continuously as data arrives through incremental learning—a technique where the model updates its parameters with each new batch of data without full retraining. For example, an online linear regression model can update its coefficients after seeing each new data point, adapting to changing patterns in real-time.
+Models update continuously as data arrives through incremental learning, a technique where the model updates its parameters with each new batch of data without full retraining. For example, an online linear regression model can update its coefficients after seeing each new data point, adapting to changing patterns in real-time.
 
 **Modern online learning frameworks (2025)**:
 - **River**: Python library designed specifically for online machine learning, supporting incremental versions of popular algorithms (linear models, trees, neural networks)
@@ -450,7 +450,7 @@ Key takeaways:
 
 As ML systems increasingly operate on streaming data, mastering real-time pipelines becomes essential for competitive, responsive applications. Start simple with real-time inference on periodically trained models, then evolve toward more sophisticated online learning as requirements and expertise grow.
 
-The future of ML is real-time—building the infrastructure to support it is one of the most impactful investments in modern data systems.
+The future of ML is real-time, building the infrastructure to support it is one of the most impactful investments in modern data systems.
 
 **Related Articles**:
 - [Real-Time ML Inference with Streaming Data](/real-time-ml-inference-with-streaming-data) - Deep dive into inference patterns

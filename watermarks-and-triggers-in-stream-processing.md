@@ -69,7 +69,7 @@ A watermark is a special marker in the data stream that carries a timestamp and 
 
 Watermarks flow through the stream alongside regular events. As data flows through operators, each operator tracks the watermarks it receives and uses them to measure event time progress. This allows the system to process events based on when they actually occurred, not when they were processed.
 
-The most common watermark strategy is bounded out-of-orderness watermarking. This approach acknowledges that events may arrive late, but assumes the delay is bounded by some maximum duration—essentially setting a "patience threshold" for the system. For example, a watermark generator might emit a watermark for time `t` after seeing an event with timestamp `t + 5 seconds`, effectively saying "I'm allowing up to 5 seconds of lateness before moving on."
+The most common watermark strategy is bounded out-of-orderness watermarking. This approach acknowledges that events may arrive late, but assumes the delay is bounded by some maximum duration, essentially setting a "patience threshold" for the system. For example, a watermark generator might emit a watermark for time `t` after seeing an event with timestamp `t + 5 seconds`, effectively saying "I'm allowing up to 5 seconds of lateness before moving on."
 
 Consider a temperature sensor sending readings every second. If the sensor's clock shows 10:00:00, 10:00:01, 10:00:02, but due to network conditions they arrive at 10:00:01, 10:00:03, 10:00:02, the watermark generator tracks the highest timestamp seen (10:00:03) and emits a watermark of 10:00:03 minus the configured delay (perhaps 2 seconds), resulting in a watermark of 10:00:01. This tells downstream operators: "You can safely process all events up to 10:00:01."
 
@@ -97,11 +97,11 @@ DataStream<Event> stream = env.addSource(new KafkaSource<>(...))
     );
 ```
 
-When consuming from Kafka, Flink supports partition-aware watermark generation. Each Kafka partition maintains its own watermark, which are then merged using the minimum watermark across all partitions when consumed in parallel. This conservative approach ensures correctness—the overall stream time can only advance as fast as the slowest partition—while preserving ordering guarantees within partitions.
+When consuming from Kafka, Flink supports partition-aware watermark generation. Each Kafka partition maintains its own watermark, which are then merged using the minimum watermark across all partitions when consumed in parallel. This conservative approach ensures correctness, the overall stream time can only advance as fast as the slowest partition, while preserving ordering guarantees within partitions.
 
 Flink's window operators use watermarks to determine when to trigger computations. A tumbling window closes and fires when the watermark passes the window's end time. During this period, Flink maintains windowed state (aggregates, counts, etc.) that gets updated as events arrive and is finalized when the trigger fires. Triggers can be customized using the Trigger API for more complex scenarios. For more on how Flink manages state across windows and checkpoints, see [Flink State Management and Checkpointing](https://conduktor.io/glossary/flink-state-management-and-checkpointing).
 
-Kafka Streams handles watermarks implicitly through a concept called stream-time, which serves the same purpose as watermarks but works behind the scenes. The framework automatically tracks the maximum timestamp observed across all partitions and uses this to advance stream time. Windows trigger when stream time passes their boundaries. This means developers don't need to explicitly configure watermark strategies—Kafka Streams infers them from message timestamps.
+Kafka Streams handles watermarks implicitly through a concept called stream-time, which serves the same purpose as watermarks but works behind the scenes. The framework automatically tracks the maximum timestamp observed across all partitions and uses this to advance stream time. Windows trigger when stream time passes their boundaries. This means developers don't need to explicitly configure watermark strategies, Kafka Streams infers them from message timestamps.
 
 ```java
 // Kafka Streams 3.0+ - watermarks handled implicitly via stream-time
@@ -121,7 +121,7 @@ stream
     .to("temperature-averages");
 ```
 
-In this example, the 5-minute window closes when stream-time advances past the window boundary. Kafka Streams 3.0+ introduced the `ofSizeWithNoGrace()` method which creates windows that close immediately when stream-time advances, while `ofSizeAndGrace()` allows configuring a grace period for late events—equivalent to Flink's out-of-orderness duration.
+In this example, the 5-minute window closes when stream-time advances past the window boundary. Kafka Streams 3.0+ introduced the `ofSizeWithNoGrace()` method which creates windows that close immediately when stream-time advances, while `ofSizeAndGrace()` allows configuring a grace period for late events, equivalent to Flink's out-of-orderness duration.
 
 Streaming management tools like Conduktor can [visualize watermark progression across pipeline stages](https://docs.conduktor.io/guide/monitor-brokers-apps/index), helping developers debug timing issues and understand why windows are or are not firing as expected.
 
@@ -131,7 +131,7 @@ Real-world streams rarely arrive in perfect order. Network issues, clock skew, o
 
 A conservative watermark strategy with large delays (e.g., allowing 30 seconds of lateness) ensures most late events are included in the correct windows, but delays results by 30 seconds. An aggressive strategy with small delays (e.g., 1 second) produces faster results but may exclude more late events.
 
-Late events that arrive after a watermark has already passed can be handled several ways. Dropping them is the simplest approach, treating them as too late to process. Side outputs in Flink route late events to a separate stream for special handling or logging—this provides a way to capture and analyze patterns in late-arriving data without disrupting main processing. Updating previous results recomputes and re-emits window results when late data arrives, though downstream systems must handle these updates. For more strategies on handling problematic events, see [Dead Letter Queues for Error Handling](https://conduktor.io/glossary/dead-letter-queues-for-error-handling).
+Late events that arrive after a watermark has already passed can be handled several ways. Dropping them is the simplest approach, treating them as too late to process. Side outputs in Flink route late events to a separate stream for special handling or logging, this provides a way to capture and analyze patterns in late-arriving data without disrupting main processing. Updating previous results recomputes and re-emits window results when late data arrives, though downstream systems must handle these updates. For more strategies on handling problematic events, see [Dead Letter Queues for Error Handling](https://conduktor.io/glossary/dead-letter-queues-for-error-handling).
 
 A common issue occurs with idle [Kafka](https://conduktor.io/glossary/apache-kafka) partitions. If one partition receives no data, it produces no watermarks, which can stall watermark progression for the entire stream since the minimum watermark across all partitions determines overall progress. Flink addresses this with idle source detection, which excludes idle partitions from watermark calculations after a timeout period.
 

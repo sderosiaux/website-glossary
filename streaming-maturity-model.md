@@ -478,11 +478,11 @@ Track these KPIs aligned to your current maturity level:
 
 The journey to streaming maturity is not linear, and organizations may exhibit different maturity levels across dimensions. The key is understanding your current state, defining clear objectives for advancement, and investing systematically in technology, governance, skills, and operations.
 
-Start by honestly assessing where you are today. Whether you're running experimental POCs or operating enterprise-grade streaming platforms, there's always room to evolve toward more sophisticated, business-aligned real-time data capabilities. The maturity model provides the roadmap—your organization's commitment and execution will determine the pace of progress.
+Start by honestly assessing where you are today. Whether you're running experimental POCs or operating enterprise-grade streaming platforms, there's always room to evolve toward more sophisticated, business-aligned real-time data capabilities. The maturity model provides the roadmap, your organization's commitment and execution will determine the pace of progress.
 
 Remember that maturity is not about reaching Level 5 quickly, but about building sustainable capabilities that deliver business value at each stage. Focus on mastering your current level before advancing, and ensure your governance and operational practices keep pace with your technological ambitions.
 
-As you advance through maturity levels, invest in observability and monitoring from the start. Data observability—tracking data quality, freshness, volume, schema, and lineage—becomes increasingly critical at higher maturity levels. For comprehensive coverage of observability practices, see [What is Data Observability: The Five Pillars](https://conduktor.io/glossary/what-is-data-observability-the-five-pillars) and [Data Quality vs Data Observability: Key Differences](https://conduktor.io/glossary/data-quality-vs-data-observability-key-differences).
+As you advance through maturity levels, invest in observability and monitoring from the start. Data observability, tracking data quality, freshness, volume, schema, and lineage, becomes increasingly critical at higher maturity levels. For comprehensive coverage of observability practices, see [What is Data Observability: The Five Pillars](https://conduktor.io/glossary/what-is-data-observability-the-five-pillars) and [Data Quality vs Data Observability: Key Differences](https://conduktor.io/glossary/data-quality-vs-data-observability-key-differences).
 
 ## Related Concepts
 

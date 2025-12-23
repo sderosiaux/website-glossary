@@ -11,7 +11,7 @@ topics:
 
 
 
-The lakehouse architecture has fundamentally changed how organizations handle analytics at scale, combining the flexibility of data lakes with the reliability of data warehouses. While early lakehouses were primarily batch-oriented, modern table formats—Delta Lake, Apache Iceberg, Apache Hudi, and Apache Paimon—were built with streaming workloads in mind.
+The lakehouse architecture has fundamentally changed how organizations handle analytics at scale, combining the flexibility of data lakes with the reliability of data warehouses. While early lakehouses were primarily batch-oriented, modern table formats, Delta Lake, Apache Iceberg, Apache Hudi, and Apache Paimon, were built with streaming workloads in mind.
 ![Streaming to lakehouse architecture with multiple table formats](images/diagrams/streaming-to-lakehouse-tables-0.webp)
 <!-- ORIGINAL_DIAGRAM
 ```
@@ -60,7 +60,7 @@ KEY BENEFITS: ACID • Time Travel • Schema Evolution • Concurrent R/W
 
 Streaming writes to lakehouse tables enable real-time analytics without sacrificing data quality or consistency. Unlike raw file writes to object storage, table formats provide ACID guarantees, schema enforcement, and time travel capabilities that make streaming data immediately queryable and trustworthy. For foundational concepts, see [What is Real-Time Data Streaming](https://conduktor.io/glossary/what-is-real-time-data-streaming).
 
-The key innovation is treating streaming data as a continuous flow of incremental updates to versioned tables, rather than as separate batch snapshots. This approach bridges the gap between real-time processing and historical analytics, allowing organizations to query both fresh and historical data through the same interface. This pattern is particularly powerful for CDC use cases—see [What is Change Data Capture: CDC Fundamentals](https://conduktor.io/glossary/what-is-change-data-capture-cdc-fundamentals) for details on capturing database changes and streaming them to lakehouse tables.
+The key innovation is treating streaming data as a continuous flow of incremental updates to versioned tables, rather than as separate batch snapshots. This approach bridges the gap between real-time processing and historical analytics, allowing organizations to query both fresh and historical data through the same interface. This pattern is particularly powerful for CDC use cases, see [What is Change Data Capture: CDC Fundamentals](https://conduktor.io/glossary/what-is-change-data-capture-cdc-fundamentals) for details on capturing database changes and streaming them to lakehouse tables.
 
 ## Table Formats for Streaming Workloads
 
@@ -72,7 +72,7 @@ Modern table formats share core capabilities that make them suitable for streami
 
 **Concurrent Operations**: Streaming writers append data while analysts query the table simultaneously. Table formats coordinate these operations without locking. Readers see consistent snapshots while writers continue processing events. This concurrent access pattern is essential for real-time analytics dashboards fed by streaming pipelines.
 
-**Hidden Partitioning**: Particularly in Iceberg, partition values don't appear in query predicates—the engine handles partition pruning automatically. This decouples physical layout from logical queries, allowing partition schemes to evolve as data volumes grow without rewriting queries.
+**Hidden Partitioning**: Particularly in Iceberg, partition values don't appear in query predicates, the engine handles partition pruning automatically. This decouples physical layout from logical queries, allowing partition schemes to evolve as data volumes grow without rewriting queries.
 
 ## Delta Lake Streaming Patterns
 
@@ -106,7 +106,7 @@ query = kafka_df \
     .start("/tmp/delta-table")
 ```
 
-**Merge Operations**: For CDC (change data capture) streams or deduplication, Delta Lake's MERGE operation handles late-arriving updates, inserting new records and updating existing ones based on a key. The transaction log ensures atomicity—either the entire micro-batch commits or none of it does.
+**Merge Operations**: For CDC (change data capture) streams or deduplication, Delta Lake's MERGE operation handles late-arriving updates, inserting new records and updating existing ones based on a key. The transaction log ensures atomicity, either the entire micro-batch commits or none of it does.
 
 ```python
 from delta.tables import DeltaTable
@@ -226,7 +226,7 @@ query = kafka_df \
     .start("/tmp/hudi-table")
 ```
 
-**Incremental Processing Patterns**: Hudi excels at incremental processing—reading only changed data since a checkpoint. This enables streaming-to-streaming patterns where downstream jobs consume incremental changes from upstream Hudi tables.
+**Incremental Processing Patterns**: Hudi excels at incremental processing, reading only changed data since a checkpoint. This enables streaming-to-streaming patterns where downstream jobs consume incremental changes from upstream Hudi tables.
 
 ## Apache Paimon: The Emerging Alternative
 
@@ -234,7 +234,7 @@ Apache Paimon (formerly Flink Table Store, reaching maturity in 2025) is a fourt
 
 **Streaming-First Design**: Unlike Delta Lake, Iceberg, and Hudi which evolved from batch origins, Paimon was built from the ground up for streaming workloads. It provides automatic compaction, changelog retention, and streaming upserts without complex configuration.
 
-**Unified Storage**: Paimon treats batch and streaming as unified—there's no distinction between "batch reads" and "streaming reads." All queries can optionally tail the table for new changes, making it ideal for streaming-to-streaming pipelines.
+**Unified Storage**: Paimon treats batch and streaming as unified, there's no distinction between "batch reads" and "streaming reads." All queries can optionally tail the table for new changes, making it ideal for streaming-to-streaming pipelines.
 
 **Native Flink Integration**: Paimon is deeply integrated with Flink 1.17+ and supports features like lookup joins, CDC ingestion, and automatic small file compaction. For Flink-centric architectures, Paimon offers simpler operations than adapting other formats.
 
@@ -287,7 +287,7 @@ For robust schema management, integrate with [Schema Registry and Schema Managem
 
 1. **Idempotent Writes**: Use primary keys and MERGE operations to handle duplicate deliveries.
 2. **Checkpointing**: Spark/Flink checkpoints track Kafka offsets and output states atomically.
-3. **Transactional Commits**: Table formats ensure atomic commits—no partial writes are visible.
+3. **Transactional Commits**: Table formats ensure atomic commits, no partial writes are visible.
 
 The checkpoint location and table format's transaction log together guarantee exactly-once processing. For deeper understanding of exactly-once guarantees, see [Exactly-Once Semantics in Kafka](https://conduktor.io/glossary/exactly-once-semantics-in-kafka).
 
@@ -338,9 +338,9 @@ Streaming to lakehouse tables with Delta Lake, Apache Iceberg, Apache Hudi, and 
 
 Delta Lake offers the tightest Spark integration with simple append and merge patterns, now enhanced with Liquid Clustering. Iceberg provides sophisticated hidden partitioning and multi-engine support, particularly strong with Flink. Hudi excels at upsert-heavy workloads with its incremental processing capabilities. Paimon brings streaming-first design with minimal operational complexity for Flink users.
 
-Regardless of format choice, success requires attention to operational details: schema evolution strategies, compaction policies, partition management, and exactly-once semantics. Most critically, data quality must be enforced upstream—before data reaches the lakehouse—to ensure streaming tables remain reliable sources of truth.
+Regardless of format choice, success requires attention to operational details: schema evolution strategies, compaction policies, partition management, and exactly-once semantics. Most critically, data quality must be enforced upstream, before data reaches the lakehouse, to ensure streaming tables remain reliable sources of truth.
 
-The streaming lakehouse is no longer emerging technology—it's production-ready architecture powering real-time analytics at scale. For broader context on streaming architectures, see [What is Real-Time Data Streaming](https://conduktor.io/glossary/what-is-real-time-data-streaming) and [Streaming Data Pipeline](https://conduktor.io/glossary/streaming-data-pipeline).
+The streaming lakehouse is no longer emerging technology, it's production-ready architecture powering real-time analytics at scale. For broader context on streaming architectures, see [What is Real-Time Data Streaming](https://conduktor.io/glossary/what-is-real-time-data-streaming) and [Streaming Data Pipeline](https://conduktor.io/glossary/streaming-data-pipeline).
 
 ## Related Concepts
 

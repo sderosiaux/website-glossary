@@ -169,7 +169,7 @@ These tools complement custom scripts and provide production-grade chaos experim
 
 ## Summary
 
-Chaos engineering is essential for building resilient streaming systems. By proactively injecting failures into platforms like Kafka and Flink, teams can discover weaknesses before they cause production outages. The unique characteristics of streaming systems—real-time requirements, stateful processing, and distributed coordination—make them particularly sensitive to failures, which makes chaos engineering even more valuable.
+Chaos engineering is essential for building resilient streaming systems. By proactively injecting failures into platforms like Kafka and Flink, teams can discover weaknesses before they cause production outages. The unique characteristics of streaming systems, real-time requirements, stateful processing, and distributed coordination, make them particularly sensitive to failures, which makes chaos engineering even more valuable.
 
 Start with well-defined experiments in controlled environments, establish clear success metrics, and gradually expand the scope as confidence grows. Combine chaos engineering with strong observability and monitoring to understand system behavior under failure conditions. As streaming architectures become more critical to business operations, chaos engineering transforms from an optional practice to a fundamental requirement for reliability.
 

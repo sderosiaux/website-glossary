@@ -60,7 +60,7 @@ Despite being distributed, NewSQL databases maintain strong consistency guarante
 
 ### Horizontal Scalability
 
-NewSQL databases can grow by adding more machines to the cluster. This happens transparently—applications don't need to be rewritten when the cluster expands. The database automatically rebalances data across the new nodes and adjusts query routing.
+NewSQL databases can grow by adding more machines to the cluster. This happens transparently, applications don't need to be rewritten when the cluster expands. The database automatically rebalances data across the new nodes and adjusts query routing.
 
 ### SQL Compatibility
 
@@ -102,7 +102,7 @@ NewSQL databases play several critical roles in real-time streaming architecture
 
 ### Change Data Capture (CDC)
 
-NewSQL databases can serve as source systems for event streams through [Change Data Capture (CDC)](https://conduktor.io/glossary/what-is-change-data-capture-cdc-fundamentals). Tools like [Debezium](https://conduktor.io/glossary/implementing-cdc-with-debezium) can capture row-level changes from databases like CockroachDB and YugabyteDB, publishing them to Kafka topics. Because NewSQL databases support transactions, CDC can capture changes in a consistent, ordered manner that preserves transactional boundaries—meaning if three table updates happen in one database transaction, CDC ensures all three changes are captured as a cohesive unit with the same transaction ID.
+NewSQL databases can serve as source systems for event streams through [Change Data Capture (CDC)](https://conduktor.io/glossary/what-is-change-data-capture-cdc-fundamentals). Tools like [Debezium](https://conduktor.io/glossary/implementing-cdc-with-debezium) can capture row-level changes from databases like CockroachDB and YugabyteDB, publishing them to Kafka topics. Because NewSQL databases support transactions, CDC can capture changes in a consistent, ordered manner that preserves transactional boundaries, meaning if three table updates happen in one database transaction, CDC ensures all three changes are captured as a cohesive unit with the same transaction ID.
 
 **Example: Financial Transaction CDC**
 
@@ -535,7 +535,7 @@ The CAP theorem states that distributed systems can provide at most two of three
 - Read replicas for distributing query load without impacting write performance
 - Sophisticated consensus protocols (Raft, Multi-Paxos) that minimize coordination overhead
 
-While they may have slightly lower availability during network partitions compared to AP systems like [Cassandra](https://conduktor.io/glossary/nosql-databases-real-time), modern NewSQL databases achieve 99.95%+ availability—sufficient for most production requirements. For comparison with NoSQL trade-offs, see [NoSQL Databases for Real-Time Streaming](https://conduktor.io/glossary/nosql-databases-real-time).
+While they may have slightly lower availability during network partitions compared to AP systems like [Cassandra](https://conduktor.io/glossary/nosql-databases-real-time), modern NewSQL databases achieve 99.95%+ availability, sufficient for most production requirements. For comparison with NoSQL trade-offs, see [NoSQL Databases for Real-Time Streaming](https://conduktor.io/glossary/nosql-databases-real-time).
 
 ## When to Choose NewSQL
 
@@ -587,13 +587,13 @@ In regulated industries, NewSQL databases offer advantages for [data governance]
 
 5. **Data Quality**: Monitor [data quality dimensions](https://conduktor.io/glossary/data-quality-dimensions-accuracy-completeness-and-consistency) (completeness, accuracy, consistency) as data flows from NewSQL sources through streaming pipelines.
 
-The combination of transactional guarantees in NewSQL and streaming governance creates end-to-end data integrity—from the database transaction log through Kafka topics to downstream consumers. Tools like Conduktor provide centralized governance for streaming platforms, offering policy enforcement, data lineage tracking, and compliance auditing across your entire NewSQL-to-stream-to-consumer pipeline.
+The combination of transactional guarantees in NewSQL and streaming governance creates end-to-end data integrity, from the database transaction log through Kafka topics to downstream consumers. Tools like Conduktor provide centralized governance for streaming platforms, offering policy enforcement, data lineage tracking, and compliance auditing across your entire NewSQL-to-stream-to-consumer pipeline.
 
 ## Conclusion
 
 NewSQL databases represent a significant evolution in database technology, eliminating the false choice between consistency and scalability. For real-time streaming architectures, they serve as reliable, scalable systems of record that can both source and sink event streams while maintaining strong transactional guarantees.
 
-The key is understanding when the trade-offs of NewSQL—typically slightly higher latency than pure NoSQL and higher cost than traditional single-server databases—are worth the benefits of distributed ACID transactions and horizontal scalability. For applications where correctness and consistency are paramount, but scale is essential, NewSQL databases are often the optimal choice.
+The key is understanding when the trade-offs of NewSQL, typically slightly higher latency than pure NoSQL and higher cost than traditional single-server databases, are worth the benefits of distributed ACID transactions and horizontal scalability. For applications where correctness and consistency are paramount, but scale is essential, NewSQL databases are often the optimal choice.
 
 ## Related Concepts
 

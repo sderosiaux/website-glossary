@@ -13,7 +13,7 @@ Real-time data warehousing has become a critical requirement for modern data-dri
 
 ## Understanding CDC in the Data Warehouse Context
 
-Change Data Capture is a design pattern that identifies and captures changes made to data in a database, then delivers those changes to downstream systems in real-time or near-real-time. Unlike traditional full-table extracts that read entire datasets repeatedly, CDC tracks only the incremental changes—inserts, updates, and deletes—making it highly efficient for data warehousing scenarios.
+Change Data Capture is a design pattern that identifies and captures changes made to data in a database, then delivers those changes to downstream systems in real-time or near-real-time. Unlike traditional full-table extracts that read entire datasets repeatedly, CDC tracks only the incremental changes, inserts, updates, and deletes, making it highly efficient for data warehousing scenarios.
 
 In a data warehouse context, CDC serves as the bridge between operational databases (OLTP - Online Transaction Processing systems optimized for transactional workloads) and analytical databases (OLAP - Online Analytical Processing systems optimized for complex queries and aggregations). By capturing changes at the source and streaming them to the warehouse, organizations can maintain synchronized, up-to-date analytical datasets without impacting source system performance or requiring large batch processing windows.
 
@@ -287,7 +287,7 @@ For detailed guidance on managing schema changes, see [Schema Evolution Best Pra
 
 ### Backpressure and Lag Management
 
-Monitor consumer lag between CDC event production and warehouse ingestion. High lag indicates **backpressure**—a condition where the warehouse or stream processor cannot keep up with the incoming change volume, causing events to accumulate in Kafka. Address this through:
+Monitor consumer lag between CDC event production and warehouse ingestion. High lag indicates **backpressure**, a condition where the warehouse or stream processor cannot keep up with the incoming change volume, causing events to accumulate in Kafka. Address this through:
 
 - **Horizontal scaling of stream processors**: Add more Flink task managers or Kafka Streams instances
 - **Warehouse optimization**: Improve clustering, partitioning, and indexing strategies

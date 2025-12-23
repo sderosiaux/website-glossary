@@ -52,7 +52,7 @@ USE CASES: Audit Trails • Debugging • Rollback • Compliance
 
 ## Understanding Iceberg Snapshots
 
-At the core of Iceberg's time travel functionality is its snapshot-based architecture. Every write operation—whether insert, update, delete, or merge—creates a new immutable snapshot of the table. Each snapshot represents a complete, consistent view of the table at that moment in time. This is conceptually similar to version control systems like Git, where each commit creates an immutable reference to the repository state.
+At the core of Iceberg's time travel functionality is its snapshot-based architecture. Every write operation, whether insert, update, delete, or merge, creates a new immutable snapshot of the table. Each snapshot represents a complete, consistent view of the table at that moment in time. This is conceptually similar to version control systems like Git, where each commit creates an immutable reference to the repository state.
 
 Unlike traditional data lakes where historical data requires manual versioning or external backup systems, Iceberg maintains this history automatically through its metadata layer. Each snapshot contains:
 
@@ -305,7 +305,7 @@ Apache Iceberg's time travel feature provides a robust foundation for querying h
 
 The combination of flexible query syntax (timestamp and snapshot-based), automatic snapshot management, and configurable retention policies makes Iceberg's time travel suitable for diverse use cases from development experimentation to regulatory compliance.
 
-As data volumes and regulatory requirements continue to grow, the ability to access and reason about historical data states becomes increasingly critical. Iceberg's approach—treating time travel as a first-class feature rather than an afterthought—positions it as a cornerstone technology for modern data platforms. For related data versioning patterns, see [Data Versioning in Streaming](https://conduktor.io/glossary/data-versioning-in-streaming).
+As data volumes and regulatory requirements continue to grow, the ability to access and reason about historical data states becomes increasingly critical. Iceberg's approach, treating time travel as a first-class feature rather than an afterthought, positions it as a cornerstone technology for modern data platforms. For related data versioning patterns, see [Data Versioning in Streaming](https://conduktor.io/glossary/data-versioning-in-streaming).
 
 ## Sources and References
 

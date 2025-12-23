@@ -86,7 +86,7 @@ Start with your throughput requirements. If you need to process 100 MB/s and eac
 - **Future growth**: Adding partitions later affects message ordering guarantees
 - **Cluster capabilities**: Kafka 4.0 with KRaft mode eliminates the ZooKeeper-era partition scaling limitations, supporting 100,000+ partitions per cluster efficiently
 
-**2025 Guidance**: Start with 12-30 partitions for production topics to allow for growth. The old conservative guidance of 6-12 partitions was based on ZooKeeper's metadata limitations, which no longer apply with KRaft. However, don't over-partition unnecessarily—each partition adds overhead for replication and broker management.
+**2025 Guidance**: Start with 12-30 partitions for production topics to allow for growth. The old conservative guidance of 6-12 partitions was based on ZooKeeper's metadata limitations, which no longer apply with KRaft. However, don't over-partition unnecessarily, each partition adds overhead for replication and broker management.
 
 For capacity planning and partition sizing calculations, refer to [Kafka Capacity Planning and Performance Tuning](https://conduktor.io/glossary/kafka-capacity-planning-performance-tuning).
 
@@ -342,9 +342,9 @@ Document these processes and enforce them through automation where possible.
 
 ### Logical Topics: Abstraction Layer for Topic Design Flexibility
 
-Conduktor's [Logical Topics](https://docs.conduktor.io/guide/conduktor-concepts/logical-topics) provide an abstraction layer that addresses common topic design challenges. **Alias Topics** solve Kafka's inability to rename topics—teams share topics using business-friendly names while maintaining internal conventions. **Concentrated Topics** dramatically reduce partition counts by co-locating multiple logical topics on a single physical topic (e.g., 4 regional topics with 400 partitions consolidate to 100 partitions, 75% reduction). **SQL Topics** enable filtering at the topic level using SQL WHERE clauses.
+Conduktor's [Logical Topics](https://docs.conduktor.io/guide/conduktor-concepts/logical-topics) provide an abstraction layer that addresses common topic design challenges. **Alias Topics** solve Kafka's inability to rename topics, teams share topics using business-friendly names while maintaining internal conventions. **Concentrated Topics** dramatically reduce partition counts by co-locating multiple logical topics on a single physical topic (e.g., 4 regional topics with 400 partitions consolidate to 100 partitions, 75% reduction). **SQL Topics** enable filtering at the topic level using SQL WHERE clauses.
 
-These abstractions reduce topic proliferation and partition overhead while maintaining logical separation for producers and consumers—particularly valuable for multi-tenant architectures or regional deployments.
+These abstractions reduce topic proliferation and partition overhead while maintaining logical separation for producers and consumers, particularly valuable for multi-tenant architectures or regional deployments.
 
 ## Connecting to Data Streaming Architecture
 

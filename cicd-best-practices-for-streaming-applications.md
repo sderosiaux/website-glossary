@@ -101,7 +101,7 @@ Modern testing frameworks for streaming applications include:
 
 State management and schema evolution are perhaps the most critical aspects of CI/CD for streaming applications.
 
-For **stateful applications**, deployments must preserve processing state. Apache Flink addresses this through savepoints—consistent snapshots of application state taken before deployment. For detailed information, see [Flink State Management and Checkpointing](https://conduktor.io/glossary/flink-state-management-and-checkpointing). A proper CI/CD pipeline should:
+For **stateful applications**, deployments must preserve processing state. Apache Flink addresses this through savepoints, consistent snapshots of application state taken before deployment. For detailed information, see [Flink State Management and Checkpointing](https://conduktor.io/glossary/flink-state-management-and-checkpointing). A proper CI/CD pipeline should:
 
 1. Trigger a savepoint before stopping the application
 2. Deploy the new version
@@ -113,7 +113,7 @@ Kafka Streams handles this through state stores and changelog topics. For more d
 
 - Use a schema registry (Confluent Schema Registry, AWS Glue Schema Registry) as the source of truth
 - Enforce compatibility rules (backward, forward, or full compatibility)
-- Include schema validation in CI pipelines—reject builds that introduce incompatible schemas
+- Include schema validation in CI pipelines, reject builds that introduce incompatible schemas
 - Version schemas alongside application code
 - Test both old and new schema versions in integration tests
 
@@ -142,7 +142,7 @@ For Kafka-based applications running in Kubernetes, use rolling updates with pro
 
 ## Infrastructure as Code and Environment Parity
 
-Streaming applications often involve complex infrastructure—Kafka clusters, schema registries, stream processing frameworks, and supporting databases. Managing this infrastructure manually across development, staging, and production environments leads to configuration drift and deployment failures.
+Streaming applications often involve complex infrastructure, Kafka clusters, schema registries, stream processing frameworks, and supporting databases. Managing this infrastructure manually across development, staging, and production environments leads to configuration drift and deployment failures.
 
 **Infrastructure as Code** (IaC) ensures consistency. For comprehensive guidance on Kafka deployments, see [Infrastructure as Code for Kafka Deployments](https://conduktor.io/glossary/infrastructure-as-code-for-kafka-deployments) and [Running Kafka on Kubernetes](https://conduktor.io/glossary/running-kafka-on-kubernetes). Use tools like:
 
@@ -211,7 +211,7 @@ Even with thorough testing, production monitoring is essential for validating de
 
 **Key metrics to monitor** include:
 
-- Consumer lag—indicates processing performance and potential bottlenecks (see [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring))
+- Consumer lag, indicates processing performance and potential bottlenecks (see [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring))
 - Error rates and dead letter queue volumes (see [Dead Letter Queues for Error Handling](https://conduktor.io/glossary/dead-letter-queues-for-error-handling))
 - Processing throughput (messages/second)
 - State store sizes (for stateful applications)
@@ -220,10 +220,10 @@ Even with thorough testing, production monitoring is essential for validating de
 
 Set up **automated validation** as part of deployments. After deploying a new version:
 
-1. Monitor consumer lag—it should decrease or remain stable
-2. Check error rates—spikes indicate bugs or incompatibilities
-3. Validate data quality—sample output messages to ensure correct processing
-4. Compare metrics against baseline—significant deviations warrant investigation
+1. Monitor consumer lag, it should decrease or remain stable
+2. Check error rates, spikes indicate bugs or incompatibilities
+3. Validate data quality, sample output messages to ensure correct processing
+4. Compare metrics against baseline, significant deviations warrant investigation
 
 **Alerting** should be deployment-aware. Configure alerts to be more sensitive immediately after deployments, when regressions are most likely.
 
@@ -244,12 +244,12 @@ CI/CD for streaming applications requires adapting traditional DevOps practices 
 
 Key best practices include:
 
-- **Implement multi-layered testing**—unit, integration, contract, and end-to-end tests specific to streaming patterns
-- **Manage state carefully**—use savepoints (Flink) or state stores (Kafka Streams) to preserve processing state across deployments
-- **Enforce schema compatibility**—integrate schema validation into CI pipelines and use schema registries
-- **Choose appropriate deployment patterns**—blue-green, canary, or rolling updates with savepoints depending on application requirements
-- **Use Infrastructure as Code**—maintain environment parity and version infrastructure alongside application code
-- **Monitor actively**—track streaming-specific metrics like consumer lag and validate deployments in production
+- **Implement multi-layered testing**, unit, integration, contract, and end-to-end tests specific to streaming patterns
+- **Manage state carefully**, use savepoints (Flink) or state stores (Kafka Streams) to preserve processing state across deployments
+- **Enforce schema compatibility**, integrate schema validation into CI pipelines and use schema registries
+- **Choose appropriate deployment patterns**, blue-green, canary, or rolling updates with savepoints depending on application requirements
+- **Use Infrastructure as Code**, maintain environment parity and version infrastructure alongside application code
+- **Monitor actively**, track streaming-specific metrics like consumer lag and validate deployments in production
 
 By following these practices, teams can achieve the same deployment velocity and reliability for streaming applications that they expect from traditional services, while respecting the unique requirements of event-driven architectures.
 

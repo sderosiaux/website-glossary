@@ -7,7 +7,7 @@ topics:
   - Security
 ---
 
-In traditional batch processing systems, data quality checks and governance controls are applied at specific points—before loading, after transformation, during validation phases. But streaming systems operate continuously, with events flowing through pipelines 24/7. This constant flow demands a different approach: **policy enforcement** that operates automatically, in real-time, as data moves through the system.
+In traditional batch processing systems, data quality checks and governance controls are applied at specific points, before loading, after transformation, during validation phases. But streaming systems operate continuously, with events flowing through pipelines 24/7. This constant flow demands a different approach: **policy enforcement** that operates automatically, in real-time, as data moves through the system.
 ![Multi-layer policy enforcement in streaming architectures](images/diagrams/policy-enforcement-in-streaming-0.webp)
 <!-- ORIGINAL_DIAGRAM
 ```
@@ -47,7 +47,7 @@ In traditional batch processing systems, data quality checks and governance cont
 ```
 -->
 
-Policy enforcement in streaming means applying rules, validations, and transformations automatically as events flow from producers to consumers. These policies ensure that every message meets quality standards, complies with security requirements, and follows organizational governance rules—without manual intervention and without slowing down the data pipeline.
+Policy enforcement in streaming means applying rules, validations, and transformations automatically as events flow from producers to consumers. These policies ensure that every message meets quality standards, complies with security requirements, and follows organizational governance rules, without manual intervention and without slowing down the data pipeline.
 
 **A simple example:** A policy might automatically reject any order event where the `order_amount` field is missing or negative, preventing downstream services from processing invalid data. Another policy might automatically mask credit card numbers in payment events before they reach analytics consumers, protecting sensitive data without requiring changes to producing applications.
 
@@ -71,19 +71,19 @@ Policies can be enforced at different locations in the streaming architecture, e
 
 ### Producer-Side Enforcement
 
-Implementing policies in producers—the applications generating events—provides the earliest point of validation. Producers can validate schemas, check data quality, and apply masking before sending events to the streaming platform.
+Implementing policies in producers, the applications generating events, provides the earliest point of validation. Producers can validate schemas, check data quality, and apply masking before sending events to the streaming platform.
 
 This approach prevents invalid data from ever entering the system. Failed validation can trigger immediate retries or error handling in the producing application. However, it requires implementing and maintaining policy logic across every producing service, leading to duplication and inconsistency risks.
 
 ### Broker-Side Enforcement
 
-Applying policies at the broker level—in the streaming platform itself—centralizes enforcement. Kafka brokers, for example, can validate schemas using Schema Registry integration, enforce quotas to prevent resource exhaustion, and apply retention policies to manage storage.
+Applying policies at the broker level, in the streaming platform itself, centralizes enforcement. Kafka brokers, for example, can validate schemas using Schema Registry integration, enforce quotas to prevent resource exhaustion, and apply retention policies to manage storage.
 
 Broker-side enforcement provides a single point of control, ensuring all data flowing through the platform meets standards regardless of producer implementation. But broker-level validation adds processing overhead and can create bottlenecks if not carefully designed.
 
 ### Consumer-Side Enforcement
 
-Policies enforced in consumers—the applications reading events—provide the final validation layer. Consumers can apply business-specific validation, perform additional transformations, or filter events based on their specific needs.
+Policies enforced in consumers, the applications reading events, provide the final validation layer. Consumers can apply business-specific validation, perform additional transformations, or filter events based on their specific needs.
 
 This approach allows different consumers to apply different policies to the same data stream. A analytics consumer might accept approximate data while a billing consumer requires exact values. However, consumer-side enforcement doesn't prevent invalid data from entering the system, and duplicating validation across consumers wastes resources.
 
@@ -99,7 +99,7 @@ Several technical approaches enable policy enforcement in streaming systems.
 
 Producer and consumer interceptors are plugins that execute automatically when messages are sent or received. An interceptor can inspect messages, modify them, record metrics, or reject invalid data.
 
-Interceptors operate within the client application but execute transparently—application code doesn't need explicit calls. A schema validation interceptor can verify every produced message against Schema Registry before allowing transmission. A masking interceptor can obscure sensitive fields in every consumed message before passing data to application logic.
+Interceptors operate within the client application but execute transparently, application code doesn't need explicit calls. A schema validation interceptor can verify every produced message against Schema Registry before allowing transmission. A masking interceptor can obscure sensitive fields in every consumed message before passing data to application logic.
 
 ### Single Message Transforms
 
@@ -204,7 +204,7 @@ This proxy-based architecture is particularly valuable in 2025 as organizations 
 
 Schema policies maintain structural integrity across the streaming platform.
 
-**Compatibility rules** prevent breaking changes. Backward compatibility ensures new schemas can read old data—critical when consumers haven't upgraded yet. Forward compatibility ensures old schemas can read new data—important when producers deploy first. Full compatibility requires both, while transitive variants extend compatibility across all historical versions. See [schema evolution best practices](https://conduktor.io/glossary/schema-evolution-best-practices) for detailed guidance.
+**Compatibility rules** prevent breaking changes. Backward compatibility ensures new schemas can read old data, critical when consumers haven't upgraded yet. Forward compatibility ensures old schemas can read new data, important when producers deploy first. Full compatibility requires both, while transitive variants extend compatibility across all historical versions. See [schema evolution best practices](https://conduktor.io/glossary/schema-evolution-best-practices) for detailed guidance.
 
 **Required fields** ensure critical data is always present. Marking fields as required in [Avro, Protobuf, or JSON Schema](https://conduktor.io/glossary/avro-vs-protobuf-vs-json-schema) prevents producers from omitting essential information.
 
@@ -220,7 +220,7 @@ Security policies protect sensitive data as it flows through streaming systems.
 
 **Field-level masking** obscures sensitive data based on rules. A policy might mask credit card numbers for all consumers except payment processing services, or hash email addresses for analytics while providing plaintext to customer communication systems.
 
-**Field-level encryption** protects sensitive data end-to-end, even from platform administrators. Modern approaches use envelope encryption where data encryption keys (DEKs) encrypt individual fields, and key encryption keys (KEKs) stored in key management services (like AWS KMS or HashiCorp Vault) protect the DEKs. This enables selective decryption—only consumers with appropriate KEK access can decrypt specific fields, while the streaming platform handles encrypted data opaquely.
+**Field-level encryption** protects sensitive data end-to-end, even from platform administrators. Modern approaches use envelope encryption where data encryption keys (DEKs) encrypt individual fields, and key encryption keys (KEKs) stored in key management services (like AWS KMS or HashiCorp Vault) protect the DEKs. This enables selective decryption, only consumers with appropriate KEK access can decrypt specific fields, while the streaming platform handles encrypted data opaquely.
 
 **Access control policies** define who can produce to or consume from topics. Combined with authentication and authorization mechanisms like SASL (Simple Authentication and Security Layer) and ACLs (Access Control Lists), these policies enforce principle of least privilege, ensuring services access only the data they need.
 
@@ -280,7 +280,7 @@ test_payment_topic_access {
 
 Modern streaming platforms require policy enforcement mechanisms that operate at scale without requiring changes to applications. Conduktor Traffic Control Policies provide a centralized framework for enforcing rate limits (producer/consumer throughput, connection limits), configuration policies (replication factors, retention periods, schema requirements), and access control policies (read-only access, client ID requirements) through automated rules that intercept traffic at the gateway layer.
 
-The key advantage is centralized enforcement without application modification—policies apply across all producers and consumers automatically. Configuration policies shift enforcement from documentation to automated validation, eliminating configuration drift. Traffic Control Policies integrate with policy-as-code workflows through version-controlled configuration deployed via CI/CD. For implementation guidance, see [Traffic Control Policies](https://docs.conduktor.io/guide/conduktor-concepts/traffic-control-policies).
+The key advantage is centralized enforcement without application modification, policies apply across all producers and consumers automatically. Configuration policies shift enforcement from documentation to automated validation, eliminating configuration drift. Traffic Control Policies integrate with policy-as-code workflows through version-controlled configuration deployed via CI/CD. For implementation guidance, see [Traffic Control Policies](https://docs.conduktor.io/guide/conduktor-concepts/traffic-control-policies).
 
 ## Balancing Enforcement and Performance
 
@@ -294,9 +294,9 @@ Policy enforcement introduces processing overhead. Each validation, transformati
 
 ## Conclusion
 
-Policy enforcement transforms streaming platforms from simple message buses into governed data infrastructures. Automated policies ensure data quality, enforce security requirements, and maintain operational health—all in real-time, without manual intervention.
+Policy enforcement transforms streaming platforms from simple message buses into governed data infrastructures. Automated policies ensure data quality, enforce security requirements, and maintain operational health, all in real-time, without manual intervention.
 
-Effective policy enforcement combines technical implementation with organizational process. Policies must be designed thoughtfully, considering both governance needs and system performance. They should be expressed declaratively, versioned like code, and deployed through automated pipelines. Enforcement should happen at appropriate points in the architecture—broker-side for universal rules, producer-side for early validation, consumer-side for specific needs.
+Effective policy enforcement combines technical implementation with organizational process. Policies must be designed thoughtfully, considering both governance needs and system performance. They should be expressed declaratively, versioned like code, and deployed through automated pipelines. Enforcement should happen at appropriate points in the architecture, broker-side for universal rules, producer-side for early validation, consumer-side for specific needs.
 
 As streaming systems grow in scale and importance, robust policy enforcement becomes essential. It's the foundation for trustworthy real-time data, enabling organizations to move fast while maintaining control, to democratize data access while protecting privacy, and to meet compliance obligations without sacrificing agility.
 

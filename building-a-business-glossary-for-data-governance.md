@@ -39,7 +39,7 @@ In the complex landscape of modern data management, one of the most persistent c
 ```
 -->
 
-A business glossary is more than a simple dictionary of terms. It's a living, governed repository that defines business concepts, their relationships, and their mappings to physical data assets. While a data dictionary focuses on technical metadata—column names, data types, and constraints—a business glossary operates at a higher level of abstraction, capturing the meaning and context that data holds within your organization.
+A business glossary is more than a simple dictionary of terms. It's a living, governed repository that defines business concepts, their relationships, and their mappings to physical data assets. While a data dictionary focuses on technical metadata, column names, data types, and constraints, a business glossary operates at a higher level of abstraction, capturing the meaning and context that data holds within your organization.
 
 Business glossaries are typically managed within data catalogs, which provide the technical infrastructure for discovery, search, and governance. For an overview of modern data catalog capabilities, see [What is a Data Catalog? Modern Data Discovery](https://conduktor.io/glossary/what-is-a-data-catalog-modern-data-discovery).
 
@@ -49,7 +49,7 @@ For instance, "customer" might mean different things across departments. Marketi
 
 ### Business Terms and Definitions
 
-Each term in your glossary should include a clear, agreed-upon definition that reflects how your organization uses the concept. Avoid technical jargon in these definitions—they should be understandable to business stakeholders. Include context about when and how the term applies, along with any specific business rules or calculations.
+Each term in your glossary should include a clear, agreed-upon definition that reflects how your organization uses the concept. Avoid technical jargon in these definitions, they should be understandable to business stakeholders. Include context about when and how the term applies, along with any specific business rules or calculations.
 
 ### Relationships and Hierarchies
 
@@ -71,7 +71,7 @@ For detailed guidance on establishing roles and responsibilities, see [Data Gove
 
 ### Start with High-Impact Terms
 
-Don't attempt to catalog your entire organizational vocabulary at once. Begin with the terms that appear most frequently in critical business processes, reports, and decisions. Focus on areas where misalignment has caused concrete problems—missed targets, compliance issues, or conflicting analytics.
+Don't attempt to catalog your entire organizational vocabulary at once. Begin with the terms that appear most frequently in critical business processes, reports, and decisions. Focus on areas where misalignment has caused concrete problems, missed targets, compliance issues, or conflicting analytics.
 
 Conduct workshops with cross-functional teams to document these terms. These sessions often reveal surprising discrepancies in understanding and provide opportunities to build consensus early.
 
@@ -100,7 +100,7 @@ The value of your business glossary multiplies when integrated with your technic
 - **AWS Glue Data Catalog**: Native integration with AWS services and Lake Formation
 - **Google Cloud Data Catalog**: Automatic discovery and tagging with Data Loss Prevention (DLP)
 
-These platforms automatically link business terms to database schemas, data warehouse models, BI dashboards, and streaming topics. This integration enables impact analysis—when a business term changes, you can immediately see which reports, dashboards, pipelines, and systems are affected.
+These platforms automatically link business terms to database schemas, data warehouse models, BI dashboards, and streaming topics. This integration enables impact analysis, when a business term changes, you can immediately see which reports, dashboards, pipelines, and systems are affected.
 
 For detailed coverage of technical versus business metadata and their relationship, see [Metadata Management: Technical vs Business Metadata](https://conduktor.io/glossary/metadata-management-technical-vs-business-metadata).
 
@@ -220,7 +220,7 @@ Each data domain (e.g., Customer, Product, Finance) maintains its own glossary o
 - **Local definitions**: How the domain interprets shared concepts
 - **Domain data products**: Business meaning of published data products
 
-For example, the Customer domain defines "Customer Lifetime Value" while the Finance domain defines "Revenue Recognition Period"—both valid within their contexts.
+For example, the Customer domain defines "Customer Lifetime Value" while the Finance domain defines "Revenue Recognition Period", both valid within their contexts.
 
 ### Global Enterprise Glossary
 
@@ -306,7 +306,7 @@ The landscape has evolved significantly in 2025. Modern glossary platforms lever
 
 Start small with high-impact terms, establish clear governance workflows, integrate deeply with your technical infrastructure through modern data catalog platforms, and leverage AI to accelerate glossary population and maintenance. Whether your data flows through traditional databases, cloud data warehouses, or real-time streaming platforms like Kafka, a well-maintained business glossary ensures everyone in your organization speaks the same language when it comes to data.
 
-For data governance officers and business analysts, the glossary becomes both a reference tool and a collaboration platform—a shared space where business meaning and technical implementation meet, enabling data-driven decisions grounded in common understanding.
+For data governance officers and business analysts, the glossary becomes both a reference tool and a collaboration platform, a shared space where business meaning and technical implementation meet, enabling data-driven decisions grounded in common understanding.
 
 ## Related Concepts
 

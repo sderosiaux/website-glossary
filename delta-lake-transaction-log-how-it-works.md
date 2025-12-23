@@ -95,7 +95,7 @@ When a writer wants to commit changes:
 ```
 -->
 
-The atomicity guarantee comes from cloud storage's conditional PUT operations (e.g., S3's PUT-if-absent, ADLS's create-if-not-exists). These operations either fully succeed or fully fail—there's no in-between state where a file is "partially written." When S3 receives two simultaneous PUT-if-absent requests for the same file, exactly one succeeds and the other fails immediately. The failed writer detects the conflict, re-validates against the new state, and retries if the operation is still valid.
+The atomicity guarantee comes from cloud storage's conditional PUT operations (e.g., S3's PUT-if-absent, ADLS's create-if-not-exists). These operations either fully succeed or fully fail, there's no in-between state where a file is "partially written." When S3 receives two simultaneous PUT-if-absent requests for the same file, exactly one succeeds and the other fails immediately. The failed writer detects the conflict, re-validates against the new state, and retries if the operation is still valid.
 
 ### Multi-Statement Transactions (Delta 3.0+)
 
@@ -486,7 +486,7 @@ The `add` actions include per-file statistics in the `stats` field:
 
 These statistics enable data skipping: when a query filters on `id = 5000`, Delta Lake reads the transaction log, checks the min/max statistics, and skips files where `5000 < minValues.id` or `5000 > maxValues.id`. This dramatically reduces the amount of data scanned, improving query performance without requiring manual partition management.
 
-For example, if you query `WHERE date = '2025-01-15'` on a table with a year of data, Delta Lake checks the min/max statistics and only reads files containing January 15 data—potentially skipping 99% of files in the dataset. In practice, data skipping can reduce query times from minutes to seconds, and I/O costs by 10-100x depending on query selectivity.
+For example, if you query `WHERE date = '2025-01-15'` on a table with a year of data, Delta Lake checks the min/max statistics and only reads files containing January 15 data, potentially skipping 99% of files in the dataset. In practice, data skipping can reduce query times from minutes to seconds, and I/O costs by 10-100x depending on query selectivity.
 
 ### Deletion Vectors: Efficient Row-Level Operations
 

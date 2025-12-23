@@ -86,21 +86,21 @@ Streaming SLAs encompass multiple dimensions, each addressing a different aspect
 
 **End-to-end latency** measures the time from when a producer publishes a message until a consumer successfully processes it. This includes network transmission, broker processing, consumer polling, and application logic. Organizations typically commit to latency targets like "95% of messages processed within 500ms" or "99th percentile latency under 2 seconds."
 
-Latency SLAs must account for the entire pipeline, not just individual components. A message might spend 10ms in the broker, 50ms in network transit, and 200ms in consumer processing—each contributing to the total latency that matters to end users. For detailed guidance on tracking data freshness and latency as part of SLA management, see [Data Freshness Monitoring and SLA Management](https://conduktor.io/glossary/data-freshness-monitoring-sla-management).
+Latency SLAs must account for the entire pipeline, not just individual components. A message might spend 10ms in the broker, 50ms in network transit, and 200ms in consumer processing, each contributing to the total latency that matters to end users. For detailed guidance on tracking data freshness and latency as part of SLA management, see [Data Freshness Monitoring and SLA Management](https://conduktor.io/glossary/data-freshness-monitoring-sla-management).
 
 ### Throughput Commitments
 
 **Throughput** defines the volume of data the system can handle, typically measured in messages per second or megabytes per second. A throughput SLA might guarantee "support for 100,000 messages/second during peak hours" or "handle 500 MB/s sustained ingestion."
 
-Throughput SLAs protect against system overload and ensure adequate capacity for business operations. They often include provisions for burst capacity—temporarily handling higher loads—and degradation policies when limits are exceeded.
+Throughput SLAs protect against system overload and ensure adequate capacity for business operations. They often include provisions for burst capacity, temporarily handling higher loads, and degradation policies when limits are exceeded.
 
 ### Availability Targets
 
 **Availability** measures the percentage of time the streaming system is operational and accepting data. Common targets include 99.9% uptime (roughly 8.7 hours of downtime per year) or 99.99% (52 minutes annually).
 
-For streaming systems, availability means more than just "the broker is running." It includes the ability to publish messages, consume them, and maintain topic metadata. Partial outages—where some topics work but others don't—must be factored into availability calculations.
+For streaming systems, availability means more than just "the broker is running." It includes the ability to publish messages, consume them, and maintain topic metadata. Partial outages, where some topics work but others don't, must be factored into availability calculations.
 
-With **Kafka 4.0's KRaft architecture** (removing ZooKeeper dependency), availability SLAs become simpler to guarantee and monitor. KRaft eliminates an entire failure domain—the separate ZooKeeper ensemble—reducing the "infrastructure is running but metadata is inaccessible" failure mode that complicated traditional Kafka availability calculations. This architectural improvement makes it easier to achieve and verify high-availability targets. For details on KRaft's benefits, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka).
+With **Kafka 4.0's KRaft architecture** (removing ZooKeeper dependency), availability SLAs become simpler to guarantee and monitor. KRaft eliminates an entire failure domain, the separate ZooKeeper ensemble, reducing the "infrastructure is running but metadata is inaccessible" failure mode that complicated traditional Kafka availability calculations. This architectural improvement makes it easier to achieve and verify high-availability targets. For details on KRaft's benefits, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka).
 
 ### Durability and Retention
 
@@ -121,7 +121,7 @@ Simple averages obscure the user experience. A system with 50ms average latency 
 - **p99**: Captures outliers affecting 1 in 100 requests
 - **p999**: Extreme outliers, critical for high-volume systems
 
-**Concrete example**: In a system processing 1 million messages per hour, a p99 < 100ms target means 990,000 messages complete within 100ms, while up to 10,000 messages may take longer. For critical applications, this means understanding that even with excellent p99 performance, some requests will exceed targets—requiring careful SLA design and error handling.
+**Concrete example**: In a system processing 1 million messages per hour, a p99 < 100ms target means 990,000 messages complete within 100ms, while up to 10,000 messages may take longer. For critical applications, this means understanding that even with excellent p99 performance, some requests will exceed targets, requiring careful SLA design and error handling.
 
 Most organizations commit to p95 or p99 latencies, balancing user experience with achievability. Banking systems might target p99 < 100ms, while analytics pipelines might accept p95 < 5s.
 
@@ -234,7 +234,7 @@ For broader context on monitoring streaming data quality and performance, see [W
 
 ### Integration with Data Contracts
 
-Governance platforms integrate SLAs into **data contracts**—formal agreements about data structure, quality, and delivery guarantees. Modern platforms like Conduktor and data catalog tools allow teams to codify SLA commitments as machine-readable contracts. For comprehensive coverage of data contracts, see [Data Contracts for Reliable Pipelines](https://conduktor.io/glossary/data-contracts-for-reliable-pipelines).
+Governance platforms integrate SLAs into **data contracts**, formal agreements about data structure, quality, and delivery guarantees. Modern platforms like Conduktor and data catalog tools allow teams to codify SLA commitments as machine-readable contracts. For comprehensive coverage of data contracts, see [Data Contracts for Reliable Pipelines](https://conduktor.io/glossary/data-contracts-for-reliable-pipelines).
 
 Here's an example of how SLAs are specified in a data contract:
 
@@ -252,7 +252,7 @@ This codifies expectations and enables automated compliance checking, with monit
 
 ### Data Products and SLAs
 
-When streaming data is packaged as **data products**—self-contained datasets with clear ownership and SLAs—streaming guarantees become product features. The payment-events product promises specific latency and availability, just like an API promises response times. For comprehensive guidance on building data products with built-in SLA guarantees, see [Building and Managing Data Products](https://conduktor.io/glossary/building-and-managing-data-products).
+When streaming data is packaged as **data products**, self-contained datasets with clear ownership and SLAs, streaming guarantees become product features. The payment-events product promises specific latency and availability, just like an API promises response times. For comprehensive guidance on building data products with built-in SLA guarantees, see [Building and Managing Data Products](https://conduktor.io/glossary/building-and-managing-data-products).
 
 This shift elevates streaming infrastructure from invisible plumbing to managed services with clear value propositions.
 
@@ -283,7 +283,7 @@ Streaming SLAs transform real-time data platforms from best-effort systems into 
 
 As streaming systems mature and become central to business operations, SLA requirements will continue to evolve. Organizations that invest in robust SLA frameworks today position themselves to meet tomorrow's demands for faster, more reliable, and more compliant real-time data processing.
 
-The difference between a streaming platform and a **trusted streaming platform** often comes down to one thing: keeping your promises. SLAs are how you make—and measure—those promises.
+The difference between a streaming platform and a **trusted streaming platform** often comes down to one thing: keeping your promises. SLAs are how you make, and measure, those promises.
 
 ## Related Concepts
 

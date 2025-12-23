@@ -76,7 +76,7 @@ Service Level Agreements for data freshness should be derived from business requ
 - Processing latency: < 30 seconds (p95)
 - End-to-end freshness: < 60 seconds (p95)
 
-The percentile notation (p95, p99) indicates that the specified percentage of requests must meet the target. p95 means 95 out of 100 events arrive within the threshold, while allowing 5% outliers. This is more realistic than requiring 100% compliance, which would force you to design for worst-case scenarios. Using p99 (99th percentile) is stricter—only 1% of events can exceed the threshold—appropriate for critical use cases like fraud detection.
+The percentile notation (p95, p99) indicates that the specified percentage of requests must meet the target. p95 means 95 out of 100 events arrive within the threshold, while allowing 5% outliers. This is more realistic than requiring 100% compliance, which would force you to design for worst-case scenarios. Using p99 (99th percentile) is stricter, only 1% of events can exceed the threshold, appropriate for critical use cases like fraud detection.
 
 Each component contributes to the overall SLA, and monitoring each stage helps isolate issues quickly.
 
@@ -163,7 +163,7 @@ This approach provides granular visibility into where latency accumulates, enabl
 
 ### Streaming Integration Monitoring
 
-For Kafka-based architectures, consumer lag is your primary freshness indicator—it measures how far behind consumers are from the latest messages in a topic. Modern monitoring tools provide real-time visibility into consumer group lag across all topics and partitions. When lag increases, it signals that consumers can't keep pace with producers, directly impacting data freshness.
+For Kafka-based architectures, consumer lag is your primary freshness indicator, it measures how far behind consumers are from the latest messages in a topic. Modern monitoring tools provide real-time visibility into consumer group lag across all topics and partitions. When lag increases, it signals that consumers can't keep pace with producers, directly impacting data freshness.
 
 **Modern Kafka Monitoring Tools (2025)**
 
@@ -382,7 +382,7 @@ Long-term improvements address systemic issues:
 
 Technical solutions alone don't ensure fresh data. Organizational practices matter:
 
-**SLA documentation** should be centralized, version-controlled, and accessible to both engineering and business stakeholders. When everyone understands the commitments, they can make informed decisions about dependencies. Consider incorporating freshness SLAs into your data contracts—explicit agreements between data producers and consumers. For detailed guidance, see [Data Contracts for Reliable Pipelines](https://conduktor.io/glossary/data-contracts-for-reliable-pipelines).
+**SLA documentation** should be centralized, version-controlled, and accessible to both engineering and business stakeholders. When everyone understands the commitments, they can make informed decisions about dependencies. Consider incorporating freshness SLAs into your data contracts, explicit agreements between data producers and consumers. For detailed guidance, see [Data Contracts for Reliable Pipelines](https://conduktor.io/glossary/data-contracts-for-reliable-pipelines).
 
 **Regular SLA reviews** adapt targets as business needs evolve. Quarterly reviews assess whether SLAs remain relevant and achievable.
 
@@ -392,7 +392,7 @@ Technical solutions alone don't ensure fresh data. Organizational practices matt
 
 Data freshness monitoring and SLA management transform data engineering from reactive fire-fighting to proactive reliability engineering. By defining business-driven SLAs, implementing comprehensive monitoring across batch and streaming pipelines, and building systematic response processes, you ensure that data arrives when it's needed, not just eventually.
 
-The investment in freshness monitoring pays dividends beyond meeting SLAs. It provides early warning of capacity issues, validates architectural decisions, and builds trust with data consumers. In an era where real-time decision-making increasingly drives competitive advantage, fresh data isn't optional—it's fundamental.
+The investment in freshness monitoring pays dividends beyond meeting SLAs. It provides early warning of capacity issues, validates architectural decisions, and builds trust with data consumers. In an era where real-time decision-making increasingly drives competitive advantage, fresh data isn't optional, it's fundamental.
 
 As you implement these practices, remember that perfection is iterative. Start with your most critical pipelines, establish baseline SLAs, and gradually expand coverage. Leverage modern tools like Kafka Lag Exporter for streaming lag visibility, dbt for warehouse freshness checks, Great Expectations or Soda Core for automated validation, and enterprise platforms like Monte Carlo for ML-powered anomaly detection. With proper monitoring tools providing visibility into streaming infrastructure and a culture of freshness-awareness, you'll build data systems that consistently deliver timely, reliable insights.
 

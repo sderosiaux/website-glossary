@@ -21,7 +21,7 @@ This approach provides several benefits: complete audit trails, temporal queries
 
 ## Why Kafka Excels at Event Sourcing
 
-Apache Kafka's architecture aligns naturally with event sourcing principles. Kafka topics function as distributed, durable, append-only logs—exactly what event sourcing requires. Modern Kafka deployments (Kafka 4.0+) use KRaft consensus for metadata management, eliminating ZooKeeper dependencies and simplifying operational complexity for event-sourced systems.
+Apache Kafka's architecture aligns naturally with event sourcing principles. Kafka topics function as distributed, durable, append-only logs, exactly what event sourcing requires. Modern Kafka deployments (Kafka 4.0+) use KRaft consensus for metadata management, eliminating ZooKeeper dependencies and simplifying operational complexity for event-sourced systems.
 
 Key Kafka features that support event sourcing include:
 

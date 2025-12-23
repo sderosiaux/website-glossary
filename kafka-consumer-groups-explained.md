@@ -18,7 +18,7 @@ For foundational understanding of Kafka's architecture including topics, partiti
 
 A consumer group is a collection of consumers that work together to consume messages from one or more Kafka topics. Each consumer in the group is assigned a subset of the topic's partitions, ensuring that no two consumers in the same group read from the same partition simultaneously.
 
-The key benefit is parallel processing. Instead of a single consumer reading all messages sequentially, multiple consumers can process different partitions concurrently. This approach scales horizontally—add more consumers to handle increased throughput. For a broader overview of how consumers and producers work together, see [Kafka Producers and Consumers](https://conduktor.io/glossary/kafka-producers-and-consumers).
+The key benefit is parallel processing. Instead of a single consumer reading all messages sequentially, multiple consumers can process different partitions concurrently. This approach scales horizontally, add more consumers to handle increased throughput. For a broader overview of how consumers and producers work together, see [Kafka Producers and Consumers](https://conduktor.io/glossary/kafka-producers-and-consumers).
 
 Kafka tracks which messages each consumer group has processed by storing offsets in a special internal topic called `__consumer_offsets`. Think of this as a ledger that records "Consumer Group A has processed messages up to offset 1000 on partition 0." This allows consumers to resume from where they left off after a restart or failure.
 
@@ -83,7 +83,7 @@ consumer.subscribe(Arrays.asList("user-events"));
 ```
 -->
 
-Consider a topic with six partitions and three consumers in the same group. Each consumer might receive two partitions. If you add a fourth consumer, the partitions are redistributed—perhaps three consumers get two partitions each, and one gets none. If you have more consumers than partitions, the extra consumers remain idle.
+Consider a topic with six partitions and three consumers in the same group. Each consumer might receive two partitions. If you add a fourth consumer, the partitions are redistributed, perhaps three consumers get two partitions each, and one gets none. If you have more consumers than partitions, the extra consumers remain idle.
 
 Common assignment strategies include:
 
@@ -153,7 +153,7 @@ This pattern is rare and typically indicates an architectural concern. Consider 
 
 ## Monitoring Consumer Groups
 
-Effective monitoring is critical for operating consumer groups in production. The most important metric is consumer lag—the difference between the latest message offset in a partition and the consumer's committed offset.
+Effective monitoring is critical for operating consumer groups in production. The most important metric is consumer lag, the difference between the latest message offset in a partition and the consumer's committed offset.
 
 For example, if a partition's latest offset is 10,000 but your consumer has only committed offset 9,200, your lag is 800 messages. If that number keeps growing, your consumer is falling behind.
 
@@ -174,7 +174,7 @@ For detailed coverage of consumer lag monitoring strategies and metrics collecti
 
 ### Rebalancing Storms
 
-Misconfigured session timeouts can cause cascading failures. If processing a single message takes longer than the session timeout, the consumer is kicked out, triggering a rebalance. When it rejoins, the cycle repeats—a rebalancing storm.
+Misconfigured session timeouts can cause cascading failures. If processing a single message takes longer than the session timeout, the consumer is kicked out, triggering a rebalance. When it rejoins, the cycle repeats, a rebalancing storm.
 
 Set `session.timeout.ms` higher than your maximum expected processing time, or process messages asynchronously. Use `max.poll.interval.ms` to control how long consumers can spend in processing loops. Consider using static membership (`group.instance.id`) to reduce rebalance sensitivity during restarts.
 

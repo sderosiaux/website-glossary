@@ -15,7 +15,7 @@ Choosing the right stream processing framework is a critical architectural decis
 
 ### Apache Flink: True Stream Processing
 
-Apache Flink 1.18+ treats streaming as the primary processing model, with batch processing as a special case of streaming. Every event flows through the system individually, processed by stateful operators that maintain consistency through distributed snapshots (checkpoints—periodic state backups for recovery).
+Apache Flink 1.18+ treats streaming as the primary processing model, with batch processing as a special case of streaming. Every event flows through the system individually, processed by stateful operators that maintain consistency through distributed snapshots (checkpoints, periodic state backups for recovery).
 ![flink-vs-spark-streaming-when-to-choose-each diagram 1](images/diagrams/flink-vs-spark-streaming-when-to-choose-each-0.webp)
 <!-- ORIGINAL_DIAGRAM
 ```
@@ -77,7 +77,7 @@ Spark's architecture features:
 
 ### Latency Deep Dive
 
-Flink achieves lower latency because it processes events immediately upon arrival. A single record triggers computation through the pipeline without waiting for a batch to fill. This makes Flink ideal for applications where every millisecond matters—fraud detection, real-time recommendations, or IoT control systems.
+Flink achieves lower latency because it processes events immediately upon arrival. A single record triggers computation through the pipeline without waiting for a batch to fill. This makes Flink ideal for applications where every millisecond matters, fraud detection, real-time recommendations, or IoT control systems.
 
 Spark Streaming's micro-batch approach introduces inherent latency equal to the batch interval. Even with intervals as low as one second, this represents a 1000ms minimum latency floor. The tradeoff enables higher throughput optimization and simpler recovery semantics.
 
@@ -140,7 +140,7 @@ Spark's DataFrame API abstracts complexity, making it easier for SQL-oriented te
 
 Both frameworks integrate with YARN, Kubernetes, and standalone cluster managers. Flink's task slot model enables fine-grained resource allocation per operator (each processing step can have its own resources). Spark's executor model aligns naturally with batch workloads but adapts well to streaming.
 
-Flink excels at rescaling stateful applications—you can change parallelism (the number of parallel instances processing data) and redistribute state automatically. Spark streaming applications require more careful planning around state checkpointing during scaling operations.
+Flink excels at rescaling stateful applications, you can change parallelism (the number of parallel instances processing data) and redistribute state automatically. Spark streaming applications require more careful planning around state checkpointing during scaling operations.
 
 ### Monitoring and Observability
 
@@ -150,7 +150,7 @@ Conduktor provides unified monitoring and management capabilities across stream 
 
 ## Integration with Data Governance
 
-Stream processing doesn't exist in isolation—it's part of a broader data platform requiring governance, quality controls, and operational oversight. Both Flink and Spark benefit from centralized data governance tools like Conduktor that:
+Stream processing doesn't exist in isolation, it's part of a broader data platform requiring governance, quality controls, and operational oversight. Both Flink and Spark benefit from centralized data governance tools like Conduktor that:
 - Monitor stream processing applications alongside Kafka infrastructure (see [Kafka Cluster Monitoring and Metrics](https://conduktor.io/glossary/kafka-cluster-monitoring-and-metrics))
 - Enforce schema governance and data quality rules (see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management))
 - Track data lineage (the path data takes from source through transformations to destination) from source through stream processing to sinks
@@ -212,7 +212,7 @@ Apache Flink and Apache Spark Streaming represent different approaches to stream
 
 For real-time applications demanding minimal latency and complex stateful operations, Flink excels. For organizations with existing Spark infrastructure seeking to add streaming capabilities with second-level latency tolerance, Spark Streaming provides a natural extension.
 
-The most successful data platforms often employ both frameworks strategically—Flink for low-latency critical paths and Spark for high-throughput analytics pipelines. Unified governance and monitoring tools enable teams to operate hybrid environments effectively, maintaining visibility and control regardless of the underlying processing technology.
+The most successful data platforms often employ both frameworks strategically, Flink for low-latency critical paths and Spark for high-throughput analytics pipelines. Unified governance and monitoring tools enable teams to operate hybrid environments effectively, maintaining visibility and control regardless of the underlying processing technology.
 
 ## Related Concepts
 

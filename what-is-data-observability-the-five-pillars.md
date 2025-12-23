@@ -4,7 +4,7 @@ description: "Learn the fundamental pillars of data observability and how they h
 topics: ["Data Observability", "Data Freshness", "Data Volume", "Schema Changes", "Data Reliability"]
 ---
 
-As data systems grow in complexity, organizations face an increasing challenge: how do you ensure your data pipelines are healthy, reliable, and delivering trustworthy data? This is where **data observability** comes in—a critical practice for modern data engineering that helps teams understand the health of their data systems in real-time.
+As data systems grow in complexity, organizations face an increasing challenge: how do you ensure your data pipelines are healthy, reliable, and delivering trustworthy data? This is where **data observability** comes in, a critical practice for modern data engineering that helps teams understand the health of their data systems in real-time.
 ![The five pillars of data observability](images/diagrams/what-is-data-observability-the-five-pillars-0.webp)
 <!-- ORIGINAL_DIAGRAM
 ```
@@ -48,13 +48,13 @@ IMPLEMENTATION: Monitoring • Alerting • Incident Response • Automation
 
 ## Understanding Data Observability
 
-Data observability is the ability to understand the health and state of data in your system by monitoring, tracking, and troubleshooting anomalies across your data pipelines. Think of it as DevOps observability applied to data—just as DevOps teams monitor application performance, memory usage, and error rates, data teams need visibility into their data flows.
+Data observability is the ability to understand the health and state of data in your system by monitoring, tracking, and troubleshooting anomalies across your data pipelines. Think of it as DevOps observability applied to data, just as DevOps teams monitor application performance, memory usage, and error rates, data teams need visibility into their data flows.
 
 For Data Engineers, Platform Engineers, and Data Architects, observability isn't just about detecting when something breaks. It's about understanding *why* it broke, *where* the issue originated, and *how* to prevent it from happening again. In modern architectures that combine batch processing with real-time streaming platforms like Apache Kafka, this becomes even more critical.
 
 ## The Five Pillars of Data Observability
 
-Data observability rests on five fundamental pillars that together provide comprehensive visibility into your data ecosystem. These five dimensions emerged from production experience monitoring thousands of data pipelines—they represent the most common failure modes and the metrics that provide the earliest warning signals when problems arise.
+Data observability rests on five fundamental pillars that together provide comprehensive visibility into your data ecosystem. These five dimensions emerged from production experience monitoring thousands of data pipelines, they represent the most common failure modes and the metrics that provide the earliest warning signals when problems arise.
 
 Unlike traditional monitoring that focuses solely on infrastructure (CPU, memory, disk), data observability monitors the data itself. The five pillars answer the essential questions every data team needs to confidently trust their pipelines: Is the data arriving on time? Is there the right amount? Has the structure changed? Are the values sensible? And where did it come from?
 
@@ -64,7 +64,7 @@ Let's explore each pillar in detail.
 
 **Data freshness** answers the question: "Is my data arriving on time?"
 
-In streaming architectures, freshness is paramount. If your Apache Kafka topics aren't receiving data at the expected rate, or if your consumers are lagging behind, downstream applications and analytics will work with stale data—leading to poor decision-making.
+In streaming architectures, freshness is paramount. If your Apache Kafka topics aren't receiving data at the expected rate, or if your consumers are lagging behind, downstream applications and analytics will work with stale data, leading to poor decision-making.
 
 Monitoring freshness involves:
 - Tracking the time gap between when data is produced and when it's available for consumption
@@ -126,7 +126,7 @@ To understand the full spectrum of data quality dimensions and how distribution 
 
 **Data lineage** answers: "Where did this data come from, and what depends on it?"
 
-Understanding the full journey of data—from source to destination—is crucial for root cause analysis and impact assessment. When issues occur, lineage helps you trace problems back to their origin and understand which downstream systems are affected.
+Understanding the full journey of data, from source to destination, is crucial for root cause analysis and impact assessment. When issues occur, lineage helps you trace problems back to their origin and understand which downstream systems are affected.
 
 Lineage capabilities include:
 - Mapping data flows across producers, topics, processors, and consumers
@@ -162,7 +162,7 @@ The data observability ecosystem has matured significantly, offering both open-s
 
 **Streaming Platform Management:**
 
-For organizations running Apache Kafka, **Conduktor** provides enterprise-grade observability specifically designed for streaming architectures. Conduktor automatically discovers and visualizes the complete Kafka topology—topics, connectors, stream processors, consumer groups—while providing:
+For organizations running Apache Kafka, **Conduktor** provides enterprise-grade observability specifically designed for streaming architectures. Conduktor automatically discovers and visualizes the complete Kafka topology, topics, connectors, stream processors, consumer groups, while providing:
 - Real-time monitoring of topic health, consumer lag, and throughput via the [monitoring dashboard](https://docs.conduktor.io/guide/monitor-brokers-apps/index)
 - Schema registry integration (Apicurio, Confluent SR) with compatibility testing
 - Visual lineage mapping across clusters and applications
@@ -272,13 +272,13 @@ Beyond threshold-based monitoring, modern observability platforms increasingly l
 - **Reduced alert noise**: Distinguishes between expected variations and genuine issues
 - **Early detection**: Identifies subtle degradation before it becomes critical
 
-For example, an ML model might learn that your e-commerce transaction volume typically spikes on weekends and during holiday seasons. A 50% increase on Black Friday wouldn't trigger an alert, but a 50% decrease would—even though both deviate from the weekly average.
+For example, an ML model might learn that your e-commerce transaction volume typically spikes on weekends and during holiday seasons. A 50% increase on Black Friday wouldn't trigger an alert, but a 50% decrease would, even though both deviate from the weekly average.
 
 Platforms like Monte Carlo, Datadog Data Streams Monitoring, and Conduktor's anomaly detection capabilities provide these ML-powered insights, reducing the operational burden of maintaining static thresholds across hundreds of data assets.
 
 ## Building an Observability Practice
 
-Implementing data observability isn't just about deploying tools—it requires cultural and process changes:
+Implementing data observability isn't just about deploying tools, it requires cultural and process changes:
 
 1. **Establish baselines**: Understand normal patterns in freshness, volume, and distribution before you can detect anomalies. Use historical data to set realistic thresholds rather than arbitrary targets.
 
@@ -292,11 +292,11 @@ Implementing data observability isn't just about deploying tools—it requires c
 
 ## Conclusion
 
-Data observability has evolved from a nice-to-have to a necessity for modern data teams. The five pillars—freshness, volume, schema, distribution, and lineage—provide a comprehensive framework for understanding data health across your ecosystem.
+Data observability has evolved from a nice-to-have to a necessity for modern data teams. The five pillars, freshness, volume, schema, distribution, and lineage, provide a comprehensive framework for understanding data health across your ecosystem.
 
 As organizations increasingly adopt streaming architectures to power real-time analytics, applications, and AI/ML workloads, the complexity of maintaining data quality grows exponentially. By implementing robust observability practices, Data Engineers, Platform Engineers, and Data Architects can ensure their data remains trustworthy, timely, and valuable to the business.
 
-The question isn't whether you need data observability—it's how quickly you can implement it before the next data incident impacts your organization.
+The question isn't whether you need data observability, it's how quickly you can implement it before the next data incident impacts your organization.
 
 ## Related Concepts
 

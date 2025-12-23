@@ -11,7 +11,7 @@ The consequences extend beyond technical issues. Unintended PII exposure violate
 
 ## The Hidden Risk of PII Leakage
 
-Personally Identifiable Information (PII) leakage represents one of the most serious security risks in modern data streaming architectures. Unlike intentional data breaches, PII leakage occurs through unintended exposure—when sensitive personal data appears in logs, error messages, monitoring systems, or misconfigured data streams where it shouldn't exist. In streaming systems that process millions of events per second, a single misconfiguration can expose vast amounts of personal data before anyone notices.
+Personally Identifiable Information (PII) leakage represents one of the most serious security risks in modern data streaming architectures. Unlike intentional data breaches, PII leakage occurs through unintended exposure, when sensitive personal data appears in logs, error messages, monitoring systems, or misconfigured data streams where it shouldn't exist. In streaming systems that process millions of events per second, a single misconfiguration can expose vast amounts of personal data before anyone notices.
 ![PII leakage vectors and detection points in streaming systems](images/diagrams/pii-leakage-prevention-0.webp)
 <!-- ORIGINAL_DIAGRAM
 ```
@@ -67,7 +67,7 @@ PII leakage in streaming systems occurs through multiple vectors, each requiring
 
 Effective PII detection requires multiple complementary approaches:
 
-**Pattern Matching and Regular Expressions**: The foundational detection method uses regex patterns to identify common PII formats—credit card numbers following Luhn validation (a checksum algorithm that validates card number authenticity), email addresses matching RFC specifications, phone numbers in various international formats, and social security numbers with characteristic digit patterns. While fast and deterministic, pattern matching produces false positives (matches that aren't actually PII) and misses contextual PII like names or addresses without distinctive formats.
+**Pattern Matching and Regular Expressions**: The foundational detection method uses regex patterns to identify common PII formats, credit card numbers following Luhn validation (a checksum algorithm that validates card number authenticity), email addresses matching RFC specifications, phone numbers in various international formats, and social security numbers with characteristic digit patterns. While fast and deterministic, pattern matching produces false positives (matches that aren't actually PII) and misses contextual PII like names or addresses without distinctive formats.
 
 Here's a practical example of pattern-based PII detection in Kafka Streams:
 
@@ -122,7 +122,7 @@ public class PIIDetectionStreams {
 }
 ```
 
-**Machine Learning Classification**: ML models trained on labeled datasets can identify contextual PII that pattern matching misses. Named entity recognition (NER—Natural Language Processing models that identify and classify named entities like person names, locations, and organizations) models detect person names, locations, and organizations within unstructured text. Classification models learn to identify sensitive fields based on data characteristics, field names, and surrounding context. These approaches reduce false positives but require training data and model maintenance.
+**Machine Learning Classification**: ML models trained on labeled datasets can identify contextual PII that pattern matching misses. Named entity recognition (NER, Natural Language Processing models that identify and classify named entities like person names, locations, and organizations) models detect person names, locations, and organizations within unstructured text. Classification models learn to identify sensitive fields based on data characteristics, field names, and surrounding context. These approaches reduce false positives but require training data and model maintenance.
 
 **Modern AI-Powered PII Detection (2025)**: Cloud providers and open-source projects now offer sophisticated ML-based PII detection that integrates directly with streaming platforms:
 
@@ -208,7 +208,7 @@ classified_stream.sink_to(kafka_sink)
 
 Prevention strategies operate at multiple levels:
 
-**Data Masking and Tokenization**: Replace PII with masked values or tokens before data enters logs, metrics, or lower-security environments. Format-preserving encryption (FPE) maintains data characteristics for testing while protecting actual values—for example, encrypting a 16-digit credit card number into another valid-looking 16-digit number that preserves the format but protects the actual value. Tokenization replaces sensitive fields with random identifiers, storing the mapping in a secure token vault accessible only to authorized systems. For comprehensive masking techniques and implementation patterns, see [Data Masking and Anonymization for Streaming](https://conduktor.io/glossary/data-masking-and-anonymization-for-streaming).
+**Data Masking and Tokenization**: Replace PII with masked values or tokens before data enters logs, metrics, or lower-security environments. Format-preserving encryption (FPE) maintains data characteristics for testing while protecting actual values, for example, encrypting a 16-digit credit card number into another valid-looking 16-digit number that preserves the format but protects the actual value. Tokenization replaces sensitive fields with random identifiers, storing the mapping in a secure token vault accessible only to authorized systems. For comprehensive masking techniques and implementation patterns, see [Data Masking and Anonymization for Streaming](https://conduktor.io/glossary/data-masking-and-anonymization-for-streaming).
 
 Here's a practical tokenization example using Kafka Streams with a token vault:
 
@@ -327,13 +327,13 @@ producer.send_customer_event(customer)
 
 **Data Minimization**: Design applications to avoid collecting, processing, or transmitting PII unless absolutely necessary. Aggregate data early in the pipeline, removing individual identifiers before downstream processing. Question whether each PII field truly needs to flow through the entire system or could be stripped at ingestion.
 
-**Secure Logging Practices**: Configure logging frameworks to automatically redact known PII patterns. Implement structured logging with explicit field-level control over what gets logged. Never log complete event payloads in production environments—log only specific fields required for debugging.
+**Secure Logging Practices**: Configure logging frameworks to automatically redact known PII patterns. Implement structured logging with explicit field-level control over what gets logged. Never log complete event payloads in production environments, log only specific fields required for debugging.
 
 ## Real-Time Detection in Stream Processing
 
 Stream processing applications must detect PII in real-time as data flows through the pipeline:
 
-**Inline Scanning**: Deploy scanning logic within stream processors using Kafka Streams, Flink, or Spark Streaming. Each message passes through PII detection functions that apply pattern matching and ML classification. Detected PII triggers immediate actions—masking, routing to quarantine topics (secure holding topics for investigation), or alerting security teams.
+**Inline Scanning**: Deploy scanning logic within stream processors using Kafka Streams, Flink, or Spark Streaming. Each message passes through PII detection functions that apply pattern matching and ML classification. Detected PII triggers immediate actions, masking, routing to quarantine topics (secure holding topics for investigation), or alerting security teams.
 
 **Sidecar Processors**: Run dedicated PII scanning applications that consume from all topics, continuously monitoring for leakage. A sidecar processor is a separate application that runs alongside your main stream processing pipeline, providing cross-cutting concerns like security scanning without modifying business logic. This approach separates security logic from business logic and allows centralized policy management. However, it doubles message processing and introduces detection latency.
 
@@ -409,7 +409,7 @@ For comprehensive policy enforcement patterns, see [Policy Enforcement in Stream
 
 PII protection directly supports regulatory compliance:
 
-**GDPR (General Data Protection Regulation)**: Requires organizations to implement appropriate technical measures to protect personal data. PII leakage prevention demonstrates "privacy by design" principles mandated by Article 25. Data breach notification requirements (Article 33) apply to unintended exposure, making detection speed critical—breaches must be reported within 72 hours of discovery.
+**GDPR (General Data Protection Regulation)**: Requires organizations to implement appropriate technical measures to protect personal data. PII leakage prevention demonstrates "privacy by design" principles mandated by Article 25. Data breach notification requirements (Article 33) apply to unintended exposure, making detection speed critical, breaches must be reported within 72 hours of discovery.
 
 **CCPA and CPRA (California Consumer Privacy Act, enhanced by California Privacy Rights Act of 2023)**: Mandates reasonable security procedures to protect personal information. The 2023 CPRA amendments strengthened enforcement, introducing the California Privacy Protection Agency with expanded audit powers. PII leakage into logs or third-party systems may violate consumer privacy rights, particularly the right to know what personal information is collected and shared. Organizations must implement risk assessments and automated decision-making safeguards.
 
@@ -427,13 +427,13 @@ Effective PII protection requires organizational commitment:
 
 **Implement Technical Controls**: Deploy the detection and prevention technologies appropriate for your architecture. Start with pattern matching for high-risk PII like credit card numbers, expand to ML-based detection for contextual PII, and ultimately implement schema-driven protection for comprehensive coverage.
 
-**Monitor and Alert**: Create dashboards showing PII detection metrics—where leakage occurs, which applications are involved, and trending patterns. Set up alerts for unusual PII exposure volumes or new leakage vectors. Review alerts regularly and investigate all incidents.
+**Monitor and Alert**: Create dashboards showing PII detection metrics, where leakage occurs, which applications are involved, and trending patterns. Set up alerts for unusual PII exposure volumes or new leakage vectors. Review alerts regularly and investigate all incidents.
 
 **Training and Awareness**: Educate developers about PII risks in streaming systems. Provide secure coding guidelines, logging best practices, and testing procedures. Make PII protection part of code review checklists and architecture review processes.
 
 **Testing and Validation**: Regularly test PII protection measures using synthetic data that mimics real PII. Attempt to deliberately leak test PII through various vectors to verify detection systems work correctly. Include PII protection testing in CI/CD pipelines.
 
-**Incident Response**: Prepare documented procedures for handling detected PII leakage—how to assess scope, who to notify, how to remediate, and what to document. Practice incident response through tabletop exercises.
+**Incident Response**: Prepare documented procedures for handling detected PII leakage, how to assess scope, who to notify, how to remediate, and what to document. Practice incident response through tabletop exercises.
 
 ## Tools and Platforms for PII Detection
 
@@ -478,7 +478,7 @@ Modern streaming platforms provide PII protection capabilities across multiple c
 
 PII leakage prevention requires vigilance, technical controls, and organizational commitment. By understanding leakage vectors, implementing comprehensive detection approaches, and enforcing prevention policies, organizations protect personal data while maintaining compliance with data protection regulations. The investment in PII protection pays dividends through reduced breach risk, regulatory compliance, and customer trust in data handling practices.
 
-Modern tools in 2025—from AI-powered detection services to comprehensive governance platforms like Conduktor—make PII protection more accessible and effective than ever. Kafka 4.0+ with KRaft mode provides improved audit capabilities, while cloud AI services offer sophisticated ML-based detection with minimal operational overhead.
+Modern tools in 2025, from AI-powered detection services to comprehensive governance platforms like Conduktor, make PII protection more accessible and effective than ever. Kafka 4.0+ with KRaft mode provides improved audit capabilities, while cloud AI services offer sophisticated ML-based detection with minimal operational overhead.
 
 **Getting Started Checklist**:
 

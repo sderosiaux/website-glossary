@@ -15,7 +15,7 @@ Modern data platforms handle diverse data sources, multiple protocols, and compl
 
 ## What is an API Gateway in Data Platforms?
 
-An API gateway is a server that acts as a single entry point for multiple backend services. In data platforms, gateways sit between data consumers and data sources—whether those sources are REST APIs, databases, or streaming platforms like Apache Kafka.
+An API gateway is a server that acts as a single entry point for multiple backend services. In data platforms, gateways sit between data consumers and data sources, whether those sources are REST APIs, databases, or streaming platforms like Apache Kafka.
 
 The gateway handles cross-cutting concerns that would otherwise need to be implemented in every service: authentication, rate limiting, protocol translation, logging, and request routing. This consolidation reduces complexity and creates consistent behavior across the platform.
 
@@ -62,7 +62,7 @@ Dynamic routing extends this by discovering services at runtime. When new data s
 
 Data platforms often need to bridge different communication protocols. A common scenario involves HTTP clients accessing Kafka topics. The gateway translates REST requests into Kafka producer calls and streams Kafka messages back as HTTP responses.
 
-Confluent's REST Proxy exemplifies this pattern, allowing HTTP clients to produce and consume Kafka messages without native Kafka client libraries. This enables broader ecosystem integration, though with performance tradeoffs: HTTP serialization overhead typically reduces throughput to ~20K events/second per deployment compared to 100K+ events/second for native Kafka clients. The tradeoff favors accessibility over raw performance—ideal for low-throughput integrations, web clients, and services where native Kafka libraries aren't feasible.
+Confluent's REST Proxy exemplifies this pattern, allowing HTTP clients to produce and consume Kafka messages without native Kafka client libraries. This enables broader ecosystem integration, though with performance tradeoffs: HTTP serialization overhead typically reduces throughput to ~20K events/second per deployment compared to 100K+ events/second for native Kafka clients. The tradeoff favors accessibility over raw performance, ideal for low-throughput integrations, web clients, and services where native Kafka libraries aren't feasible.
 
 ### Request and Response Aggregation
 

@@ -76,7 +76,7 @@ days()   bucket(16)   ← Transform Functions (Hidden from User)
 
 Hidden partitioning is one of Iceberg's most powerful features, fundamentally changing how users interact with partitioned tables. In traditional systems like Hive, users must include partition columns in their WHERE clauses to benefit from partition pruning. For example, a Hive table partitioned by date requires queries like `WHERE date_partition = '2024-01-01'`, forcing users to know and manage the partitioning scheme. This creates brittle queries that break when partition strategies evolve.
 
-Iceberg eliminates this requirement by maintaining partition metadata separately from the table schema. Users query against the original columns, and Iceberg's metadata layer automatically translates predicates into efficient partition filters—without requiring any partition awareness in the query.
+Iceberg eliminates this requirement by maintaining partition metadata separately from the table schema. Users query against the original columns, and Iceberg's metadata layer automatically translates predicates into efficient partition filters, without requiring any partition awareness in the query.
 
 When you partition an Iceberg table by `day(timestamp)` or `bucket(user_id, 16)`, users query the original columns without knowing the partitioning strategy:
 
@@ -334,7 +334,7 @@ df.writeStream \
   .toTable("events")
 ```
 
-The `fanout-enabled` option prevents writer contention when multiple tasks write to the same partition simultaneously. Without fanout mode, concurrent writers to a partition compete to update the same manifest files, causing retries and reduced throughput. Fanout mode creates separate data files per writer, eliminating contention—critical for high-throughput streaming where hundreds of Spark tasks may write to a single time-based partition concurrently.
+The `fanout-enabled` option prevents writer contention when multiple tasks write to the same partition simultaneously. Without fanout mode, concurrent writers to a partition compete to update the same manifest files, causing retries and reduced throughput. Fanout mode creates separate data files per writer, eliminating contention, critical for high-throughput streaming where hundreds of Spark tasks may write to a single time-based partition concurrently.
 
 ## Advanced Partition Strategies
 

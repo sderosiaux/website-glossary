@@ -1,6 +1,6 @@
 ---
 title: "Streaming Data Products"
-description: Learn how to apply product thinking to streaming data—creating well-governed, discoverable event streams with clear ownership, quality, and SLAs.
+description: Learn how to apply product thinking to streaming data, creating well-governed, discoverable event streams with clear ownership, quality, and SLAs.
 topics:
   - Data Products
   - Data Mesh
@@ -12,7 +12,7 @@ topics:
 
 As organizations scale their data platforms beyond centralized teams and monolithic pipelines, a new paradigm has emerged: treating data itself as a product. Rather than viewing data as a byproduct of applications, data products are managed assets with clear ownership, defined quality standards, discoverable interfaces, and committed service levels.
 
-When applied to streaming architectures, this product thinking transforms how organizations build, govern, and consume real-time data. Understanding streaming data products—their principles, components, and governance requirements—is essential for building scalable, decentralized data platforms.
+When applied to streaming architectures, this product thinking transforms how organizations build, govern, and consume real-time data. Understanding streaming data products, their principles, components, and governance requirements, is essential for building scalable, decentralized data platforms.
 ![Streaming data product architecture showing ownership, governance, and consumption](images/diagrams/streaming-data-product-asset-0.webp)
 <!-- ORIGINAL_DIAGRAM
 ```
@@ -135,7 +135,7 @@ A streaming data product applies these principles to continuous event flows. The
 - **Time-sensitive analytics:** Trading, IoT monitoring lose value within seconds
 - **Multiple consumers:** Different teams process the same events independently
 
-**Example:** A Customer team creates `customer.profile.updated`—a stream publishing events when profile information changes. Marketing, fraud detection, and personalization systems all consume this product for their specific needs.
+**Example:** A Customer team creates `customer.profile.updated`, a stream publishing events when profile information changes. Marketing, fraud detection, and personalization systems all consume this product for their specific needs.
 
 ## The Principles of Streaming Data Products
 
@@ -165,7 +165,7 @@ A complete streaming data product consists of:
 
 **Input Streams:** Raw Kafka topics or CDC logs consumed as the foundation. For CDC implementation details, see [What Is Change Data Capture: CDC Fundamentals](https://conduktor.io/glossary/what-is-change-data-capture-cdc-fundamentals).
 
-**Stream Processing Logic:** Flink jobs (Flink 1.18+) or Kafka Streams applications performing continuous transformations—joining, aggregating, filtering, or enriching before publishing. For in-depth coverage, see [What Is Apache Flink: Stateful Stream Processing](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing).
+**Stream Processing Logic:** Flink jobs (Flink 1.18+) or Kafka Streams applications performing continuous transformations, joining, aggregating, filtering, or enriching before publishing. For in-depth coverage, see [What Is Apache Flink: Stateful Stream Processing](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing).
 
 **Output Stream (The API):** Well-defined, versioned Kafka topics:
 - `payments.transactions.authorized`
@@ -201,17 +201,17 @@ Kafka's architecture naturally supports data product patterns. Modern Kafka depl
 
 **Durable Event Logs:** Unlike message queues, Kafka retains events based on retention policies, enabling multiple independent consumers, new consumer onboarding through replay, and reprocessing after bug fixes. For foundational concepts, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
 
-**Topic-Based Organization:** Topics provide natural boundaries. Naming conventions communicate ownership—domain teams own their namespaces.
+**Topic-Based Organization:** Topics provide natural boundaries. Naming conventions communicate ownership, domain teams own their namespaces.
 
-**Schema Registries:** Enforce contracts by validating schemas before publication. When producers attempt incompatible changes (removing required fields), the registry rejects requests. Producer code receives errors, preventing invalid data from entering topics. Failed events route to dead letter queues—separate topics storing invalid events for investigation. For error handling patterns, see [Dead Letter Queues for Error Handling](https://conduktor.io/glossary/dead-letter-queues-for-error-handling).
+**Schema Registries:** Enforce contracts by validating schemas before publication. When producers attempt incompatible changes (removing required fields), the registry rejects requests. Producer code receives errors, preventing invalid data from entering topics. Failed events route to dead letter queues, separate topics storing invalid events for investigation. For error handling patterns, see [Dead Letter Queues for Error Handling](https://conduktor.io/glossary/dead-letter-queues-for-error-handling).
 
-**Consumer Groups:** Allow multiple teams to read the same product at their own pace—analytics processing every event, ML sampling 10%, operational systems consuming real-time.
+**Consumer Groups:** Allow multiple teams to read the same product at their own pace, analytics processing every event, ML sampling 10%, operational systems consuming real-time.
 
 **Multi-Tenancy:** Quotas limit throughput per client, network isolation separates sensitive products, priority classes provide different SLAs.
 
 ## Sharing Data Products with Partner Zones
 
-When streaming data products need to be shared with external organizations, traditional approaches involve replicating topics—creating synchronization challenges and duplicate storage costs. Conduktor Partner Zones enable secure data product sharing without replication by providing dedicated logical boundaries with customized access to Kafka topics. Data product owners grant partners access while maintaining single source of truth—partners consume directly from original topics through their assigned zones.
+When streaming data products need to be shared with external organizations, traditional approaches involve replicating topics, creating synchronization challenges and duplicate storage costs. Conduktor Partner Zones enable secure data product sharing without replication by providing dedicated logical boundaries with customized access to Kafka topics. Data product owners grant partners access while maintaining single source of truth, partners consume directly from original topics through their assigned zones.
 
 Partner Zones also provide traffic analytics tracking consumption within each zone, enabling data product owners to monitor adoption and measure value delivered to partners. For implementation details, see the [Partner Zones documentation](https://docs.conduktor.io/guide/conduktor-concepts/partner-zones).
 
@@ -221,7 +221,7 @@ Effective governance ensures streaming data products remain trustworthy and disc
 
 ### Catalogs and Discovery
 
-Centralized catalogs document available products, schemas, ownership, SLAs, consumers, and lineage showing upstream sources and downstream dependencies. Conduktor provides a comprehensive data catalog for Kafka environments—learn more in the [Conduktor Data Products guide](https://docs.conduktor.io/guide/conduktor-concepts/data-products). For broader data cataloging concepts, see [What Is a Data Catalog: Modern Data Discovery](https://conduktor.io/glossary/what-is-a-data-catalog-modern-data-discovery). For lineage tracking, see [Data Lineage: Tracking Data from Source to Consumption](https://conduktor.io/glossary/data-lineage-tracking-data-from-source-to-consumption).
+Centralized catalogs document available products, schemas, ownership, SLAs, consumers, and lineage showing upstream sources and downstream dependencies. Conduktor provides a comprehensive data catalog for Kafka environments, learn more in the [Conduktor Data Products guide](https://docs.conduktor.io/guide/conduktor-concepts/data-products). For broader data cataloging concepts, see [What Is a Data Catalog: Modern Data Discovery](https://conduktor.io/glossary/what-is-a-data-catalog-modern-data-discovery). For lineage tracking, see [Data Lineage: Tracking Data from Source to Consumption](https://conduktor.io/glossary/data-lineage-tracking-data-from-source-to-consumption).
 
 ### Schema Evolution
 
@@ -246,9 +246,9 @@ Traditional platforms centralize processing in a single team, creating bottlenec
 - Inventory team owns `inventory.stock_levels`
 - Customer team owns `customers.profiles`
 
-This is the core of **Data Mesh**—an organizational pattern decentralizing data ownership to domain teams rather than central platforms. Each domain publishes products as their public interface, replacing centralized ETL with distributed ownership. For comprehensive coverage of Data Mesh principles, see [Data Mesh: Principles and Implementation](https://conduktor.io/glossary/data-mesh-principles-and-implementation) and [Building and Managing Data Products](https://conduktor.io/glossary/building-and-managing-data-products).
+This is the core of **Data Mesh**, an organizational pattern decentralizing data ownership to domain teams rather than central platforms. Each domain publishes products as their public interface, replacing centralized ETL with distributed ownership. For comprehensive coverage of Data Mesh principles, see [Data Mesh: Principles and Implementation](https://conduktor.io/glossary/data-mesh-principles-and-implementation) and [Building and Managing Data Products](https://conduktor.io/glossary/building-and-managing-data-products).
 
-**Federated computational governance** means domain teams make local decisions (what to publish, how to process) while organization-wide policies enforce standards (naming conventions, schema compatibility, security)—local autonomy with global guardrails.
+**Federated computational governance** means domain teams make local decisions (what to publish, how to process) while organization-wide policies enforce standards (naming conventions, schema compatibility, security), local autonomy with global guardrails.
 
 Streaming platforms enable this because teams publish to topics without central gatekeepers, consumers read without coordinating with producers, and Kafka handles hundreds of products from dozens of teams on shared infrastructure.
 
@@ -275,11 +275,11 @@ To create your first streaming data product:
 
 Streaming data products treat real-time data as managed assets with API-like interfaces (Kafka topics), backed by ownership, quality commitments, and governance.
 
-**Why It Matters:** This enables organizational scale by replacing brittle centralized pipelines with resilient, consumer-centric streams. Streaming products deliver real-time value impossible with batch—enabling operational systems, automation, and time-sensitive analytics.
+**Why It Matters:** This enables organizational scale by replacing brittle centralized pipelines with resilient, consumer-centric streams. Streaming products deliver real-time value impossible with batch, enabling operational systems, automation, and time-sensitive analytics.
 
 **How Teams Approach It Today:** Organizations build products by packaging Flink/Kafka Streams jobs, establishing naming conventions, registering schemas, defining SLAs, documenting in catalogs, and assigning domain ownership. Success requires pilot products, shared tooling, and organizational learning time.
 
-**Where Platforms Fit:** Governance platforms provide discovery and access control layers, enabling catalog maintenance, schema policy enforcement, quality monitoring, ACL management, and consumer onboarding automation—ensuring decentralized ownership doesn't devolve into chaos while preserving streaming's agility.
+**Where Platforms Fit:** Governance platforms provide discovery and access control layers, enabling catalog maintenance, schema policy enforcement, quality monitoring, ACL management, and consumer onboarding automation, ensuring decentralized ownership doesn't devolve into chaos while preserving streaming's agility.
 
 ## Related Concepts
 

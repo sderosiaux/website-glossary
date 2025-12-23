@@ -16,7 +16,7 @@ ETL (Extract, Transform, Load) has been the backbone of data integration for dec
 
 ETL is a data integration process that moves and transforms data from source systems to destination systems, typically data warehouses or data lakes.
 
-**Extract** retrieves data from one or more sources—databases, APIs, files, or message queues. **Transform** applies business logic, data cleaning, aggregations, or enrichment to make the data suitable for analysis. **Load** writes the processed data to a target system where it can be queried and analyzed.
+**Extract** retrieves data from one or more sources, databases, APIs, files, or message queues. **Transform** applies business logic, data cleaning, aggregations, or enrichment to make the data suitable for analysis. **Load** writes the processed data to a target system where it can be queried and analyzed.
 
 The ETL pattern separates data collection from data consumption, allowing analytics systems to operate independently from operational systems. This separation has proven valuable for decades but comes with trade-offs in latency and complexity.
 
@@ -88,7 +88,7 @@ Streaming ETL is essential when timely data drives business value. A fraud detec
 
 The choice between batch and streaming ETL involves several technical and business trade-offs.
 
-**Latency**: Batch ETL inherently has higher latency—from minutes to hours or days depending on batch frequency. Streaming ETL achieves subsecond to low-second latencies. If your use case can tolerate data that's hours old, batch may suffice. If decisions depend on current state, streaming is necessary.
+**Latency**: Batch ETL inherently has higher latency, from minutes to hours or days depending on batch frequency. Streaming ETL achieves subsecond to low-second latencies. If your use case can tolerate data that's hours old, batch may suffice. If decisions depend on current state, streaming is necessary.
 
 **Complexity**: Batch ETL is conceptually simpler. Each batch is independent, making debugging and testing straightforward. Streaming ETL requires managing stateful operations, handling out-of-order events, and dealing with exactly-once processing semantics (ensuring each event is processed exactly once, avoiding duplicates or data loss even during failures). The operational overhead of maintaining streaming infrastructure is higher.
 

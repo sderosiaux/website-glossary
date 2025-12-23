@@ -26,7 +26,7 @@ Embeddings enable:
 
 ## Why Stream Vector Embeddings?
 
-Traditional batch processing generates embeddings periodically—perhaps nightly or weekly. This approach creates a fundamental problem: your AI systems operate on stale data. A customer support chatbot trained on yesterday's documentation cannot answer questions about features released today. A recommendation engine working from last week's embeddings cannot adapt to trending content.
+Traditional batch processing generates embeddings periodically, perhaps nightly or weekly. This approach creates a fundamental problem: your AI systems operate on stale data. A customer support chatbot trained on yesterday's documentation cannot answer questions about features released today. A recommendation engine working from last week's embeddings cannot adapt to trending content.
 
 Streaming embedding generation solves this by processing data as it arrives:
 
@@ -36,7 +36,7 @@ Streaming embedding generation solves this by processing data as it arrives:
 
 **Anomaly detection**: Transaction streams are embedded and compared against historical patterns. Unusual patterns trigger alerts within seconds, not hours later during batch processing.
 
-**Dynamic AI agents**: Agentic systems that need to reason over constantly updating information—market data, social media, sensor readings—require fresh embeddings to make informed decisions.
+**Dynamic AI agents**: Agentic systems that need to reason over constantly updating information, market data, social media, sensor readings, require fresh embeddings to make informed decisions.
 
 The tradeoff is complexity: streaming systems must handle fluctuating load, ensure ordering guarantees, manage failures gracefully, and coordinate between multiple processing stages.
 
@@ -135,7 +135,7 @@ Modern AI applications combine embeddings with large language models. For compre
 
 Streaming ensures the vector store contains the latest information. A RAG system with streaming embeddings answers questions about events that happened minutes ago, not just historical data.
 
-**Agentic AI systems**: Autonomous agents that plan, execute, and reflect need access to constantly updating knowledge. An agent helping with software development queries a vector database of recent code changes, documentation updates, and resolved issues—all embedded in real-time as they occur. For detailed coverage of building agentic systems with streaming data, see [Agentic AI Pipelines](https://conduktor.io/glossary/agentic-ai-pipelines).
+**Agentic AI systems**: Autonomous agents that plan, execute, and reflect need access to constantly updating knowledge. An agent helping with software development queries a vector database of recent code changes, documentation updates, and resolved issues, all embedded in real-time as they occur. For detailed coverage of building agentic systems with streaming data, see [Agentic AI Pipelines](https://conduktor.io/glossary/agentic-ai-pipelines).
 
 **Hybrid search**: Combining vector similarity with traditional filters (date ranges, categories, metadata) requires coordination between vector databases and operational data stores. Streaming architectures can dual-write to both, maintaining consistency.
 

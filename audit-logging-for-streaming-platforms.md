@@ -174,7 +174,7 @@ Different compliance frameworks have specific audit logging requirements:
 
 **PCI-DSS**: Demands detailed logs of access to cardholder data environments, with secure storage and regular review.
 
-Streaming platforms need to map their audit events to these framework requirements. Tracking what data flows where becomes essential—for comprehensive guidance on building this visibility, see [Data Lineage Tracking: Data from Source to Consumption](https://conduktor.io/glossary/data-lineage-tracking-data-from-source-to-consumption).
+Streaming platforms need to map their audit events to these framework requirements. Tracking what data flows where becomes essential, for comprehensive guidance on building this visibility, see [Data Lineage Tracking: Data from Source to Consumption](https://conduktor.io/glossary/data-lineage-tracking-data-from-source-to-consumption).
 
 For example, a GDPR-compliant audit log might track:
 

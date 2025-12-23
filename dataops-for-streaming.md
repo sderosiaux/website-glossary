@@ -7,7 +7,7 @@ topics:
   - DevOps
 ---
 
-As organizations increasingly rely on real-time data streaming for critical business operations, the need for robust operational practices has never been greater. DataOps—the application of DevOps principles to data systems—provides the methodology and tooling to deliver streaming systems with speed, quality, and reliability.
+As organizations increasingly rely on real-time data streaming for critical business operations, the need for robust operational practices has never been greater. DataOps, the application of DevOps principles to data systems, provides the methodology and tooling to deliver streaming systems with speed, quality, and reliability.
 ![DataOps Principles](images/diagrams/dataops-for-streaming-0.webp)
 <!-- ORIGINAL_DIAGRAM
 ```
@@ -63,7 +63,7 @@ Streaming architectures present unique operational challenges that make DataOps 
 
 **Continuous operation**: Unlike batch jobs that run on schedules, streaming pipelines operate continuously. A deployment error or configuration drift can immediately impact downstream consumers, making automated testing and safe deployment strategies non-negotiable.
 
-**Complex dependencies**: Streaming systems involve multiple components—message brokers, stream processors, state stores, connectors—each with their own configurations, versions, and operational characteristics. Managing this complexity manually is error-prone and doesn't scale.
+**Complex dependencies**: Streaming systems involve multiple components, message brokers, stream processors, state stores, connectors, each with their own configurations, versions, and operational characteristics. Managing this complexity manually is error-prone and doesn't scale.
 
 **Real-time requirements**: When data must flow within seconds or milliseconds, there's no room for lengthy manual reviews or slow deployment processes. Automation enables teams to move fast while maintaining reliability.
 
@@ -192,7 +192,7 @@ Comprehensive observability enables teams to understand system behavior and quic
 
 **Metrics collection**: Track application-level metrics (processing rate, latency, error rate) and infrastructure metrics (CPU, memory, network, disk) using tools like Prometheus, Datadog, or New Relic. Kafka exposes JMX metrics that should be scraped and monitored continuously.
 
-**Key performance indicators**: Monitor [consumer lag](https://conduktor.io/glossary/consumer-lag-monitoring) (how far consumers are behind producers), throughput, end-to-end latency, and error rates. Set SLOs (Service Level Objectives—quantifiable targets like "99.9% of messages processed within 500ms") and alert when they're breached.
+**Key performance indicators**: Monitor [consumer lag](https://conduktor.io/glossary/consumer-lag-monitoring) (how far consumers are behind producers), throughput, end-to-end latency, and error rates. Set SLOs (Service Level Objectives, quantifiable targets like "99.9% of messages processed within 500ms") and alert when they're breached.
 
 ```yaml
 # Example: Prometheus alerting rule for consumer lag
@@ -317,7 +317,7 @@ As streaming architectures become central to modern data platforms, DataOps prac
 
 The investment in DataOps pays dividends: faster time to market for new features, fewer production incidents, and empowered teams that can innovate confidently. Whether you're building your first streaming pipeline or scaling to hundreds of applications, adopting DataOps principles will help you navigate the complexity and deliver real-time data systems that your organization can depend on.
 
-With modern tooling like KRaft-based Kafka, OpenTelemetry observability, GitOps deployment patterns, and comprehensive management platforms like Conduktor, teams have everything needed to implement DataOps effectively. The key is starting small—automate one pain point, add one test suite, improve one deployment process—and building momentum toward a fully mature DataOps practice.
+With modern tooling like KRaft-based Kafka, OpenTelemetry observability, GitOps deployment patterns, and comprehensive management platforms like Conduktor, teams have everything needed to implement DataOps effectively. The key is starting small, automate one pain point, add one test suite, improve one deployment process, and building momentum toward a fully mature DataOps practice.
 
 ## Related Concepts
 

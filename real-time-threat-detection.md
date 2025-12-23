@@ -71,7 +71,7 @@ Streaming platforms face both traditional and streaming-specific security threat
 - **Topic Hijacking**: Unauthorized creation, deletion, or modification of topics
 - **Consumer Impersonation**: Malicious actors joining consumer groups to intercept data (e.g., an attacker joins the "payment-processor" consumer group to intercept financial transactions)
 - **Offset Manipulation**: Resetting consumer offsets to replay messages (to cause duplicate processing) or skip messages (to hide evidence of an attack)
-- **Schema Poisoning**: Injecting incompatible schemas to break downstream processing (e.g., changing a schema to make all consumers fail deserialization—see [Schema Evolution Best Practices](https://conduktor.io/glossary/schema-evolution-best-practices))
+- **Schema Poisoning**: Injecting incompatible schemas to break downstream processing (e.g., changing a schema to make all consumers fail deserialization, see [Schema Evolution Best Practices](https://conduktor.io/glossary/schema-evolution-best-practices))
 - **Resource Exhaustion**: Creating excessive partitions or connections to degrade performance (related to [Quotas and Rate Limiting](https://conduktor.io/glossary/quotas-and-rate-limiting-in-kafka))
 
 **2025-Era Cloud and AI Threats:**
@@ -114,7 +114,7 @@ Rule-based systems excel at detecting known attack patterns with minimal false p
 Statistical methods establish baselines of normal behavior and flag deviations:
 
 - **Threshold-Based**: Alert when metrics exceed predetermined limits (e.g., throughput > 10x average)
-- **Standard Deviation**: Flag events beyond 3σ (3 sigma, meaning 3 standard deviations) from the mean—this captures roughly 99.7% of normal behavior, making outliers highly suspicious
+- **Standard Deviation**: Flag events beyond 3σ (3 sigma, meaning 3 standard deviations) from the mean, this captures roughly 99.7% of normal behavior, making outliers highly suspicious
 - **Time-Series Analysis**: Detect sudden spikes, drops, or pattern changes in metrics over time (e.g., CPU usage suddenly jumping from 20% to 95%)
 - **Rate Limiting**: Track request rates per user, IP, or application to detect brute-force or DoS attacks
 - **Probabilistic Data Structures** (2025): Use HyperLogLog for cardinality estimation (counting unique IPs or users) and P² algorithm for streaming percentile calculations without storing all data
@@ -130,7 +130,7 @@ ML models learn complex patterns from historical data to identify anomalies. Cho
 - **Gradient Boosting** (XGBoost, LightGBM): Sequential tree models that achieve high accuracy by learning from previous errors
 - **Neural Networks**: Deep learning models that discover complex, non-linear patterns in user behavior
 
-**Unsupervised Learning**: Detect anomalies without labeled data—ideal for discovering zero-day attacks
+**Unsupervised Learning**: Detect anomalies without labeled data, ideal for discovering zero-day attacks
 - **Isolation Forests**: Algorithms that isolate outliers by building random decision trees (anomalies are easier to isolate than normal points)
 - **Autoencoders**: Neural networks that learn to compress and reconstruct normal behavior; poor reconstruction indicates anomalies
 - **Clustering Algorithms**: Group similar behaviors together

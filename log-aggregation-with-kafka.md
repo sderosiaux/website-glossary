@@ -54,7 +54,7 @@ Apache Kafka has emerged as a popular backbone for modern log aggregation pipeli
 
 ## What is Log Aggregation?
 
-Log aggregation is the process of collecting log data from multiple sources across a distributed system and centralizing it for analysis, monitoring, and long-term storage. Every application component—whether a web server, database, or microservice—generates logs that contain valuable information about system behavior, errors, performance metrics, and security events.
+Log aggregation is the process of collecting log data from multiple sources across a distributed system and centralizing it for analysis, monitoring, and long-term storage. Every application component, whether a web server, database, or microservice, generates logs that contain valuable information about system behavior, errors, performance metrics, and security events.
 
 In a traditional monolithic application running on a single server, logs might simply write to local files that administrators can tail or grep. However, modern distributed systems require a more sophisticated approach. Log aggregation systems must handle high throughput (often millions of log events per second), provide reliable delivery guarantees, enable real-time analysis, and support multiple consumers with different processing needs.
 
@@ -64,13 +64,13 @@ The goal is not just to collect logs, but to make them actionable. This means ro
 
 Traditional log aggregation typically relies on agents that tail log files and forward them to a central server or storage system. While this approach works for small-scale deployments, it reveals significant limitations as systems grow.
 
-**Scalability bottlenecks** emerge when a central log server becomes overwhelmed by the volume of incoming logs. Vertical scaling only delays the problem. Additionally, file-based collection introduces latency—logs must be written to disk before being read and forwarded, creating delays that make real-time analysis difficult.
+**Scalability bottlenecks** emerge when a central log server becomes overwhelmed by the volume of incoming logs. Vertical scaling only delays the problem. Additionally, file-based collection introduces latency, logs must be written to disk before being read and forwarded, creating delays that make real-time analysis difficult.
 
 **Reliability concerns** plague traditional systems. If the central log server goes down, logs may be lost or buffered locally until disk space runs out. There's often no guarantee of delivery, and recovering from failures can be complex.
 
-**Inflexibility** becomes apparent when multiple teams need access to the same log data. Traditional systems typically support a single consumer pattern—logs go to one destination. If the security team needs access to audit logs while the operations team wants to feed them into a monitoring system, you end up duplicating log streams or building complex custom routing logic.
+**Inflexibility** becomes apparent when multiple teams need access to the same log data. Traditional systems typically support a single consumer pattern, logs go to one destination. If the security team needs access to audit logs while the operations team wants to feed them into a monitoring system, you end up duplicating log streams or building complex custom routing logic.
 
-These limitations drove companies like LinkedIn to create Apache Kafka—originally designed precisely to solve the log aggregation problem at scale.
+These limitations drove companies like LinkedIn to create Apache Kafka, originally designed precisely to solve the log aggregation problem at scale.
 
 ## How Kafka Enables Modern Log Aggregation
 
@@ -80,7 +80,7 @@ Apache Kafka addresses the shortcomings of traditional log aggregation through i
 
 **Durability and reliability** come from Kafka's replication model. Every partition can be replicated across multiple brokers, ensuring logs survive individual machine failures. Producers receive acknowledgments confirming that data has been safely replicated before considering a write successful. With tiered storage (available in Kafka 3.6+), you can retain logs cost-effectively by moving older data to object storage while keeping recent logs on local disks for low-latency access.
 
-**Multi-consumer support** is native to Kafka. Multiple consumer groups (independent sets of consumers that track their own reading position) can read from the same log topic simultaneously without interfering with each other. The operations team can stream logs to their monitoring system, while the security team sends the same logs to their SIEM, and the data team archives everything to object storage—all consuming from the same Kafka topic at their own pace.
+**Multi-consumer support** is native to Kafka. Multiple consumer groups (independent sets of consumers that track their own reading position) can read from the same log topic simultaneously without interfering with each other. The operations team can stream logs to their monitoring system, while the security team sends the same logs to their SIEM, and the data team archives everything to object storage, all consuming from the same Kafka topic at their own pace.
 
 **Decoupling** is another key benefit. Producers (your applications) don't need to know about consumers (your log processing systems). You can add new log consumers, upgrade existing ones, or temporarily take them offline without impacting log production.
 
@@ -204,7 +204,7 @@ Successfully implementing Kafka-based log aggregation requires attention to seve
 
 **Schema design** is crucial. Structured logs (JSON or Avro) enable rich querying and processing compared to unstructured text. Define a consistent schema that includes standard fields like timestamp, service name, log level, message, and trace context. OpenTelemetry provides well-defined semantic conventions for log fields, ensuring consistency across services and compatibility with observability tools. Using Schema Registry (7.0+) helps enforce consistency and enables schema evolution as requirements change. Avro is particularly useful for log data as it provides compact binary encoding, reducing network and storage costs significantly compared to JSON. For details on schema management, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) and [Message Serialization in Kafka](https://conduktor.io/glossary/message-serialization-in-kafka).
 
-**Retention policies** balance storage costs with debugging needs. Kafka can retain logs for hours, days, or weeks depending on disk capacity. With tiered storage (Kafka 3.6+), you can extend retention dramatically by offloading older log segments to object storage (S3, GCS, Azure Blob) while maintaining transparent access through Kafka's consumer API. Configure retention based on how far back you need to investigate issues—typically 7-30 days in hot storage (local disks) and 90+ days in cold storage (object storage) for compliance and deep analysis. For comprehensive coverage of tiered storage, see [Tiered Storage in Kafka](https://conduktor.io/glossary/tiered-storage-in-kafka).
+**Retention policies** balance storage costs with debugging needs. Kafka can retain logs for hours, days, or weeks depending on disk capacity. With tiered storage (Kafka 3.6+), you can extend retention dramatically by offloading older log segments to object storage (S3, GCS, Azure Blob) while maintaining transparent access through Kafka's consumer API. Configure retention based on how far back you need to investigate issues, typically 7-30 days in hot storage (local disks) and 90+ days in cold storage (object storage) for compliance and deep analysis. For comprehensive coverage of tiered storage, see [Tiered Storage in Kafka](https://conduktor.io/glossary/tiered-storage-in-kafka).
 
 **Volume management** prevents runaway log production from overwhelming the system. Implement sampling for high-volume debug logs while keeping all errors and warnings. Use quotas to limit how much data individual producers can send, protecting shared infrastructure from misbehaving services. For quota implementation details, see [Quotas and Rate Limiting in Kafka](https://conduktor.io/glossary/quotas-and-rate-limiting-in-kafka).
 
@@ -214,7 +214,7 @@ Successfully implementing Kafka-based log aggregation requires attention to seve
 
 ## Integration with the Modern Observability Ecosystem
 
-Kafka-based log aggregation doesn't exist in isolation—it integrates with a broader ecosystem of tools and platforms.
+Kafka-based log aggregation doesn't exist in isolation, it integrates with a broader ecosystem of tools and platforms.
 
 **OpenTelemetry integration** has become the standard approach for modern log aggregation. OpenTelemetry provides SDKs for instrumenting applications to emit logs with consistent semantic conventions, including automatic trace context propagation. The OpenTelemetry Collector can receive logs from applications, process and enrich them, and export to Kafka topics. On the consumption side, collectors can read from Kafka and forward logs to various backends. This creates a vendor-neutral, standardized pipeline that works across cloud providers and observability platforms.
 

@@ -15,7 +15,7 @@ For data engineers and database administrators, CDC solves a fundamental challen
 
 ## Why Change Data Capture Matters
 
-Traditional data synchronization approaches rely on batch processing—running queries at scheduled intervals to compare source and target data. This approach has significant limitations:
+Traditional data synchronization approaches rely on batch processing, running queries at scheduled intervals to compare source and target data. This approach has significant limitations:
 
 **Performance Impact**: Full table scans consume database resources and slow down operational systems, especially as data volumes grow.
 
@@ -242,7 +242,7 @@ A typical CDC streaming architecture looks like this:
 In this architecture:
 
 1. **CDC Connector** reads the database transaction log and converts changes into events
-2. **Kafka Topic** stores events across multiple partitions (P0-P3). Partitions enable parallel processing and horizontal scaling—events with the same key (e.g., customer_id) always go to the same partition, ensuring order is preserved per key
+2. **Kafka Topic** stores events across multiple partitions (P0-P3). Partitions enable parallel processing and horizontal scaling, events with the same key (e.g., customer_id) always go to the same partition, ensuring order is preserved per key
 3. **Multiple Consumers** independently read from the topic at their own pace. One consumer's lag doesn't affect others
 4. **Downstream Systems** process events differently: data warehouses for analytics, caches for fast lookups, search indexes for full-text queries
 
@@ -281,7 +281,7 @@ Maintain search indexes (Elasticsearch, Solr) in sync with relational databases.
 
 ### Data Warehouse Loading
 
-Replace batch ETL processes with continuous data ingestion. CDC streams feed data warehouses with incremental updates, reducing latency and improving data freshness. This pattern integrates well with lakehouse architectures—see [Introduction to Lakehouse Architecture](https://conduktor.io/glossary/introduction-to-lakehouse-architecture) for modern data platform designs.
+Replace batch ETL processes with continuous data ingestion. CDC streams feed data warehouses with incremental updates, reducing latency and improving data freshness. This pattern integrates well with lakehouse architectures, see [Introduction to Lakehouse Architecture](https://conduktor.io/glossary/introduction-to-lakehouse-architecture) for modern data platform designs.
 
 ### Event-Driven Architectures
 
@@ -297,7 +297,7 @@ When implementing CDC, consider these factors:
 
 **Database Compatibility**: Not all databases expose transaction logs equally. PostgreSQL and MySQL have mature CDC support through their write-ahead log (WAL) and binary log (binlog) respectively. The WAL is a sequential record of all changes that PostgreSQL writes before applying them to the main database files, ensuring crash recovery and replication capabilities. Some proprietary databases require vendor-specific tools or may not support log-based CDC at all.
 
-**Network and Latency**: CDC introduces network hops between source databases and consumers. Plan for appropriate network capacity and monitor latency. Typical CDC latency ranges from sub-second to a few seconds depending on network topology, log parsing complexity, and serialization overhead. For latency-sensitive applications, use consumer lag monitoring—see [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring) for best practices.
+**Network and Latency**: CDC introduces network hops between source databases and consumers. Plan for appropriate network capacity and monitor latency. Typical CDC latency ranges from sub-second to a few seconds depending on network topology, log parsing complexity, and serialization overhead. For latency-sensitive applications, use consumer lag monitoring, see [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring) for best practices.
 
 **Schema Evolution**: Database schema changes (adding columns, changing types, renaming fields) must be handled gracefully. When a schema change occurs:
 
@@ -314,7 +314,7 @@ For breaking changes (e.g., removing a required field), consumers must be update
 - Kafka producer retries
 - Consumer group rebalances
 
-Downstream systems should implement **idempotent processing**—operations that produce the same result when applied multiple times. For example, "set status to shipped" is idempotent, while "increment count by 1" is not. Alternatively, implement deduplication using message keys or transaction IDs. For comprehensive coverage of delivery guarantees, see [Exactly-Once Semantics in Kafka](https://conduktor.io/glossary/exactly-once-semantics-in-kafka).
+Downstream systems should implement **idempotent processing**, operations that produce the same result when applied multiple times. For example, "set status to shipped" is idempotent, while "increment count by 1" is not. Alternatively, implement deduplication using message keys or transaction IDs. For comprehensive coverage of delivery guarantees, see [Exactly-Once Semantics in Kafka](https://conduktor.io/glossary/exactly-once-semantics-in-kafka).
 
 **Initial Snapshot Strategy**: When starting CDC for the first time, you need to capture the current state of existing data before streaming changes. Debezium supports several snapshot modes:
 
@@ -325,7 +325,7 @@ Downstream systems should implement **idempotent processing**—operations that 
 
 Choose the appropriate mode based on table size, acceptable downtime, and whether historical data is needed.
 
-**Error Handling and Dead Letter Queues**: CDC connectors can fail for various reasons—schema incompatibilities, serialization errors, network issues, or invalid data. Implement error handling strategies:
+**Error Handling and Dead Letter Queues**: CDC connectors can fail for various reasons, schema incompatibilities, serialization errors, network issues, or invalid data. Implement error handling strategies:
 
 - Configure dead letter queues to capture problematic events for later analysis
 - Set appropriate retry policies and backoff strategies
@@ -358,7 +358,7 @@ Success with CDC requires attention to monitoring, governance, and operational c
 - Monitoring connector health, lag, and error rates
 - Planning resource capacity for peak change volumes
 
-As CDC pipelines become critical infrastructure, comprehensive observability and governance tooling—like Conduktor for Kafka-based CDC monitoring—becomes essential for maintaining reliable data platforms. With proper implementation, CDC transforms databases from isolated data silos into real-time event sources that power modern data-driven applications.
+As CDC pipelines become critical infrastructure, comprehensive observability and governance tooling, like Conduktor for Kafka-based CDC monitoring, becomes essential for maintaining reliable data platforms. With proper implementation, CDC transforms databases from isolated data silos into real-time event sources that power modern data-driven applications.
 
 ## Related Concepts
 

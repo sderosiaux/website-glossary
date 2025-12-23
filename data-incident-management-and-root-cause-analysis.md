@@ -47,7 +47,7 @@ Data incidents are inevitable in modern data platforms. Whether you're managing 
 
 ## Understanding Data Incidents
 
-A data incident occurs when data quality, availability, or timeliness deviates from expected standards, impacting downstream consumers. Unlike application incidents that might affect user experience immediately, data incidents can be insidious—cascading through pipelines, corrupting analytics, and undermining business decisions before anyone notices.
+A data incident occurs when data quality, availability, or timeliness deviates from expected standards, impacting downstream consumers. Unlike application incidents that might affect user experience immediately, data incidents can be insidious, cascading through pipelines, corrupting analytics, and undermining business decisions before anyone notices.
 
 Common incident types include:
 
@@ -59,7 +59,7 @@ Common incident types include:
 
 ## The Incident Response Lifecycle
 
-Effective incident management follows a structured lifecycle that minimizes Mean Time to Resolution (MTTR—the average time it takes to resolve an incident) while preventing recurrence.
+Effective incident management follows a structured lifecycle that minimizes Mean Time to Resolution (MTTR, the average time it takes to resolve an incident) while preventing recurrence.
 
 ### 1. Detection and Alerting
 
@@ -85,7 +85,7 @@ When an alert fires, rapid triage determines incident severity and guides respon
 - Data recoverability
 - Time sensitivity
 
-**Initial Investigation**: Quickly gather context—recent deployments, configuration changes, upstream system status, and error logs. For streaming platforms, check broker health, partition assignments, and consumer group states.
+**Initial Investigation**: Quickly gather context, recent deployments, configuration changes, upstream system status, and error logs. For streaming platforms, check broker health, partition assignments, and consumer group states.
 
 ### 3. Mitigation and Resolution
 
@@ -93,7 +93,7 @@ The goal is restoring service while minimizing additional damage:
 
 **Immediate Mitigation**: Stop the bleeding. This might mean pausing pipelines, rolling back deployments, or switching to backup data sources. In Kafka environments, you might need to reset consumer offsets or pause specific consumers to prevent poison messages (corrupted or malformed messages that cause consumer crashes) from blocking processing. For error handling patterns, see [Dead Letter Queues for Error Handling](https://conduktor.io/glossary/dead-letter-queues-for-error-handling).
 
-**Root Cause Investigation**: While mitigating, begin deeper investigation. Streaming systems add complexity—issues might stem from broker configuration, partition rebalancing (redistribution of topic partitions across consumers), message serialization, or consumer processing logic. Modern observability approaches using OpenTelemetry and distributed tracing help examine topic configurations, consumer group assignments, and message contents, accelerating diagnosis. For advanced debugging techniques, see [Distributed Tracing for Kafka Applications](https://conduktor.io/glossary/distributed-tracing-for-kafka-applications).
+**Root Cause Investigation**: While mitigating, begin deeper investigation. Streaming systems add complexity, issues might stem from broker configuration, partition rebalancing (redistribution of topic partitions across consumers), message serialization, or consumer processing logic. Modern observability approaches using OpenTelemetry and distributed tracing help examine topic configurations, consumer group assignments, and message contents, accelerating diagnosis. For advanced debugging techniques, see [Distributed Tracing for Kafka Applications](https://conduktor.io/glossary/distributed-tracing-for-kafka-applications).
 
 **Fix Implementation**: Apply the fix with appropriate testing. For streaming systems, consider:
 - Will the fix handle backlog replay correctly?
@@ -117,7 +117,7 @@ Start with the observed symptom and ask "why" repeatedly until reaching the fund
 4. Why wasn't idempotence configured? → Default producer configuration was used
 5. Why were defaults used? → No standardized producer configuration template
 
-The root cause isn't the duplicates—it's the lack of standardized configuration management.
+The root cause isn't the duplicates, it's the lack of standardized configuration management.
 
 **Code Example - Configuring Idempotent Kafka Producer (Kafka 3.0+)**:
 ```java
@@ -186,7 +186,7 @@ The shift toward observability-driven incident management emphasizes understandi
 
 **AI-Powered Incident Management**: Modern platforms like PagerDuty AIOps, Datadog Watchdog, and Grafana Machine Learning analyze historical incident patterns to predict issues, suggest root causes, and automate routine responses.
 
-**Data Observability Platforms**: Purpose-built tools like Monte Carlo, Soda Core 3.x, and Elementary Data provide data-specific observability—tracking data quality, freshness, volume, and schema changes automatically. These complement traditional infrastructure monitoring.
+**Data Observability Platforms**: Purpose-built tools like Monte Carlo, Soda Core 3.x, and Elementary Data provide data-specific observability, tracking data quality, freshness, volume, and schema changes automatically. These complement traditional infrastructure monitoring.
 
 ## Best Practices for Data Platform Teams
 
@@ -196,7 +196,7 @@ The shift toward observability-driven incident management emphasizes understandi
 
 **Build Observability In**: Design systems with debugging in mind. Comprehensive logging, distributed tracing (using OpenTelemetry), and metadata tracking enable faster diagnosis. Instrument custom metrics for business-specific KPIs, not just infrastructure metrics.
 
-**Automate Recovery**: Where possible, implement self-healing mechanisms—automatic retries with exponential backoff, dead letter queues for poison messages, and circuit breakers for failing dependencies. For streaming error patterns, see [Dead Letter Queues for Error Handling](https://conduktor.io/glossary/dead-letter-queues-for-error-handling).
+**Automate Recovery**: Where possible, implement self-healing mechanisms, automatic retries with exponential backoff, dead letter queues for poison messages, and circuit breakers for failing dependencies. For streaming error patterns, see [Dead Letter Queues for Error Handling](https://conduktor.io/glossary/dead-letter-queues-for-error-handling).
 
 **Maintain Communication Channels**: During incidents, clear communication with stakeholders prevents panic and sets appropriate expectations. Modern incident management platforms integrate with Slack, Microsoft Teams, and status page tools for automated stakeholder updates.
 
@@ -208,7 +208,7 @@ Effective incident management and root cause analysis are essential competencies
 
 The modern approach combines traditional incident response with observability-driven practices, AI-powered insights, and proactive chaos engineering. Tools like OpenTelemetry, Kafka Lag Exporter, Great Expectations 1.0+, and purpose-built data observability platforms provide unprecedented visibility into data system behavior.
 
-The goal isn't eliminating all incidents—that's unrealistic in complex distributed systems. Instead, focus on rapid detection through comprehensive monitoring, efficient response using modern incident management platforms, thorough analysis with the Five Whys technique, and continuous improvement through automated testing and chaos engineering. Over time, this approach builds both technical reliability and organizational capability, transforming how your team handles the inevitable challenges of production data systems.
+The goal isn't eliminating all incidents, that's unrealistic in complex distributed systems. Instead, focus on rapid detection through comprehensive monitoring, efficient response using modern incident management platforms, thorough analysis with the Five Whys technique, and continuous improvement through automated testing and chaos engineering. Over time, this approach builds both technical reliability and organizational capability, transforming how your team handles the inevitable challenges of production data systems.
 
 ## Related Concepts
 

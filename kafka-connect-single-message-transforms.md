@@ -194,7 +194,7 @@ Tools like Conduktor Platform help manage this complexity by providing visual co
 
 While SMTs operate within Kafka Connect, Conduktor Interceptors provide transformation at the Gateway proxy layer, intercepting all Kafka traffic regardless of origin (Connect, producers, or consumers). Unlike SMTs configured per-connector, Interceptors apply globally to all matching traffic, creating consistent transformation behavior across your entire ecosystem. This makes them ideal for universal transformations like PII masking or timestamp standardization.
 
-Interceptors also excel at policy enforcement that SMTs cannot address—blocking messages violating data quality rules, enforcing producer settings, or validating schema compliance in real-time. The trade-off is operational complexity: SMTs are simpler for connector-specific transformations, while Interceptors require Gateway deployment. For organizations already using Gateway, Interceptors provide centralized transformation without per-connector configuration. Learn more at the [Interceptors documentation](https://docs.conduktor.io/guide/conduktor-concepts/interceptors).
+Interceptors also excel at policy enforcement that SMTs cannot address, blocking messages violating data quality rules, enforcing producer settings, or validating schema compliance in real-time. The trade-off is operational complexity: SMTs are simpler for connector-specific transformations, while Interceptors require Gateway deployment. For organizations already using Gateway, Interceptors provide centralized transformation without per-connector configuration. Learn more at the [Interceptors documentation](https://docs.conduktor.io/guide/conduktor-concepts/interceptors).
 
 ## Best Practices and Limitations
 

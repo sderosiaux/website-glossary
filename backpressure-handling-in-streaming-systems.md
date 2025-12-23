@@ -13,7 +13,7 @@ In distributed streaming systems, data flows continuously from producers through
 
 ## What is Backpressure?
 
-Backpressure is the resistance or feedback signal that occurs when a downstream system component cannot process data as quickly as it's being produced upstream. Think of it like water flowing through connected pipes of different diameters—when a narrow pipe can't handle the flow from a wider one, pressure builds up.
+Backpressure is the resistance or feedback signal that occurs when a downstream system component cannot process data as quickly as it's being produced upstream. Think of it like water flowing through connected pipes of different diameters, when a narrow pipe can't handle the flow from a wider one, pressure builds up.
 ![backpressure-handling-in-streaming-systems diagram 1](images/diagrams/backpressure-handling-in-streaming-systems-0.webp)
 <!-- ORIGINAL_DIAGRAM
 ```
@@ -114,7 +114,7 @@ Kafka handles backpressure through several mechanisms:
 
 Flink implements automatic backpressure propagation:
 
-When a downstream operator (like a sink writing to a database) becomes slow, Flink automatically slows upstream operators. This happens through network buffers—when buffers fill, the sender blocks until space becomes available.
+When a downstream operator (like a sink writing to a database) becomes slow, Flink automatically slows upstream operators. This happens through network buffers, when buffers fill, the sender blocks until space becomes available.
 
 **Flink 1.13+ Visual Backpressure Monitoring**: The web UI provides enhanced backpressure visualization, showing per-operator backpressure status with color-coded indicators (green, yellow, red). Task metrics now include busy/idle time ratios, making it easier to identify bottlenecks. The Task Manager metrics page displays buffer pool usage and network buffer details for granular troubleshooting.
 
@@ -196,7 +196,7 @@ Don't wait for production to test backpressure handling:
 
 ## Summary
 
-Backpressure is an inevitable challenge in streaming systems where components operate at different speeds. Understanding how backpressure manifests and implementing appropriate handling strategies—buffering, throttling, load shedding, and elastic scaling—ensures your streaming applications remain stable and performant.
+Backpressure is an inevitable challenge in streaming systems where components operate at different speeds. Understanding how backpressure manifests and implementing appropriate handling strategies, buffering, throttling, load shedding, and elastic scaling, ensures your streaming applications remain stable and performant.
 
 Modern streaming platforms like Kafka and Flink provide built-in mechanisms for handling backpressure, but you must configure them appropriately for your use case. Monitor consumer lag, processing times, and queue depths to detect backpressure early. Design systems with explicit limits and graceful degradation paths.
 

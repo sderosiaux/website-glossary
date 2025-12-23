@@ -10,7 +10,7 @@ topics:
 
 The Lakehouse architecture has emerged as a unified approach to data management, combining the flexibility of data lakes with the structure and performance of data warehouses. At the heart of modern Lakehouse implementations lies a critical component: the streaming ingestion pipeline. This pipeline serves as the bridge between real-time data sources and analytical platforms, enabling organizations to process and analyze data as it arrives rather than waiting for batch processing windows.
 
-A streaming ingestion pipeline continuously captures data from various sources—such as Apache Kafka, AWS Kinesis, Azure Event Hubs, or Change Data Capture (CDC) systems—and writes it to Lakehouse table formats like Delta Lake, Apache Iceberg, or Apache Hudi. This real-time data path is the first step toward building a responsive analytics platform that can power everything from operational dashboards to machine learning models.
+A streaming ingestion pipeline continuously captures data from various sources, such as Apache Kafka, AWS Kinesis, Azure Event Hubs, or Change Data Capture (CDC) systems, and writes it to Lakehouse table formats like Delta Lake, Apache Iceberg, or Apache Hudi. This real-time data path is the first step toward building a responsive analytics platform that can power everything from operational dashboards to machine learning models.
 
 For foundational understanding of lakehouse concepts, see [Introduction to Lakehouse Architecture](https://conduktor.io/glossary/introduction-to-lakehouse-architecture). To understand CDC as a streaming source, refer to [What is Change Data Capture (CDC)](https://conduktor.io/glossary/what-is-change-data-capture-cdc-fundamentals).
 
@@ -107,7 +107,7 @@ Time-based partitioning aligns naturally with streaming workloads where recent d
 
 Combine temporal partitioning with high-cardinality dimensions for more selective filtering. For example, partition by `date` and `region` to enable efficient queries filtered by both dimensions.
 
-Be cautious with partition explosion—too many partitions create metadata overhead and slow down query planning. Aim for partitions between 256MB and 1GB in size. If a partitioning scheme creates thousands of small partitions, consider using Z-ordering or data skipping instead.
+Be cautious with partition explosion, too many partitions create metadata overhead and slow down query planning. Aim for partitions between 256MB and 1GB in size. If a partitioning scheme creates thousands of small partitions, consider using Z-ordering or data skipping instead.
 
 ### Dynamic Partitioning
 
@@ -127,7 +127,7 @@ For analytical workloads, duplicate records corrupt aggregations, double-count m
 
 Streaming frameworks use **checkpointing** to achieve fault tolerance. Checkpointing is the process of periodically saving the processing position (offsets in Kafka, sequence numbers in Kinesis) along with any stateful computations to durable storage.
 
-On failure, the system restarts from the last successful checkpoint, reprocessing any records since that point. This provides **at-least-once semantics**—a delivery guarantee where records might be processed multiple times but are never skipped or lost.
+On failure, the system restarts from the last successful checkpoint, reprocessing any records since that point. This provides **at-least-once semantics**, a delivery guarantee where records might be processed multiple times but are never skipped or lost.
 
 ### Transactional Writes
 
@@ -349,7 +349,7 @@ Streaming ingestion to Lakehouse architectures represents a fundamental shift in
 
 Success requires careful attention to architecture patterns, data formats, partitioning strategies, and exactly-once semantics. Modern tools like Spark Structured Streaming and Apache Flink, combined with Lakehouse table formats like Delta Lake and Iceberg, provide the building blocks for robust streaming ingestion.
 
-As you design your pipelines, prioritize monitoring and observability. Streaming systems are complex and distributed; comprehensive metrics and alerts are essential for maintaining reliability. For comprehensive observability strategies, see [What is Data Observability: The Five Pillars](https://conduktor.io/glossary/what-is-data-observability-the-five-pillars). Implement governance early—lineage, cataloging, and access control become exponentially harder to retrofit after the fact.
+As you design your pipelines, prioritize monitoring and observability. Streaming systems are complex and distributed; comprehensive metrics and alerts are essential for maintaining reliability. For comprehensive observability strategies, see [What is Data Observability: The Five Pillars](https://conduktor.io/glossary/what-is-data-observability-the-five-pillars). Implement governance early, lineage, cataloging, and access control become exponentially harder to retrofit after the fact.
 
 The result is a real-time data platform that supports both traditional batch analytics and emerging streaming use cases, all built on a unified Lakehouse foundation.
 

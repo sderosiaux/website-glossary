@@ -310,7 +310,7 @@ Many organizations use schema linters that enforce naming conventions and flag r
 
 Beyond Schema Registry's compatibility validation, Conduktor Interceptors provide runtime enforcement of schema requirements at the infrastructure level. Interceptors are Gateway plugins that validate messages against schema requirements before they reach brokers, catching violations from legacy clients or misconfigured producers that bypass application-level validation. Any message without a valid schema ID or with an incompatible schema gets rejected immediately.
 
-Interceptors can enforce schema policies beyond basic compatibility—requiring specific metadata fields in schemas, enforcing format standards (e.g., Avro only for customer data topics), or validating semantic correctness during schema evolution. For organizations implementing phased migrations, Interceptors validate that producers correctly write to both old and new topics with appropriate schema versions. Learn more at the [Interceptors documentation](https://docs.conduktor.io/guide/conduktor-concepts/interceptors).
+Interceptors can enforce schema policies beyond basic compatibility, requiring specific metadata fields in schemas, enforcing format standards (e.g., Avro only for customer data topics), or validating semantic correctness during schema evolution. For organizations implementing phased migrations, Interceptors validate that producers correctly write to both old and new topics with appropriate schema versions. Learn more at the [Interceptors documentation](https://docs.conduktor.io/guide/conduktor-concepts/interceptors).
 
 ### Governance Practices
 

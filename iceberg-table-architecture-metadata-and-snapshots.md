@@ -9,7 +9,7 @@ topics:
   - Data Lakehouse
 ---
 
-Apache Iceberg has emerged as a leading table format for data lakehouses, addressing fundamental limitations in traditional data lake architectures. At its core, Iceberg's power comes from its sophisticated metadata layer that enables ACID transactions, snapshot isolation, and schema evolution—capabilities previously available only in proprietary data warehouses.
+Apache Iceberg has emerged as a leading table format for data lakehouses, addressing fundamental limitations in traditional data lake architectures. At its core, Iceberg's power comes from its sophisticated metadata layer that enables ACID transactions, snapshot isolation, and schema evolution, capabilities previously available only in proprietary data warehouses.
 
 This article explores Iceberg's architectural components, focusing on how metadata layers and snapshots work together to provide reliable, scalable data management for modern data platforms.
 
@@ -128,7 +128,7 @@ SELECT COUNT(DISTINCT user_id) FROM events;  -- Uses Theta sketch for estimation
 
 Puffin files are referenced in the manifest list and stored separately from manifest files, allowing statistics to be updated independently of the core metadata structure.
 
-This hierarchical structure enables efficient query planning. Engines can read manifest files and Puffin statistics to determine which data files are relevant for a query without scanning the entire dataset—a critical optimization for large tables with millions of files.
+This hierarchical structure enables efficient query planning. Engines can read manifest files and Puffin statistics to determine which data files are relevant for a query without scanning the entire dataset, a critical optimization for large tables with millions of files.
 
 ## Snapshot Isolation and ACID Transactions
 
@@ -144,7 +144,7 @@ When a write operation occurs:
 4. A new metadata file is created with updated snapshot information
 5. The catalog pointer is atomically updated to the new metadata file
 
-If the atomic catalog update fails (due to concurrent modification), the write operation is retried with the latest table state, ensuring **serializable isolation**—the highest level of transaction isolation where concurrent operations appear to execute sequentially, preventing anomalies like dirty reads or lost updates.
+If the atomic catalog update fails (due to concurrent modification), the write operation is retried with the latest table state, ensuring **serializable isolation**, the highest level of transaction isolation where concurrent operations appear to execute sequentially, preventing anomalies like dirty reads or lost updates.
 
 ### Snapshot Benefits
 
@@ -173,7 +173,7 @@ WHERE _iceberg_snapshot_id > 99;
 
 ### Branching and Tagging (Iceberg 1.5+)
 
-Iceberg 1.5 introduced **branches** and **tags** for managing multiple table versions simultaneously—think of them as Git branches for your data:
+Iceberg 1.5 introduced **branches** and **tags** for managing multiple table versions simultaneously, think of them as Git branches for your data:
 
 ```sql
 -- Create a branch for experimental changes
@@ -427,7 +427,7 @@ For large tables (billions of rows, millions of files), proper partition design 
 
 ## Summary
 
-Apache Iceberg's metadata architecture represents a fundamental shift in how data lakes handle table semantics. By separating metadata into distinct layers—catalog, metadata files, manifest lists, and manifest files—Iceberg provides:
+Apache Iceberg's metadata architecture represents a fundamental shift in how data lakes handle table semantics. By separating metadata into distinct layers, catalog, metadata files, manifest lists, and manifest files, Iceberg provides:
 
 - **ACID transactions** through atomic catalog updates and immutable snapshots
 - **Snapshot isolation** enabling time travel and concurrent read/write workloads
@@ -435,7 +435,7 @@ Apache Iceberg's metadata architecture represents a fundamental shift in how dat
 - **Efficient query planning** through hierarchical metadata and statistics
 - **Streaming integration** with exactly-once semantics for real-time pipelines
 
-Understanding these architectural components is essential for data engineers building modern data platforms. The metadata layer isn't just an implementation detail—it's the foundation that enables Iceberg to deliver warehouse-like reliability on data lake infrastructure.
+Understanding these architectural components is essential for data engineers building modern data platforms. The metadata layer isn't just an implementation detail, it's the foundation that enables Iceberg to deliver warehouse-like reliability on data lake infrastructure.
 
 As organizations adopt streaming-first architectures with tools like Kafka and Flink, Iceberg's snapshot model provides the transactional guarantees needed for production-grade real-time analytics.
 

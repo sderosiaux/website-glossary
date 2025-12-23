@@ -95,13 +95,13 @@ Comprehensive audit logging in streaming platforms must capture multiple categor
 
 ## Kafka's Audit Capabilities
 
-Apache Kafka provides several mechanisms for audit logging, though the native capabilities require enhancement for enterprise needs. With **Kafka 4.0+ and KRaft mode** (Kafka Raft, which replaced ZooKeeper), the audit logging architecture has been streamlined—eliminating the need to audit ZooKeeper operations while centralizing all security decisions in the Kafka brokers themselves. For comprehensive coverage of KRaft architecture and migration, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka).
+Apache Kafka provides several mechanisms for audit logging, though the native capabilities require enhancement for enterprise needs. With **Kafka 4.0+ and KRaft mode** (Kafka Raft, which replaced ZooKeeper), the audit logging architecture has been streamlined, eliminating the need to audit ZooKeeper operations while centralizing all security decisions in the Kafka brokers themselves. For comprehensive coverage of KRaft architecture and migration, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka).
 
-The **authorizer interface** (a pluggable component that makes access control decisions) allows custom implementations that log every authorization decision. When a client attempts to read from a topic, the authorizer logs the principal identity, requested resource, operation type, and access decision—providing the "who tried to do what, and was it allowed?" foundation of audit trails.
+The **authorizer interface** (a pluggable component that makes access control decisions) allows custom implementations that log every authorization decision. When a client attempts to read from a topic, the authorizer logs the principal identity, requested resource, operation type, and access decision, providing the "who tried to do what, and was it allowed?" foundation of audit trails.
 
 **Request logging** at the broker level captures detailed information about client interactions. Kafka brokers can log metadata about produce and fetch requests, including timestamps, client IDs, and byte counts. However, this logging must be carefully configured to avoid overwhelming storage systems with high-volume metadata.
 
-Modern Kafka distributions and enterprise platforms extend these capabilities with **structured audit logs**—machine-parseable formats like JSON or standardized schemas (such as CloudEvents or the Open Cybersecurity Schema Framework) that enable automated analysis and correlation. A comprehensive audit event includes:
+Modern Kafka distributions and enterprise platforms extend these capabilities with **structured audit logs**, machine-parseable formats like JSON or standardized schemas (such as CloudEvents or the Open Cybersecurity Schema Framework) that enable automated analysis and correlation. A comprehensive audit event includes:
 
 - **Who**: Principal identity, client ID, source IP, authentication method
 - **What**: Resource accessed (topic, consumer group, cluster config), operation type (read, write, alter)
@@ -200,7 +200,7 @@ Audit logs in streaming systems generate massive volumes of data, requiring soph
 
 **OpenTelemetry integration** has become standard practice in 2025 for unified observability. By instrumenting Kafka clients and brokers with OpenTelemetry, audit events can be correlated with traces, metrics, and logs across the entire distributed system. This provides end-to-end visibility from API gateway through streaming platform to downstream consumers, all with consistent correlation IDs and context propagation. For detailed coverage of tracing implementation, see [Distributed Tracing for Kafka Applications](https://conduktor.io/glossary/distributed-tracing-for-kafka-applications).
 
-**Real-time alerting** adds proactive security capabilities. Rules can trigger alerts when administrative actions occur outside business hours, when production topics are accessed from development environments, or when authorization failures spike above threshold levels. Modern platforms increasingly use **AI-powered anomaly detection** to identify subtle patterns that rule-based systems might miss—such as unusual access patterns, privilege escalation attempts, or data exfiltration that mimics legitimate traffic. For comprehensive coverage of monitoring and observability practices including audit log analysis, see [What is Data Observability: The Five Pillars](https://conduktor.io/glossary/what-is-data-observability-the-five-pillars).
+**Real-time alerting** adds proactive security capabilities. Rules can trigger alerts when administrative actions occur outside business hours, when production topics are accessed from development environments, or when authorization failures spike above threshold levels. Modern platforms increasingly use **AI-powered anomaly detection** to identify subtle patterns that rule-based systems might miss, such as unusual access patterns, privilege escalation attempts, or data exfiltration that mimics legitimate traffic. For comprehensive coverage of monitoring and observability practices including audit log analysis, see [What is Data Observability: The Five Pillars](https://conduktor.io/glossary/what-is-data-observability-the-five-pillars).
 
 ## Implementation Challenges and Solutions
 
@@ -210,7 +210,7 @@ The scale of streaming systems creates unique audit challenges. **High-volume lo
 
 **Sensitive data in logs** presents a paradox: audit logs must capture enough detail to be useful, but shouldn't expose the very data they're meant to protect. Techniques include logging metadata without message payloads, redacting sensitive fields, and encrypting audit logs at rest and in transit. For strategies on protecting sensitive data while maintaining visibility, see [Data Masking and Anonymization for Streaming](https://conduktor.io/glossary/data-masking-and-anonymization-for-streaming).
 
-**Log protection** is critical—audit logs themselves are high-value targets for attackers seeking to cover their tracks. Immutable storage, cryptographic signatures, and restricted access ensure audit trail integrity. Some organizations write audit logs to write-once storage or blockchain-based systems to prevent tampering. For comprehensive coverage of securing data throughout its lifecycle, see [Encryption at Rest and in Transit for Kafka](https://conduktor.io/glossary/encryption-at-rest-and-in-transit-for-kafka).
+**Log protection** is critical, audit logs themselves are high-value targets for attackers seeking to cover their tracks. Immutable storage, cryptographic signatures, and restricted access ensure audit trail integrity. Some organizations write audit logs to write-once storage or blockchain-based systems to prevent tampering. For comprehensive coverage of securing data throughout its lifecycle, see [Encryption at Rest and in Transit for Kafka](https://conduktor.io/glossary/encryption-at-rest-and-in-transit-for-kafka).
 
 ## Regulatory Requirements
 
@@ -232,7 +232,7 @@ Implementing effective audit logging requires adherence to established best prac
 
 **Comprehensive coverage** means auditing not just Kafka brokers but the entire streaming ecosystem: schema registries, Connect clusters, ksqlDB servers, and stream processing applications. Gaps in audit coverage create blind spots for security and compliance. For framework-level guidance on implementing comprehensive governance, see [Data Governance Framework: Roles and Responsibilities](https://conduktor.io/glossary/data-governance-framework-roles-and-responsibilities).
 
-**Access control** for audit logs must be strictly managed. Only security and compliance personnel should have read access, with all access to audit logs themselves generating higher-level audit events—auditing the auditors. For modern security architectures that treat audit logging as a core component, see [Zero Trust for Streaming](https://conduktor.io/glossary/zero-trust-for-streaming).
+**Access control** for audit logs must be strictly managed. Only security and compliance personnel should have read access, with all access to audit logs themselves generating higher-level audit events, auditing the auditors. For modern security architectures that treat audit logging as a core component, see [Zero Trust for Streaming](https://conduktor.io/glossary/zero-trust-for-streaming).
 
 **Regular review processes** ensure audit logs fulfill their purpose. Periodic access reviews, automated anomaly detection, and compliance report generation turn raw audit data into actionable insights.
 
@@ -252,7 +252,7 @@ Such platforms reduce the operational burden of building and maintaining custom 
 
 ## Building a Culture of Accountability
 
-Streaming audit logs do more than satisfy compliance checkboxes—they create organizational accountability. When every action is logged and traceable, teams develop greater awareness of their access to sensitive data. Audit trails enable learning from incidents, improving security posture, and demonstrating responsible data stewardship to customers and regulators.
+Streaming audit logs do more than satisfy compliance checkboxes, they create organizational accountability. When every action is logged and traceable, teams develop greater awareness of their access to sensitive data. Audit trails enable learning from incidents, improving security posture, and demonstrating responsible data stewardship to customers and regulators.
 
 As streaming platforms grow in importance, audit logging capabilities must scale in parallel. The investment in comprehensive, performant, and compliant audit logging pays dividends in reduced security risk, simplified compliance, and the confidence that comes from complete visibility into your streaming data infrastructure.
 

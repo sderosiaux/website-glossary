@@ -27,7 +27,7 @@ The pattern consists of three main phases:
 
 ## Why Traditional Migration Approaches Fail
 
-Large-scale system rewrites have a notorious failure rate. The "big bang" approach—where an entire system is replaced in a single deployment—carries several critical risks:
+Large-scale system rewrites have a notorious failure rate. The "big bang" approach, where an entire system is replaced in a single deployment, carries several critical risks:
 
 **Extended development cycles** create the risk that business requirements change before the new system launches. Teams often find themselves building features that are already obsolete.
 
@@ -55,7 +55,7 @@ Event streaming platforms solve several critical migration challenges:
 
 **Event replay**: Streaming platforms typically retain events for extended periods. This enables the new system to replay historical events for testing, validation, or catching up after deployment.
 
-**Schema evolution**: Modern streaming platforms support schema registries—centralized repositories that store and enforce data structure contracts. These registries manage how event schemas change over time, ensuring that producers and consumers remain compatible even as data models evolve. This allows the new system to introduce improved data models while maintaining compatibility with legacy consumers.
+**Schema evolution**: Modern streaming platforms support schema registries, centralized repositories that store and enforce data structure contracts. These registries manage how event schemas change over time, ensuring that producers and consumers remain compatible even as data models evolve. This allows the new system to introduce improved data models while maintaining compatibility with legacy consumers.
 
 ### Implementation Patterns
 
@@ -213,7 +213,7 @@ While event streaming simplifies strangler fig migrations, several challenges re
 
 When both systems are active, maintaining data consistency becomes complex. Events may be processed in different orders, or one system may fail while the other succeeds.
 
-**Best practice**: Implement idempotent event handlers—handlers that produce the same result when processing the same event multiple times—and use event IDs to detect duplicates. Design for eventual consistency rather than strict transactional guarantees during the transition period. For detailed patterns, see [Exactly Once Semantics in Kafka](https://conduktor.io/glossary/exactly-once-semantics-in-kafka).
+**Best practice**: Implement idempotent event handlers, handlers that produce the same result when processing the same event multiple times, and use event IDs to detect duplicates. Design for eventual consistency rather than strict transactional guarantees during the transition period. For detailed patterns, see [Exactly Once Semantics in Kafka](https://conduktor.io/glossary/exactly-once-semantics-in-kafka).
 
 ### Schema Management
 

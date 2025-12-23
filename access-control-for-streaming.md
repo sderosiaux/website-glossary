@@ -108,7 +108,7 @@ Multi-tenancy also impacts operational tools. Monitoring dashboards, schema regi
 
 ### Virtual Clusters for Simplified Multi-Tenant Access Control
 
-Managing access control across multiple teams sharing a Kafka cluster requires careful ACL coordination that becomes unwieldy at scale. Conduktor Virtual Clusters simplify this by creating complete logical isolation within a single physical cluster—each tenant operates in what appears to be a dedicated Kafka environment with their own topics, consumer groups, and access policies, eliminating cross-tenant visibility entirely.
+Managing access control across multiple teams sharing a Kafka cluster requires careful ACL coordination that becomes unwieldy at scale. Conduktor Virtual Clusters simplify this by creating complete logical isolation within a single physical cluster, each tenant operates in what appears to be a dedicated Kafka environment with their own topics, consumer groups, and access policies, eliminating cross-tenant visibility entirely.
 
 Virtual Clusters enable per-tenant security postures where each virtual cluster enforces its own authentication requirements and ACL policies. Platform teams can delegate access control management to business unit administrators who manage permissions within their virtual cluster without requiring central team intervention for every change. For implementation guidance, see the [Virtual Clusters documentation](https://docs.conduktor.io/guide/conduktor-concepts/virtual-clusters).
 
@@ -151,7 +151,7 @@ Benefits of RBAC:
 - Enable **self-service access requests**: Developers request roles/permissions through UI, managers approve via workflow, permissions auto-provision
 - Maintain audit trails showing role assignments and permission changes over time
 
-This becomes essential for regulated industries where proving "who had access to what data, when" is a compliance requirement. Self-service capabilities reduce bottlenecks on platform teams while maintaining governance controls—developers get access in minutes instead of waiting days for manual ACL configuration.
+This becomes essential for regulated industries where proving "who had access to what data, when" is a compliance requirement. Self-service capabilities reduce bottlenecks on platform teams while maintaining governance controls, developers get access in minutes instead of waiting days for manual ACL configuration.
 
 **Policy-as-code** treats access control definitions as version-controlled configuration. Tools like Terraform or GitOps workflows define ACLs and roles declaratively, ensuring changes are reviewed, auditable, and reproducible. This prevents permission sprawl where access accumulates without oversight.
 

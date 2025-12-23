@@ -121,9 +121,9 @@ When you perform a join or aggregation, Kafka Streams automatically handles the 
 
 ### State Restoration
 
-When a Kafka Streams application starts, it must restore state stores before processing new events. The restoration process reads the changelog topic from the beginning, rebuilding the local state. For example, if your state store contains 1 million keys representing several gigabytes of data, the application must read and process the entire changelog before handling new events. For large state stores, this can take significant time—potentially minutes to hours depending on the state size.
+When a Kafka Streams application starts, it must restore state stores before processing new events. The restoration process reads the changelog topic from the beginning, rebuilding the local state. For example, if your state store contains 1 million keys representing several gigabytes of data, the application must read and process the entire changelog before handling new events. For large state stores, this can take significant time, potentially minutes to hours depending on the state size.
 
-Kafka Streams optimizes restoration using standby replicas—duplicate copies of state stores maintained on other application instances that you configure via the `num.standby.replicas` setting. These standby replicas continuously update themselves from the changelog topics, staying nearly current. If a task needs to move to a new instance (due to failure or rebalancing), the standby can take over with minimal catch-up, reducing downtime from minutes to seconds.
+Kafka Streams optimizes restoration using standby replicas, duplicate copies of state stores maintained on other application instances that you configure via the `num.standby.replicas` setting. These standby replicas continuously update themselves from the changelog topics, staying nearly current. If a task needs to move to a new instance (due to failure or rebalancing), the standby can take over with minimal catch-up, reducing downtime from minutes to seconds.
 
 ### State Stores in Modern Kafka (3.5+ and 4.0+)
 
@@ -211,11 +211,11 @@ In production environments, managing state stores requires coordination between 
 
 State stores are the foundation of stateful processing in Kafka Streams, enabling operations like aggregations, joins, and windowing that depend on remembering previous events. By combining local storage with durable changelog topics, state stores achieve both high performance and fault tolerance.
 
-Understanding the different types of state stores—persistent vs in-memory, key-value vs window vs versioned—helps you choose the right storage mechanism for your use case. Modern Kafka (3.5+) introduced versioned state stores for temporal queries, while Kafka 4.0's KRaft architecture improves metadata operations and state restoration performance. The changelog-based architecture ensures that state survives failures while co-location of partitions keeps operations efficient.
+Understanding the different types of state stores, persistent vs in-memory, key-value vs window vs versioned, helps you choose the right storage mechanism for your use case. Modern Kafka (3.5+) introduced versioned state stores for temporal queries, while Kafka 4.0's KRaft architecture improves metadata operations and state restoration performance. The changelog-based architecture ensures that state survives failures while co-location of partitions keeps operations efficient.
 
 Proper configuration and monitoring of state stores is essential for production applications. Parameters like cache size, commit intervals, standby replicas, and compaction settings directly impact performance and reliability. Tools like Conduktor provide visibility into state store health, while JMX metrics enable integration with monitoring platforms. In containerized environments, ensure proper persistent volume configuration for RocksDB directories.
 
-With the right setup, state stores enable sophisticated stream processing logic—including interactive queries, temporal analytics, and complex joins—while maintaining the scalability and fault tolerance that make Kafka Streams a powerful platform for real-time data processing.
+With the right setup, state stores enable sophisticated stream processing logic, including interactive queries, temporal analytics, and complex joins, while maintaining the scalability and fault tolerance that make Kafka Streams a powerful platform for real-time data processing.
 
 ## Related Concepts
 

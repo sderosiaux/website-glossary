@@ -29,13 +29,13 @@ Kafka's architecture introduces several challenges for distributed tracing:
 
 **One-to-Many Relationships:** A single message may be consumed by multiple consumer groups, each processing it differently. Tracing must account for these branching paths.
 
-**Message Loss Visibility:** When messages disappear, you need to identify exactly where in the pipeline the loss occurred—during production, storage in Kafka, or consumption.
+**Message Loss Visibility:** When messages disappear, you need to identify exactly where in the pipeline the loss occurred, during production, storage in Kafka, or consumption.
 
 Despite these challenges, distributed tracing for Kafka is not only possible but essential for understanding the health and performance of event-driven systems.
 
 ## How Distributed Tracing Works with Kafka
 
-The key to tracing Kafka applications is context propagation—passing trace metadata along with each message so that spans can be properly linked across service boundaries.
+The key to tracing Kafka applications is context propagation, passing trace metadata along with each message so that spans can be properly linked across service boundaries.
 ![distributed-tracing-for-kafka-applications diagram 1](images/diagrams/distributed-tracing-for-kafka-applications-0.webp)
 <!-- ORIGINAL_DIAGRAM
 ```
@@ -95,7 +95,7 @@ The key to tracing Kafka applications is context propagation—passing trace met
 
 ### Context Propagation via Message Headers
 
-Kafka messages support headers—key-value pairs similar to HTTP headers—which have been a core feature since Kafka 0.11 (and are standard in modern Kafka 3.x/4.x deployments). OpenTelemetry and other tracing frameworks use these headers to propagate trace context following the W3C Trace Context specification.
+Kafka messages support headers, key-value pairs similar to HTTP headers, which have been a core feature since Kafka 0.11 (and are standard in modern Kafka 3.x/4.x deployments). OpenTelemetry and other tracing frameworks use these headers to propagate trace context following the W3C Trace Context specification.
 
 When a producer sends a message, the tracing instrumentation automatically injects trace metadata into the message headers. This typically includes:
 
@@ -431,7 +431,7 @@ Distributed tracing is most powerful when combined with other observability sign
 - **Logs:** Correlate log entries with trace IDs for detailed debugging
 - **Infrastructure Monitoring:** Connect application traces with Kafka broker metrics
 
-Platforms like Conduktor provide complementary observability features for Kafka infrastructure, including [real-time monitoring of topics, consumer groups, and cluster health](https://docs.conduktor.io/guide/monitor-brokers-apps/index). While distributed tracing shows you the application-level flow of messages, tools like Conduktor give you visibility into the Kafka layer itself—partition assignments, replication status, and configuration.
+Platforms like Conduktor provide complementary observability features for Kafka infrastructure, including [real-time monitoring of topics, consumer groups, and cluster health](https://docs.conduktor.io/guide/monitor-brokers-apps/index). While distributed tracing shows you the application-level flow of messages, tools like Conduktor give you visibility into the Kafka layer itself, partition assignments, replication status, and configuration.
 
 Conduktor Gateway is particularly valuable for testing your distributed tracing implementation. It acts as a proxy layer where you can [inject chaos scenarios](https://docs.conduktor.io/guide/use-cases/chaos-testing) (network latency, message loss, broker failures) to verify that your traces accurately capture failures and help you diagnose issues. This allows you to validate that:
 
@@ -476,13 +476,13 @@ Distributed tracing solves the observability challenges inherent in Kafka-based 
 Key takeaways:
 
 - Distributed tracing tracks messages from producers through Kafka to consumers using trace context propagated in message headers following the W3C Trace Context specification
-- Multiple instrumentation approaches are available: automatic agents, manual instrumentation, and eBPF-based tracing—each with different trade-offs
+- Multiple instrumentation approaches are available: automatic agents, manual instrumentation, and eBPF-based tracing, each with different trade-offs
 - Modern backends like Grafana Tempo, Jaeger, and SigNoz provide cost-effective visualization and analysis capabilities
 - Proper implementation requires attention to OpenTelemetry semantic conventions, sampling strategies, and thorough testing
 - Combining application-level tracing with infrastructure monitoring (like Conduktor and Conduktor Gateway) creates comprehensive observability
 - 2025 advances include eBPF-based tracing, improved cloud cost management, and better support for ML/AI workloads
 
-As event-driven architectures become increasingly complex, distributed tracing is no longer optional—it's essential for maintaining reliable, performant Kafka applications. By implementing tracing thoughtfully, you gain the visibility needed to troubleshoot issues quickly, optimize performance, and understand how your distributed systems actually behave in production.
+As event-driven architectures become increasingly complex, distributed tracing is no longer optional, it's essential for maintaining reliable, performant Kafka applications. By implementing tracing thoughtfully, you gain the visibility needed to troubleshoot issues quickly, optimize performance, and understand how your distributed systems actually behave in production.
 
 ## Related Concepts
 

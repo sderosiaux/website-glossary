@@ -100,7 +100,7 @@ In 2025, manual certificate management is largely obsolete for production Kafka 
 - **AWS Certificate Manager (ACM) Private CA**: Integrates with AWS infrastructure for managed certificate lifecycle
 - **Let's Encrypt with ACME protocol**: Offers free, automated certificates for internet-facing Kafka endpoints
 
-These tools eliminate the operational burden of tracking certificate expiration dates and performing manual rotations—a common source of production outages.
+These tools eliminate the operational burden of tracking certificate expiration dates and performing manual rotations, a common source of production outages.
 
 ### Broker Configuration
 
@@ -163,7 +163,7 @@ This dramatically reduces the learning curve for teams new to Kafka security and
 
 ## Implementing Encryption at Rest for Kafka
 
-The most common approach to encryption at rest is operating system-level disk encryption. On Linux systems, LUKS provides a standard for full-disk encryption. Once configured, this encryption is transparent to Kafka—the broker reads and writes data normally while the OS handles encryption and decryption automatically.
+The most common approach to encryption at rest is operating system-level disk encryption. On Linux systems, LUKS provides a standard for full-disk encryption. Once configured, this encryption is transparent to Kafka, the broker reads and writes data normally while the OS handles encryption and decryption automatically.
 
 ### Cloud Provider Encryption
 
@@ -230,7 +230,7 @@ Intel and AMD processors with dedicated AES instructions (AES-NI) can encrypt/de
 
 Hardware-accelerated encryption at rest using AES-256 typically adds less than 3% overhead. Self-encrypting drives (SEDs) implement encryption in the drive controller, delivering performance indistinguishable from unencrypted disks while providing transparent protection.
 
-Cloud provider managed encryption (EBS, Azure Disk) uses hardware acceleration and adds negligible overhead—typically unmeasurable in Kafka benchmarks.
+Cloud provider managed encryption (EBS, Azure Disk) uses hardware acceleration and adds negligible overhead, typically unmeasurable in Kafka benchmarks.
 
 ### Capacity Planning
 
@@ -238,7 +238,7 @@ When planning capacity for encrypted Kafka clusters:
 
 - Allocate 5-10% additional CPU headroom for encryption overhead
 - Monitor CPU utilization metrics: `kafka.server:type=BrokerTopicMetrics,name=BytesInPerSec` alongside CPU percentage
-- Test under realistic load patterns—encryption impact varies with message size and throughput characteristics
+- Test under realistic load patterns, encryption impact varies with message size and throughput characteristics
 - Consider hardware with dedicated encryption acceleration for cost-effective scaling
 
 ### Certificate and Key Rotation
@@ -246,11 +246,11 @@ When planning capacity for encrypted Kafka clusters:
 Key rotation procedures should be established and tested regularly:
 
 - **Automated certificate rotation**: Use cert-manager, Vault, or cloud-native tools to rotate certificates every 30-90 days
-- **Zero-downtime rotation**: Kafka supports hot certificate reloading—update keystores without broker restart (requires Kafka 2.5+)
+- **Zero-downtime rotation**: Kafka supports hot certificate reloading, update keystores without broker restart (requires Kafka 2.5+)
 - **Pre-expiration monitoring**: Alert 30, 14, and 7 days before certificate expiration to prevent outages
 - **Encryption key rotation**: Rotate KMS keys annually or per compliance requirements, using envelope encryption to avoid re-encrypting all data
 
-Automated rotation eliminates human error—the leading cause of certificate-related outages. Tools like Conduktor monitor certificate expiration across all clusters and alert operations teams well in advance.
+Automated rotation eliminates human error, the leading cause of certificate-related outages. Tools like Conduktor monitor certificate expiration across all clusters and alert operations teams well in advance.
 
 ### Compliance Requirements
 
@@ -280,13 +280,13 @@ For data governance and compliance:
 
 Encryption at rest and in transit are complementary security measures essential for protecting sensitive data in Apache Kafka deployments. Encryption in transit uses TLS 1.3 to protect data moving between producers, brokers, and consumers, while encryption at rest protects data stored on broker disks using filesystem or disk-level encryption.
 
-In 2025, encryption implementation has become significantly more manageable through automation tools like cert-manager, HashiCorp Vault, and cloud-native KMS services. These tools handle certificate lifecycle management, key rotation, and compliance reporting—eliminating the operational burden that historically made encryption challenging.
+In 2025, encryption implementation has become significantly more manageable through automation tools like cert-manager, HashiCorp Vault, and cloud-native KMS services. These tools handle certificate lifecycle management, key rotation, and compliance reporting, eliminating the operational burden that historically made encryption challenging.
 
 Modern hardware acceleration (AES-NI, AVX-512, ARM cryptographic extensions) reduces encryption overhead to 3-8% for TLS and under 3% for encryption at rest. TLS 1.3 delivers improved performance while eliminating deprecated cipher suites, making it the standard for new deployments.
 
 Organizations handling regulated or sensitive data should treat encryption as a mandatory security control, not an optional enhancement. The combination of TLS 1.3 encryption, managed disk encryption, automated key rotation, and comprehensive monitoring creates a defense-in-depth security posture that protects data throughout its lifecycle in the streaming platform.
 
-Platforms like Conduktor simplify encryption implementation by providing visual certificate management, expiration monitoring, and policy enforcement—reducing complexity for teams implementing security controls across distributed Kafka environments.
+Platforms like Conduktor simplify encryption implementation by providing visual certificate management, expiration monitoring, and policy enforcement, reducing complexity for teams implementing security controls across distributed Kafka environments.
 
 ## Related Concepts
 

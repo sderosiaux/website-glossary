@@ -14,7 +14,7 @@ As organizations scale their data operations, traditional centralized data archi
 
 ## Introduction to Data Mesh
 
-Data Mesh is a socio-technical approach to data architecture introduced by Zhamak Dehghani in 2019. Rather than treating data as a byproduct collected in a central repository, Data Mesh treats data as a product owned and maintained by the teams closest to its source—the domain teams themselves.
+Data Mesh is a socio-technical approach to data architecture introduced by Zhamak Dehghani in 2019. Rather than treating data as a byproduct collected in a central repository, Data Mesh treats data as a product owned and maintained by the teams closest to its source, the domain teams themselves.
 
 **Key Terms:**
 - **SLA (Service Level Agreement)**: A commitment about performance metrics like availability (99.9% uptime) or latency (< 5 minute delay)
@@ -38,7 +38,7 @@ This ownership includes the responsibility for data quality, schema evolution, d
 
 ### Data as a Product
 
-Each domain treats its data as a product with consumers, quality standards, and lifecycle management. A data product is not just raw data—it's discoverable, addressable, trustworthy, self-describing, and secure.
+Each domain treats its data as a product with consumers, quality standards, and lifecycle management. A data product is not just raw data, it's discoverable, addressable, trustworthy, self-describing, and secure.
 
 For example, a "customer-events-v1" data product might include:
 - A well-defined schema with semantic descriptions
@@ -133,7 +133,7 @@ This is similar to how microservices architecture moved from monolithic applicat
 
 ## Implementation Challenges and Considerations
 
-Implementing Data Mesh is not purely technical—it requires organizational change.
+Implementing Data Mesh is not purely technical, it requires organizational change.
 
 **Cultural shift**: Teams must take on new responsibilities for data quality and consumer support. This requires training, tooling, and incentive alignment.
 
@@ -147,7 +147,7 @@ Organizations should start small, typically with one or two domains, prove the v
 
 ## Partner Zones for Federated Data Sharing
 
-A practical challenge in Data Mesh implementations is enabling secure data sharing between domains or with external partners while maintaining single source of truth. Conduktor Partner Zones address this by providing dedicated zones with customized access to Kafka topics without data duplication—domain teams share data products with specific partners while maintaining the original topic as the authoritative source.
+A practical challenge in Data Mesh implementations is enabling secure data sharing between domains or with external partners while maintaining single source of truth. Conduktor Partner Zones address this by providing dedicated zones with customized access to Kafka topics without data duplication, domain teams share data products with specific partners while maintaining the original topic as the authoritative source.
 
 Partner Zones also provide traffic analytics showing consumption patterns within each zone, enabling domain teams to understand usage and make informed decisions about their data products' evolution. Learn more in the [Partner Zones documentation](https://docs.conduktor.io/guide/conduktor-concepts/partner-zones).
 
@@ -195,13 +195,13 @@ Data Mesh and streaming technologies like Apache Kafka are natural complements. 
 
 **Real-time data products**: Instead of batch-only data products, streaming enables real-time data products. A "customer-events-v1" Kafka topic becomes a continuously updated data product.
 
-**Schema governance**: Kafka's Schema Registry provides the foundation for data contracts, version management, and compatibility checks—key requirements for the "data as a product" principle. For details on schema management strategies, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) and [Schema Evolution Best Practices](https://conduktor.io/glossary/schema-evolution-best-practices).
+**Schema governance**: Kafka's Schema Registry provides the foundation for data contracts, version management, and compatibility checks, key requirements for the "data as a product" principle. For details on schema management strategies, see [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management) and [Schema Evolution Best Practices](https://conduktor.io/glossary/schema-evolution-best-practices).
 
 **Self-serve infrastructure**: Platforms like Conduktor provide a self-serve layer on top of Kafka, allowing domain teams to create topics, manage schemas, and configure access controls through intuitive interfaces without requiring deep Kafka expertise. This addresses the "self-serve infrastructure" principle by democratizing access to streaming infrastructure. See the [Conduktor Self-Service documentation](https://docs.conduktor.io/guide/conduktor-concepts/self-service) for details on enabling teams to manage their own data products.
 
-Consumers can discover this data product through a catalog, understand its schema and SLAs, and request access—all without contacting the order team directly.
+Consumers can discover this data product through a catalog, understand its schema and SLAs, and request access, all without contacting the order team directly.
 
-Tools like Conduktor Gateway help with federated governance by acting as a proxy layer that enforces naming conventions, schema compatibility rules, data quality checks, and access policies automatically across all domains. This ensures organizational standards are maintained while allowing teams to operate independently—critical for scaling Data Mesh implementations. For comprehensive guidance on building data products with proper governance, see [Conduktor's Data Products guide](https://docs.conduktor.io/guide/conduktor-concepts/data-products).
+Tools like Conduktor Gateway help with federated governance by acting as a proxy layer that enforces naming conventions, schema compatibility rules, data quality checks, and access policies automatically across all domains. This ensures organizational standards are maintained while allowing teams to operate independently, critical for scaling Data Mesh implementations. For comprehensive guidance on building data products with proper governance, see [Conduktor's Data Products guide](https://docs.conduktor.io/guide/conduktor-concepts/data-products).
 
 ## Modern Data Mesh Patterns (2024-2025)
 
@@ -231,7 +231,7 @@ contract:
       - customer_id is not null
 ```
 
-Data contracts provide clear expectations and enable automated validation. When a producer attempts to publish data that violates the contract, it's rejected immediately—preventing data quality issues from propagating downstream.
+Data contracts provide clear expectations and enable automated validation. When a producer attempts to publish data that violates the contract, it's rejected immediately, preventing data quality issues from propagating downstream.
 
 ### Data Product Observability
 
@@ -271,7 +271,7 @@ Organizations looking to adopt Data Mesh should follow an incremental approach:
 
 1. **Identify pilot domains**: Choose one or two domains with clear ownership and well-understood data to start.
 
-2. **Define data product standards**: Establish what constitutes a good data product—schema requirements, documentation, SLAs, etc.
+2. **Define data product standards**: Establish what constitutes a good data product, schema requirements, documentation, SLAs, etc.
 
 3. **Build platform capabilities**: Start with basic self-serve capabilities like topic creation, schema management, and access control. Expand based on domain team feedback. For topic design guidance, see [Kafka Topic Design Guidelines](https://conduktor.io/glossary/kafka-topic-design-guidelines).
 
@@ -285,7 +285,7 @@ The goal is not to achieve perfect Data Mesh from day one, but to build capabili
 
 ## Summary
 
-Data Mesh represents a fundamental rethinking of data architecture, moving from centralized control to decentralized ownership. Its four principles—domain-oriented ownership, data as a product, self-serve infrastructure, and federated governance—work together to enable scalable data operations.
+Data Mesh represents a fundamental rethinking of data architecture, moving from centralized control to decentralized ownership. Its four principles, domain-oriented ownership, data as a product, self-serve infrastructure, and federated governance, work together to enable scalable data operations.
 
 While implementation requires significant organizational and technical investment, the payoff is faster data product development, better data quality through domain expertise, and reduced bottlenecks. Streaming technologies like Apache Kafka provide an excellent foundation for Data Mesh, enabling real-time data products with strong governance through schemas and automated policies.
 

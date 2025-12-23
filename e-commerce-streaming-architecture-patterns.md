@@ -52,7 +52,7 @@ When a merchant updates product details, the system:
    - A Redis cache for fast product detail lookups
    - A recommendation engine's graph database
 
-When customers search for "blue running shoes," the query reads from Elasticsearch—a denormalized view optimized for text search with product attributes, inventory status, and pricing all pre-joined. This query never touches the transactional write database, allowing each side to scale independently. Writes prioritize consistency and durability, while reads optimize for speed and specific access patterns.
+When customers search for "blue running shoes," the query reads from Elasticsearch, a denormalized view optimized for text search with product attributes, inventory status, and pricing all pre-joined. This query never touches the transactional write database, allowing each side to scale independently. Writes prioritize consistency and durability, while reads optimize for speed and specific access patterns.
 
 ### Change Data Capture (CDC)
 
@@ -160,7 +160,7 @@ try {
 }
 ```
 
-This ensures both events are published atomically—either both succeed or both fail, maintaining consistency across topics.
+This ensures both events are published atomically, either both succeed or both fail, maintaining consistency across topics.
 
 ## Customer Experience and Personalization Streams
 
@@ -189,7 +189,7 @@ Apache Kafka has become the de facto standard for e-commerce event streaming. It
 Key Kafka capabilities for e-commerce:
 - **Durability:** Events persist to disk, enabling replay for recovery or new consumer applications
 - **Scalability:** Horizontal scaling supports growing transaction volumes
-- **Exactly-once semantics:** Critical for financial transactions and inventory operations. This guarantees that even with failures or retries, an order payment is processed exactly once—preventing duplicate charges or lost transactions. Kafka achieves this through idempotent producers and transactional writes. For a deep dive, see [Exactly-Once Semantics in Kafka](https://conduktor.io/glossary/exactly-once-semantics-in-kafka).
+- **Exactly-once semantics:** Critical for financial transactions and inventory operations. This guarantees that even with failures or retries, an order payment is processed exactly once, preventing duplicate charges or lost transactions. Kafka achieves this through idempotent producers and transactional writes. For a deep dive, see [Exactly-Once Semantics in Kafka](https://conduktor.io/glossary/exactly-once-semantics-in-kafka).
 - **Consumer groups:** Multiple applications process the same events independently. For details on consumer group behavior, see [Kafka Consumer Groups Explained](https://conduktor.io/glossary/kafka-consumer-groups-explained).
 
 Stream processing frameworks complement Kafka:
@@ -208,7 +208,7 @@ Operating streaming architectures at e-commerce scale introduces significant ope
 
 ### Schema Evolution
 
-Product catalogs change frequently—new attributes, seasonal categories, promotional fields. Each change potentially impacts dozens of microservices consuming product events. Managing schema evolution without breaking consumers requires discipline and tooling.
+Product catalogs change frequently, new attributes, seasonal categories, promotional fields. Each change potentially impacts dozens of microservices consuming product events. Managing schema evolution without breaking consumers requires discipline and tooling.
 
 Schema registries enforce compatibility rules, preventing producers from publishing incompatible changes. Teams must decide between forward compatibility (new consumers can read old data), backward compatibility (old consumers can read new data), or full compatibility (both directions work) based on their deployment practices. For detailed coverage of compatibility modes and best practices, see [Schema Evolution Best Practices](https://conduktor.io/glossary/schema-evolution-best-practices) and [Schema Registry and Schema Management](https://conduktor.io/glossary/schema-registry-and-schema-management).
 
@@ -244,7 +244,7 @@ E-commerce streaming architecture patterns enable the real-time responsiveness m
 
 Successful implementations balance technical complexity with operational maturity. Start with high-value use cases like inventory synchronization or real-time recommendations where streaming provides clear business benefits. Build organizational expertise gradually, investing in monitoring, governance, and developer tooling.
 
-The shift from batch to streaming represents a fundamental architectural change. Teams must evolve development practices, operational procedures, and organizational structure to fully realize the benefits. However, the competitive advantages—reduced overselling, improved personalization, faster order fulfillment—justify the investment for organizations operating at scale.
+The shift from batch to streaming represents a fundamental architectural change. Teams must evolve development practices, operational procedures, and organizational structure to fully realize the benefits. However, the competitive advantages, reduced overselling, improved personalization, faster order fulfillment, justify the investment for organizations operating at scale.
 
 As e-commerce continues to grow and customer expectations rise, streaming architectures will transition from competitive advantage to baseline requirement. Understanding these patterns positions engineering teams to build platforms that scale with business demands.
 

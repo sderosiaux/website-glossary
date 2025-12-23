@@ -9,7 +9,7 @@ topics:
   - Data Integration
 ---
 
-Change Data Capture (CDC) is a fundamental pattern in modern data engineering that enables real-time data synchronization between systems. As organizations move toward event-driven architectures and real-time analytics, choosing the right CDC approach becomes critical. This article compares the two primary CDC strategies—log-based and query-based—to help data architects and engineers make informed decisions.
+Change Data Capture (CDC) is a fundamental pattern in modern data engineering that enables real-time data synchronization between systems. As organizations move toward event-driven architectures and real-time analytics, choosing the right CDC approach becomes critical. This article compares the two primary CDC strategies, log-based and query-based, to help data architects and engineers make informed decisions.
 
 For foundational CDC concepts, see [What is Change Data Capture (CDC): Fundamentals](https://conduktor.io/glossary/what-is-change-data-capture-cdc-fundamentals). For hands-on implementation guidance, refer to [Implementing CDC with Debezium](https://conduktor.io/glossary/implementing-cdc-with-debezium).
 
@@ -17,9 +17,9 @@ For foundational CDC concepts, see [What is Change Data Capture (CDC): Fundament
 
 CDC captures changes made to data sources and propagates them to downstream systems. While the goal remains consistent across implementations, the mechanism for detecting and capturing changes varies significantly between approaches.
 
-**Query-Based CDC** periodically polls the source database using SQL queries to identify changed records. Think of it like checking your mailbox every few minutes to see if new mail arrived—you actively look for changes at regular intervals. It typically relies on timestamp columns, version numbers, or hash comparisons to detect modifications.
+**Query-Based CDC** periodically polls the source database using SQL queries to identify changed records. Think of it like checking your mailbox every few minutes to see if new mail arrived, you actively look for changes at regular intervals. It typically relies on timestamp columns, version numbers, or hash comparisons to detect modifications.
 
-**Log-Based CDC** reads changes directly from the database's transaction log (also called write-ahead log or redo log), capturing every committed transaction without querying the source tables. This is like having a doorbell notification—the database tells you immediately when something changes. The transaction log is an internal file that databases maintain for crash recovery and replication, recording every write operation in order.
+**Log-Based CDC** reads changes directly from the database's transaction log (also called write-ahead log or redo log), capturing every committed transaction without querying the source tables. This is like having a doorbell notification, the database tells you immediately when something changes. The transaction log is an internal file that databases maintain for crash recovery and replication, recording every write operation in order.
 ![log-based-vs-query-based-cdc-comparison diagram 1](images/diagrams/log-based-vs-query-based-cdc-comparison-0.webp)
 <!-- ORIGINAL_DIAGRAM
 ```

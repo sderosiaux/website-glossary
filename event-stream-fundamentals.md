@@ -7,7 +7,7 @@ topics:
   - Event-Driven Architecture
 ---
 
-Event streams form the backbone of modern real-time data architectures. Every click on a website, every transaction in a payment system, every sensor reading from an IoT device—these are events flowing through distributed systems. Understanding event streams is essential for building scalable, real-time applications that react to changes as they happen.
+Event streams form the backbone of modern real-time data architectures. Every click on a website, every transaction in a payment system, every sensor reading from an IoT device, these are events flowing through distributed systems. Understanding event streams is essential for building scalable, real-time applications that react to changes as they happen.
 ![Event stream architecture](images/diagrams/event-stream-fundamentals-0.webp)
 <!-- ORIGINAL_DIAGRAM
 ```
@@ -77,7 +77,7 @@ Each event in a stream consists of several components that provide structure and
 
 **Metadata**: System-generated information like partition number, offset (position in the stream), and checksum for integrity verification.
 
-This structure allows consumers to process events intelligently—filtering by headers, ordering by timestamp, or grouping by key—without parsing the entire value payload.
+This structure allows consumers to process events intelligently, filtering by headers, ordering by timestamp, or grouping by key, without parsing the entire value payload.
 
 ## Core Characteristics of Event Streams
 
@@ -85,7 +85,7 @@ Event streams have several defining characteristics that distinguish them from o
 
 **Immutable**: Once an event is written to the stream, it cannot be modified or deleted (except by retention policies). This immutability provides a reliable audit trail and enables time-travel debugging.
 
-**Append-only**: New events are always added to the end of the stream. This simple write pattern enables extremely high throughput—streaming platforms like Kafka can handle millions of events per second on commodity hardware.
+**Append-only**: New events are always added to the end of the stream. This simple write pattern enables extremely high throughput, streaming platforms like Kafka can handle millions of events per second on commodity hardware.
 
 **Ordered**: Events within a partition are strictly ordered. This ordering guarantee is critical for maintaining consistency. If a user creates an account and then updates their profile, consumers will always see these events in the correct sequence.
 
@@ -163,18 +163,18 @@ Modern governance platforms like Conduktor provide centralized visibility across
 
 ## Summary
 
-Event streams represent a fundamental shift in how we build data systems—from storing state to recording facts, from synchronous coupling to asynchronous flow, from batch processing to continuous processing.
+Event streams represent a fundamental shift in how we build data systems, from storing state to recording facts, from synchronous coupling to asynchronous flow, from batch processing to continuous processing.
 
 The key concepts to remember:
-- Event streams are immutable, ordered, partitioned logs of events—distinct from both databases and message queues
+- Event streams are immutable, ordered, partitioned logs of events, distinct from both databases and message queues
 - Each event carries structured data (key, value, timestamp, headers) with system metadata
 - Producers and consumers are decoupled, enabling independent scaling and flexible architectures
 - Platforms like Kafka (now running KRaft mode in 4.0+), Pulsar, and Kinesis provide different implementations with similar core primitives
 - Architectural patterns like event sourcing and CQRS leverage event streams to build auditable, scalable systems
-- Modern data architectures—lakehouses, data mesh, real-time analytics—rely on event streams as their foundation
+- Modern data architectures, lakehouses, data mesh, real-time analytics, rely on event streams as their foundation
 - Schema evolution, retention policies, and governance tools (like Conduktor) are essential as event streaming scales
 
-Event streams are not just a technology choice—they're a way of thinking about data as a continuously flowing resource that can be processed, reprocessed, and reinterpreted as business needs evolve. Mastering event streams is mastering the foundation of real-time, data-driven systems.
+Event streams are not just a technology choice, they're a way of thinking about data as a continuously flowing resource that can be processed, reprocessed, and reinterpreted as business needs evolve. Mastering event streams is mastering the foundation of real-time, data-driven systems.
 
 ## Related Concepts
 

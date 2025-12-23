@@ -9,7 +9,7 @@ topics:
   - Data Engineering
 ---
 
-Data quality issues cost organizations millions annually through incorrect analytics, failed ML models, and broken downstream systems. As data pipelines grow more complex—especially with real-time streaming architectures—manual testing becomes impractical. Automated data quality testing is essential for maintaining trust in your data infrastructure.
+Data quality issues cost organizations millions annually through incorrect analytics, failed ML models, and broken downstream systems. As data pipelines grow more complex, especially with real-time streaming architectures, manual testing becomes impractical. Automated data quality testing is essential for maintaining trust in your data infrastructure.
 
 ## Why Automate Data Quality Testing?
 
@@ -362,7 +362,7 @@ class DataQualityTestSuite:
 
 ## Conclusion
 
-Automated data quality testing transforms data reliability from a reactive problem into a proactive practice. By implementing comprehensive validation across schema, completeness, and statistical dimensions—especially in streaming architectures—you build resilient data systems that teams can trust.
+Automated data quality testing transforms data reliability from a reactive problem into a proactive practice. By implementing comprehensive validation across schema, completeness, and statistical dimensions, especially in streaming architectures, you build resilient data systems that teams can trust.
 
 For production-grade implementation using established frameworks, see [Great Expectations: Data Testing Framework](https://conduktor.io/glossary/great-expectations-data-testing-framework). For establishing formal agreements between data producers and consumers, explore [Data Contracts for Reliable Pipelines](https://conduktor.io/glossary/data-contracts-for-reliable-pipelines).
 

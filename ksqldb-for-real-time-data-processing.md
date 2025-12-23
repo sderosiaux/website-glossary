@@ -191,7 +191,7 @@ One of ksqlDB's most powerful features is its ability to serve as both a stream 
 
 ### Creating Materialized Views
 
-When you create a table with aggregations in ksqlDB, you're creating a materialized view—a continuously updated representation of query results:
+When you create a table with aggregations in ksqlDB, you're creating a materialized view, a continuously updated representation of query results:
 
 ```sql
 CREATE TABLE user_activity_summary AS

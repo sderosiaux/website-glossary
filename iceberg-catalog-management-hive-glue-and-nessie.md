@@ -11,7 +11,7 @@ topics:
   - Data Governance
 ---
 
-Apache Iceberg has emerged as a leading table format for data lakes, offering ACID transactions, schema evolution, and time travel capabilities. At the heart of Iceberg's architecture lies the catalog—a critical component responsible for tracking table metadata, managing table locations, and coordinating concurrent operations. Understanding the differences between catalog implementations is essential for data architects and platform engineers building scalable data infrastructures.
+Apache Iceberg has emerged as a leading table format for data lakes, offering ACID transactions, schema evolution, and time travel capabilities. At the heart of Iceberg's architecture lies the catalog, a critical component responsible for tracking table metadata, managing table locations, and coordinating concurrent operations. Understanding the differences between catalog implementations is essential for data architects and platform engineers building scalable data infrastructures.
 
 This article explores the major catalog solutions available in 2025: the vendor-neutral REST Catalog (recommended for new deployments), traditional Hive Metastore, AWS Glue for cloud-native architectures, and Project Nessie for Git-like versioning workflows. For foundational concepts about Iceberg's architecture, see [Apache Iceberg Table Architecture: Metadata and Snapshots](https://conduktor.io/glossary/iceberg-table-architecture-metadata-and-snapshots).
 ![Comparison of Iceberg catalog implementations](images/diagrams/iceberg-catalog-management-hive-glue-and-nessie-0.webp)
@@ -82,7 +82,7 @@ The REST Catalog, standardized in Iceberg 1.0+ (2022) and refined through 2025, 
 
 ### Architecture and Characteristics
 
-The REST Catalog defines a standard HTTP API specification for catalog operations. Implementations can be backed by any storage system—databases, object stores, or specialized metadata stores. This abstraction allows organizations to switch backend implementations without changing client configurations.
+The REST Catalog defines a standard HTTP API specification for catalog operations. Implementations can be backed by any storage system, databases, object stores, or specialized metadata stores. This abstraction allows organizations to switch backend implementations without changing client configurations.
 
 **Advantages:**
 - **Vendor Neutrality**: Works consistently across Spark, Flink, Trino, Dremio, and other engines
@@ -194,7 +194,7 @@ AWS Glue provides a fully managed metadata catalog service that integrates seaml
 The Glue catalog stores Iceberg table metadata in a managed service, eliminating the need for database administration. It integrates naturally with other AWS services like Athena, EMR, and Redshift Spectrum.
 
 **Advantages:**
-- Serverless and fully managed—no infrastructure to maintain
+- Serverless and fully managed, no infrastructure to maintain
 - Fine-grained IAM-based access control
 - Native integration with AWS analytics services
 - Built-in data cataloging and discovery features
@@ -250,11 +250,11 @@ spark = SparkSession.builder \
 
 ## Project Nessie Catalog
 
-Project Nessie represents a paradigm shift in catalog management by introducing Git-like versioning semantics to data lakes. For readers unfamiliar with Git: it's a system that tracks changes over time with branches (parallel versions), commits (snapshots), and merges (combining changes)—Nessie applies these concepts to data tables. It provides branches, tags, and commit history for Iceberg tables, enabling advanced workflows like experimentation, rollback, and cross-table consistency.
+Project Nessie represents a paradigm shift in catalog management by introducing Git-like versioning semantics to data lakes. For readers unfamiliar with Git: it's a system that tracks changes over time with branches (parallel versions), commits (snapshots), and merges (combining changes), Nessie applies these concepts to data tables. It provides branches, tags, and commit history for Iceberg tables, enabling advanced workflows like experimentation, rollback, and cross-table consistency.
 
 ### Architecture and Characteristics
 
-Nessie 2.x (released 2023, matured through 2025) stores catalog state in a versioned data structure, supporting multiple branches of table metadata. This allows data engineers to create isolated environments for development, testing, and production within the same catalog—similar to how software developers work on feature branches before merging to production.
+Nessie 2.x (released 2023, matured through 2025) stores catalog state in a versioned data structure, supporting multiple branches of table metadata. This allows data engineers to create isolated environments for development, testing, and production within the same catalog, similar to how software developers work on feature branches before merging to production.
 
 **Advantages:**
 - **Git-like Branching**: Create isolated environments for testing without affecting production
@@ -324,7 +324,7 @@ Iceberg catalogs play a crucial role in streaming architectures, where real-time
 
 **Catalog Commit Frequency**: Streaming jobs commit snapshots at regular intervals (e.g., every checkpoint in Flink). The catalog must handle these frequent metadata updates efficiently without becoming a bottleneck.
 
-**Multi-Writer Scenarios**: Stream processing often involves multiple parallel writers. The catalog must provide optimistic concurrency control to prevent conflicts—this means writers detect and retry when concurrent updates occur, rather than blocking each other.
+**Multi-Writer Scenarios**: Stream processing often involves multiple parallel writers. The catalog must provide optimistic concurrency control to prevent conflicts, this means writers detect and retry when concurrent updates occur, rather than blocking each other.
 
 **Schema Evolution**: Streaming schemas evolve over time as business requirements change. The catalog should support backward-compatible schema changes without disrupting active streams. For detailed guidance, see [Schema Evolution in Apache Iceberg](https://conduktor.io/glossary/schema-evolution-in-apache-iceberg).
 
@@ -475,7 +475,7 @@ Iceberg catalogs are foundational to successful data lake implementations, and t
 
 **As of 2025, the REST Catalog is recommended for new deployments** due to its vendor-neutral API, broad engine support, and modern architecture. Apache Polaris provides an open-source implementation with enterprise-grade access control.
 
-Hive Metastore offers broad compatibility and maturity but requires infrastructure management—best for existing Hadoop environments. AWS Glue provides serverless convenience within the AWS ecosystem, ideal for AWS-native architectures. JDBC Catalog offers a lightweight option for simpler deployments. Project Nessie introduces powerful Git-like versioning semantics, enabling advanced workflows like isolated environments and multi-table transactions, at the cost of increased operational complexity.
+Hive Metastore offers broad compatibility and maturity but requires infrastructure management, best for existing Hadoop environments. AWS Glue provides serverless convenience within the AWS ecosystem, ideal for AWS-native architectures. JDBC Catalog offers a lightweight option for simpler deployments. Project Nessie introduces powerful Git-like versioning semantics, enabling advanced workflows like isolated environments and multi-table transactions, at the cost of increased operational complexity.
 
 For streaming workloads (covered in [Streaming to Lakehouse Tables](https://conduktor.io/glossary/streaming-to-lakehouse-tables)), catalog performance under frequent commits and multi-writer scenarios becomes critical. Integration with governance platforms like **Conduktor** helps maintain visibility and control as catalog complexity grows, particularly for Kafka-based data pipelines.
 

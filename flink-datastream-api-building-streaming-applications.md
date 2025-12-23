@@ -232,7 +232,7 @@ The connector handles offset management, consumer group coordination, and automa
 
 ### Monitoring and Governance with Conduktor
 
-Production streaming applications require comprehensive monitoring and governance. Conduktor provides enterprise-grade visibility into Kafka topics, consumer lag, and data lineage, complementing Flink's built-in metrics. By [monitoring both Kafka and Flink metrics](https://docs.conduktor.io/guide/monitor-brokers-apps/index), teams can identify bottlenecks, track data quality, and ensure SLA compliance. Conduktor's capabilities include real-time monitoring of consumer group lag (critical for Flink applications consuming from Kafka), [schema registry integration](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/schema-registry), and data quality validation—essential features for production Flink deployments.
+Production streaming applications require comprehensive monitoring and governance. Conduktor provides enterprise-grade visibility into Kafka topics, consumer lag, and data lineage, complementing Flink's built-in metrics. By [monitoring both Kafka and Flink metrics](https://docs.conduktor.io/guide/monitor-brokers-apps/index), teams can identify bottlenecks, track data quality, and ensure SLA compliance. Conduktor's capabilities include real-time monitoring of consumer group lag (critical for Flink applications consuming from Kafka), [schema registry integration](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/schema-registry), and data quality validation, essential features for production Flink deployments.
 
 ## Practical Implementation Example
 

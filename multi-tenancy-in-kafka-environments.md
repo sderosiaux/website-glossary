@@ -12,7 +12,7 @@ As organizations scale their use of Apache Kafka, they often face a critical dec
 
 ## What is Multi-Tenancy?
 
-Multi-tenancy refers to the architectural approach where a single Kafka deployment serves multiple independent users, teams, or applications—each considered a "tenant." The goal is to share infrastructure resources efficiently while ensuring that tenants remain isolated from each other in terms of data access, performance, and operational impact.
+Multi-tenancy refers to the architectural approach where a single Kafka deployment serves multiple independent users, teams, or applications, each considered a "tenant." The goal is to share infrastructure resources efficiently while ensuring that tenants remain isolated from each other in terms of data access, performance, and operational impact.
 
 In a multi-tenant Kafka environment, different business units might share the same cluster. For example, a financial services company could host data streams for their trading platform, risk management system, and customer analytics on a single cluster, with each system operating as a separate tenant.
 
@@ -65,7 +65,7 @@ In this model, all tenants share the same physical Kafka cluster but are separat
 
 For example, topics might follow a naming convention like `team-a.orders` and `team-b.orders`, with ACLs preventing Team A from accessing Team B's data. This approach maximizes resource utilization and minimizes infrastructure costs.
 
-However, tenants still share underlying brokers, network bandwidth, and storage. This means one tenant's behavior can potentially impact others—a problem known as the "noisy neighbor" effect, where one tenant's excessive resource consumption (high throughput, many connections, or disk usage) degrades performance for other tenants sharing the same infrastructure.
+However, tenants still share underlying brokers, network bandwidth, and storage. This means one tenant's behavior can potentially impact others, a problem known as the "noisy neighbor" effect, where one tenant's excessive resource consumption (high throughput, many connections, or disk usage) degrades performance for other tenants sharing the same infrastructure.
 
 ### Physical Separation (Hard Multi-Tenancy)
 
@@ -89,7 +89,7 @@ Kafka's KRaft mode (production-ready in Kafka 4.0+) brings significant advantage
 
 **Faster Cluster Operations**: Controller failover, partition leader elections, and configuration changes complete in milliseconds rather than seconds. This reduces the impact of administrative operations on tenant workloads.
 
-**Simplified Operations**: Removing ZooKeeper reduces operational complexity, infrastructure costs, and the failure domains in multi-tenant clusters—one less distributed system to manage.
+**Simplified Operations**: Removing ZooKeeper reduces operational complexity, infrastructure costs, and the failure domains in multi-tenant clusters, one less distributed system to manage.
 
 For detailed information on KRaft mode, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka).
 
@@ -189,7 +189,7 @@ Multi-tenant clusters require careful capacity planning. Consider:
 - Storage growth rates and retention policies
 - The number of concurrent connections
 
-KRaft mode (Kafka 3.0+, production-ready in 4.0+) dramatically improves metadata performance for multi-tenant clusters, enabling faster topic creation, partition rebalancing, and controller operations—critical for environments with many tenants.
+KRaft mode (Kafka 3.0+, production-ready in 4.0+) dramatically improves metadata performance for multi-tenant clusters, enabling faster topic creation, partition rebalancing, and controller operations, critical for environments with many tenants.
 
 Tools that provide tenant-level observability can help platform teams understand usage patterns and plan capacity accordingly. For comprehensive capacity planning guidance, see [Kafka Capacity Planning](https://conduktor.io/glossary/kafka-capacity-planning).
 

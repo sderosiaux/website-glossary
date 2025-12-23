@@ -146,7 +146,7 @@ clicks
     .to("session-counts");
 ```
 
-This code groups click events by user ID and creates session windows with a 30-minute inactivity gap. The `count()` aggregation calculates the number of clicks per session. The `grace()` method configures a grace period—additional time after the session gap expires during which late-arriving events can still be merged into the session. This is crucial for handling out-of-order data without indefinitely keeping session state.
+This code groups click events by user ID and creates session windows with a 30-minute inactivity gap. The `count()` aggregation calculates the number of clicks per session. The `grace()` method configures a grace period, additional time after the session gap expires during which late-arriving events can still be merged into the session. This is crucial for handling out-of-order data without indefinitely keeping session state.
 
 ### Apache Flink
 

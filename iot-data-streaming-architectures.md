@@ -130,7 +130,7 @@ IoT ecosystems use various protocols beyond MQTT 5.0, including:
 - **AMQP 1.0** for enterprise messaging with transactional semantics
 - **Proprietary protocols** from industrial equipment manufacturers
 
-Streaming architectures employ protocol bridges—lightweight services (often written in Go or Rust for performance) that translate between device protocols and Kafka. These bridges handle authentication, protocol translation, and message batching before publishing to Kafka topics. Cloud IoT platforms like AWS IoT Core, Azure IoT Hub, and Google Cloud IoT Core provide managed protocol bridges with built-in device management, certificate provisioning, and fleet monitoring.
+Streaming architectures employ protocol bridges, lightweight services (often written in Go or Rust for performance) that translate between device protocols and Kafka. These bridges handle authentication, protocol translation, and message batching before publishing to Kafka topics. Cloud IoT platforms like AWS IoT Core, Azure IoT Hub, and Google Cloud IoT Core provide managed protocol bridges with built-in device management, certificate provisioning, and fleet monitoring.
 
 Protocol bridges standardize data formats early in the pipeline, simplifying downstream processing and enabling a single Kafka cluster to ingest data from diverse IoT device fleets. For serialization strategies, see [Message Serialization in Kafka](https://conduktor.io/glossary/message-serialization-in-kafka).
 

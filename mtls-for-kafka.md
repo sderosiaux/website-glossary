@@ -10,7 +10,7 @@ topics:
 
 In modern data streaming architectures, securing machine-to-machine communications is paramount. While many systems rely on one-way TLS to encrypt data in transit, regulated industries and zero-trust environments demand stronger authentication guarantees.
 
-mTLS extends traditional TLS by requiring both the client and server to present valid certificates during the connection handshake. For Kafka, this means brokers authenticate clients, and clients authenticate brokers—creating a cryptographically verified identity for every participant in the streaming platform.
+mTLS extends traditional TLS by requiring both the client and server to present valid certificates during the connection handshake. For Kafka, this means brokers authenticate clients, and clients authenticate brokers, creating a cryptographically verified identity for every participant in the streaming platform.
 
 mTLS is one of several authentication mechanisms available in Kafka. For a comprehensive comparison of authentication approaches including SASL/SCRAM, SASL/PLAIN, and OAuth 2.0, see [Kafka Authentication: SASL, SSL, OAuth](https://conduktor.io/glossary/kafka-authentication-sasl-ssl-oauth). For broader security context covering authorization, encryption, and operational best practices, refer to [Kafka Security Best Practices](https://conduktor.io/glossary/kafka-security-best-practices).
 
@@ -155,7 +155,7 @@ KRaft controllers form a Raft consensus group that stores cluster metadata. Secu
 
 Certificates have finite lifespans, and managing their lifecycle presents operational challenges in production Kafka deployments.
 
-**Certificate Rotation**: Industry best practices recommend certificate rotation every 90 days or less. For large Kafka clusters with hundreds of applications, this creates significant operational overhead. Automation becomes mandatory—manual certificate updates across distributed systems are error-prone and don't scale.
+**Certificate Rotation**: Industry best practices recommend certificate rotation every 90 days or less. For large Kafka clusters with hundreds of applications, this creates significant operational overhead. Automation becomes mandatory, manual certificate updates across distributed systems are error-prone and don't scale.
 
 **Expiration Monitoring**: Expired certificates cause immediate application failures. Monitoring systems must track certificate expiration dates and alert operators well in advance. Many organizations set alerts at 30, 14, and 7 days before expiration.
 
@@ -181,7 +181,7 @@ mTLS introduces computational overhead that impacts Kafka performance, particula
 
 **Connection Pooling**: Applications should maintain persistent connections to brokers rather than creating new connections for each operation. Connection pooling amortizes the handshake cost across thousands of messages. Most Kafka client libraries handle connection pooling automatically.
 
-**Performance Impact**: With TLS 1.3 and modern hardware, mTLS overhead is typically 5-15% CPU increase compared to plaintext connections—significantly better than the 20-30% overhead of TLS 1.2. The exact impact varies with message size, throughput, and hardware capabilities. For most deployments, the security benefits of mTLS far outweigh the modest performance cost.
+**Performance Impact**: With TLS 1.3 and modern hardware, mTLS overhead is typically 5-15% CPU increase compared to plaintext connections, significantly better than the 20-30% overhead of TLS 1.2. The exact impact varies with message size, throughput, and hardware capabilities. For most deployments, the security benefits of mTLS far outweigh the modest performance cost.
 
 ## Integration with Kafka ACLs
 
@@ -204,7 +204,7 @@ Despite its security benefits, mTLS introduces operational complexity that teams
 
 **Certificate Distribution**: Every client application needs its certificate and keystore. In large organizations with hundreds of microservices, distributing and installing certificates securely becomes a significant challenge. Manual distribution doesn't scale, and automated solutions must ensure certificates reach only their intended recipients.
 
-**Key Management**: Private keys must be protected throughout their lifecycle—during generation, storage, distribution, and eventual destruction. Leaked private keys allow attackers to impersonate legitimate applications.
+**Key Management**: Private keys must be protected throughout their lifecycle, during generation, storage, distribution, and eventual destruction. Leaked private keys allow attackers to impersonate legitimate applications.
 
 **Debugging**: Connection failures in mTLS environments can stem from expired certificates, incorrect CA chains, hostname mismatches, or misconfigured truststores. Troubleshooting requires SSL/TLS expertise and careful examination of certificate properties.
 
@@ -268,7 +268,7 @@ These tools transform mTLS from an operational burden into a manageable, largely
 
 ## Governance and Compliance
 
-Organizations concerned with data governance—particularly those in regulated industries—need comprehensive visibility into their Kafka security posture beyond just implementing mTLS. While mTLS handles authentication and encryption at the connection level, governance platforms provide operational oversight and compliance enforcement.
+Organizations concerned with data governance, particularly those in regulated industries, need comprehensive visibility into their Kafka security posture beyond just implementing mTLS. While mTLS handles authentication and encryption at the connection level, governance platforms provide operational oversight and compliance enforcement.
 
 **Conduktor** offers governance capabilities that complement mTLS authentication by providing:
 - **Centralized security visibility**: Monitor which certificates are being used, track access patterns, and audit authentication attempts across your entire Kafka infrastructure
@@ -357,7 +357,7 @@ This produces detailed logs showing certificate validation steps, helping identi
 
 Mutual TLS represents the gold standard for authenticating Kafka clients in enterprise and regulated environments. While it introduces operational complexity compared to simpler authentication methods, the security guarantees justify the investment for organizations handling sensitive data or operating in zero-trust architectures.
 
-Successful mTLS deployments require careful planning of certificate infrastructure, investment in automation tools, and operational discipline around certificate lifecycle management. Teams that master these aspects gain cryptographically verified identity for every Kafka client—the foundation for robust authorization policies and regulatory compliance.
+Successful mTLS deployments require careful planning of certificate infrastructure, investment in automation tools, and operational discipline around certificate lifecycle management. Teams that master these aspects gain cryptographically verified identity for every Kafka client, the foundation for robust authorization policies and regulatory compliance.
 
 ## Related Concepts
 

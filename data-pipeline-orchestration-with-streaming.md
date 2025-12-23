@@ -15,13 +15,13 @@ Modern data platforms increasingly rely on streaming architectures to deliver re
 
 ## Understanding Pipeline Orchestration
 
-Pipeline orchestration refers to the automated management of data workflows, including scheduling tasks, managing dependencies between operations, handling failures, and monitoring execution. In traditional batch processing, orchestration tools coordinate discrete jobs that run on a schedule—hourly ETL jobs, nightly data warehouse loads, or weekly report generation.
+Pipeline orchestration refers to the automated management of data workflows, including scheduling tasks, managing dependencies between operations, handling failures, and monitoring execution. In traditional batch processing, orchestration tools coordinate discrete jobs that run on a schedule, hourly ETL jobs, nightly data warehouse loads, or weekly report generation.
 
 These batch orchestrators excel at directed acyclic graphs (DAGs) where task B waits for task A to complete. They provide retry logic, alerting, and visibility into pipeline execution. Tools like Apache Airflow, Prefect, and Dagster have become industry standards for this paradigm.
 
 ## The Streaming Orchestration Challenge
 
-Streaming data processing fundamentally differs from batch in one critical way: it's continuous rather than scheduled. A Kafka consumer reading from a topic doesn't "finish" in the traditional sense—it runs indefinitely, processing events as they arrive. This creates several orchestration challenges:
+Streaming data processing fundamentally differs from batch in one critical way: it's continuous rather than scheduled. A Kafka consumer reading from a topic doesn't "finish" in the traditional sense, it runs indefinitely, processing events as they arrive. This creates several orchestration challenges:
 
 **Deployment vs Runtime Management**: In batch systems, orchestration means scheduling when jobs run. In streaming, it often means deploying long-running applications and ensuring they stay healthy. A Flink job processing clickstream data might run for months without restarting.
 
@@ -77,7 +77,7 @@ Consider an e-commerce fraud detection pipeline:
 ```
 -->
 
-Traditional batch orchestration doesn't fit—this pipeline processes events continuously, scales dynamically based on traffic, and maintains complex state about user behavior patterns.
+Traditional batch orchestration doesn't fit, this pipeline processes events continuously, scales dynamically based on traffic, and maintains complex state about user behavior patterns.
 
 ## Orchestration Approaches for Streaming Pipelines
 
@@ -124,7 +124,7 @@ Stream processing frameworks have built-in orchestration capabilities. Kafka Con
 
 With Flink 1.18+ and its unified batch-streaming architecture, orchestration becomes more flexible. The same Flink job can process both bounded (batch) and unbounded (streaming) data, allowing orchestration systems to treat backfilling historical data and processing real-time streams as variations of the same pipeline rather than separate workflows.
 
-These tools orchestrate at the stream processing level—managing how data flows through topics, how consumers coordinate, and how processing state is maintained. The "orchestration" is implicit in the streaming platform's design.
+These tools orchestrate at the stream processing level, managing how data flows through topics, how consumers coordinate, and how processing state is maintained. The "orchestration" is implicit in the streaming platform's design.
 
 ### Kubernetes-Based Orchestration
 
@@ -160,7 +160,7 @@ Enforce schema validation at ingestion. Use the schema registry as a source of t
 
 ### Monitor Lag, Not Just Errors
 
-Traditional batch orchestration focuses on task success or failure. Streaming orchestration must monitor consumer lag—the gap between produced and consumed messages. Growing lag indicates problems even when no errors appear in logs.
+Traditional batch orchestration focuses on task success or failure. Streaming orchestration must monitor consumer lag, the gap between produced and consumed messages. Growing lag indicates problems even when no errors appear in logs.
 
 Modern tools like Kafka Lag Exporter (Prometheus-based) provide real-time lag metrics that integrate with orchestration workflows. Platforms like Conduktor offer comprehensive monitoring dashboards that track consumer lag, throughput, and pipeline health across your entire streaming infrastructure. Monitor connector health and status with [Kafka Connect Management](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/kafka-connect) and validate data quality using [built-in monitoring tools](https://docs.conduktor.io/guide/use-cases/observe-data-quality). Orchestration systems should trigger alerts when lag exceeds thresholds and potentially scale resources automatically. For comprehensive monitoring strategies, see [Kafka Cluster Monitoring and Metrics](https://conduktor.io/glossary/kafka-cluster-monitoring-and-metrics).
 

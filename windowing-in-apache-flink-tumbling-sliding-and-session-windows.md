@@ -11,7 +11,7 @@ topics:
 
 Stream processing requires mechanisms to divide infinite data streams into finite chunks for meaningful aggregations and analytics. Apache Flink provides powerful windowing abstractions that enable you to group events by time or other criteria, making it possible to compute metrics like counts, sums, and averages over specific intervals.
 
-This article explores Flink's three primary window types—tumbling, sliding, and session windows—and demonstrates how to implement them effectively in your stream processing pipelines using Apache Flink 1.19+ (2025). Examples use the DataStream API with Java, though Flink also supports windowing through the Table API and SQL for declarative stream processing.
+This article explores Flink's three primary window types, tumbling, sliding, and session windows, and demonstrates how to implement them effectively in your stream processing pipelines using Apache Flink 1.19+ (2025). Examples use the DataStream API with Java, though Flink also supports windowing through the Table API and SQL for declarative stream processing.
 
 ## Prerequisites
 
@@ -485,7 +485,7 @@ When consuming from Kafka, configure watermarks to handle out-of-order events. T
 
 ### Governance and Visibility
 
-Managing Kafka topics and ensuring data quality in streaming pipelines requires robust governance tools. Streaming management platforms like Conduktor provide comprehensive visibility into Kafka clusters, helping teams monitor topic health, schema evolution, and consumer lag—critical factors for successful Flink deployments.
+Managing Kafka topics and ensuring data quality in streaming pipelines requires robust governance tools. Streaming management platforms like Conduktor provide comprehensive visibility into Kafka clusters, helping teams monitor topic health, schema evolution, and consumer lag, critical factors for successful Flink deployments.
 
 When operating windowed Flink applications at scale, governance platforms enable:
 - **Topic monitoring**: [Track Kafka topics](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/topics) for message rates and partition distribution across input/output topics
@@ -771,7 +771,7 @@ Apache Flink's windowing mechanisms provide powerful abstractions for processing
 
 Choosing the appropriate window type depends on your use case: tumbling for discrete reports, sliding for trends, and session for behavior analysis. When integrated with Kafka, Flink's event time processing and watermarking ensure accurate, deterministic results even with out-of-order events.
 
-Understanding window functions—from incremental aggregations to full window processing—enables you to balance performance and functionality. Combined with proper governance tools for monitoring Kafka infrastructure, these techniques form the foundation of robust, production-ready stream processing pipelines.
+Understanding window functions, from incremental aggregations to full window processing, enables you to balance performance and functionality. Combined with proper governance tools for monitoring Kafka infrastructure, these techniques form the foundation of robust, production-ready stream processing pipelines.
 
 ## Related Concepts
 

@@ -151,11 +151,11 @@ Consider an e-commerce system where you partition orders by customer ID. If a sm
 **Key selection guidelines:**
 - **High, even cardinality:** User IDs, transaction IDs, device IDs (if evenly distributed)
 - **Low cardinality (avoid):** Boolean flags, status codes, country codes with uneven distribution
-- **Skewed cardinality (mitigate):** Tenant IDs where some tenants dominate traffic—consider salting or composite keys
+- **Skewed cardinality (mitigate):** Tenant IDs where some tenants dominate traffic, consider salting or composite keys
 
 ### Ordering Guarantees
 
-Kafka only guarantees ordering within a partition, not across partitions. If strict global ordering is required, you must use a single partition—which severely limits scalability. More commonly, you need ordering for a specific entity (user, device, transaction), which key-based partitioning handles well.
+Kafka only guarantees ordering within a partition, not across partitions. If strict global ordering is required, you must use a single partition, which severely limits scalability. More commonly, you need ordering for a specific entity (user, device, transaction), which key-based partitioning handles well.
 
 ### Consumer Parallelism
 
@@ -170,7 +170,7 @@ Kafka consumers use partition assignment strategies to determine which partition
 - **RangeAssignor** (legacy): Assigns contiguous partition ranges per topic, can cause imbalance across topics
 - **RoundRobinAssignor**: Distributes partitions evenly across consumers in round-robin fashion
 - **StickyAssignor** (Kafka 0.11+): Maximizes partition assignment stability during rebalancing, reducing state rebuilding
-- **CooperativeStickyAssignor** (Kafka 2.4+, default 3.0+): Like StickyAssignor but supports **cooperative rebalancing**—only affected partitions are reassigned, reducing rebalancing impact
+- **CooperativeStickyAssignor** (Kafka 2.4+, default 3.0+): Like StickyAssignor but supports **cooperative rebalancing**, only affected partitions are reassigned, reducing rebalancing impact
 
 Cooperative rebalancing is a major improvement over the older "stop-the-world" approach. During rebalancing, consumers continue processing unaffected partitions, significantly reducing latency spikes and consumer lag during group membership changes.
 
@@ -270,7 +270,7 @@ When you must increase partition count, consider:
 - **New topic migration**: Create a new topic with the desired partition count and migrate consumers
 - **Dual-write patterns**: Use MirrorMaker 2 or custom producers to write to both old and new topics during transition, then switch consumers
 - **Kafka Streams repartitioning**: For Kafka Streams applications, use the `repartition()` operation to create intermediate topics with proper partition counts
-- **Documentation**: Document the partition count change for teams relying on ordering guarantees—keys will map to different partitions after the change
+- **Documentation**: Document the partition count change for teams relying on ordering guarantees, keys will map to different partitions after the change
 
 **Example with Kafka Streams:**
 ```java
@@ -284,7 +284,7 @@ KStream<String, Order> repartitioned = orders
         .withName("orders-repartitioned"));
 ```
 
-**Avoid decreasing partition counts**—Kafka doesn't support this operation. Instead, create a new topic and migrate.
+**Avoid decreasing partition counts**, Kafka doesn't support this operation. Instead, create a new topic and migrate.
 
 ### Testing Partition Distribution
 

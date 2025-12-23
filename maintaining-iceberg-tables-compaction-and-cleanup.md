@@ -408,7 +408,7 @@ In organizations managing multiple Iceberg tables across streaming pipelines, vi
 - **Access auditing**: Log which users and applications query specific Iceberg snapshots, critical for GDPR and compliance
 - **Retention policy enforcement**: Automate snapshot expiration aligned with regulatory requirements
 
-This governance layer is essential when multiple teams manage different parts of the streaming-to-lakehouse pipeline—ensuring that developers can iterate quickly while maintaining production reliability.
+This governance layer is essential when multiple teams manage different parts of the streaming-to-lakehouse pipeline, ensuring that developers can iterate quickly while maintaining production reliability.
 
 ## Branch-Specific Maintenance (Iceberg 1.5+)
 
@@ -707,9 +707,9 @@ Iceberg 1.5+ **branch-specific maintenance** enables independent retention polic
 
 In streaming environments, maintenance becomes more critical as continuous writes amplify these challenges. Modern integrations like **Flink 1.18+ Actions API** enable programmatic maintenance alongside streaming ingestion. Platforms like **Conduktor** provide comprehensive governance for Kafka-to-Iceberg pipelines, monitoring table health metrics, enforcing data quality, and enabling chaos testing to validate pipeline resilience.
 
-**When to perform maintenance** is as important as how—monitor file counts, average file sizes, query planning times, and snapshot growth to trigger maintenance proactively. Set up dashboards tracking these metrics and automate maintenance through orchestration platforms like Airflow, triggering operations based on concrete thresholds rather than arbitrary schedules.
+**When to perform maintenance** is as important as how, monitor file counts, average file sizes, query planning times, and snapshot growth to trigger maintenance proactively. Set up dashboards tracking these metrics and automate maintenance through orchestration platforms like Airflow, triggering operations based on concrete thresholds rather than arbitrary schedules.
 
-Understanding **operational considerations**—duration, compute costs, and query availability—ensures maintenance operations run efficiently without disrupting production workloads. Iceberg's MVCC architecture enables zero-downtime maintenance, allowing queries to continue uninterrupted while compaction and cleanup proceed in the background.
+Understanding **operational considerations**, duration, compute costs, and query availability, ensures maintenance operations run efficiently without disrupting production workloads. Iceberg's MVCC architecture enables zero-downtime maintenance, allowing queries to continue uninterrupted while compaction and cleanup proceed in the background.
 
 By following the best practices and automation patterns outlined here, data platform teams can maintain Iceberg tables efficiently while optimizing for both performance and cost. Regular maintenance transforms Iceberg from a powerful but maintenance-heavy table format into a truly production-grade foundation for modern data lakehouses.
 

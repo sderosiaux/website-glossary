@@ -11,7 +11,7 @@ topics:
 
 Apache Flink (currently version 1.18 as of 2024, with 1.19 in development) is an open-source distributed stream processing framework designed to handle unbounded and bounded data streams with low latency and high throughput. Unlike traditional batch processing systems, Flink treats streams as the primary data model, making it ideal for real-time analytics, event-driven applications, and continuous data pipelines.
 
-At its core, Flink excels at stateful stream processing—the ability to maintain and update computation state across millions of events while guaranteeing exactly-once processing semantics. This capability makes Flink a powerful tool for data engineers building mission-critical real-time applications.
+At its core, Flink excels at stateful stream processing, the ability to maintain and update computation state across millions of events while guaranteeing exactly-once processing semantics. This capability makes Flink a powerful tool for data engineers building mission-critical real-time applications.
 
 ## What is Stream Processing?
 
@@ -19,7 +19,7 @@ Stream processing is a computational paradigm that processes data continuously a
 
 **Key characteristics of stream processing:**
 
-- **Unbounded data**: Streams have no defined end—data arrives continuously
+- **Unbounded data**: Streams have no defined end, data arrives continuously
 - **Low latency**: Events are processed within milliseconds to seconds
 - **Event time semantics**: Processing based on when events actually occurred, not when they arrived
 - **Stateful operations**: Maintaining context across events (counters, windows, joins)
@@ -46,7 +46,7 @@ State is fault-tolerant, backed by configurable state backends (HashMapStateBack
 
 ### Exactly-Once Semantics
 
-Flink guarantees exactly-once processing semantics through its distributed snapshotting mechanism. This ensures that each event affects the final result exactly once, even in the presence of failures—critical for financial transactions, billing systems, and other scenarios where accuracy is non-negotiable. Flink achieves this by periodically creating consistent snapshots of all operator state and input stream positions, which can be restored upon failure.
+Flink guarantees exactly-once processing semantics through its distributed snapshotting mechanism. This ensures that each event affects the final result exactly once, even in the presence of failures, critical for financial transactions, billing systems, and other scenarios where accuracy is non-negotiable. Flink achieves this by periodically creating consistent snapshots of all operator state and input stream positions, which can be restored upon failure.
 
 ### Event Time Processing
 
@@ -208,7 +208,7 @@ Apache Flink and Apache Kafka form a powerful combination in modern data archite
 
 **Flink Kafka Connector features (Flink 1.14+):**
 - Exactly-once source/sink semantics with Kafka transactions (see [Exactly-Once Semantics in Kafka](https://conduktor.io/glossary/exactly-once-semantics-in-kafka))
-- Dynamic partition discovery—automatically detects new Kafka partitions and adjusts processing
+- Dynamic partition discovery, automatically detects new Kafka partitions and adjusts processing
 - Consumer position tracking for fault tolerance
 - Support for multiple serialization formats: Avro, JSON, Protobuf (see [Avro vs Protobuf vs JSON Schema](https://conduktor.io/glossary/avro-vs-protobuf-vs-json-schema))
 

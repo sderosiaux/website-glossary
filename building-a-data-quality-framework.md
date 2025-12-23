@@ -9,7 +9,7 @@ topics:
   - Data Governance
 ---
 
-Data quality is the foundation of trustworthy analytics, reliable machine learning models, and sound business decisions. For Data Governance Officers and Data Quality Analysts, establishing a comprehensive data quality framework is not just a technical exercise—it's a strategic imperative that impacts every data-driven initiative across the organization.
+Data quality is the foundation of trustworthy analytics, reliable machine learning models, and sound business decisions. For Data Governance Officers and Data Quality Analysts, establishing a comprehensive data quality framework is not just a technical exercise, it's a strategic imperative that impacts every data-driven initiative across the organization.
 
 ## Understanding the Data Quality Framework
 
@@ -161,7 +161,7 @@ Create quality rules that are both preventive and detective. Preventive rules en
 
 Quality scorecards aggregate metrics into actionable dashboards that communicate data health to various stakeholder groups. Executive scorecards might show overall quality trends and business impact, while operational scorecards provide detailed breakdowns by dataset, data domain, or quality dimension.
 
-Design scorecards with clear visual indicators—green, yellow, and red status indicators quickly communicate whether quality meets expectations. Include trend lines to show improvement or degradation over time, and contextualize metrics with business impact assessments that translate quality scores into business terms.
+Design scorecards with clear visual indicators, green, yellow, and red status indicators quickly communicate whether quality meets expectations. Include trend lines to show improvement or degradation over time, and contextualize metrics with business impact assessments that translate quality scores into business terms.
 
 Your scorecards should answer key questions: Which datasets have the highest quality issues? Are quality trends improving or declining? What is the business impact of current quality levels? Which data domains require immediate attention? These insights drive prioritization and resource allocation for quality improvement initiatives.
 
@@ -301,11 +301,11 @@ Testing capabilities in modern platforms allow you to validate quality rules bef
 
 ## Establishing Continuous Improvement
 
-A data quality framework is never truly complete—it evolves with your data landscape and business needs. Establish regular reviews of quality metrics, validation rules, and scorecards to ensure they remain relevant and effective. Incorporate feedback from data consumers about quality issues they encounter in practice.
+A data quality framework is never truly complete, it evolves with your data landscape and business needs. Establish regular reviews of quality metrics, validation rules, and scorecards to ensure they remain relevant and effective. Incorporate feedback from data consumers about quality issues they encounter in practice.
 
 Measure the business impact of quality improvements to demonstrate value and secure ongoing investment in quality initiatives. Track metrics like reduced incident response time, decreased data rework efforts, or improved decision confidence. These outcomes connect technical quality metrics to business value.
 
-Create feedback loops between quality measurement and data platform improvements. When quality issues reveal systemic problems—inadequate data validation, missing reference data, or architectural gaps—use these insights to drive platform enhancements that prevent entire classes of quality issues.
+Create feedback loops between quality measurement and data platform improvements. When quality issues reveal systemic problems, inadequate data validation, missing reference data, or architectural gaps, use these insights to drive platform enhancements that prevent entire classes of quality issues.
 
 ## Related Concepts
 

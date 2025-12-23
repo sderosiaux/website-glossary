@@ -9,7 +9,7 @@ topics:
 
 For decades, enterprise security operated on the castle-and-moat principle: build a strong perimeter, and trust everything inside. Firewalls protected the network boundary, and once a service or user was inside, they were largely trusted by default.
 
-Streaming architectures expose the fundamental flaw in this model. Data flows continuously across services, cloud boundaries, and organizational units. A single compromised producer could poison data for hundreds of downstream consumers. A breached consumer could exfiltrate sensitive events in real-time. The attack surface is not a perimeter—it's a mesh of interconnected data flows.
+Streaming architectures expose the fundamental flaw in this model. Data flows continuously across services, cloud boundaries, and organizational units. A single compromised producer could poison data for hundreds of downstream consumers. A breached consumer could exfiltrate sensitive events in real-time. The attack surface is not a perimeter, it's a mesh of interconnected data flows.
 
 For detailed coverage of traditional access control approaches in streaming, see [Access Control for Streaming](https://conduktor.io/glossary/access-control-for-streaming).
 
@@ -60,7 +60,7 @@ Zero trust for streaming rests on three foundational principles:
 
 **Least privilege access.** Grant the minimum permissions necessary for a service to function. A consumer reading from a single topic shouldn't have cluster-wide read access. A producer writing order events shouldn't be able to write to user profile topics. Fine-grained permissions prevent lateral movement after a breach.
 
-**Assume breach.** Design as if attackers are already inside your network. Limit blast radius through segmentation. Encrypt data in-transit and at-rest. Monitor for anomalous behavior. A zero trust architecture doesn't prevent all breaches—it contains them.
+**Assume breach.** Design as if attackers are already inside your network. Limit blast radius through segmentation. Encrypt data in-transit and at-rest. Monitor for anomalous behavior. A zero trust architecture doesn't prevent all breaches, it contains them.
 
 ## Authentication Everywhere
 
@@ -70,7 +70,7 @@ In a streaming system, authentication happens at multiple layers. Client authent
 
 **OAuth 2.0 and OIDC (OpenID Connect)** enable centralized identity management. Services obtain short-lived access tokens from an identity provider. Kafka can validate these tokens on every request, allowing real-time revocation when a service is compromised. Modern Kafka versions (3.x and 4.x) support OAuth 2.0 bearer tokens through the OAUTHBEARER SASL mechanism, with improved support for delegated tokens that can be scoped to specific operations and time windows. Token expiration forces periodic re-authentication, reducing the window for stolen credentials to be exploited. For implementation details, see [Kafka Authentication: SASL, SSL, OAuth](https://conduktor.io/glossary/kafka-authentication-sasl-ssl-oauth).
 
-**Service mesh integration** layers authentication onto the network itself. Tools like Istio or Linkerd automatically handle mTLS between services, verify identities, and enforce policies. The streaming platform doesn't need to implement all authentication logic—it delegates to the mesh.
+**Service mesh integration** layers authentication onto the network itself. Tools like Istio or Linkerd automatically handle mTLS between services, verify identities, and enforce policies. The streaming platform doesn't need to implement all authentication logic, it delegates to the mesh.
 
 **Workload identity** ties authentication to the workload, not the host. A Kubernetes pod gets a unique identity regardless of which node it runs on. Credentials rotate automatically. Identity follows the workload through the infrastructure lifecycle.
 
@@ -98,7 +98,7 @@ Zero trust architectures assume the network is hostile. Segmentation and encrypt
 
 Traditional microsegmentation relies on network controls (VLANs, security groups, firewall rules) that become complex at scale. Conduktor Virtual Clusters enable microsegmentation at the Kafka application layer, creating trust boundaries where every access crosses an explicit security checkpoint. Applications cannot access resources in other virtual clusters regardless of network connectivity, enforcing the "never trust, always verify" principle at the data platform level.
 
-Virtual Clusters align with zero trust's least privilege requirement—services receive credentials scoped exclusively to their virtual cluster, making it impossible to access data outside their intended scope even if credentials are compromised. If an attacker compromises credentials for a development virtual cluster, those credentials provide no access to production virtual clusters, limiting lateral movement. For implementation guidance, see the [Virtual Clusters documentation](https://docs.conduktor.io/guide/conduktor-concepts/virtual-clusters).
+Virtual Clusters align with zero trust's least privilege requirement, services receive credentials scoped exclusively to their virtual cluster, making it impossible to access data outside their intended scope even if credentials are compromised. If an attacker compromises credentials for a development virtual cluster, those credentials provide no access to production virtual clusters, limiting lateral movement. For implementation guidance, see the [Virtual Clusters documentation](https://docs.conduktor.io/guide/conduktor-concepts/virtual-clusters).
 
 **TLS encryption in-transit** prevents eavesdropping on the wire. Every connection between clients and brokers, and between brokers themselves, should use TLS 1.3 (or TLS 1.2 minimum for legacy compatibility). TLS 1.3 provides improved security and performance with a faster handshake and removal of vulnerable cipher suites. Encryption overhead is negligible compared to the risk of plaintext streaming data. For detailed encryption configuration, see [Encryption at Rest and in Transit for Kafka](https://conduktor.io/glossary/encryption-at-rest-and-in-transit-for-kafka).
 
@@ -116,7 +116,7 @@ Zero trust doesn't end after initial authentication. Continuous verification ens
 
 **Anomaly detection** identifies unusual patterns. A consumer that typically reads 1,000 messages per second suddenly pulling millions raises flags. A producer connecting from a new geographic region warrants investigation. Machine learning models establish baselines and alert on deviations.
 
-**Behavioral analysis** builds profiles of normal service behavior. Login times, data access patterns, throughput rates—all contribute to a behavioral signature. Deviations suggest compromise or misconfiguration. For comprehensive tracking of access patterns, see [Audit Logging for Streaming Platforms](https://conduktor.io/glossary/audit-logging-for-streaming-platforms).
+**Behavioral analysis** builds profiles of normal service behavior. Login times, data access patterns, throughput rates, all contribute to a behavioral signature. Deviations suggest compromise or misconfiguration. For comprehensive tracking of access patterns, see [Audit Logging for Streaming Platforms](https://conduktor.io/glossary/audit-logging-for-streaming-platforms).
 
 ## Implementation Challenges and Best Practices
 
@@ -200,7 +200,7 @@ Zero trust for streaming acknowledges a simple reality: distributed data flows c
 
 By verifying explicitly, enforcing least privilege, and assuming breach, zero trust architectures contain the blast radius of compromises. Authentication proves identity at every hop. Authorization limits what each identity can do. Encryption protects data in motion and at rest. Continuous monitoring detects anomalies before they escalate.
 
-The transition requires effort—technical implementation, operational changes, and cultural shifts. But in an era where data breaches are measured in millions of records and streaming systems are critical infrastructure, implicit trust is a luxury we can't afford.
+The transition requires effort, technical implementation, operational changes, and cultural shifts. But in an era where data breaches are measured in millions of records and streaming systems are critical infrastructure, implicit trust is a luxury we can't afford.
 
 Trust must be earned, continuously, at every request.
 

@@ -22,7 +22,7 @@ For a comprehensive guide on implementing CDC with specific tools and configurat
 Microservices architectures aim to decompose monolithic applications into independent, loosely coupled services. However, maintaining data consistency and enabling inter-service communication without tight coupling presents significant challenges:
 
 - **Service Isolation**: Each microservice owns its data, but services need to react to changes in other services
-- **Dual Writes Problem**: Writing to a database and publishing an event as separate operations creates consistency risks. For example, if you save an order to the database and then publish an OrderCreated event to Kafka, a crash between these operations leaves your system in an inconsistent state—the order exists in the database but downstream services never receive the event.
+- **Dual Writes Problem**: Writing to a database and publishing an event as separate operations creates consistency risks. For example, if you save an order to the database and then publish an OrderCreated event to Kafka, a crash between these operations leaves your system in an inconsistent state, the order exists in the database but downstream services never receive the event.
 - **Real-Time Data Propagation**: Services require near-real-time visibility into data changes across the system
 
 Traditional approaches like API polling or message queues require application-level coordination, increasing complexity and creating coupling between services.
@@ -325,7 +325,7 @@ Implement comprehensive monitoring using modern observability tools:
 **Key CDC Metrics (2025)**:
 - **CDC Lag**: Time between database change and event availability in Kafka
 - **Replication Slot Growth**: Monitor PostgreSQL replication slots (Write-Ahead Log segments retained for CDC) to prevent disk exhaustion
-- **Consumer Lag**: Track how far behind consumers are from the latest events using tools like Kafka Lag Exporter or Burrow. Understanding consumer groups is essential—see [Kafka Consumer Groups Explained](https://conduktor.io/glossary/kafka-consumer-groups-explained)
+- **Consumer Lag**: Track how far behind consumers are from the latest events using tools like Kafka Lag Exporter or Burrow. Understanding consumer groups is essential, see [Kafka Consumer Groups Explained](https://conduktor.io/glossary/kafka-consumer-groups-explained)
 - **Schema Compatibility**: Alert on schema incompatibilities detected by Schema Registry
 - **Throughput & Errors**: Monitor CDC connector throughput, error rates, and restart counts
 

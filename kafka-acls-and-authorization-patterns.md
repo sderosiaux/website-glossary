@@ -862,7 +862,7 @@ Successful ACL implementations follow several key principles:
 
 ## Summary
 
-Kafka ACLs provide fine-grained authorization control essential for production streaming platforms. Understanding how ACLs work in modern KRaft-based deployments—from the basic four-component structure to StandardAuthorizer evaluation—enables teams to design secure, scalable permission models.
+Kafka ACLs provide fine-grained authorization control essential for production streaming platforms. Understanding how ACLs work in modern KRaft-based deployments, from the basic four-component structure to StandardAuthorizer evaluation, enables teams to design secure, scalable permission models.
 
 Modern authorization extends beyond traditional ACLs to include OAuth 2.0/OIDC integration for cloud-native identity management, Open Policy Agent for policy-based authorization, and sophisticated RBAC/ABAC patterns for large-scale environments. These advanced patterns provide the flexibility and centralization required by enterprise streaming platforms in 2025.
 

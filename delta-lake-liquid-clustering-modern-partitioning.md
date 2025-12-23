@@ -9,7 +9,7 @@ topics:
   - Data Layout
 ---
 
-Traditional partitioning strategies in data lakes have long presented a difficult tradeoff: optimize for current query patterns and risk poor performance as workloads evolve, or maintain multiple copies of data organized differently. Delta Lake's Liquid Clustering introduces a fundamentally different approach—adaptive, automatic clustering that continuously optimizes data layout without the brittleness of static partitioning schemes.
+Traditional partitioning strategies in data lakes have long presented a difficult tradeoff: optimize for current query patterns and risk poor performance as workloads evolve, or maintain multiple copies of data organized differently. Delta Lake's Liquid Clustering introduces a fundamentally different approach, adaptive, automatic clustering that continuously optimizes data layout without the brittleness of static partitioning schemes.
 ![Traditional partitioning vs liquid clustering](images/diagrams/delta-lake-liquid-clustering-modern-partitioning-0.webp)
 <!-- ORIGINAL_DIAGRAM
 ```
@@ -58,9 +58,9 @@ Traditional Hive-style partitioning creates physical directory structures based 
 
 ## Data Skipping: The Performance Foundation
 
-Before diving into Liquid Clustering, it's essential to understand **data skipping**—the core mechanism that makes both partitioning and clustering performant.
+Before diving into Liquid Clustering, it's essential to understand **data skipping**, the core mechanism that makes both partitioning and clustering performant.
 
-Data skipping allows query engines to avoid reading files that definitely don't contain relevant data. Delta Lake maintains statistics (min/max values, null counts) for each column in each file. When you query `WHERE event_timestamp > '2025-12-01'`, the engine checks these statistics and skips any files whose maximum timestamp is before December 2025—without opening those files at all.
+Data skipping allows query engines to avoid reading files that definitely don't contain relevant data. Delta Lake maintains statistics (min/max values, null counts) for each column in each file. When you query `WHERE event_timestamp > '2025-12-01'`, the engine checks these statistics and skips any files whose maximum timestamp is before December 2025, without opening those files at all.
 
 Traditional partitioning achieves data skipping through directory structure (skip entire partition directories). Liquid Clustering achieves it through fine-grained statistics on clustered columns within files, enabling multi-dimensional skipping without directory proliferation.
 
@@ -94,7 +94,7 @@ USING delta
 CLUSTER BY (event_timestamp, region, event_type);
 ```
 
-This creates a table clustered across three dimensions. Unlike partitioning, this doesn't create separate directories—instead, Delta Lake organizes data within files to colocate rows with similar values across these columns.
+This creates a table clustered across three dimensions. Unlike partitioning, this doesn't create separate directories, instead, Delta Lake organizes data within files to colocate rows with similar values across these columns.
 
 ### Choosing Clustering Columns
 
@@ -104,7 +104,7 @@ Select clustering columns based on common filter predicates and join keys in you
 
 **Multiple filter dimensions**: Include all columns frequently used in WHERE clauses. A table accessed by time ranges, geographic filters, and event types should cluster on all three.
 
-**Ordering matters**: List columns in order of filter selectivity—how much data typical filters eliminate. More selective columns (like timestamp ranges that filter out 90%+ of data) should typically come first, followed by medium-cardinality columns (region might filter 70-80%), then categorical columns (event_type might filter 50%). This ordering maximizes data skipping efficiency by pruning files more aggressively on the first clustering column.
+**Ordering matters**: List columns in order of filter selectivity, how much data typical filters eliminate. More selective columns (like timestamp ranges that filter out 90%+ of data) should typically come first, followed by medium-cardinality columns (region might filter 70-80%), then categorical columns (event_type might filter 50%). This ordering maximizes data skipping efficiency by pruning files more aggressively on the first clustering column.
 
 ### Write and Optimize Operations
 
@@ -123,7 +123,7 @@ OPTIMIZE events;
 OPTIMIZE events FULL;
 ```
 
-The OPTIMIZE command incrementally reorders data within files to improve clustering quality. Unlike traditional partition optimization, this operation is incremental—it processes only files that would benefit from reorganization.
+The OPTIMIZE command incrementally reorders data within files to improve clustering quality. Unlike traditional partition optimization, this operation is incremental, it processes only files that would benefit from reorganization.
 
 ## Migration from Partitioned Tables
 
@@ -250,7 +250,7 @@ This pattern ensures that streaming micro-batches don't degrade clustering quali
 
 ### Governance and Visibility with Conduktor
 
-When managing streaming data pipelines that write to Delta Lake, governance tooling becomes critical. Conduktor provides comprehensive visibility into the entire data flow—from Kafka topics through stream processing to Delta Lake tables.
+When managing streaming data pipelines that write to Delta Lake, governance tooling becomes critical. Conduktor provides comprehensive visibility into the entire data flow, from Kafka topics through stream processing to Delta Lake tables.
 
 For liquid clustered tables receiving streaming data, Conduktor enables:
 
@@ -259,7 +259,7 @@ For liquid clustered tables receiving streaming data, Conduktor enables:
 - **Pipeline lineage**: Track data flow from source [Kafka topics](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/topics) through transformations to clustered tables, understanding which topics feed which Delta tables
 - **Performance monitoring**: Identify streaming jobs that write poorly distributed data affecting clustering quality, with alerts for anomalous data distributions
 
-Conduktor Gateway can also test resilience scenarios—simulating Kafka broker failures or network partitions—to verify that your streaming-to-Delta pipeline maintains data integrity and clustering quality under adverse conditions.
+Conduktor Gateway can also test resilience scenarios, simulating Kafka broker failures or network partitions, to verify that your streaming-to-Delta pipeline maintains data integrity and clustering quality under adverse conditions.
 
 This end-to-end visibility helps data teams maintain optimal clustering performance even as streaming sources and query patterns evolve.
 

@@ -88,9 +88,9 @@ Shadow AI refers to machine learning models, AI applications, and automated deci
 - AI-powered features built using readily available APIs (OpenAI, Anthropic, etc.) without data privacy assessments
 - Consumer AI tools used for business-critical workflows (ChatGPT for code generation, data analysis, content creation)
 
-**Real-World Example**: A marketing analyst creates a sentiment analysis model that consumes the company's customer feedback stream from Kafka. What starts as a personal experiment for a quarterly report quietly transitions into an automated daily dashboard that the CMO presents to the board. The model was never registered, never security-reviewed, and processes customer PII without privacy assessment—yet it's now influencing executive decisions. This is Shadow AI: not malicious, but ungoverned and potentially risky.
+**Real-World Example**: A marketing analyst creates a sentiment analysis model that consumes the company's customer feedback stream from Kafka. What starts as a personal experiment for a quarterly report quietly transitions into an automated daily dashboard that the CMO presents to the board. The model was never registered, never security-reviewed, and processes customer PII without privacy assessment, yet it's now influencing executive decisions. This is Shadow AI: not malicious, but ungoverned and potentially risky.
 
-The defining characteristic of Shadow AI isn't necessarily malicious intent—it's the absence of visibility, documentation, and governance oversight.
+The defining characteristic of Shadow AI isn't necessarily malicious intent, it's the absence of visibility, documentation, and governance oversight.
 
 ## Why Shadow AI Emerges
 
@@ -100,7 +100,7 @@ Shadow AI doesn't arise from negligence alone. Several organizational and techni
 
 **Pressure to Ship**: Product teams face intense pressure to deliver AI-powered features quickly. When formal governance processes are perceived as slow or bureaucratic, teams find workarounds. A model that starts as an experiment can quietly transition to serving production traffic without ever entering the approval pipeline.
 
-**Decentralized AI Adoption**: Unlike traditional IT infrastructure that required centralized procurement and deployment, AI tools are distributed across the organization. Marketing teams deploy sentiment analysis models, sales teams integrate AI prospecting tools, and customer support implements chatbots—all potentially without central IT involvement.
+**Decentralized AI Adoption**: Unlike traditional IT infrastructure that required centralized procurement and deployment, AI tools are distributed across the organization. Marketing teams deploy sentiment analysis models, sales teams integrate AI prospecting tools, and customer support implements chatbots, all potentially without central IT involvement.
 
 **Lack of Clear Process**: Many organizations lack well-defined governance frameworks for AI. When teams don't know how to get AI initiatives approved, or when no clear process exists, they proceed independently rather than waiting for clarity.
 
@@ -122,7 +122,7 @@ Shadow AI introduces multiple categories of risk that can have serious business 
 
 Real-time data streaming architectures present unique challenges for Shadow AI detection and governance. The distributed nature of streaming platforms like Apache Kafka creates multiple opportunities for ungoverned AI to emerge:
 
-**Silent Stream Consumers**: A data scientist might attach a consumer to a production Kafka topic to extract features for model training, then transition that same consumer to serve real-time predictions—all without formal registration. The streaming platform sees just another consumer application. Understanding consumer behavior is critical—see [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring) for tracking patterns that might indicate Shadow AI workloads.
+**Silent Stream Consumers**: A data scientist might attach a consumer to a production Kafka topic to extract features for model training, then transition that same consumer to serve real-time predictions, all without formal registration. The streaming platform sees just another consumer application. Understanding consumer behavior is critical, see [Consumer Lag Monitoring](https://conduktor.io/glossary/consumer-lag-monitoring) for tracking patterns that might indicate Shadow AI workloads.
 
 **Model Proliferation**: In event-driven architectures, models can be deployed as lightweight microservices that consume events, make predictions, and produce results to output topics. These can multiply rapidly across namespaces and clusters without centralized visibility. For foundational understanding of event-driven patterns, see [Event-Driven Architecture](https://conduktor.io/glossary/event-driven-architecture).
 
@@ -247,7 +247,7 @@ with mlflow.start_run():
     })
 ```
 
-For organizations building real-time AI on streaming data, integrate your model registry with data lineage tracking to automatically capture which Kafka topics and data streams each model consumes. Additionally, consider implementing a centralized feature store to manage and govern feature pipelines—see [Feature Stores for Machine Learning](https://conduktor.io/glossary/feature-stores-for-machine-learning) for detailed implementation patterns.
+For organizations building real-time AI on streaming data, integrate your model registry with data lineage tracking to automatically capture which Kafka topics and data streams each model consumes. Additionally, consider implementing a centralized feature store to manage and govern feature pipelines, see [Feature Stores for Machine Learning](https://conduktor.io/glossary/feature-stores-for-machine-learning) for detailed implementation patterns.
 
 **Approval Workflows**: Design tiered approval processes based on model risk. Low-risk experiments might require minimal oversight, while models making high-stakes decisions need comprehensive review including security, legal, ethics, and data governance assessments.
 
@@ -272,7 +272,7 @@ deny[msg] {
 }
 ```
 
-**Data Lineage Tracking**: Integrate AI governance with your existing data governance framework. Every model should document its data dependencies—which streams, tables, and APIs it consumes. This enables impact analysis when upstream data changes and helps enforce data access policies.
+**Data Lineage Tracking**: Integrate AI governance with your existing data governance framework. Every model should document its data dependencies, which streams, tables, and APIs it consumes. This enables impact analysis when upstream data changes and helps enforce data access policies.
 
 Adopt [OpenLineage](https://openlineage.io/), the Linux Foundation standard for data lineage (widely adopted by 2025), to automatically track data flows from source systems through transformation pipelines to AI models. For comprehensive coverage of lineage capabilities, see [Data Lineage Tracking](https://conduktor.io/glossary/data-lineage-tracking-data-from-source-to-consumption). OpenLineage integrations exist for Kafka, Spark, Airflow, and most major data platforms, enabling automated discovery of data dependencies without manual documentation.
 
@@ -280,9 +280,9 @@ Adopt [OpenLineage](https://openlineage.io/), the Linux Foundation standard for 
 
 **Continuous Monitoring**: AI governance doesn't end at deployment. Monitor models for drift, degraded performance, changing data distributions, and compliance with SLAs. Track actual usage patterns to identify models that have grown beyond their original scope.
 
-Implement AI observability using [OpenTelemetry](https://opentelemetry.io/) (the CNCF standard for observability) to instrument your ML models with tracing, metrics, and logs. This enables you to track model performance, detect anomalies, and maintain governance compliance in production. For streaming AI workloads, integrate with distributed tracing to understand the full request path from data ingestion through model inference to downstream consumers—see [Distributed Tracing for Kafka Applications](https://conduktor.io/glossary/distributed-tracing-for-kafka-applications) for implementation patterns.
+Implement AI observability using [OpenTelemetry](https://opentelemetry.io/) (the CNCF standard for observability) to instrument your ML models with tracing, metrics, and logs. This enables you to track model performance, detect anomalies, and maintain governance compliance in production. For streaming AI workloads, integrate with distributed tracing to understand the full request path from data ingestion through model inference to downstream consumers, see [Distributed Tracing for Kafka Applications](https://conduktor.io/glossary/distributed-tracing-for-kafka-applications) for implementation patterns.
 
-Extend your data observability practices to cover AI models—see [What is Data Observability: The Five Pillars](https://conduktor.io/glossary/what-is-data-observability-the-five-pillars) for foundational concepts that apply equally to monitoring AI models and the data pipelines that feed them.
+Extend your data observability practices to cover AI models, see [What is Data Observability: The Five Pillars](https://conduktor.io/glossary/what-is-data-observability-the-five-pillars) for foundational concepts that apply equally to monitoring AI models and the data pipelines that feed them.
 
 ## Balancing Innovation and Governance
 
@@ -290,7 +290,7 @@ The tension between velocity and control is real. Organizations that make govern
 
 **Make Governance Easy**: Invest in tooling and automation that reduces the friction of compliance. Self-service portals for registering models, automated data lineage collection, and integrated approval workflows embedded in CI/CD pipelines make doing the right thing the path of least resistance.
 
-**Education Over Enforcement**: Help teams understand why governance matters. When data scientists and engineers understand the risks of ungoverned AI—to the business, to customers, and to their own careers—they become advocates rather than resisters.
+**Education Over Enforcement**: Help teams understand why governance matters. When data scientists and engineers understand the risks of ungoverned AI, to the business, to customers, and to their own careers, they become advocates rather than resisters.
 
 **Federated Responsibility**: Central governance teams can't review every model in large organizations. Instead, establish clear standards and empower domain teams to make governance decisions within guardrails. Create domain-specific AI leads who bridge central governance and team execution.
 
@@ -300,12 +300,12 @@ The tension between velocity and control is real. Organizations that make govern
 
 AI governance cannot exist in isolation from broader data governance initiatives. Every AI model is fundamentally a data consumer, and effective governance requires tight integration:
 
-- Models should inherit data classification and access controls from their source datasets—see [Data Classification and Tagging Strategies](https://conduktor.io/glossary/data-classification-and-tagging-strategies) for implementation approaches
-- Data quality issues flagged in governance systems should trigger model retraining reviews—for automated quality checks, refer to [Automated Data Quality Testing](https://conduktor.io/glossary/automated-data-quality-testing)
+- Models should inherit data classification and access controls from their source datasets, see [Data Classification and Tagging Strategies](https://conduktor.io/glossary/data-classification-and-tagging-strategies) for implementation approaches
+- Data quality issues flagged in governance systems should trigger model retraining reviews, for automated quality checks, refer to [Automated Data Quality Testing](https://conduktor.io/glossary/automated-data-quality-testing)
 - Data retention policies must account for model training data and inference logs
-- Privacy impact assessments should automatically flag when models consume PII—for implementation patterns, see [Data Masking and Anonymization for Streaming](https://conduktor.io/glossary/data-masking-and-anonymization-for-streaming)
+- Privacy impact assessments should automatically flag when models consume PII, for implementation patterns, see [Data Masking and Anonymization for Streaming](https://conduktor.io/glossary/data-masking-and-anonymization-for-streaming)
 
-For streaming architectures, unified governance platforms like Conduktor provide oversight across data flows and the AI models that depend on them, enabling organizations to enforce consistent policies from data production through model consumption. Understanding your overall governance framework is essential—see [Data Governance Framework: Roles and Responsibilities](https://conduktor.io/glossary/data-governance-framework-roles-and-responsibilities) for establishing organizational structures that support AI governance.
+For streaming architectures, unified governance platforms like Conduktor provide oversight across data flows and the AI models that depend on them, enabling organizations to enforce consistent policies from data production through model consumption. Understanding your overall governance framework is essential, see [Data Governance Framework: Roles and Responsibilities](https://conduktor.io/glossary/data-governance-framework-roles-and-responsibilities) for establishing organizational structures that support AI governance.
 
 ## Modern AI Governance Tools (2025)
 
@@ -354,11 +354,11 @@ The first step in addressing Shadow AI is understanding what AI you have. Start 
 
 ## The Path Forward
 
-Shadow AI is a natural consequence of AI democratization and rapid innovation. The solution isn't to slow down AI adoption but to build governance frameworks that scale with it. Organizations that succeed will be those that make governance invisible—building it into tools, workflows, and culture rather than imposing it as an external burden.
+Shadow AI is a natural consequence of AI democratization and rapid innovation. The solution isn't to slow down AI adoption but to build governance frameworks that scale with it. Organizations that succeed will be those that make governance invisible, building it into tools, workflows, and culture rather than imposing it as an external burden.
 
 The stakes are high. As AI systems make increasingly consequential decisions and regulators demand greater transparency and accountability, ungoverned AI represents both a business risk and a competitive disadvantage. Organizations with mature AI governance can move faster with confidence, knowing their AI landscape is mapped, monitored, and managed.
 
-The question isn't whether to govern AI—regulatory and business pressures make that inevitable. The question is whether you'll govern it proactively, building systems that discover and manage AI before problems emerge, or reactively, after a compliance violation, security breach, or algorithmic bias incident forces the issue. The choice you make today will shape your organization's AI trajectory for years to come.
+The question isn't whether to govern AI, regulatory and business pressures make that inevitable. The question is whether you'll govern it proactively, building systems that discover and manage AI before problems emerge, or reactively, after a compliance violation, security breach, or algorithmic bias incident forces the issue. The choice you make today will shape your organization's AI trajectory for years to come.
 
 ## Related Concepts
 

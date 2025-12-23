@@ -70,7 +70,7 @@ With Kafka 4.0+ running in KRaft mode (without ZooKeeper), capacity planning has
 
 For capacity planning, this means you can allocate more resources to data processing rather than coordination overhead. A typical 3-node ZooKeeper ensemble (previously required) can be eliminated, and brokers themselves handle metadata with minimal overhead.
 
-When planning for Kafka 4.0+ deployments, factor in KRaft's efficiency gains—you may need fewer resources than older ZooKeeper-based architectures for the same workload. For detailed information on KRaft architecture, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka).
+When planning for Kafka 4.0+ deployments, factor in KRaft's efficiency gains, you may need fewer resources than older ZooKeeper-based architectures for the same workload. For detailed information on KRaft architecture, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka).
 
 ## What is Kafka Capacity Planning?
 
@@ -110,7 +110,7 @@ For example, if you're processing 1,000 messages per second with an average size
 Daily Storage = 1,000 msg/s × 1,024 bytes × 86,400 sec/day × 3 = 265 GB/day
 ```
 
-For a 7-day retention policy, you would need approximately 1.8 TB of storage capacity per topic. This is a simplified calculation—real-world scenarios require adding overhead for log segment metadata, indexes, and operational headroom (typically 20-30% extra capacity).
+For a 7-day retention policy, you would need approximately 1.8 TB of storage capacity per topic. This is a simplified calculation, real-world scenarios require adding overhead for log segment metadata, indexes, and operational headroom (typically 20-30% extra capacity).
 
 Don't forget to account for growth. If your message volume is expected to double in the next year, factor that into your initial provisioning to avoid frequent hardware additions.
 
@@ -124,7 +124,7 @@ Disk performance is as important as disk capacity. Kafka's sequential write patt
 - **Local vs Network Storage**: In cloud environments, local NVMe instance storage (e.g., AWS i4i instances) typically provides better performance and cost efficiency than network-attached storage for Kafka's workload patterns.
 - **Storage Tiers**: For on-premises deployments, use high-performance NVMe for hot data and consider slower (but larger) SATA SSDs for cold storage tiers.
 
-While Kafka's sequential access patterns worked reasonably well with spinning disks historically, modern production clusters should exclusively use SSDs—and specifically NVMe SSDs—for consistent sub-10ms p99 latencies.
+While Kafka's sequential access patterns worked reasonably well with spinning disks historically, modern production clusters should exclusively use SSDs, and specifically NVMe SSDs, for consistent sub-10ms p99 latencies.
 
 Consider your replication factor carefully. A replication factor of 3 is common for production systems, providing fault tolerance while tripling your storage requirements. Each replica must be written to disk, so your disk I/O capacity must handle the replication overhead.
 
@@ -136,7 +136,7 @@ Kafka's tiered storage feature (production-ready in Kafka 3.6+) fundamentally ch
 
 **Capacity impact of tiered storage:**
 
-With tiered storage enabled, your local disk capacity needs are dramatically reduced. Instead of provisioning for the entire retention period, you only need enough local storage for the "hotset" period—typically 1-7 days of data.
+With tiered storage enabled, your local disk capacity needs are dramatically reduced. Instead of provisioning for the entire retention period, you only need enough local storage for the "hotset" period, typically 1-7 days of data.
 
 **Example calculation with tiered storage:**
 
@@ -151,7 +151,7 @@ Local Storage = 1,000 msg/s × 1 KB × 86,400 × 7 days × RF 3 = 1.8 TB
 Remote Storage = 1,000 msg/s × 1 KB × 86,400 × 23 days × RF 1 = 2.0 TB
 ```
 
-Notice that remote storage doesn't require replication factor multiplication—the cloud object store handles durability. This can reduce your total storage costs by 60-80% for long retention scenarios.
+Notice that remote storage doesn't require replication factor multiplication, the cloud object store handles durability. This can reduce your total storage costs by 60-80% for long retention scenarios.
 
 **When to use tiered storage:**
 
@@ -178,7 +178,7 @@ Consumer outbound: 1 MB/s × 2 consumer groups = 2 MB/s per broker
 Total: ~5 MB/s per broker (plus overhead)
 ```
 
-This is for average load—peak traffic can be 3-5x higher, so provision accordingly.
+This is for average load, peak traffic can be 3-5x higher, so provision accordingly.
 
 **Modern network recommendations (2025):**
 
@@ -191,7 +191,7 @@ This is for average load—peak traffic can be 3-5x higher, so provision accordi
 
 CPU usage spikes when enabling compression. Compressing messages reduces network and storage requirements but increases CPU load on both producers and brokers. Modern compression algorithms like zstd (available in Kafka 2.1+) provide excellent compression ratios with lower CPU overhead than gzip.
 
-SSL/TLS encryption adds CPU overhead—typically 10-30% depending on cipher choice and hardware. Modern CPUs with AES-NI instructions reduce this overhead significantly. When planning capacity, benchmark your specific workload with encryption enabled to understand the real impact.
+SSL/TLS encryption adds CPU overhead, typically 10-30% depending on cipher choice and hardware. Modern CPUs with AES-NI instructions reduce this overhead significantly. When planning capacity, benchmark your specific workload with encryption enabled to understand the real impact.
 
 **Modern CPU recommendations (2025):**
 
@@ -247,7 +247,7 @@ Capacity planning differs significantly between cloud and on-premises deployment
 - **Tiered storage**: Essential for cloud deployments to reduce costs. Use local NVMe for hot data, object storage (S3/Blob/GCS) for cold data.
 
 **Network bandwidth:**
-- Cloud instances have network limits. An AWS m5.2xlarge has 10 Gbps limit—insufficient for high-throughput brokers.
+- Cloud instances have network limits. An AWS m5.2xlarge has 10 Gbps limit, insufficient for high-throughput brokers.
 - Choose network-optimized instances or larger instance types for adequate bandwidth.
 
 **Managed services:**
@@ -284,7 +284,7 @@ The key advantage is programmatic enforcement rather than relying on documentati
 
 Understanding where Kafka infrastructure costs originate is essential for capacity planning. Conduktor Chargeback tracks resource consumption by service account (bytes produced/consumed with Gateway) or by topic (storage and partition count without Gateway), providing visibility into which applications drive your capacity requirements.
 
-Chargeback transforms estimates into precise measurements—instead of guessing needs, you measure actual consumption during peak hours. This enables cost-based governance where teams monitor consumption against budgets, optimization through visibility (identifying high-cost topics for retention adjustment), and objective metrics for cross-team capacity negotiations. For implementation details, see [Chargeback](https://docs.conduktor.io/guide/conduktor-concepts/chargeback).
+Chargeback transforms estimates into precise measurements, instead of guessing needs, you measure actual consumption during peak hours. This enables cost-based governance where teams monitor consumption against budgets, optimization through visibility (identifying high-cost topics for retention adjustment), and objective metrics for cross-team capacity negotiations. For implementation details, see [Chargeback](https://docs.conduktor.io/guide/conduktor-concepts/chargeback).
 
 ## Monitoring and Scaling in Data Streaming
 
@@ -305,9 +305,9 @@ When scaling Kafka, you can scale vertically (larger machines) or horizontally (
 
 Several common mistakes can derail capacity planning:
 
-**Underestimating replication overhead** is frequent. Remember that replication multiplies your network and storage needs. A replication factor of 3 doesn't just triple storage—it also triples write network traffic.
+**Underestimating replication overhead** is frequent. Remember that replication multiplies your network and storage needs. A replication factor of 3 doesn't just triple storage, it also triples write network traffic.
 
-**Ignoring partition count** can limit scalability. Since partitions are the unit of parallelism in Kafka, having too few partitions means you can't fully utilize multiple brokers or scale consumer throughput. However, too many partitions increase metadata overhead and recovery time in older ZooKeeper-based clusters. With Kafka 4.0+ and KRaft mode, the partition limit has increased significantly—KRaft can efficiently handle millions of partitions compared to ZooKeeper's practical limit of ~200,000. For guidance on topic and partition design, see [Kafka Topic Design Guidelines](https://conduktor.io/glossary/kafka-topic-design-guidelines) and [Kafka Partitioning Strategies and Best Practices](https://conduktor.io/glossary/kafka-partitioning-strategies-and-best-practices).
+**Ignoring partition count** can limit scalability. Since partitions are the unit of parallelism in Kafka, having too few partitions means you can't fully utilize multiple brokers or scale consumer throughput. However, too many partitions increase metadata overhead and recovery time in older ZooKeeper-based clusters. With Kafka 4.0+ and KRaft mode, the partition limit has increased significantly, KRaft can efficiently handle millions of partitions compared to ZooKeeper's practical limit of ~200,000. For guidance on topic and partition design, see [Kafka Topic Design Guidelines](https://conduktor.io/glossary/kafka-topic-design-guidelines) and [Kafka Partitioning Strategies and Best Practices](https://conduktor.io/glossary/kafka-partitioning-strategies-and-best-practices).
 
 **Not planning for peaks** is another common issue. Average load might be manageable, but if your system experiences traffic spikes (e.g., end-of-day processing), you need capacity for peak load, not average.
 
@@ -327,11 +327,11 @@ Several common mistakes can derail capacity planning:
 
 ## Summary
 
-Kafka capacity planning requires balancing multiple resources—storage, network, CPU, and memory—based on your throughput, retention, and reliability requirements. Start by calculating your storage needs from message rate, size, retention period, and replication factor. Factor in network bandwidth for both client traffic and replication, and don't overlook CPU requirements for compression and encryption.
+Kafka capacity planning requires balancing multiple resources, storage, network, CPU, and memory, based on your throughput, retention, and reliability requirements. Start by calculating your storage needs from message rate, size, retention period, and replication factor. Factor in network bandwidth for both client traffic and replication, and don't overlook CPU requirements for compression and encryption.
 
 Continuous monitoring is essential to validate your planning and detect when scaling is needed. By understanding these fundamentals and avoiding common pitfalls like underestimating replication overhead or ignoring peak loads, you can build a Kafka infrastructure that's both cost-effective and reliable.
 
-Proper capacity planning isn't a one-time task—it's an ongoing process as your data streaming needs evolve. Regular review of your metrics and capacity assumptions ensures your Kafka cluster continues to meet your organization's requirements.
+Proper capacity planning isn't a one-time task, it's an ongoing process as your data streaming needs evolve. Regular review of your metrics and capacity assumptions ensures your Kafka cluster continues to meet your organization's requirements.
 
 ## Sources and References
 

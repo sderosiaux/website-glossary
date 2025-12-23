@@ -110,7 +110,7 @@ To use transactions, assign a `transactional.id` to your producer. This ID is pe
 
 Consumers can participate in exactly-once processing by setting `isolation.level=read_committed`. This ensures they only read messages that are part of committed transactions, filtering out messages from aborted or in-progress transactions.
 
-When processing messages transactionally, the consumer reads messages, processes them, produces results to output topics, and commits its offsets—all within a single transaction. This atomic operation ensures exactly-once processing: if the transaction fails, none of the effects are visible. For more information on consumer offset management and group coordination, see [Kafka Consumer Groups Explained](https://conduktor.io/glossary/kafka-consumer-groups-explained).
+When processing messages transactionally, the consumer reads messages, processes them, produces results to output topics, and commits its offsets, all within a single transaction. This atomic operation ensures exactly-once processing: if the transaction fails, none of the effects are visible. For more information on consumer offset management and group coordination, see [Kafka Consumer Groups Explained](https://conduktor.io/glossary/kafka-consumer-groups-explained).
 
 Tools like Conduktor provide visual monitoring of transaction markers in Kafka topics through [topic management](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/topics) and real-time tracking of transactional producer states, making it easier to debug exactly-once configurations, verify transaction completion, and troubleshoot issues like stalled transactions or coordinator problems.
 
@@ -122,7 +122,7 @@ Stream processing frameworks like Kafka Streams and Apache Flink leverage Kafka'
 
 **Apache Flink** integrates with Kafka's transactional producers to achieve exactly-once semantics from Flink to Kafka. Flink uses its checkpointing mechanism to align with Kafka transactions. When a checkpoint completes, Flink commits the Kafka transaction, making all output visible. If a failure occurs before a checkpoint, Flink rolls back to the last successful checkpoint and Kafka aborts the incomplete transaction.
 
-This integration between stream processors and Kafka enables complex, stateful stream processing applications that maintain data consistency even in the face of failures—a critical requirement for use cases like real-time analytics, fraud detection, and financial processing. For a detailed comparison of these stream processing frameworks, see [Kafka Streams vs Apache Flink](https://conduktor.io/glossary/kafka-streams-vs-apache-flink).
+This integration between stream processors and Kafka enables complex, stateful stream processing applications that maintain data consistency even in the face of failures, a critical requirement for use cases like real-time analytics, fraud detection, and financial processing. For a detailed comparison of these stream processing frameworks, see [Kafka Streams vs Apache Flink](https://conduktor.io/glossary/kafka-streams-vs-apache-flink).
 
 ## Trade-offs and Performance Considerations
 
@@ -150,7 +150,7 @@ Exactly-once semantics in Kafka provides the strongest delivery guarantee for di
 
 While exactly-once semantics introduces some performance overhead, it is essential for applications where data consistency and correctness are paramount. Stream processing frameworks like Kafka Streams and Apache Flink build on these primitives to enable complex, stateful processing with end-to-end exactly-once guarantees.
 
-Understanding when to use exactly-once semantics—and how to configure it properly—is crucial for building reliable data streaming systems. For handling distributed transactions across microservices using event-driven patterns, see [Saga Pattern for Distributed Transactions](https://conduktor.io/glossary/saga-pattern-for-distributed-transactions).
+Understanding when to use exactly-once semantics, and how to configure it properly, is crucial for building reliable data streaming systems. For handling distributed transactions across microservices using event-driven patterns, see [Saga Pattern for Distributed Transactions](https://conduktor.io/glossary/saga-pattern-for-distributed-transactions).
 
 ## Related Concepts
 

@@ -13,7 +13,7 @@ Data lakes have become the foundation of modern data architectures, enabling org
 
 ## Why Cloud Object Storage?
 
-Cloud object storage services—AWS S3, Azure Data Lake Storage Gen2, and Google Cloud Storage—have emerged as the de facto standard for data lake implementations. Their advantages are compelling:
+Cloud object storage services, AWS S3, Azure Data Lake Storage Gen2, and Google Cloud Storage, have emerged as the de facto standard for data lake implementations. Their advantages are compelling:
 
 **Infinite scalability**: No capacity planning required. Your storage grows elastically with your data, from gigabytes to exabytes.
 
@@ -158,7 +158,7 @@ When streaming events into your data lake, modern patterns combine Kafka with ta
 
 ## Best Practices
 
-**Partition strategically**: Over-partitioning creates too many small files (inefficient for queries due to high metadata overhead), while under-partitioning forces full scans. Aim for files between 128MB-1GB—large enough to amortize open/close costs but small enough for parallel processing. Modern table formats like Iceberg handle this automatically through compaction.
+**Partition strategically**: Over-partitioning creates too many small files (inefficient for queries due to high metadata overhead), while under-partitioning forces full scans. Aim for files between 128MB-1GB, large enough to amortize open/close costs but small enough for parallel processing. Modern table formats like Iceberg handle this automatically through compaction.
 
 **Implement data lifecycle policies**: Automatically archive or delete old data in the raw zone. Move infrequently accessed curated data to cheaper storage tiers.
 
@@ -172,7 +172,7 @@ When streaming events into your data lake, modern patterns combine Kafka with ta
 
 Building a modern data lake on cloud storage requires thoughtful architecture that balances flexibility with governance. By leveraging the unique strengths of AWS S3, Azure Data Lake Storage, or Google Cloud Storage, implementing a structured zone-based approach, and adopting open table formats like Apache Iceberg with unified catalogs, you can create a scalable foundation for analytics that evolves with your organization's needs.
 
-The 2024-2025 evolution toward lakehouse architectures—combining the flexibility of data lakes with the reliability of data warehouses—has made table formats and unified catalogs essential rather than optional. These technologies provide the ACID guarantees, time travel, and governance capabilities that production data lakes require. The key is starting with clear patterns while remaining adaptable as new technologies and requirements emerge.
+The 2024-2025 evolution toward lakehouse architectures, combining the flexibility of data lakes with the reliability of data warehouses, has made table formats and unified catalogs essential rather than optional. These technologies provide the ACID guarantees, time travel, and governance capabilities that production data lakes require. The key is starting with clear patterns while remaining adaptable as new technologies and requirements emerge.
 
 ## Related Concepts
 

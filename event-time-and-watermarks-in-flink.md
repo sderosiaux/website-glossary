@@ -62,7 +62,7 @@ Flink supports three distinct notions of time:
 
 **Ingestion Time** captures the timestamp when an event enters the Flink system. It sits between processing time and event time in terms of determinism and complexity.
 
-For applications requiring accurate temporal reasoning—such as sessionization (see [Session Windows in Stream Processing](https://conduktor.io/glossary/session-windows-in-stream-processing)), fraud detection, or time-based aggregations—event time is essential. However, event time processing introduces complexity: how does the system know when all events for a given time window have arrived?
+For applications requiring accurate temporal reasoning, such as sessionization (see [Session Windows in Stream Processing](https://conduktor.io/glossary/session-windows-in-stream-processing)), fraud detection, or time-based aggregations, event time is essential. However, event time processing introduces complexity: how does the system know when all events for a given time window have arrived?
 
 ## Watermarks: The Event Time Progress Indicator
 
@@ -166,7 +166,7 @@ SingleOutputStreamOperator<Result> result = stream
 DataStream<Event> lateData = result.getSideOutput(lateDataTag);
 ```
 
-This approach allows separate handling of late events—perhaps logging them for analysis or applying compensating logic. For comprehensive coverage of late data strategies beyond watermarks, see [Handling Late Arriving Data in Streaming](https://conduktor.io/glossary/handling-late-arriving-data-in-streaming).
+This approach allows separate handling of late events, perhaps logging them for analysis or applying compensating logic. For comprehensive coverage of late data strategies beyond watermarks, see [Handling Late Arriving Data in Streaming](https://conduktor.io/glossary/handling-late-arriving-data-in-streaming).
 
 ## Integration with Kafka and the Streaming Ecosystem
 
@@ -176,7 +176,7 @@ When consuming from Apache Kafka, watermark configuration becomes critical for e
 - Network delays between producers and brokers
 - Partition-level ordering but not global ordering
 
-Flink's Kafka connector supports per-partition watermark generation. Each partition maintains its own watermark, and Flink merges them by taking the minimum across all partitions. For example, if partition 0 has watermark 12:00:00, partition 1 has 12:00:05, and partition 2 has 11:59:50, Flink uses 11:59:50 as the overall watermark—ensuring no events from any partition are incorrectly processed as late:
+Flink's Kafka connector supports per-partition watermark generation. Each partition maintains its own watermark, and Flink merges them by taking the minimum across all partitions. For example, if partition 0 has watermark 12:00:00, partition 1 has 12:00:05, and partition 2 has 11:59:50, Flink uses 11:59:50 as the overall watermark, ensuring no events from any partition are incorrectly processed as late:
 
 ```java
 KafkaSource<Event> source = KafkaSource.<Event>builder()
@@ -194,11 +194,11 @@ DataStream<Event> stream = env.fromSource(
 );
 ```
 
-For visibility into watermark propagation and late data patterns, platforms like Conduktor provide comprehensive [monitoring capabilities](https://docs.conduktor.io/guide/monitor-brokers-apps/index) that surface metrics about event time lag, watermark advancement, and late event rates across your streaming topology. These tools offer real-time dashboards for tracking watermark progression, identifying lagging partitions, and alerting on excessive late data—essential capabilities for tuning watermark strategies in production environments.
+For visibility into watermark propagation and late data patterns, platforms like Conduktor provide comprehensive [monitoring capabilities](https://docs.conduktor.io/guide/monitor-brokers-apps/index) that surface metrics about event time lag, watermark advancement, and late event rates across your streaming topology. These tools offer real-time dashboards for tracking watermark progression, identifying lagging partitions, and alerting on excessive late data, essential capabilities for tuning watermark strategies in production environments.
 
 ## Watermark Alignment and Parallel Streams
 
-In complex topologies with multiple input streams, watermark alignment becomes important. Flink takes the minimum watermark across all inputs to an operator, ensuring no operator processes data beyond any input's event time progress. For instance, when joining two streams (see [Stream Joins and Enrichment Patterns](https://conduktor.io/glossary/stream-joins-and-enrichment-patterns)), if stream A has watermark 12:05:00 and stream B has watermark 12:03:00, Flink uses 12:03:00—preventing the join from advancing past timestamps that stream B hasn't yet reached.
+In complex topologies with multiple input streams, watermark alignment becomes important. Flink takes the minimum watermark across all inputs to an operator, ensuring no operator processes data beyond any input's event time progress. For instance, when joining two streams (see [Stream Joins and Enrichment Patterns](https://conduktor.io/glossary/stream-joins-and-enrichment-patterns)), if stream A has watermark 12:05:00 and stream B has watermark 12:03:00, Flink uses 12:03:00, preventing the join from advancing past timestamps that stream B hasn't yet reached.
 
 This conservative approach prevents incorrect results but can cause pipeline stalls if one partition or source falls behind. Flink 1.15 introduced watermark alignment features (enhanced in 1.18+) that can pause faster sources to prevent excessive skew:
 

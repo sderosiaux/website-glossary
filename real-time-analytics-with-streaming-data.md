@@ -189,7 +189,7 @@ Real-time analytics introduces operational challenges that require careful consi
 
 ### Handling Late and Out-of-Order Data
 
-Network delays and system failures mean events don't always arrive in order. A transaction that occurred at 10:00:01 might arrive after one from 10:00:05. Stream processors use **watermarks**—special markers that track progress through event time—to determine when to close windows and emit results. Watermarks define how long to wait for late events before considering a window complete.
+Network delays and system failures mean events don't always arrive in order. A transaction that occurred at 10:00:01 might arrive after one from 10:00:05. Stream processors use **watermarks**, special markers that track progress through event time, to determine when to close windows and emit results. Watermarks define how long to wait for late events before considering a window complete.
 
 For detailed coverage of watermark strategies and trigger mechanisms, see [Watermarks and Triggers in Stream Processing](https://conduktor.io/glossary/watermarks-and-triggers-in-stream-processing). Modern stream processors allow configuring allowed lateness and side outputs for handling extremely late data without losing it.
 

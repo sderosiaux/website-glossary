@@ -53,7 +53,7 @@ Time: 10-30s                           Time: 100-500ms
 
 ## What Are Deletion Vectors?
 
-Deletion vectors are a metadata-based approach to marking rows as deleted without physically removing them from Parquet files. Instead of rewriting entire files when deleting rows, Delta Lake maintains a bitmap structure (a space-efficient data structure where each bit represents whether a row is deleted—essentially a list of true/false flags, one per row) that tracks which rows should be considered deleted during query execution.
+Deletion vectors are a metadata-based approach to marking rows as deleted without physically removing them from Parquet files. Instead of rewriting entire files when deleting rows, Delta Lake maintains a bitmap structure (a space-efficient data structure where each bit represents whether a row is deleted, essentially a list of true/false flags, one per row) that tracks which rows should be considered deleted during query execution.
 
 Each deletion vector is a compact binary structure that encodes the positions of deleted rows within a specific data file. These vectors are stored separately from the data files themselves, typically as part of the Delta transaction log or as small sidecar files (separate metadata files stored alongside the data) referenced by the log.
 
@@ -271,7 +271,7 @@ In production environments, tracking deletion vector usage is critical for capac
 - **Query performance impact**: Track read-time overhead from deletion vectors across workloads
 - **Compliance tracking**: Verify deletion operations complete within SLA windows for regulatory requirements
 
-By integrating with Delta Lake's transaction log, governance platforms can audit which records were deleted, when, and by whom—critical for GDPR Article 17 (right to erasure) compliance and other data privacy regulations.
+By integrating with Delta Lake's transaction log, governance platforms can audit which records were deleted, when, and by whom, critical for GDPR Article 17 (right to erasure) compliance and other data privacy regulations.
 
 ## Limitations and Considerations
 
@@ -416,7 +416,7 @@ Delta Lake deletion vectors provide an elegant solution to the write amplificati
 - **Cross-format compatibility** via UniForm for Iceberg readers (2024+)
 - **Concurrent delete handling** with improved optimistic concurrency (Delta 3.0+)
 
-The trade-offs are manageable: slight read overhead (5-15%), increased metadata storage, and the need for periodic compaction. For workloads with frequent small deletes—GDPR compliance, real-time corrections, or CDC pipelines—deletion vectors dramatically improve operational efficiency.
+The trade-offs are manageable: slight read overhead (5-15%), increased metadata storage, and the need for periodic compaction. For workloads with frequent small deletes, GDPR compliance, real-time corrections, or CDC pipelines, deletion vectors dramatically improve operational efficiency.
 
 Best practices for 2025 include:
 1. Enable deletion vectors for tables with frequent (<20% rows) deletes
@@ -427,7 +427,7 @@ Best practices for 2025 include:
 6. Leverage concurrent delete capabilities for multi-writer scenarios (Delta 3.0+)
 7. Configure VACUUM retention policies to balance time-travel needs with storage costs
 
-As data lakes increasingly support transactional workloads and real-time updates, deletion vectors represent a critical evolution in storage engine design—bringing database-like mutation capabilities to open lakehouse architectures without sacrificing the scalability of columnar formats. The 2024-2025 improvements in Liquid Clustering integration, UniForm support, and concurrent delete handling make deletion vectors an essential feature for modern data lakehouse deployments.
+As data lakes increasingly support transactional workloads and real-time updates, deletion vectors represent a critical evolution in storage engine design, bringing database-like mutation capabilities to open lakehouse architectures without sacrificing the scalability of columnar formats. The 2024-2025 improvements in Liquid Clustering integration, UniForm support, and concurrent delete handling make deletion vectors an essential feature for modern data lakehouse deployments.
 
 ## Related Concepts
 

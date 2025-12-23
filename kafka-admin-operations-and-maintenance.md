@@ -106,9 +106,9 @@ Continuous monitoring is the foundation of reliable Kafka operations. Administra
 
 **Broker-level metrics** include CPU usage, disk I/O, network throughput, and JVM heap memory. High disk utilization can indicate retention policies need adjustment, while consistent CPU spikes may signal undersized brokers or inefficient serialization.
 
-**Topic-level metrics** track message rates (bytes in/out per second), partition count, and replication status. Under-replicated partitions are a critical warning sign—they indicate that some replicas are not keeping up with the leader, creating data durability risks.
+**Topic-level metrics** track message rates (bytes in/out per second), partition count, and replication status. Under-replicated partitions are a critical warning sign, they indicate that some replicas are not keeping up with the leader, creating data durability risks.
 
-**Consumer metrics** focus on consumer lag—the difference between the latest offset and the consumer's current position. Growing lag suggests consumers cannot keep pace with producers, requiring either consumer optimization or scaling.
+**Consumer metrics** focus on consumer lag, the difference between the latest offset and the consumer's current position. Growing lag suggests consumers cannot keep pace with producers, requiring either consumer optimization or scaling.
 
 ### Monitoring Tools and Approaches
 

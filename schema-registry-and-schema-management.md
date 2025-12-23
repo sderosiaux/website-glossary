@@ -72,7 +72,7 @@ Without Schema Registry, teams face several challenges in distributed data syste
 
 **Message bloat.** Embedding full schema definitions in every message wastes bandwidth and storage. A 1KB message might carry 5KB of schema metadata. This overhead multiplies across billions of messages.
 
-**Version sprawl.** Different teams use different schema versions with no visibility into what's actually deployed. Debugging becomes archaeology—which version produced this message? Which consumers can handle it?
+**Version sprawl.** Different teams use different schema versions with no visibility into what's actually deployed. Debugging becomes archaeology, which version produced this message? Which consumers can handle it?
 
 **Breaking changes slip through.** Without automated validation, incompatible schema changes reach production. A simple field type change breaks downstream applications, causing outages that could have been prevented.
 
@@ -88,7 +88,7 @@ Beyond simple storage, Schema Registry enforces compatibility rules. Before acce
 
 ## How Schema Registry Works
 
-The architecture centers on a REST API service backed by a storage layer. In most implementations (including Confluent Schema Registry), this storage layer is a Kafka topic, making the registry itself fault-tolerant and distributed. This design choice leverages Kafka's durability guarantees—the `_schemas` topic stores all schema registrations as an immutable log. Schema Registry instances read this topic on startup to build their in-memory cache, ensuring all instances have a consistent view. Using Kafka as storage eliminates the need for external databases and aligns the registry's availability with your Kafka cluster. As of Kafka 4.0+ (released in 2024), Schema Registry works seamlessly with KRaft mode, Kafka's ZooKeeper-less architecture that's now the default. For details on KRaft migration, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka).
+The architecture centers on a REST API service backed by a storage layer. In most implementations (including Confluent Schema Registry), this storage layer is a Kafka topic, making the registry itself fault-tolerant and distributed. This design choice leverages Kafka's durability guarantees, the `_schemas` topic stores all schema registrations as an immutable log. Schema Registry instances read this topic on startup to build their in-memory cache, ensuring all instances have a consistent view. Using Kafka as storage eliminates the need for external databases and aligns the registry's availability with your Kafka cluster. As of Kafka 4.0+ (released in 2024), Schema Registry works seamlessly with KRaft mode, Kafka's ZooKeeper-less architecture that's now the default. For details on KRaft migration, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka).
 
 When a producer wants to send data, it follows this sequence:
 
@@ -196,7 +196,7 @@ Data structures change over time. You add new fields, deprecate old ones, or mod
 
 Schema Registry enforces compatibility through several modes. Understanding which to use depends on your upgrade strategy:
 
-**Backward Compatibility (BACKWARD)** — Most common mode. New schema versions can read data written with older schemas. Consumers upgrade first, then producers.
+**Backward Compatibility (BACKWARD)**, Most common mode. New schema versions can read data written with older schemas. Consumers upgrade first, then producers.
 
 Example using Avro schema:
 
@@ -225,19 +225,19 @@ Example using Avro schema:
 
 Consumers using version 2 can process messages written with version 1 by applying the default value for the missing `phone` field.
 
-**Forward Compatibility (FORWARD)** — Old schema versions can read data written with new schemas. Producers upgrade first, then consumers. Useful when you control producer deployments but not consumer deployments.
+**Forward Compatibility (FORWARD)**, Old schema versions can read data written with new schemas. Producers upgrade first, then consumers. Useful when you control producer deployments but not consumer deployments.
 
 Example: Removing an optional field is forward compatible because old consumers simply ignore the missing field.
 
-**Full Compatibility (FULL)** — Both backward AND forward compatible. The most restrictive mode. Only modifications like adding or removing optional fields with defaults satisfy this requirement. Use this when upgrade order is unpredictable or when you have long-lived messages in topics.
+**Full Compatibility (FULL)**, Both backward AND forward compatible. The most restrictive mode. Only modifications like adding or removing optional fields with defaults satisfy this requirement. Use this when upgrade order is unpredictable or when you have long-lived messages in topics.
 
-**Backward Transitive (BACKWARD_TRANSITIVE)** — New schema must be compatible with ALL previous versions, not just the latest. Useful for topics with long retention where consumers might process very old messages.
+**Backward Transitive (BACKWARD_TRANSITIVE)**, New schema must be compatible with ALL previous versions, not just the latest. Useful for topics with long retention where consumers might process very old messages.
 
-**Forward Transitive (FORWARD_TRANSITIVE)** — All previous schemas can read data written with the new schema.
+**Forward Transitive (FORWARD_TRANSITIVE)**, All previous schemas can read data written with the new schema.
 
-**Full Transitive (FULL_TRANSITIVE)** — New schema is both backward and forward compatible with all previous versions. The strictest mode, offering maximum flexibility for consumers at different versions.
+**Full Transitive (FULL_TRANSITIVE)**, New schema is both backward and forward compatible with all previous versions. The strictest mode, offering maximum flexibility for consumers at different versions.
 
-**None (NONE)** — Disables validation entirely. Maximum flexibility but zero safety guarantees. Use only during initial development or when you're certain about compatibility.
+**None (NONE)**, Disables validation entirely. Maximum flexibility but zero safety guarantees. Use only during initial development or when you're certain about compatibility.
 
 ### Choosing a Compatibility Mode
 
@@ -317,7 +317,7 @@ Schema Registry is designed for high throughput with minimal latency:
 
 **Caching strategy.** Both producers and consumers cache schemas locally after first retrieval. Schema IDs are stable, so once cached, applications rarely need to contact the registry. This design scales to millions of messages per second with minimal registry load.
 
-**Registry cluster sizing.** For most workloads, 3-5 Schema Registry instances provide sufficient redundancy and capacity. Each instance maintains a full in-memory cache of all schemas. The registry is read-heavy—most operations are schema retrievals by ID, which are served from memory.
+**Registry cluster sizing.** For most workloads, 3-5 Schema Registry instances provide sufficient redundancy and capacity. Each instance maintains a full in-memory cache of all schemas. The registry is read-heavy, most operations are schema retrievals by ID, which are served from memory.
 
 **Storage considerations.** The `_schemas` Kafka topic typically remains small (megabytes to low gigabytes) even in large deployments. Each schema version is stored once, regardless of message volume. Configure appropriate retention for this topic (often infinite retention with compaction enabled).
 

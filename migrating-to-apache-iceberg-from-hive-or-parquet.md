@@ -441,7 +441,7 @@ Choosing the right catalog implementation is critical for migration success. As 
 
 - **REST Catalog (Recommended for 2025)**: Modern cloud-native catalogs like **Apache Polaris** (Snowflake's open-source catalog) or **Project Nessie** offer vendor neutrality, multi-tenancy, and Git-like versioning. Ideal for new implementations and multi-cloud environments.
 - **AWS Glue**: Native AWS integration with IAM-based access control. Best for AWS-centric architectures but creates cloud vendor lock-in.
-- **Hive Metastore**: Legacy option for backward compatibility with existing Hadoop ecosystems. Not recommended for new implementations—consider migrating to REST catalogs.
+- **Hive Metastore**: Legacy option for backward compatibility with existing Hadoop ecosystems. Not recommended for new implementations, consider migrating to REST catalogs.
 
 **Metadata Storage Best Practices**:
 - Store metadata in highly available storage (S3 with versioning, HDFS with replication)
@@ -511,11 +511,11 @@ Don't migrate everything at once:
 
 ## Conclusion
 
-Migrating to Apache Iceberg from Hive or Parquet represents a strategic investment in modern data infrastructure. As of 2025, Iceberg 1.7+ provides production-grade features—REST catalogs, branches and tags, puffin statistics, and improved streaming integrations—that make migration safer and more flexible than ever.
+Migrating to Apache Iceberg from Hive or Parquet represents a strategic investment in modern data infrastructure. As of 2025, Iceberg 1.7+ provides production-grade features, REST catalogs, branches and tags, puffin statistics, and improved streaming integrations, that make migration safer and more flexible than ever.
 
 Whether using in-place migration for minimal disruption, snapshot migration for optimization opportunities, or dual-write for zero-downtime transitions, careful planning and validation ensure successful outcomes. Leveraging modern tools like Apache Polaris for catalog management and Conduktor for streaming governance significantly reduces migration risk.
 
-The migration journey requires coordinated effort across data engineering, data architecture, and analytics teams. By following these strategies and best practices, organizations can unlock Iceberg's powerful capabilities—ACID transactions, time travel, schema evolution, and partition evolution—while minimizing risk and maintaining business continuity.
+The migration journey requires coordinated effort across data engineering, data architecture, and analytics teams. By following these strategies and best practices, organizations can unlock Iceberg's powerful capabilities, ACID transactions, time travel, schema evolution, and partition evolution, while minimizing risk and maintaining business continuity.
 
 Start with pilot migrations, validate rigorously using branches for isolated testing, and scale systematically. The result is a robust, flexible data lakehouse foundation that supports evolving analytics and data science requirements for years to come.
 

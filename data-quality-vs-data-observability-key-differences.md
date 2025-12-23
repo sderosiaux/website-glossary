@@ -79,7 +79,7 @@ Data observability answers a broader question: "What is happening in our data sy
 
 Instead of predefined tests, observability systems use baseline metrics, statistical analysis, and machine learning to detect anomalies. Modern observability platforms (as of 2025) increasingly leverage AI-powered anomaly detection that adapts to seasonal patterns, business cycles, and evolving data characteristics. For instance, if your user events table typically receives 10,000 records per hour but suddenly drops to 100, an observability platform would flag this volume anomaly even without an explicit test.
 
-The power of data observability is its ability to surface unknown issues. By monitoring the overall health of your data ecosystem—including integration with OpenTelemetry for distributed tracing and correlation across systems—it can catch problems you didn't anticipate. However, this breadth comes with trade-offs: observability systems may generate false positives and require tuning to understand what constitutes normal behavior.
+The power of data observability is its ability to surface unknown issues. By monitoring the overall health of your data ecosystem, including integration with OpenTelemetry for distributed tracing and correlation across systems, it can catch problems you didn't anticipate. However, this breadth comes with trade-offs: observability systems may generate false positives and require tuning to understand what constitutes normal behavior.
 
 ## Key Differences
 

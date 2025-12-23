@@ -57,7 +57,7 @@ Batch: Runs once                 Streaming: Updates count
 
 ## Understanding Dynamic Tables and Continuous Queries
 
-Traditional SQL operates on static tables in batch mode—queries execute once and return a result set. Flink SQL introduces a fundamentally different concept: **dynamic tables** that continuously evolve as new data arrives.
+Traditional SQL operates on static tables in batch mode, queries execute once and return a result set. Flink SQL introduces a fundamentally different concept: **dynamic tables** that continuously evolve as new data arrives.
 
 A dynamic table represents a stream of data as a table abstraction. When you write a SQL query against a dynamic table, Flink creates a **continuous query** that never terminates. Instead, it continuously consumes new rows and updates its results in real time. This paradigm shift allows you to use standard SQL for stream processing without learning entirely new syntax.
 
@@ -356,7 +356,7 @@ The optimizer automatically chooses the most efficient execution plan based on t
 
 ### State Management
 
-Stateful operations like aggregations and joins require Flink to maintain state. Flink manages this state efficiently using RocksDB (an embedded key-value store) for large state backends, with automatic checkpointing for fault tolerance. Be mindful of state growth—unbounded aggregations without proper windowing can lead to ever-growing state.
+Stateful operations like aggregations and joins require Flink to maintain state. Flink manages this state efficiently using RocksDB (an embedded key-value store) for large state backends, with automatic checkpointing for fault tolerance. Be mindful of state growth, unbounded aggregations without proper windowing can lead to ever-growing state.
 
 For detailed coverage of state backends, checkpointing strategies, and savepoint management, see [Flink State Management and Checkpointing](https://conduktor.io/glossary/flink-state-management-and-checkpointing).
 

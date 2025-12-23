@@ -110,7 +110,7 @@ After successfully publishing each event to the message broker, the relay marks 
 
 ### Change Data Capture (CDC)
 
-A more sophisticated approach uses Change Data Capture to stream database changes directly to a message broker. CDC tools monitor the database transaction log—the write-ahead log (WAL) in PostgreSQL or binary log (binlog) in MySQL—which records every committed transaction for durability and replication purposes. For comprehensive coverage of CDC fundamentals, see [What is Change Data Capture (CDC) Fundamentals](https://conduktor.io/glossary/what-is-change-data-capture-cdc-fundamentals).
+A more sophisticated approach uses Change Data Capture to stream database changes directly to a message broker. CDC tools monitor the database transaction log, the write-ahead log (WAL) in PostgreSQL or binary log (binlog) in MySQL, which records every committed transaction for durability and replication purposes. For comprehensive coverage of CDC fundamentals, see [What is Change Data Capture (CDC) Fundamentals](https://conduktor.io/glossary/what-is-change-data-capture-cdc-fundamentals).
 
 Tools like Debezium (version 2.5+ as of 2025) have become the industry standard for CDC-based outbox implementations. Debezium reads these transaction logs and publishes changes to Kafka in near real-time, typically within single-digit milliseconds of the database commit.
 

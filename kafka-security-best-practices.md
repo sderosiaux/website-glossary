@@ -233,7 +233,7 @@ Zero Trust security has become the industry standard approach for protecting cri
 
 **Core Zero Trust principles for Kafka**:
 
-**Never trust, always verify**: Authenticate and authorize every client connection, even from internal networks. Don't assume that traffic from your private network is safe—implement authentication and encryption everywhere.
+**Never trust, always verify**: Authenticate and authorize every client connection, even from internal networks. Don't assume that traffic from your private network is safe, implement authentication and encryption everywhere.
 
 **Least privilege access**: Grant the minimum permissions required for each client to perform its function. A consumer reading from `user-events` should not have access to `payment-transactions`.
 
@@ -263,7 +263,7 @@ Modern platforms like **Conduktor** provide centralized security management inte
 
 **Alerting**: Configure alerts for security events like repeated authentication failures, connections from unexpected IP addresses, or attempts to access unauthorized topics. Integration with incident response platforms (PagerDuty, Opsgenie) ensures rapid response to security incidents.
 
-**Security testing**: Use **Conduktor Gateway** to test security controls through chaos engineering scenarios—simulate authentication failures, certificate expiration, or unauthorized access attempts to verify your security monitoring and alerting work correctly before incidents occur in production.
+**Security testing**: Use **Conduktor Gateway** to test security controls through chaos engineering scenarios, simulate authentication failures, certificate expiration, or unauthorized access attempts to verify your security monitoring and alerting work correctly before incidents occur in production.
 
 ## Security in Data Streaming Architectures
 
@@ -279,7 +279,7 @@ Securing Kafka extends beyond the cluster itself to the broader streaming ecosys
 
 ## Virtual Clusters for Multi-Tenant Security
 
-Managing security across multiple teams sharing a Kafka cluster traditionally requires complex network segmentation or intricate ACL hierarchies. Conduktor Virtual Clusters provide logical isolation within a single physical cluster, where each tenant operates in their own namespace completely isolated from other tenants' topics and configurations. This scopes all security controls—authentication, authorization, and encryption policies—to individual virtual clusters rather than managing them globally.
+Managing security across multiple teams sharing a Kafka cluster traditionally requires complex network segmentation or intricate ACL hierarchies. Conduktor Virtual Clusters provide logical isolation within a single physical cluster, where each tenant operates in their own namespace completely isolated from other tenants' topics and configurations. This scopes all security controls, authentication, authorization, and encryption policies, to individual virtual clusters rather than managing them globally.
 
 Virtual Clusters enable differentiated security postures across workloads. A virtual cluster handling payment data can enforce strict mTLS and restrictive ACLs, while a development virtual cluster maintains lighter controls. Compromised credentials affect only one virtual cluster, reducing blast radius. For organizations implementing Zero Trust, Virtual Clusters provide microsegmentation at the Kafka layer. For implementation details, see the [Virtual Clusters documentation](https://docs.conduktor.io/guide/conduktor-concepts/virtual-clusters).
 

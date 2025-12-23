@@ -86,7 +86,7 @@ This shift represents more than a technical upgrade. It fundamentally changes ho
 
 ## Why Streaming Data Matters in Finance
 
-Traditional batch processing systems update their state periodically—hourly, daily, or even weekly. For many financial use cases, this delay is unacceptable. A fraudulent transaction flagged hours after it occurs has already caused damage. A trading algorithm operating on 15-minute-old market data has already missed opportunities or taken on unwanted risk.
+Traditional batch processing systems update their state periodically, hourly, daily, or even weekly. For many financial use cases, this delay is unacceptable. A fraudulent transaction flagged hours after it occurs has already caused damage. A trading algorithm operating on 15-minute-old market data has already missed opportunities or taken on unwanted risk.
 
 Streaming data platforms process events as they arrive, typically within milliseconds. This enables financial institutions to:
 
@@ -118,7 +118,7 @@ This entire process must complete in under 100 milliseconds to avoid customer ex
 
 The shift from batch payment settlement to real-time payment networks (like FedNow in the US, Faster Payments in the UK, SEPA Instant in Europe, PIX in Brazil, and UPI in India) requires streaming data infrastructure. Each payment generates multiple events: initiation, validation, fraud check, settlement confirmation, notification.
 
-Event-driven architectures ensure these events flow through the system reliably, maintaining exactly-once processing semantics even when individual components fail. This reliability is critical—a duplicated payment or a lost transaction can have serious financial and regulatory consequences. For architectural patterns in payment systems, see [Event-Driven Architecture](https://conduktor.io/glossary/event-driven-architecture).
+Event-driven architectures ensure these events flow through the system reliably, maintaining exactly-once processing semantics even when individual components fail. This reliability is critical, a duplicated payment or a lost transaction can have serious financial and regulatory consequences. For architectural patterns in payment systems, see [Event-Driven Architecture](https://conduktor.io/glossary/event-driven-architecture).
 
 ### Trading and Market Data
 
@@ -150,7 +150,7 @@ A typical architecture includes:
 
 **Stream Processing**: Flink or Kafka Streams applications process these events, performing joins, aggregations, pattern detection, and enrichment. For detailed patterns on combining multiple streams, see [Stream Joins and Enrichment Patterns](https://conduktor.io/glossary/stream-joins-and-enrichment-patterns).
 
-**State Management**: Stream processors maintain state (customer profiles, account balances, fraud models) that must be updated and queried in real time. State represents data that persists across multiple events—for example, maintaining a running sum of transactions for the day or storing the last 30 days of customer activity. Apache Flink uses RocksDB as its state backend for high-performance local storage, while Kafka Streams maintains state in local state stores backed by changelog topics. For implementation details, see [State Stores in Kafka Streams](https://conduktor.io/glossary/state-stores-in-kafka-streams).
+**State Management**: Stream processors maintain state (customer profiles, account balances, fraud models) that must be updated and queried in real time. State represents data that persists across multiple events, for example, maintaining a running sum of transactions for the day or storing the last 30 days of customer activity. Apache Flink uses RocksDB as its state backend for high-performance local storage, while Kafka Streams maintains state in local state stores backed by changelog topics. For implementation details, see [State Stores in Kafka Streams](https://conduktor.io/glossary/state-stores-in-kafka-streams).
 
 **Data Sinks**: Processed events flow to databases, data warehouses, notification systems, and other downstream consumers.
 
@@ -164,7 +164,7 @@ Financial services face stringent regulatory requirements around transaction mon
 
 **Audit Trails**: Every transaction must be traceable. Kafka's immutable log provides a natural audit trail, but institutions must implement proper retention policies and ensure data cannot be tampered with. For comprehensive audit logging strategies, see [Audit Logging for Streaming Platforms](https://conduktor.io/glossary/audit-logging-for-streaming-platforms).
 
-**Data Privacy**: Regulations like GDPR require the ability to delete customer data on request. This conflicts with Kafka's append-only design, requiring careful architectural choices around data masking, encryption, and deletion strategies. Common approaches include using data masking for PII in transit and maintaining external deletion registries. Conduktor provides enterprise-grade data masking capabilities to protect sensitive financial data—learn more in the [Conduktor Data Masking documentation](https://docs.conduktor.io/guide/conduktor-in-production/admin/data-mask). For detailed streaming-specific strategies, see [Data Masking and Anonymization for Streaming](https://conduktor.io/glossary/data-masking-and-anonymization-for-streaming).
+**Data Privacy**: Regulations like GDPR require the ability to delete customer data on request. This conflicts with Kafka's append-only design, requiring careful architectural choices around data masking, encryption, and deletion strategies. Common approaches include using data masking for PII in transit and maintaining external deletion registries. Conduktor provides enterprise-grade data masking capabilities to protect sensitive financial data, learn more in the [Conduktor Data Masking documentation](https://docs.conduktor.io/guide/conduktor-in-production/admin/data-mask). For detailed streaming-specific strategies, see [Data Masking and Anonymization for Streaming](https://conduktor.io/glossary/data-masking-and-anonymization-for-streaming).
 
 **Transaction Monitoring**: Regulations like the Bank Secrecy Act and EU Anti-Money Laundering directives require real-time monitoring of transactions for suspicious activity. Streaming platforms enable this by processing every transaction through detection algorithms as it occurs.
 
@@ -180,7 +180,7 @@ Implementing streaming data in financial services comes with challenges:
 
 **Data Quality**: Poor data quality in real-time systems causes immediate operational issues. Implement schema validation, data quality checks, and monitoring to catch issues before they propagate. Modern data quality tools like Soda Core and Great Expectations can validate streaming data in real time, checking for anomalies, null values, format violations, and business rule compliance. For comprehensive data quality strategies, see [Building a Data Quality Framework](https://conduktor.io/glossary/building-a-data-quality-framework) and [Automated Data Quality Testing](https://conduktor.io/glossary/automated-data-quality-testing).
 
-**Exactly-Once Semantics**: Financial transactions must be processed exactly once—no duplicates, no losses. This means if a payment of $100 is processed, it should debit the account exactly once, even if the system experiences failures or retries. Modern Kafka (2.5+) provides improved exactly-once semantics (EOS) using transactional APIs, while Apache Flink offers end-to-end exactly-once processing through its checkpointing mechanism. Use platforms and frameworks that support exactly-once processing guarantees and test failure scenarios thoroughly. For implementation details, see [Exactly-Once Semantics in Kafka](https://conduktor.io/glossary/exactly-once-semantics-in-kafka).
+**Exactly-Once Semantics**: Financial transactions must be processed exactly once, no duplicates, no losses. This means if a payment of $100 is processed, it should debit the account exactly once, even if the system experiences failures or retries. Modern Kafka (2.5+) provides improved exactly-once semantics (EOS) using transactional APIs, while Apache Flink offers end-to-end exactly-once processing through its checkpointing mechanism. Use platforms and frameworks that support exactly-once processing guarantees and test failure scenarios thoroughly. For implementation details, see [Exactly-Once Semantics in Kafka](https://conduktor.io/glossary/exactly-once-semantics-in-kafka).
 
 **Backpressure and Rate Limiting**: Downstream systems may not keep up with peak event rates. Backpressure occurs when a consumer processes data slower than the producer sends it, leading to memory buildup and potential system failures. Implement proper backpressure mechanisms (such as flow control, buffering, or dynamic rate adjustment) and rate limiting to prevent cascade failures. For comprehensive patterns and strategies, see [Backpressure Handling in Streaming Systems](https://conduktor.io/glossary/backpressure-handling-in-streaming-systems).
 
@@ -209,7 +209,7 @@ The entire system runs on a distributed Flink cluster processing events from a m
 
 Streaming data has become fundamental infrastructure in financial services. From fraud detection to payment processing to trading, the ability to process events in real time enables capabilities that batch systems simply cannot provide.
 
-The core technologies—primarily Apache Kafka for event streaming and Apache Flink or Kafka Streams for processing—are mature and battle-tested at scale. However, successfully implementing streaming data requires careful attention to architecture, compliance, data quality, and operational best practices.
+The core technologies, primarily Apache Kafka for event streaming and Apache Flink or Kafka Streams for processing, are mature and battle-tested at scale. However, successfully implementing streaming data requires careful attention to architecture, compliance, data quality, and operational best practices.
 
 Financial institutions that invest in building robust streaming data platforms gain competitive advantages through faster fraud detection, instant payment processing, better risk management, and improved customer experiences. As real-time expectations continue to grow and regulatory requirements evolve, streaming data will only become more central to financial services operations.
 

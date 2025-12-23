@@ -55,7 +55,7 @@ Consumer lag directly impacts several critical aspects of your streaming archite
 
 **SLA Compliance**: Many organizations have strict SLAs around data processing latency. A consumer that falls behind may violate these agreements, potentially triggering contractual penalties or damaging customer trust.
 
-**System Health Indication**: Sudden increases in lag often signal underlying problems—overloaded consumers, network issues, database bottlenecks, or resource constraints. Lag is frequently the first visible symptom of degraded system performance.
+**System Health Indication**: Sudden increases in lag often signal underlying problems, overloaded consumers, network issues, database bottlenecks, or resource constraints. Lag is frequently the first visible symptom of degraded system performance.
 
 **Capacity Planning**: Trending lag metrics over time help you understand when to scale your consumer infrastructure. Consistently growing lag indicates that your current capacity cannot keep pace with the incoming message rate.
 
@@ -67,7 +67,7 @@ Understanding what causes lag is essential for effective remediation:
 
 **Insufficient Consumer Resources**: If consumers don't have enough CPU, memory, or network bandwidth, they cannot process messages fast enough. This often manifests as high CPU utilization or memory pressure on consumer instances.
 
-**Rebalancing Events**: When consumers join or leave a group, Kafka triggers a rebalance that temporarily halts processing. Frequent rebalances—caused by unhealthy consumers, network issues, or misconfigured timeouts—create periodic lag spikes.
+**Rebalancing Events**: When consumers join or leave a group, Kafka triggers a rebalance that temporarily halts processing. Frequent rebalances, caused by unhealthy consumers, network issues, or misconfigured timeouts, create periodic lag spikes.
 
 **Backpressure from Downstream Systems**: Consumers often write to databases, send HTTP requests, or publish to other systems. If these downstream dependencies slow down or become unavailable, consumers get blocked waiting for responses.
 
@@ -132,7 +132,7 @@ Consumer lag is intrinsically tied to consumer group behavior:
 
 Each consumer in a group is assigned specific partitions through Kafka's partition assignment strategy. Lag exists per partition, so understanding which consumer handles which partition helps localize performance issues.
 
-When consumers are unevenly loaded—perhaps one handles more partitions or more expensive messages—lag patterns become uneven across the group. Monitoring per-partition lag reveals these imbalances.
+When consumers are unevenly loaded, perhaps one handles more partitions or more expensive messages, lag patterns become uneven across the group. Monitoring per-partition lag reveals these imbalances.
 
 Rebalancing temporarily increases lag because all consumers must stop processing, coordinate the new partition assignment, and resume. Minimizing rebalance frequency through stable consumer instances and appropriate timeout configurations helps maintain consistent lag levels.
 
@@ -158,7 +158,7 @@ Sophisticated streaming architectures employ lag-aware patterns:
 
 **Time-Based Lag Monitoring**: In addition to message count lag, monitor time-based lag (how old the messages being processed are). For time-sensitive applications, a 5-minute time lag might be more meaningful than 10,000 message lag.
 
-**Lag-Aware Load Shedding**: When lag becomes critical, implement strategies to shed load temporarily—processing only high-priority messages, sampling data, or bypassing expensive enrichment steps to catch up faster. See [Backpressure Handling in Streaming Systems](https://conduktor.io/glossary/backpressure-handling-in-streaming-systems) for related patterns.
+**Lag-Aware Load Shedding**: When lag becomes critical, implement strategies to shed load temporarily, processing only high-priority messages, sampling data, or bypassing expensive enrichment steps to catch up faster. See [Backpressure Handling in Streaming Systems](https://conduktor.io/glossary/backpressure-handling-in-streaming-systems) for related patterns.
 
 **Circuit Breaker Integration**: Connect lag monitoring to circuit breaker patterns. If a downstream dependency is causing backpressure and increasing lag, open the circuit breaker to prevent further degradation while alerting operators.
 
@@ -178,7 +178,7 @@ The Kafka ecosystem provides rich tooling for lag management:
 
 ## Conclusion
 
-Consumer lag is more than just a number—it's a window into the health and performance of your entire streaming system. By understanding what causes lag, monitoring it effectively, setting intelligent alerts, and responding with appropriate remediation strategies, you can maintain healthy streaming pipelines that meet SLAs and deliver real-time value.
+Consumer lag is more than just a number, it's a window into the health and performance of your entire streaming system. By understanding what causes lag, monitoring it effectively, setting intelligent alerts, and responding with appropriate remediation strategies, you can maintain healthy streaming pipelines that meet SLAs and deliver real-time value.
 
 Remember that lag monitoring is not a one-time configuration but an ongoing practice. As your data volumes grow, your processing logic evolves, and your infrastructure changes, continuously refine your lag monitoring strategy to ensure it remains effective and actionable.
 

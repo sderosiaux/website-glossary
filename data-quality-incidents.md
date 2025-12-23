@@ -14,7 +14,7 @@ A **data quality incident** occurs when data flowing through streaming systems f
 
 In streaming architectures, data quality incidents are particularly critical because they propagate in real-time to multiple downstream systems. A schema violation in a Kafka topic might cascade to break consumers, corrupt data lakes, and trigger false alerts across monitoring systems. The velocity and volume of streaming data mean that incidents can affect millions of records within minutes if not detected and contained quickly.
 
-The key distinction between an incident and normal variance lies in **impact and deviation from acceptable bounds**. A 5% increase in null values might be within normal operating parameters, while a sudden 50% spike in nulls represents an incident requiring immediate attention. Organizations define these thresholds through **Service Level Objectives (SLOs)**—measurable targets for system reliability and data quality—and data quality contracts that specify acceptable ranges for metrics like completeness, accuracy, and timeliness.
+The key distinction between an incident and normal variance lies in **impact and deviation from acceptable bounds**. A 5% increase in null values might be within normal operating parameters, while a sudden 50% spike in nulls represents an incident requiring immediate attention. Organizations define these thresholds through **Service Level Objectives (SLOs)**, measurable targets for system reliability and data quality, and data quality contracts that specify acceptable ranges for metrics like completeness, accuracy, and timeliness.
 
 For detailed coverage of these quality dimensions, see [Data Quality Dimensions](https://conduktor.io/glossary/data-quality-dimensions-accuracy-completeness-and-consistency).
 ![Data Quality Incident Response](images/diagrams/data-quality-incidents-0.webp)
@@ -135,7 +135,7 @@ For related drift patterns, see [Data Drift in Streaming](https://conduktor.io/g
 
 ### Preventing Incidents with Data Quality Policies
 
-Conduktor Data Quality Policies provide systematic prevention of data quality incidents by creating Rules that define expected message formats and content. These attach to specific topics, enabling centralized quality enforcement. In observe-only mode, Policies record violations without impacting flow; when integrated with Gateway, they validate records before production—blocking non-compliant messages or marking them with violation metadata.
+Conduktor Data Quality Policies provide systematic prevention of data quality incidents by creating Rules that define expected message formats and content. These attach to specific topics, enabling centralized quality enforcement. In observe-only mode, Policies record violations without impacting flow; when integrated with Gateway, they validate records before production, blocking non-compliant messages or marking them with violation metadata.
 
 This centralized approach catches schema violations, null explosions, and format errors at the infrastructure level rather than requiring each producer to implement validation independently, ensuring consistent quality standards. For implementation guidance, see [Data Quality Policies](https://docs.conduktor.io/guide/conduktor-concepts/data-quality-policies).
 
@@ -182,7 +182,7 @@ Effective RCA in streaming systems requires examining multiple layers:
 - **Schema layer**: Evolution mistakes, registry failures
 - **Data source layer**: Upstream system changes, database issues
 
-**Modern tooling (2025)**: OpenTelemetry distributed tracing connects data quality incidents across the entire pipeline—from producer instrumentation through Kafka brokers to consumer processing. Audit logging platforms capture all configuration changes and schema modifications with timestamps, enabling precise correlation with incident onset. Kafka 4.0's improved observability APIs provide richer metadata for incident investigation.
+**Modern tooling (2025)**: OpenTelemetry distributed tracing connects data quality incidents across the entire pipeline, from producer instrumentation through Kafka brokers to consumer processing. Audit logging platforms capture all configuration changes and schema modifications with timestamps, enabling precise correlation with incident onset. Kafka 4.0's improved observability APIs provide richer metadata for incident investigation.
 
 For implementation guidance, see [Distributed Tracing for Kafka Applications](https://conduktor.io/glossary/distributed-tracing-for-kafka-applications) and [Audit Logging for Streaming Platforms](https://conduktor.io/glossary/audit-logging-for-streaming-platforms).
 

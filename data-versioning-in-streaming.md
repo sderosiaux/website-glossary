@@ -44,7 +44,7 @@ LAYER                   MECHANISM                  USE CASE
 
 Before diving into versioning strategies, let's clarify key concepts:
 
-**Event**: A record representing something that happened at a specific time—a user action, sensor reading, database change, or business transaction. Events are immutable facts about the past.
+**Event**: A record representing something that happened at a specific time, a user action, sensor reading, database change, or business transaction. Events are immutable facts about the past.
 
 **Stream**: A continuous, ordered sequence of events flowing over time. Unlike batch datasets that have a defined beginning and end, streams are unbounded and always evolving.
 
@@ -52,11 +52,11 @@ Before diving into versioning strategies, let's clarify key concepts:
 
 **Consumer**: An application that reads and processes events from a stream. Consumers might aggregate data, trigger actions, update dashboards, or feed machine learning models.
 
-**Offset**: A sequential position number assigned to each event within a partition. Think of it like a line number in a log file—it identifies exactly where an event appears in the stream. Offsets enable precise replay and checkpointing.
+**Offset**: A sequential position number assigned to each event within a partition. Think of it like a line number in a log file, it identifies exactly where an event appears in the stream. Offsets enable precise replay and checkpointing.
 
 **Partition**: A subdivision of a stream that enables parallel processing. Events with the same key (like customer ID) go to the same partition, maintaining order within that partition while allowing the overall stream to scale horizontally.
 
-**Schema**: The structure and data types of an event—its fields, their types, and validation rules. Schemas act as contracts between producers and consumers, ensuring data compatibility.
+**Schema**: The structure and data types of an event, its fields, their types, and validation rules. Schemas act as contracts between producers and consumers, ensuring data compatibility.
 
 Understanding these building blocks is essential because versioning in streaming systems operates at multiple levels: versioning the schemas that define event structure, versioning the events themselves through offsets and timestamps, and versioning the derived datasets created from streams.
 
@@ -119,7 +119,7 @@ With schema versioning, downstream consumers can detect which version they're pr
 - **BACKWARD**: New schema can read data written with previous schema (most common). You can add optional fields or remove fields with defaults.
 - **FORWARD**: Old schema can read data written with new schema. You can add fields with defaults or remove optional fields.
 - **FULL**: Both backward and forward compatible. Most restrictive but safest for long-running systems.
-- **NONE**: No compatibility checks. Dangerous—use only during prototyping.
+- **NONE**: No compatibility checks. Dangerous, use only during prototyping.
 
 A consumer handling multiple versions might look like:
 
@@ -195,7 +195,7 @@ for message in consumer:
         break  # Stop at offset 15000
 ```
 
-**Watermarks** extend this concept to handle late-arriving data—a common challenge in distributed systems where network delays, clock skew, or batch processing cause events to arrive out of order. For example, an event timestamped 2:00 PM might arrive after an event timestamped 2:05 PM.
+**Watermarks** extend this concept to handle late-arriving data, a common challenge in distributed systems where network delays, clock skew, or batch processing cause events to arrive out of order. For example, an event timestamped 2:00 PM might arrive after an event timestamped 2:05 PM.
 
 Watermarks represent a threshold timestamp where the system considers all earlier events to have arrived. Once a watermark passes time T, the system assumes it has seen all events with timestamps ≤ T. This enables:
 
@@ -203,7 +203,7 @@ Watermarks represent a threshold timestamp where the system considers all earlie
 - **State Snapshots**: Processing state can be checkpointed at specific watermark positions
 - **Reproducible Processing**: Replaying from a watermark recreates identical results
 
-Stream processing frameworks like Apache Flink use watermarks extensively. Versioning watermarks—tracking which watermark position was used for specific computations—lets you snapshot processing state at specific points, enabling reproducible stream processing and time-travel debugging.
+Stream processing frameworks like Apache Flink use watermarks extensively. Versioning watermarks, tracking which watermark position was used for specific computations, lets you snapshot processing state at specific points, enabling reproducible stream processing and time-travel debugging.
 
 For more on watermark mechanics and late data handling, see [Event Time and Watermarks in Flink](/event-time-and-watermarks-in-flink) and [Handling Late-Arriving Data in Streaming](/handling-late-arriving-data-in-streaming).
 
@@ -219,7 +219,7 @@ ML pipelines have unique versioning requirements. Training data must be frozen a
 - **Cloud-Native**: AWS SageMaker Feature Store, Azure ML Feature Store, Google Vertex AI Feature Store
 - **Commercial**: Tecton, Hopsworks
 
-Feature stores create temporal snapshots—when you request features for timestamp T, you get the latest known values as of time T, never data from the future. This temporal consistency is critical for ML reproducibility.
+Feature stores create temporal snapshots, when you request features for timestamp T, you get the latest known values as of time T, never data from the future. This temporal consistency is critical for ML reproducibility.
 
 **Feature Versioning**: As feature engineering logic evolves, version the transformations themselves. Feature stores track both the data and the code that generated it, enabling model retraining with identical inputs.
 

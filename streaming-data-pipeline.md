@@ -1,6 +1,6 @@
 ---
 title: "Streaming Data Pipeline"
-description: Understand the five core components of streaming data pipelines—sources, ingestion, brokers, processing, and sinks—and how they enable real-time flows.
+description: Understand the five core components of streaming data pipelines, sources, ingestion, brokers, processing, and sinks, and how they enable real-time flows.
 topics:
   - Streaming Data Pipelines
   - Apache Kafka
@@ -12,7 +12,7 @@ topics:
 
 Modern organizations increasingly rely on real-time insights to power operational decisions, personalized user experiences, and automated systems. Unlike traditional batch processing that operates on periodic snapshots of data, streaming data pipelines process events continuously as they occur, enabling millisecond-to-second latency between data generation and action.
 
-Understanding the architecture of streaming pipelines—their components, data flows, and operational characteristics—is essential for anyone building systems that react to data in real time.
+Understanding the architecture of streaming pipelines, their components, data flows, and operational characteristics, is essential for anyone building systems that react to data in real time.
 
 ## What Is a Streaming Data Pipeline?
 
@@ -48,7 +48,7 @@ Continue with batch when historical analysis doesn't require real-time freshness
 
 Streaming pipelines consist of five building blocks that map to four logical phases. Source and Ingestion together form the entry point, Broker provides transport, Processing transforms data, and Sink delivers results.
 
-1. **Source**: Systems generating events—databases, applications, IoT devices, APIs
+1. **Source**: Systems generating events, databases, applications, IoT devices, APIs
 2. **Ingestion Layer**: Entry point capturing events through direct producers, CDC connectors, or API gateways
 3. **Transport/Event Broker**: Central durable channel (Apache Kafka) providing ordered, replayable event logs
 4. **Processing Layer**: Stream processors (Kafka Streams, Flink) transforming and enriching data
@@ -95,7 +95,7 @@ Delivery semantics (at-least-once or exactly-once) configured on producers ensur
 
 ## The Data Stream Broker: The Backbone
 
-Apache Kafka serves as the architectural backbone, fundamentally distinguishing streaming from point-to-point integration. Modern Kafka deployments (Kafka 3.3+, standard in 4.0+) run in KRaft mode—eliminating the previous ZooKeeper dependency for improved operational simplicity and scalability. For details on this architecture shift, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka).
+Apache Kafka serves as the architectural backbone, fundamentally distinguishing streaming from point-to-point integration. Modern Kafka deployments (Kafka 3.3+, standard in 4.0+) run in KRaft mode, eliminating the previous ZooKeeper dependency for improved operational simplicity and scalability. For details on this architecture shift, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka).
 
 **Core responsibilities:**
 - **Decoupling**: Producers and consumers operate independently. Producers write without knowing consumers exist; consumers read without knowing producers.
@@ -103,7 +103,7 @@ Apache Kafka serves as the architectural backbone, fundamentally distinguishing 
 - **Ordered Transport**: Events with the same partition key (e.g., customer-123) go to the same partition, maintaining causal ordering.
 - **Elastic Buffering**: Acts as shock absorber between fast producers and slow consumers. Events accumulate safely if processing falls behind.
 
-Kafka's log-centric design enables multiple independent consumers, historical replay, reprocessing after bugs, and long-term event storage—what makes streaming ecosystems reliable at scale.
+Kafka's log-centric design enables multiple independent consumers, historical replay, reprocessing after bugs, and long-term event storage, what makes streaming ecosystems reliable at scale.
 
 **Partition sizing guidance**: Kafka topics are divided into partitions that enable parallel processing across consumer groups. Start with 1-2 partitions per expected peak consumer instance. For 10 anticipated consumers, begin with 10-20 partitions. Monitor consumer lag and adjust upward as needed. For detailed information on how consumers coordinate partition assignment and track offsets, see [Kafka Consumer Groups Explained](https://conduktor.io/glossary/kafka-consumer-groups-explained) and [Consumer Lag: Monitoring and Managing Streaming Health](https://conduktor.io/glossary/consumer-lag-monitoring).
 
@@ -181,7 +181,7 @@ Each consumer processes independently. Kafka buffers during downstream failures.
 
 ### End-to-End Latency Tracking
 
-Monitor these metrics separately—each reveals different bottlenecks:
+Monitor these metrics separately, each reveals different bottlenecks:
 - **Producer Throughput**: Volume ingested, detecting source slowdowns
 - **Event-to-Ingestion Latency**: Time from generation to Kafka
 - **Consumer Lag**: Gap between latest event and consumer position (indicates bottlenecks)
@@ -214,7 +214,7 @@ Schema Registry validates schemas before allowing writes. If producers attempt i
 - **Forward**: New consumers read old schemas
 - **Full**: Both directions compatible
 
-Invalid events route to dead letter queues—separate Kafka topics storing failed events for inspection and reprocessing without blocking main data flow. For detailed DLQ implementation patterns, see [Dead Letter Queues for Error Handling](https://conduktor.io/glossary/dead-letter-queues-for-error-handling).
+Invalid events route to dead letter queues, separate Kafka topics storing failed events for inspection and reprocessing without blocking main data flow. For detailed DLQ implementation patterns, see [Dead Letter Queues for Error Handling](https://conduktor.io/glossary/dead-letter-queues-for-error-handling).
 
 ### Backpressure Management
 
@@ -242,17 +242,17 @@ Commercial governance platforms like Conduktor centralize operational visibility
 - Troubleshoot bottlenecks without accessing multiple CLI tools
 - Test resilience with Conduktor Gateway (proxy-based chaos engineering for network failures, latency injection, and message manipulation)
 
-Operators trace events through stages, identify latency spikes, and understand impact before modifying schemas—essential for operating at scale. For testing strategies including chaos engineering, see [Chaos Engineering for Streaming Systems](https://conduktor.io/glossary/chaos-engineering-for-streaming-systems).
+Operators trace events through stages, identify latency spikes, and understand impact before modifying schemas, essential for operating at scale. For testing strategies including chaos engineering, see [Chaos Engineering for Streaming Systems](https://conduktor.io/glossary/chaos-engineering-for-streaming-systems).
 
 ## Summary
 
 Streaming data pipelines enable continuous data movement through decoupled, event-driven architectures, replacing batch processes with real-time flows that reduce latency from hours to milliseconds.
 
-**Why It Matters**: Understanding the five components (sources, ingestion, broker, processing, sinks) and how they interact through immutable event logs allows teams to architect pipelines that scale reliably while maintaining quality. Streaming enables use cases impossible with batch—real-time fraud detection, dynamic pricing, operational dashboards.
+**Why It Matters**: Understanding the five components (sources, ingestion, broker, processing, sinks) and how they interact through immutable event logs allows teams to architect pipelines that scale reliably while maintaining quality. Streaming enables use cases impossible with batch, real-time fraud detection, dynamic pricing, operational dashboards.
 
 **How Teams Approach It Today**: Organizations layer specialized components: CDC tools for database ingestion, Kafka as durable transport, Flink/Kafka Streams for stateful transformations, Sink Connectors for multi-destination delivery. Teams monitor end-to-end latency, manage schema evolution through registries, scale consumers based on lag, and choose delivery semantics (exactly-once vs at-least-once) based on data criticality.
 
-**Where Platforms Fit**: Governance platforms provide observability and control layers essential for complex streaming architectures—centralizing schema management, tracking lineage, monitoring health metrics, enforcing policies, and enabling troubleshooting across distributed processing stages.
+**Where Platforms Fit**: Governance platforms provide observability and control layers essential for complex streaming architectures, centralizing schema management, tracking lineage, monitoring health metrics, enforcing policies, and enabling troubleshooting across distributed processing stages.
 
 ## Related Concepts
 

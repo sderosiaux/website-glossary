@@ -8,7 +8,7 @@ topics:
 ---
 
 
-For decades, organizations processed data in batches—collecting information throughout the day and running analytics jobs overnight or at scheduled intervals. While batch processing remains useful for many scenarios, modern businesses increasingly need to react to events as they happen.
+For decades, organizations processed data in batches, collecting information throughout the day and running analytics jobs overnight or at scheduled intervals. While batch processing remains useful for many scenarios, modern businesses increasingly need to react to events as they happen.
 
 Real-time data streaming represents a fundamental shift in how we handle data. Instead of waiting for scheduled batch jobs, streaming systems process data continuously as it arrives, enabling organizations to detect fraud within milliseconds, personalize user experiences instantly, and monitor infrastructure in real-time.
 ![Real-time streaming architecture and data flow](images/diagrams/what-is-real-time-data-streaming-0.webp)
@@ -63,7 +63,7 @@ Streaming processing, by contrast, treats data as a continuous flow of events. E
 
 ### Core Concepts
 
-**Events** are the fundamental unit in streaming systems. An event represents something that happened—a user clicked a button, a sensor reported a temperature, or a payment was processed. Events are immutable facts about what occurred at a specific point in time.
+**Events** are the fundamental unit in streaming systems. An event represents something that happened, a user clicked a button, a sensor reported a temperature, or a payment was processed. Events are immutable facts about what occurred at a specific point in time.
 
 **Streams** are unbounded sequences of events. Unlike static datasets with a clear beginning and end, streams are continuous and potentially infinite. A stream might represent all clicks on a website, all temperature readings from IoT sensors, or all transactions in a payment system.
 
@@ -85,7 +85,7 @@ Several technologies have emerged as leaders in the real-time streaming space.
 
 **Cloud-native services** like AWS Kinesis, Azure Event Hubs, and Google Cloud Pub/Sub provide managed streaming infrastructure without the operational overhead of running your own clusters. These services integrate seamlessly with other cloud offerings, making it easier to build end-to-end streaming pipelines.
 
-**Stream processing frameworks** transform and analyze data in motion. Kafka Streams (integrated with Kafka 4.0+) provides a lightweight Java library for processing streams with stateful operations, windowing, and joins—no separate cluster required. For an introduction, see [Introduction to Kafka Streams](https://conduktor.io/glossary/introduction-to-kafka-streams). ksqlDB enables SQL queries on Kafka streams, making stream processing accessible to SQL-familiar developers. These frameworks handle the complexity of stateful computations, time-based windowing, and exactly-once processing semantics.
+**Stream processing frameworks** transform and analyze data in motion. Kafka Streams (integrated with Kafka 4.0+) provides a lightweight Java library for processing streams with stateful operations, windowing, and joins, no separate cluster required. For an introduction, see [Introduction to Kafka Streams](https://conduktor.io/glossary/introduction-to-kafka-streams). ksqlDB enables SQL queries on Kafka streams, making stream processing accessible to SQL-familiar developers. These frameworks handle the complexity of stateful computations, time-based windowing, and exactly-once processing semantics.
 
 ## Real-World Use Cases
 
@@ -115,7 +115,7 @@ Real-time streaming solves problems that batch processing cannot address effecti
 
 **Complexity** increases with streaming systems. Distributed architectures, stateful processing, and handling failures across multiple components require different skills than traditional batch ETL. Teams need expertise in stream processing frameworks and distributed systems.
 
-**Exactly-once semantics** is difficult to achieve. Ensuring each event is processed once and only once, even when systems fail and restart, requires careful design and coordination between producers, brokers, and consumers. For example, if a consumer processes a payment event and crashes before committing its offset, the event might be processed twice on restart—potentially double-charging a customer. Many systems settle for at-least-once delivery, requiring idempotent processing logic to handle duplicates safely. For detailed coverage of achieving exactly-once processing, see [Exactly-Once Semantics in Kafka](https://conduktor.io/glossary/exactly-once-semantics-in-kafka).
+**Exactly-once semantics** is difficult to achieve. Ensuring each event is processed once and only once, even when systems fail and restart, requires careful design and coordination between producers, brokers, and consumers. For example, if a consumer processes a payment event and crashes before committing its offset, the event might be processed twice on restart, potentially double-charging a customer. Many systems settle for at-least-once delivery, requiring idempotent processing logic to handle duplicates safely. For detailed coverage of achieving exactly-once processing, see [Exactly-Once Semantics in Kafka](https://conduktor.io/glossary/exactly-once-semantics-in-kafka).
 
 **State management** becomes challenging when processing streams. Computing aggregations, joins, or complex patterns requires maintaining state across many events. For example, calculating a 30-day rolling average of user activity requires storing activity counts for each user and updating them as new events arrive. This state must be durable, consistent, and capable of being recovered after failures. For Flink's approach to state management, see [Flink State Management and Checkpointing](https://conduktor.io/glossary/flink-state-management-and-checkpointing).
 
@@ -129,7 +129,7 @@ To illustrate how streaming works in practice, consider an e-commerce platform p
 
 2. **Event Storage**: Kafka brokers receive the event, replicate it across multiple servers for durability, and make it available to consumers. The event is stored in an ordered log within a topic partition.
 
-3. **Parallel Processing**: Multiple consumers process the same event for different purposes—a fraud detection service analyzes the order for suspicious patterns, an inventory service reserves products, a recommendation engine updates the customer's profile, and an analytics pipeline computes real-time sales metrics.
+3. **Parallel Processing**: Multiple consumers process the same event for different purposes, a fraud detection service analyzes the order for suspicious patterns, an inventory service reserves products, a recommendation engine updates the customer's profile, and an analytics pipeline computes real-time sales metrics.
 
 4. **Real-time Response**: If fraud detection flags the order within milliseconds, the payment service receives a "HoldPayment" event before charging the card. Meanwhile, the customer sees real-time order status updates based on events flowing through the system.
 
@@ -169,7 +169,7 @@ Teams considering real-time streaming should evaluate several factors before div
 
 **Skill requirements** differ from batch processing. Stream processing requires understanding event time vs processing time, windowing, watermarks, and stateful computations. Invest in training or hire engineers with streaming experience.
 
-**Use case selection** matters for initial success. Start with a clear, valuable use case rather than trying to stream everything. Look for scenarios where low latency provides tangible business value—fraud detection, real-time personalization, or operational monitoring are good candidates.
+**Use case selection** matters for initial success. Start with a clear, valuable use case rather than trying to stream everything. Look for scenarios where low latency provides tangible business value, fraud detection, real-time personalization, or operational monitoring are good candidates.
 
 **Governance setup** should not be an afterthought. Establish naming conventions, access control policies, schema management, and monitoring before your streaming infrastructure scales. Setting up governance early prevents the chaos that emerges when hundreds of teams are producing and consuming streams without coordination.
 
@@ -181,7 +181,7 @@ Real-time data streaming has transformed how organizations handle data, enabling
 
 Core concepts include events, streams, producers, consumers, and brokers. Technologies like Apache Kafka, Apache Flink, and Apache Pulsar provide the infrastructure for building streaming systems, while cloud services offer managed alternatives.
 
-Streaming enables use cases impossible with batch processing—fraud detection, IoT monitoring, clickstream analytics, change data capture, and real-time recommendations. Benefits include low latency, continuous processing, and event-driven architectures, though challenges exist around complexity, exactly-once semantics, state management, and ordering.
+Streaming enables use cases impossible with batch processing, fraud detection, IoT monitoring, clickstream analytics, change data capture, and real-time recommendations. Benefits include low latency, continuous processing, and event-driven architectures, though challenges exist around complexity, exactly-once semantics, state management, and ordering.
 
 Streaming fits naturally into modern data architectures like lakehouses and data mesh, serving as the real-time backbone connecting systems. Success requires careful consideration of infrastructure, skills, use cases, and governance.
 

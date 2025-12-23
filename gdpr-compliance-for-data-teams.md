@@ -74,7 +74,7 @@ GDPR establishes seven foundational principles that data teams must embed into t
 
 The principle of **data minimization** requires teams to collect only what is necessary for specific purposes. In practice, this means implementing schema validation and filtering mechanisms at ingestion points. For streaming platforms like Apache Kafka, this might involve deploying data governance tools that enforce field-level policies before messages reach downstream consumers. For guidance on detecting and handling sensitive data in streams, see [PII Detection and Handling in Event Streams](https://conduktor.io/glossary/pii-detection-and-handling-in-event-streams) and [PII Leakage Prevention](https://conduktor.io/glossary/pii-leakage-prevention).
 
-**Storage limitation** demands that personal data be retained only as long as necessary. Data teams must implement automated retention policies with configurable time-to-live (TTL) settings across all storage layers—from streaming platforms to data warehouses and analytics databases.
+**Storage limitation** demands that personal data be retained only as long as necessary. Data teams must implement automated retention policies with configurable time-to-live (TTL) settings across all storage layers, from streaming platforms to data warehouses and analytics databases.
 
 ## Technical Implementation of Data Subject Rights
 
@@ -211,7 +211,7 @@ Consider this approach:
 
 1. **Consent Events Topic**: Maintain a compacted topic containing the latest consent preferences for each user
 2. **Stream Enrichment**: Join data streams with consent state before processing
-3. **Conditional Processing**: Implement stream processors that route data based on consent status—processing consented data normally while quarantining or dropping non-consented data
+3. **Conditional Processing**: Implement stream processors that route data based on consent status, processing consented data normally while quarantining or dropping non-consented data
 
 Here's a practical example of consent event publishing and validation:
 
@@ -469,7 +469,7 @@ Modern data teams working with streaming platforms must architect for compliance
 
 ## Conclusion
 
-GDPR compliance for data teams is not merely a legal checkbox—it's an opportunity to build more robust, trustworthy, and well-architected data systems. By treating privacy as a core architectural requirement rather than an afterthought, data teams can create streaming platforms that respect user rights while delivering business value.
+GDPR compliance for data teams is not merely a legal checkbox, it's an opportunity to build more robust, trustworthy, and well-architected data systems. By treating privacy as a core architectural requirement rather than an afterthought, data teams can create streaming platforms that respect user rights while delivering business value.
 
 The technical challenges are significant, particularly around implementing the right to erasure in immutable event streams and managing consent across distributed systems. However, with careful architectural planning, appropriate tooling for governance enforcement, and a commitment to privacy by design, data teams can build systems that are both GDPR-compliant and technically excellent.
 

@@ -10,7 +10,7 @@ topics:
 
 A data analyst joins a team and needs to calculate daily active users from real-time event streams. She discovers three different Kafka topics that seem relevant: `user.events.v2`, `app_interactions`, and `user_activity_enriched`. Each has different field names for user identifiers (`user_id`, `userId`, `customer_key`), different timestamp formats, and unclear definitions of what constitutes an "active" user.
 
-This scenario repeats across organizations adopting streaming architectures. While Apache Kafka, Apache Flink, and similar platforms excel at moving data in real-time, they expose technical implementation details—topic names, serialization formats, partition keys—that create barriers for business users. What's missing is a **semantic layer**: a business-friendly abstraction that translates technical streaming infrastructure into concepts people can understand and trust.
+This scenario repeats across organizations adopting streaming architectures. While Apache Kafka, Apache Flink, and similar platforms excel at moving data in real-time, they expose technical implementation details, topic names, serialization formats, partition keys, that create barriers for business users. What's missing is a **semantic layer**: a business-friendly abstraction that translates technical streaming infrastructure into concepts people can understand and trust.
 ![Semantic layer bridging technical streams and business concepts](images/diagrams/semantic-layer-for-streaming-0.webp)
 <!-- ORIGINAL_DIAGRAM
 ```
@@ -76,7 +76,7 @@ A semantic layer is a business abstraction that sits between raw data systems an
 
 **Access policies**: Who can see what data, enforced at the semantic level rather than requiring consumers to understand infrastructure permissions.
 
-In traditional data warehousing, semantic layers emerged through tools like Looker's LookML or **dbt's MetricFlow** (the metrics framework introduced in dbt 1.6+). These systems let teams define business logic once—how to calculate customer lifetime value, what fields constitute personally identifiable information, which dimensions can be grouped together—and reuse those definitions across all analytical queries.
+In traditional data warehousing, semantic layers emerged through tools like Looker's LookML or **dbt's MetricFlow** (the metrics framework introduced in dbt 1.6+). These systems let teams define business logic once, how to calculate customer lifetime value, what fields constitute personally identifiable information, which dimensions can be grouped together, and reuse those definitions across all analytical queries.
 
 The semantic layer acts as a translation layer. Technical teams maintain the mapping between business concepts and physical tables, columns, and joins. Business teams work entirely with curated metrics and dimensions that make sense in their domain language.
 
@@ -120,7 +120,7 @@ Organizations implementing streaming semantic layers report several concrete ben
 
 **Reduced tribal knowledge**: Instead of asking senior engineers "which topic has the authoritative user data?" new team members consult the semantic layer's documentation, which explicitly defines the golden source for each business entity.
 
-**Faster onboarding for data products**: In data mesh architectures (an approach where domain teams own and publish their data as products), domain teams publish "data products"—curated datasets designed for specific use cases. The semantic layer becomes the interface contract for these products, specifying exactly what business capabilities each stream provides without exposing internal implementation details. For comprehensive coverage of data mesh implementation, see [Data Mesh Principles and Implementation](https://conduktor.io/glossary/data-mesh-principles-and-implementation).
+**Faster onboarding for data products**: In data mesh architectures (an approach where domain teams own and publish their data as products), domain teams publish "data products", curated datasets designed for specific use cases. The semantic layer becomes the interface contract for these products, specifying exactly what business capabilities each stream provides without exposing internal implementation details. For comprehensive coverage of data mesh implementation, see [Data Mesh Principles and Implementation](https://conduktor.io/glossary/data-mesh-principles-and-implementation).
 
 **Regulatory compliance**: When regulations require "deletion of all customer data," the semantic layer identifies every stream and state store that contains customer information, regardless of field names or topic naming conventions.
 
@@ -132,7 +132,7 @@ Several technical approaches have emerged for building semantic layers over stre
 
 **Extending batch semantic layer tools**: Platforms like **dbt** now support metrics frameworks that can work with streaming sources. Teams define metrics in dbt YAML files, then materialize them through streaming jobs that maintain updated results in a queryable store. This approach works well when streaming data eventually lands in a warehouse or lakehouse that dbt can query. For lakehouse architecture patterns, see [Introduction to Lakehouse Architecture](https://conduktor.io/glossary/introduction-to-lakehouse-architecture).
 
-**Stream-native semantic views**: Technologies like **ksqlDB** (Kafka's SQL interface) or **Flink SQL** (version 1.18+ with enhanced state management and SQL capabilities) allow defining logical views over streams using SQL DDL. These views act as semantic abstractions—a view called `active_users_by_region` might encapsulate complex windowing logic, sessionization, and enrichment joins. Consumers query the view without understanding the underlying implementation.
+**Stream-native semantic views**: Technologies like **ksqlDB** (Kafka's SQL interface) or **Flink SQL** (version 1.18+ with enhanced state management and SQL capabilities) allow defining logical views over streams using SQL DDL. These views act as semantic abstractions, a view called `active_users_by_region` might encapsulate complex windowing logic, sessionization, and enrichment joins. Consumers query the view without understanding the underlying implementation.
 
 Here's a concrete example using Flink SQL to create a semantic view:
 
@@ -162,7 +162,7 @@ This semantic view encodes business logic (what constitutes an "active" user), t
 
 **Governance platforms for visibility and control**: Governance platforms like **Conduktor** provide infrastructure for managing streaming data governance at scale. Conduktor allows teams to define business-friendly names and descriptions for [Kafka topics](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/topics), enforce access policies based on semantic classifications (PII, financial data, operational metrics), and provide self-service portals where consumers can discover available streams by business capability rather than technical topic names. For advanced use cases like chaos testing and schema governance, **Conduktor Gateway** extends these capabilities with proxy-level controls using [Interceptors](https://docs.conduktor.io/guide/conduktor-concepts/interceptors). This creates a governance layer that makes semantic meaning visible and actionable across the organization.
 
-**Schema registries with semantic annotations**: Extending schema registries (like Confluent Schema Registry or Apicurio Registry) with business metadata—tagging fields with business glossary terms, marking sensitive data, documenting metric calculation rules—turns the schema registry into a lightweight semantic layer.
+**Schema registries with semantic annotations**: Extending schema registries (like Confluent Schema Registry or Apicurio Registry) with business metadata, tagging fields with business glossary terms, marking sensitive data, documenting metric calculation rules, turns the schema registry into a lightweight semantic layer.
 
 **Modern streaming infrastructure (2025)**: With **Kafka 4.0's KRaft mode** (which became the default in October 2024) eliminating ZooKeeper dependencies, semantic layer implementations benefit from simplified operational models and improved metadata consistency. Real-time OLAP engines like **Apache Druid** or **Apache Pinot** serve as high-performance queryable materialization targets for semantic views, enabling sub-second queries on streaming aggregations. Lakehouse table formats (**Apache Iceberg**, **Delta Lake**, **Apache Hudi**) provide ACID guarantees and schema evolution capabilities for streaming semantic views stored in data lakes, bridging the gap between streaming and batch analytical workloads. For detailed coverage of KRaft's operational benefits, see [Understanding KRaft Mode in Kafka](https://conduktor.io/glossary/understanding-kraft-mode-in-kafka).
 
@@ -174,9 +174,9 @@ Semantic layers bridge the gap between streaming infrastructure and business und
 
 Streaming systems present unique challenges for semantic layers: continuous schema evolution, temporal complexity, event-driven patterns, and real-time updates all require approaches that differ from traditional warehouse-based semantic layers. Successful implementations combine stream-native tools (Flink SQL 1.18+, ksqlDB views), governance platforms like Conduktor for visibility and access control, and metadata catalogs to create cohesive business abstractions.
 
-Modern infrastructure improvements in 2025—particularly Kafka 4.0's KRaft mode, real-time OLAP engines (Druid, Pinot), and lakehouse table formats (Iceberg, Delta Lake, Hudi)—simplify semantic layer implementation by providing more robust foundations for metadata management, query performance, and ACID guarantees on streaming data.
+Modern infrastructure improvements in 2025, particularly Kafka 4.0's KRaft mode, real-time OLAP engines (Druid, Pinot), and lakehouse table formats (Iceberg, Delta Lake, Hudi), simplify semantic layer implementation by providing more robust foundations for metadata management, query performance, and ACID guarantees on streaming data.
 
-As organizations scale their streaming architectures, the semantic layer becomes essential infrastructure—not just for making data understandable, but for maintaining consistency, enforcing governance, and enabling teams to work independently while ensuring they speak a common business language.
+As organizations scale their streaming architectures, the semantic layer becomes essential infrastructure, not just for making data understandable, but for maintaining consistency, enforcing governance, and enabling teams to work independently while ensuring they speak a common business language.
 
 ## Related Concepts
 

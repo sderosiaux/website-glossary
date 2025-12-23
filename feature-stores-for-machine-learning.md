@@ -9,7 +9,7 @@ topics:
   - Feature Engineering
 ---
 
-Machine learning models depend on features—the measurable properties used to make predictions. As ML systems scale, managing these features becomes increasingly complex. Feature stores emerged to solve this challenge by providing a centralized platform for storing, serving, and managing features across the entire ML lifecycle.
+Machine learning models depend on features, the measurable properties used to make predictions. As ML systems scale, managing these features becomes increasingly complex. Feature stores emerged to solve this challenge by providing a centralized platform for storing, serving, and managing features across the entire ML lifecycle.
 ![Feature store architecture](images/diagrams/feature-stores-for-machine-learning-0.webp)
 <!-- ORIGINAL_DIAGRAM
 ```
@@ -68,11 +68,11 @@ Feature stores standardize this process by treating features as reusable, versio
 
 Modern feature stores provide several essential capabilities:
 
-**Feature Registry**: A catalog of all available features with metadata including definitions, owners, data types, and dependencies. This creates discoverability—teams can search for existing features before building new ones.
+**Feature Registry**: A catalog of all available features with metadata including definitions, owners, data types, and dependencies. This creates discoverability, teams can search for existing features before building new ones.
 
-**Dual Storage Systems**: Feature stores typically maintain two storage backends. An offline store (often a data warehouse, [data lake](/data-lake-zones-bronze-silver-gold-architecture), or [lakehouse](/introduction-to-lakehouse-architecture)) serves batch workloads for model training. An online store (typically a low-latency key-value database—a specialized database optimized for fast lookups using unique keys—like Redis or DynamoDB) serves real-time predictions with millisecond latency requirements.
+**Dual Storage Systems**: Feature stores typically maintain two storage backends. An offline store (often a data warehouse, [data lake](/data-lake-zones-bronze-silver-gold-architecture), or [lakehouse](/introduction-to-lakehouse-architecture)) serves batch workloads for model training. An online store (typically a low-latency key-value database, a specialized database optimized for fast lookups using unique keys, like Redis or DynamoDB) serves real-time predictions with millisecond latency requirements.
 
-**Point-in-Time Correctness**: When creating training datasets, feature stores ensure historical features reflect what was known at that specific moment in time. This prevents data leakage—a critical ML error where future information accidentally influences training data, causing models to perform well in training but poorly in production. Point-in-time joins query historical feature values as they existed at the exact timestamp of each training example.
+**Point-in-Time Correctness**: When creating training datasets, feature stores ensure historical features reflect what was known at that specific moment in time. This prevents data leakage, a critical ML error where future information accidentally influences training data, causing models to perform well in training but poorly in production. Point-in-time joins query historical feature values as they existed at the exact timestamp of each training example.
 
 **Feature Versioning**: As feature definitions evolve, version control tracks changes and allows models to reference specific feature versions, ensuring reproducibility.
 
@@ -180,7 +180,7 @@ Feature stores are essential infrastructure for mature ML operations. They centr
 
 The integration with streaming platforms like Kafka and Flink extends feature stores into the real-time domain, enabling fresh features for time-sensitive applications. Modern feature stores (2025) now support emerging use cases including GenAI applications, vector embeddings, and RAG pipelines, while leveraging advanced storage formats like Apache Iceberg for improved performance and governance.
 
-As organizations scale their ML efforts, feature stores become increasingly valuable—reducing duplication, improving consistency, accelerating the path from feature development to production models, and providing the observability needed to maintain reliable ML systems in production.
+As organizations scale their ML efforts, feature stores become increasingly valuable, reducing duplication, improving consistency, accelerating the path from feature development to production models, and providing the observability needed to maintain reliable ML systems in production.
 
 ## Related Concepts
 

@@ -11,7 +11,7 @@ topics:
 
 Large Language Models (LLMs) have become powerful tools for understanding and generating human-like text, while streaming platforms like Apache Kafka and Apache Flink excel at processing high-volume, real-time data. Combining these technologies enables organizations to build intelligent, event-driven applications that can analyze, enrich, and respond to data as it flows through their systems.
 
-The 2025 LLM landscape offers diverse options: proprietary models like GPT-4, Claude 3.5 Sonnet, and Gemini 2.0 provide cutting-edge capabilities with streaming APIs, while open-source alternatives like Llama 3.3, Mistral, and Qwen enable on-premises deployment for sensitive data. Modern LLMs support structured outputs, function calling, and streaming responses—features that integrate naturally with event-driven architectures.
+The 2025 LLM landscape offers diverse options: proprietary models like GPT-4, Claude 3.5 Sonnet, and Gemini 2.0 provide cutting-edge capabilities with streaming APIs, while open-source alternatives like Llama 3.3, Mistral, and Qwen enable on-premises deployment for sensitive data. Modern LLMs support structured outputs, function calling, and streaming responses, features that integrate naturally with event-driven architectures.
 
 This article explores the technical patterns, implementation approaches, and practical considerations for integrating LLMs with streaming platforms.
 ![LLM integration with streaming data architecture](images/diagrams/integrating-llms-with-streaming-platforms-0.webp)
@@ -181,9 +181,9 @@ Kafka Streams or Flink can aggregate streaming tokens back into complete message
 
 ### Function Calling and Tool Use
 
-2025 LLMs support function calling (also called tool use), allowing models to invoke external APIs and integrate results into their reasoning. In streaming architectures, this creates powerful patterns where LLMs can query databases, fetch real-time data from Kafka topics, or trigger actions in external systems—forming the foundation for agentic AI systems.
+2025 LLMs support function calling (also called tool use), allowing models to invoke external APIs and integrate results into their reasoning. In streaming architectures, this creates powerful patterns where LLMs can query databases, fetch real-time data from Kafka topics, or trigger actions in external systems, forming the foundation for agentic AI systems.
 
-A fraud detection LLM might use function calling to query recent transaction history from a state store, check velocity rules in a feature store, or look up customer risk profiles from a database—all within a single inference request. The streaming platform orchestrates these lookups, maintains state stores for fast access, and ensures consistent data across function calls.
+A fraud detection LLM might use function calling to query recent transaction history from a state store, check velocity rules in a feature store, or look up customer risk profiles from a database, all within a single inference request. The streaming platform orchestrates these lookups, maintains state stores for fast access, and ensures consistent data across function calls.
 
 For managing state in stream processing, see [State Stores in Kafka Streams](https://conduktor.io/glossary/state-stores-in-kafka-streams). For autonomous agents built on streaming data, see [Agentic AI Pipelines: Streaming Data for Autonomous Agents](https://conduktor.io/glossary/agentic-ai-pipelines).
 
@@ -207,7 +207,7 @@ Several challenges arise when integrating LLMs with streaming platforms.
 
 **Testing**: LLM outputs are non-deterministic, making traditional testing approaches challenging. Focus on property-based testing that verifies outputs meet requirements rather than exact matching. Test error handling paths thoroughly since LLM failures are common. For comprehensive testing strategies, see [Testing Strategies for Streaming Applications](https://conduktor.io/glossary/testing-strategies-for-streaming-applications).
 
-**Prompt Engineering**: The quality of LLM responses depends heavily on prompt design. Maintain prompt templates in version control, test changes systematically, and monitor output quality in production. Include examples in prompts (few-shot learning) to guide the model toward desired formats. Modern LLMs support system prompts, user/assistant message structure, and function definitions—leverage these features to improve consistency.
+**Prompt Engineering**: The quality of LLM responses depends heavily on prompt design. Maintain prompt templates in version control, test changes systematically, and monitor output quality in production. Include examples in prompts (few-shot learning) to guide the model toward desired formats. Modern LLMs support system prompts, user/assistant message structure, and function definitions, leverage these features to improve consistency.
 
 **LLM Governance**: Organizations must track LLM usage, costs, and outputs for compliance and quality assurance. Implement logging for all LLM requests and responses, track which models and prompts are used in production, and establish approval processes for new LLM integrations. For AI governance patterns, see [Shadow AI: Governing Unauthorized AI in the Enterprise](https://conduktor.io/glossary/shadow-ai-governance) and [AI Discovery and Monitoring](https://conduktor.io/glossary/ai-discovery-and-monitoring).
 

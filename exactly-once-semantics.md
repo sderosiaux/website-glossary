@@ -11,9 +11,9 @@ topics:
   - Apache Flink
 ---
 
-In mission-critical applications—especially those involving finance, inventory, billing, or regulatory compliance—the integrity of data is paramount. In distributed, asynchronous data streaming environments, achieving this integrity requires exactly-once semantics (EOS), a guarantee that every record is processed fully, successfully, and only once, even in the face of system failures.
+In mission-critical applications, especially those involving finance, inventory, billing, or regulatory compliance, the integrity of data is paramount. In distributed, asynchronous data streaming environments, achieving this integrity requires exactly-once semantics (EOS), a guarantee that every record is processed fully, successfully, and only once, even in the face of system failures.
 
-Understanding exactly-once semantics—how it works, why it's technically challenging, and what it costs—is essential for anyone building data pipelines where duplicate processing or data loss would cause incorrect results or compliance violations.
+Understanding exactly-once semantics, how it works, why it's technically challenging, and what it costs, is essential for anyone building data pipelines where duplicate processing or data loss would cause incorrect results or compliance violations.
 ![Exactly-once semantics flow](images/diagrams/exactly-once-semantics-0.webp)
 <!-- ORIGINAL_DIAGRAM
 ```
@@ -74,7 +74,7 @@ The system processes a record at most once. If a failure occurs, the system will
 
 The system guarantees a record will be processed, but failure recovery may cause the record to be processed more than once, leading to data duplication. This is the default robust setting for many message systems and the most common semantic in production.
 
-**Use cases:** Most data pipelines where duplicate processing can be handled through idempotent operations or deduplication logic. For example, updating a customer's current address is naturally idempotent—writing the same address twice produces the same result.
+**Use cases:** Most data pipelines where duplicate processing can be handled through idempotent operations or deduplication logic. For example, updating a customer's current address is naturally idempotent, writing the same address twice produces the same result.
 
 **Configuration:** Producer with `acks=all` and retries enabled; consumer commits offsets only after successful processing.
 
@@ -96,11 +96,11 @@ When a producer sends a message to the broker and doesn't receive an acknowledgm
 
 ### Consumer Recovery and Duplicate Processing
 
-When a consumer fails after reading a record but before committing its offset, it must restart and will re-read and re-process the last record. The challenge intensifies with stateful operations (aggregations, joins, windows) because the consumer must coordinate reading from source, updating internal state, writing results to sink, and committing source offsets—all atomically.
+When a consumer fails after reading a record but before committing its offset, it must restart and will re-read and re-process the last record. The challenge intensifies with stateful operations (aggregations, joins, windows) because the consumer must coordinate reading from source, updating internal state, writing results to sink, and committing source offsets, all atomically.
 
 ### Coordinating Distributed State
 
-Exactly-once semantics requires atomic operations across multiple components: producers writing to topics, consumers processing messages, stream processors updating state, and external systems persisting results—all as a single logical transaction. This coordination problem compounds when operations span multiple partitions, topics, or separate systems.
+Exactly-once semantics requires atomic operations across multiple components: producers writing to topics, consumers processing messages, stream processors updating state, and external systems persisting results, all as a single logical transaction. This coordination problem compounds when operations span multiple partitions, topics, or separate systems.
 
 ## How Kafka Implements Exactly-Once Semantics
 

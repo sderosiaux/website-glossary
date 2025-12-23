@@ -9,7 +9,7 @@ topics:
   - operations
 ---
 
-Disaster recovery (DR) planning is critical for any production Kafka deployment. As organizations increasingly rely on real-time data streaming for mission-critical applications, the ability to recover from failures—whether hardware malfunctions, datacenter outages, or catastrophic events—becomes essential for business continuity.
+Disaster recovery (DR) planning is critical for any production Kafka deployment. As organizations increasingly rely on real-time data streaming for mission-critical applications, the ability to recover from failures, whether hardware malfunctions, datacenter outages, or catastrophic events, becomes essential for business continuity.
 
 A robust disaster recovery strategy for Kafka goes beyond basic replication. It requires understanding recovery time objectives (RTO), recovery point objectives (RPO), and the trade-offs between consistency, availability, and cost.
 
@@ -17,7 +17,7 @@ A robust disaster recovery strategy for Kafka goes beyond basic replication. It 
 
 Before implementing complex DR strategies, it's important to understand Kafka's native replication capabilities, which form the foundation of any resilience plan.
 
-Kafka replicates data across multiple brokers within a cluster. Each partition has one leader and multiple follower replicas that maintain in-sync replicas (ISR)—the set of replicas that have caught up with the leader's log. The replication factor determines how many copies of the data exist. For production workloads, a replication factor of at least 3 is recommended.
+Kafka replicates data across multiple brokers within a cluster. Each partition has one leader and multiple follower replicas that maintain in-sync replicas (ISR), the set of replicas that have caught up with the leader's log. The replication factor determines how many copies of the data exist. For production workloads, a replication factor of at least 3 is recommended.
 
 Two critical configurations impact data durability:
 
@@ -372,7 +372,7 @@ Disaster recovery for Kafka clusters requires a layered approach combining nativ
 
 **Modern Tooling**: MirrorMaker 2 handles cross-cluster replication with offset synchronization. Tiered storage (Kafka 3.6+) provides cost-effective long-term backup. KRaft mode simplifies DR by eliminating ZooKeeper dependencies.
 
-**Ecosystem Coordination**: Successful DR strategies consider the entire streaming pipeline—producers, consumers, stream processors (Flink, Kafka Streams), schema registries (Karapace), and downstream systems must all be included in failover procedures.
+**Ecosystem Coordination**: Successful DR strategies consider the entire streaming pipeline, producers, consumers, stream processors (Flink, Kafka Streams), schema registries (Karapace), and downstream systems must all be included in failover procedures.
 
 **Monitoring and Testing**: Platforms like Conduktor provide centralized visibility across clusters, while Conduktor Gateway enables chaos engineering for realistic DR testing. Regular failover drills ensure procedures work when disasters actually occur.
 

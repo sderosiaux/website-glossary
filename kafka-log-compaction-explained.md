@@ -58,13 +58,13 @@ Log compaction is a retention policy that ensures a Kafka topic retains at least
 
 For foundational understanding of Kafka's architecture including topics, partitions, and brokers, see [Kafka Topics, Partitions, and Brokers: Core Architecture](https://conduktor.io/glossary/kafka-topics-partitions-brokers-core-architecture).
 
-This approach transforms a Kafka topic from an append-only log of events into something closer to a table of current states. However, the log structure remains intact—compaction doesn't remove messages immediately, and it preserves message offsets so consumers can still track their position reliably.
+This approach transforms a Kafka topic from an append-only log of events into something closer to a table of current states. However, the log structure remains intact, compaction doesn't remove messages immediately, and it preserves message offsets so consumers can still track their position reliably.
 
 A critical feature of log compaction is support for tombstone records. When a message with a null value is published for a given key, it signals that the key should be deleted. The compaction process will eventually remove both the tombstone and all previous messages for that key.
 
 ## How Log Compaction Works
 
-Kafka partitions are divided into segments—immutable files that contain a portion of the log. Each segment typically contains a time-bounded or size-bounded chunk of messages, allowing Kafka to manage, compact, and delete data efficiently. Log compaction operates on these segments using a background cleaner thread.
+Kafka partitions are divided into segments, immutable files that contain a portion of the log. Each segment typically contains a time-bounded or size-bounded chunk of messages, allowing Kafka to manage, compact, and delete data efficiently. Log compaction operates on these segments using a background cleaner thread.
 
 Log compaction works identically in both legacy ZooKeeper-based Kafka and modern KRaft mode (Kafka 4.0+). The compaction process is entirely broker-side and doesn't depend on the metadata management layer, making it a reliable feature across all Kafka deployment modes.
 
@@ -179,7 +179,7 @@ Log compaction plays a crucial role in stateful stream processing frameworks lik
 
 ### KTables and Compacted Topics
 
-In Kafka Streams, a **KTable** represents a changelog stream where each record is an update to a keyed state. KTables are fundamentally backed by compacted topics—the abstraction directly maps to log compaction semantics:
+In Kafka Streams, a **KTable** represents a changelog stream where each record is an update to a keyed state. KTables are fundamentally backed by compacted topics, the abstraction directly maps to log compaction semantics:
 
 ```java
 // KTable automatically interprets the compacted topic as a table
@@ -207,7 +207,7 @@ KTable<String, Long> orderCounts = ordersStream
 
 ### State Store Recovery with Compacted Topics
 
-Kafka Streams uses compacted changelog topics to back state stores. When a stream processing application updates local state (such as an aggregation or join table), it writes changes to a compacted topic. If the application fails or restarts, it can rebuild its state by consuming this topic. Since the topic is compacted, restoration is faster—only the latest value for each key needs to be processed.
+Kafka Streams uses compacted changelog topics to back state stores. When a stream processing application updates local state (such as an aggregation or join table), it writes changes to a compacted topic. If the application fails or restarts, it can rebuild its state by consuming this topic. Since the topic is compacted, restoration is faster, only the latest value for each key needs to be processed.
 
 This pattern enables exactly-once processing semantics (EOS) and fault-tolerant stateful operations without requiring external databases. The compacted topic serves as both a changelog and a source of truth for application state.
 
@@ -263,7 +263,7 @@ For comprehensive monitoring strategies across your Kafka infrastructure, see [K
 Frequent compaction problems and their solutions:
 
 - **Compaction lag**: If the dirty ratio stays high, compaction may not be keeping up. Increase cleaner threads (`log.cleaner.threads`) or adjust `min.cleanable.dirty.ratio` to trigger compaction more aggressively
-- **Missing keys**: Messages without keys cannot be compacted—they're retained until time/size-based deletion. Ensure all messages include keys when using compacted topics
+- **Missing keys**: Messages without keys cannot be compacted, they're retained until time/size-based deletion. Ensure all messages include keys when using compacted topics
 - **Unexpected deletion**: Check for tombstone records (null values) if data disappears unexpectedly. Review producer code for accidental null value writes
 - **Slow state restoration**: With tiered storage enabled, verify that adequate local retention allows compaction before segments move to remote storage
 
@@ -277,7 +277,7 @@ Frequent compaction problems and their solutions:
 
 Kafka log compaction is a powerful retention mechanism that maintains the latest state for each message key rather than preserving a complete time-ordered history. It transforms Kafka topics into durable, fault-tolerant state stores that support use cases like change data capture, configuration management, and stateful stream processing.
 
-Understanding the mechanics of compaction—how the cleaner thread operates on segments, when compaction triggers, and how tombstones enable deletion—is essential for using this feature effectively. While compaction isn't appropriate for all use cases, it's invaluable when you need a distributed, scalable way to maintain current state in a data streaming architecture.
+Understanding the mechanics of compaction, how the cleaner thread operates on segments, when compaction triggers, and how tombstones enable deletion, is essential for using this feature effectively. While compaction isn't appropriate for all use cases, it's invaluable when you need a distributed, scalable way to maintain current state in a data streaming architecture.
 
 By configuring compaction correctly and monitoring its performance, you can build robust systems that leverage Kafka not just as a message broker, but as a foundational state management layer.
 

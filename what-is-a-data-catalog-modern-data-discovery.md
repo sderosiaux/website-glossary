@@ -4,7 +4,7 @@ description: "Learn how data catalogs enable modern data discovery, helping team
 topics: ["Data Catalog", "Data Discovery", "Metadata Management", "Data Governance", "Data Assets"]
 ---
 
-In today's data-driven organizations, data assets are scattered across databases, data lakes, cloud storage, and streaming platforms. Teams struggle to answer basic questions: What data do we have? Where is it? Can I trust it? Who owns it? This is where a **data catalog** becomes essential—acting as a searchable inventory of all your organization's data assets.
+In today's data-driven organizations, data assets are scattered across databases, data lakes, cloud storage, and streaming platforms. Teams struggle to answer basic questions: What data do we have? Where is it? Can I trust it? Who owns it? This is where a **data catalog** becomes essential, acting as a searchable inventory of all your organization's data assets.
 ![Data catalog connecting multiple data sources](images/diagrams/what-is-a-data-catalog-modern-data-discovery-0.webp)
 <!-- ORIGINAL_DIAGRAM
 ```
@@ -57,7 +57,7 @@ BENEFITS: Fast Discovery • Trust • Compliance • Collaboration
 
 A data catalog is a centralized metadata repository that helps organizations discover, understand, and manage their data assets. Think of it as a library catalog, but instead of books, it indexes datasets, tables, streams, dashboards, and other data resources.
 
-At its core, a data catalog collects and organizes **metadata**—the data about your data. This includes:
+At its core, a data catalog collects and organizes **metadata**, the data about your data. This includes:
 
 - **Technical metadata**: Schema definitions, data types, column names, file formats (e.g., "customer_id: BIGINT NOT NULL, email: VARCHAR(255), created_at: TIMESTAMP")
 - **Operational metadata**: Data lineage, refresh schedules, data quality metrics, usage statistics (e.g., "Refreshed daily at 2 AM UTC, 99.8% completeness score, queried 847 times last month")
@@ -87,7 +87,7 @@ A data catalog solves these problems by making data discovery fast, reliable, an
 
 **Automated Discovery and Scanning**
 
-Modern catalogs automatically connect to your data sources—databases, warehouses, lakes, and streaming platforms—to discover and index metadata. They scan schemas, sample data, and extract technical details without manual input.
+Modern catalogs automatically connect to your data sources, databases, warehouses, lakes, and streaming platforms, to discover and index metadata. They scan schemas, sample data, and extract technical details without manual input.
 
 **Intelligent Search**
 
@@ -121,7 +121,7 @@ Modern data catalogs must extend beyond batch data to catalog streaming assets. 
 
 In 2025, leading open-source catalogs like OpenMetadata and DataHub have added native support for Kafka topic discovery, schema evolution tracking, and consumer group monitoring. These tools integrate with OpenLineage to provide end-to-end visibility from streaming sources through transformations to final consumption.
 
-For organizations using Kafka, tools like **Conduktor** provide specialized capabilities for managing and discovering streaming data. Conduktor helps teams visualize topic schemas, monitor consumer groups, and understand how data flows through Kafka clusters—bridging the gap between traditional data catalogs and streaming infrastructure. By integrating streaming metadata into your broader data discovery strategy, you ensure that both batch and real-time data assets are findable and understandable. For comprehensive Kafka coverage, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
+For organizations using Kafka, tools like **Conduktor** provide specialized capabilities for managing and discovering streaming data. Conduktor helps teams visualize topic schemas, monitor consumer groups, and understand how data flows through Kafka clusters, bridging the gap between traditional data catalogs and streaming infrastructure. By integrating streaming metadata into your broader data discovery strategy, you ensure that both batch and real-time data assets are findable and understandable. For comprehensive Kafka coverage, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
 
 ## Getting Started with a Data Catalog
 
@@ -135,7 +135,7 @@ Evaluate data catalog solutions based on your needs. Consider factors like suppo
 
 **Start Small, Iterate Often**
 
-Don't try to catalog everything at once. Begin with a pilot project focused on one department or use case. Automate metadata collection where possible, but invest time in adding business context—descriptions, ownership, and glossary terms—that makes datasets truly understandable.
+Don't try to catalog everything at once. Begin with a pilot project focused on one department or use case. Automate metadata collection where possible, but invest time in adding business context, descriptions, ownership, and glossary terms, that makes datasets truly understandable.
 
 **Foster a Data Culture**
 
@@ -154,9 +154,9 @@ As organizations embrace hybrid architectures combining batch, streaming, and re
 
 ## Conclusion
 
-A data catalog is no longer a nice-to-have—it's essential infrastructure for modern data teams. By providing a single source of truth for data discovery, catalogs reduce time-to-insight, improve data quality, enable better governance, and foster collaboration.
+A data catalog is no longer a nice-to-have, it's essential infrastructure for modern data teams. By providing a single source of truth for data discovery, catalogs reduce time-to-insight, improve data quality, enable better governance, and foster collaboration.
 
-Whether you're a data analyst searching for customer segments, a governance officer ensuring compliance, or a data engineer building pipelines, a well-implemented data catalog empowers you to find, understand, and trust your organization's data assets—including the growing universe of streaming data that powers real-time applications.
+Whether you're a data analyst searching for customer segments, a governance officer ensuring compliance, or a data engineer building pipelines, a well-implemented data catalog empowers you to find, understand, and trust your organization's data assets, including the growing universe of streaming data that powers real-time applications.
 
 The question isn't whether you need a data catalog, but rather how quickly you can implement one to unlock the full potential of your data.
 

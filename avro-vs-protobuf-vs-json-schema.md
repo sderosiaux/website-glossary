@@ -56,7 +56,7 @@ Before diving into specific formats, let's clarify what "binary serialization" m
 - **Speed**: Direct memory mapping without parsing text
 - **Schema enforcement**: Structure embedded in the format itself
 
-The tradeoff is readability—you can't open a binary file in a text editor and understand it. You need the schema and appropriate deserialization tools.
+The tradeoff is readability, you can't open a binary file in a text editor and understand it. You need the schema and appropriate deserialization tools.
 
 ## Avro: Compact and Schema Evolution
 
@@ -160,7 +160,7 @@ Tools like Conduktor provide unified interfaces for working with all three forma
 
 All three formats support schema evolution, but managing compatibility becomes critical in production systems. When using Schema Registry (Confluent Schema Registry, AWS Glue Schema Registry), you configure compatibility modes that determine which schema changes are allowed:
 
-- **Backward compatibility**: New schemas can read old data (most common—consumers upgrade before producers)
+- **Backward compatibility**: New schemas can read old data (most common, consumers upgrade before producers)
 - **Forward compatibility**: Old schemas can read new data (producers upgrade before consumers)
 - **Full compatibility**: Both backward and forward compatible (most restrictive)
 

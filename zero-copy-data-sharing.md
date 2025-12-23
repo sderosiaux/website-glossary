@@ -50,7 +50,7 @@ BENEFITS: 75% Cost Reduction • Real-time Data • Single Source
 ```
 -->
 
-**The Traditional Duplication Problem**: Consider a company with a 500GB customer database. Under traditional approaches, the Marketing team copies the entire database for campaign analysis (500GB), the Analytics team copies it for reporting (500GB), and the Sales team copies it for CRM integration (500GB). The company now stores 2TB total—1.5TB of pure duplication. When the source updates, all copies become stale until the next sync job runs. If Marketing's copy is updated daily at midnight, they work with data that's potentially 24 hours old.
+**The Traditional Duplication Problem**: Consider a company with a 500GB customer database. Under traditional approaches, the Marketing team copies the entire database for campaign analysis (500GB), the Analytics team copies it for reporting (500GB), and the Sales team copies it for CRM integration (500GB). The company now stores 2TB total, 1.5TB of pure duplication. When the source updates, all copies become stale until the next sync job runs. If Marketing's copy is updated daily at midnight, they work with data that's potentially 24 hours old.
 
 **The Zero-Copy Solution**: With zero-copy sharing, all three teams query the same 500GB database through logical views with appropriate access controls. Marketing sees customers with consent for marketing communications, Analytics sees anonymized demographic data, and Sales sees full records for their territories. Storage costs drop by 75%, all teams work with real-time data, and governance policies apply consistently at the source. When a customer updates their preferences, all teams see the change immediately.
 
@@ -138,9 +138,9 @@ Streaming platforms implement zero-copy sharing through architectural patterns t
 
 **Streaming views and materialized tables**: Stream processing frameworks like Apache Flink 1.19+, ksqlDB, and Apache Paimon create virtual views over streams, enabling derived streams and tables without copying source data. These engines can simultaneously read from the same Kafka topics for different transformations.
 
-**Schema Registry integration**: Sharing schema definitions separately from data enables consumers to interpret binary formats (Avro, Protobuf) without embedded schema overhead in each message. Binary formats are compact data representations that require schema information to decode—the Schema Registry stores these schemas centrally so they don't need to be included with every message, reducing storage and network costs by 30-70% compared to self-describing formats like JSON. For detailed comparison, see [Avro vs Protobuf vs JSON Schema](https://conduktor.io/glossary/avro-vs-protobuf-vs-json-schema).
+**Schema Registry integration**: Sharing schema definitions separately from data enables consumers to interpret binary formats (Avro, Protobuf) without embedded schema overhead in each message. Binary formats are compact data representations that require schema information to decode, the Schema Registry stores these schemas centrally so they don't need to be included with every message, reducing storage and network costs by 30-70% compared to self-describing formats like JSON. For detailed comparison, see [Avro vs Protobuf vs JSON Schema](https://conduktor.io/glossary/avro-vs-protobuf-vs-json-schema).
 
-**Offset management**: Kafka's offset mechanism tracks each consumer's position in the topic log. This enables "time-travel" queries where consumers can rewind to any previous offset and re-read historical data, useful for error recovery, reprocessing with updated logic, or backfilling new analytics pipelines. All of this happens without maintaining separate historical copies—the same log serves both real-time and historical access patterns.
+**Offset management**: Kafka's offset mechanism tracks each consumer's position in the topic log. This enables "time-travel" queries where consumers can rewind to any previous offset and re-read historical data, useful for error recovery, reprocessing with updated logic, or backfilling new analytics pipelines. All of this happens without maintaining separate historical copies, the same log serves both real-time and historical access patterns.
 
 **Example: Multiple consumer groups sharing a Kafka topic**
 
@@ -176,9 +176,9 @@ Lakehouse platforms leverage zero-copy sharing as a foundational principle, comb
 
 **Apache Iceberg, Delta Lake, Apache Hudi, and Apache Paimon**: These open table formats provide transactional consistency, schema evolution, and time travel while multiple engines (Spark, Trino, Flink) read the same data files on S3 or similar object storage. These features ensure that even though multiple systems read the same files simultaneously, they get consistent results without seeing partial writes or conflicting updates. Iceberg 1.5+ and Delta Lake 3.0+ have particularly strong multi-catalog support enabling sharing across organizational boundaries. For deep technical details on Iceberg's architecture, see [Apache Iceberg](https://conduktor.io/glossary/apache-iceberg).
 
-**Catalog-based sharing**: Centralized catalogs (AWS Glue, Hive Metastore, Unity Catalog, Polaris Catalog) share table metadata while data remains in object storage. New consumers register with the catalog to gain access without data movement. Catalogs act like library card systems—they tell you where the data files are located, but you read the actual data directly from object storage. For catalog patterns and discovery, see [What is a Data Catalog](https://conduktor.io/glossary/what-is-a-data-catalog-modern-data-discovery).
+**Catalog-based sharing**: Centralized catalogs (AWS Glue, Hive Metastore, Unity Catalog, Polaris Catalog) share table metadata while data remains in object storage. New consumers register with the catalog to gain access without data movement. Catalogs act like library card systems, they tell you where the data files are located, but you read the actual data directly from object storage. For catalog patterns and discovery, see [What is a Data Catalog](https://conduktor.io/glossary/what-is-a-data-catalog-modern-data-discovery).
 
-**Cross-engine interoperability**: The same parquet or ORC files can be queried by different compute engines—Spark for batch processing, Presto for interactive analytics, Flink for stream processing—without duplication. This is the core zero-copy benefit: write once to object storage, read from any compatible engine.
+**Cross-engine interoperability**: The same parquet or ORC files can be queried by different compute engines, Spark for batch processing, Presto for interactive analytics, Flink for stream processing, without duplication. This is the core zero-copy benefit: write once to object storage, read from any compatible engine.
 
 **Snapshot isolation**: Table formats maintain multiple snapshots through metadata, enabling different consumers to query different versions of the same table without physical copies. A data science team can train a model against yesterday's snapshot while analysts query today's data, both reading from the same underlying files with zero duplication.
 
@@ -213,17 +213,17 @@ customer_df.writeTo("prod.analytics.customers") \
 # Zero duplication, catalog coordinates access, S3 serves the files
 ```
 
-This example demonstrates true zero-copy: Spark writes parquet files to S3, Trino reads them for SQL analytics, and Flink accesses them for streaming enrichment—all through the Glue catalog sharing metadata, with data files remaining in place.
+This example demonstrates true zero-copy: Spark writes parquet files to S3, Trino reads them for SQL analytics, and Flink accesses them for streaming enrichment, all through the Glue catalog sharing metadata, with data files remaining in place.
 
 ## Governance Requirements for Zero-Copy Sharing
 
 While zero-copy sharing eliminates physical duplication, it intensifies governance requirements since multiple consumers access sensitive source data directly:
 
-**Access control and authorization**: Fine-grained permissions determine who can access which data. This includes table-level, column-level, and row-level security to ensure consumers see only authorized subsets. For example, a sales database might use row-level security to ensure sales representatives only see their own region's data, while column-level security hides sensitive commission rates from most users—all while everyone queries the same underlying table. For comprehensive patterns, see [Data Access Control: RBAC and ABAC](https://conduktor.io/glossary/data-access-control-rbac-and-abac).
+**Access control and authorization**: Fine-grained permissions determine who can access which data. This includes table-level, column-level, and row-level security to ensure consumers see only authorized subsets. For example, a sales database might use row-level security to ensure sales representatives only see their own region's data, while column-level security hides sensitive commission rates from most users, all while everyone queries the same underlying table. For comprehensive patterns, see [Data Access Control: RBAC and ABAC](https://conduktor.io/glossary/data-access-control-rbac-and-abac).
 
 **Auditing and lineage tracking**: Comprehensive audit logs track all access to shared data, recording who queried what data, when, and for what purpose. Data lineage tools trace how shared data flows through downstream transformations, essential for impact analysis when source data changes. For streaming audit patterns, see [Audit Logging for Streaming Platforms](https://conduktor.io/glossary/audit-logging-for-streaming-platforms).
 
-**Data masking and anonymization**: Sensitive fields may be masked or tokenized based on consumer identity, enabling sharing while protecting privacy. Different consumers might see different views of the same record—analysts might see customer emails as "***@domain.com" while the fraud team sees full values. For comprehensive masking strategies, see [Data Masking and Anonymization for Streaming](https://conduktor.io/glossary/data-masking-and-anonymization-for-streaming).
+**Data masking and anonymization**: Sensitive fields may be masked or tokenized based on consumer identity, enabling sharing while protecting privacy. Different consumers might see different views of the same record, analysts might see customer emails as "***@domain.com" while the fraud team sees full values. For comprehensive masking strategies, see [Data Masking and Anonymization for Streaming](https://conduktor.io/glossary/data-masking-and-anonymization-for-streaming).
 
 **Schema evolution policies**: Governance frameworks enforce rules about backward-compatible schema changes to prevent breaking downstream consumers when source schemas evolve. Schema registries validate that new versions remain compatible with existing consumers.
 
@@ -237,7 +237,7 @@ Governance platforms like Conduktor extend these capabilities to streaming envir
 
 Zero-copy sharing enables architectural patterns that would be impractical with physical duplication:
 
-**Cross-team collaboration**: Multiple teams access shared datasets for different purposes—product analytics, marketing attribution, fraud detection—without maintaining separate copies or coordinating updates.
+**Cross-team collaboration**: Multiple teams access shared datasets for different purposes, product analytics, marketing attribution, fraud detection, without maintaining separate copies or coordinating updates.
 
 **Data products and data mesh**: Domain teams publish data products as shared tables or streams that consumers discover through catalogs and access on-demand, embodying data mesh principles of domain ownership with federated access. Zero-copy sharing is foundational to data mesh architectures, enabling decentralized ownership while maintaining centralized discoverability. For comprehensive coverage of these patterns, see [Data Mesh Principles and Implementation](https://conduktor.io/glossary/data-mesh-principles-and-implementation) and [Building and Managing Data Products](https://conduktor.io/glossary/building-and-managing-data-products).
 
@@ -255,7 +255,7 @@ Zero-copy sharing introduces new challenges that require careful architectural p
 
 **Network costs and performance**: While storage duplication is eliminated, network costs for data transfer between storage and compute can be significant, especially for cross-region access. Query performance depends on network bandwidth and latency.
 
-**Access pattern conflicts**: Different consumers may have conflicting access patterns—some need full scans while others need point lookups. A single storage layout may not optimize for all use cases.
+**Access pattern conflicts**: Different consumers may have conflicting access patterns, some need full scans while others need point lookups. A single storage layout may not optimize for all use cases.
 
 **Schema evolution complexity**: Updating schemas becomes more complex when multiple consumers depend on the same data. Breaking changes require coordination across all consumers or sophisticated schema compatibility management.
 

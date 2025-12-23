@@ -1,6 +1,6 @@
 ---
 title: "Event-Driven Architecture"
-description: Understand event-driven architecture principles—loose coupling, asynchrony, and reactivity—and how event streaming enables scalable, resilient distributed systems.
+description: Understand event-driven architecture principles, loose coupling, asynchrony, and reactivity, and how event streaming enables scalable, resilient distributed systems.
 topics:
   - Event-Driven Architecture
   - Microservices
@@ -12,11 +12,11 @@ topics:
 
 Modern software systems increasingly rely on real-time responsiveness, loose coupling between components, and the ability to scale independently. Event-driven architecture (EDA) has emerged as a fundamental design pattern for achieving these goals, enabling organizations to build systems that react to changes as they happen rather than polling for updates or maintaining tight integration between services.
 
-Understanding event-driven architecture—its principles, patterns, and implementation challenges—is essential for anyone building distributed systems, microservices platforms, or real-time data pipelines.
+Understanding event-driven architecture, its principles, patterns, and implementation challenges, is essential for anyone building distributed systems, microservices platforms, or real-time data pipelines.
 
 ## What is Event-Driven Architecture?
 
-Event-driven architecture is a design pattern where systems communicate through events—immutable records of state changes or significant occurrences—rather than through direct, synchronous requests. An event is simply a notification that something happened: a change in the state of a system or a significant occurrence that other parts of the system might care about.
+Event-driven architecture is a design pattern where systems communicate through events, immutable records of state changes or significant occurrences, rather than through direct, synchronous requests. An event is simply a notification that something happened: a change in the state of a system or a significant occurrence that other parts of the system might care about.
 
 For example, a user clicking "Place Order" generates an event. Unlike traditional request-response architectures where Service A calls Service B directly and waits for a response, EDA allows Service A to publish the event and immediately continue its work, relying on the event infrastructure to handle delivery.
 
@@ -75,13 +75,13 @@ The general data flow: Producer publishes event → Broker ingests and persists 
 
 ### Loose Coupling
 
-In EDA, producers and consumers are decoupled—they don't need to know about each other's existence, location, or implementation details. The checkout service publishes "OrderPlaced" events without knowing whether one consumer, ten consumers, or zero consumers are listening. Adding a new consumer requires no code changes to the producer service.
+In EDA, producers and consumers are decoupled, they don't need to know about each other's existence, location, or implementation details. The checkout service publishes "OrderPlaced" events without knowing whether one consumer, ten consumers, or zero consumers are listening. Adding a new consumer requires no code changes to the producer service.
 
 This allows services to evolve independently, be deployed separately, and scale based on their own requirements rather than being limited by upstream or downstream dependencies.
 
 ### Asynchronous Communication
 
-Unlike synchronous API calls that block until receiving a response, event-driven communication is inherently asynchronous. Producers publish events and continue processing without waiting for consumers to react. This prevents cascading failures—if the inventory service is temporarily unavailable, the checkout service continues operating, and events accumulate for processing once the inventory service recovers.
+Unlike synchronous API calls that block until receiving a response, event-driven communication is inherently asynchronous. Producers publish events and continue processing without waiting for consumers to react. This prevents cascading failures, if the inventory service is temporarily unavailable, the checkout service continues operating, and events accumulate for processing once the inventory service recovers.
 
 ### Reactive Processing and Real-Time Responsiveness
 
@@ -91,13 +91,13 @@ Systems react to events in real time rather than polling for changes or operatin
 
 ### Event Choreography
 
-In choreography, services react independently to events without centralized control. When an "OrderPlaced" event occurs, the inventory service reserves stock, the payment service processes payment, the fulfillment service begins shipping, and the notification service sends updates—all independently. No single service orchestrates this workflow. This pattern maximizes decoupling and service autonomy but can make workflows harder to understand and debug.
+In choreography, services react independently to events without centralized control. When an "OrderPlaced" event occurs, the inventory service reserves stock, the payment service processes payment, the fulfillment service begins shipping, and the notification service sends updates, all independently. No single service orchestrates this workflow. This pattern maximizes decoupling and service autonomy but can make workflows harder to understand and debug.
 
 ### Event Orchestration
 
-In orchestration, a central workflow engine coordinates the process by sending commands to services and waiting for response events. A saga orchestrator sends commands sequentially: reserve stock, process payment, ship order—waiting for confirmation events between steps. This pattern provides centralized visibility and control, making workflows easier to understand and monitor, but introduces a coordination point that reduces some decoupling benefits.
+In orchestration, a central workflow engine coordinates the process by sending commands to services and waiting for response events. A saga orchestrator sends commands sequentially: reserve stock, process payment, ship order, waiting for confirmation events between steps. This pattern provides centralized visibility and control, making workflows easier to understand and monitor, but introduces a coordination point that reduces some decoupling benefits.
 
-**When to Use Each**: Choose choreography for simple workflows where services have clear, independent responsibilities. Use orchestration for complex, long-running workflows requiring compensation logic, human intervention, or centralized monitoring—such as financial transactions or order fulfillment with multiple failure scenarios.
+**When to Use Each**: Choose choreography for simple workflows where services have clear, independent responsibilities. Use orchestration for complex, long-running workflows requiring compensation logic, human intervention, or centralized monitoring, such as financial transactions or order fulfillment with multiple failure scenarios.
 
 ## Streaming Platforms as the Event Backbone
 
@@ -105,9 +105,9 @@ In orchestration, a central workflow engine coordinates the process by sending c
 
 Apache Kafka has emerged as the dominant platform for event-driven systems due to its unique architecture. Unlike traditional message queues that delete messages after consumption, Kafka is a distributed, durable, and ordered commit log (a persistent, append-only data structure where events are stored sequentially):
 
-**Durability and Replayability**: Kafka persists events for a configurable period (days, weeks, or indefinitely). If a consumer fails, it can resume from where it left off. New services can replay the entire history of events to build their initial state—enabling event sourcing (an architectural pattern where all state changes are stored as a sequence of events), where the event log becomes the system of record. For detailed coverage of this pattern, see [Event Sourcing Patterns with Kafka](https://conduktor.io/glossary/event-sourcing-patterns-with-kafka).
+**Durability and Replayability**: Kafka persists events for a configurable period (days, weeks, or indefinitely). If a consumer fails, it can resume from where it left off. New services can replay the entire history of events to build their initial state, enabling event sourcing (an architectural pattern where all state changes are stored as a sequence of events), where the event log becomes the system of record. For detailed coverage of this pattern, see [Event Sourcing Patterns with Kafka](https://conduktor.io/glossary/event-sourcing-patterns-with-kafka).
 
-**Ordering Guarantees**: Events with the same partition key (a routing attribute that determines which partition an event goes to, such as order_id or customer_id) are written to the same partition, ensuring they're processed in the order they occurred. This maintains business logic integrity—all events for order #12345 process sequentially, while events for order #67890 process in parallel on different partitions. For partition strategy details, see [Kafka Partitioning Strategies and Best Practices](https://conduktor.io/glossary/kafka-partitioning-strategies-and-best-practices).
+**Ordering Guarantees**: Events with the same partition key (a routing attribute that determines which partition an event goes to, such as order_id or customer_id) are written to the same partition, ensuring they're processed in the order they occurred. This maintains business logic integrity, all events for order #12345 process sequentially, while events for order #67890 process in parallel on different partitions. For partition strategy details, see [Kafka Partitioning Strategies and Best Practices](https://conduktor.io/glossary/kafka-partitioning-strategies-and-best-practices).
 
 **Scalable Distribution**: Multiple independent consumers read the same events at their own pace without interfering. A real-time analytics service and a data warehouse loader both consume "OrderPlaced" events simultaneously, each processing at different speeds. For consumer group mechanics, see [Kafka Consumer Groups Explained](https://conduktor.io/glossary/kafka-consumer-groups-explained).
 
@@ -115,11 +115,11 @@ Apache Kafka has emerged as the dominant platform for event-driven systems due t
 
 ### Modern Kafka Architecture: KRaft Mode
 
-Since Kafka 4.0 (2024), Apache Kafka has eliminated its dependency on ZooKeeper through KRaft (Kafka Raft)—a built-in consensus protocol that simplifies operations and improves performance:
+Since Kafka 4.0 (2024), Apache Kafka has eliminated its dependency on ZooKeeper through KRaft (Kafka Raft), a built-in consensus protocol that simplifies operations and improves performance:
 
 **Simplified Operations**: KRaft removes the need to deploy and maintain a separate ZooKeeper ensemble, reducing operational complexity and infrastructure requirements. Cluster metadata is now managed internally by Kafka controllers.
 
-**Faster Recovery**: Metadata changes propagate more quickly through the Raft consensus protocol, enabling faster leader elections and cluster recovery after failures—reducing downtime from minutes to seconds in some scenarios.
+**Faster Recovery**: Metadata changes propagate more quickly through the Raft consensus protocol, enabling faster leader elections and cluster recovery after failures, reducing downtime from minutes to seconds in some scenarios.
 
 **Better Scalability**: KRaft supports larger clusters (10,000+ partitions) with improved metadata performance. Metadata operations that previously scaled with ZooKeeper's limitations now scale with Kafka's distributed log architecture.
 
@@ -137,19 +137,19 @@ Design events as immutable facts about what happened, including event type and v
 
 ### Handling Eventual Consistency
 
-Event-driven systems embrace eventual consistency—state across services converges over time rather than being immediately consistent. Design systems to handle this by using correlation IDs (unique identifiers like order-123-correlation-id) that propagate through all events in a workflow, allowing you to trace the entire chain from OrderPlaced through StockReserved to PaymentCompleted.
+Event-driven systems embrace eventual consistency, state across services converges over time rather than being immediately consistent. Design systems to handle this by using correlation IDs (unique identifiers like order-123-correlation-id) that propagate through all events in a workflow, allowing you to trace the entire chain from OrderPlaced through StockReserved to PaymentCompleted.
 
-Implement the Saga Pattern to manage multi-step business transactions through a sequence of local transactions. If one step fails, compensating transactions (rollback actions that undo previous steps) undo previous steps—for example, if payment fails after inventory reservation, a compensation transaction releases the reserved stock. For comprehensive Saga implementation details, see [Saga Pattern for Distributed Transactions](https://conduktor.io/glossary/saga-pattern-for-distributed-transactions).
+Implement the Saga Pattern to manage multi-step business transactions through a sequence of local transactions. If one step fails, compensating transactions (rollback actions that undo previous steps) undo previous steps, for example, if payment fails after inventory reservation, a compensation transaction releases the reserved stock. For comprehensive Saga implementation details, see [Saga Pattern for Distributed Transactions](https://conduktor.io/glossary/saga-pattern-for-distributed-transactions).
 
 ### Event Processing Styles
 
-**Event Notification (Simple Reaction)**: A consumer performs an immediate, isolated action based on the received event—for example, sending a confirmation email when OrderPlaced arrives.
+**Event Notification (Simple Reaction)**: A consumer performs an immediate, isolated action based on the received event, for example, sending a confirmation email when OrderPlaced arrives.
 
 **Event Stream Processing (Stateful Computation)**: Consumers use dedicated stream processing engines like Apache Flink (1.19+) or Kafka Streams for complex, continuous, and stateful computations. For example, fraud detection reads PaymentAttempt events, maintains state per user, and blocks attempts after detecting five failures within 60 seconds. For framework comparisons, see [Kafka Streams vs Apache Flink](https://conduktor.io/glossary/kafka-streams-vs-apache-flink) and [Introduction to Kafka Streams](https://conduktor.io/glossary/introduction-to-kafka-streams).
 
 ### Ensuring Idempotency
 
-Network failures and retries mean events may be delivered multiple times. Design consumers to be idempotent—processing the same event twice produces the same result as processing it once.
+Network failures and retries mean events may be delivered multiple times. Design consumers to be idempotent, processing the same event twice produces the same result as processing it once.
 
 Common idempotency techniques include:
 
@@ -173,7 +173,7 @@ Common idempotency techniques include:
 
 ### Error Handling and Dead Letter Queues
 
-Implement retry logic with exponential backoff for transient failures. For events that fail repeatedly, route them to dead letter queues—separate Kafka topics where failed events are stored for manual inspection. This prevents poison messages (malformed or problematic events that cause repeated processing failures) from blocking subsequent events while preserving failed events for investigation.
+Implement retry logic with exponential backoff for transient failures. For events that fail repeatedly, route them to dead letter queues, separate Kafka topics where failed events are stored for manual inspection. This prevents poison messages (malformed or problematic events that cause repeated processing failures) from blocking subsequent events while preserving failed events for investigation.
 
 Dead letter queues enable operations teams to inspect failures, fix issues, and replay events once resolved. Modern error handling strategies also include circuit breakers (automatically stopping processing after repeated failures to prevent cascade effects) and alerting on DLQ accumulation.
 
@@ -185,7 +185,7 @@ As event-driven architectures scale, operational visibility becomes critical. Tr
 
 ### Key Governance Challenges
 
-**Tracking Event Flows**: Understanding how events flow through distributed systems—which services produce and consume each event type, processing times, and failure locations—requires sophisticated observability using correlation IDs to reconstruct complete business transaction paths.
+**Tracking Event Flows**: Understanding how events flow through distributed systems, which services produce and consume each event type, processing times, and failure locations, requires sophisticated observability using correlation IDs to reconstruct complete business transaction paths.
 
 **Event Lineage and Dependencies**: Before modifying an event schema, teams need to identify all downstream consumers and assess impact. Without centralized visibility, this requires manually surveying teams across repositories.
 

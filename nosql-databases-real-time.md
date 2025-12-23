@@ -34,7 +34,7 @@ Understanding the main NoSQL categories helps you choose the right database for 
 
 **Key-Value Stores** such as Redis Stack and DynamoDB provide the fastest read/write operations through simple lookups. Redis Stack (2025) extends traditional Redis with JSON documents, time-series data structures, and full-text search capabilities. Valkey, the Linux Foundation's Redis-compatible alternative launched in 2024, offers similar performance without licensing concerns. DynamoDB's on-demand v2 pricing model provides true serverless scaling for variable streaming workloads.
 
-**Wide-Column Stores** like Apache Cassandra 5.0 and ScyllaDB organize data in column families, optimized for massive write throughput. ScyllaDB's C++ implementation delivers 10x higher throughput than Cassandra on identical hardware—often exceeding 1 million writes/second per node—making it the preferred choice for ultra-high-volume streaming workloads. Their architecture handles time-series data exceptionally well, making them perfect for IoT and telemetry streams.
+**Wide-Column Stores** like Apache Cassandra 5.0 and ScyllaDB organize data in column families, optimized for massive write throughput. ScyllaDB's C++ implementation delivers 10x higher throughput than Cassandra on identical hardware, often exceeding 1 million writes/second per node, making it the preferred choice for ultra-high-volume streaming workloads. Their architecture handles time-series data exceptionally well, making them perfect for IoT and telemetry streams.
 
 **Graph Databases** including Neo4j 5.x and Amazon Neptune model relationships explicitly, enabling real-time fraud detection or social network analysis by querying connected data patterns as events arrive.
 
@@ -58,7 +58,7 @@ MongoDB's change streams feature transforms the database into an event source. A
 
 - Stream database changes into Kafka topics for downstream processing
 - Build [event-driven architectures](https://conduktor.io/glossary/event-driven-architecture) where database modifications trigger workflows
-- Implement [CDC (Change Data Capture)](https://conduktor.io/glossary/what-is-change-data-capture-cdc-fundamentals) patterns—capturing every modification to database records as events—for data synchronization across systems
+- Implement [CDC (Change Data Capture)](https://conduktor.io/glossary/what-is-change-data-capture-cdc-fundamentals) patterns, capturing every modification to database records as events, for data synchronization across systems
 
 The MongoDB sink connector allows Kafka to write directly to MongoDB collections, handling [schema evolution](https://conduktor.io/glossary/schema-evolution-best-practices) and automatic retries. This bidirectional integration creates powerful data pipelines where MongoDB serves both as a streaming destination and source.
 
@@ -272,9 +272,9 @@ DynamoDB's pay-per-request pricing and automatic scaling make it attractive for 
 
 ## Consistency and Query Patterns
 
-**Eventual Consistency**: Most NoSQL databases default to eventual consistency, where writes propagate asynchronously. For streaming workloads, this typically isn't problematic—events arrive in near real-time, and slight delays (milliseconds to seconds) align with stream processing latencies.
+**Eventual Consistency**: Most NoSQL databases default to eventual consistency, where writes propagate asynchronously. For streaming workloads, this typically isn't problematic, events arrive in near real-time, and slight delays (milliseconds to seconds) align with stream processing latencies.
 
-*Example*: A user posts a comment through a mobile app. The write goes to Cassandra with consistency level ONE (fastest), immediately returns success to the user, then replicates to other nodes in the background. Analytics dashboards querying this data 100ms later will see the comment—well within acceptable bounds for most use cases.
+*Example*: A user posts a comment through a mobile app. The write goes to Cassandra with consistency level ONE (fastest), immediately returns success to the user, then replicates to other nodes in the background. Analytics dashboards querying this data 100ms later will see the comment, well within acceptable bounds for most use cases.
 
 **Strong Consistency**: When required, databases like MongoDB offer strong consistency through replica set read concerns, while Cassandra provides tunable consistency (QUORUM, LOCAL_QUORUM) at the cost of increased latency.
 
@@ -320,7 +320,7 @@ USING CONSISTENCY LOCAL_QUORUM;
 
 **Partitioning and Sharding**: Align your database partitioning with Kafka topic partitions. If you partition Kafka topics by user_id, use user_id as the Cassandra partition key. This ensures events for the same entity land on the same database node, enabling local aggregations.
 
-**Write Optimization**: Batch writes when possible. Kafka Connect connectors typically buffer events before writing to the database. Tune these batch sizes based on your latency requirements—larger batches improve throughput but increase end-to-end latency.
+**Write Optimization**: Batch writes when possible. Kafka Connect connectors typically buffer events before writing to the database. Tune these batch sizes based on your latency requirements, larger batches improve throughput but increase end-to-end latency.
 
 **Read Replica Patterns**: Separate operational reads from analytical queries using read replicas. Write streaming data to primary nodes while directing dashboards and reports to replicas, preventing query load from impacting ingestion performance.
 
@@ -334,7 +334,7 @@ Monitoring NoSQL databases in streaming architectures requires visibility across
 - **Write latency percentiles** (p50, p95, p99): Track end-to-end time from Kafka consumption to database write acknowledgment
 - **Write throughput**: Measure events/second ingested, watching for degradation that indicates capacity issues
 - **Connector lag**: For Kafka Connect deployments, [monitor consumer group lag](https://conduktor.io/glossary/consumer-lag-monitoring) to detect ingestion delays
-- **Batch sizes**: Track the average number of events per batch write—too small hurts throughput, too large increases latency
+- **Batch sizes**: Track the average number of events per batch write, too small hurts throughput, too large increases latency
 
 **Read Performance Metrics**:
 - **Query latency**: Monitor p99 read latencies for user-facing queries; spikes often indicate missing indexes or suboptimal data models

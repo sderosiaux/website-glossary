@@ -33,17 +33,17 @@ Kafka was originally built at LinkedIn to handle high data volumes with low late
 
 Kafka plays three main roles in modern data infrastructure:
 
-1. **Message Broker** – Kafka decouples producers from consumers, allowing multiple applications to publish and subscribe independently.
-2. **Storage System** – Events are written to disk and replicated across brokers, enabling fault tolerance and replay from any point in time.
-3. **Stream Processing Platform** – Using Kafka Streams or external frameworks like Flink, data can be aggregated or transformed in motion.
+1. **Message Broker**, Kafka decouples producers from consumers, allowing multiple applications to publish and subscribe independently.
+2. **Storage System**, Events are written to disk and replicated across brokers, enabling fault tolerance and replay from any point in time.
+3. **Stream Processing Platform**, Using Kafka Streams or external frameworks like Flink, data can be aggregated or transformed in motion.
 
-Kafka’s durability sets it apart from traditional messaging systems. It doesn’t delete events once consumed. Instead, data is retained for a configurable period, allowing consumers to reprocess or recover from failures without data loss.
+Kafka's durability sets it apart from traditional messaging systems. It doesn't delete events once consumed. Instead, data is retained for a configurable period, allowing consumers to reprocess or recover from failures without data loss.
 
 ---
 
 ## Core Concepts and Architecture
 
-Kafka’s architecture is designed for horizontal scalability, strong ordering, and high throughput.
+Kafka's architecture is designed for horizontal scalability, strong ordering, and high throughput.
 
 ### Topics and Partitions
 
@@ -62,7 +62,7 @@ A partition typically has one **leader** (handling reads/writes) and several **f
 **Critical 2025 Update**: Kafka's cluster coordination mechanism has undergone a fundamental architectural change.
 
 **ZooKeeper (Legacy, Deprecated in Kafka 4.0)**:
-Historically, Kafka relied on Apache ZooKeeper for cluster coordination—tracking broker membership, electing partition leaders, and storing cluster metadata. ZooKeeper added operational complexity: a separate system to deploy, monitor, and scale. Organizations needed ZooKeeper expertise alongside Kafka knowledge.
+Historically, Kafka relied on Apache ZooKeeper for cluster coordination, tracking broker membership, electing partition leaders, and storing cluster metadata. ZooKeeper added operational complexity: a separate system to deploy, monitor, and scale. Organizations needed ZooKeeper expertise alongside Kafka knowledge.
 
 **KRaft (Kafka Raft Metadata Mode) - Production Ready in Kafka 3.3+**:
 KRaft removes the ZooKeeper dependency entirely, implementing Kafka's own consensus protocol based on the Raft algorithm. This represents the biggest architectural change in Kafka's history.
@@ -130,7 +130,7 @@ Kafka 3.6+ supports live migration from ZooKeeper to KRaft without downtime:
 
 ### Producers and Consumers
 
-**Producers** send records to topics. They can control where records go — for example, hashing by customer ID to preserve order for that key.
+**Producers** send records to topics. They can control where records go, for example, hashing by customer ID to preserve order for that key.
 **Consumers** read records and track their progress via offsets. They can operate independently or as part of **consumer groups**, which distribute partitions among members for parallelism.
 
 For detailed consumer group mechanics, offset management, and rebalancing strategies, see [Kafka Consumer Groups Explained](https://conduktor.io/glossary/kafka-consumer-groups-explained).
@@ -153,10 +153,10 @@ This ensures messages are acknowledged only after full replication, providing st
 
 Each event in Kafka follows a clear path:
 
-1. **Production** – The producer serializes and sends the record to the appropriate partition.
-2. **Replication** – The leader broker writes it to disk and replicates it to follower brokers.
-3. **Acknowledgment** – The producer receives confirmation once enough replicas have written the data (based on `acks` setting).
-4. **Consumption** – Consumers poll Kafka for new records and process them at their own pace.
+1. **Production**, The producer serializes and sends the record to the appropriate partition.
+2. **Replication**, The leader broker writes it to disk and replicates it to follower brokers.
+3. **Acknowledgment**, The producer receives confirmation once enough replicas have written the data (based on `acks` setting).
+4. **Consumption**, Consumers poll Kafka for new records and process them at their own pace.
 
 Because consumers pull data, Kafka supports both near real-time and delayed processing. Offsets allow flexible replay and exactly-once semantics in combination with Kafka Streams or Flink.
 
@@ -174,7 +174,7 @@ stream.groupByKey()
     );
 ```
 
-This type of processing lets teams build stateful real-time applications — for instance, aggregating clickstream data or monitoring user sessions without external databases.
+This type of processing lets teams build stateful real-time applications, for instance, aggregating clickstream data or monitoring user sessions without external databases.
 
 ---
 
@@ -244,7 +244,7 @@ Below is how Kafka fits into a real-world streaming ecosystem:
 ```
 -->
 
-This structure shows how raw operational data flows through Kafka, gets processed and enriched in motion, and ends up in analytical and governance systems — all in near real time.
+This structure shows how raw operational data flows through Kafka, gets processed and enriched in motion, and ends up in analytical and governance systems, all in near real time.
 
 ---
 
@@ -266,7 +266,7 @@ Governance platforms enforce and visualize these RBAC policies across clusters, 
 
 ### Schema Evolution and Audit Scenario
 
-Kafka’s **Schema Registry** ensures producers and consumers share compatible message formats. Every schema change is versioned and validated to prevent breaking downstream systems.
+Kafka's **Schema Registry** ensures producers and consumers share compatible message formats. Every schema change is versioned and validated to prevent breaking downstream systems.
 
 In regulated environments (like finance or healthcare), teams often require **data audit trails**:
 
@@ -279,7 +279,7 @@ This closes the gap between data engineering and compliance without slowing down
 
 ### Observability and Governance
 
-Monitoring Kafka involves tracking broker health, consumer lag, and throughput. Lag indicates how far a consumer is behind the producer — a key signal for diagnosing slow processing or overload.
+Monitoring Kafka involves tracking broker health, consumer lag, and throughput. Lag indicates how far a consumer is behind the producer, a key signal for diagnosing slow processing or overload.
 
 Visibility across topics, consumer groups, and schemas is critical for debugging and compliance.
 Governance platforms centralize these aspects, offering:
@@ -304,7 +304,7 @@ Kafka supports a wide range of real-time and data integration use cases:
 * **AI and Machine Learning:** Real-time feature ingestion for model scoring
 
 Teams often start with simple pub-sub pipelines, then evolve into event-driven architectures and stream processing.
-Success requires investing in schema management, governance, and developer training to handle streaming’s continuous nature compared to batch data.
+Success requires investing in schema management, governance, and developer training to handle streaming's continuous nature compared to batch data.
 
 ---
 
@@ -312,9 +312,9 @@ Success requires investing in schema management, governance, and developer train
 
 Apache Kafka has evolved from a simple messaging system into the foundation of real-time data infrastructure. Its durability, scalability, and ability to integrate with processing and storage systems make it central to modern streaming architectures.
 
-Kafka enables continuous data flow between operational and analytical systems, bridging the gap between events and decisions. Yet operating it securely and transparently remains complex — a space where governance platforms provide value through access control, lineage, and observability.
+Kafka enables continuous data flow between operational and analytical systems, bridging the gap between events and decisions. Yet operating it securely and transparently remains complex, a space where governance platforms provide value through access control, lineage, and observability.
 
-Understanding Kafka's fundamentals — topics, partitions, offsets, replication, and consumers — is essential for anyone designing reliable, event-driven systems in today's data landscape.
+Understanding Kafka's fundamentals, topics, partitions, offsets, replication, and consumers, is essential for anyone designing reliable, event-driven systems in today's data landscape.
 
 ---
 

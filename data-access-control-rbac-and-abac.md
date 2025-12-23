@@ -9,7 +9,7 @@ topics:
   - Data Security
 ---
 
-Access control is the cornerstone of data security, determining who can interact with your data and what actions they can perform. As organizations scale and data architectures become more complex—particularly with real-time streaming platforms—choosing the right access control model becomes critical. This article explores two fundamental approaches: Role-Based Access Control (RBAC) and Attribute-Based Access Control (ABAC), with practical examples for streaming data infrastructure.
+Access control is the cornerstone of data security, determining who can interact with your data and what actions they can perform. As organizations scale and data architectures become more complex, particularly with real-time streaming platforms, choosing the right access control model becomes critical. This article explores two fundamental approaches: Role-Based Access Control (RBAC) and Attribute-Based Access Control (ABAC), with practical examples for streaming data infrastructure.
 
 Modern implementations leverage tools like Open Policy Agent (OPA), Keycloak, AWS Cedar, and cloud-native IAM systems to enforce these models at scale. For comprehensive Kafka-specific authorization patterns, see [Kafka ACLs and Authorization Patterns](https://conduktor.io/glossary/kafka-acls-and-authorization-patterns).
 ![RBAC vs ABAC Access Control Models](images/diagrams/data-access-control-rbac-and-abac-0.webp)
@@ -126,7 +126,7 @@ For authentication mechanisms that enable these authorization models, see [Kafka
 
 **Auditability**: Clear role assignments make compliance audits straightforward. You can easily answer "Who has access to customer PII?" by identifying users in relevant roles.
 
-**Scalability**: Adding new users is simple—just assign existing roles. No need to configure individual permissions for each person.
+**Scalability**: Adding new users is simple, just assign existing roles. No need to configure individual permissions for each person.
 
 ### RBAC Limitations
 
@@ -298,9 +298,9 @@ This hybrid model gives engineers broad access to development and staging enviro
 
 ## Conclusion
 
-Both RBAC and ABAC serve critical roles in modern data access control. RBAC provides operational simplicity and clear administrative boundaries, while ABAC delivers the precision needed for complex, dynamic environments. As streaming data platforms become central to enterprise architecture, understanding these models—and knowing when to apply each—is essential for Security Engineers and Data Governance Officers.
+Both RBAC and ABAC serve critical roles in modern data access control. RBAC provides operational simplicity and clear administrative boundaries, while ABAC delivers the precision needed for complex, dynamic environments. As streaming data platforms become central to enterprise architecture, understanding these models, and knowing when to apply each, is essential for Security Engineers and Data Governance Officers.
 
-In 2025, the access control landscape continues to evolve. Relationship-Based Access Control (ReBAC)—modeling access based on relationships between entities (e.g., "can access if user.manager == resource.owner")—is gaining traction for complex organizational hierarchies. Tools like Google Zanzibar, SpiceDB, and AWS Cedar are making these advanced models more accessible.
+In 2025, the access control landscape continues to evolve. Relationship-Based Access Control (ReBAC), modeling access based on relationships between entities (e.g., "can access if user.manager == resource.owner"), is gaining traction for complex organizational hierarchies. Tools like Google Zanzibar, SpiceDB, and AWS Cedar are making these advanced models more accessible.
 
 **Implementation Strategy:**
 1. Start with RBAC for foundational access control using native Kafka ACLs or cloud IAM

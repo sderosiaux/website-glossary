@@ -9,7 +9,7 @@ topics:
   - Roles
 ---
 
-Implementing an effective data governance framework requires more than just policies and procedures—it demands clear definition of roles and responsibilities across your organization. Without well-defined accountability, even the most sophisticated governance strategies fail to deliver value. This guide explores the essential roles within a data governance framework and how they work together to ensure data quality, compliance, and strategic value.
+Implementing an effective data governance framework requires more than just policies and procedures, it demands clear definition of roles and responsibilities across your organization. Without well-defined accountability, even the most sophisticated governance strategies fail to deliver value. This guide explores the essential roles within a data governance framework and how they work together to ensure data quality, compliance, and strategic value.
 ![Data Governance Organizational Structure](images/diagrams/data-governance-framework-roles-and-responsibilities-0.webp)
 <!-- ORIGINAL_DIAGRAM
 ```
@@ -251,7 +251,7 @@ This collaborative approach balances innovation with control, enabling teams to 
 
 Start by identifying executives who can serve on your Data Governance Council and champion the initiative. Select a Data Governance Officer with both technical understanding and business acumen. Identify natural Data Owners based on your organizational structure, and recruit Data Stewards from teams with strong domain knowledge.
 
-Document roles clearly, but start with a lightweight framework that grows with your program maturity. Perfect is the enemy of good in governance—it's better to establish clear ownership for critical data domains and expand coverage over time.
+Document roles clearly, but start with a lightweight framework that grows with your program maturity. Perfect is the enemy of good in governance, it's better to establish clear ownership for critical data domains and expand coverage over time.
 
 ### Modern Implementation Approaches
 
@@ -283,11 +283,11 @@ Document roles clearly, but start with a lightweight framework that grows with y
 - Create guardrails for LLM deployments
 - Monitor for bias and drift continuously
 
-Modern governance platforms provide role-based access control, automated lineage tracking, and policy enforcement without becoming bottlenecks. The key is choosing tools that fit your architecture—cloud-native for cloud workloads, streaming-native for real-time platforms, and federated for Data Mesh implementations.
+Modern governance platforms provide role-based access control, automated lineage tracking, and policy enforcement without becoming bottlenecks. The key is choosing tools that fit your architecture, cloud-native for cloud workloads, streaming-native for real-time platforms, and federated for Data Mesh implementations.
 
 ## Balancing Autonomy and Governance with Self-Service
 
-Traditional governance frameworks create tension between control and agility—centralized approval processes slow development teams, leading to shadow IT or governance circumvention. Self-Service frameworks resolve this by enabling teams to manage resources independently through version-controlled configuration files (GitOps), with the platform automatically validating requests against governance policies before provisioning.
+Traditional governance frameworks create tension between control and agility, centralized approval processes slow development teams, leading to shadow IT or governance circumvention. Self-Service frameworks resolve this by enabling teams to manage resources independently through version-controlled configuration files (GitOps), with the platform automatically validating requests against governance policies before provisioning.
 
 This approach eliminates bottlenecks while ensuring adherence to organizational standards. Version control creates audit trails for Compliance Officers, Data Owners retain approval authority through pull request workflows, and consistent policy enforcement eliminates manual configuration errors. For implementation guidance, see [Self-Service](https://docs.conduktor.io/guide/conduktor-concepts/self-service).
 

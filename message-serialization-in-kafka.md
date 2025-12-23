@@ -10,7 +10,7 @@ topics:
   - data-streaming
 ---
 
-Serialization is the process of converting data structures or objects into a byte format that can be transmitted over a network or stored on disk. Deserialization is the reverse process—reconstructing the original data structure from bytes.
+Serialization is the process of converting data structures or objects into a byte format that can be transmitted over a network or stored on disk. Deserialization is the reverse process, reconstructing the original data structure from bytes.
 
 In [Apache Kafka](https://conduktor.io/glossary/apache-kafka), every message is stored and transmitted as an array of bytes. This means that before a [producer](https://conduktor.io/glossary/kafka-producers) sends a message to Kafka, it must serialize the data. Similarly, when a consumer reads a message, it must deserialize those bytes back into a meaningful data structure.
 
@@ -70,7 +70,7 @@ The choice of serialization format affects multiple critical aspects of your str
 
 Kafka itself is agnostic to the content of your messages. It treats both keys and values as byte arrays. The responsibility for serialization and deserialization falls on producers and consumers through serializers and deserializers (often called "serdes").
 
-When configuring a Kafka producer, you specify two serializers (often called "serdes"—a shorthand for serializers/deserializers):
+When configuring a Kafka producer, you specify two serializers (often called "serdes", a shorthand for serializers/deserializers):
 
 ```java
 properties.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
@@ -150,7 +150,7 @@ A Schema Registry typically supports four compatibility modes:
 
 For comprehensive guidance on managing schema changes safely, see [Schema Evolution Best Practices](https://conduktor.io/glossary/schema-evolution-best-practices).
 
-Without proper schema management, you risk runtime errors, data loss, or forcing synchronized deployments across all producers and consumers—a significant operational burden.
+Without proper schema management, you risk runtime errors, data loss, or forcing synchronized deployments across all producers and consumers, a significant operational burden.
 
 ## Performance and Operational Considerations
 
@@ -168,7 +168,7 @@ Different serialization formats have distinct performance characteristics:
 
 ## Serialization in Data Streaming Ecosystems
 
-Message serialization is foundational to the broader data streaming ecosystem. Apache Kafka acts as the central nervous system, but data flows through multiple systems—stream processing frameworks like Apache Flink or Kafka Streams, data warehouses, analytics platforms, and microservices.
+Message serialization is foundational to the broader data streaming ecosystem. Apache Kafka acts as the central nervous system, but data flows through multiple systems, stream processing frameworks like Apache Flink or Kafka Streams, data warehouses, analytics platforms, and microservices.
 
 Choosing a well-supported serialization format ensures interoperability across these systems. Avro's tight integration with [Schema Registry](https://conduktor.io/glossary/schema-registry-and-schema-management) makes it a de facto standard in Kafka-based ecosystems. Protobuf's wide language support makes it popular in polyglot microservices architectures.
 
@@ -290,7 +290,7 @@ For comprehensive guidance on leveraging headers effectively, see [Using Kafka H
 
 ## Summary
 
-Message serialization in Kafka is more than a technical implementation detail—it's a foundational decision that affects performance, operational complexity, and system evolution over time.
+Message serialization in Kafka is more than a technical implementation detail, it's a foundational decision that affects performance, operational complexity, and system evolution over time.
 
 **Key Takeaways**:
 - Binary formats like Avro and Protobuf offer the best combination of performance, schema evolution capabilities, and ecosystem support for production streaming applications

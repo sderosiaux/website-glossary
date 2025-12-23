@@ -440,7 +440,7 @@ Choosing between choreography and orchestration depends on your system's complex
 
 Successful saga implementation requires careful attention to compensation logic, idempotency, timeout handling, and monitoring. When built on event streaming platforms, tools that provide visibility into event flows and data lineage become essential for operating sagas reliably in production.
 
-The saga pattern isn't a universal solution—simple workflows within service boundaries should still use local ACID transactions. But for complex, cross-service business processes in distributed systems, sagas represent the current best practice for maintaining consistency without sacrificing availability.
+The saga pattern isn't a universal solution, simple workflows within service boundaries should still use local ACID transactions. But for complex, cross-service business processes in distributed systems, sagas represent the current best practice for maintaining consistency without sacrificing availability.
 
 ## Related Concepts
 

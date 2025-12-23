@@ -68,7 +68,7 @@ This dependency meant that every Kafka cluster required a separate ZooKeeper ens
 The metadata stored in ZooKeeper included:
 - Broker registrations and configurations
 - Topic and partition metadata
-- Replica assignments and ISR (In-Sync Replicas) lists—the set of replicas that are fully caught up with the partition leader
+- Replica assignments and ISR (In-Sync Replicas) lists, the set of replicas that are fully caught up with the partition leader
 - ACLs and quota configurations
 - Controller epoch (version number tracking leadership changes) and leadership information
 
@@ -275,7 +275,7 @@ Migrating from ZooKeeper to KRaft represents a significant architectural evoluti
 
 The migration process, whether through direct migration or new cluster setup, demands thorough testing and validation. Understanding both approaches allows teams to choose the strategy that best fits their operational constraints and risk tolerance.
 
-With ZooKeeper support completely removed in Kafka 4.0 (October 2024), migrating to KRaft is no longer optional—it's mandatory for teams wanting to upgrade to Kafka 4.0 and access new features, security updates, and community support. Organizations that plan and execute this migration thoughtfully will benefit from a more streamlined, performant, and maintainable data streaming platform.
+With ZooKeeper support completely removed in Kafka 4.0 (October 2024), migrating to KRaft is no longer optional, it's mandatory for teams wanting to upgrade to Kafka 4.0 and access new features, security updates, and community support. Organizations that plan and execute this migration thoughtfully will benefit from a more streamlined, performant, and maintainable data streaming platform.
 
 ## Sources and References
 

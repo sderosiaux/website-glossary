@@ -7,9 +7,9 @@ topics:
   - Architecture
 ---
 
-Stream processing exists on a spectrum. On one end, traditional batch processing handles large volumes of data at scheduled intervals—hourly, daily, or weekly. On the other end, true streaming processes each event individually as it arrives, achieving latencies measured in single-digit milliseconds. Micro-batching sits squarely in the middle, offering a pragmatic compromise that has powered some of the world's largest streaming applications.
+Stream processing exists on a spectrum. On one end, traditional batch processing handles large volumes of data at scheduled intervals, hourly, daily, or weekly. On the other end, true streaming processes each event individually as it arrives, achieving latencies measured in single-digit milliseconds. Micro-batching sits squarely in the middle, offering a pragmatic compromise that has powered some of the world's largest streaming applications.
 
-Rather than processing events one-by-one or waiting hours for batch jobs, micro-batching collects small groups of events over short time windows—typically ranging from 100 milliseconds to several minutes—and processes them as tiny batches. This hybrid approach unlocks significant architectural advantages while maintaining near-real-time responsiveness for many use cases.
+Rather than processing events one-by-one or waiting hours for batch jobs, micro-batching collects small groups of events over short time windows, typically ranging from 100 milliseconds to several minutes, and processes them as tiny batches. This hybrid approach unlocks significant architectural advantages while maintaining near-real-time responsiveness for many use cases.
 ![Micro-batching vs traditional batch vs true streaming comparison](images/diagrams/micro-batching-streaming-0.webp)
 <!-- ORIGINAL_DIAGRAM
 ```
@@ -72,7 +72,7 @@ Micro-batching emerged as a practical engineering solution to three fundamental 
 
 **Exactly-once processing** is significantly easier to achieve with micro-batching. Because each batch is atomic and deterministic, the system can replay failed batches without worrying about partial progress or duplicate processing. If batch 1,427 fails halfway through, simply reprocess batch 1,427 from the beginning. The bounded nature of each batch makes idempotent reprocessing straightforward.
 
-**Fault tolerance** builds naturally on batch boundaries. When a node fails, the system only needs to recompute the affected micro-batches—not reconstruct complex in-flight state for thousands of individual events. Checkpointing happens between batches at well-defined points, creating clean recovery semantics. This aligns perfectly with distributed computing frameworks designed around batch operations.
+**Fault tolerance** builds naturally on batch boundaries. When a node fails, the system only needs to recompute the affected micro-batches, not reconstruct complex in-flight state for thousands of individual events. Checkpointing happens between batches at well-defined points, creating clean recovery semantics. This aligns perfectly with distributed computing frameworks designed around batch operations.
 
 **Operational simplicity** matters enormously in production systems. Developers already understand batch processing. They know how to reason about bounded datasets, optimize batch jobs, and debug processing logic. Micro-batching lets teams apply this existing expertise to streaming problems without mastering the additional complexity of per-record state management, watermarks (timestamp-based markers that track event-time progress in out-of-order streams), and event-time processing that true streaming demands.
 
@@ -120,7 +120,7 @@ Structured Streaming offers three trigger modes that control how micro-batches e
 
 **Once triggers** process all available data as a single batch and then stop. This proves valuable for testing streaming jobs or implementing scheduled near-real-time workflows that run periodically rather than continuously.
 
-**Continuous triggers** (introduced in Spark 2.3, refined in 3.5+) attempt to achieve lower latency by using a different execution engine that processes records with minimal delay. Unlike traditional micro-batching which waits for the trigger interval, continuous mode achieves end-to-end latencies as low as 1 millisecond for simple operations by maintaining long-running tasks that continuously process incoming data. However, this mode has limitations—it only supports map-like operations and certain sources/sinks, not complex stateful aggregations.
+**Continuous triggers** (introduced in Spark 2.3, refined in 3.5+) attempt to achieve lower latency by using a different execution engine that processes records with minimal delay. Unlike traditional micro-batching which waits for the trigger interval, continuous mode achieves end-to-end latencies as low as 1 millisecond for simple operations by maintaining long-running tasks that continuously process incoming data. However, this mode has limitations, it only supports map-like operations and certain sources/sinks, not complex stateful aggregations.
 
 ### Checkpointing and Fault Tolerance
 
@@ -131,7 +131,7 @@ The checkpoint location stores:
 - **State snapshots**: Intermediate aggregation results for stateful operations
 - **Commit logs**: Confirmation that batches completed successfully
 
-If a job fails, Spark reads the checkpoint to determine the last successfully processed offset, then replays subsequent micro-batches. This design makes exactly-once processing straightforward—each batch is idempotent and can be safely reprocessed.
+If a job fails, Spark reads the checkpoint to determine the last successfully processed offset, then replays subsequent micro-batches. This design makes exactly-once processing straightforward, each batch is idempotent and can be safely reprocessed.
 
 ```python
 # Checkpoint configuration
@@ -157,7 +157,7 @@ Several factors determine actual latency:
 
 **Processing time** adds to the batch interval. Consider a concrete example: if your batch interval is 5 seconds and your pipeline receives 100,000 events per batch, processing those events (parsing, transforming, aggregating) might take 2 seconds on a properly sized cluster. This means effective average latency is 5 seconds (wait time) + 2 seconds (processing) = 7 seconds. If processing slows to 6 seconds due to increased load, your effective latency jumps to 11 seconds, and you start falling behind.
 
-**Scheduling overhead** becomes significant at very short intervals. Starting and coordinating a distributed job carries fixed costs—typically tens to hundreds of milliseconds. At sub-second batch intervals, this overhead can dominate, making micro-batching inefficient compared to true streaming.
+**Scheduling overhead** becomes significant at very short intervals. Starting and coordinating a distributed job carries fixed costs, typically tens to hundreds of milliseconds. At sub-second batch intervals, this overhead can dominate, making micro-batching inefficient compared to true streaming.
 
 **Throughput optimization** often conflicts with latency goals. Increasing batch interval improves throughput by amortizing overhead and enabling better compression, but directly increases latency. The sweet spot typically falls between 1-30 seconds for most workloads.
 
@@ -167,7 +167,7 @@ Performance tuning focuses on finding the right balance. Increase parallelism to
 
 The distinction between micro-batching and true streaming matters for architecture decisions. For deep comparisons, see [Flink vs Spark Streaming: When to Choose Each](https://conduktor.io/glossary/flink-vs-spark-streaming-when-to-choose-each) and [Kafka Streams vs Apache Flink](https://conduktor.io/glossary/kafka-streams-vs-apache-flink). For foundational Kafka knowledge, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
 
-**True streaming engines** like Apache Flink (1.19+) process events one-at-a-time through a dataflow graph. This enables single-digit millisecond latencies and more natural event-time semantics. Flink's state backend has matured significantly—RocksDB state backend now supports incremental checkpointing, state TTL (time-to-live) for automatic cleanup, and changelog-based recovery in Flink 1.15+. For comprehensive coverage, see [Flink State Management and Checkpointing](https://conduktor.io/glossary/flink-state-management-and-checkpointing). However, it requires sophisticated state management, complex checkpointing mechanisms, and careful watermark handling to achieve exactly-once guarantees.
+**True streaming engines** like Apache Flink (1.19+) process events one-at-a-time through a dataflow graph. This enables single-digit millisecond latencies and more natural event-time semantics. Flink's state backend has matured significantly, RocksDB state backend now supports incremental checkpointing, state TTL (time-to-live) for automatic cleanup, and changelog-based recovery in Flink 1.15+. For comprehensive coverage, see [Flink State Management and Checkpointing](https://conduktor.io/glossary/flink-state-management-and-checkpointing). However, it requires sophisticated state management, complex checkpointing mechanisms, and careful watermark handling to achieve exactly-once guarantees.
 
 **Kafka Streams** (3.0+) takes a different approach to true streaming, embedding stream processing directly into your application as a library. It processes records individually but maintains local state stores and coordinates distributed processing through Kafka's consumer groups. With `processing.guarantee=exactly_once_v2` (introduced in Kafka 2.5, refined in 3.0+), Kafka Streams achieves exactly-once semantics with significantly lower overhead than earlier implementations. This achieves low latency while leveraging Kafka's durability and replication.
 
@@ -216,7 +216,7 @@ Avoid micro-batching when you need sub-second latency for user-facing features, 
 
 The evolution continues toward hybrid approaches. Modern frameworks increasingly blur the lines, offering both micro-batch and continuous modes. As systems mature, choose based on your specific latency requirements, team expertise, and operational complexity tolerance rather than strict architectural dogma.
 
-Understanding micro-batching's strengths and limitations helps you build the right streaming architecture for your needs—one that balances performance, simplicity, and maintainability in production.
+Understanding micro-batching's strengths and limitations helps you build the right streaming architecture for your needs, one that balances performance, simplicity, and maintainability in production.
 
 ## Related Concepts
 

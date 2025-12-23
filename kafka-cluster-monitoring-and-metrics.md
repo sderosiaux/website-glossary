@@ -261,7 +261,7 @@ service:
       exporters: [prometheus, otlp]
 ```
 
-OpenTelemetry's unified approach simplifies multi-backend observability and enables correlation between Kafka metrics, application traces, and infrastructure logs—essential for troubleshooting complex distributed systems.
+OpenTelemetry's unified approach simplifies multi-backend observability and enables correlation between Kafka metrics, application traces, and infrastructure logs, essential for troubleshooting complex distributed systems.
 
 ### Visualization and Alerting
 
@@ -289,7 +289,7 @@ Several tools address Kafka monitoring needs across different complexity levels.
 
 **AKHQ**: A modern web UI providing cluster administration interfaces with basic monitoring capabilities. While not a substitute for comprehensive monitoring, it offers quick visibility into topic configuration, consumer group status, and message browsing for development and troubleshooting.
 
-**Conduktor Platform**: For teams seeking unified monitoring and management, Conduktor Platform provides comprehensive Kafka observability with visual insights into cluster health, real-time consumer lag tracking, broker performance metrics, and topic analytics. Unlike basic monitoring stacks, Conduktor combines monitoring with governance, security, and testing capabilities—essential for organizations managing multiple Kafka clusters in production. [Explore Conduktor's monitoring capabilities](https://docs.conduktor.io/guide/monitor-brokers-apps/index) and [configure alerts for proactive issue detection](https://docs.conduktor.io/guide/monitor-brokers-apps/alerts).
+**Conduktor Platform**: For teams seeking unified monitoring and management, Conduktor Platform provides comprehensive Kafka observability with visual insights into cluster health, real-time consumer lag tracking, broker performance metrics, and topic analytics. Unlike basic monitoring stacks, Conduktor combines monitoring with governance, security, and testing capabilities, essential for organizations managing multiple Kafka clusters in production. [Explore Conduktor's monitoring capabilities](https://docs.conduktor.io/guide/monitor-brokers-apps/index) and [configure alerts for proactive issue detection](https://docs.conduktor.io/guide/monitor-brokers-apps/alerts).
 
 Conduktor Platform features include:
 - Real-time cluster health dashboards with automated anomaly detection
@@ -299,7 +299,7 @@ Conduktor Platform features include:
 - Integration with existing Prometheus/Grafana stacks
 - Governance features for topic configuration management
 
-**Conduktor Gateway**: For advanced monitoring scenarios including chaos testing and traffic observability, Conduktor Gateway acts as a Kafka proxy enabling request inspection, latency injection, and error simulation—critical for validating monitoring and alerting systems under failure conditions.
+**Conduktor Gateway**: For advanced monitoring scenarios including chaos testing and traffic observability, Conduktor Gateway acts as a Kafka proxy enabling request inspection, latency injection, and error simulation, critical for validating monitoring and alerting systems under failure conditions.
 
 **Commercial APM Tools**: Datadog, New Relic, and Dynatrace offer Kafka monitoring as part of broader application performance monitoring suites, providing correlation with infrastructure and application metrics.
 

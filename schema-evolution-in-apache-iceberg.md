@@ -64,7 +64,7 @@ Schema evolution refers to the ability to modify a table's structure over time w
 
 Iceberg fundamentally reimagines this process by decoupling the schema definition from the physical data files. This means the table's schema exists separately as metadata, rather than being tightly bound to each data file. When you make schema changes, you're updating this central metadata definition, not rewriting data files.
 
-Iceberg tracks schema changes through versioned metadata, allowing multiple schema versions to coexist. Each data file retains its original schema, while Iceberg's metadata layer handles the translation between different schema versions at read time. This architecture enables zero-copy schema evolution for most operations—meaning schema changes don't require copying or rewriting data files—dramatically reducing the operational overhead of schema changes.
+Iceberg tracks schema changes through versioned metadata, allowing multiple schema versions to coexist. Each data file retains its original schema, while Iceberg's metadata layer handles the translation between different schema versions at read time. This architecture enables zero-copy schema evolution for most operations, meaning schema changes don't require copying or rewriting data files, dramatically reducing the operational overhead of schema changes.
 
 For comprehensive guidance on schema evolution patterns across different systems, see [Schema Evolution Best Practices](https://conduktor.io/glossary/schema-evolution-best-practices).
 
@@ -273,7 +273,7 @@ This time-travel capability extends to schema evolution, allowing you to query d
 
 While Iceberg supports many safe schema changes, some operations remain breaking changes:
 - Dropping required columns that downstream queries depend on
-- Type changes that narrow precision (e.g., `long` → `int`, `double` → `float`)—narrowing loses capacity or precision
+- Type changes that narrow precision (e.g., `long` → `int`, `double` → `float`), narrowing loses capacity or precision
 - Changing column nullability from nullable to required
 
 For these scenarios, data engineers should follow a structured approach:

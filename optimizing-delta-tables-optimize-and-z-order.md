@@ -9,7 +9,7 @@ topics:
   - Query Performance
 ---
 
-As Delta tables grow in production environments, maintaining optimal query performance becomes increasingly challenging. Small files accumulate from frequent writes, and data layout becomes suboptimal for common query patterns. Delta Lake provides two powerful commands—OPTIMIZE and Z-ORDER—that address these issues through file compaction and intelligent data clustering.
+As Delta tables grow in production environments, maintaining optimal query performance becomes increasingly challenging. Small files accumulate from frequent writes, and data layout becomes suboptimal for common query patterns. Delta Lake provides two powerful commands, OPTIMIZE and Z-ORDER, that address these issues through file compaction and intelligent data clustering.
 ![OPTIMIZE and Z-ORDER transformation workflow](images/diagrams/optimizing-delta-tables-optimize-and-z-order-0.webp)
 <!-- ORIGINAL_DIAGRAM
 ```
@@ -87,7 +87,7 @@ Real-world performance improvements from OPTIMIZE operations:
 - **Metadata processing**: Up to 80% reduction in time spent reading file metadata
 - **Cloud storage costs**: Fewer API calls to object storage (S3, ADLS, GCS)
 
-A production e-commerce table with 15,000 small files (avg 8 MB) was optimized to 150 files (avg 800 MB), reducing typical aggregate queries from 45 seconds to 18 seconds—a 60% improvement.
+A production e-commerce table with 15,000 small files (avg 8 MB) was optimized to 150 files (avg 800 MB), reducing typical aggregate queries from 45 seconds to 18 seconds, a 60% improvement.
 
 ## Z-ORDER: Multi-Dimensional Clustering
 
@@ -95,7 +95,7 @@ While file compaction addresses the quantity of files, Z-ORDER addresses their i
 
 ### How Z-ORDER Works
 
-Z-ORDER uses a **space-filling curve** (Z-curve or Morton curve) to map multi-dimensional data into a single dimension while preserving locality. Think of it as a path that weaves through multi-dimensional space, visiting nearby points in sequence. When you Z-ORDER by multiple columns, data with similar values across those dimensions is stored physically close together—like organizing a library by both subject and publication date simultaneously, rather than choosing just one.
+Z-ORDER uses a **space-filling curve** (Z-curve or Morton curve) to map multi-dimensional data into a single dimension while preserving locality. Think of it as a path that weaves through multi-dimensional space, visiting nearby points in sequence. When you Z-ORDER by multiple columns, data with similar values across those dimensions is stored physically close together, like organizing a library by both subject and publication date simultaneously, rather than choosing just one.
 
 ```sql
 OPTIMIZE delta_table
@@ -106,7 +106,7 @@ This command reorganizes data so that queries filtering on `customer_id`, `event
 
 ### Data Skipping in Action
 
-**Data skipping** is the technique of avoiding reading files that cannot contain query results, based on min/max statistics stored in file metadata. Delta Lake maintains these statistics automatically for each data file. When a query includes filters, the engine uses these statistics to skip entire files that cannot contain matching data—dramatically reducing I/O and compute. Z-ORDER maximizes this effectiveness:
+**Data skipping** is the technique of avoiding reading files that cannot contain query results, based on min/max statistics stored in file metadata. Delta Lake maintains these statistics automatically for each data file. When a query includes filters, the engine uses these statistics to skip entire files that cannot contain matching data, dramatically reducing I/O and compute. Z-ORDER maximizes this effectiveness:
 
 **Without Z-ORDER:**
 - Query: `SELECT * FROM events WHERE customer_id = 12345 AND event_date = '2025-12-01'`
@@ -255,7 +255,7 @@ OPTIMIZE operations rewrite data, incurring compute and storage costs:
 - **Storage**: Temporary 2x storage until old files are vacuumed via the VACUUM command (removes old file versions)
 - **ROI**: Query performance improvements and reduced scanning typically offset costs within days
 
-A data warehouse team reduced their monthly query costs by $12,000 while spending $1,500/month on scheduled optimization—an 8x return.
+A data warehouse team reduced their monthly query costs by $12,000 while spending $1,500/month on scheduled optimization, an 8x return.
 
 ### Delta Lake 3.x Optimization Improvements (2025)
 
