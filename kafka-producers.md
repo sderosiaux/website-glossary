@@ -57,9 +57,7 @@ DELIVERY GUARANTEES (acks parameter):
 ```
 -->
 
-## What a Kafka Producer Does
-
-### API notes
+## API Notes
 
 A record carries a topic, optional key, value, and optional headers. The `KafkaProducer` is thread safe, so one shared instance per process often works best. You can send asynchronously with a callback or call `Future.get()` for sync behavior. Set a clear `client.id`, since brokers expose it in logs and metrics and this speeds triage.
 
