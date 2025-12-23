@@ -20,9 +20,7 @@ Zero trust security addresses this reality with a simple principle: **never trus
 ## The Three Core Tenets
 
 Zero trust for streaming rests on three foundational principles:
-
 ![Zero trust for streaming rests on three foundational principles](images/diagrams/zero-trust-for-streaming-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌─────────────────────────────────────────────────────────────────┐

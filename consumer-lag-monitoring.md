@@ -8,9 +8,7 @@ topics:
 ---
 
 Consumer lag is one of the most critical metrics in any streaming system. It represents the gap between where your consumers are in processing messages and where the producers are in writing new data. Understanding, monitoring, and managing consumer lag is essential for maintaining healthy streaming pipelines and meeting service level agreements (SLAs).
-
 ![Consumer Lag Concept Visualization](images/diagrams/consumer-lag-monitoring-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌──────────────────────────────────────────────────────────────────┐

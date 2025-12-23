@@ -58,9 +58,7 @@ For foundational concepts, see [Apache Kafka](https://conduktor.io/glossary/apac
 ```
 
 Events flow through the system in a predictable sequence:
-
 ![Events flow through the system in a predictable sequence](images/diagrams/supply-chain-visibility-with-real-time-streaming-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 order.placed → warehouse.picking.started → warehouse.picking.completed

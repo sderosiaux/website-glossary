@@ -14,9 +14,7 @@ One of the most challenging aspects of stream processing is dealing with data th
 ## Understanding Event Time vs Processing Time
 
 The root of the late data problem lies in the difference between two fundamental time concepts in streaming systems.
-
 ![handling-late-arriving-data-in-streaming diagram 1](images/diagrams/handling-late-arriving-data-in-streaming-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌──────────────────────────────────────────────────────────────────┐
@@ -81,9 +79,7 @@ Modern stream processing frameworks provide several mechanisms for handling late
 ### Watermarks
 
 Watermarks are the primary mechanism for tracking event time progress in streaming systems. A watermark is a special signal that indicates "all events with timestamps less than T have been seen." More precisely, a watermark represents a heuristic estimate of event time progress.
-
 ![handling-late-arriving-data-in-streaming diagram 2](images/diagrams/handling-late-arriving-data-in-streaming-1.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌──────────────────────────────────────────────────────────────────┐

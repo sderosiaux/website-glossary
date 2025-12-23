@@ -39,9 +39,7 @@ Understanding Kafka Streams architecture helps you design better applications an
 ### Stream Processing Topology
 
 A Kafka Streams application defines a processing topology - a graph of stream processors connected by streams. The topology describes how data flows through your application:
-
 ![A Kafka Streams application defines a processing topology - a graph of stream processors connected by streams. The topology describes how data flows through your application](images/diagrams/introduction-to-kafka-streams-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌──────────────────────────────────────────────────────┐
@@ -237,9 +235,7 @@ implementation 'org.apache.kafka:kafka-streams:3.6.0'
 ### The Word Count Application
 
 Our application reads text from an input topic, counts word occurrences, and writes results to an output topic.
-
 ![introduction-to-kafka-streams diagram 2](images/diagrams/introduction-to-kafka-streams-1.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 Data Flow:
@@ -381,9 +377,7 @@ Kafka Streams powers diverse real-time applications across industries.
 ### Fraud Detection
 
 Financial services use Kafka Streams to detect fraudulent transactions in real-time. The application aggregates recent transactions per user, calculates risk scores, and flags suspicious patterns immediately.
-
 ![introduction-to-kafka-streams diagram 3](images/diagrams/introduction-to-kafka-streams-2.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌─────────────────┐

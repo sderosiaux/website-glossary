@@ -27,9 +27,7 @@ The core components include:
 **Event Brokers**: The intermediary system responsible for receiving events from producers, persisting them, and routing them to interested consumers. This transport layer is crucial for achieving decoupling.
 
 **Event Consumers**: Services that subscribe to events and react accordingly. Consumers act asynchronously and independently of one another.
-
 ![event-driven-architecture diagram 1](images/diagrams/event-driven-architecture-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌────────────────────────────────────────────────────────────────┐

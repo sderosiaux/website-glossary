@@ -18,9 +18,7 @@ A low-latency pipeline typically targets end-to-end latencies under 100 millisec
 ## Understanding Latency Sources
 
 Before optimizing for low latency, you must identify where time is being spent. Latency accumulates across multiple dimensions of your pipeline:
-
 ![Before optimizing for low latency, you must identify where time is being spent. Latency accumulates across multiple dimensions of your pipeline](images/diagrams/low-latency-pipeline-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 End-to-End Latency Breakdown:

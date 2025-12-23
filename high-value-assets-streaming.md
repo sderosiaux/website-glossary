@@ -50,9 +50,7 @@ Not all data is created equal. In any organization, certain data assets represen
 In streaming architectures, where data flows continuously through multiple systems and services, identifying and protecting HVAs becomes both more critical and more complex. A single Kafka topic carrying payment transactions, personally identifiable information (PII), or intellectual property may represent millions of dollars in potential liability. Yet the real-time nature of streaming means traditional perimeter-based "castle-and-moat" security approaches often fall short.
 
 Modern security architectures embrace **zero trust principles**: verify every access request, assume breach, minimize blast radius, and enforce least-privilege access—regardless of network location. For HVAs in streaming systems, zero trust means authenticating and authorizing every producer and consumer, encrypting all data in transit, and continuously monitoring for anomalous behavior. For comprehensive security patterns, see [Kafka Security Best Practices](https://conduktor.io/glossary/kafka-security-best-practices) and [Kafka ACLs and Authorization Patterns](https://conduktor.io/glossary/kafka-acls-and-authorization-patterns).
-
 ![High Value Asset protection framework for streaming data](images/diagrams/high-value-assets-streaming-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌─────────────────────────────────────────────────────────────────┐

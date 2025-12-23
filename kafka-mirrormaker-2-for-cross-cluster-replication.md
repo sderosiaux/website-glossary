@@ -24,9 +24,7 @@ MM2 was introduced in Apache Kafka 2.4 through KIP-382 and has become the recomm
 ## Architecture and Components
 
 MirrorMaker 2 consists of three main connector types that work together to provide comprehensive replication:
-
 ![MirrorMaker 2 consists of three main connector types that work together to provide comprehensive replication](images/diagrams/kafka-mirrormaker-2-for-cross-cluster-replication-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
@@ -71,9 +69,7 @@ One notable aspect of MM2's design is its topic naming convention. By default, r
 MirrorMaker 2 supports several replication patterns, each suited to different business and technical requirements:
 
 **Active-Passive Replication** is the most common pattern for disaster recovery. A primary cluster handles all production traffic while MM2 continuously replicates data to a secondary cluster in a different region or availability zone. If the primary cluster fails, applications can fail over to the secondary cluster. The checkpoint connector ensures that consumers can resume from the correct offset, minimizing data loss and duplication. For broader disaster recovery strategies including RTO/RPO planning and backup mechanisms, see [Disaster Recovery Strategies for Kafka Clusters](https://conduktor.io/glossary/disaster-recovery-strategies-for-kafka-clusters).
-
 ![kafka-mirrormaker-2-for-cross-cluster-replication diagram 2](images/diagrams/kafka-mirrormaker-2-for-cross-cluster-replication-1.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 Active-Passive Pattern:

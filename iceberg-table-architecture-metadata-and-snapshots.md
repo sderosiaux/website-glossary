@@ -18,9 +18,7 @@ For a broader overview of Iceberg's features and ecosystem, see [Apache Iceberg]
 ## The Three-Layer Metadata Architecture
 
 Iceberg's architecture is built on three distinct metadata layers that work together to track table state and data files:
-
 ![Iceberg's architecture is built on three distinct metadata layers that work together to track table state and data files](images/diagrams/iceberg-table-architecture-metadata-and-snapshots-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌─────────────────────────────────────┐

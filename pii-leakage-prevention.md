@@ -10,9 +10,7 @@ topics:
 ## The Hidden Risk of PII Leakage
 
 Personally Identifiable Information (PII) leakage represents one of the most serious security risks in modern data streaming architectures. Unlike intentional data breaches, PII leakage occurs through unintended exposure—when sensitive personal data appears in logs, error messages, monitoring systems, or misconfigured data streams where it shouldn't exist. In streaming systems that process millions of events per second, a single misconfiguration can expose vast amounts of personal data before anyone notices.
-
 ![PII leakage vectors and detection points in streaming systems](images/diagrams/pii-leakage-prevention-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌──────────────── PII Leakage Vectors & Protection ───────────────┐

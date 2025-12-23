@@ -75,9 +75,7 @@ super.users=User:admin;User:kafka-operator
 Authorization in Kafka operates through the Authorizer interface. The default implementation, StandardAuthorizer, evaluates permissions whenever a client performs an operation.
 
 Consider a producer attempting to write to a topic. The authorization flow includes:
-
 ![Consider a producer attempting to write to a topic. The authorization flow includes](images/diagrams/kafka-acls-and-authorization-patterns-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌─────────────────────────────────────────────────────────────────┐

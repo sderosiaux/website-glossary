@@ -10,9 +10,7 @@ topics:
 ---
 
 Apache Kafka's shift from ZooKeeper to KRaft (Kafka Raft) represents one of the most significant architectural changes in the platform's history. This migration simplifies Kafka's operational model, reduces infrastructure complexity, and improves cluster performance. Understanding how to migrate from ZooKeeper to KRaft is essential for teams managing production Kafka environments.
-
 ![ZooKeeper to KRaft architecture migration](images/diagrams/zookeeper-to-kraft-migration-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 KAFKA METADATA MANAGEMENT: ZOOKEEPER → KRAFT

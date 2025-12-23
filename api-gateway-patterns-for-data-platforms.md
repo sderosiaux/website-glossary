@@ -22,9 +22,7 @@ The gateway handles cross-cutting concerns that would otherwise need to be imple
 For data platforms specifically, API gateways solve several problems. They provide a unified interface to heterogeneous data sources, translate between protocols (like REST to Kafka), enforce data governance policies, and protect backend systems from overload.
 
 ## Core API Gateway Patterns
-
 ![## Core API Gateway Patterns](images/diagrams/api-gateway-patterns-for-data-platforms-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
                API Gateway Architecture
@@ -87,9 +85,7 @@ Streaming platforms like Apache Kafka present unique gateway requirements. Tradi
 Kafka gateways must handle long-lived connections for consuming message streams. A WebSocket gateway can maintain persistent connections that stream Kafka messages to browsers or mobile apps. This enables real-time data delivery without constant polling.
 
 For comprehensive understanding of Kafka's core architecture and how topics, partitions, and consumer groups work, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
-
 ![api-gateway-patterns-for-data-platforms diagram 2](images/diagrams/api-gateway-patterns-for-data-platforms-1.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
       Streaming Gateway Pattern (Kafka WebSocket)
@@ -213,9 +209,7 @@ A single gateway serving all these clients either:
 3. Grows complex conditional logic based on client type
 
 ### BFF Architecture
-
 ![### BFF Architecture](images/diagrams/api-gateway-patterns-for-data-platforms-2.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌─────────────┐    ┌─────────────┐    ┌─────────────┐

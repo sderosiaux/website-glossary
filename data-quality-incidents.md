@@ -54,9 +54,7 @@ In streaming architectures, data quality incidents are particularly critical bec
 The key distinction between an incident and normal variance lies in **impact and deviation from acceptable bounds**. A 5% increase in null values might be within normal operating parameters, while a sudden 50% spike in nulls represents an incident requiring immediate attention. Organizations define these thresholds through **Service Level Objectives (SLOs)**—measurable targets for system reliability and data quality—and data quality contracts that specify acceptable ranges for metrics like completeness, accuracy, and timeliness.
 
 For detailed coverage of these quality dimensions, see [Data Quality Dimensions](https://conduktor.io/glossary/data-quality-dimensions-accuracy-completeness-and-consistency).
-
 ![Data Quality Incident Response](images/diagrams/data-quality-incidents-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌──────────────────────────────────────────────────────────────────┐

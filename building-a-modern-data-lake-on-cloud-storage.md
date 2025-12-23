@@ -130,9 +130,7 @@ These catalogs solve the historic "metadata sprawl" problem where each engine ma
 Modern data lakes must handle both batch and streaming ingestion. Apache Kafka infrastructure often feeds real-time data into your lake. For comprehensive streaming ingestion patterns, see [Streaming Ingestion to Lakehouse](https://conduktor.io/glossary/streaming-ingestion-to-lakehouse).
 
 ### Kafka to Data Lake Pipeline
-
 ![### Kafka to Data Lake Pipeline](images/diagrams/building-a-modern-data-lake-on-cloud-storage-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```python
 # Conceptual streaming pipeline

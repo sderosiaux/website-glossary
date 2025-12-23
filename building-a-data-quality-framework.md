@@ -18,9 +18,7 @@ A data quality framework is a structured approach to measuring, monitoring, and 
 The framework typically addresses six core dimensions of data quality: accuracy, completeness, consistency, timeliness, validity, and uniqueness. Each dimension requires specific validation rules, measurement approaches, and remediation strategies tailored to your organization's data landscape and business requirements.
 
 ## Designing Your Framework Architecture
-
 ![Data Quality Framework Architecture](images/diagrams/building-a-data-quality-framework-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌────────────────────────────────────────────────────────────────┐

@@ -20,7 +20,6 @@ A streaming data pipeline is a set of technologies that captures data as soon as
 
 **Visual Architecture:**
 ![**Visual Architecture:**](images/diagrams/streaming-data-pipeline-1.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 [Sources] → [Ingestion: CDC/Producers] → [Broker: Kafka Topics] 
@@ -164,7 +163,6 @@ Provides 1-2 minute latency while controlling warehouse costs.
 
 Single streams serve multiple destinations simultaneously:
 ![Single streams serve multiple destinations simultaneously](images/diagrams/streaming-data-pipeline-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 Enriched Orders (Kafka)

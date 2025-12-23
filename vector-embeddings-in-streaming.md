@@ -44,9 +44,7 @@ The tradeoff is complexity: streaming systems must handle fluctuating load, ensu
 ## Streaming Architecture for Embeddings
 
 A typical streaming embedding pipeline follows this pattern:
-
 ![A typical streaming embedding pipeline follows this pattern](images/diagrams/vector-embeddings-in-streaming-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 Event Source → Stream Processor → Embedding Service → Vector Database → AI Application

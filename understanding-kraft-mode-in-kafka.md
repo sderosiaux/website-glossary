@@ -36,9 +36,7 @@ A concrete example: creating a topic with 1,000 partitions in a ZooKeeper-based 
 ## How KRaft Works
 
 KRaft replaces ZooKeeper with a Raft-based quorum controller running within Kafka itself. Instead of storing metadata in an external system, KRaft maintains it in a special internal Kafka topic called `__cluster_metadata`.
-
 ![understanding-kraft-mode-in-kafka diagram 1](images/diagrams/understanding-kraft-mode-in-kafka-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 Traditional Kafka with ZooKeeper:

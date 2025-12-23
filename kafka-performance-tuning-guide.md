@@ -16,9 +16,7 @@ Apache Kafka has become the backbone of modern data streaming architectures, han
 Modern Kafka deployments benefit from significant architectural improvements. Kafka 4.0+ with KRaft mode (removing ZooKeeper dependency) delivers 30-40% faster metadata operations and lower latency. Tiered storage enables cost-effective data retention by offloading cold data to object storage. Understanding these modern capabilities is essential for optimal performance in 2025.
 
 This guide explores the key levers for optimizing Kafka performance, from producer batching to broker disk I/O, helping you build a high-performance streaming platform. For foundational understanding, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
-
 ![Kafka performance tuning areas and trade-offs](images/diagrams/kafka-performance-tuning-guide-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 Kafka Performance Tuning: Key Areas

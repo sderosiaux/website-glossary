@@ -46,9 +46,7 @@ Each write operation in Iceberg creates a **new snapshot** without altering exis
 For comprehensive coverage of Iceberg's internal architecture, metadata layers, and snapshot mechanics, see [Iceberg Table Architecture: Metadata and Snapshots](https://conduktor.io/glossary/iceberg-table-architecture-metadata-and-snapshots).
 
 A simplified example:
-
 ![A simplified example](images/diagrams/apache-iceberg-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 metadata.json (v5)

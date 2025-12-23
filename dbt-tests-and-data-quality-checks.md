@@ -10,9 +10,7 @@ topics:
 ---
 
 Data quality is the foundation of trustworthy analytics. As data pipelines grow in complexity, ensuring data integrity becomes critical. dbt (data build tool) provides a robust testing framework that allows Analytics Engineers and Data Quality Analysts to define, execute, and monitor data quality checks throughout the transformation pipeline.
-
 ![dbt testing framework architecture](images/diagrams/dbt-tests-and-data-quality-checks-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌─────────────────────────────────────────────────────────────────┐

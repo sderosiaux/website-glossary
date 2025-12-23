@@ -10,9 +10,7 @@ topics:
 ---
 
 Stream processing systems face a fundamental challenge that batch processing never encounters: how to measure the passage of time when events arrive continuously, potentially out of order, and from multiple distributed sources. Watermarks and triggers are two critical mechanisms that solve this problem, enabling accurate time-based operations like windowing and aggregations in frameworks such as [Apache Flink](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing) and [Kafka Streams](https://conduktor.io/glossary/introduction-to-kafka-streams).
-
 ![Watermark progression and window triggering](images/diagrams/watermarks-and-triggers-in-stream-processing-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 WATERMARKS & TRIGGERS: EVENT TIME PROGRESSION

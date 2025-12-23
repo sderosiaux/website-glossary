@@ -54,9 +54,7 @@ Without streaming data, agents operate on stale assumptions, miss critical event
 ## Agentic AI Pipeline Architecture
 
 A production agentic AI pipeline follows a consistent pattern:
-
 ![A production agentic AI pipeline follows a consistent pattern](images/diagrams/agentic-ai-pipelines-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐

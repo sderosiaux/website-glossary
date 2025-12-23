@@ -10,9 +10,7 @@ topics:
 ---
 
 In stream processing, choosing the right windowing strategy determines how you aggregate and analyze continuous data streams. While tumbling and hopping windows operate on fixed time intervals, session windows take a fundamentally different approach by grouping events based on activity patterns. This makes them particularly valuable for tracking user behavior, monitoring device activity, and detecting anomalous patterns in real-time data streams.
-
 ![Session window behavior showing dynamic grouping by activity gaps](images/diagrams/session-windows-in-stream-processing-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌──────────────────────────────────────────────────────────────────┐

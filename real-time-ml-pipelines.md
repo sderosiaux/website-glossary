@@ -29,9 +29,7 @@ Most production systems use [real-time inference](/real-time-ml-inference-with-s
 ## Architecture Components
 
 A complete real-time ML pipeline consists of several interconnected layers:
-
 ![A complete real-time ML pipeline consists of several interconnected layers](images/diagrams/real-time-ml-pipelines-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
            Real-Time ML Pipeline Architecture
@@ -121,9 +119,7 @@ Once features are ready, models must generate predictions within strict latency 
 ### Feedback Loops
 
 Real-time ML systems must capture prediction outcomes to detect [model drift](/model-drift-in-streaming) and retrain:
-
 ![Real-time ML systems must capture prediction outcomes to detect [model drift](/model-drift-in-streaming) and retrain](images/diagrams/real-time-ml-pipelines-1.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 Event → Features → Prediction → Action → Outcome → Training Data
@@ -275,7 +271,6 @@ Example targets:
 
 **Latency budget breakdown**:
 ![**Latency budget breakdown**](images/diagrams/real-time-ml-pipelines-2.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 Total: 50ms (p99)
@@ -337,9 +332,7 @@ For example, Conduktor can enforce that all events in the `transactions` topic i
 **Real-time requirements**: Evaluate transactions before authorization (50-100ms)
 
 For comprehensive coverage, see [real-time fraud detection with streaming](/real-time-fraud-detection-with-streaming).
-
 ![real-time-ml-pipelines diagram 4](images/diagrams/real-time-ml-pipelines-3.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
       Fraud Detection Real-Time Pipeline

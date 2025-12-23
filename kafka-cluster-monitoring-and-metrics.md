@@ -12,9 +12,7 @@ topics:
 Monitoring an Apache Kafka cluster is essential for maintaining reliable data streaming operations. Without proper observability into broker health, partition replication, consumer lag, and throughput patterns, teams operate blind to performance degradation, capacity issues, and potential outages. Effective monitoring transforms Kafka from a black box into a well-understood system where problems can be detected, diagnosed, and resolved before they impact business operations.
 
 This article explores the key metrics, monitoring architecture, and best practices that enable engineering teams to maintain healthy Kafka deployments at scale.
-
 ![Kafka monitoring architecture and key metrics](images/diagrams/kafka-cluster-monitoring-and-metrics-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 Kafka Monitoring Architecture

@@ -30,9 +30,7 @@ State serves critical functions in streaming applications: maintaining session w
 ## State Backends: Storage and Retrieval
 
 Flink abstracts state storage through configurable state backends, which determine how state is stored locally during computation, and checkpoint storage, which determines how state is persisted during checkpoints. Starting with Flink 1.13, this separation provides clearer configuration and better flexibility.
-
 ![flink-state-management-and-checkpointing diagram 1](images/diagrams/flink-state-management-and-checkpointing-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
                     State Backend Architecture
@@ -113,9 +111,7 @@ State backend selection depends on state size requirements, recovery time object
 Checkpointing is Flink's primary mechanism for fault tolerance. A checkpoint represents a consistent snapshot of the entire application state and stream positions across all operators. If a failure occurs, Flink restarts the application from the most recent successful checkpoint.
 
 Flink implements the Chandy-Lamport algorithm for distributed snapshots, modified to work efficiently with streaming data. This algorithm ensures all operators capture their state at logically consistent points in the data stream, preventing partial processing or duplication. The process works as follows:
-
 ![Flink implements the Chandy-Lamport algorithm for distributed snapshots, modified to work efficiently with streaming data. This algorithm ensures all operators capture their state at logically consistent points in the data stream, preventing partial processing or duplication. The process works as follows](images/diagrams/flink-state-management-and-checkpointing-1.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
            Checkpointing Flow with Barriers

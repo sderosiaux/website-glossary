@@ -45,9 +45,7 @@ When configuring JVM settings for containerized Kafka, enable container awarenes
 ## Deployment Approaches
 
 There are three primary approaches to deploying Kafka on Kubernetes, each with distinct trade-offs.
-
 ![running-kafka-on-kubernetes diagram 1](images/diagrams/running-kafka-on-kubernetes-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌────────────────────────────────────────────────────────────────┐

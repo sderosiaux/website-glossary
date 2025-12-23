@@ -10,9 +10,7 @@ topics:
 ---
 
 In modern data architectures, particularly those built on streaming platforms like Apache Kafka, data classification and tagging are critical components of a robust data governance framework. As organizations process millions of events per second, understanding what data flows through your systems and how sensitive it is becomes paramount for compliance, security, and operational efficiency.
-
 ![Data Classification Levels and Tagging](images/diagrams/data-classification-and-tagging-strategies-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌──────────────────────────────────────────────────────────────────┐

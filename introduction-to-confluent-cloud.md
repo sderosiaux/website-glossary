@@ -14,9 +14,7 @@ As organizations adopt real-time data architectures, managing Apache Kafka infra
 This article explores what Confluent Cloud is, how it works, and when organizations should consider using it versus self-managed Apache Kafka with platforms like Conduktor for governance and monitoring.
 
 For foundational Kafka concepts, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
-
 ![Confluent Cloud architecture and ecosystem integration](images/diagrams/introduction-to-confluent-cloud-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌──────────────────────────────────────────────────────────────────┐

@@ -15,9 +15,7 @@ Managing Apache Kafka deployments at scale presents unique challenges. Unlike st
 Infrastructure as Code is the practice of managing and provisioning infrastructure through machine-readable definition files rather than manual configuration or interactive tools. Instead of clicking through cloud consoles or running ad-hoc commands, teams define their desired infrastructure state in code that can be version-controlled, reviewed, and automatically applied.
 
 The benefits extend beyond automation. IaC provides documentation as code—your infrastructure definitions become the source of truth for how systems are configured. Changes go through the same review processes as application code, creating an audit trail and enabling rollbacks when issues arise. For distributed systems like Kafka, where configuration drift can lead to subtle but serious problems, this consistency is invaluable.
-
 ![Infrastructure as Code workflow for Kafka deployments](images/diagrams/infrastructure-as-code-for-kafka-deployments-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌──────────────────────────────────────────────────────────────────┐

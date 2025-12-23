@@ -12,9 +12,7 @@ topics:
 A data analyst joins a team and needs to calculate daily active users from real-time event streams. She discovers three different Kafka topics that seem relevant: `user.events.v2`, `app_interactions`, and `user_activity_enriched`. Each has different field names for user identifiers (`user_id`, `userId`, `customer_key`), different timestamp formats, and unclear definitions of what constitutes an "active" user.
 
 This scenario repeats across organizations adopting streaming architectures. While Apache Kafka, Apache Flink, and similar platforms excel at moving data in real-time, they expose technical implementation details—topic names, serialization formats, partition keys—that create barriers for business users. What's missing is a **semantic layer**: a business-friendly abstraction that translates technical streaming infrastructure into concepts people can understand and trust.
-
 ![Semantic layer bridging technical streams and business concepts](images/diagrams/semantic-layer-for-streaming-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌─────────────────────────────────────────────────────────────────┐

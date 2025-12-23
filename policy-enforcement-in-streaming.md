@@ -8,9 +8,7 @@ topics:
 ---
 
 In traditional batch processing systems, data quality checks and governance controls are applied at specific points—before loading, after transformation, during validation phases. But streaming systems operate continuously, with events flowing through pipelines 24/7. This constant flow demands a different approach: **policy enforcement** that operates automatically, in real-time, as data moves through the system.
-
 ![Multi-layer policy enforcement in streaming architectures](images/diagrams/policy-enforcement-in-streaming-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌────────────── Policy Enforcement Layers ──────────────────────┐

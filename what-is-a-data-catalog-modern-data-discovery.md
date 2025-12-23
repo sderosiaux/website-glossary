@@ -5,9 +5,7 @@ topics: ["Data Catalog", "Data Discovery", "Metadata Management", "Data Governan
 ---
 
 In today's data-driven organizations, data assets are scattered across databases, data lakes, cloud storage, and streaming platforms. Teams struggle to answer basic questions: What data do we have? Where is it? Can I trust it? Who owns it? This is where a **data catalog** becomes essential—acting as a searchable inventory of all your organization's data assets.
-
 ![Data catalog connecting multiple data sources](images/diagrams/what-is-a-data-catalog-modern-data-discovery-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 DATA CATALOG: UNIFIED METADATA & DISCOVERY LAYER

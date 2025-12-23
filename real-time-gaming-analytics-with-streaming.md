@@ -10,9 +10,7 @@ topics:
 ---
 
 Modern gaming platforms generate enormous volumes of data every second. From player movements and combat actions to in-game purchases and social interactions, these events must be captured, processed, and analyzed in real-time to deliver competitive, engaging experiences. Unlike traditional batch analytics that process data hours or days later, real-time gaming analytics requires streaming architectures capable of handling millions of events per second with sub-second latency.
-
 ![Gaming analytics streaming architecture with multi-region support](images/diagrams/real-time-gaming-analytics-with-streaming-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌────────── Real-Time Gaming Analytics Architecture ──────────┐

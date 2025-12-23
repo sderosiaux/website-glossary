@@ -47,9 +47,7 @@ ProducerRecord<String, String> record =
     new ProducerRecord<>("user-events", 2, "user-123", eventData);
 // Forces message to partition 2
 ```
-
 ![kafka-topics-partitions-brokers-core-architecture diagram 1](images/diagrams/kafka-topics-partitions-brokers-core-architecture-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 Topic: user-events (3 partitions)
@@ -159,9 +157,7 @@ Instead of external ZooKeeper nodes, dedicated **controller nodes** (or combined
 - **Improved security**: Unified authentication and authorization model
 
 **Architecture Impact:**
-
 ![**Architecture Impact:**](images/diagrams/kafka-topics-partitions-brokers-core-architecture-1.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 Traditional (ZooKeeper):                 KRaft Mode (Kafka 4.0+):
@@ -193,9 +189,7 @@ Kafka 3.6+ introduced **tiered storage**, fundamentally changing how brokers man
 - **Retention policy**: Configure `local.retention.ms` (hot) and `retention.ms` (total)
 
 **Architectural Benefits:**
-
 ![**Architectural Benefits:**](images/diagrams/kafka-topics-partitions-brokers-core-architecture-2.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 Without Tiered Storage:              With Tiered Storage:
@@ -224,9 +218,7 @@ For detailed configuration and best practices, see [Tiered Storage in Kafka](htt
 ## How Components Work Together
 
 The interaction between topics, partitions, and brokers creates Kafka's distributed log architecture:
-
 ![The interaction between topics, partitions, and brokers creates Kafka's distributed log architecture](images/diagrams/kafka-topics-partitions-brokers-core-architecture-3.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌─────────────────────────────────────────────────────────────────────┐

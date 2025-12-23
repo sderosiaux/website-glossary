@@ -10,9 +10,7 @@ topics:
 Machine learning models powering [real-time applications](https://conduktor.io/glossary/real-time-ml-inference-with-streaming-data) face a unique challenge: the world they model never stops changing. A fraud detection model trained on last quarter's patterns may miss today's attack vectors. A recommendation engine optimized for pre-holiday shopping behavior struggles when consumer preferences shift. This phenomenon—model drift—is the silent degradation of ML performance over time.
 
 In streaming architectures, where models consume continuously flowing data and make split-second predictions, drift isn't just a concern—it's inevitable. The question isn't whether your models will drift, but when, how fast, and whether you'll detect it before it impacts your business.
-
 ![Model drift types: data, concept, and prediction drift](images/diagrams/model-drift-in-streaming-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌─────────────────────────────────────────────────────────────────┐

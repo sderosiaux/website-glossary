@@ -7,9 +7,7 @@ topics:
   - Event Streaming
   - Message Delivery
 ---
-
 ![Kafka producer architecture and message flow](images/diagrams/kafka-producers-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 Kafka Producer: Record Journey

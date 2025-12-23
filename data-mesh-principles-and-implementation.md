@@ -70,9 +70,7 @@ This allows domains to move fast while maintaining organizational standards. For
 ## Data Mesh vs Traditional Architectures
 
 Traditional data architectures centralize data in warehouses or lakes managed by specialized teams. While this provides a single source of truth, it creates several problems:
-
 ![Traditional data architectures centralize data in warehouses or lakes managed by specialized teams. While this provides a single source of truth, it creates several problems](images/diagrams/data-mesh-principles-and-implementation-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
         Traditional Centralized Architecture
@@ -156,9 +154,7 @@ Partner Zones also provide traffic analytics showing consumption patterns within
 ## Data Mesh and Data Streaming
 
 Data Mesh and streaming technologies like Apache Kafka are natural complements. Kafka's architecture aligns closely with Data Mesh principles.
-
 ![data-mesh-principles-and-implementation diagram 2](images/diagrams/data-mesh-principles-and-implementation-1.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
       Data Mesh with Streaming (Kafka Example)

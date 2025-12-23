@@ -35,9 +35,7 @@ This pattern is particularly valuable for stateful applications like Kafka. The 
 ## Strimzi Architecture and Custom Resources
 
 Strimzi is a Cloud Native Computing Foundation (CNCF) incubating project that implements the operator pattern for Apache Kafka. It extends Kubernetes with Custom Resource Definitions (CRDs) that represent Kafka clusters, topics, users, and related components.
-
 ![strimzi-kafka-operator-for-kubernetes diagram 1](images/diagrams/strimzi-kafka-operator-for-kubernetes-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌───────────────────────────────────────────────────────────────┐

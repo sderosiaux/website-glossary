@@ -42,9 +42,7 @@ These inconsistencies lead to data loss, duplicate processing, and complex recov
 The outbox pattern transforms the dual-write problem into a single-write problem by treating event publishing as part of the database transaction.
 
 The pattern introduces an "outbox" table within the application's database. Instead of publishing events directly to a message broker, the application writes events to this table in the same transaction as the business data:
-
 ![The pattern introduces an "outbox" table within the application's database. Instead of publishing events directly to a message broker, the application writes events to this table in the same transaction as the business data](images/diagrams/outbox-pattern-for-reliable-event-publishing-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌─────────────────────────────────────────────────────────────┐

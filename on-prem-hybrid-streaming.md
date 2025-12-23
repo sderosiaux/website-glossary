@@ -8,9 +8,7 @@ topics:
 ---
 
 Organizations building data streaming platforms face a fundamental architectural decision: where should the streaming infrastructure live? While cloud-native solutions offer compelling advantages, many enterprises operate streaming platforms on-premises, in hybrid configurations spanning multiple environments, or across multiple cloud providers. Understanding these patterns and their governance implications is essential for building resilient, compliant streaming architectures.
-
 ![Multi-environment streaming architecture patterns](images/diagrams/on-prem-hybrid-streaming-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌──────────────────────── Hybrid Streaming Architecture ─────────────┐

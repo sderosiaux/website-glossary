@@ -55,9 +55,7 @@ topics:
 ## Introduction: Beyond the Cloud Bill
 
 When organizations evaluate their streaming infrastructure costs, they often focus solely on their cloud provider bills. However, the true Total Cost of Ownership (TCO) for streaming platforms like Apache Kafka extends far beyond monthly infrastructure charges. Understanding the complete picture is essential for making informed decisions about architecture, vendor selection, and resource allocation. For foundational knowledge of Apache Kafka architecture, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
-
 ![Total cost breakdown of streaming infrastructure](images/diagrams/streaming-total-cost-of-ownership-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 STREAMING TCO: VISIBLE & HIDDEN COSTS

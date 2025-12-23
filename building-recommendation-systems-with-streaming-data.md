@@ -50,9 +50,7 @@ Consider an e-commerce platform implementing streaming recommendations. When a u
 One consumer updates session features: products viewed, categories explored, price ranges considered. Another updates the user's real-time preference vector, adjusting weights based on recent behavior. A third consumer may trigger re-ranking of recommended products already loaded in the user's browser.
 
 The architecture might look like this:
-
 ![The architecture might look like this](images/diagrams/building-recommendation-systems-with-streaming-data-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 User Action → Kafka Topic → Stream Processor → Feature Store

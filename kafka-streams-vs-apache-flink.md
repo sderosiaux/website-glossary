@@ -26,9 +26,7 @@ For in-depth coverage of each framework individually, see [What is Apache Flink?
 ### Kafka Streams: The Library Approach
 
 Kafka Streams applications are standard Java applications that happen to process streams. You package your application as a JAR file and deploy it like any other microservice. Scaling is horizontal—run more instances of your application, and Kafka Streams automatically redistributes the work based on Kafka partition assignments.
-
 ![kafka-streams-vs-apache-flink diagram 1](images/diagrams/kafka-streams-vs-apache-flink-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 Kafka Streams Architecture:
@@ -63,9 +61,7 @@ This architecture has significant implications. There's no separate cluster to o
 ### Apache Flink: The Framework Approach
 
 Flink provides a complete distributed runtime. You submit jobs to a Flink cluster, which consists of a JobManager (coordinator) and one or more TaskManagers (workers). The JobManager handles scheduling, checkpointing, and failure recovery, while TaskManagers execute the actual data processing tasks.
-
 ![kafka-streams-vs-apache-flink diagram 2](images/diagrams/kafka-streams-vs-apache-flink-1.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 Apache Flink Architecture:

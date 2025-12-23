@@ -12,9 +12,7 @@ topics:
 For decades, organizations processed data in batches—collecting information throughout the day and running analytics jobs overnight or at scheduled intervals. While batch processing remains useful for many scenarios, modern businesses increasingly need to react to events as they happen.
 
 Real-time data streaming represents a fundamental shift in how we handle data. Instead of waiting for scheduled batch jobs, streaming systems process data continuously as it arrives, enabling organizations to detect fraud within milliseconds, personalize user experiences instantly, and monitor infrastructure in real-time.
-
 ![Real-time streaming architecture and data flow](images/diagrams/what-is-real-time-data-streaming-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 REAL-TIME DATA STREAMING ARCHITECTURE

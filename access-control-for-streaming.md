@@ -8,9 +8,7 @@ topics:
 ---
 
 ## Why Access Control Matters in Streaming
-
 ![Access Control Architecture for Streaming Platforms](images/diagrams/access-control-for-streaming-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
                     ┌─────────────────────────────────────────────┐

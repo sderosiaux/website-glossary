@@ -23,9 +23,7 @@ Automated testing provides:
 - **Documentation**: Tests serve as executable specifications of data expectations
 
 ## Core Testing Dimensions
-
 ![Data Quality Testing Dimensions](images/diagrams/automated-data-quality-testing-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌────────────────────────────────────────────────────────────────┐

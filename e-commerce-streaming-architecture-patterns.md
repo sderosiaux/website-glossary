@@ -74,9 +74,7 @@ A customer buys the last unit of a product online. Within milliseconds:
 3. The product catalog service updates availability status
 4. Store systems receive the update and remove the item from in-store pickup options
 5. A notification service alerts warehouse staff to fulfill the order
-
 ![e-commerce-streaming-architecture-patterns diagram 1](images/diagrams/e-commerce-streaming-architecture-patterns-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌──────────────┐

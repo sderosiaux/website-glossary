@@ -12,9 +12,7 @@ topics:
 Data quality is the foundation of reliable analytics, informed decision-making, and successful data-driven organizations. Poor data quality costs businesses millions annually through bad decisions, operational inefficiencies, and missed opportunities. Understanding the core dimensions of data quality is essential for anyone working with data, whether you're analyzing datasets, building data pipelines, or establishing governance frameworks.
 
 This article explores three fundamental dimensions of data quality: accuracy, completeness, and consistency. We'll examine what each dimension means, why it matters, and how to measure and maintain these qualities in both batch and streaming data systems.
-
 ![Data Quality Dimensions](images/diagrams/data-quality-dimensions-accuracy-completeness-and-consistency-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌──────────────────────────────────────────────────────────────────┐

@@ -12,9 +12,7 @@ topics:
 ---
 
 Real-time analytics has become essential for organizations that need to make decisions based on data as it arrives, rather than waiting for batch processing cycles. From detecting fraudulent transactions within milliseconds to monitoring IoT sensor networks, the ability to analyze streaming data in real-time enables use cases that were previously impossible.
-
 ![Real-time analytics streaming architecture](images/diagrams/real-time-analytics-with-streaming-data-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌──────────────── Real-Time Analytics Flow ─────────────────┐

@@ -40,9 +40,7 @@ Unlike traditional databases that optimize for current state queries, Kafka is p
 ### Event Store Pattern
 
 The most fundamental pattern uses Kafka topics as event stores. Each aggregate or entity type has a dedicated topic (e.g., `account-events`, `order-events`). Events are keyed by entity ID to ensure all events for a specific entity land in the same partition, maintaining order.
-
 ![event-sourcing-patterns-with-kafka diagram 1](images/diagrams/event-sourcing-patterns-with-kafka-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
         Event Store Pattern with Kafka
@@ -84,9 +82,7 @@ Kafka's compacted topics are useful here. By periodically publishing a snapshot 
 ### CQRS Integration
 
 Event sourcing often pairs with Command Query Responsibility Segregation (CQRS). Commands write events to Kafka, while read models are built by consuming those events into optimized query stores (databases, search indexes, caches).
-
 ![event-sourcing-patterns-with-kafka diagram 2](images/diagrams/event-sourcing-patterns-with-kafka-1.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
               CQRS with Event Sourcing

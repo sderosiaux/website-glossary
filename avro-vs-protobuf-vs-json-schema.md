@@ -13,9 +13,7 @@ When building distributed systems and data pipelines, choosing the right schema 
 This article compares these three popular schema formats, examining their design philosophies, serialization approaches, and practical tradeoffs in real-world applications.
 
 ## Introduction to Schema Formats
-
 ![Schema Format Comparison Overview](images/diagrams/avro-vs-protobuf-vs-json-schema-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌────────────────────────────────────────────────────────────────┐

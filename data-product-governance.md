@@ -10,9 +10,7 @@ topics:
 As organizations shift from centralized data platforms to distributed data architectures, the concept of data products has emerged as a fundamental building block. But treating data as a product isn't just about technology—it requires a robust governance framework that ensures data products are discoverable, trustworthy, and valuable to their consumers. This article explores how to establish governance practices that turn raw data streams into reliable, well-managed data products.
 
 For an overview of data products in practice, see [Building and Managing Data Products](https://conduktor.io/glossary/building-and-managing-data-products). For organizational structures and responsibilities, refer to [Data Governance Framework: Roles and Responsibilities](https://conduktor.io/glossary/data-governance-framework-roles-and-responsibilities).
-
 ![Data Product Governance Framework](images/diagrams/data-product-governance-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌──────────────────────────────────────────────────────────────────┐

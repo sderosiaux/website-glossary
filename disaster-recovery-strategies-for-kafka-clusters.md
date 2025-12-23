@@ -51,9 +51,7 @@ However, single-cluster replication only protects against individual broker fail
 ## Multi-Datacenter Replication Patterns
 
 To protect against datacenter failures, organizations implement multi-datacenter replication using several architectural patterns. The choice depends on recovery objectives, budget, and operational complexity tolerance.
-
 ![disaster-recovery-strategies-for-kafka-clusters diagram 1](images/diagrams/disaster-recovery-strategies-for-kafka-clusters-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌───────────────────────────────────────────────────────────────────┐

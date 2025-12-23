@@ -15,9 +15,7 @@ Data products represent a fundamental shift in how organizations think about dat
 This article explores what data products are, how to design and build them, their relationship with streaming architectures, and best practices for governance and operations.
 
 ## What Are Data Products?
-
 ![Data Product Architecture and Lifecycle](images/diagrams/building-and-managing-data-products-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌────────────────────────────────────────────────────────────────┐

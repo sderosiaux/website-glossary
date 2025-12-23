@@ -10,9 +10,7 @@ topics:
 ---
 
 As Delta tables grow in production environments, maintaining optimal query performance becomes increasingly challenging. Small files accumulate from frequent writes, and data layout becomes suboptimal for common query patterns. Delta Lake provides two powerful commands—OPTIMIZE and Z-ORDER—that address these issues through file compaction and intelligent data clustering.
-
 ![OPTIMIZE and Z-ORDER transformation workflow](images/diagrams/optimizing-delta-tables-optimize-and-z-order-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 Before OPTIMIZE              After OPTIMIZE + Z-ORDER

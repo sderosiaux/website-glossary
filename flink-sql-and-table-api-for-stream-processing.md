@@ -12,9 +12,7 @@ topics:
 Apache Flink has revolutionized stream processing by bringing SQL to the world of real-time data pipelines. With Flink SQL and the Table API, data engineers and analysts can process unbounded streams using familiar SQL syntax or programmatic APIs in Java, Scala, and Python. This approach lowers the barrier to entry for stream processing while maintaining the power and performance needed for production workloads.
 
 For a comprehensive introduction to Apache Flink's architecture and capabilities, see [What is Apache Flink: Stateful Stream Processing](https://conduktor.io/glossary/what-is-apache-flink-stateful-stream-processing).
-
 ![Dynamic tables and continuous queries](images/diagrams/flink-sql-and-table-api-for-stream-processing-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌─────────────────────────────────────────────────────────────────┐

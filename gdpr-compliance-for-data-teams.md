@@ -16,9 +16,7 @@ The General Data Protection Regulation (GDPR) has fundamentally transformed how 
 **What Are the Penalties for Non-Compliance?** GDPR violations can result in fines of up to €20 million or 4% of annual global turnover, whichever is higher. Beyond financial penalties, non-compliance can lead to reputational damage, loss of customer trust, and operational disruptions. As of 2025, enforcement has intensified, with regulators actively monitoring AI/ML data usage.
 
 This article explores practical strategies and technical implementations for achieving GDPR compliance in data-intensive streaming environments.
-
 ![GDPR compliance workflow for streaming data systems](images/diagrams/gdpr-compliance-for-data-teams-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌─────────────────────────────────────────────────────────────────┐

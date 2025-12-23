@@ -80,9 +80,7 @@ Kafka Connect and Kafka Streams provide robust ecosystems for integrating with e
 ## Implementation Patterns and Architecture
 
 Implementing CQRS and Event Sourcing with Kafka follows a typical pattern. The command side receives commands (HTTP requests, API calls), validates them, and publishes events to Kafka topics representing the business domain.
-
 ![cqrs-and-event-sourcing-with-kafka diagram 1](images/diagrams/cqrs-and-event-sourcing-with-kafka-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌─────────────────────────────────────────────────────────────┐

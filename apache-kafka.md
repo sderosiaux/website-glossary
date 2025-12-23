@@ -76,7 +76,6 @@ KRaft removes the ZooKeeper dependency entirely, implementing Kafka's own consen
 
 **KRaft Architecture**:
 ![**KRaft Architecture**](images/diagrams/apache-kafka-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 Traditional ZooKeeper Mode:
@@ -194,9 +193,7 @@ This integration allows data to flow seamlessly from operational systems into an
 ## End-to-End Streaming Architecture
 
 Below is how Kafka fits into a real-world streaming ecosystem:
-
 ![Below is how Kafka fits into a real-world streaming ecosystem](images/diagrams/apache-kafka-1.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌─────────────────────────────────────────────────────────────────────┐

@@ -16,9 +16,7 @@ In distributed systems, ensuring that messages are processed exactly once is not
 Apache Kafka introduced transactions to solve this challenge, enabling exactly-once semantics (EOS) across producers, brokers, and consumers. This capability transforms Kafka from a reliable message broker into a platform capable of handling mission-critical operations where duplicate processing or data loss is unacceptable.
 
 This article provides a comprehensive technical deep dive into Kafka's transaction implementation. For a broader overview of exactly-once semantics including use cases and simpler explanations, see [Exactly-Once Semantics in Kafka](https://conduktor.io/glossary/exactly-once-semantics-in-kafka). For foundational Kafka concepts, refer to [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
-
 ![Kafka transaction flow with coordinator](images/diagrams/kafka-transactions-deep-dive-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌──────────────────────────────────────────────────────────────────┐

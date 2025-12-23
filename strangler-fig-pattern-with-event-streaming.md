@@ -76,9 +76,7 @@ Consider an e-commerce company migrating from a monolithic order management syst
 The legacy monolith handles order creation, inventory checks, payment processing, and fulfillment through a shared database. Making changes requires coordinating across teams and deploying the entire application.
 
 ### Migration Strategy with Event Streaming
-
 ![### Migration Strategy with Event Streaming](images/diagrams/strangler-fig-pattern-with-event-streaming-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
       Strangler Fig Migration: Phase by Phase

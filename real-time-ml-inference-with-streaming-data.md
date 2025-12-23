@@ -10,9 +10,7 @@ topics:
 ---
 
 Machine learning inference—the process of making predictions using trained models—traditionally happens in batch mode, processing historical data on fixed schedules. However, many modern applications require predictions within milliseconds of receiving new data. Real-time ML inference with streaming data enables organizations to act on insights immediately, powering use cases from fraud detection to personalized recommendations.
-
 ![Real-time ML inference pipeline with feature enrichment](images/diagrams/real-time-ml-inference-with-streaming-data-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌──────────── Real-Time ML Inference Pipeline ─────────────────┐

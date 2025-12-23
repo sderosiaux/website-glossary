@@ -26,9 +26,7 @@ Each transaction appends a new JSON file numbered sequentially (e.g., `000000000
 - **Commit info**: Timestamp, operation type, isolation level
 
 When a reader queries a Delta table, it reconstructs the current state by reading the transaction log from the beginning (or the last checkpoint) and applying each transaction sequentially. This append-only structure makes the log naturally immutable and provides built-in version control.
-
 ![delta-lake-transaction-log-how-it-works diagram 1](images/diagrams/delta-lake-transaction-log-how-it-works-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
                     Delta Table Structure
@@ -70,9 +68,7 @@ When a writer wants to commit changes:
 2. **Execution Phase**: The writer performs the operation (write new Parquet files, compute statistics, etc.)
 3. **Validation Phase**: Before committing, the writer re-reads the log to check if any new commits occurred
 4. **Commit Phase**: If no conflicts exist, the writer attempts to atomically write the next sequential log entry
-
 ![delta-lake-transaction-log-how-it-works diagram 2](images/diagrams/delta-lake-transaction-log-how-it-works-1.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
               Optimistic Concurrency Protocol
@@ -148,7 +144,6 @@ Delta Lake categorizes conflicts into two types:
 
 Example of compatible blind appends:
 ![Example of compatible blind appends](images/diagrams/delta-lake-transaction-log-how-it-works-2.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 Writer A: INSERT INTO orders VALUES (new orders from Dec 15)
@@ -215,9 +210,7 @@ As tables evolve through hundreds or thousands of commits, reading the entire tr
 ### How Checkpoints Work
 
 Every 10 commits (by default), Delta Lake generates a checkpoint file that represents the complete table state at that version. This checkpoint is a Parquet file containing the same information as the aggregated JSON log entries up to that point.
-
 ![delta-lake-transaction-log-how-it-works diagram 4](images/diagrams/delta-lake-transaction-log-how-it-works-3.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
            Transaction Log with Checkpoints
@@ -267,9 +260,7 @@ Example: If transactions 0-10 added 50 files and removed 12 files, the checkpoin
 This compression dramatically reduces the amount of data readers must process to understand the current table state, especially for long-lived tables with thousands of commits.
 
 For very large tables, Delta Lake can create multi-part checkpoints split across multiple Parquet files, with a JSON manifest coordinating the parts:
-
 ![For very large tables, Delta Lake can create multi-part checkpoints split across multiple Parquet files, with a JSON manifest coordinating the parts](images/diagrams/delta-lake-transaction-log-how-it-works-4.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 _delta_log/
@@ -300,9 +291,7 @@ SELECT * FROM my_table TIMESTAMP AS OF '2025-01-15 10:00:00'
 ### How Time Travel Queries Execute
 
 When you run a time travel query, Delta Lake performs these steps:
-
 ![When you run a time travel query, Delta Lake performs these steps](images/diagrams/delta-lake-transaction-log-how-it-works-5.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 Query: SELECT * FROM orders VERSION AS OF 42

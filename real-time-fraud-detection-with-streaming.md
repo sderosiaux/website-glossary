@@ -67,9 +67,7 @@ Real-time fraud detection employs several proven patterns:
 ## Architecture Example: Building a Fraud Detection Pipeline
 
 Here's a concrete architecture for a fraud detection system:
-
 ![Here's a concrete architecture for a fraud detection system](images/diagrams/real-time-fraud-detection-with-streaming-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 Transaction Sources → Kafka Topic (transactions)

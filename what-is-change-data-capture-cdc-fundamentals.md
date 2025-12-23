@@ -201,9 +201,7 @@ As of 2025, the CDC landscape has matured with several production-ready options:
 ### CDC Architecture Pattern
 
 A typical CDC streaming architecture looks like this:
-
 ![A typical CDC streaming architecture looks like this](images/diagrams/what-is-change-data-capture-cdc-fundamentals-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌─────────────────────┐

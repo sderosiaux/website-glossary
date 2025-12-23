@@ -16,9 +16,7 @@ NewSQL databases emerged to bridge this gap, offering the best of both worlds: t
 ## What is NewSQL?
 
 NewSQL is a category of modern relational database management systems that provide the same scalable performance as NoSQL systems while maintaining the ACID guarantees and SQL interface of traditional databases. The term was coined around 2011 to describe this new generation of distributed databases.
-
 ![NewSQL architecture bridging traditional RDBMS and NoSQL](images/diagrams/newsql-databases-streaming-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 Traditional RDBMS          NewSQL Databases           NoSQL Databases

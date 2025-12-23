@@ -10,9 +10,7 @@ topics:
 The democratization of AI has delivered remarkable innovation velocity, but it has also introduced a governance challenge that many organizations are only beginning to recognize: Shadow AI. Much like the shadow IT phenomenon that emerged with cloud computing, Shadow AI represents the proliferation of unauthorized, ungoverned artificial intelligence and machine learning models deployed across the enterprise without proper oversight.
 
 As AI adoption accelerates and tools become increasingly accessible, teams are deploying models into production at unprecedented rates. While this speed drives competitive advantage, it also creates significant risks around compliance, security, data governance, and ethical AI practices. Understanding Shadow AI and building effective governance frameworks has become essential for any organization scaling AI initiatives.
-
 ![Shadow AI lifecycle from ungoverned deployment to governed model registry](images/diagrams/shadow-ai-governance-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌─────────────────────────────────────────────────────────────────┐

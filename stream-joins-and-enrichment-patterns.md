@@ -30,9 +30,7 @@ Stream processing frameworks support several join types, each suited to differen
 ### Stream-to-Stream Joins
 
 Stream-to-stream joins correlate events from two unbounded data streams based on matching keys and time windows. Unlike batch joins, both inputs are continuously flowing, requiring the framework to maintain state for events within a time window.
-
 ![stream-joins-and-enrichment-patterns diagram 1](images/diagrams/stream-joins-and-enrichment-patterns-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
          Stream-to-Stream Join (10-minute window)
@@ -64,9 +62,7 @@ The time window determines how long the system waits for matching events. A 10-m
 ### Stream-to-Table Joins
 
 Stream-to-table joins enrich stream events with the latest state from a table (changelog stream). The table represents the current snapshot of reference data, continuously updated as change events arrive.
-
 ![stream-joins-and-enrichment-patterns diagram 2](images/diagrams/stream-joins-and-enrichment-patterns-1.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
          Stream-to-Table Join (Enrichment)

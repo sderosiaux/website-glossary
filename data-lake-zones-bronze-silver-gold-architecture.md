@@ -14,9 +14,7 @@ The Medallion Architecture, also known as the Bronze-Silver-Gold pattern, has be
 ## Understanding the Medallion Architecture
 
 The Medallion Architecture divides your data lake into three distinct zones, each serving a specific purpose in the data pipeline:
-
 ![The Medallion Architecture divides your data lake into three distinct zones, each serving a specific purpose in the data pipeline](images/diagrams/data-lake-zones-bronze-silver-gold-architecture-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 Raw Sources (Kafka, APIs, Databases)
@@ -55,9 +53,7 @@ The Bronze layer serves as your raw data landing zone. Here, data arrives in its
 For real-time data pipelines, the Bronze layer excels at consuming streaming data. Apache Kafka topics feed directly into Bronze tables, often using formats like JSON or Avro that preserve the source structure.
 
 Modern Kafka platforms like **Conduktor** provide essential visibility into streaming data flows, helping teams manage topics, monitor consumer lag, validate schemas, and track data quality metrics as events flow into the Bronze layer. See [Conduktor's topic management](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/topics) and [Schema Registry integration](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/schema-registry) for comprehensive streaming governance. This operational insight ensures that your Bronze ingestion pipeline remains healthy and performant.
-
 ![data-lake-zones-bronze-silver-gold-architecture diagram 2](images/diagrams/data-lake-zones-bronze-silver-gold-architecture-1.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 Kafka Topic: user_events (Kafka 4.0+ with KRaft)
@@ -161,9 +157,7 @@ The Gold layer contains curated, business-level datasets optimized for specific 
 ### Business-Driven Design
 
 Unlike Bronze and Silver, which are technical layers, Gold is organized around business domains:
-
 ![Unlike Bronze and Silver, which are technical layers, Gold is organized around business domains](images/diagrams/data-lake-zones-bronze-silver-gold-architecture-2.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 gold/

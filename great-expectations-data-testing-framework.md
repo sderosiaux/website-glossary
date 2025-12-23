@@ -12,9 +12,7 @@ topics:
 > **Important**: This article covers Great Expectations 1.0+ (released August 2024), which introduced breaking API changes from previous versions. If you're using GX 0.x, see the [official migration guide](https://docs.greatexpectations.io/docs/0.18/reference/learn/migration_guide/).
 
 Data quality is the foundation of reliable analytics and machine learning. Yet, many data teams discover data issues only after they've impacted downstream systems or business decisions. Great Expectations (GX) addresses this challenge by providing a Python-based framework for testing, documenting, and profiling your data pipelines.
-
 ![Great Expectations validation workflow architecture](images/diagrams/great-expectations-data-testing-framework-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌──────────────────────────────────────────────────────────────────┐

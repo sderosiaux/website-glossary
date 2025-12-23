@@ -23,9 +23,7 @@ MSK runs open-source Apache Kafka, which means applications, tooling, and skills
 The service offers multiple deployment options: MSK Provisioned (traditional instance-based clusters), MSK Provisioned with Express brokers (2024+, optimized for high throughput and rapid scaling), and MSK Serverless (automatic scaling based on demand).
 
 ## Architecture and Core Components
-
 ![Amazon MSK Architecture](images/diagrams/amazon-msk-managed-kafka-on-aws-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌──────────────────────────────────────────────────────────────────┐

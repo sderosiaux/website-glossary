@@ -14,9 +14,7 @@ Large Language Models (LLMs) have become powerful tools for understanding and ge
 The 2025 LLM landscape offers diverse options: proprietary models like GPT-4, Claude 3.5 Sonnet, and Gemini 2.0 provide cutting-edge capabilities with streaming APIs, while open-source alternatives like Llama 3.3, Mistral, and Qwen enable on-premises deployment for sensitive data. Modern LLMs support structured outputs, function calling, and streaming responses—features that integrate naturally with event-driven architectures.
 
 This article explores the technical patterns, implementation approaches, and practical considerations for integrating LLMs with streaming platforms.
-
 ![LLM integration with streaming data architecture](images/diagrams/integrating-llms-with-streaming-platforms-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌──────────────────────────────────────────────────────────────────┐

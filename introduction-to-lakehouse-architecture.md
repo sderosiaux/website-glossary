@@ -57,9 +57,7 @@ Lakehouse architecture emerged in the early 2020s to address the limitations of 
 ## Core Components of Lakehouse Architecture
 
 A typical lakehouse architecture consists of several key layers:
-
 ![A typical lakehouse architecture consists of several key layers](images/diagrams/introduction-to-lakehouse-architecture-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌─────────────────────────────────────────────────────────┐

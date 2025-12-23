@@ -11,9 +11,7 @@ topics:
 Log aggregation is a fundamental requirement for operating distributed systems at scale. As applications grow from monoliths to microservices architectures, the challenge of collecting, centralizing, and analyzing logs from dozens or hundreds of services becomes critical for debugging, monitoring, and compliance.
 
 Apache Kafka has emerged as a popular backbone for modern log aggregation pipelines, offering durability, scalability, and real-time processing capabilities that traditional approaches struggle to match. For foundational knowledge of Kafka's architecture, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
-
 ![Kafka-based log aggregation architecture](images/diagrams/log-aggregation-with-kafka-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌─────────────────────────────────────────────────────────────────┐

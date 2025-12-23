@@ -19,9 +19,7 @@ When a producer sends a message to a topic, Kafka assigns it to a specific parti
 Partitions serve three key purposes: they enable data distribution across multiple servers for fault tolerance, they allow parallel processing by multiple consumers, and they provide ordering guarantees within each partition (though not across partitions).
 
 For foundational understanding of how partitions fit into Kafka's architecture, see [Kafka Topics, Partitions, Brokers: Core Architecture](https://conduktor.io/glossary/kafka-topics-partitions-brokers-core-architecture).
-
 ![Kafka partitioning strategies and consumer group mapping](images/diagrams/kafka-partitioning-strategies-and-best-practices-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 Partitioning Strategies and Consumer Groups

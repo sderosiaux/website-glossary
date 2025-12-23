@@ -10,9 +10,7 @@ topics:
 ---
 
 Traditional partitioning strategies in data lakes have long presented a difficult tradeoff: optimize for current query patterns and risk poor performance as workloads evolve, or maintain multiple copies of data organized differently. Delta Lake's Liquid Clustering introduces a fundamentally different approach—adaptive, automatic clustering that continuously optimizes data layout without the brittleness of static partitioning schemes.
-
 ![Traditional partitioning vs liquid clustering](images/diagrams/delta-lake-liquid-clustering-modern-partitioning-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 Traditional Partitioning             Liquid Clustering

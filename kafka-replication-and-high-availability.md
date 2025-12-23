@@ -17,9 +17,7 @@ Understanding how Kafka achieves fault tolerance is essential for anyone designi
 ## Understanding Kafka Replication
 
 Kafka replication works by maintaining multiple copies of data across different brokers in a cluster. When you create a topic, you specify a replication factor that determines how many copies of each partition will exist. For detailed coverage of topics, partitions, and brokers, see [Kafka Topics, Partitions, Brokers: Core Architecture](https://conduktor.io/glossary/kafka-topics-partitions-brokers-core-architecture).
-
 ![kafka-replication-and-high-availability diagram 1](images/diagrams/kafka-replication-and-high-availability-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌─────────────────────────────────────────────────────────────────┐

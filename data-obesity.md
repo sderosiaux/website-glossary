@@ -14,9 +14,7 @@ In the age of "data is the new oil," organizations face a counterintuitive probl
 Unlike healthy data growth—where increasing volumes correlate with improved insights, better decision-making, and measurable business outcomes—data obesity represents accumulation without purpose. The system becomes "heavy," burdened by petabytes of information that slow operations, inflate costs, and paradoxically reduce agility rather than enhance it.
 
 This phenomenon is particularly acute in streaming architectures, where the velocity of data ingestion can mask underlying inefficiencies until performance degradation becomes severe.
-
 ![Data Obesity Symptoms](images/diagrams/data-obesity-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌──────────────────────────────────────────────────────────────────┐

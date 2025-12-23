@@ -15,9 +15,7 @@ Chaos engineering is the discipline of experimenting on a distributed system to 
 This article explores how chaos engineering principles apply to streaming architectures, the unique challenges these systems present, and practical approaches for testing resilience in production-like environments.
 
 ## What is Chaos Engineering?
-
 ![Chaos Engineering Process for Streaming Systems](images/diagrams/chaos-engineering-for-streaming-systems-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌────────────────────────────────────────────────────────────────┐

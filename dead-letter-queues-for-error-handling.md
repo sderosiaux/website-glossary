@@ -10,9 +10,7 @@ topics:
 ---
 
 When building event-driven systems, not every message can be processed successfully. Network failures, schema mismatches, invalid data, and application bugs all contribute to processing failures. Dead Letter Queues (DLQs) provide a systematic approach to handle these failures without losing data or blocking the processing pipeline.
-
 ![Dead Letter Queue flow diagram](images/diagrams/dead-letter-queues-for-error-handling-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌────────────────────────────────────────────────────────────────┐

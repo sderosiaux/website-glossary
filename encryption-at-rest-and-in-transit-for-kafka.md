@@ -15,9 +15,7 @@ This article explores both encryption mechanisms, their implementation in modern
 ## Understanding Encryption in Transit
 
 Encryption in transit protects data as it moves between different components of your Kafka cluster. In a typical Kafka deployment, data flows between producers, brokers, consumers, and administrative tools. Without encryption, this data travels as plaintext across the network, making it vulnerable to interception through packet sniffing or man-in-the-middle attacks.
-
 ![encryption-at-rest-and-in-transit-for-kafka diagram 1](images/diagrams/encryption-at-rest-and-in-transit-for-kafka-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌──────────────────────────────────────────────────────────────────┐

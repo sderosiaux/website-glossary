@@ -39,9 +39,7 @@ For Kafka integration, add these dependencies to your project:
 ## Understanding Windows in Stream Processing
 
 Windows are fundamental constructs in stream processing that segment continuous data streams into bounded collections. Unlike batch processing, where data has natural boundaries, streaming data is unbounded and requires explicit windowing logic to perform aggregations.
-
 ![windowing-in-apache-flink-tumbling-sliding-and-session-windows diagram 1](images/diagrams/windowing-in-apache-flink-tumbling-sliding-and-session-windows-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌──────────────────────────────────────────────────────────────────┐
@@ -95,9 +93,7 @@ Event time provides deterministic results and handles out-of-order events correc
 ### Understanding Watermarks
 
 **Watermarks** are Flink's mechanism for tracking event time progress in the stream. A watermark with timestamp T is an assertion that "all events with timestamps less than T have arrived."
-
 ![windowing-in-apache-flink-tumbling-sliding-and-session-windows diagram 2](images/diagrams/windowing-in-apache-flink-tumbling-sliding-and-session-windows-1.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 Event Stream:  [E1:10:05] [E2:10:03] [E3:10:08] [E4:10:06]
@@ -504,9 +500,7 @@ This governance layer becomes essential when managing multiple Flink jobs consum
 ### Choose the Right Window Type
 
 Selecting the appropriate window type is critical for both correctness and performance. Use this decision tree:
-
 ![Selecting the appropriate window type is critical for both correctness and performance. Use this decision tree](images/diagrams/windowing-in-apache-flink-tumbling-sliding-and-session-windows-2.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌─────────────────────────────────────────────────────────────────────┐

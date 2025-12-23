@@ -16,9 +16,7 @@ A streaming ingestion pipeline continuously captures data from various sourcesâ€
 For foundational understanding of lakehouse concepts, see [Introduction to Lakehouse Architecture](https://conduktor.io/glossary/introduction-to-lakehouse-architecture). To understand CDC as a streaming source, refer to [What is Change Data Capture (CDC)](https://conduktor.io/glossary/what-is-change-data-capture-cdc-fundamentals).
 
 ## Streaming Ingestion Architecture Patterns
-
 ![## Streaming Ingestion Architecture Patterns](images/diagrams/streaming-ingestion-to-lakehouse-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 Direct Write Pattern:

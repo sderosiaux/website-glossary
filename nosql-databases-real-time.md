@@ -350,9 +350,7 @@ Monitoring NoSQL databases in streaming architectures requires visibility across
 
 **Distributed Tracing**:
 Implement end-to-end tracing from event production through Kafka to database writes. OpenTelemetry instrumentation reveals where latency accumulates:
-
 ![Implement end-to-end tracing from event production through Kafka to database writes. OpenTelemetry instrumentation reveals where latency accumulates](images/diagrams/nosql-databases-real-time-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```python
 # OpenTelemetry Tracing for Kafka → MongoDB Pipeline

@@ -14,9 +14,7 @@ topics:
 Apache Iceberg has emerged as a leading table format for data lakes, offering ACID transactions, schema evolution, and time travel capabilities. At the heart of Iceberg's architecture lies the catalog—a critical component responsible for tracking table metadata, managing table locations, and coordinating concurrent operations. Understanding the differences between catalog implementations is essential for data architects and platform engineers building scalable data infrastructures.
 
 This article explores the major catalog solutions available in 2025: the vendor-neutral REST Catalog (recommended for new deployments), traditional Hive Metastore, AWS Glue for cloud-native architectures, and Project Nessie for Git-like versioning workflows. For foundational concepts about Iceberg's architecture, see [Apache Iceberg Table Architecture: Metadata and Snapshots](https://conduktor.io/glossary/iceberg-table-architecture-metadata-and-snapshots).
-
 ![Comparison of Iceberg catalog implementations](images/diagrams/iceberg-catalog-management-hive-glue-and-nessie-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌──────────────────────────────────────────────────────────────────┐

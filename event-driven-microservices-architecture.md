@@ -221,9 +221,7 @@ Modern testing strategies for 2025 include:
 ## Real-World Examples
 
 ### E-commerce Order Processing
-
 ![### E-commerce Order Processing](images/diagrams/event-driven-microservices-architecture-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌──────────────────────────────────────────────────────────────────┐

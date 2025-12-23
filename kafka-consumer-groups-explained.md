@@ -41,9 +41,7 @@ props.put("partition.assignment.strategy", "org.apache.kafka.clients.consumer.Co
 KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
 consumer.subscribe(Arrays.asList("user-events"));
 ```
-
 ![kafka-consumer-groups-explained diagram 1](images/diagrams/kafka-consumer-groups-explained-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌────────────────────────────────────────────────────────────────┐

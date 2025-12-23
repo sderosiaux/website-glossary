@@ -115,9 +115,7 @@ The foundation of trust zones is **network segmentation**. Common patterns inclu
 ### Dedicated Cluster Architectures
 
 For streaming platforms like Apache Kafka, trust zones often translate to **dedicated clusters**:
-
 ![For streaming platforms like Apache Kafka, trust zones often translate to **dedicated clusters**](images/diagrams/trust-zones-streaming-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌─────────────────────────────────────────────────────┐
@@ -325,9 +323,7 @@ Moving data between trust zones requires careful handling to prevent sensitive d
 ### Transformation Pipelines
 
 **Streaming ETL jobs** act as zone boundaries:
-
 ![**Streaming ETL jobs** act as zone boundaries](images/diagrams/trust-zones-streaming-1.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 Restricted Zone (PII)          Confidential Zone (Pseudonymized)

@@ -60,9 +60,7 @@ topics:
 ## Introduction: The Streaming Lakehouse
 
 The lakehouse architecture has fundamentally changed how organizations handle analytics at scale, combining the flexibility of data lakes with the reliability of data warehouses. While early lakehouses were primarily batch-oriented, modern table formats—Delta Lake, Apache Iceberg, Apache Hudi, and Apache Paimon—were built with streaming workloads in mind.
-
 ![Streaming to lakehouse architecture with multiple table formats](images/diagrams/streaming-to-lakehouse-tables-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 STREAMING TO LAKEHOUSE: DATA FLOW AND TABLE FORMATS

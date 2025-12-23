@@ -16,9 +16,7 @@ This AI sprawl creates significant risks. Models trained on outdated data contin
 **AI discovery and monitoring** address this challenge by building systematic visibility into every AI asset across the enterprise. Discovery answers "what AI do we have?", while monitoring answers "how is it performing?" Together, they form the foundation of effective AI governance, enabling organizations to maximize value while managing risk and maintaining compliance.
 
 ## What is AI Discovery?
-
 ![AI Discovery and Monitoring Lifecycle](images/diagrams/ai-discovery-and-monitoring-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌────────────────────────────────────────────────────────────────────┐

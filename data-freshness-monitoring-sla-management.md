@@ -12,9 +12,7 @@ topics:
 In modern data engineering, ensuring that data arrives on time is just as critical as ensuring it arrives correctly. Data freshness monitoring and Service Level Agreement (SLA) management have become essential practices for maintaining reliable data pipelines and meeting business expectations. This article explores how to implement robust freshness monitoring, define meaningful SLAs, and respond effectively when data doesn't meet timeliness requirements.
 
 Freshness is one of the five pillars of data observability, alongside data quality, volume, schema, and lineage. For a comprehensive overview, see [What is Data Observability: The Five Pillars](https://conduktor.io/glossary/what-is-data-observability-the-five-pillars). To understand how freshness relates to other quality dimensions, refer to [Data Quality vs Data Observability: Key Differences](https://conduktor.io/glossary/data-quality-vs-data-observability-key-differences).
-
 ![Data Freshness Pipeline with Timestamps](images/diagrams/data-freshness-monitoring-sla-management-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌──────────────────────────────────────────────────────────────────┐

@@ -14,9 +14,7 @@ In the world of real-time data processing, **Service Level Agreements (SLAs)** d
 A streaming SLA is a formal agreement that specifies the expected quality of service for data streaming infrastructure. It answers critical questions: How fast will messages be delivered? What happens if the system fails? How long will data be retained? These commitments become especially critical in regulated industries like banking, healthcare, and telecommunications, where data latency can have financial, legal, or safety implications.
 
 The fundamental difference between streaming and batch SLAs lies in the **continuous nature** of the commitment. While a batch job SLA might guarantee completion within 4 hours once per day, a streaming SLA must maintain its promises 24/7, across millions of messages, with no scheduled downtime windows.
-
 ![Streaming SLA dimensions showing latency, throughput, availability, and durability](images/diagrams/sla-for-streaming-0.webp)
-
 <!-- ORIGINAL_DIAGRAM
 ```
 ┌──────────────────────────────────────────────────────────────────┐
