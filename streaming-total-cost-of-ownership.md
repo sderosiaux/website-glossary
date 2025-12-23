@@ -7,52 +7,7 @@ topics:
   - FinOps
 ---
 
-## OUTLINE
 
-### 1. Introduction: Beyond the Cloud Bill
-- TCO is more than infrastructure costs
-- Why streaming costs are often underestimated
-- The importance of understanding full TCO
-
-### 2. Infrastructure Costs: The Visible Foundation
-- Compute costs (brokers, consumers, stream processors)
-- Storage costs (retention, tiered storage, cross-region replication)
-- Network costs (ingress, egress, cross-AZ, inter-region)
-
-### 3. Operational Costs: The Human Factor
-- Personnel costs (engineers, SREs, on-call)
-- Tooling and third-party services
-- Training and knowledge transfer
-- Support and vendor relationships
-
-### 4. Hidden Costs: The Silent Budget Killers
-- Debugging and troubleshooting time
-- Incident response and downtime impact
-- Technical debt and architecture complexity
-- Opportunity cost of engineering time
-
-### 5. Cost Drivers and Optimization Strategies
-- Key factors: throughput, retention, replication
-- Right-sizing resources and capacity planning
-- Spot instances and reserved capacity
-- Compaction and data lifecycle management
-- Managed vs self-managed comparison
-
-### 6. Cost Attribution and Governance
-- Per-team and per-topic cost allocation
-- Chargeback models and accountability
-- Governance tools for cost control
-- Setting budgets and alerts
-
-### 7. Building Your TCO Model and Measuring ROI
-- Creating a comprehensive cost model
-- Tracking costs over time
-- Measuring business value vs cost
-- Making build vs buy decisions
-
----
-
-## Introduction: Beyond the Cloud Bill
 
 When organizations evaluate their streaming infrastructure costs, they often focus solely on their cloud provider bills. However, the true Total Cost of Ownership (TCO) for streaming platforms like Apache Kafka extends far beyond monthly infrastructure charges. Understanding the complete picture is essential for making informed decisions about architecture, vendor selection, and resource allocation. For foundational knowledge of Apache Kafka architecture, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
 ![Total cost breakdown of streaming infrastructure](images/diagrams/streaming-total-cost-of-ownership-0.webp)

@@ -7,7 +7,6 @@ topics:
   - Data Integration
 ---
 
-## Introduction: The NewSQL Evolution
 
 For decades, organizations faced a difficult choice when selecting databases. Traditional relational databases (RDBMS) like PostgreSQL and MySQL offered strong ACID guarantees and familiar SQL interfaces, but struggled to scale horizontally. [NoSQL databases](https://conduktor.io/glossary/nosql-databases-real-time) like Cassandra and MongoDB provided massive scalability, but sacrificed transactional consistency and the powerful querying capabilities of SQL.
 

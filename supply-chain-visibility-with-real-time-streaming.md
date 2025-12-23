@@ -9,13 +9,13 @@ topics:
   - visibility
 ---
 
-## The Problem: When Batch Processing Fails Supply Chains
-
 A major electronics retailer discovers a critical problem at 9 AM: their bestselling laptop shows "in stock" on the website, but the Dallas warehouse is actually empty. By noon, 50 customers have ordered the product. The warehouse can't fulfill the orders, but the inventory system won't update until the nightly batch job runs at midnight. Customer service receives angry calls, the warehouse team scrambles to expedite shipments from other locations, and the company loses thousands in overnight shipping costs.
 
 This scenario repeats daily across industries. A pharmaceutical distributor can't track temperature-sensitive vaccines in transit because carrier updates sync every 6 hours. A manufacturer discovers supplier delays only after weekly EDI (Electronic Data Interchange) batch exchanges, causing production line shutdowns. An auto parts company maintains 40% excess inventory because batch-based demand signals arrive too late for accurate forecasting.
 
 The root cause is the same: traditional supply chain systems process data in batches—hourly, nightly, or weekly—creating visibility gaps that cost organizations millions in expedited shipping, excess inventory, stockouts, and lost customers.
+
+## The Problem: When Batch Processing Fails Supply Chains
 
 ## The Challenges of Traditional Supply Chain Systems
 

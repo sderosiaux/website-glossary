@@ -7,7 +7,6 @@ topics:
   - Data Integration
 ---
 
-## Introduction: NoSQL in the Streaming Era
 
 Modern streaming applications generate continuous, high-velocity data that traditional relational databases struggle to handle efficiently. NoSQL databases emerged to address these challenges, offering flexible schemas, horizontal scalability, and optimized write performance that align perfectly with [streaming workloads](https://conduktor.io/glossary/what-is-real-time-data-streaming).
 

@@ -9,55 +9,7 @@ topics:
   - Apache Spark
 ---
 
-## Outline
 
-1. **Introduction: The Streaming Lakehouse**
-   - Evolution from batch to streaming lakehouses
-   - Why table formats matter for real-time data
-
-2. **Table Formats for Streaming Workloads**
-   - ACID transactions in streaming contexts
-   - Time travel and versioning capabilities
-   - Concurrent reads and writes
-
-3. **Delta Lake Streaming Patterns**
-   - Spark Structured Streaming integration (3.5+)
-   - Code examples: Append, merge, and upsert operations
-   - Managing late-arriving data
-   - Modern Delta Lake 3.x features
-
-4. **Apache Iceberg for Stream Processing**
-   - Flink 1.19+ and Spark streaming integration
-   - Code examples: Watermarking and event-time processing
-   - Hidden partitioning advantages
-
-5. **Apache Hudi's Streaming Capabilities**
-   - Copy-on-write vs. merge-on-read
-   - Code examples: Near real-time data ingestion
-   - Incremental processing patterns
-
-6. **Apache Paimon: The Emerging Alternative**
-   - Streaming-first design for Flink ecosystems
-   - Code examples: Native Flink integration
-   - When to choose Paimon
-
-7. **Operational Considerations**
-   - Schema evolution in streaming pipelines
-   - Compaction strategies and file management
-   - Partition management for time-series data
-   - Exactly-once semantics
-
-8. **Governance and Data Quality**
-   - Quality gates before the lakehouse
-   - Modern monitoring tools and metrics
-   - Lineage and observability
-
-9. **Choosing the Right Format: Comparison**
-   - Comparison table and selection guide
-
----
-
-## Introduction: The Streaming Lakehouse
 
 The lakehouse architecture has fundamentally changed how organizations handle analytics at scale, combining the flexibility of data lakes with the reliability of data warehouses. While early lakehouses were primarily batch-oriented, modern table formats—Delta Lake, Apache Iceberg, Apache Hudi, and Apache Paimon—were built with streaming workloads in mind.
 ![Streaming to lakehouse architecture with multiple table formats](images/diagrams/streaming-to-lakehouse-tables-0.webp)

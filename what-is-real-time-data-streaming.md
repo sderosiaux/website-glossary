@@ -7,7 +7,6 @@ topics:
   - Data Architecture
 ---
 
-## Introduction: The Shift from Batch to Real-Time
 
 For decades, organizations processed data in batches—collecting information throughout the day and running analytics jobs overnight or at scheduled intervals. While batch processing remains useful for many scenarios, modern businesses increasingly need to react to events as they happen.
 

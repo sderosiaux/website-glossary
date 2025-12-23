@@ -7,6 +7,12 @@ topics:
   - Data Governance
 ---
 
+In traditional database systems, access control is straightforward: you grant users permissions to read, write, or modify specific tables. But streaming platforms introduce a fundamentally different paradigm. Data flows continuously through topics, multiple consumers may read the same stream simultaneously, and producers can inject events at any moment. This creates unique security challenges.
+
+Consider a financial services company streaming payment transactions. The fraud detection team needs read access, the analytics team needs different data, and the payment processing service needs write access. Without proper access control, a misconfigured consumer could read sensitive customer data, or a rogue producer could inject fraudulent transactions.
+
+Unlike databases where access patterns are relatively static, streaming platforms serve multiple teams with different security clearances, compliance requirements, and data access needs. A single topic might contain data that some teams can read entirely, others can read partially, and some shouldn't access at all. This is where streaming-specific access control becomes critical.
+
 ## Why Access Control Matters in Streaming
 ![Access Control Architecture for Streaming Platforms](images/diagrams/access-control-for-streaming-0.webp)
 <!-- ORIGINAL_DIAGRAM
@@ -34,12 +40,6 @@ topics:
                                                              └─────────┘
 ```
 -->
-
-In traditional database systems, access control is straightforward: you grant users permissions to read, write, or modify specific tables. But streaming platforms introduce a fundamentally different paradigm. Data flows continuously through topics, multiple consumers may read the same stream simultaneously, and producers can inject events at any moment. This creates unique security challenges.
-
-Consider a financial services company streaming payment transactions. The fraud detection team needs read access, the analytics team needs different data, and the payment processing service needs write access. Without proper access control, a misconfigured consumer could read sensitive customer data, or a rogue producer could inject fraudulent transactions.
-
-Unlike databases where access patterns are relatively static, streaming platforms serve multiple teams with different security clearances, compliance requirements, and data access needs. A single topic might contain data that some teams can read entirely, others can read partially, and some shouldn't access at all. This is where streaming-specific access control becomes critical.
 
 ## Kafka ACLs: The Foundation
 

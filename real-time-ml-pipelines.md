@@ -7,7 +7,6 @@ topics:
   - Feature Engineering
 ---
 
-## Introduction: From Batch to Real-Time ML
 
 Traditional machine learning systems operate in batch mode: data is collected, processed overnight or periodically, models are trained on historical data, and predictions are generated in large batches. While this approach works for many scenarios, it fundamentally limits how quickly systems can respond to changing conditions.
 

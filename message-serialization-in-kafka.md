@@ -10,11 +10,11 @@ topics:
   - data-streaming
 ---
 
-## What is Serialization and Why Does It Matter?
-
 Serialization is the process of converting data structures or objects into a byte format that can be transmitted over a network or stored on disk. Deserialization is the reverse process—reconstructing the original data structure from bytes.
 
 In [Apache Kafka](https://conduktor.io/glossary/apache-kafka), every message is stored and transmitted as an array of bytes. This means that before a [producer](https://conduktor.io/glossary/kafka-producers) sends a message to Kafka, it must serialize the data. Similarly, when a consumer reads a message, it must deserialize those bytes back into a meaningful data structure.
+
+## What is Serialization and Why Does It Matter?
 
 The choice of serialization format affects multiple critical aspects of your streaming architecture: message size, processing speed, schema evolution capabilities, interoperability between systems, and developer productivity.
 ![Message serialization flow in Kafka](images/diagrams/message-serialization-in-kafka-0.webp)

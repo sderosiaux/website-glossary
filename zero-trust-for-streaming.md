@@ -7,13 +7,13 @@ topics:
   - Architecture
 ---
 
-## Beyond Perimeter Security
-
 For decades, enterprise security operated on the castle-and-moat principle: build a strong perimeter, and trust everything inside. Firewalls protected the network boundary, and once a service or user was inside, they were largely trusted by default.
 
 Streaming architectures expose the fundamental flaw in this model. Data flows continuously across services, cloud boundaries, and organizational units. A single compromised producer could poison data for hundreds of downstream consumers. A breached consumer could exfiltrate sensitive events in real-time. The attack surface is not a perimeter—it's a mesh of interconnected data flows.
 
 For detailed coverage of traditional access control approaches in streaming, see [Access Control for Streaming](https://conduktor.io/glossary/access-control-for-streaming).
+
+## Beyond Perimeter Security
 
 Zero trust security addresses this reality with a simple principle: **never trust, always verify**. Every request, every connection, and every data access must be authenticated and authorized, regardless of where it originates. There is no "inside" the network. There is no implicit trust.
 

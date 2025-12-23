@@ -7,43 +7,7 @@ topics:
   - Risk Management
 ---
 
-## Outline
 
-1. **Introduction: Understanding High Value Assets**
-   - Definition of HVA
-   - Why HVAs matter in streaming systems
-   - The cost of HVA compromise
-
-2. **Classifying High Value Assets**
-   - Business impact criteria
-   - Sensitivity and regulatory requirements
-   - HVAs in streaming contexts
-
-3. **Discovering and Cataloging HVAs**
-   - Asset inventory processes
-   - Streaming-specific discovery challenges
-   - Maintaining an HVA register
-
-4. **Risk-Based Protection Strategies**
-   - Proportional security controls
-   - Technical safeguards for streaming HVAs
-   - Monitoring and detection
-
-5. **Governance and Compliance**
-   - HVA review and approval workflows
-   - Regulatory requirements
-   - Business continuity planning
-
-6. **Measuring Protection Effectiveness**
-   - Key metrics and indicators
-   - Continuous improvement
-   - Incident response priorities
-
-7. **Conclusion: Building an HVA Program**
-
----
-
-## Introduction: Understanding High Value Assets
 
 Not all data is created equal. In any organization, certain data assets represent disproportionate value—or risk. These **High Value Assets (HVAs)** are the crown jewels that, if compromised, could cause severe business disruption, regulatory penalties, or reputational damage.
 

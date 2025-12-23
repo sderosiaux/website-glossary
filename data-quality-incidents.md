@@ -7,43 +7,6 @@ topics:
   - Incident Management
 ---
 
-## Outline
-
-1. **What is a Data Quality Incident?**
-   - Definition and distinction from normal variance
-   - Impact on streaming systems and downstream consumers
-
-2. **Types of Data Quality Incidents**
-   - Schema violations and format errors
-   - Null explosions and missing data
-   - Duplicate records
-   - Data delays and lag spikes
-
-3. **Detection Methods**
-   - Automated quality checks and validation rules
-   - Anomaly detection and statistical monitoring
-   - User reports and feedback loops
-
-4. **Severity Classification and Incident Response**
-   - Severity levels: critical, high, medium, low
-   - Response process: detect, assess, contain, resolve, review
-   - Root cause analysis for streaming incidents
-
-5. **Communication and Post-Mortems**
-   - Stakeholder notification strategies
-   - Status updates during incidents
-   - Blameless post-mortem practices
-
-6. **Prevention and Metrics**
-   - Data contracts and validation
-   - Testing strategies
-   - Key metrics: MTTD, MTTR, incident frequency
-
-7. **Building Incident Response Playbooks**
-   - Creating runbooks for common scenarios
-   - Tools and automation
-
----
 
 ## What is a Data Quality Incident?
 

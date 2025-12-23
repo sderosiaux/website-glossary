@@ -10,7 +10,6 @@ topics:
   - Security
 ---
 
-## Introduction: What is PII and Why It Matters in Streaming
 
 Personally Identifiable Information (PII) refers to any data that can identify a specific individual. This includes obvious identifiers like social security numbers, email addresses, and phone numbers, as well as less obvious data like IP addresses, device IDs, or combinations of demographic information that could uniquely identify someone.
 

@@ -10,13 +10,13 @@ topics:
   - scalability
 ---
 
-## What is Kafka Partitioning?
-
 In Apache Kafka, a partition is the fundamental unit of parallelism and scalability. Each Kafka topic is divided into one or more partitions, which are ordered, immutable sequences of records. Partitions allow Kafka to distribute data across multiple brokers in a cluster, enabling horizontal scaling and parallel processing by multiple consumers.
 
 When a producer sends a message to a topic, Kafka assigns it to a specific partition. This assignment determines where the data is stored and which consumer in a consumer group will process it. Understanding how this assignment works is critical for building efficient, scalable streaming applications.
 
 Partitions serve three key purposes: they enable data distribution across multiple servers for fault tolerance, they allow parallel processing by multiple consumers, and they provide ordering guarantees within each partition (though not across partitions).
+
+## What is Kafka Partitioning?
 
 For foundational understanding of how partitions fit into Kafka's architecture, see [Kafka Topics, Partitions, Brokers: Core Architecture](https://conduktor.io/glossary/kafka-topics-partitions-brokers-core-architecture).
 ![Kafka partitioning strategies and consumer group mapping](images/diagrams/kafka-partitioning-strategies-and-best-practices-0.webp)

@@ -7,7 +7,6 @@ topics:
   - Streaming Operations
 ---
 
-## Introduction
 
 As streaming platforms become the backbone of modern data architectures, they also become prime targets for security threats. Real-time threat detection applies security monitoring and anomaly detection techniques to identify malicious activities as they occur in streaming infrastructure. Unlike traditional batch-based security analysis, real-time threat detection operates on live [data streams](https://conduktor.io/glossary/what-is-real-time-data-streaming), enabling immediate response to security incidents such as unauthorized access, data exfiltration, and denial-of-service attacks.
 ![Multi-layered threat detection architecture for streaming platforms](images/diagrams/real-time-threat-detection-0.webp)
