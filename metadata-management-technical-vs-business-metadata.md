@@ -10,59 +10,7 @@ topics:
 ---
 
 In modern data architectures, metadata serves as the foundation for understanding, governing, and operationalizing data assets. Yet many organizations struggle to distinguish between technical and business metadata, leading to fragmented governance strategies and missed opportunities for data-driven insights. This article explores the critical differences between these metadata types and demonstrates how mastering both is essential for Data Architects and Data Governance Officers.
-
 ![Technical vs business metadata layers](images/diagrams/metadata-management-technical-vs-business-metadata-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-┌─────────────────────────────────────────────────────────────────┐
-│         METADATA LAYERS: TECHNICAL vs BUSINESS                  │
-└─────────────────────────────────────────────────────────────────┘
-
-                      Data Asset
-                 (Kafka Topic / Table)
-                          │
-        ┌─────────────────┴─────────────────┐
-        │                                   │
-        ▼                                   ▼
-┌────────────────────┐           ┌────────────────────┐
-│ TECHNICAL METADATA │           │ BUSINESS METADATA  │
-├────────────────────┤           ├────────────────────┤
-│ • Schema           │           │ • Definition       │
-│ • Data types       │           │ • Owner/Steward    │
-│ • Partitions       │           │ • Business terms   │
-│ • Compression      │           │ • PII classification│
-│ • File format      │           │ • Criticality      │
-│ • Size/row count   │           │ • Usage context    │
-└────────┬───────────┘           └────────┬───────────┘
-         │                                │
-         │         Operational Metadata   │
-         │              (Bridge)          │
-         │          ┌──────────────┐      │
-         └─────────▶│ Query counts │◀─────┘
-                    │ Access logs  │
-                    │ Performance  │
-                    │ Lineage      │
-                    └──────┬───────┘
-                           │
-                           ▼
-                  ┌─────────────────┐
-                  │ DATA GOVERNANCE │
-                  │  • Discoverability
-                  │  • Quality
-                  │  • Compliance
-                  │  • Optimization
-                  └─────────────────┘
-
-    Audience Mapping:
-    ┌──────────────┬──────────────┬──────────────┐
-    │   Engineers  │     Ops      │   Business   │
-    ├──────────────┼──────────────┼──────────────┤
-    │  Technical   │ Operational  │   Business   │
-    └──────────────┴──────────────┴──────────────┘
-```
--->
-
 ## Understanding the Metadata Landscape
 
 Metadata—data about data—exists in multiple dimensions across your data ecosystem. While all metadata describes characteristics of your data assets, the distinction between technical and business metadata reflects fundamentally different perspectives on the same underlying information.

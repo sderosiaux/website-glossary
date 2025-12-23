@@ -10,43 +10,7 @@ topics:
 ---
 
 Testing streaming applications presents unique challenges that traditional software testing approaches often fail to address. Unlike batch processing or request-response systems, streaming applications operate continuously, process unbounded data, maintain state across time, and handle complex temporal semantics. This article explores effective testing strategies for building reliable streaming applications on platforms like Apache Kafka, Apache Flink, and Kafka Streams. For foundational understanding of Kafka, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
-
 ![Testing pyramid for streaming applications](images/diagrams/testing-strategies-for-streaming-applications-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-STREAMING TESTING PYRAMID
-
-                    ┌──────────────────┐
-                    │   Production     │  Canary Deployments
-                    │   Testing        │  Shadow Testing
-                    └──────────────────┘  Chaos Engineering
-                   ┌────────────────────┐
-                   │  End-to-End Tests  │  Full Pipeline
-                   │  Performance Tests │  Load & Duration
-                   └────────────────────┘  Sustained Throughput
-              ┌──────────────────────────────┐
-              │   Integration Tests          │  TestContainers
-              │   Embedded Kafka/Flink       │  Real Clusters
-              │   Schema Validation          │  Consumer Groups
-              └──────────────────────────────┘
-         ┌────────────────────────────────────────┐
-         │        Unit Tests                      │  TopologyTestDriver
-         │  Stateless Transformations             │  DataStreamHarness
-         │  Time-Based Logic                      │  Manual Time Control
-         │  Business Rules & Filters              │  Fast & Isolated
-         └────────────────────────────────────────┘
-
-KEY TESTING CONCERNS:
-┌──────────────────────────────────────────────────────────────┐
-│ ✓ Event Time vs Processing Time  ✓ Watermarks & Windows     │
-│ ✓ Out-of-Order Events            ✓ State Management         │
-│ ✓ Exactly-Once Semantics         ✓ Schema Evolution         │
-│ ✓ Late-Arriving Data             ✓ Failure Recovery         │
-└──────────────────────────────────────────────────────────────┘
-```
--->
-
 ## The Testing Challenge in Streaming Systems
 
 Streaming applications differ fundamentally from traditional software in several ways that complicate testing. They process infinite streams of events asynchronously, maintain state that evolves over time, and must handle out-of-order events, late arrivals, and failures gracefully.

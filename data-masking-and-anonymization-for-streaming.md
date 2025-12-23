@@ -102,17 +102,7 @@ Implementing data protection in streaming architectures requires deciding where 
 **At the consumer level**: Consumers can apply transformations when reading data. This provides maximum flexibility but requires implementing protection logic in every consumer and doesn't prevent unauthorized consumers from accessing unprotected data.
 
 A common pattern is to use topic-based access control combined with stream processors that publish different versions of data:
-
 ![A common pattern is to use topic-based access control combined with stream processors that publish different versions of data](images/diagrams/data-masking-and-anonymization-for-streaming-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-raw-customer-events → [Flink/Streams] → masked-customer-events
-                                      → anonymized-customer-events
-                                      → aggregated-customer-metrics
-```
--->
-
 Production systems read from raw topics, analytics teams use masked versions, and public dashboards consume aggregated metrics.
 
 ## Modern Tools and 2025 Capabilities

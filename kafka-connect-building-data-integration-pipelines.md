@@ -22,61 +22,7 @@ Kafka Connect operates as a distributed service that runs connector tasks across
 **Connectors** define how data should be copied to or from Kafka. They create and manage tasks that actually move the data. A source connector reads from an external system and writes to Kafka topics, while a sink connector reads from Kafka topics and writes to an external system.
 
 **Tasks** perform the actual work of reading or writing data. Connectors split work into multiple tasks that can run in parallel across different worker nodes, enabling horizontal scalability.
-
 ![kafka-connect-building-data-integration-pipelines diagram 1](images/diagrams/kafka-connect-building-data-integration-pipelines-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-┌──────────────────────────────────────────────────────────────────┐
-│              Kafka Connect Architecture                          │
-├──────────────────────────────────────────────────────────────────┤
-│                                                                    │
-│  ┌────────────────┐                                              │
-│  │  Source System │                                              │
-│  │  (PostgreSQL)  │                                              │
-│  └───────┬────────┘                                              │
-│          │                                                        │
-│          ▼                                                        │
-│  ┌──────────────────────────────────────────────┐               │
-│  │        Source Connector (JDBC)               │               │
-│  │  ┌─────────┐  ┌─────────┐  ┌─────────┐     │               │
-│  │  │ Task 1  │  │ Task 2  │  │ Task 3  │     │               │
-│  │  │table: A │  │table: B │  │table: C │     │               │
-│  │  └────┬────┘  └────┬────┘  └────┬────┘     │               │
-│  └───────┼────────────┼────────────┼───────────┘               │
-│          │            │            │                            │
-│          └────────────┴────────────┘                            │
-│                       │                                          │
-│                       ▼                                          │
-│          ┌────────────────────────┐                             │
-│          │   Kafka Cluster        │                             │
-│          │  ┌──────┐  ┌──────┐   │                             │
-│          │  │topic │  │topic │   │                             │
-│          │  │  A   │  │  B,C │   │                             │
-│          │  └──────┘  └──────┘   │                             │
-│          └────────┬───────────────┘                             │
-│                   │                                              │
-│                   ▼                                              │
-│  ┌──────────────────────────────────────────────┐               │
-│  │     Sink Connector (Elasticsearch)           │               │
-│  │  ┌─────────┐  ┌─────────┐                   │               │
-│  │  │ Task 1  │  │ Task 2  │                   │               │
-│  │  │part: 0-2│  │part: 3-5│                   │               │
-│  │  └────┬────┘  └────┬────┘                   │               │
-│  └───────┼────────────┼───────────────────────  │               │
-│          │            │                                          │
-│          └────────────┘                                          │
-│                   │                                              │
-│                   ▼                                              │
-│          ┌────────────────┐                                     │
-│          │ Target System  │                                     │
-│          │(Elasticsearch) │                                     │
-│          └────────────────┘                                     │
-│                                                                    │
-└──────────────────────────────────────────────────────────────────┘
-```
--->
-
 ## Source Connectors: Ingesting Data into Kafka
 
 Source connectors bring data from external systems into Kafka topics. They handle the complexity of reading from different data sources while providing features like exactly-once semantics (ensuring each record is delivered exactly once, even during failures), schema management, and offset tracking.

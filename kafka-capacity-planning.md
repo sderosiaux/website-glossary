@@ -13,52 +13,7 @@ topics:
 Capacity planning is one of the most critical tasks when deploying Apache Kafka in production. Underestimate your needs, and you risk performance degradation or outages. Overestimate, and you waste resources and budget. Getting it right requires understanding your workload characteristics and how Kafka's architecture translates into infrastructure requirements.
 
 This guide walks through the essential aspects of Kafka capacity planning, from calculating throughput to sizing storage and network resources.
-
 ![Kafka capacity planning resource dimensions](images/diagrams/kafka-capacity-planning-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-Kafka Capacity Planning: Key Resource Dimensions
-
-                    ┌─────────────────────────────┐
-                    │   Workload Requirements     │
-                    │ • Messages/sec              │
-                    │ • Message size              │
-                    │ • Retention period          │
-                    │ • Replication factor        │
-                    └──────────────┬──────────────┘
-                                   │
-                ┌──────────────────┼──────────────────┐
-                │                  │                  │
-        ┌───────▼────────┐  ┌──────▼──────┐  ┌──────▼───────┐
-        │  STORAGE       │  │  NETWORK    │  │  COMPUTE     │
-        │                │  │             │  │              │
-        │ Disk space =   │  │ Bandwidth = │  │ CPU for:     │
-        │ msg/s × size × │  │ (Producer + │  │ • Compression│
-        │ retention ×    │  │  Consumer + │  │ • Encryption │
-        │ RF             │  │  Replication│  │ • Replication│
-        │                │  │  traffic) × │  │              │
-        │ Hot (NVMe):    │  │  peak_factor│  │ Memory for:  │
-        │ 1-7 days       │  │             │  │ • Page cache │
-        │                │  │ 25GbE min   │  │ • Buffers    │
-        │ Cold (S3):     │  │ 100GbE rec  │  │              │
-        │ 8+ days        │  │             │  │ 8-16 cores   │
-        └────────────────┘  └─────────────┘  └──────────────┘
-                │                  │                  │
-                └──────────────────┼──────────────────┘
-                                   │
-                    ┌──────────────▼──────────────┐
-                    │   Broker Count Calculation  │
-                    │                             │
-                    │ max( throughput/per_broker, │
-                    │      storage/per_broker,    │
-                    │      fault_tolerance_min )  │
-                    │                             │
-                    │ Add 20-30% headroom         │
-                    └─────────────────────────────┘
-```
--->
-
 ## KRaft Mode and Modern Kafka Architecture (2025)
 
 With Kafka 4.0+ running in KRaft mode (without ZooKeeper), capacity planning has evolved significantly. KRaft mode eliminates the need for separate ZooKeeper servers, reducing your infrastructure footprint and operational complexity.

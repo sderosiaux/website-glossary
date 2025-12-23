@@ -29,62 +29,7 @@ Most production systems use [real-time inference](/real-time-ml-inference-with-s
 ## Architecture Components
 
 A complete real-time ML pipeline consists of several interconnected layers:
-
 ![A complete real-time ML pipeline consists of several interconnected layers](images/diagrams/real-time-ml-pipelines-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-           Real-Time ML Pipeline Architecture
-
-┌──────────────────────────────────────────────────┐
-│         Data Sources (Events)                    │
-│  Transactions │ Clicks │ Sensors │ API Calls    │
-└────────────────┬─────────────────────────────────┘
-                 │
-                 ▼
-      ┌──────────────────────┐
-      │  Streaming Platform  │
-      │   (Kafka/Kinesis)    │
-      └──────────┬───────────┘
-                 │
-                 ▼
-      ┌──────────────────────┐
-      │ Feature Engineering  │
-      │  (Flink/Spark/ksql)  │
-      │ • Windowed aggs      │
-      │ • Joins & enrichment │
-      │ • Derived metrics    │
-      └──────────┬───────────┘
-                 │
-                 ▼
-      ┌──────────────────────┐
-      │   Feature Store      │
-      ├──────────────────────┤
-      │ Online  │  Offline   │
-      │ (Redis) │ (S3/Delta) │
-      └────┬─────┴──────┬────┘
-           │            │
-    Serving│            │Training
-           ▼            ▼
-      ┌─────────┐  ┌─────────┐
-      │  Model  │  │ Model   │
-      │ Serving │  │Training │
-      └────┬────┘  └────┬────┘
-           │            │
-           ▼            │
-      ┌─────────┐       │
-      │Response │       │
-      └─────────┘       │
-           │            │
-           └────┬───────┘
-                ▼
-         ┌──────────────┐
-         │  Monitoring  │
-         │ & Feedback   │
-         └──────────────┘
-```
--->
-
 ### Feature Engineering Layer
 
 Raw events from Kafka, Kinesis, or other [streaming platforms](/what-is-real-time-data-streaming) rarely match the feature vectors models expect. The feature engineering layer transforms streaming events into ML-ready features through:
@@ -121,17 +66,7 @@ Once features are ready, models must generate predictions within strict latency 
 ### Feedback Loops
 
 Real-time ML systems must capture prediction outcomes to detect [model drift](/model-drift-in-streaming) and retrain:
-
 ![Real-time ML systems must capture prediction outcomes to detect [model drift](/model-drift-in-streaming) and retrain](images/diagrams/real-time-ml-pipelines-1.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-Event → Features → Prediction → Action → Outcome → Training Data
-                       ↓
-                  Monitoring
-```
--->
-
 Outcomes (was the prediction correct?) feed back into training pipelines, creating continuous improvement cycles. See [data drift in streaming](/data-drift-in-streaming) for detection strategies.
 
 ---
@@ -275,17 +210,6 @@ Example targets:
 
 **Latency budget breakdown**:
 ![**Latency budget breakdown**](images/diagrams/real-time-ml-pipelines-2.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-Total: 50ms (p99)
-├─ Feature lookup: 10ms
-├─ Feature computation: 15ms
-├─ Model inference: 20ms
-└─ Overhead: 5ms
-```
--->
-
 Instrument each component to identify bottlenecks.
 
 ### Feature Quality Monitoring
@@ -337,50 +261,7 @@ For example, Conduktor can enforce that all events in the `transactions` topic i
 **Real-time requirements**: Evaluate transactions before authorization (50-100ms)
 
 For comprehensive coverage, see [real-time fraud detection with streaming](/real-time-fraud-detection-with-streaming).
-
 ![real-time-ml-pipelines diagram 4](images/diagrams/real-time-ml-pipelines-3.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-      Fraud Detection Real-Time Pipeline
-
-Transaction Event
-      │
-      ▼
-┌──────────────┐
-│    Kafka     │
-└──────┬───────┘
-       │
-       ▼
-┌──────────────────┐
-│  Flink Stream    │
-│  • Velocity aggs │
-│  • Pattern match │
-└──────┬───────────┘
-       │
-       ▼
-┌──────────────────┐
-│  Feature Store   │
-│  • User profile  │
-│  • Device history│
-└──────┬───────────┘
-       │
-       ▼
-┌──────────────────┐
-│  Model Serving   │
-│  Fraud Score:    │
-│  0.92 (HIGH)     │
-└──────┬───────────┘
-       │
-       ▼
-┌──────────────────┐
-│ Decision Service │
-│  → DECLINE       │
-└──────────────────┘
-   (< 100ms total)
-```
--->
-
 **Features**:
 - Velocity: Transaction count in last 1h/24h/7d
 - Behavioral: Distance from user's typical transaction amount/merchant

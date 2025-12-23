@@ -14,43 +14,7 @@ In distributed streaming systems, data flows continuously from producers through
 ## What is Backpressure?
 
 Backpressure is the resistance or feedback signal that occurs when a downstream system component cannot process data as quickly as it's being produced upstream. Think of it like water flowing through connected pipes of different diameters—when a narrow pipe can't handle the flow from a wider one, pressure builds up.
-
 ![backpressure-handling-in-streaming-systems diagram 1](images/diagrams/backpressure-handling-in-streaming-systems-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-┌─────────────────────────────────────────────────────────────────┐
-│              Backpressure in Streaming Pipeline                 │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│  Fast Producer          Kafka Buffer        Slow Consumer       │
-│  ┌───────────┐         ┌──────────┐         ┌───────────┐      │
-│  │           │ 10k/sec │          │ 5k/sec  │           │      │
-│  │ Sensors   │────────▶│  Topic   │────────▶│ Database  │      │
-│  │           │         │          │         │  Writer   │      │
-│  └───────────┘         └────┬─────┘         └───────────┘      │
-│                             │                                   │
-│                             │ Lag Growing                       │
-│                             ▼                                   │
-│                  ┌─────────────────────┐                        │
-│                  │   Consumer Lag      │                        │
-│                  │   ▓▓▓▓▓▓▓▓▓▓░░░░░   │                        │
-│                  │   50,000 messages   │                        │
-│                  └─────────────────────┘                        │
-│                             │                                   │
-│                             ▼                                   │
-│              ┌─────────────────────────────┐                    │
-│              │  Backpressure Strategies:  │                    │
-│              │  1. Throttle producer      │                    │
-│              │  2. Scale consumers        │                    │
-│              │  3. Batch writes           │                    │
-│              │  4. Sample data            │                    │
-│              └─────────────────────────────┘                    │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
-```
--->
-
 In streaming systems, backpressure manifests when:
 
 - Producers generate events faster than consumers can process them

@@ -18,52 +18,7 @@ A low-latency pipeline typically targets end-to-end latencies under 100 millisec
 ## Understanding Latency Sources
 
 Before optimizing for low latency, you must identify where time is being spent. Latency accumulates across multiple dimensions of your pipeline:
-
 ![Before optimizing for low latency, you must identify where time is being spent. Latency accumulates across multiple dimensions of your pipeline](images/diagrams/low-latency-pipeline-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-End-to-End Latency Breakdown:
-┌─────────────┐
-│   Event     │
-│  Occurs     │
-└──────┬──────┘
-       │
-       ▼ Network transmission (5-50ms)
-┌─────────────────────────────────────┐
-│    Message Broker (Kafka)           │
-│  • Serialization (1-10ms)           │
-│  • Broker write (1-5ms)             │
-│  • Replication (5-20ms)             │
-└──────┬──────────────────────────────┘
-       │
-       ▼ Network + Queue wait (5-100ms)
-┌─────────────────────────────────────┐
-│    Stream Processor                 │
-│  • Deserialization (1-10ms)         │
-│  • Business logic (5-50ms)          │
-│  • External lookups (10-100ms)      │
-│  • State access (1-20ms)            │
-└──────┬──────────────────────────────┘
-       │
-       ▼ Output write (5-50ms)
-┌─────────────────────────────────────┐
-│    Sink/Output                      │
-│  • Serialization (1-10ms)           │
-│  • Write operation (5-100ms)        │
-│  • GC pauses (0-200ms spikes)       │
-└──────┬──────────────────────────────┘
-       │
-       ▼
-┌─────────────┐
-│   Response  │
-│   Ready     │
-└─────────────┘
-
-Total: 30-500ms+ (varies by optimization)
-```
--->
-
 **Network transmission** often represents the most significant and variable component. Data traveling across regions or poorly configured networks can introduce tens to hundreds of milliseconds. Even within a data center, network congestion and routing decisions impact latency.
 
 **Serialization and deserialization** impose CPU overhead that many developers underestimate. Converting objects to bytes and back isn't free—the choice between JSON, Avro, or Protocol Buffers can mean the difference between 5ms and 50ms per message at scale.

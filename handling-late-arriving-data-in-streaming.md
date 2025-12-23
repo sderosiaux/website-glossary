@@ -14,44 +14,7 @@ One of the most challenging aspects of stream processing is dealing with data th
 ## Understanding Event Time vs Processing Time
 
 The root of the late data problem lies in the difference between two fundamental time concepts in streaming systems.
-
 ![handling-late-arriving-data-in-streaming diagram 1](images/diagrams/handling-late-arriving-data-in-streaming-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-┌──────────────────────────────────────────────────────────────────┐
-│            Event Time vs Processing Time                         │
-├──────────────────────────────────────────────────────────────────┤
-│                                                                  │
-│  Event Time (when event occurred)                                │
-│  ────────────────────────────────────────────────────────▶       │
-│  10:00    10:05    10:10    10:15    10:20    10:25             │
-│    │       │        │        │        │        │                 │
-│    ●───────●────────●────────●────────●────────●  Ideal         │
-│    │       │        │        │        │        │  (in-order)    │
-│    │       │        │        │        │        │                 │
-│    │       │        │   ┌────┼────────┼────┐   │                 │
-│    │       │        │   │    │        │    │   │  Reality       │
-│    ●───────●────────●───┼────●────────●────┼───●  (out-of-order)│
-│    │       │        │   │              │   │                     │
-│    ▼       ▼        ▼   ▼              ▼   ▼                     │
-│  10:01   10:06   10:11 10:18        10:22 10:14  ◀── Late!      │
-│                                                                  │
-│  Processing Time (when system processes event)                   │
-│  ────────────────────────────────────────────────────────▶       │
-│                                                                  │
-│  ┌────────────────────────────────────────────────────────────┐ │
-│  │  Watermark: Estimate of event time progress               │ │
-│  │  ════════════════════════▶ 10:15                           │ │
-│  │  "All events before 10:15 have likely arrived"            │ │
-│  │                                                            │ │
-│  │  Event at 10:12 arrives at 10:23 → Late by 11 minutes     │ │
-│  └────────────────────────────────────────────────────────────┘ │
-│                                                                  │
-└──────────────────────────────────────────────────────────────────┘
-```
--->
-
 **Event time** is when an event actually occurred in the real world. For example, when a sensor reading was taken, when a user clicked a button, or when a financial transaction was initiated. This timestamp is typically embedded in the event payload itself.
 
 **Processing time** is when the streaming system processes the event. This is when your Kafka consumer reads the message or when your Flink job processes the record.
@@ -81,47 +44,7 @@ Modern stream processing frameworks provide several mechanisms for handling late
 ### Watermarks
 
 Watermarks are the primary mechanism for tracking event time progress in streaming systems. A watermark is a special signal that indicates "all events with timestamps less than T have been seen." More precisely, a watermark represents a heuristic estimate of event time progress.
-
 ![handling-late-arriving-data-in-streaming diagram 2](images/diagrams/handling-late-arriving-data-in-streaming-1.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-┌──────────────────────────────────────────────────────────────────┐
-│              Watermark and Allowed Lateness                      │
-├──────────────────────────────────────────────────────────────────┤
-│                                                                  │
-│  Window [10:00 - 10:15]                                          │
-│  ┌────────────────────────────────────────────────────┐          │
-│  │ Events arriving:                                   │          │
-│  │ 10:02 ● 10:05 ● 10:08 ● 10:12 ● 10:14 ●           │          │
-│  └────────────────────────────────────────────────────┘          │
-│                             │                                    │
-│                             │ Watermark advances to 10:15:01     │
-│                             ▼                                    │
-│  ┌────────────────────────────────────────────────────┐          │
-│  │ Window closes, emit result                         │          │
-│  │ But keep state for allowed lateness (5 min)        │          │
-│  └────────────────────────────────────────────────────┘          │
-│                             │                                    │
-│         ┌───────────────────┴───────────────────┐                │
-│         │                                       │                │
-│         ▼                                       ▼                │
-│  Event at 10:13                          Event at 10:11         │
-│  arrives at 10:17                        arrives at 10:22       │
-│  (2 min late)                            (11 min late)          │
-│         │                                       │                │
-│         ▼                                       ▼                │
-│  ┌─────────────────┐                   ┌─────────────────┐      │
-│  │ Within allowed  │                   │ Beyond allowed  │      │
-│  │ lateness        │                   │ lateness        │      │
-│  │ → Recompute     │                   │ → Side output   │      │
-│  │ → Emit update   │                   │ → Late stream   │      │
-│  └─────────────────┘                   └─────────────────┘      │
-│                                                                  │
-└──────────────────────────────────────────────────────────────────┘
-```
--->
-
 For example, a watermark of 10:15:00 suggests that the system has likely received all events with timestamps before 10:15:00. When a window computation spans 10:00:00 to 10:15:00, the system can trigger the computation and produce results once the watermark advances past 10:15:00.
 
 Watermarks are necessarily heuristic because stream processing systems cannot know with certainty whether more late data will arrive. The watermark strategy must balance completeness (waiting longer to include more late data) against latency (producing results quickly).

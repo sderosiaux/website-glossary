@@ -17,57 +17,7 @@ This article explores common patterns for cross-organization data sharing, the r
 ## Common Data Sharing Patterns
 
 Organizations use several architectural patterns to share data, each with distinct characteristics and trade-offs.
-
 ![cross-organization-data-sharing-patterns diagram 1](images/diagrams/cross-organization-data-sharing-patterns-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-Point-to-Point Integration:
-┌──────────┐  Direct     ┌──────────┐  Direct     ┌──────────┐
-│  Org A   │────────────▶│  Org B   │────────────▶│  Org C   │
-└──────────┘  Connection └────┬─────┘  Connection └──────────┘
-                              │
-                              │ N(N-1)/2 connections
-                              ▼
-                         ┌──────────┐
-                         │  Org D   │
-                         └──────────┘
-
-Hub-and-Spoke Pattern:
-                    ┌──────────────────┐
-                    │   Central Hub    │
-                    │ (Data Platform/  │
-                    │  Event Broker)   │
-                    └────────┬─────────┘
-                             │
-        ┌────────────────────┼────────────────────┐
-        │                    │                    │
-        ▼                    ▼                    ▼
-   ┌──────────┐         ┌──────────┐         ┌──────────┐
-   │  Org A   │         │  Org B   │         │  Org C   │
-   │(Producer)│         │(Consumer)│         │(Consumer)│
-   └──────────┘         └──────────┘         └──────────┘
-
-Event-Driven Mesh:
-   ┌──────────┐         ┌──────────┐         ┌──────────┐
-   │  Org A   │────┐    │  Org B   │    ┌────│  Org C   │
-   │          │    │    │          │    │    │          │
-   └──────────┘    │    └──────────┘    │    └──────────┘
-                   │         │          │
-                   ▼         ▼          ▼
-              ┌────────────────────────────┐
-              │   Streaming Platform       │
-              │   (Kafka/Pulsar Topics)    │
-              └────────────────────────────┘
-                   │         │          │
-                   ▼         ▼          ▼
-   ┌──────────┐    │    ┌──────────┐   │    ┌──────────┐
-   │  Org D   │────┘    │  Org E   │   └────│  Org F   │
-   │          │         │          │        │          │
-   └──────────┘         └──────────┘        └──────────┘
-```
--->
-
 ### Point-to-Point Integration
 
 The simplest approach connects two organizations through direct integration. One system sends data via APIs, file transfers, or database connections to another system. This pattern works well for limited partnerships but becomes difficult to manage as the number of connections grows. With N organizations, you potentially need N(N-1)/2 connections.

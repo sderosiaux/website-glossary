@@ -201,46 +201,7 @@ As of 2025, the CDC landscape has matured with several production-ready options:
 ### CDC Architecture Pattern
 
 A typical CDC streaming architecture looks like this:
-
 ![A typical CDC streaming architecture looks like this](images/diagrams/what-is-change-data-capture-cdc-fundamentals-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-┌─────────────────────┐
-│  Source Database    │
-│  (PostgreSQL/MySQL) │
-└──────────┬──────────┘
-           │ Transaction Log
-           ▼
-┌─────────────────────┐
-│  CDC Connector      │
-│  (Debezium)         │
-└──────────┬──────────┘
-           │ Change Events
-           ▼
-┌─────────────────────────────────────────┐
-│  Kafka Topic                            │
-│  prod-server.public.orders              │
-│  ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐      │
-│  │ P0  │ │ P1  │ │ P2  │ │ P3  │      │
-│  └─────┘ └─────┘ └─────┘ └─────┘      │
-└────┬──────────┬──────────┬─────────────┘
-     │          │          │
-     ▼          ▼          ▼
-┌─────────┐ ┌─────────┐ ┌──────────────┐
-│ Flink   │ │ Kafka   │ │ Custom       │
-│ Stream  │ │ Streams │ │ Consumers    │
-│ Job     │ │ App     │ │              │
-└────┬────┘ └────┬────┘ └──────┬───────┘
-     │           │              │
-     ▼           ▼              ▼
-┌──────────┐ ┌────────┐ ┌──────────────┐
-│ Data     │ │ Cache  │ │ Search Index │
-│ Warehouse│ │ (Redis)│ │ (Elastic)    │
-└──────────┘ └────────┘ └──────────────┘
-```
--->
-
 In this architecture:
 
 1. **CDC Connector** reads the database transaction log and converts changes into events

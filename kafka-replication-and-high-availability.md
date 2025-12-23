@@ -17,52 +17,7 @@ Understanding how Kafka achieves fault tolerance is essential for anyone designi
 ## Understanding Kafka Replication
 
 Kafka replication works by maintaining multiple copies of data across different brokers in a cluster. When you create a topic, you specify a replication factor that determines how many copies of each partition will exist. For detailed coverage of topics, partitions, and brokers, see [Kafka Topics, Partitions, Brokers: Core Architecture](https://conduktor.io/glossary/kafka-topics-partitions-brokers-core-architecture).
-
 ![kafka-replication-and-high-availability diagram 1](images/diagrams/kafka-replication-and-high-availability-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-┌─────────────────────────────────────────────────────────────────┐
-│          Kafka Replication (Replication Factor: 3)              │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                   │
-│  Topic: orders, Partition 0                                     │
-│                                                                   │
-│  ┌──────────────┐        ┌──────────────┐      ┌─────────────┐ │
-│  │   Broker 1   │        │   Broker 2   │      │  Broker 3   │ │
-│  │  [LEADER]    │        │  [FOLLOWER]  │      │ [FOLLOWER]  │ │
-│  │              │        │              │      │             │ │
-│  │  Partition 0 │        │  Partition 0 │      │ Partition 0 │ │
-│  │  ┌────────┐  │        │  ┌────────┐  │      │ ┌────────┐  │ │
-│  │  │ msg 0  │  │───────▶│  │ msg 0  │  │      │ │ msg 0  │  │ │
-│  │  │ msg 1  │  │───────▶│  │ msg 1  │  │      │ │ msg 1  │  │ │
-│  │  │ msg 2  │  │───────▶│  │ msg 2  │  │◀─────│ │ msg 2  │  │ │
-│  │  │ msg 3  │  │        │  │ msg 3  │  │      │ │ msg 3  │  │ │
-│  │  └────────┘  │        │  └────────┘  │      │ └────────┘  │ │
-│  │   offset: 3  │        │   offset: 3  │      │  offset: 3  │ │
-│  └──────▲───────┘        └──────────────┘      └─────────────┘ │
-│         │                                                        │
-│         │ Produce (acks=all)                                   │
-│         │ Wait for ISR confirmation                             │
-│  ┌──────┴───────┐                                               │
-│  │   Producer   │                                               │
-│  └──────────────┘                                               │
-│                                                                   │
-│  ISR (In-Sync Replicas): [Broker 1, Broker 2, Broker 3]        │
-│  min.insync.replicas: 2                                         │
-│                                                                   │
-│  ┌─────────────────────────────────────────────────────────┐   │
-│  │  If Broker 1 fails:                                     │   │
-│  │  1. Controller detects failure                          │   │
-│  │  2. Broker 2 or 3 elected as new leader                │   │
-│  │  3. ISR updated: [Broker 2, Broker 3]                  │   │
-│  │  4. Clients automatically reconnect to new leader      │   │
-│  └─────────────────────────────────────────────────────────┘   │
-│                                                                   │
-└─────────────────────────────────────────────────────────────────┘
-```
--->
-
 For example, with a replication factor of 3, each partition has one leader and two followers. The leader handles all read and write requests, while followers continuously replicate data from the leader. If the leader fails, one of the followers automatically becomes the new leader.
 
 This design provides fault tolerance without requiring complex coordination protocols during normal operations. Writers and readers only interact with the leader, which simplifies the programming model while maintaining strong consistency guarantees.

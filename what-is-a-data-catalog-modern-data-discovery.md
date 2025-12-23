@@ -5,56 +5,7 @@ topics: ["Data Catalog", "Data Discovery", "Metadata Management", "Data Governan
 ---
 
 In today's data-driven organizations, data assets are scattered across databases, data lakes, cloud storage, and streaming platforms. Teams struggle to answer basic questions: What data do we have? Where is it? Can I trust it? Who owns it? This is where a **data catalog** becomes essential—acting as a searchable inventory of all your organization's data assets.
-
 ![Data catalog connecting multiple data sources](images/diagrams/what-is-a-data-catalog-modern-data-discovery-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-DATA CATALOG: UNIFIED METADATA & DISCOVERY LAYER
-
-DATA SOURCES (Scattered Across Organization):
-┌────────────┬──────────────┬─────────────┬───────────────┐
-│ Databases  │ Data Lakes   │ Streaming   │ Warehouses    │
-│ PostgreSQL │ S3/ADLS/GCS  │ Kafka       │ Snowflake     │
-│ MongoDB    │ Iceberg      │ Kinesis     │ BigQuery      │
-│ MySQL      │ Delta Lake   │ Pulsar      │ Redshift      │
-└─────┬──────┴──────┬───────┴──────┬──────┴───────┬───────┘
-      │             │              │              │
-      └─────────────┴──────────────┴──────────────┘
-                         │
-                         ▼
-              ┌──────────────────────┐
-              │   DATA CATALOG       │
-              │  (Central Metadata)  │
-              ├──────────────────────┤
-              │ • Schema & Structure │
-              │ • Data Lineage       │
-              │ • Quality Metrics    │
-              │ • Ownership Info     │
-              │ • Usage Statistics   │
-              │ • Tags & Glossary    │
-              └──────────┬───────────┘
-                         │
-           ┌─────────────┼─────────────┐
-           ▼             ▼             ▼
-    ┌──────────┐  ┌──────────┐  ┌──────────┐
-    │ Search & │  │ Lineage  │  │ Access   │
-    │ Discover │  │ Tracking │  │ Control  │
-    └──────────┘  └──────────┘  └──────────┘
-           │             │             │
-           └─────────────┼─────────────┘
-                         ▼
-                  ┌────────────┐
-                  │   USERS    │
-                  │ Analysts   │
-                  │ Engineers  │
-                  │ Scientists │
-                  └────────────┘
-
-BENEFITS: Fast Discovery • Trust • Compliance • Collaboration
-```
--->
-
 ## Understanding Data Catalogs
 
 A data catalog is a centralized metadata repository that helps organizations discover, understand, and manage their data assets. Think of it as a library catalog, but instead of books, it indexes datasets, tables, streams, dashboards, and other data resources.

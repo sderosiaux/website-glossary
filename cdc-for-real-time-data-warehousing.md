@@ -80,48 +80,7 @@ A typical CDC streaming architecture includes:
 **Apache Flink** or other stream processors consume CDC events from Kafka, transform them as needed, and write to the data warehouse. Flink provides exactly-once processing semantics (guaranteeing each change event is processed once and only once, even during failures), stateful operations, and windowing capabilities essential for complex transformations. For details on guaranteeing data consistency, see [Exactly-Once Semantics in Kafka](https://conduktor.io/glossary/exactly-once-semantics-in-kafka).
 
 ### Reference Architecture
-
 ![### Reference Architecture](images/diagrams/cdc-for-real-time-data-warehousing-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-┌─────────────────────────────────────────────────────────────┐
-│                  CDC to Data Warehouse Pipeline              │
-└─────────────────────────────────────────────────────────────┘
-
-  ┌─────────────────┐
-  │ Source Database │  Operational System
-  │   (PostgreSQL)  │  (OLTP)
-  └────────┬────────┘
-           │ Transaction Log (WAL)
-           ▼
-  ┌─────────────────┐
-  │    Debezium     │  Log-based CDC
-  │   Connector     │  (Kafka Connect)
-  └────────┬────────┘
-           │ Change Events (JSON/Avro)
-           ▼
-  ┌─────────────────────────────────────┐
-  │         Apache Kafka                │
-  │  ┌──────────┐  ┌──────────┐        │  Event Streaming
-  │  │customers │  │ orders   │  ...   │  Platform
-  │  └──────────┘  └──────────┘        │
-  └────────┬────────────────────────────┘
-           │ Stream Processing
-           ▼
-  ┌─────────────────┐
-  │  Apache Flink   │  Transformations
-  │  Kafka Streams  │  - Filtering
-  └────────┬────────┘  - Enrichment
-           │           - Aggregation
-           ▼
-  ┌─────────────────┐
-  │  Data Warehouse │  Analytical System
-  │ Snowflake / BQ  │  (OLAP)
-  └─────────────────┘
-```
--->
-
 ### Debezium Configuration Example
 
 ```json

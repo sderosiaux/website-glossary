@@ -76,68 +76,7 @@ Consider an e-commerce company migrating from a monolithic order management syst
 The legacy monolith handles order creation, inventory checks, payment processing, and fulfillment through a shared database. Making changes requires coordinating across teams and deploying the entire application.
 
 ### Migration Strategy with Event Streaming
-
 ![### Migration Strategy with Event Streaming](images/diagrams/strangler-fig-pattern-with-event-streaming-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-      Strangler Fig Migration: Phase by Phase
-
-Phase 1: Event Infrastructure
-┌────────────────────────────────────────┐
-│     Legacy Monolith                    │
-│  ┌──────────────────────────────────┐  │
-│  │ Orders │ Inventory │ Payment     │  │
-│  └────┬───────────────────────────┬─┘  │
-│       │                           │    │
-└───────┼───────────────────────────┼────┘
-        │ CDC                       │
-        └───────────┬───────────────┘
-                    ▼
-            ┌──────────────┐
-            │  Kafka       │
-            └──────────────┘
-
-
-Phase 3: Partial Migration
-┌────────────────────────────────────────┐
-│     Legacy Monolith                    │
-│  ┌──────────────────────────────────┐  │
-│  │ Orders │          │ Fulfillment  │  │
-│  └────┬───────────────────────────┬─┘  │
-└───────┼───────────────────────────┼────┘
-        │                           │
-        └───────┬───────────────────┘
-                ▼
-        ┌──────────────┐
-        │    Kafka     │
-        └───┬──────┬───┘
-            │      │
-    ┌───────┘      └───────┐
-    ▼                      ▼
-┌─────────┐          ┌──────────┐
-│Inventory│          │ Payment  │
-│ Service │          │ Service  │
-└─────────┘          └──────────┘
-   NEW                   NEW
-
-
-Phase 5: Complete Migration
-        ┌──────────────┐
-        │    Kafka     │
-        └───┬──┬───┬───┘
-            │  │   │
-    ┌───────┘  │   └────────┐
-    ▼          ▼            ▼
-┌─────────┐ ┌─────┐  ┌──────────┐
-│ Order   │ │Invty│  │ Payment  │
-│ Service │ │Svc  │  │ Service  │
-└─────────┘ └─────┘  └──────────┘
-
-     Legacy Monolith: DECOMMISSIONED ✓
-```
--->
-
 **Phase 1: Event Infrastructure**
 Deploy Kafka as the event backbone. Implement CDC on the legacy database to capture order events. The legacy system continues operating unchanged.
 

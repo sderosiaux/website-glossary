@@ -42,52 +42,7 @@ These inconsistencies lead to data loss, duplicate processing, and complex recov
 The outbox pattern transforms the dual-write problem into a single-write problem by treating event publishing as part of the database transaction.
 
 The pattern introduces an "outbox" table within the application's database. Instead of publishing events directly to a message broker, the application writes events to this table in the same transaction as the business data:
-
 ![The pattern introduces an "outbox" table within the application's database. Instead of publishing events directly to a message broker, the application writes events to this table in the same transaction as the business data](images/diagrams/outbox-pattern-for-reliable-event-publishing-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-┌─────────────────────────────────────────────────────────────┐
-│                   Outbox Pattern Flow                       │
-└─────────────────────────────────────────────────────────────┘
-
-  ┌──────────────┐
-  │ Application  │
-  │   Service    │
-  └──────┬───────┘
-         │ Single Transaction
-         ▼
-  ┌──────────────────────────────┐
-  │      Database (ACID)         │
-  │  ┌────────────────────────┐  │
-  │  │   Business Tables      │  │  Step 1: Write business data
-  │  │   (orders, customers)  │  │         AND event to outbox
-  │  └────────────────────────┘  │         in same transaction
-  │  ┌────────────────────────┐  │
-  │  │   Outbox Table         │  │
-  │  │  - aggregate_id        │  │
-  │  │  - event_type          │  │
-  │  │  - payload             │  │
-  │  └────────────────────────┘  │
-  └──────────────┬───────────────┘
-                 │
-                 ▼ CDC (Debezium) or Polling
-  ┌──────────────────────────────┐
-  │       Message Relay          │  Step 2: Read outbox and
-  │   (Debezium/Polling)         │         publish to broker
-  └──────────────┬───────────────┘
-                 │
-                 ▼
-  ┌──────────────────────────────┐
-  │       Apache Kafka           │
-  │  ┌────────┐  ┌────────┐      │  Step 3: Events available
-  │  │orders. │  │customer│      │         to consumers
-  │  │created │  │.updated│      │
-  │  └────────┘  └────────┘      │
-  └──────────────────────────────┘
-```
--->
-
 A separate process then reads events from the outbox table and publishes them to the message broker. This decouples event publishing from the business transaction while maintaining consistency through database ACID guarantees.
 
 The key insight is that the database becomes the single source of truth. If the transaction commits, both the business data and the event are persisted. If it rolls back, neither is saved.

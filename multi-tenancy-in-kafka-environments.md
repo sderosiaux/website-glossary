@@ -23,44 +23,7 @@ For background on Kafka's architecture and capabilities, see [Apache Kafka](http
 ## Multi-Tenancy Models in Kafka
 
 Organizations can implement multi-tenancy in Kafka using different models, each with distinct trade-offs:
-
 ![Organizations can implement multi-tenancy in Kafka using different models, each with distinct trade-offs](images/diagrams/multi-tenancy-in-kafka-environments-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-Logical Separation (Soft Multi-Tenancy):
-┌───────────────────────────────────────────────────────────┐
-│              Shared Kafka Cluster                          │
-│                                                            │
-│  ┌──────────────────────┐      ┌──────────────────────┐  │
-│  │   Team A Topics      │      │   Team B Topics      │  │
-│  │  • team-a.orders     │      │  • team-b.orders     │  │
-│  │  • team-a.payments   │      │  • team-b.analytics  │  │
-│  └──────────────────────┘      └──────────────────────┘  │
-│           │  ACLs                        │  ACLs          │
-│           ▼  Quotas                      ▼  Quotas        │
-│  ┌──────────────────────┐      ┌──────────────────────┐  │
-│  │  Team A Producers/   │      │  Team B Producers/   │  │
-│  │     Consumers        │      │     Consumers        │  │
-│  └──────────────────────┘      └──────────────────────┘  │
-│                                                            │
-│       Shared: Brokers, Network, Storage                   │
-└────────────────────────────────────────────────────────────┘
-
-Physical Separation (Hard Multi-Tenancy):
-┌──────────────────────┐        ┌──────────────────────┐
-│  Team A Cluster      │        │  Team B Cluster      │
-│  ┌────────────────┐  │        │  ┌────────────────┐  │
-│  │ Dedicated      │  │        │  │ Dedicated      │  │
-│  │ Brokers        │  │        │  │ Brokers        │  │
-│  │ Storage        │  │        │  │ Storage        │  │
-│  │ Network        │  │        │  │ Network        │  │
-│  └────────────────┘  │        │  └────────────────┘  │
-└──────────────────────┘        └──────────────────────┘
-   Complete Isolation             Complete Isolation
-```
--->
-
 ### Logical Separation (Soft Multi-Tenancy)
 
 In this model, all tenants share the same physical Kafka cluster but are separated through logical boundaries. Tenants use different topic namespaces, consumer groups, and access controls.

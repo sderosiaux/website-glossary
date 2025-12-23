@@ -8,43 +8,7 @@ topics:
 ---
 
 Consumer lag is one of the most critical metrics in any streaming system. It represents the gap between where your consumers are in processing messages and where the producers are in writing new data. Understanding, monitoring, and managing consumer lag is essential for maintaining healthy streaming pipelines and meeting service level agreements (SLAs).
-
 ![Consumer Lag Concept Visualization](images/diagrams/consumer-lag-monitoring-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-┌──────────────────────────────────────────────────────────────────┐
-│                    Consumer Lag Visualization                    │
-└──────────────────────────────────────────────────────────────────┘
-
-Kafka Topic Partition:
-─────────────────────────────────────────────────────────────────▶
-Offset:  0    1000   2000   3000   4000   5000   6000   7000  8000
-
-                              ▲                            ▲
-                              │                            │
-                    Consumer Offset                  Log-End Offset
-                         (4500)                          (8000)
-                              │                            │
-                              └────────────┬───────────────┘
-                                           │
-                                    ◀──────────▶
-                                   Consumer Lag
-                                   (3500 msgs)
-
-Status Indicators:
-────────────────────────────────────────────────────────────────
-
-   Healthy          Warning           Critical
-   Lag < 1K         Lag 1K-5K         Lag > 5K
-   ░░░░░            ▒▒▒▒▒             ████
-   ✓ OK             ⚠ Monitor         ✗ Alert
-
-Lag Growth Rate:
-   Stable: ─────    Growing: ──/──    Shrinking: ──\──
-```
--->
-
 For example, if a partition's latest message has an offset of 10,000 and your consumer has committed offset 9,500, the consumer lag is 500 messages. This number tells you how far behind your consumer is from real-time processing.
 
 Lag exists for each partition independently. When monitoring consumer groups that subscribe to topics with multiple partitions, you need to track lag across all assigned partitions to get a complete picture of consumer health. The aggregate lag across all partitions often serves as the primary health indicator for the entire consumer group.

@@ -67,27 +67,7 @@ Real-time fraud detection employs several proven patterns:
 ## Architecture Example: Building a Fraud Detection Pipeline
 
 Here's a concrete architecture for a fraud detection system:
-
 ![Here's a concrete architecture for a fraud detection system](images/diagrams/real-time-fraud-detection-with-streaming-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-Transaction Sources → Kafka Topic (transactions)
-                           ↓
-                    Flink Job (fraud-detector)
-                           ↓
-                    ├→ Velocity Checks
-                    ├→ ML Model Scoring
-                    ├→ Pattern Matching
-                           ↓
-              Kafka Topic (fraud-decisions)
-                           ↓
-              ├→ Block Service
-              ├→ Alert Service
-              └→ Analytics Store
-```
--->
-
 The Flink job implements multiple detection strategies:
 
 1. **Velocity Check**: Counts transactions per customer using a 10-minute sliding window

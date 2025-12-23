@@ -40,47 +40,7 @@ There are two primary approaches to implementing sagas: choreography and orchest
 ### Choreography
 
 In choreographed sagas, each service produces and listens to events without a central coordinator. When a service completes its local transaction, it publishes an event that other services subscribe to.
-
 ![saga-pattern-for-distributed-transactions diagram 1](images/diagrams/saga-pattern-for-distributed-transactions-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-Choreographed Saga:
-
-  ┌──────────────┐
-  │    Order     │──┐
-  │   Service    │  │ publishes OrderCreated
-  └──────────────┘  │
-                    ▼
-              ┌──────────┐
-              │  Kafka   │
-              └────┬─────┘
-                   │ consumes OrderCreated
-                   ▼
-  ┌──────────────────────┐
-  │   Payment Service    │──┐
-  └──────────────────────┘  │ publishes PaymentProcessed
-                            ▼
-                      ┌──────────┐
-                      │  Kafka   │
-                      └────┬─────┘
-                           │ consumes PaymentProcessed
-                           ▼
-  ┌──────────────────────────┐
-  │   Inventory Service      │──┐
-  └──────────────────────────┘  │ publishes InventoryReserved
-                                ▼
-                          ┌──────────┐
-                          │  Kafka   │
-                          └────┬─────┘
-                               │
-                               ▼
-  ┌──────────────────────────────┐
-  │     Shipping Service         │
-  └──────────────────────────────┘
-```
--->
-
 **Example**: In an e-commerce order saga:
 1. Order Service creates an order and publishes `OrderCreated` event
 2. Payment Service listens for `OrderCreated`, processes payment, publishes `PaymentProcessed`
@@ -92,36 +52,7 @@ Choreography is decentralized and follows [event-driven architecture](https://co
 ### Orchestration
 
 Orchestrated sagas use a central coordinator (the orchestrator) that tells each service what operation to perform. The orchestrator maintains the saga state and decides which step executes next.
-
 ![saga-pattern-for-distributed-transactions diagram 2](images/diagrams/saga-pattern-for-distributed-transactions-1.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-Orchestrated Saga:
-
-                  ┌──────────────────┐
-                  │  Saga Orchestrator│
-                  │  (Order Service)  │
-                  └────────┬──────────┘
-                           │ Coordinates all steps
-          ┌────────────────┼────────────────┐
-          │                │                │
-          ▼                ▼                ▼
-  ┌──────────────┐ ┌──────────────┐ ┌──────────────┐
-  │   Payment    │ │  Inventory   │ │   Shipping   │
-  │   Service    │ │   Service    │ │   Service    │
-  └──────┬───────┘ └──────┬───────┘ └──────┬───────┘
-         │                │                │
-         └────────────────┼────────────────┘
-                          │ Responses
-                          ▼
-                  ┌──────────────────┐
-                  │   Orchestrator   │
-                  │  (Saga State)    │
-                  └──────────────────┘
-```
--->
-
 **Example**: An Order Saga Orchestrator:
 1. Sends command to Payment Service: "Process payment for order #123"
 2. Waits for response

@@ -8,37 +8,7 @@ topics:
 ---
 
 Organizations building data streaming platforms face a fundamental architectural decision: where should the streaming infrastructure live? While cloud-native solutions offer compelling advantages, many enterprises operate streaming platforms on-premises, in hybrid configurations spanning multiple environments, or across multiple cloud providers. Understanding these patterns and their governance implications is essential for building resilient, compliant streaming architectures.
-
 ![Multi-environment streaming architecture patterns](images/diagrams/on-prem-hybrid-streaming-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-┌──────────────────────── Hybrid Streaming Architecture ─────────────┐
-│                                                                     │
-│  On-Premises Datacenter          Cloud Environment                 │
-│  ┌─────────────────────┐         ┌──────────────────────┐          │
-│  │  Kafka Cluster A    │◀───────▶│  Kafka Cluster B     │          │
-│  │  ┌───┐ ┌───┐ ┌───┐ │  VPN/   │  ┌───┐ ┌───┐ ┌───┐  │          │
-│  │  │BR1│ │BR2│ │BR3│ │  Direct │  │BR4│ │BR5│ │BR6│  │          │
-│  │  └───┘ └───┘ └───┘ │  Connect│  └───┘ └───┘ └───┘  │          │
-│  │  ┌─────────────┐   │         │  ┌──────────────┐    │          │
-│  │  │MirrorMaker2 │───┼─────────┼─▶│Object Storage│    │          │
-│  │  │Replication  │   │         │  │(S3/GCS/Azure)│    │          │
-│  │  └─────────────┘   │         │  └──────────────┘    │          │
-│  │                     │         │                      │          │
-│  │  Sensitive Data     │         │  Analytics &         │          │
-│  │  Compliance-Critical│         │  ML Processing       │          │
-│  └─────────────────────┘         └──────────────────────┘          │
-│           │                               │                         │
-│           ▼                               ▼                         │
-│  ┌─────────────────────────────────────────────────────┐           │
-│  │         Centralized Governance Platform             │           │
-│  │    (Unified Policy, Monitoring, Schema Registry)    │           │
-│  └─────────────────────────────────────────────────────┘           │
-└─────────────────────────────────────────────────────────────────────┘
-```
--->
-
 ## Why On-Premises Streaming Still Matters
 
 Despite the cloud's dominance, on-premises streaming remains relevant for specific use cases. Financial institutions often run Kafka clusters in their own datacenters to meet strict regulatory requirements around data sovereignty—certain jurisdictions mandate that sensitive data never leave specific geographic boundaries or organizational control. When millisecond-level latency is critical, such as in high-frequency trading or real-time manufacturing systems, on-premises deployments eliminate network hops to external cloud providers.

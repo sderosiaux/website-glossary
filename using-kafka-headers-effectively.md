@@ -10,52 +10,7 @@ topics:
 ---
 
 Kafka headers are a powerful feature that allow you to attach metadata to messages without altering the message payload itself. Introduced in Kafka 0.11 via KIP-82, headers remain a core feature through Kafka 4.x and beyond, providing a clean separation between message content and contextual information and enabling sophisticated patterns in distributed systems.
-
 ![Kafka message structure with headers and payload](images/diagrams/using-kafka-headers-effectively-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-KAFKA MESSAGE STRUCTURE WITH HEADERS
-
-┌────────────────────────────────────────────────────────────┐
-│                   KAFKA RECORD                             │
-├────────────────────────────────────────────────────────────┤
-│  Timestamp: 2024-12-07T14:30:00Z                          │
-│  Key: "customer-12345"                                     │
-├────────────────────────────────────────────────────────────┤
-│  HEADERS (Key-Value Pairs - Optional Metadata)            │
-│  ┌──────────────────────────────────────────────────────┐ │
-│  │ trace-id        : abc-123-def-456                    │ │
-│  │ source-system   : payment-service                    │ │
-│  │ content-type    : application/json                   │ │
-│  │ schema-version  : v2.3.1                             │ │
-│  │ region          : us-west-2                          │ │
-│  │ priority        : high                               │ │
-│  └──────────────────────────────────────────────────────┘ │
-├────────────────────────────────────────────────────────────┤
-│  PAYLOAD (Business Data)                                  │
-│  ┌──────────────────────────────────────────────────────┐ │
-│  │ {                                                    │ │
-│  │   "orderId": "ORD-789",                              │ │
-│  │   "amount": 149.99,                                  │ │
-│  │   "customerId": "customer-12345",                    │ │
-│  │   "items": [...]                                     │ │
-│  │ }                                                    │ │
-│  └──────────────────────────────────────────────────────┘ │
-└────────────────────────────────────────────────────────────┘
-
-COMMON HEADER USE CASES:
-┌──────────────────────┬──────────────────────────────────────┐
-│ Distributed Tracing  │ trace-id, span-id, parent-span-id    │
-│ Content Routing      │ content-type, region, priority       │
-│ Source Tracking      │ source-system, producer-version      │
-│ Schema Management    │ schema-version, encoding             │
-└──────────────────────┴──────────────────────────────────────┘
-
-Headers travel with message • Don't affect partitioning • Optional
-```
--->
-
 This article explores what Kafka headers are, common use cases, best practices, and how to leverage them effectively in modern streaming architectures.
 
 ## What Are Kafka Headers?

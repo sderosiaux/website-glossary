@@ -21,37 +21,7 @@ The benefits extend beyond cost savings. By decoupling storage from compute, tie
 ## The Architecture Behind Tiered Storage
 
 Tiered storage introduces several new components to the Kafka broker architecture. The Remote Log Manager is the central component responsible for managing the lifecycle of log segments in remote storage. It coordinates when segments are copied to remote storage, how they're fetched for consumer requests, and when they're deleted based on retention policies.
-
 ![tiered-storage-in-kafka diagram 1](images/diagrams/tiered-storage-in-kafka-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                        Kafka Broker                              │
-│                                                                  │
-│  ┌──────────────┐         ┌─────────────────────────────────┐  │
-│  │   Producer   │────────▶│       Local Tier                │  │
-│  └──────────────┘         │   (Fast SSD/NVMe Storage)       │  │
-│                           │   Recent Data (hours/days)       │  │
-│  ┌──────────────┐         └─────────────┬───────────────────┘  │
-│  │   Consumer   │◀──────────────────────┘                      │
-│  └──────┬───────┘                                               │
-│         │                 ┌─────────────────────────────────┐  │
-│         │                 │  Remote Log Manager             │  │
-│         │                 │  • RemoteStorageManager         │  │
-│         └─────────────────│  • RemoteLogMetadataManager     │  │
-│                           └─────────────┬───────────────────┘  │
-└─────────────────────────────────────────┼───────────────────────┘
-                                          │
-                                          ▼
-                    ┌─────────────────────────────────────────┐
-                    │         Remote Tier                     │
-                    │  (S3, GCS, Azure Blob Storage)          │
-                    │  Older Data (weeks/months/years)        │
-                    └─────────────────────────────────────────┘
-```
--->
-
 Two key plugin interfaces enable flexibility in implementation:
 
 **RemoteStorageManager**: Think of this as the "mover" - it handles the physical interaction with remote storage systems. Its responsibilities include uploading completed log segments to remote storage, fetching data when consumers request historical data, and deleting expired segments. Each uploaded segment receives a unique RemoteLogSegmentId (essentially a tracking number) that identifies it in the remote storage system.

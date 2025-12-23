@@ -12,54 +12,7 @@ topics:
 Schema evolution is a critical capability for modern data lakehouses, allowing data engineers to adapt table structures as business requirements change without disrupting existing workloads or rewriting massive datasets. [Apache Iceberg](https://conduktor.io/glossary/apache-iceberg) provides robust schema evolution capabilities that surpass traditional data lake formats, making it the preferred choice for enterprise data platforms.
 
 As of 2025, with Iceberg versions 1.8.0 through 1.10.0, schema evolution has expanded to support new data types including Variant for semi-structured data, nanosecond-precision timestamps, and geospatial types, alongside enhanced performance through deletion vectors and row lineage tracking.
-
 ![Schema evolution architecture showing metadata versioning and column mapping](images/diagrams/schema-evolution-in-apache-iceberg-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                    ICEBERG SCHEMA EVOLUTION                     │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│  Metadata Layer (Versioned)                                    │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐         │
-│  │ Schema v1    │  │ Schema v2    │  │ Schema v3    │         │
-│  │ id=1: name   │→ │ id=1: name   │→ │ id=1: name   │         │
-│  │ id=2: email  │  │ id=2: email  │  │ id=2: email  │         │
-│  │              │  │ id=3: phone  │  │ id=3: phone  │         │
-│  │              │  │              │  │ id=4: tier   │         │
-│  └──────────────┘  └──────────────┘  └──────────────┘         │
-│         │                 │                 │                   │
-│         └─────────────────┴─────────────────┘                   │
-│                           │                                     │
-│                           ▼                                     │
-│  ┌──────────────────────────────────────────────────┐          │
-│  │         COLUMN ID MAPPING (Immutable)            │          │
-│  │  Column IDs persist across schema changes        │          │
-│  │  - ID 1: Always maps to "name" column           │          │
-│  │  - ID 2: Always maps to "email" column          │          │
-│  │  - ID 3: Added in v2 (phone)                    │          │
-│  │  - ID 4: Added in v3 (tier)                     │          │
-│  └──────────────────────────────────────────────────┘          │
-│                           │                                     │
-│                           ▼                                     │
-│  Data Files (Multiple Schema Versions Coexist)                 │
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐            │
-│  │ File A      │  │ File B      │  │ File C      │            │
-│  │ (Schema v1) │  │ (Schema v2) │  │ (Schema v3) │            │
-│  │ id=1, id=2  │  │ id=1→id=3   │  │ id=1→id=4   │            │
-│  │ NO REWRITE  │  │ NO REWRITE  │  │ NO REWRITE  │            │
-│  └─────────────┘  └─────────────┘  └─────────────┘            │
-│                                                                 │
-│  Key Benefits:                                                  │
-│  ✓ Zero-copy evolution (no data rewrite)                       │
-│  ✓ Column IDs enable safe renames                              │
-│  ✓ Multiple schema versions coexist                            │
-│  ✓ Time travel to historical schemas                           │
-└─────────────────────────────────────────────────────────────────┘
-```
--->
-
 ## Understanding Schema Evolution
 
 Schema evolution refers to the ability to modify a table's structure over time while maintaining compatibility with existing data and queries. In traditional data lakes built on formats like Parquet or ORC, schema changes often require expensive full-table rewrites or complex partition-level operations.

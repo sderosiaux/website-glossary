@@ -74,37 +74,7 @@ A customer buys the last unit of a product online. Within milliseconds:
 3. The product catalog service updates availability status
 4. Store systems receive the update and remove the item from in-store pickup options
 5. A notification service alerts warehouse staff to fulfill the order
-
 ![e-commerce-streaming-architecture-patterns diagram 1](images/diagrams/e-commerce-streaming-architecture-patterns-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-┌──────────────┐
-│   Customer   │
-│  (Checkout)  │
-└──────┬───────┘
-       │
-       ▼
-┌────────────────────────────────────────────────────────────────┐
-│                      Apache Kafka                              │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐         │
-│  │OrderCreated  │  │InventoryRsvd │  │StatusUpdated │         │
-│  └──────────────┘  └──────────────┘  └──────────────┘         │
-└────────────────────────────────────────────────────────────────┘
-       │                  │                    │
-       ▼                  ▼                    ▼
-┌────────────┐    ┌──────────────┐    ┌──────────────┐
-│ Inventory  │    │   Product    │    │ Warehouse    │
-│  Service   │    │   Catalog    │    │ Notification │
-└────────────┘    └──────────────┘    └──────────────┘
-       │                  │
-       ▼                  ▼
-┌──────────────────────────────────┐
-│  Store POS  │  Website  │  App   │
-└──────────────────────────────────┘
-```
--->
-
 This entire flow completes in under a second, preventing overselling and improving operational efficiency.
 
 Order orchestration also benefits from streaming patterns. Rather than a monolithic order service, microservices coordinate through events. Payment verification, fraud checks, inventory allocation, and shipping preparation happen in parallel where possible, reducing total order processing time.

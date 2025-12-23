@@ -10,56 +10,7 @@ topics:
 ---
 
 Implementing an effective data governance framework requires more than just policies and procedures—it demands clear definition of roles and responsibilities across your organization. Without well-defined accountability, even the most sophisticated governance strategies fail to deliver value. This guide explores the essential roles within a data governance framework and how they work together to ensure data quality, compliance, and strategic value.
-
 ![Data Governance Organizational Structure](images/diagrams/data-governance-framework-roles-and-responsibilities-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-┌──────────────────────────────────────────────────────────────────┐
-│          Data Governance Organizational Structure                │
-└──────────────────────────────────────────────────────────────────┘
-
-                    ┌────────────────────┐
-                    │   Governance       │  Strategic
-                    │    Council         │  Direction
-                    │  (Executives)      │
-                    └─────────┬──────────┘
-                              │
-                    ┌─────────▼──────────┐
-                    │  Data Governance   │  Program
-                    │     Officer        │  Leadership
-                    └─────────┬──────────┘
-                              │
-        ┌─────────────────────┼─────────────────────┐
-        │                     │                     │
-┌───────▼────────┐   ┌────────▼────────┐   ┌───────▼────────┐
-│  Data Owners   │   │ Data Stewards   │   │  Compliance    │
-│  (Business)    │   │  (Operations)   │   │   Officers     │
-│                │   │                 │   │                │
-│ • Approve      │   │ • Implement     │   │ • Regulatory   │
-│   Access       │   │ • Monitor       │   │ • Audits       │
-│ • Set Policy   │   │ • Document      │   │ • Privacy      │
-└────────────────┘   └────────┬────────┘   └────────────────┘
-                              │
-                    ┌─────────▼──────────┐
-                    │  Data Custodians   │  Technical
-                    │  (Engineers/DBAs)  │  Implementation
-                    │                    │
-                    │ • Access Controls  │
-                    │ • Encryption       │
-                    │ • Backups          │
-                    └────────────────────┘
-
-Emerging Roles (2025):
-───────────────────────────────────────────────────────────
-┌─────────────────┐  ┌─────────────────┐  ┌──────────────┐
-│ Data Product    │  │  AI/ML          │  │  LLM Safety  │
-│    Owner        │  │ Governance      │  │   Officer    │
-│ (Data Mesh)     │  │   Officer       │  │  (Gen AI)    │
-└─────────────────┘  └─────────────────┘  └──────────────┘
-```
--->
-
 ## Why Roles Matter in Data Governance
 
 Data governance is inherently cross-functional. Data flows through multiple departments, systems, and stakeholders, each with different perspectives and priorities. A clear role structure ensures that everyone understands their responsibilities, decision-making authority, and accountability for data-related outcomes.

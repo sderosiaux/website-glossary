@@ -80,49 +80,7 @@ Kafka Connect and Kafka Streams provide robust ecosystems for integrating with e
 ## Implementation Patterns and Architecture
 
 Implementing CQRS and Event Sourcing with Kafka follows a typical pattern. The command side receives commands (HTTP requests, API calls), validates them, and publishes events to Kafka topics representing the business domain.
-
 ![cqrs-and-event-sourcing-with-kafka diagram 1](images/diagrams/cqrs-and-event-sourcing-with-kafka-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-┌─────────────────────────────────────────────────────────────┐
-│            CQRS + Event Sourcing with Kafka                 │
-└─────────────────────────────────────────────────────────────┘
-
-  ┌──────────────┐
-  │   Commands   │
-  │ (PlaceOrder) │
-  └──────┬───────┘
-         │
-         ▼
-  ┌──────────────────┐
-  │   Write Model    │  Validates & processes commands
-  │ (Command Handler)│
-  └────────┬─────────┘
-           │ Publishes events
-           ▼
-  ┌────────────────────────────────────┐
-  │         Apache Kafka               │  Event Store
-  │  ┌──────────┐  ┌──────────┐       │  (Immutable log)
-  │  │  Orders  │  │ Inventory│  ...  │
-  │  └──────────┘  └──────────┘       │
-  └────────┬───────────────────────────┘
-           │ Consumes events
-           ├────────────┬────────────┐
-           ▼            ▼            ▼
-  ┌──────────────┐ ┌──────────┐ ┌──────────┐
-  │ Read Model 1 │ │Read Model│ │Read Model│
-  │ (PostgreSQL) │ │(Elastic) │ │ (Redis)  │
-  └──────┬───────┘ └────┬─────┘ └────┬─────┘
-         │              │            │
-         └──────────────┼────────────┘
-                        ▼
-                  ┌──────────┐
-                  │ Queries  │
-                  └──────────┘
-```
--->
-
 For example, in an e-commerce system, a "PlaceOrder" command might produce an "OrderPlaced" event containing the order details. This event is written to an "orders" topic in Kafka.
 
 The read side consists of one or more consumers that subscribe to these event topics and build materialized views. Each view is optimized for specific query patterns. One consumer might build a denormalized view in PostgreSQL for transactional queries. Another might index data in Elasticsearch for full-text search. A third might populate Redis for low-latency lookups.

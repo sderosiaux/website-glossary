@@ -15,45 +15,7 @@ Chaos engineering is the discipline of experimenting on a distributed system to 
 This article explores how chaos engineering principles apply to streaming architectures, the unique challenges these systems present, and practical approaches for testing resilience in production-like environments.
 
 ## What is Chaos Engineering?
-
 ![Chaos Engineering Process for Streaming Systems](images/diagrams/chaos-engineering-for-streaming-systems-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-┌────────────────────────────────────────────────────────────────┐
-│           Chaos Engineering Methodology                        │
-└────────────────────────────────────────────────────────────────┘
-                              │
-                    ┌─────────▼─────────┐
-                    │  Define Steady    │
-                    │      State        │
-                    └─────────┬─────────┘
-                              │
-                    ┌─────────▼─────────┐
-                    │  Hypothesize      │
-                    │   Behavior        │
-                    └─────────┬─────────┘
-                              │
-         ┌────────────────────┼────────────────────┐
-         │                    │                    │
-    ┌────▼──────┐       ┌─────▼─────┐       ┌─────▼──────┐
-    │  Inject   │       │  Observe  │       │  Analyze   │
-    │ Failures  │──────▶│  Impact   │──────▶│  Results   │
-    └───────────┘       └───────────┘       └─────┬──────┘
-         │                    │                    │
-    Broker Down          Latency Spike        Weaknesses
-    Network Split        Consumer Lag         Found?
-    Resource Limit       Data Loss?                │
-         │                    │                    │
-         └────────────────────┼────────────────────┘
-                              ▼
-                    ┌─────────────────┐
-                    │  Improve        │
-                    │  Resilience     │
-                    └─────────────────┘
-```
--->
-
 Chaos engineering originated at Netflix with the creation of Chaos Monkey, a tool that randomly terminates instances in production to ensure that systems can survive unexpected failures. The core principle is simple: proactively inject failures into your system to discover weaknesses before they cause outages.
 
 The practice follows a scientific method:

@@ -36,39 +36,7 @@ CDC transforms database changes into a stream of events automatically, without r
 **Guaranteed Ordering**: CDC preserves the order of changes as they occurred in the database transaction log (the internal log that databases use to ensure durability and replication), maintaining causal consistency.
 
 **Low Latency**: Modern CDC implementations can capture and stream changes within milliseconds, enabling near-real-time event propagation.
-
 ![cdc-for-microservices-event-driven-architectures diagram 1](images/diagrams/cdc-for-microservices-event-driven-architectures-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    Event-Driven Architecture                 │
-├─────────────────────────────────────────────────────────────┤
-│                                                               │
-│  ┌──────────────┐         ┌──────────────┐                  │
-│  │   Order      │         │   Inventory  │                  │
-│  │   Service    │         │   Service    │                  │
-│  └──────┬───────┘         └──────┬───────┘                  │
-│         │                        │                           │
-│         │ CDC                    │ CDC                       │
-│         ▼                        ▼                           │
-│  ┌──────────────────────────────────────────┐               │
-│  │        Apache Kafka / Event Stream       │               │
-│  │  ┌────────┐  ┌────────┐  ┌────────┐    │               │
-│  │  │ orders │  │inventory│  │payments│    │               │
-│  │  └────────┘  └────────┘  └────────┘    │               │
-│  └──────────────────────────────────────────┘               │
-│         │                        │                           │
-│         ▼                        ▼                           │
-│  ┌──────────────┐         ┌──────────────┐                  │
-│  │  Notification│         │   Analytics  │                  │
-│  │   Service    │         │   Service    │                  │
-│  └──────────────┘         └──────────────┘                  │
-│                                                               │
-└─────────────────────────────────────────────────────────────┘
-```
--->
-
 ## Event Sourcing and CDC
 
 ### Event Sourcing Fundamentals
@@ -279,16 +247,7 @@ CDC enables several patterns for service integration:
 
 **1. Database-to-Database Synchronization**:
 Services maintain local caches or denormalized views of data owned by other services.
-
 ![cdc-for-microservices-event-driven-architectures diagram 2](images/diagrams/cdc-for-microservices-event-driven-architectures-1.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-Order Service DB → CDC → Kafka → Shipping Service
-                                  (maintains local order cache)
-```
--->
-
 **2. Event-Driven Workflows**:
 Services coordinate complex workflows through event choreography. For example, the Inventory Service listens for OrderCreated events, reserves inventory, and writes to its local database. CDC then publishes InventoryReserved or InventoryInsufficient events for downstream services.
 

@@ -38,60 +38,7 @@ The challenge lies in the distributed nature of the system. When a producer send
 ## How Kafka Achieves Exactly-Once Semantics
 
 Kafka's exactly-once implementation relies on three core mechanisms: idempotent producers, transactions, and transactional consumers.
-
 ![exactly-once-semantics-in-kafka diagram 1](images/diagrams/exactly-once-semantics-in-kafka-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-┌─────────────────────────────────────────────────────────────────┐
-│         Exactly-Once Semantics Architecture                     │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│  ┌─────────────────────────────────────────────────────────┐   │
-│  │  Idempotent Producer (enable.idempotence=true)          │   │
-│  │  ┌────────────┐                                         │   │
-│  │  │ Producer   │  Each message has:                      │   │
-│  │  │ ID: 12345  │  • Producer ID (PID)                    │   │
-│  │  │            │  • Sequence number per partition        │   │
-│  │  └─────┬──────┘                                         │   │
-│  └────────┼────────────────────────────────────────────────┘   │
-│           │                                                     │
-│           │ Message: PID=12345, Seq=100                         │
-│           ▼                                                     │
-│  ┌─────────────────────────────────────────────────────────┐   │
-│  │  Kafka Broker (Deduplication)                           │   │
-│  │  ┌──────────────────────────────────────────┐           │   │
-│  │  │ Last seen: PID=12345, Seq=99             │           │   │
-│  │  │ New message: Seq=100 → Accept            │           │   │
-│  │  │ Retry: Seq=100 → Reject (duplicate)      │           │   │
-│  │  └──────────────────────────────────────────┘           │   │
-│  └─────────────────────────────────────────────────────────┘   │
-│           │                                                     │
-│           ▼                                                     │
-│  ┌─────────────────────────────────────────────────────────┐   │
-│  │  Transactional Processing                               │   │
-│  │  ┌──────────────────────────────────────────────────┐   │   │
-│  │  │ Transaction Coordinator                          │   │   │
-│  │  │  1. Begin transaction                            │   │   │
-│  │  │  2. Write to multiple partitions ────┐           │   │   │
-│  │  │  3. Commit consumer offsets          │           │   │   │
-│  │  │  4. Commit transaction                │           │   │   │
-│  │  │     ├─ All visible ◀──────────────────┘           │   │   │
-│  │  │     └─ Or all rolled back                        │   │   │
-│  │  └──────────────────────────────────────────────────┘   │   │
-│  └─────────────────────────────────────────────────────────┘   │
-│           │                                                     │
-│           ▼                                                     │
-│  ┌─────────────────────────────────────────────────────────┐   │
-│  │  Transactional Consumer (isolation.level=read_committed)│   │
-│  │  • Only reads committed transactions                    │   │
-│  │  • Filters aborted/in-progress transactions             │   │
-│  └─────────────────────────────────────────────────────────┘   │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
-```
--->
-
 ### Idempotent Producers
 
 An idempotent producer ensures that retrying a send operation won't create duplicate messages. Kafka achieves this by assigning each producer a unique Producer ID (PID) and maintaining sequence numbers for messages sent to each partition.

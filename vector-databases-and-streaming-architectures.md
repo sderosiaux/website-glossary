@@ -40,50 +40,7 @@ The key characteristics of streaming systems are low latency, high throughput, a
 ## Integrating Vector Databases with Streaming Pipelines
 
 The integration of vector databases with streaming architectures creates powerful real-time AI capabilities. The typical pattern involves a streaming pipeline that processes events, generates embeddings, and writes them to a vector database for immediate querying.
-
 ![vector-databases-and-streaming-architectures diagram 1](images/diagrams/vector-databases-and-streaming-architectures-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-Real-Time Vector Pipeline:
-┌─────────────────┐
-│  Event Sources  │
-│ (User Activity, │
-│  New Documents) │
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────────────────────────────────┐
-│        Streaming Platform (Kafka)            │
-│         Event Topic: raw_events              │
-└────────┬────────────────────────────────────┘
-         │
-         ▼
-┌─────────────────────────────────────────────┐
-│   Stream Processor (Flink/Kafka Streams)    │
-│   • Consume events                          │
-│   • Call embedding model API/service        │
-│   • Generate vector embeddings              │
-└────────┬────────────────────────────────────┘
-         │
-         ▼
-┌─────────────────────────────────────────────┐
-│         Vector Database                      │
-│  (Pinecone, Weaviate, Milvus, Qdrant)      │
-│  • Index vectors with metadata              │
-│  • Enable similarity search                 │
-└────────┬────────────────────────────────────┘
-         │
-         ▼
-┌─────────────────────────────────────────────┐
-│      Application Queries                     │
-│  • Find similar items                       │
-│  • Semantic search                          │
-│  • Recommendations                          │
-└─────────────────────────────────────────────┘
-```
--->
-
 For instance, an e-commerce platform might stream new product descriptions through this pipeline. As soon as a merchant adds a product, its embedding is generated and indexed, making it immediately searchable and enabling real-time "similar products" recommendations.
 
 Tools like Conduktor, a comprehensive Kafka management and governance platform, can be valuable in this architecture for [managing Kafka topics](https://docs.conduktor.io/guide/manage-kafka/kafka-resources/topics), monitoring [data quality](https://docs.conduktor.io/guide/use-cases/observe-data-quality) of the events feeding the pipeline, and ensuring governance around potentially sensitive data being embedded. Conduktor Gateway can also be used for testing chaos scenarios such as network latency or partition failures that are common in ML pipelines. Data quality issues upstream can lead to poor embeddings, so visibility into the streaming pipeline is essential.

@@ -63,67 +63,7 @@ The key difference is the shift from pull-based batch processing to push-based e
 ## Building a Real-Time RAG Pipeline
 
 A real-time RAG pipeline consists of several interconnected components:
-
 ![A real-time RAG pipeline consists of several interconnected components](images/diagrams/rag-pipelines-with-real-time-data-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-         Real-Time RAG Pipeline Architecture
-
-┌──────────────────────────────────────────────────┐
-│            Data Sources                          │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐      │
-│  │Database  │  │   APIs   │  │  Files   │      │
-│  │  (CDC)   │  │(Webhooks)│  │(Watchers)│      │
-│  └────┬─────┘  └────┬─────┘  └────┬─────┘      │
-└───────┼─────────────┼─────────────┼─────────────┘
-        │             │             │
-        └─────────────┼─────────────┘
-                      ▼
-         ┌────────────────────────┐
-         │   Kafka / Streaming    │
-         │  ┌──────────────────┐  │
-         │  │ tickets-topic    │  │
-         │  │ docs-topic       │  │
-         │  │ releases-topic   │  │
-         │  └──────────────────┘  │
-         └───────────┬────────────┘
-                     │
-                     ▼
-         ┌────────────────────────┐
-         │  Transformation Layer  │
-         │  (Flink/Kafka Streams) │
-         │  • Clean & Enrich      │
-         │  • Chunk documents     │
-         │  • Format conversion   │
-         └───────────┬────────────┘
-                     │
-                     ▼
-         ┌────────────────────────┐
-         │  Embedding Generation  │
-         │ (OpenAI ada-003, etc.) │
-         │  • Batch processing    │
-         │  • Caching             │
-         └───────────┬────────────┘
-                     │
-                     ▼
-         ┌────────────────────────┐
-         │   Vector Database      │
-         │(pgvector/Qdrant/Milvus)│
-         │  • Upsert operations   │
-         │  • Metadata indexing   │
-         └───────────┬────────────┘
-                     │
-                     ▼
-         ┌────────────────────────┐
-         │      RAG Query API     │
-         │  • Vector search       │
-         │  • Context retrieval   │
-         │  • LLM generation      │
-         └────────────────────────┘
-```
--->
-
 ## Implementation Example: Real-Time Document Indexing
 
 Here's a practical example showing how to build a real-time RAG pipeline that indexes documentation updates:

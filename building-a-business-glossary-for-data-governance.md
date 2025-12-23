@@ -12,35 +12,7 @@ topics:
 In the complex landscape of modern data management, one of the most persistent challenges organizations face is establishing a common language across business and technical teams. A well-constructed business glossary serves as the cornerstone of effective data governance, providing the semantic layer that connects business terminology with technical data assets. For a deeper exploration of semantic layers in streaming contexts, see [Semantic Layer for Streaming](https://conduktor.io/glossary/semantic-layer-for-streaming).
 
 ## Understanding the Business Glossary
-
 ![Business Glossary Architecture](images/diagrams/building-a-business-glossary-for-data-governance-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-┌────────────────────────────────────────────────────────────────┐
-│              Business Glossary Architecture                    │
-└────────────────────────────────────────────────────────────────┘
-                              │
-         ┌────────────────────┼────────────────────┐
-         │                    │                    │
-    ┌────▼────────┐     ┌─────▼──────┐     ┌──────▼──────┐
-    │  Business   │     │Relationships│     │  Technical  │
-    │   Terms     │────▶│     &      │◀────│   Assets    │
-    │             │     │ Hierarchies│     │             │
-    └─────────────┘     └────────────┘     └─────────────┘
-         │                    │                    │
-    Revenue, Customer    Parent/Child         Tables, Topics
-    Product, Order       Associations         API Endpoints
-         │                    │                    │
-         └────────────────────┼────────────────────┘
-                              ▼
-                    ┌─────────────────┐
-                    │  Data Catalog   │
-                    │   (Discovery)   │
-                    └─────────────────┘
-```
--->
-
 A business glossary is more than a simple dictionary of terms. It's a living, governed repository that defines business concepts, their relationships, and their mappings to physical data assets. While a data dictionary focuses on technical metadata—column names, data types, and constraints—a business glossary operates at a higher level of abstraction, capturing the meaning and context that data holds within your organization.
 
 Business glossaries are typically managed within data catalogs, which provide the technical infrastructure for discovery, search, and governance. For an overview of modern data catalog capabilities, see [What is a Data Catalog? Modern Data Discovery](https://conduktor.io/glossary/what-is-a-data-catalog-modern-data-discovery).

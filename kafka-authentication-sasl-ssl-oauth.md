@@ -13,52 +13,7 @@ topics:
 Securing Apache Kafka clusters is critical for any production deployment. Authentication ensures that only authorized clients and services can access your data streams. Kafka supports multiple authentication mechanisms, each with distinct characteristics and use cases optimized for different deployment patterns.
 
 This article explores the primary authentication approaches in modern Kafka 4.0+ deployments: SASL mechanisms (PLAIN, SCRAM-SHA-512, GSSAPI, OAUTHBEARER), SSL/TLS certificate-based authentication (mTLS), and OAuth 2.0 integration with enterprise identity providers. Understanding how KRaft mode affects authentication and credential management is essential for securing contemporary Kafka clusters.
-
 ![Kafka authentication mechanisms and flow](images/diagrams/kafka-authentication-sasl-ssl-oauth-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-Kafka Authentication Mechanisms (2025)
-
-┌─────────────────────────────────────────────────────────────────┐
-│                    Client Applications                           │
-│  (Producers, Consumers, Connectors, Stream Processors)          │
-└────────────┬────────────────────────────┬──────────────────────┘
-             │                            │
-    ┌────────▼────────┐          ┌────────▼────────┐
-    │  SASL Auth      │          │  mTLS Auth      │
-    │  (credentials)  │          │  (certificates) │
-    └────────┬────────┘          └────────┬────────┘
-             │                            │
-     ┌───────┴───────┬─────────┬──────────┴────────┐
-     │               │         │                   │
-┌────▼────┐    ┌────▼────┐   ┌▼────────┐   ┌──────▼──────┐
-│ PLAIN   │    │ SCRAM   │   │ GSSAPI  │   │ OAUTHBEARER │
-│ (basic) │    │ (hash)  │   │(Kerberos)│  │   (OAuth)   │
-└────┬────┘    └────┬────┘   └─────┬───┘   └──────┬──────┘
-     │              │              │               │
-     │              │              │          ┌────▼────────┐
-     │              │              │          │   Identity  │
-     │              │              │          │   Provider  │
-     │              │              │          │(Okta, Keycloak)
-     │              │              │          └─────────────┘
-     └──────┬───────┴──────┬───────┴───────────────┘
-            │              │
-     ┌──────▼──────────────▼──────────┐
-     │   Kafka Broker (KRaft Mode)    │
-     │  ┌──────────────────────────┐  │
-     │  │  Authentication Layer    │  │
-     │  │  ┌────────────────────┐  │  │
-     │  │  │ Metadata (KRaft)   │  │  │ ← SCRAM credentials
-     │  │  │ - User credentials │  │  │   stored here
-     │  │  │ - ACL mappings     │  │  │
-     │  │  └────────────────────┘  │  │
-     │  └──────────────────────────┘  │
-     │  Authorization → ACLs checked  │
-     └────────────────────────────────┘
-```
--->
-
 ## Why Authentication Matters in Kafka
 
 Apache Kafka operates as a distributed streaming platform that handles sensitive data across producers, consumers, brokers, and various ecosystem components. Without proper authentication, any client could connect to your cluster, publish malicious data, or consume confidential information.

@@ -16,32 +16,7 @@ NewSQL databases emerged to bridge this gap, offering the best of both worlds: t
 ## What is NewSQL?
 
 NewSQL is a category of modern relational database management systems that provide the same scalable performance as NoSQL systems while maintaining the ACID guarantees and SQL interface of traditional databases. The term was coined around 2011 to describe this new generation of distributed databases.
-
 ![NewSQL architecture bridging traditional RDBMS and NoSQL](images/diagrams/newsql-databases-streaming-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-Traditional RDBMS          NewSQL Databases           NoSQL Databases
-┌─────────────────┐      ┌─────────────────┐      ┌─────────────────┐
-│ Strong ACID     │      │ Strong ACID     │      │ Eventual        │
-│ Guarantees      │      │ Guarantees      │      │ Consistency     │
-│                 │      │                 │      │                 │
-│ SQL Interface   │◀────▶│ SQL Interface   │◀────▶│ NoSQL APIs      │
-│                 │      │                 │      │                 │
-│ Vertical        │      │ Horizontal      │      │ Horizontal      │
-│ Scaling         │      │ Scaling         │      │ Scaling         │
-│                 │      │                 │      │                 │
-│ Single Node     │      │ ┌─────────────┐ │      │ ┌─────────────┐ │
-│ Architecture    │      │ │Distributed  │ │      │ │Distributed  │ │
-│                 │      │ │Consensus    │ │      │ │No Consensus │ │
-│                 │      │ │(Raft/Paxos) │ │      │ │             │ │
-│                 │      │ └─────────────┘ │      │ └─────────────┘ │
-└─────────────────┘      └─────────────────┘      └─────────────────┘
-     Limited                Best of Both               Massive
-     Scale                     Worlds                  Scale
-```
--->
-
 The core promise of NewSQL is simple: you shouldn't have to choose between consistency and scalability. These systems achieve this through modern distributed systems techniques, including:
 
 - **Distributed consensus protocols** like Raft or Paxos (algorithms that coordinate agreement across multiple nodes) for maintaining consistency across nodes

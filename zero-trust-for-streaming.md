@@ -20,44 +20,7 @@ Zero trust security addresses this reality with a simple principle: **never trus
 ## The Three Core Tenets
 
 Zero trust for streaming rests on three foundational principles:
-
 ![Zero trust for streaming rests on three foundational principles](images/diagrams/zero-trust-for-streaming-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                    Zero Trust Architecture                      │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│  ┌──────────────┐      ┌──────────────┐      ┌──────────────┐ │
-│  │   Producer   │      │    Kafka     │      │   Consumer   │ │
-│  │              │      │    Broker    │      │              │ │
-│  └──────┬───────┘      └──────┬───────┘      └──────┬───────┘ │
-│         │                     │                     │         │
-│         ▼                     ▼                     ▼         │
-│  ┌─────────────────────────────────────────────────────────┐  │
-│  │           Authentication & Authorization Layer          │  │
-│  │  • mTLS certificates     • OAuth tokens                 │  │
-│  │  • Identity verification • ACL checks                   │  │
-│  │  • Continuous validation • Policy enforcement           │  │
-│  └─────────────────────────────────────────────────────────┘  │
-│         │                     │                     │         │
-│         ▼                     ▼                     ▼         │
-│  ┌─────────────────────────────────────────────────────────┐  │
-│  │              Encrypted Data in Transit (TLS)            │  │
-│  └─────────────────────────────────────────────────────────┘  │
-│         │                     │                     │         │
-│         ▼                     ▼                     ▼         │
-│  ┌─────────────────────────────────────────────────────────┐  │
-│  │         Monitoring & Anomaly Detection Layer            │  │
-│  │  • Behavioral analysis  • Audit logs                    │  │
-│  │  • Access patterns      • Rate limiting                 │  │
-│  └─────────────────────────────────────────────────────────┘  │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
-```
--->
-
 **Verify explicitly.** Authentication and authorization must use all available data points: identity, location, device health, service metadata, and data classification. A producer connecting from an unexpected region at an unusual time should trigger additional verification, even if credentials are valid.
 
 **Least privilege access.** Grant the minimum permissions necessary for a service to function. A consumer reading from a single topic shouldn't have cluster-wide read access. A producer writing order events shouldn't be able to write to user profile topics. Fine-grained permissions prevent lateral movement after a breach.

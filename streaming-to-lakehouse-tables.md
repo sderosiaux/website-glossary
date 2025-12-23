@@ -60,54 +60,7 @@ topics:
 ## Introduction: The Streaming Lakehouse
 
 The lakehouse architecture has fundamentally changed how organizations handle analytics at scale, combining the flexibility of data lakes with the reliability of data warehouses. While early lakehouses were primarily batch-oriented, modern table formats—Delta Lake, Apache Iceberg, Apache Hudi, and Apache Paimon—were built with streaming workloads in mind.
-
 ![Streaming to lakehouse architecture with multiple table formats](images/diagrams/streaming-to-lakehouse-tables-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-STREAMING TO LAKEHOUSE: DATA FLOW AND TABLE FORMATS
-
-       STREAMING SOURCES
-┌─────────────────────────────┐
-│  Kafka  │  Flink  │  Spark  │
-│ Topics  │ Streams │ Streams │
-└────┬─────────┬────────┬─────┘
-     │         │        │
-     ▼         ▼        ▼
-┌─────────────────────────────┐
-│  STREAM PROCESSING LAYER    │
-│  ┌──────────────────────┐   │
-│  │ Transformations      │   │
-│  │ Aggregations         │   │
-│  │ Joins & Windows      │   │
-│  └──────────────────────┘   │
-└────┬─────────┬────────┬─────┘
-     │         │        │
-     ▼         ▼        ▼
-┌─────────────────────────────────────────────────────────────┐
-│             LAKEHOUSE TABLE FORMATS (S3/ADLS/GCS)           │
-├─────────────┬─────────────┬─────────────┬──────────────────┤
-│ Delta Lake  │   Iceberg   │     Hudi    │     Paimon       │
-│ ┌─────────┐ │ ┌─────────┐ │ ┌─────────┐ │ ┌──────────────┐ │
-│ │ Spark   │ │ │ Multi-  │ │ │ Upsert  │ │ │ Streaming-   │ │
-│ │ Native  │ │ │ Engine  │ │ │ Heavy   │ │ │ First Design │ │
-│ │ ACID    │ │ │ Hidden  │ │ │ CoW/MoR │ │ │ Flink Native │ │
-│ └─────────┘ │ └─────────┘ │ └─────────┘ │ └──────────────┘ │
-│ Liquid      │ Snapshot    │ Incremental │ Auto-Compaction  │
-│ Clustering  │ Isolation   │ Processing  │ CDC Built-in     │
-└─────────────┴─────────────┴─────────────┴──────────────────┘
-                              │
-                              ▼
-                   ┌──────────────────────┐
-                   │  UNIFIED ANALYTICS   │
-                   │  Spark │ Trino │ Flink│
-                   │  Query │ Query │ Join │
-                   └──────────────────────┘
-
-KEY BENEFITS: ACID • Time Travel • Schema Evolution • Concurrent R/W
-```
--->
-
 Streaming writes to lakehouse tables enable real-time analytics without sacrificing data quality or consistency. Unlike raw file writes to object storage, table formats provide ACID guarantees, schema enforcement, and time travel capabilities that make streaming data immediately queryable and trustworthy. For foundational concepts, see [What is Real-Time Data Streaming](https://conduktor.io/glossary/what-is-real-time-data-streaming).
 
 The key innovation is treating streaming data as a continuous flow of incremental updates to versioned tables, rather than as separate batch snapshots. This approach bridges the gap between real-time processing and historical analytics, allowing organizations to query both fresh and historical data through the same interface. This pattern is particularly powerful for CDC use cases—see [What is Change Data Capture: CDC Fundamentals](https://conduktor.io/glossary/what-is-change-data-capture-cdc-fundamentals) for details on capturing database changes and streaming them to lakehouse tables.

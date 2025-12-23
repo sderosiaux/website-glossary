@@ -350,33 +350,7 @@ Monitoring NoSQL databases in streaming architectures requires visibility across
 
 **Distributed Tracing**:
 Implement end-to-end tracing from event production through Kafka to database writes. OpenTelemetry instrumentation reveals where latency accumulates:
-
 ![Implement end-to-end tracing from event production through Kafka to database writes. OpenTelemetry instrumentation reveals where latency accumulates](images/diagrams/nosql-databases-real-time-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```python
-# OpenTelemetry Tracing for Kafka → MongoDB Pipeline
-from opentelemetry import trace
-from opentelemetry.instrumentation.kafka import KafkaInstrumentor
-from opentelemetry.instrumentation.pymongo import PymongoInstrumentor
-
-# Auto-instrument Kafka and MongoDB
-KafkaInstrumentor().instrument()
-PymongoInstrumentor().instrument()
-
-tracer = trace.get_tracer(__name__)
-
-for message in consumer:
-    # Trace context automatically propagated from producer
-    with tracer.start_as_current_span("process_event") as span:
-        event = json.loads(message.value)
-        span.set_attribute("event.type", event['type'])
-
-        # MongoDB write is automatically traced
-        db.events.insert_one(event)
-```
--->
-
 **Alerting Strategy**:
 - **Critical**: Connector failures, database unavailability, consumer group stuck (no progress for 5+ minutes)
 - **Warning**: p99 write latency exceeds SLA, consumer lag growing, connection pool >80% utilized

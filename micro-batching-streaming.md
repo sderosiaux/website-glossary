@@ -10,54 +10,7 @@ topics:
 Stream processing exists on a spectrum. On one end, traditional batch processing handles large volumes of data at scheduled intervals—hourly, daily, or weekly. On the other end, true streaming processes each event individually as it arrives, achieving latencies measured in single-digit milliseconds. Micro-batching sits squarely in the middle, offering a pragmatic compromise that has powered some of the world's largest streaming applications.
 
 Rather than processing events one-by-one or waiting hours for batch jobs, micro-batching collects small groups of events over short time windows—typically ranging from 100 milliseconds to several minutes—and processes them as tiny batches. This hybrid approach unlocks significant architectural advantages while maintaining near-real-time responsiveness for many use cases.
-
 ![Micro-batching vs traditional batch vs true streaming comparison](images/diagrams/micro-batching-streaming-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-┌─────────────────────────────────────────────────────────────────┐
-│     PROCESSING MODELS: BATCH vs MICRO-BATCH vs STREAMING       │
-└─────────────────────────────────────────────────────────────────┘
-
-Traditional Batch (Hours/Days):
-    Events: ●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●
-                         │
-                         ▼
-            ┌────────────────────────┐
-            │  Process all together  │
-            │   (Large batch)        │
-            └────────────────────────┘
-    Latency: Hours          Throughput: Highest
-
-Micro-Batching (Seconds):
-    Events: ●●●●●●│●●●●●●│●●●●●●│●●●●●●│●●●●●●
-                  ▼       ▼       ▼       ▼
-            ┌────┐  ┌────┐  ┌────┐  ┌────┐
-            │ B1 │  │ B2 │  │ B3 │  │ B4 │
-            └────┘  └────┘  └────┘  └────┘
-              5s      5s      5s      5s
-    Latency: Seconds        Throughput: Medium-High
-
-True Streaming (Milliseconds):
-    Events: ●─▶●─▶●─▶●─▶●─▶●─▶●─▶●─▶●─▶●─▶
-            │  │  │  │  │  │  │  │  │  │
-            ▼  ▼  ▼  ▼  ▼  ▼  ▼  ▼  ▼  ▼
-         Process each event individually
-    Latency: Milliseconds   Throughput: Medium
-
-Trade-off Spectrum:
-    ┌─────────────────────────────────────────────┐
-    │ Latency      ▲                              │
-    │              │  Batch                       │
-    │              │    ▲                         │
-    │              │    │ Micro-batch             │
-    │              │    │   ▲                     │
-    │              │    │   │ Streaming           │
-    └──────────────┼────┼───┼────────────────────▶
-                        Complexity/Overhead
-```
--->
-
 ## How Micro-Batching Works
 
 At its core, micro-batching applies batch processing semantics to streaming data by dividing the continuous stream into discrete, time-bounded chunks. Every few seconds (or subseconds), the system collects all events that arrived during that interval and processes them together as a single batch.

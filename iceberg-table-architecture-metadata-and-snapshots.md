@@ -18,50 +18,7 @@ For a broader overview of Iceberg's features and ecosystem, see [Apache Iceberg]
 ## The Three-Layer Metadata Architecture
 
 Iceberg's architecture is built on three distinct metadata layers that work together to track table state and data files:
-
 ![Iceberg's architecture is built on three distinct metadata layers that work together to track table state and data files](images/diagrams/iceberg-table-architecture-metadata-and-snapshots-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-┌─────────────────────────────────────┐
-│     Catalog (Table Pointer)         │
-│  Points to current metadata file    │
-└──────────────┬──────────────────────┘
-               │
-               ▼
-┌─────────────────────────────────────┐
-│      Metadata File (JSON)           │
-│  - Current snapshot                 │
-│  - Schema history                   │
-│  - Partition spec                   │
-│  - Manifest list pointer            │
-└──────────────┬──────────────────────┘
-               │
-               ▼
-┌─────────────────────────────────────┐
-│      Manifest List (Avro)           │
-│  Lists all manifest files for       │
-│  this snapshot                      │
-└──────────────┬──────────────────────┘
-               │
-               ▼
-┌─────────────────────────────────────┐
-│      Manifest Files (Avro)          │
-│  Track individual data files with:  │
-│  - File paths                       │
-│  - Partition values                 │
-│  - Row counts                       │
-│  - Column statistics                │
-└──────────────┬──────────────────────┘
-               │
-               ▼
-┌─────────────────────────────────────┐
-│      Data Files (Parquet/ORC)       │
-│  Actual table data                  │
-└─────────────────────────────────────┘
-```
--->
-
 ### Catalog Layer
 
 The catalog serves as the entry point to an Iceberg table, maintaining a pointer to the current metadata file. The catalog's atomic update mechanism ensures only one metadata file is considered "current," preventing split-brain scenarios during concurrent writes.

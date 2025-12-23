@@ -10,42 +10,7 @@ topics:
 ---
 
 Traditional partitioning strategies in data lakes have long presented a difficult tradeoff: optimize for current query patterns and risk poor performance as workloads evolve, or maintain multiple copies of data organized differently. Delta Lake's Liquid Clustering introduces a fundamentally different approach—adaptive, automatic clustering that continuously optimizes data layout without the brittleness of static partitioning schemes.
-
 ![Traditional partitioning vs liquid clustering](images/diagrams/delta-lake-liquid-clustering-modern-partitioning-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-Traditional Partitioning             Liquid Clustering
-────────────────────────             ─────────────────
-
-/data/                               /data/
-├─ date=2025-01-01/                  ├─ file_001.parquet
-│  ├─ region=us-west/                │  (Clustered by:
-│  │  └─ file1.parquet               │   date, region, type)
-│  └─ region=us-east/                ├─ file_002.parquet
-│     └─ file2.parquet               │  (Clustered by:
-└─ date=2025-01-02/                  │   date, region, type)
-   ├─ region=us-west/                └─ file_003.parquet
-   │  └─ file3.parquet                  (Clustered by:
-   └─ region=us-east/                    date, region, type)
-      └─ file4.parquet
-
-Problems:                            Benefits:
-• Directory explosion                • Flat structure
-• Single dimension only              • Multi-dimensional
-• Can't change easily                • Adaptive optimization
-• Many small files                   • No directory overhead
-
-Query:                               Query:
-WHERE date='2025-01-01'              WHERE date='2025-01-01'
-  AND region='us-west'                 AND region='us-west'
-  AND type='purchase'                  AND type='purchase'
-
-Scans: 1 directory                   Scans: ~1-3 files
-(Only optimized for date+region)     (Optimized for all 3 dimensions)
-```
--->
-
 ## Understanding the Partitioning Problem
 
 Traditional Hive-style partitioning creates physical directory structures based on column values. While this approach provides predictable query performance for filters on partition columns, it introduces several challenges:

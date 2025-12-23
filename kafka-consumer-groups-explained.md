@@ -41,50 +41,7 @@ props.put("partition.assignment.strategy", "org.apache.kafka.clients.consumer.Co
 KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
 consumer.subscribe(Arrays.asList("user-events"));
 ```
-
 ![kafka-consumer-groups-explained diagram 1](images/diagrams/kafka-consumer-groups-explained-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-┌────────────────────────────────────────────────────────────────┐
-│              Consumer Group: analytics-processors              │
-├────────────────────────────────────────────────────────────────┤
-│                                                                  │
-│  Topic: user-events (6 partitions)                             │
-│                                                                  │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐      │
-│  │Partition │  │Partition │  │Partition │  │Partition │ ...  │
-│  │    0     │  │    1     │  │    2     │  │    3-5   │      │
-│  └────┬─────┘  └────┬─────┘  └────┬─────┘  └────┬─────┘      │
-│       │             │             │             │              │
-│       ▼             ▼             ▼             ▼              │
-│  ┌─────────────────────────────────────────────────────────┐  │
-│  │              Group Coordinator (Broker)                 │  │
-│  │  • Manages partition assignments                        │  │
-│  │  • Tracks consumer heartbeats                           │  │
-│  │  • Triggers rebalancing                                 │  │
-│  └──────┬──────────────┬──────────────┬────────────────────┘  │
-│         │              │              │                        │
-│         ▼              ▼              ▼                        │
-│  ┌────────────┐ ┌────────────┐ ┌────────────┐                │
-│  │ Consumer 1 │ │ Consumer 2 │ │ Consumer 3 │                │
-│  ├────────────┤ ├────────────┤ ├────────────┤                │
-│  │ Assigned:  │ │ Assigned:  │ │ Assigned:  │                │
-│  │ P0, P1     │ │ P2, P3     │ │ P4, P5     │                │
-│  │            │ │            │ │            │                │
-│  │ Offset: 42 │ │ Offset: 38 │ │ Offset: 51 │                │
-│  └────────────┘ └────────────┘ └────────────┘                │
-│                                                                  │
-│  ┌──────────────────────────────────────────────────────────┐ │
-│  │  If Consumer 2 fails → Rebalance triggers:              │ │
-│  │  • Consumer 1: P0, P1, P2                                │ │
-│  │  • Consumer 3: P3, P4, P5                                │ │
-│  └──────────────────────────────────────────────────────────┘ │
-│                                                                  │
-└────────────────────────────────────────────────────────────────┘
-```
--->
-
 Consider a topic with six partitions and three consumers in the same group. Each consumer might receive two partitions. If you add a fourth consumer, the partitions are redistributed—perhaps three consumers get two partitions each, and one gets none. If you have more consumers than partitions, the extra consumers remain idle.
 
 Common assignment strategies include:

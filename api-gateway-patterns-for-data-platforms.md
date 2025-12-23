@@ -22,38 +22,7 @@ The gateway handles cross-cutting concerns that would otherwise need to be imple
 For data platforms specifically, API gateways solve several problems. They provide a unified interface to heterogeneous data sources, translate between protocols (like REST to Kafka), enforce data governance policies, and protect backend systems from overload.
 
 ## Core API Gateway Patterns
-
 ![## Core API Gateway Patterns](images/diagrams/api-gateway-patterns-for-data-platforms-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-               API Gateway Architecture
-
-┌────────────────────────────────────────────────────┐
-│                    Clients                         │
-│  (Web, Mobile, IoT, Partner APIs)                 │
-└──────────────────────┬─────────────────────────────┘
-                       │
-                       ▼
-         ┌─────────────────────────────┐
-         │      API Gateway            │
-         ├─────────────────────────────┤
-         │ • Authentication            │
-         │ • Rate Limiting             │
-         │ • Protocol Translation      │
-         │ • Request Routing           │
-         │ • Response Aggregation      │
-         └───────┬──────┬──────┬───────┘
-                 │      │      │
-     ┌───────────┘      │      └───────────┐
-     ▼                  ▼                  ▼
-┌─────────┐      ┌─────────┐      ┌─────────┐
-│ REST    │      │ Kafka   │      │Database │
-│ Service │      │ Cluster │      │  API    │
-└─────────┘      └─────────┘      └─────────┘
-```
--->
-
 ### Routing and Service Discovery
 
 The routing pattern directs requests to appropriate backend services based on URL paths, headers, or request content. A gateway might route `/customers/*` to a customer database API while `/orders/*` goes to an order processing service.
@@ -87,35 +56,7 @@ Streaming platforms like Apache Kafka present unique gateway requirements. Tradi
 Kafka gateways must handle long-lived connections for consuming message streams. A WebSocket gateway can maintain persistent connections that stream Kafka messages to browsers or mobile apps. This enables real-time data delivery without constant polling.
 
 For comprehensive understanding of Kafka's core architecture and how topics, partitions, and consumer groups work, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
-
 ![api-gateway-patterns-for-data-platforms diagram 2](images/diagrams/api-gateway-patterns-for-data-platforms-1.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-      Streaming Gateway Pattern (Kafka WebSocket)
-
-Mobile/Web Clients                 Gateway               Kafka Cluster
-      │                                │                      │
-      ├─ WebSocket Connect ────────────▶│                      │
-      │    (JWT token)                  │                      │
-      │                                 ├─ Authenticate        │
-      │                                 ├─ Create Consumer     │
-      │                                 ├─────────────────────▶│
-      │                                 │   Subscribe topics   │
-      │                                 │                      │
-      │                                 │◀─────────────────────┤
-      │◀─ Stream messages ──────────────┤   Poll messages      │
-      │    (real-time events)           │                      │
-      │                                 │◀─────────────────────┤
-      │◀─ Stream messages ──────────────┤   Poll messages      │
-      │                                 │                      │
-      ├─ Disconnect ────────────────────▶│                      │
-      │                                 ├─ Clean up consumer   │
-      │                                 └─────────────────────▶│
-      ▼                                 ▼                      ▼
-```
--->
-
 Topic-based routing becomes the streaming equivalent of path-based routing. The gateway maps logical topics to physical Kafka topics, allowing topic reorganization without breaking client code. It can also merge multiple topics into a single consumer stream or split a single topic into multiple logical views.
 
 ### Real-World Example: Event-Driven API Gateway
@@ -213,39 +154,7 @@ A single gateway serving all these clients either:
 3. Grows complex conditional logic based on client type
 
 ### BFF Architecture
-
 ![### BFF Architecture](images/diagrams/api-gateway-patterns-for-data-platforms-2.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-┌─────────────┐    ┌─────────────┐    ┌─────────────┐
-│   Mobile    │    │     Web     │    │     IoT     │
-│     App     │    │  Dashboard  │    │   Devices   │
-└──────┬──────┘    └──────┬──────┘    └──────┬──────┘
-       │                  │                   │
-       ▼                  ▼                   ▼
-┌─────────────┐    ┌─────────────┐    ┌─────────────┐
-│  Mobile BFF │    │   Web BFF   │    │   IoT BFF   │
-│             │    │             │    │             │
-│ • Compact   │    │ • Rich data │    │ • Binary    │
-│   payloads  │    │ • Aggregated│    │   protocol  │
-│ • Optimized │    │ • GraphQL   │    │ • Minimal   │
-│   for 4G    │    │   support   │    │   overhead  │
-└──────┬──────┘    └──────┬──────┘    └──────┬──────┘
-       │                  │                   │
-       └──────────────────┼───────────────────┘
-                          │
-                          ▼
-              ┌───────────────────────┐
-              │   Shared Services     │
-              │                       │
-              │ • Kafka Clusters      │
-              │ • Databases           │
-              │ • Microservices       │
-              └───────────────────────┘
-```
--->
-
 ### BFF Benefits for Data Platforms
 
 **Domain ownership**: Each frontend team owns their BFF, enabling independent deployment and iteration without coordinating with other teams.

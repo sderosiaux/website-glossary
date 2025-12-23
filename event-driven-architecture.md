@@ -27,50 +27,7 @@ The core components include:
 **Event Brokers**: The intermediary system responsible for receiving events from producers, persisting them, and routing them to interested consumers. This transport layer is crucial for achieving decoupling.
 
 **Event Consumers**: Services that subscribe to events and react accordingly. Consumers act asynchronously and independently of one another.
-
 ![event-driven-architecture diagram 1](images/diagrams/event-driven-architecture-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-┌────────────────────────────────────────────────────────────────┐
-│              Event-Driven Architecture Flow                    │
-├────────────────────────────────────────────────────────────────┤
-│                                                                  │
-│  ┌──────────────┐         ┌──────────────┐                    │
-│  │   Service A  │         │   Service B  │                    │
-│  │  (Orders)    │         │ (Inventory)  │                    │
-│  └──────┬───────┘         └──────┬───────┘                    │
-│         │ Publish                │ Publish                     │
-│         │ OrderPlaced            │ StockUpdated                │
-│         ▼                        ▼                             │
-│  ┌─────────────────────────────────────────────────────┐      │
-│  │            Event Broker (Kafka / RabbitMQ)          │      │
-│  │  ┌──────────────┐  ┌──────────────┐  ┌──────────┐ │      │
-│  │  │ OrderPlaced  │  │StockUpdated  │  │Payments  │ │      │
-│  │  │   Topic      │  │   Topic      │  │  Topic   │ │      │
-│  │  └──────────────┘  └──────────────┘  └──────────┘ │      │
-│  └──────┬────────────────────┬────────────────┬───────┘      │
-│         │                    │                │                │
-│         │ Subscribe          │ Subscribe      │ Subscribe      │
-│         ▼                    ▼                ▼                │
-│  ┌────────────┐       ┌────────────┐   ┌─────────────┐       │
-│  │  Service C │       │  Service D │   │  Service E  │       │
-│  │ (Shipping) │       │  (Notif.)  │   │ (Analytics) │       │
-│  └────────────┘       └────────────┘   └─────────────┘       │
-│         │                    │                │                │
-│         ▼                    ▼                ▼                │
-│  Ship order          Send email      Update metrics           │
-│                                                                  │
-│  Characteristics:                                              │
-│  • Async communication                                         │
-│  • Temporal decoupling                                         │
-│  • Multiple independent consumers                              │
-│  • Event replay capability                                     │
-│                                                                  │
-└────────────────────────────────────────────────────────────────┘
-```
--->
-
 The general data flow: Producer publishes event → Broker ingests and persists event → Consumer(s) retrieve event and react.
 
 ## Core Principles: Decoupling, Asynchrony, and Reactivity

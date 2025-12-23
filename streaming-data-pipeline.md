@@ -20,14 +20,6 @@ A streaming data pipeline is a set of technologies that captures data as soon as
 
 **Visual Architecture:**
 ![**Visual Architecture:**](images/diagrams/streaming-data-pipeline-1.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-[Sources] → [Ingestion: CDC/Producers] → [Broker: Kafka Topics] 
-         → [Processing: Flink/Streams] → [Sinks: Warehouse/DB/Cache]
-```
--->
-
 **Key characteristics:**
 - **Decoupling**: Components scale, fail, and evolve independently
 - **Low Latency**: Data processed within milliseconds to seconds
@@ -164,17 +156,6 @@ Provides 1-2 minute latency while controlling warehouse costs.
 
 Single streams serve multiple destinations simultaneously:
 ![Single streams serve multiple destinations simultaneously](images/diagrams/streaming-data-pipeline-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-Enriched Orders (Kafka)
-  ├→ Snowflake (BI analysis)
-  ├→ PostgreSQL (dashboards)
-  ├→ Elasticsearch (support search)
-  └→ Redis (inventory cache)
-```
--->
-
 Each consumer processes independently. Kafka buffers during downstream failures.
 
 **Exactly-once vs at-least-once**: Choose exactly-once when duplicates cause incorrect results (financial transactions, inventory updates). Use at-least-once with idempotent consumers when performance matters and systems handle duplicates (updating current state, upserts). Exactly-once adds 2-5ms latency and 10-20% throughput reduction. For implementation details, see [Exactly-Once Semantics in Kafka](https://conduktor.io/glossary/exactly-once-semantics-in-kafka).

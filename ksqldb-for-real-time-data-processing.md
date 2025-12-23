@@ -11,47 +11,7 @@ topics:
 ---
 
 Real-time data processing has become essential for modern applications, from fraud detection to personalized recommendations. While Apache Kafka excels at event streaming, building stream processing applications traditionally required writing complex code in Java or Scala. ksqlDB changes this paradigm by providing a SQL interface for stream processing, making real-time data transformation accessible to a broader audience.
-
 ![ksqlDB architecture with streams, tables, and queries](images/diagrams/ksqldb-for-real-time-data-processing-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                  ksqlDB ARCHITECTURE & QUERY TYPES              │
-└─────────────────────────────────────────────────────────────────┘
-
-  Kafka Topics                ksqlDB Server              Consumers
-      │                             │                         │
-      │                             │                         │
-   ┌──▼───┐                   ┌─────▼──────┐                 │
-   │Stream│───────────────────▶│  Stream    │                 │
-   │(logs)│  Immutable events  │ (unbounded)│                 │
-   └──────┘                    └────────────┘                 │
-                                      │                       │
-      │                          Transform                    │
-      │                               ▼                       │
-   ┌──▼───┐                   ┌─────────────┐                │
-   │ CDC  │───────────────────▶│   Table     │                │
-   │Topic │   Current state    │ (changelog) │                │
-   └──────┘                    └─────┬───────┘                │
-                                     │                        │
-                               Materialized                   │
-                                  View                        │
-                                     │                        │
-                          ┌──────────┴──────────┐            │
-                          │                     │            │
-                    Push Queries          Pull Queries       │
-                    (continuous)         (point-in-time)     │
-                          │                     │            │
-                          └──────────┬──────────┘            │
-                                     ▼                       │
-                              ┌──────────────┐              │
-                              │  Dashboards  │◀─────────────┘
-                              │   Services   │
-                              └──────────────┘
-```
--->
-
 ## What is ksqlDB?
 
 ksqlDB is an event streaming database built on Apache Kafka and Kafka Streams. It allows developers to build stream processing applications using familiar SQL syntax instead of writing procedural code. Originally released as KSQL in 2017 and rebranded as ksqlDB in 2019, it has evolved into a complete database for stream processing workloads.

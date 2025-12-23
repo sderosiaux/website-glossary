@@ -39,49 +39,7 @@ Understanding Kafka Streams architecture helps you design better applications an
 ### Stream Processing Topology
 
 A Kafka Streams application defines a processing topology - a graph of stream processors connected by streams. The topology describes how data flows through your application:
-
 ![A Kafka Streams application defines a processing topology - a graph of stream processors connected by streams. The topology describes how data flows through your application](images/diagrams/introduction-to-kafka-streams-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-┌──────────────────────────────────────────────────────┐
-│         Kafka Streams Topology                       │
-│                                                       │
-│  ┌────────────┐       ┌─────────────┐               │
-│  │  Source    │       │   Source    │               │
-│  │ (Topic A)  │       │  (Topic B)  │               │
-│  └─────┬──────┘       └──────┬──────┘               │
-│        │                     │                       │
-│        ▼                     ▼                       │
-│  ┌──────────┐         ┌───────────┐                 │
-│  │ Filter   │         │   Map     │                 │
-│  └────┬─────┘         └─────┬─────┘                 │
-│       │                     │                       │
-│       └──────────┬──────────┘                       │
-│                  ▼                                   │
-│          ┌───────────────┐                          │
-│          │  Join/Merge   │                          │
-│          └───────┬───────┘                          │
-│                  │                                   │
-│                  ▼                                   │
-│          ┌───────────────┐                          │
-│          │  Aggregate    │◄───┐                     │
-│          │  (Stateful)   │    │                     │
-│          └───────┬───────┘    │                     │
-│                  │             │                     │
-│                  │      ┌──────┴──────┐             │
-│                  │      │ State Store │             │
-│                  │      │  (RocksDB)  │             │
-│                  │      └─────────────┘             │
-│                  ▼                                   │
-│          ┌──────────────┐                           │
-│          │   Sink       │                           │
-│          │ (Topic C)    │                           │
-│          └──────────────┘                           │
-└──────────────────────────────────────────────────────┘
-```
--->
-
 1. **Source Processor**: Reads records from Kafka topics
 2. **Stream Processors**: Transform, filter, or aggregate data
 3. **Sink Processor**: Writes results back to Kafka topics
@@ -237,44 +195,7 @@ implementation 'org.apache.kafka:kafka-streams:3.6.0'
 ### The Word Count Application
 
 Our application reads text from an input topic, counts word occurrences, and writes results to an output topic.
-
 ![introduction-to-kafka-streams diagram 2](images/diagrams/introduction-to-kafka-streams-1.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-Data Flow:
-┌─────────────────┐
-│  text-input     │  "Hello World"
-│  (Topic)        │  "Hello Kafka"
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────┐
-│  flatMapValues  │  Split: ["hello","world","hello","kafka"]
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────┐
-│    groupBy      │  Group by word
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────────────┐
-│   count()               │  Stateful: hello=2, world=1, kafka=1
-│  ┌─────────────────┐    │
-│  │  State Store    │    │
-│  │  (RocksDB)      │    │
-│  └─────────────────┘    │
-└────────┬────────────────┘
-         │
-         ▼
-┌─────────────────┐
-│  word-counts    │  Output: (hello,2), (world,1), (kafka,1)
-│  (Topic)        │
-└─────────────────┘
-```
--->
-
 This simple application demonstrates several concepts:
 
 1. **Stateless transformation**: `flatMapValues` splits lines into words
@@ -381,38 +302,7 @@ Kafka Streams powers diverse real-time applications across industries.
 ### Fraud Detection
 
 Financial services use Kafka Streams to detect fraudulent transactions in real-time. The application aggregates recent transactions per user, calculates risk scores, and flags suspicious patterns immediately.
-
 ![introduction-to-kafka-streams diagram 3](images/diagrams/introduction-to-kafka-streams-2.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-┌─────────────────┐
-│  transactions   │  user123: $50, $75, $100, $5000
-│  (Topic)        │
-└────────┬────────┘
-         │
-         ▼
-┌──────────────────────────────┐
-│  windowedBy(10 minutes)      │
-│  ┌────────────────────────┐  │
-│  │ user123                │  │
-│  │ ┌────┐┌────┐┌─────┐  │  │
-│  │ │$50 ││$75 ││$100 │  │  │
-│  │ └────┘└────┘└─────┘  │  │
-│  │ Avg: $75  ← Baseline │  │
-│  └────────────────────────┘  │
-│                              │
-│  New: $5000 → Risk!          │
-└────────┬─────────────────────┘
-         │
-         ▼
-┌─────────────────┐
-│  alerts         │  FRAUD ALERT: user123, score=0.95
-│  (Topic)        │
-└─────────────────┘
-```
--->
-
 This pattern enables immediate action - blocking transactions, alerting users, or triggering manual review.
 
 ### Metrics and Monitoring

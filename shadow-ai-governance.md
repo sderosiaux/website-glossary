@@ -10,76 +10,7 @@ topics:
 The democratization of AI has delivered remarkable innovation velocity, but it has also introduced a governance challenge that many organizations are only beginning to recognize: Shadow AI. Much like the shadow IT phenomenon that emerged with cloud computing, Shadow AI represents the proliferation of unauthorized, ungoverned artificial intelligence and machine learning models deployed across the enterprise without proper oversight.
 
 As AI adoption accelerates and tools become increasingly accessible, teams are deploying models into production at unprecedented rates. While this speed drives competitive advantage, it also creates significant risks around compliance, security, data governance, and ethical AI practices. Understanding Shadow AI and building effective governance frameworks has become essential for any organization scaling AI initiatives.
-
 ![Shadow AI lifecycle from ungoverned deployment to governed model registry](images/diagrams/shadow-ai-governance-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-┌─────────────────────────────────────────────────────────────────┐
-│              SHADOW AI: UNGOVERNED TO GOVERNED                  │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│  UNGOVERNED STATE (Shadow AI Proliferation)                    │
-│                                                                 │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐       │
-│  │ Team A   │  │ Team B   │  │ Team C   │  │ Team D   │       │
-│  │ ML Model │  │ ChatGPT  │  │ Custom   │  │ Jupyter  │       │
-│  │ (unknown)│  │ in Excel │  │ Sentiment│  │ Model    │       │
-│  │          │  │          │  │ Analysis │  │ (PII!)   │       │
-│  └────┬─────┘  └────┬─────┘  └────┬─────┘  └────┬─────┘       │
-│       │             │             │             │              │
-│       ▼             ▼             ▼             ▼              │
-│  ┌─────────────────────────────────────────────────────┐       │
-│  │        Production Kafka Topics (Untracked)          │       │
-│  │  customer-events │ feedback │ transactions          │       │
-│  └─────────────────────────────────────────────────────┘       │
-│                                                                 │
-│  Risks:                                                         │
-│  ✗ No visibility: Unknown models consuming production data     │
-│  ✗ Compliance violations: PII processing without approval      │
-│  ✗ Security gaps: Unvetted dependencies, no access controls    │
-│  ✗ Data leakage: Models logging sensitive inputs               │
-│  ✗ No accountability: Orphaned models, unknown owners          │
-│                                                                 │
-│  ─────────────────────────────────────────────────────────      │
-│                                                                 │
-│  GOVERNED STATE (AI Governance Framework)                      │
-│                                                                 │
-│  ┌───────────────────────────────────────────────────────┐     │
-│  │          AI MODEL REGISTRY (MLflow/Central)           │     │
-│  │  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐   │     │
-│  │  │ Model 1     │  │ Model 2     │  │ Model 3     │   │     │
-│  │  │ Owner: TeamA│  │ Owner: TeamB│  │ Owner: TeamC│   │     │
-│  │  │ Data: topic1│  │ Data: topic2│  │ Data: topic3│   │     │
-│  │  │ Approved ✓  │  │ Approved ✓  │  │ Approved ✓  │   │     │
-│  │  │ PII: Low    │  │ PII: High   │  │ PII: Medium │   │     │
-│  │  └─────────────┘  └─────────────┘  └─────────────┘   │     │
-│  └───────────────────────────────────────────────────────┘     │
-│         │                    │                    │            │
-│         ▼                    ▼                    ▼            │
-│  ┌──────────────────────────────────────────────────────┐      │
-│  │     GOVERNED DATA ACCESS (Policy Enforcement)        │      │
-│  │  • Schema validation  • Access control               │      │
-│  │  • Data lineage       • Audit logging                │      │
-│  │  • Quality checks     • Approval workflows           │      │
-│  └──────────────────────────────────────────────────────┘      │
-│         │                                                       │
-│         ▼                                                       │
-│  ┌─────────────────────────────────────────────────────┐       │
-│  │     Production Kafka Topics (Tracked & Governed)    │       │
-│  │  All consumers registered, audited, authorized      │       │
-│  └─────────────────────────────────────────────────────┘       │
-│                                                                 │
-│  Benefits:                                                      │
-│  ✓ Visibility: Central inventory of all AI/ML workloads        │
-│  ✓ Compliance: Privacy reviews, audit trails, approvals        │
-│  ✓ Security: Vetted dependencies, access controls              │
-│  ✓ Data governance: Lineage tracking, quality monitoring       │
-│  ✓ Accountability: Clear ownership, incident response          │
-└─────────────────────────────────────────────────────────────────┘
-```
--->
-
 ## What is Shadow AI?
 
 Shadow AI refers to machine learning models, AI applications, and automated decision-making systems that are deployed and operating in production environments without formal approval, documentation, or oversight from central governance teams. This includes:

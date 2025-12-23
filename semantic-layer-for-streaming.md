@@ -12,61 +12,7 @@ topics:
 A data analyst joins a team and needs to calculate daily active users from real-time event streams. She discovers three different Kafka topics that seem relevant: `user.events.v2`, `app_interactions`, and `user_activity_enriched`. Each has different field names for user identifiers (`user_id`, `userId`, `customer_key`), different timestamp formats, and unclear definitions of what constitutes an "active" user.
 
 This scenario repeats across organizations adopting streaming architectures. While Apache Kafka, Apache Flink, and similar platforms excel at moving data in real-time, they expose technical implementation details—topic names, serialization formats, partition keys—that create barriers for business users. What's missing is a **semantic layer**: a business-friendly abstraction that translates technical streaming infrastructure into concepts people can understand and trust.
-
 ![Semantic layer bridging technical streams and business concepts](images/diagrams/semantic-layer-for-streaming-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-┌─────────────────────────────────────────────────────────────────┐
-│              SEMANTIC LAYER FOR STREAMING DATA                  │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│  Business View (What Users See)                                │
-│  ┌────────────────────────────────────────────────────────┐    │
-│  │  Business Metrics & Entities                           │    │
-│  │  • Active Users (unified definition)                   │    │
-│  │  • Customer Profile (single view)                      │    │
-│  │  • Order Status (business terms)                       │    │
-│  └────────────────────────────────────────────────────────┘    │
-│                           ▲                                     │
-│                           │ Translation Layer                   │
-│                           │                                     │
-│  ┌────────────────────────────────────────────────────────┐    │
-│  │           SEMANTIC LAYER (Abstraction)                 │    │
-│  │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐ │    │
-│  │  │ Entity Defs  │  │   Metrics    │  │  Access      │ │    │
-│  │  │              │  │              │  │  Policies    │ │    │
-│  │  │ Customer =   │  │ ActiveUser = │  │              │ │    │
-│  │  │ user_events  │  │ COUNT WHERE  │  │ Role-based   │ │    │
-│  │  │ + profiles   │  │ activity     │  │ permissions  │ │    │
-│  │  │ + accounts   │  │ in 15min     │  │              │ │    │
-│  │  └──────────────┘  └──────────────┘  └──────────────┘ │    │
-│  │                                                        │    │
-│  │  Naming: user_id → customer_key → unified "user_id"   │    │
-│  │  Temporal: Event-time vs Processing-time logic        │    │
-│  │  Lineage: Tracks upstream dependencies                │    │
-│  └────────────────────────────────────────────────────────┘    │
-│                           ▼                                     │
-│  Technical Infrastructure (What Exists)                        │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐         │
-│  │ user.events  │  │ app_interact │  │ user_act_enr │         │
-│  │ .v2          │  │ ions         │  │ iched        │         │
-│  │              │  │              │  │              │         │
-│  │ field:       │  │ field:       │  │ field:       │         │
-│  │ user_id      │  │ userId       │  │ customer_key │         │
-│  │ timestamp    │  │ event_time   │  │ ts           │         │
-│  └──────────────┘  └──────────────┘  └──────────────┘         │
-│         ▲                 ▲                 ▲                   │
-│         └─────────────────┴─────────────────┘                   │
-│                    Kafka Topics                                │
-│                                                                 │
-│  Without Semantic Layer: Analysts must understand 3 topics,    │
-│                          different schemas, join logic          │
-│  With Semantic Layer:    Query "active_users" view directly    │
-└─────────────────────────────────────────────────────────────────┘
-```
--->
-
 ## What is a Semantic Layer?
 
 A semantic layer is a business abstraction that sits between raw data systems and data consumers. It provides:

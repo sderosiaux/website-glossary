@@ -9,47 +9,7 @@ topics:
 ---
 
 Every click, scroll, and interaction on a website or mobile app generates valuable data. Understanding this user behavior in real-time can drive personalization, detect fraud, and optimize customer experiences. Clickstream analytics with Apache Kafka enables organizations to capture, process, and act on this data at scale.
-
 ![Clickstream Analytics Architecture with Kafka](images/diagrams/clickstream-analytics-with-kafka-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-┌──────────────────────────────────────────────────────────────────┐
-│              Clickstream Analytics Architecture                  │
-└──────────────────────────────────────────────────────────────────┘
-
-Web/Mobile App       Ingestion         Kafka Topics       Processing
-─────────────       ──────────       ──────────────     ────────────
-
-┌───────────┐
-│  Users    │
-│  Clicks   │──┐
-│  Scrolls  │  │
-│  Events   │  │      ┌──────────┐   ┌──────────────┐
-└───────────┘  ├────▶ │ HTTP API │──▶│ clickstream- │
-               │      └──────────┘   │   events     │
-┌───────────┐  │                     │  (Kafka)     │
-│  Mobile   │──┘                     └──────┬───────┘
-│   SDK     │                               │
-└───────────┘                               ▼
-                                    ┌───────────────┐
-                                    │ Kafka Streams │
-                                    │   or Flink    │
-                                    │ • Sessionize  │
-                                    │ • Enrich      │
-                                    │ • Aggregate   │
-                                    └───────┬───────┘
-                                            │
-                  ┌─────────────────────────┼─────────────┐
-                  ▼                         ▼             ▼
-            ┌──────────┐            ┌──────────┐   ┌──────────┐
-            │ Real-time│            │  Data    │   │  ML      │
-            │Dashboard │            │  Lake    │   │ Models   │
-            │(Hot Path)│            │(S3/HDFS) │   │(Training)│
-            └──────────┘            └──────────┘   └──────────┘
-```
--->
-
 ## What is Clickstream Analytics?
 
 Clickstream analytics involves tracking and analyzing the sequence of user interactions with digital platforms. Each event—page views, button clicks, video plays, cart additions—creates a data point that reveals user intent and behavior patterns.

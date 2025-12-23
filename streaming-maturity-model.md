@@ -8,39 +8,7 @@ topics:
 ---
 
 Organizations adopting streaming technologies often face a common challenge: how to evolve from initial proof-of-concepts to enterprise-grade real-time data platforms. A streaming maturity model provides a structured framework for assessing your current capabilities and charting a path toward more sophisticated streaming architectures.
-
 ![Streaming maturity progression from experimental to data products](images/diagrams/streaming-maturity-model-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-STREAMING MATURITY MODEL: 5-LEVEL PROGRESSION
-
-Level 1          Level 2           Level 3           Level 4          Level 5
-Ad-hoc      →   Departmental  →   Enterprise   →   Optimized   →   Data Products
-
-┌─────────┐     ┌──────────┐     ┌──────────┐     ┌─────────┐     ┌──────────┐
-│  POC    │     │ Multiple │     │ Platform │     │ Advanced│     │ Domain   │
-│Projects │ ──▶ │ Clusters │ ──▶ │  Team    │ ──▶ │ CEP/ML  │ ──▶ │ Owned    │
-│         │     │ Per Dept │     │ Govern.  │     │ Real-time│     │ Products │
-└─────────┘     └──────────┘     └──────────┘     └─────────┘     └──────────┘
-    │               │                 │                 │               │
-    ▼               ▼                 ▼                 ▼               ▼
-No Standards   Silos Emerge    Unified Stack     Flink/Streams    Federated
-Manual Ops     Basic Errors    Schema Reg.       Tiered Storage   SLOs/SLAs
-Limited         Duplication    Self-Service      Multi-Region     Marketplace
-Monitoring      Growing Ops    DLQ/Metrics       Chaos Test       Lineage
-
-DIMENSIONS MATURING AT EACH LEVEL:
-┌────────────────────────────────────────────────────────────────────┐
-│ Technology  ▰▰▱▱▱ → ▰▰▰▱▱ → ▰▰▰▰▱ → ▰▰▰▰▰ → ▰▰▰▰▰                │
-│ Governance  ▰▱▱▱▱ → ▰▰▱▱▱ → ▰▰▰▰▱ → ▰▰▰▰▰ → ▰▰▰▰▰                │
-│ Skills      ▰▱▱▱▱ → ▰▰▱▱▱ → ▰▰▰▱▱ → ▰▰▰▰▱ → ▰▰▰▰▰                │
-│ Operations  ▰▱▱▱▱ → ▰▰▱▱▱ → ▰▰▰▰▱ → ▰▰▰▰▰ → ▰▰▰▰▰                │
-│ Bus. Value  ▰▰▱▱▱ → ▰▰▱▱▱ → ▰▰▰▱▱ → ▰▰▰▰▱ → ▰▰▰▰▰                │
-└────────────────────────────────────────────────────────────────────┘
-```
--->
-
 ## Understanding Maturity Models for Streaming
 
 A maturity model is a diagnostic and planning tool that helps organizations understand where they are in their streaming journey and what capabilities they need to develop next. Unlike traditional batch-oriented data architectures, streaming platforms require distinct competencies across technology, governance, skills, and operations.

@@ -17,50 +17,7 @@ IoT data streaming architectures enable organizations to ingest, process, and ac
 ## Core Components of IoT Streaming Architectures
 
 An effective IoT streaming architecture consists of several interconnected layers that work together to move data from devices to actionable insights.
-
 ![iot-data-streaming-architectures diagram 1](images/diagrams/iot-data-streaming-architectures-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                    IoT Streaming Architecture                   │
-└─────────────────────────────────────────────────────────────────┘
-
-┌──────────────┐  ┌──────────────┐  ┌──────────────┐
-│ IoT Device 1 │  │ IoT Device 2 │  │ IoT Device N │
-└──────┬───────┘  └──────┬───────┘  └──────┬───────┘
-       │                 │                 │
-       └─────────────────┼─────────────────┘
-                         │ MQTT/CoAP
-                         ▼
-              ┌──────────────────┐
-              │  Protocol Bridge │
-              └────────┬─────────┘
-                       │
-                       ▼
-       ┌───────────────────────────────┐
-       │       Apache Kafka            │
-       │  ┌──────────┐  ┌──────────┐   │
-       │  │ Topic 1  │  │ Topic 2  │   │
-       │  └──────────┘  └──────────┘   │
-       └───────────┬───────────────────┘
-                   │
-          ┌────────┼────────┐
-          ▼        ▼        ▼
-    ┌─────────┐ ┌─────────┐ ┌─────────┐
-    │  Flink  │ │ Streams │ │  Spark  │
-    └────┬────┘ └────┬────┘ └────┬────┘
-         │           │           │
-         └───────────┼───────────┘
-                     ▼
-         ┌───────────────────────┐
-         │    Storage Layer      │
-         ├───────────────────────┤
-         │ Time-Series DB │ Lake │
-         └───────────────────────┘
-```
--->
-
 ### Data Ingestion Layer
 
 The ingestion layer collects data from IoT devices and routes it into the streaming platform. MQTT 5.0 (Message Queuing Telemetry Transport) is the standard protocol for device-to-cloud communication in 2025, offering enhanced features like shared subscriptions for load balancing, message expiry intervals, and improved authentication flows. Its lightweight nature and support for unreliable networks make it ideal for constrained IoT devices.

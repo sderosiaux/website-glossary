@@ -10,51 +10,7 @@ topics:
 ---
 
 Modern gaming platforms generate enormous volumes of data every second. From player movements and combat actions to in-game purchases and social interactions, these events must be captured, processed, and analyzed in real-time to deliver competitive, engaging experiences. Unlike traditional batch analytics that process data hours or days later, real-time gaming analytics requires streaming architectures capable of handling millions of events per second with sub-second latency.
-
 ![Gaming analytics streaming architecture with multi-region support](images/diagrams/real-time-gaming-analytics-with-streaming-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-┌────────── Real-Time Gaming Analytics Architecture ──────────┐
-│                                                              │
-│  Game Clients (Millions)    Regional Clusters               │
-│  ┌──────┐  ┌──────┐         ┌──────────────────┐           │
-│  │Player│  │Player│         │ US-West Kafka    │           │
-│  │ 1    │  │ 2    │────────▶│ Player Actions   │           │
-│  └──────┘  └──────┘         │ Game Telemetry   │           │
-│  ┌──────┐  ┌──────┐         └──────────────────┘           │
-│  │Player│  │Player│                  │                      │
-│  │ 3    │  │ 4    │──────┐           ▼                      │
-│  └──────┘  └──────┘      │  ┌────────────────┐             │
-│                          │  │ Stream          │             │
-│  100-500 events/min      └─▶│ Processing      │             │
-│  per player                 │ • Anti-Cheat    │             │
-│                             │ • Stats Update  │             │
-│  ┌──────────────────┐       │ • ML Inference  │             │
-│  │ EU Kafka         │       └────────────────┘             │
-│  │ Player Actions   │◀───MirrorMaker2───┐                  │
-│  │ Game Telemetry   │                   │                  │
-│  └──────────────────┘       ┌────────────────┐             │
-│          │                  │ APAC Kafka     │             │
-│          └──────────────────│ Player Actions │             │
-│                             │ Game Telemetry │             │
-│                             └────────────────┘             │
-│                                      │                      │
-│  Analytics Outputs                   ▼                      │
-│  ┌──────────────┐          ┌──────────────────┐            │
-│  │ Real-Time    │◀─────────│ Analytics Stores │            │
-│  │ Leaderboards │          │ • Redis (Stats)  │            │
-│  └──────────────┘          │ • ClickHouse     │            │
-│  ┌──────────────┐          │ • ScyllaDB       │            │
-│  │ Anti-Cheat   │◀─────────│ (Matchmaking)    │            │
-│  │ Alerts       │          └──────────────────┘            │
-│  └──────────────┘                                           │
-│                                                             │
-│  Scale: Millions of events/sec | Latency: <100ms          │
-└─────────────────────────────────────────────────────────────┘
-```
--->
-
 For example, when a player fires a weapon in a multiplayer shooter, that action generates an event containing the player's ID, weapon type, target, position, and timestamp. This event must be processed immediately to update kill/death statistics, detect potential cheating (impossible accuracy or reaction times), and adjust matchmaking rankings - all within milliseconds.
 
 This article explores how [streaming data platforms](https://conduktor.io/glossary/what-is-real-time-data-streaming) like Apache Kafka and Apache Flink enable real-time analytics in gaming, the technical challenges involved, and the architectural patterns that make it possible.

@@ -205,24 +205,7 @@ interceptors:
 ```
 
 **Stream Processing Patterns - The PII Firewall**: A common architectural pattern is the "PII firewall" - a dedicated stream processing job that sits between producers and the main Kafka cluster. All events flow through this firewall, which detects and protects PII before data reaches downstream consumers. This centralizes PII handling and ensures consistent policy enforcement.
-
 ![pii-detection-and-handling-in-event-streams diagram 1](images/diagrams/pii-detection-and-handling-in-event-streams-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-┌──────────┐     ┌─────────────────┐     ┌────────────────┐     ┌───────────┐
-│ Producer │────▶│  Raw Topic      │────▶│  PII Firewall  │────▶│  Masked   │
-│  (CDC)   │     │  (Restricted)   │     │  (Kafka        │     │  Topics   │
-└──────────┘     └─────────────────┘     │   Streams)     │     └───────────┘
-                                          └────────────────┘            │
-                                                                        ▼
-                                                                  ┌──────────┐
-                                                                  │ Analytics│
-                                                                  │ Consumers│
-                                                                  └──────────┘
-```
--->
-
 ## Compliance and Governance Considerations
 
 PII handling in event streams must align with regulatory requirements:

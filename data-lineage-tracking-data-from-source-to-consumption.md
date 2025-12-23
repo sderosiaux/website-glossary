@@ -10,42 +10,7 @@ topics:
 ---
 
 In modern data architectures, understanding where data comes from, how it transforms, and where it ends up is no longer optional—it's critical. Data lineage provides this visibility, creating a map of your data's journey through your entire ecosystem. For data engineers managing complex pipelines and governance officers ensuring compliance, mastering data lineage is essential.
-
 ![Data Lineage Flow](images/diagrams/data-lineage-tracking-data-from-source-to-consumption-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-┌──────────────────────────────────────────────────────────────────┐
-│                 DATA LINEAGE: SOURCE → CONSUMPTION               │
-└──────────────────────────────────────────────────────────────────┘
-
-SOURCE SYSTEMS          TRANSFORMATIONS           CONSUMPTION
-┌──────────┐             ┌──────────┐            ┌──────────┐
-│ Database │─────────────▶│   ETL    │───────────▶│Dashboard │
-│  (OLTP)  │             │  Jobs    │            │          │
-└──────────┘             └──────────┘            └──────────┘
-                               │                       ▲
-┌──────────┐                   │                       │
-│  Kafka   │───────────────────┤                       │
-│  Topics  │                   │                       │
-└──────────┘                   ▼                       │
-                         ┌──────────┐                  │
-┌──────────┐             │   dbt    │─────────────────┤
-│   APIs   │────────────▶│ Models   │                 │
-│          │             └──────────┘                 │
-└──────────┘                   │                      │
-                               ▼                      │
-                         ┌──────────┐                 │
-                         │   Data   │─────────────────┤
-                         │   Lake   │                 │
-                         └──────────┘            ┌──────────┐
-                                                 │ ML Model │
-                                                 └──────────┘
-
-  Column-level tracking    Impact analysis    Compliance audit trail
-```
--->
-
 ## What Is Data Lineage?
 
 Data lineage is the documentation and visualization of data's complete lifecycle. It captures the path data takes from its origin through every transformation, aggregation, and movement until it reaches its final destination—whether that's a dashboard, machine learning model, or downstream application.

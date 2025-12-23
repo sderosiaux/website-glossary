@@ -11,48 +11,7 @@ topics:
 ---
 
 Apache Kafka clusters serve multiple applications simultaneously, each with varying workloads and resource demands. Without proper controls, a single misbehaving or resource-intensive client can degrade performance for all users. Quotas and rate limiting provide the mechanisms to prevent this scenario, ensuring fair resource allocation and stable cluster operation.
-
 ![Kafka quota enforcement and throttling mechanism](images/diagrams/quotas-and-rate-limiting-in-kafka-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-┌────────────── Kafka Quota Enforcement ──────────────────────┐
-│                                                              │
-│  Client A (10MB/s quota)        Kafka Broker                │
-│  ┌──────────────┐               ┌──────────────────┐        │
-│  │ Sends 15MB/s │──────────────▶│ Quota Manager    │        │
-│  │ (Exceeds!)   │               │ ┌──────────────┐ │        │
-│  └──────────────┘               │ │ Sliding      │ │        │
-│         │                       │ │ Window (1s)  │ │        │
-│         │                       │ │ Tracks Usage │ │        │
-│         │                       │ └──────────────┘ │        │
-│         │                       │        │         │        │
-│         │                       │        ▼         │        │
-│         │                       │ ┌──────────────┐ │        │
-│         │                       │ │15MB > 10MB   │ │        │
-│         │                       │ │Throttle: 500ms│ │        │
-│         │                       │ └──────────────┘ │        │
-│         │                       └──────────────────┘        │
-│         │◀────────Delayed Response (Throttled)──────────    │
-│         ▼                                                    │
-│  Client Automatically Slows Down                            │
-│                                                              │
-│  Client B (10MB/s quota)        Kafka Broker                │
-│  ┌──────────────┐               ┌──────────────────┐        │
-│  │ Sends 8MB/s  │──────────────▶│ Quota Manager    │        │
-│  │ (Within)     │               │ 8MB < 10MB ✓     │        │
-│  └──────────────┘               └──────────────────┘        │
-│         │                                │                   │
-│         │◀──────Immediate Response───────┘                   │
-│         ▼                                                    │
-│  No Throttling Applied                                      │
-│                                                              │
-│  Quota Types: Producer (bytes/s) | Consumer (bytes/s)       │
-│               Request (% CPU)     | Connection (count)      │
-└──────────────────────────────────────────────────────────────┘
-```
--->
-
 Understanding how Kafka implements quotas is essential for anyone operating production clusters, especially in multi-tenant environments where predictable performance is critical. For foundational understanding of Kafka architecture, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
 
 ## What Are Quotas in Kafka?

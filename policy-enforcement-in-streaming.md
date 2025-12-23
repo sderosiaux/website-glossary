@@ -8,47 +8,7 @@ topics:
 ---
 
 In traditional batch processing systems, data quality checks and governance controls are applied at specific points—before loading, after transformation, during validation phases. But streaming systems operate continuously, with events flowing through pipelines 24/7. This constant flow demands a different approach: **policy enforcement** that operates automatically, in real-time, as data moves through the system.
-
 ![Multi-layer policy enforcement in streaming architectures](images/diagrams/policy-enforcement-in-streaming-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-┌────────────── Policy Enforcement Layers ──────────────────────┐
-│                                                                │
-│  Producer Side              Broker Side             Consumer  │
-│  ┌──────────┐              ┌──────────┐            ┌───────┐ │
-│  │ Event    │──Validate──▶ │ Gateway/ │──Filter──▶ │ App A │ │
-│  │ Source   │   Schema     │ Proxy    │   By ACL   │       │ │
-│  └──────────┘              └──────────┘            └───────┘ │
-│       │                         │                      │      │
-│       ▼                         ▼                      ▼      │
-│  ┌─────────────┐          ┌──────────────┐      ┌──────────┐│
-│  │ Validation  │          │ Real-Time    │      │ Consumer │││
-│  │ Policies:   │          │ Policies:    │      │ Policies:│││
-│  │ • Schema    │          │ • Masking    │      │ • Final  │││
-│  │ • Data Type │          │ • Routing    │      │   Filter │││
-│  │ • Required  │          │ • Quality    │      │ • Enrich │││
-│  │   Fields    │          │ • Rate Limit │      │ • Verify │││
-│  └─────────────┘          └──────────────┘      └──────────┘││
-│                                 │                             │
-│                                 ▼                             │
-│                    ┌───────────────────────┐                  │
-│                    │ Kafka Brokers         │                  │
-│                    │ ┌─────────────────┐   │                  │
-│                    │ │ Valid Topic     │   │                  │
-│                    │ │ (Passed All)    │   │                  │
-│                    │ └─────────────────┘   │                  │
-│                    │ ┌─────────────────┐   │                  │
-│                    │ │ DLQ Topic       │   │                  │
-│                    │ │ (Policy Failed) │   │                  │
-│                    │ └─────────────────┘   │                  │
-│                    └───────────────────────┘                  │
-│                                                                │
-│  Policy Result: Pass → Process | Fail → DLQ/Alert/Reject     │
-└────────────────────────────────────────────────────────────────┘
-```
--->
-
 Policy enforcement in streaming means applying rules, validations, and transformations automatically as events flow from producers to consumers. These policies ensure that every message meets quality standards, complies with security requirements, and follows organizational governance rules—without manual intervention and without slowing down the data pipeline.
 
 **A simple example:** A policy might automatically reject any order event where the `order_amount` field is missing or negative, preventing downstream services from processing invalid data. Another policy might automatically mask credit card numbers in payment events before they reach analytics consumers, protecting sensitive data without requiring changes to producing applications.

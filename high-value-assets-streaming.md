@@ -50,50 +50,7 @@ Not all data is created equal. In any organization, certain data assets represen
 In streaming architectures, where data flows continuously through multiple systems and services, identifying and protecting HVAs becomes both more critical and more complex. A single Kafka topic carrying payment transactions, personally identifiable information (PII), or intellectual property may represent millions of dollars in potential liability. Yet the real-time nature of streaming means traditional perimeter-based "castle-and-moat" security approaches often fall short.
 
 Modern security architectures embrace **zero trust principles**: verify every access request, assume breach, minimize blast radius, and enforce least-privilege access—regardless of network location. For HVAs in streaming systems, zero trust means authenticating and authorizing every producer and consumer, encrypting all data in transit, and continuously monitoring for anomalous behavior. For comprehensive security patterns, see [Kafka Security Best Practices](https://conduktor.io/glossary/kafka-security-best-practices) and [Kafka ACLs and Authorization Patterns](https://conduktor.io/glossary/kafka-acls-and-authorization-patterns).
-
 ![High Value Asset protection framework for streaming data](images/diagrams/high-value-assets-streaming-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-┌─────────────────────────────────────────────────────────────────┐
-│         High Value Asset Protection Framework                   │
-└─────────────────────────────────────────────────────────────────┘
-
-  Classification          Protection Layers         Governance
-       │                        │                        │
-       ▼                        ▼                        ▼
-┌─────────────┐        ┌─────────────────┐      ┌──────────────┐
-│Business     │        │  Authentication │      │HVA Catalog   │
-│Impact: HIGH │───────▶│  OAuth/mTLS     │◀─────│- Owner       │
-│Sensitivity  │        │  ┌───────────┐  │      │- Review Date │
-│Regulatory   │        │  │TLS 1.3    │  │      │- Protection  │
-└─────────────┘        │  │Encryption │  │      │  Requirements│
-       │               │  └───────────┘  │      └──────────────┘
-       │               │       │         │             │
-       ▼               │       ▼         │             ▼
-┌─────────────┐        │  ┌───────────┐ │      ┌──────────────┐
-│ HVA Topics  │        │  │  Volume   │ │      │ Approval     │
-│ - payments  │───────▶│  │ Encryption│ │      │ Workflow     │
-│ - PII data  │        │  │  @ Rest   │ │      │ Change Mgmt  │
-│ - IP/trade  │        │  └───────────┘ │      └──────────────┘
-│   secrets   │        │       │         │             │
-└─────────────┘        │       ▼         │             ▼
-       │               │  ┌───────────┐  │      ┌──────────────┐
-       │               │  │Fine-Grain │  │      │ Audit Trail  │
-       └──────────────▶│  │   ACLs    │  │      │ Access Logs  │
-                       │  │ Least     │  │      │ Compliance   │
-                       │  │ Privilege │  │      │ Reports      │
-                       │  └───────────┘  │      └──────────────┘
-                       │       │         │             │
-                       │       ▼         │             ▼
-                       │  ┌───────────┐  │      ┌──────────────┐
-                       │  │Monitoring │  │      │ RTO/RPO      │
-                       │  │Anomaly    │  │      │ DR Planning  │
-                       │  │Detection  │  │      │ Replication  │
-                       └──┴───────────┴──┘      └──────────────┘
-```
--->
-
 The cost of HVA compromise extends beyond immediate financial loss. Organizations face regulatory fines, litigation expenses, customer churn, and lasting damage to brand trust. According to IBM's 2024 Cost of a Data Breach Report, the average cost of a data breach reached $4.88 million globally, representing a 10% increase from 2023. Breaches involving sensitive customer data and regulated information command the highest price tags, with healthcare breaches averaging $9.77 million. For streaming systems processing HVAs at scale—where a single compromised topic could expose millions of records—the stakes are exponentially higher.
 
 ## Classifying High Value Assets

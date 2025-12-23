@@ -10,47 +10,7 @@ topics:
 ---
 
 Data quality is the foundation of trustworthy analytics. As data pipelines grow in complexity, ensuring data integrity becomes critical. dbt (data build tool) provides a robust testing framework that allows Analytics Engineers and Data Quality Analysts to define, execute, and monitor data quality checks throughout the transformation pipeline.
-
 ![dbt testing framework architecture](images/diagrams/dbt-tests-and-data-quality-checks-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                     dbt Testing Framework                       │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│  ┌──────────────────┐         ┌──────────────────┐            │
-│  │  Generic Tests   │         │  Singular Tests  │            │
-│  │  (Reusable)      │         │  (Custom SQL)    │            │
-│  ├──────────────────┤         ├──────────────────┤            │
-│  │ • unique         │         │ Business logic   │            │
-│  │ • not_null       │         │ validations      │            │
-│  │ • accepted_values│         │ in tests/ dir    │            │
-│  │ • relationships  │         │                  │            │
-│  └────────┬─────────┘         └────────┬─────────┘            │
-│           │                            │                       │
-│           └──────────┬─────────────────┘                       │
-│                      ▼                                         │
-│           ┌────────────────────┐                               │
-│           │   dbt test         │                               │
-│           │   (Execution)      │                               │
-│           └─────────┬──────────┘                               │
-│                     │                                          │
-│         ┌───────────┼───────────┐                             │
-│         ▼           ▼           ▼                             │
-│    ┌────────┐  ┌────────┐  ┌────────┐                        │
-│    │ PASS   │  │ FAIL   │  │ WARN   │                        │
-│    └────────┘  └────────┘  └────────┘                        │
-│                     │                                          │
-│                     ▼                                          │
-│           ┌───────────────────┐                               │
-│           │ Store Failures    │                               │
-│           │ (--store-failures)│                               │
-│           └───────────────────┘                               │
-└─────────────────────────────────────────────────────────────────┘
-```
--->
-
 ## Understanding dbt's Testing Framework
 
 dbt's testing approach treats data quality as code, enabling version control, peer review, and automated validation. Tests in dbt are essentially SELECT queries that return failing rows. If a test returns zero rows, it passes; any rows returned indicate failures that need attention.

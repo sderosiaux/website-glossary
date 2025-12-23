@@ -14,39 +14,7 @@ In the age of "data is the new oil," organizations face a counterintuitive probl
 Unlike healthy data growth—where increasing volumes correlate with improved insights, better decision-making, and measurable business outcomes—data obesity represents accumulation without purpose. The system becomes "heavy," burdened by petabytes of information that slow operations, inflate costs, and paradoxically reduce agility rather than enhance it.
 
 This phenomenon is particularly acute in streaming architectures, where the velocity of data ingestion can mask underlying inefficiencies until performance degradation becomes severe.
-
 ![Data Obesity Symptoms](images/diagrams/data-obesity-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-┌──────────────────────────────────────────────────────────────────┐
-│           THE THREE SYMPTOMS OF DATA OBESITY                     │
-└──────────────────────────────────────────────────────────────────┘
-
-         HEALTHY DATA              vs.         OBESE DATA
-    ┌──────────────────┐                 ┌──────────────────┐
-    │  Value Extracted │                 │  Accumulation    │
-    │        ▲         │                 │  Without Value   │
-    │        │         │                 │        ▲         │
-    │   Data Volume    │                 │        │         │
-    └──────────────────┘                 │   Data Volume    │
-                                         └──────────────────┘
-
-┌──────────────────┐    ┌──────────────────┐    ┌──────────────────┐
-│  SYSTEM LETHARGY │    │ OPERATIONAL      │    │  NETWORK         │
-│                  │    │ RIGIDITY         │    │  CONGESTION      │
-│  • Query latency │    │                  │    │                  │
-│  • Fat payloads  │    │  • Migration     │    │  • Low-value     │
-│  • Backpressure  │    │    costs high    │    │    data          │
-│  • Consumer lag  │    │  • Technical     │    │  • Transfer      │
-│  • Slow processing│    │    debt locks    │    │    costs         │
-│                  │    │    changes       │    │  • I/O saturation│
-└──────────────────┘    └──────────────────┘    └──────────────────┘
-
-         Solution: Filter at source + Aggressive retention policies
-```
--->
-
 ## The Three Symptoms of Data Obesity
 
 ### System Lethargy: Performance Impact

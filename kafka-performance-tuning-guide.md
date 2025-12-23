@@ -16,54 +16,7 @@ Apache Kafka has become the backbone of modern data streaming architectures, han
 Modern Kafka deployments benefit from significant architectural improvements. Kafka 4.0+ with KRaft mode (removing ZooKeeper dependency) delivers 30-40% faster metadata operations and lower latency. Tiered storage enables cost-effective data retention by offloading cold data to object storage. Understanding these modern capabilities is essential for optimal performance in 2025.
 
 This guide explores the key levers for optimizing Kafka performance, from producer batching to broker disk I/O, helping you build a high-performance streaming platform. For foundational understanding, see [Apache Kafka](https://conduktor.io/glossary/apache-kafka).
-
 ![Kafka performance tuning areas and trade-offs](images/diagrams/kafka-performance-tuning-guide-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-Kafka Performance Tuning: Key Areas
-
-                    ┌─────────────────────┐
-                    │  Performance Goals  │
-                    │ • Throughput (MB/s) │
-                    │ • Latency (ms)      │
-                    │ • Resource usage    │
-                    └──────────┬──────────┘
-                               │
-        ┌──────────────────────┼──────────────────────┐
-        │                      │                      │
-┌───────▼────────┐    ┌────────▼────────┐    ┌──────▼───────┐
-│   PRODUCER     │    │    BROKER       │    │  CONSUMER    │
-│                │    │                 │    │              │
-│ batch.size ▲   │    │ Page cache ▲    │    │ fetch.min ▲  │
-│ linger.ms ──┼──┤    │ (OS memory)─┼───┤    │ fetch.max │  │
-│ compression ▼  │    │              │  │    │ max.poll  ▼  │
-│ acks       ◄───┼────┤ Replication  │  │    │              │
-│ • all (safe)   │    │ num.io.threads   │    │ Parallelism: │
-│ • 1 (faster)   │    │ num.network.th   │    │ partitions = │
-│                │    │              │  │    │ max consumers│
-│ Idempotence    │    │ Disk I/O:    │  │    │              │
-│ (default: on)  │    │ • NVMe (best)│  │    │ Commit:      │
-│                │    │ • SSD        │  │    │ • Auto       │
-└────────────────┘    │ • RAID10     ▼  │    │ • Manual     │
-                      │              │  │    └──────────────┘
-                      │ Compression  │  │
-                      │ • zstd (2025)│  │
-                      │ • lz4 (fast) │  │
-                      └──────────────┘  │
-                               │
-        ┌──────────────────────┼──────────────────────┐
-        │                      │                      │
-┌───────▼────────┐    ┌────────▼────────┐    ┌──────▼───────┐
-│ THROUGHPUT ▲   │    │ LATENCY ▼       │    │ DURABILITY ▲ │
-│ • Larger batch │    │ • Small batch   │    │ • acks=all   │
-│ • Compression  │    │ • linger.ms=0   │    │ • min.isr≥2  │
-│ • Async send   │    │ • NVMe disk     │    │ • Replication│
-└────────────────┘    └─────────────────┘    └──────────────┘
-                      Trade-offs: pick 2 of 3
-```
--->
-
 ## Understanding Kafka Performance Fundamentals
 
 Kafka performance is measured across three primary dimensions: throughput (messages per second), latency (end-to-end message delivery time), and resource utilization (CPU, memory, disk, network). These metrics often involve trade-offs—maximizing throughput may increase latency, while reducing latency might require more resources.

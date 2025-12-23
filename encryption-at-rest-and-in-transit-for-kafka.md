@@ -15,48 +15,7 @@ This article explores both encryption mechanisms, their implementation in modern
 ## Understanding Encryption in Transit
 
 Encryption in transit protects data as it moves between different components of your Kafka cluster. In a typical Kafka deployment, data flows between producers, brokers, consumers, and administrative tools. Without encryption, this data travels as plaintext across the network, making it vulnerable to interception through packet sniffing or man-in-the-middle attacks.
-
 ![encryption-at-rest-and-in-transit-for-kafka diagram 1](images/diagrams/encryption-at-rest-and-in-transit-for-kafka-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-┌──────────────────────────────────────────────────────────────────┐
-│              Kafka Encryption Architecture                       │
-├──────────────────────────────────────────────────────────────────┤
-│                                                                  │
-│  Producer                    Kafka Cluster              Consumer │
-│  ┌────────┐                                            ┌────────┐│
-│  │        │  TLS/SSL encrypted                TLS/SSL  │        ││
-│  │  App   │─────────────────────────────────────────▶│  App   ││
-│  │        │     connection (in-transit)               │        ││
-│  └────────┘                                            └────────┘│
-│      │                                                      ▲    │
-│      │                                                      │    │
-│      ▼                                                      │    │
-│  ┌──────────────────────────────────────────────────────────┐   │
-│  │              Kafka Broker (Partition 0)                  │   │
-│  │  ┌────────────────────────────────────────────────────┐  │   │
-│  │  │  Log Segment Files (at-rest encryption)            │  │   │
-│  │  │  ┌──────────────────────────────────────────────┐  │  │   │
-│  │  │  │ Encrypted Disk / Filesystem (LUKS/dm-crypt) │  │  │   │
-│  │  │  │ or Cloud Provider Encryption (EBS/Azure)     │  │  │   │
-│  │  │  └──────────────────────────────────────────────┘  │  │   │
-│  │  └────────────────────────────────────────────────────┘  │   │
-│  └──────────────────────────────────────────────────────────┘   │
-│                              │                                   │
-│                              │ TLS/SSL replication               │
-│                              ▼                                   │
-│  ┌──────────────────────────────────────────────────────────┐   │
-│  │              Kafka Broker (Partition 1)                  │   │
-│  │  ┌────────────────────────────────────────────────────┐  │   │
-│  │  │  Log Segment Files (at-rest encryption)            │  │   │
-│  │  └────────────────────────────────────────────────────┘  │   │
-│  └──────────────────────────────────────────────────────────┘   │
-│                                                                  │
-└──────────────────────────────────────────────────────────────────┘
-```
--->
-
 Kafka implements encryption in transit using Transport Layer Security (TLS), formerly known as SSL. When TLS is enabled, all communication between clients and brokers becomes encrypted, ensuring that even if network traffic is intercepted, the data remains unreadable to unauthorized parties.
 
 TLS provides three key security benefits:

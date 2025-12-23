@@ -26,29 +26,7 @@ Each transaction appends a new JSON file numbered sequentially (e.g., `000000000
 - **Commit info**: Timestamp, operation type, isolation level
 
 When a reader queries a Delta table, it reconstructs the current state by reading the transaction log from the beginning (or the last checkpoint) and applying each transaction sequentially. This append-only structure makes the log naturally immutable and provides built-in version control.
-
 ![delta-lake-transaction-log-how-it-works diagram 1](images/diagrams/delta-lake-transaction-log-how-it-works-0.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-                    Delta Table Structure
-┌────────────────────────────────────────────────────────────┐
-│                    my_delta_table/                         │
-├────────────────────────────────────────────────────────────┤
-│  _delta_log/                                               │
-│  ├─ 00000000000000000000.json  ◄── Transaction 0          │
-│  ├─ 00000000000000000001.json  ◄── Transaction 1          │
-│  ├─ 00000000000000000002.json  ◄── Transaction 2          │
-│  └─ 00000000000000000010.checkpoint.parquet ◄── Snapshot  │
-│                                                             │
-│  Data Files:                                               │
-│  ├─ part-00000-....parquet                                │
-│  ├─ part-00001-....parquet                                │
-│  └─ part-00002-....parquet                                │
-└────────────────────────────────────────────────────────────┘
-```
--->
-
 ## The Optimistic Concurrency Commit Protocol
 
 Delta Lake uses an **optimistic concurrency control** protocol to enable multiple writers to modify a table simultaneously while maintaining ACID guarantees.
@@ -70,35 +48,7 @@ When a writer wants to commit changes:
 2. **Execution Phase**: The writer performs the operation (write new Parquet files, compute statistics, etc.)
 3. **Validation Phase**: Before committing, the writer re-reads the log to check if any new commits occurred
 4. **Commit Phase**: If no conflicts exist, the writer attempts to atomically write the next sequential log entry
-
 ![delta-lake-transaction-log-how-it-works diagram 2](images/diagrams/delta-lake-transaction-log-how-it-works-1.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-              Optimistic Concurrency Protocol
-
-   Writer A                          Writer B
-      │                                 │
-      ├─ 1. Read log (v4) ─────────────┤─ 1. Read log (v4)
-      │                                 │
-      ├─ 2. Write data files            ├─ 2. Write data files
-      │    (part-A.parquet)             │    (part-B.parquet)
-      │                                 │
-      ├─ 3. Re-validate log (v4)       ├─ 3. Re-validate log (v4)
-      │                                 │
-      ├─ 4. Atomic write v5.json ──────┼─ 4. Atomic write v5.json
-      │         ✓ SUCCESS               │         ✗ CONFLICT
-      │                                 │
-      │                                 ├─ 5. Re-read log (v5)
-      │                                 │
-      │                                 ├─ 6. Re-validate changes
-      │                                 │
-      │                                 └─ 7. Retry write v6.json
-      │                                           ✓ SUCCESS
-      ▼                                           ▼
-```
--->
-
 The atomicity guarantee comes from cloud storage's conditional PUT operations (e.g., S3's PUT-if-absent, ADLS's create-if-not-exists). These operations either fully succeed or fully fail—there's no in-between state where a file is "partially written." When S3 receives two simultaneous PUT-if-absent requests for the same file, exactly one succeeds and the other fails immediately. The failed writer detects the conflict, re-validates against the new state, and retries if the operation is still valid.
 
 ### Multi-Statement Transactions (Delta 3.0+)
@@ -148,16 +98,6 @@ Delta Lake categorizes conflicts into two types:
 
 Example of compatible blind appends:
 ![Example of compatible blind appends](images/diagrams/delta-lake-transaction-log-how-it-works-2.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-Writer A: INSERT INTO orders VALUES (new orders from Dec 15)
-Writer B: INSERT INTO orders VALUES (new orders from Dec 16)
-→ No conflict: Each writer adds distinct new rows
-→ Both commits succeed (A writes v5.json, B writes v6.json)
-```
--->
-
 **2. Read-Modify-Write Conflicts** - Operations that depend on reading and filtering existing data. These must detect conflicts because concurrent changes might affect which rows match the predicate.
 
 Example of read-modify-write conflict:
@@ -215,33 +155,7 @@ As tables evolve through hundreds or thousands of commits, reading the entire tr
 ### How Checkpoints Work
 
 Every 10 commits (by default), Delta Lake generates a checkpoint file that represents the complete table state at that version. This checkpoint is a Parquet file containing the same information as the aggregated JSON log entries up to that point.
-
 ![delta-lake-transaction-log-how-it-works diagram 4](images/diagrams/delta-lake-transaction-log-how-it-works-3.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-           Transaction Log with Checkpoints
-
-┌──────────────────────────────────────────────────────┐
-│  Without Checkpoint: Reader must scan all files      │
-│  ┌────┬────┬────┬────┬────┬────┬────┬────┬────┐    │
-│  │ v0 │ v1 │ v2 │ v3 │ v4 │ v5 │ v6 │ v7 │ v8 │    │
-│  └────┴────┴────┴────┴────┴────┴────┴────┴────┘    │
-│   ▲───────────────────────────────────────────▶     │
-│        Must read 9 files to get current state        │
-└──────────────────────────────────────────────────────┘
-
-┌──────────────────────────────────────────────────────┐
-│  With Checkpoint: Reader starts from snapshot        │
-│  ┌────┬────┬────┬────┬────┬────┬────┬────┬────┐    │
-│  │ v0 │ v1 │ v2 │ v3 │ v4 │CP10│v11 │v12 │v13 │    │
-│  └────┴────┴────┴────┴────┴────┴────┴────┴────┘    │
-│                       ▲────────────────────▶         │
-│                  Only reads checkpoint + 3 files     │
-└──────────────────────────────────────────────────────┘
-```
--->
-
 Checkpoint files use the naming pattern `00000000000000000010.checkpoint.parquet` and allow readers to:
 
 1. Start from the checkpoint (version 10)
@@ -267,20 +181,7 @@ Example: If transactions 0-10 added 50 files and removed 12 files, the checkpoin
 This compression dramatically reduces the amount of data readers must process to understand the current table state, especially for long-lived tables with thousands of commits.
 
 For very large tables, Delta Lake can create multi-part checkpoints split across multiple Parquet files, with a JSON manifest coordinating the parts:
-
 ![For very large tables, Delta Lake can create multi-part checkpoints split across multiple Parquet files, with a JSON manifest coordinating the parts](images/diagrams/delta-lake-transaction-log-how-it-works-4.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-_delta_log/
-├── 00000000000000001000.checkpoint.0000000001.0000000010.parquet
-├── 00000000000000001000.checkpoint.0000000002.0000000010.parquet
-├── ...
-├── 00000000000000001000.checkpoint.0000000010.0000000010.parquet
-└── 00000000000000001000.checkpoint.manifest.json
-```
--->
-
 Checkpointing runs automatically during write operations, ensuring readers have recent snapshots even on frequently updated tables.
 
 ## Time Travel and Versioning
@@ -300,35 +201,7 @@ SELECT * FROM my_table TIMESTAMP AS OF '2025-01-15 10:00:00'
 ### How Time Travel Queries Execute
 
 When you run a time travel query, Delta Lake performs these steps:
-
 ![When you run a time travel query, Delta Lake performs these steps](images/diagrams/delta-lake-transaction-log-how-it-works-5.webp)
-
-<!-- ORIGINAL_DIAGRAM
-```
-Query: SELECT * FROM orders VERSION AS OF 42
-
-Execution trace:
-1. Locate the nearest checkpoint ≤ version 42
-   → Finds checkpoint at version 40
-
-2. Read checkpoint file (00000000000000000040.checkpoint.parquet)
-   → Loads list of 1,247 active data files at v40
-
-3. Read transaction log entries v41 and v42
-   → Applies 3 new "add" actions (new files)
-   → Applies 1 "remove" action (deleted file)
-
-4. Build final file list for version 42
-   → Result: 1,249 data files to read
-
-5. Apply query predicates and read Parquet files
-   → Uses statistics for data skipping
-   → Reads only files matching WHERE clauses
-
-6. Return results
-```
--->
-
 **Important**: Time travel requires that the Parquet data files still exist on storage. If `VACUUM` has deleted old files, time travel to older versions will fail with "file not found" errors, even though the transaction log entries remain.
 
 Delta Lake maps timestamps to versions by reading the `commitInfo.timestamp` fields in the transaction log. For timestamp-based queries, Delta Lake scans the log to find the most recent version committed before the specified timestamp, then executes the version-based query.
